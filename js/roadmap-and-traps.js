@@ -113,9 +113,12 @@ window.PersonalizedRoadmapEngine = {
         });
     },
 
-    // Phát âm thanh giọng bản xứ cho các câu hỏi Listening qua Web Speech API
+    // Phát âm thanh giọng bản xứ cho các câu hỏi Listening qua Universal Audio Engine
     playAudio(text) {
-        if ('speechSynthesis' in window) {
+        if (window.UniversalAudioEngine) {
+            window.UniversalAudioEngine.speak(text, { rate: 0.95 });
+            showToast('🔊 Đang phát audio câu hỏi...');
+        } else if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
@@ -123,7 +126,7 @@ window.PersonalizedRoadmapEngine = {
             window.speechSynthesis.speak(utterance);
             showToast('🔊 Đang phát audio câu hỏi...');
         } else {
-            showToast('Trình duyệt không hỗ trợ Web Speech, bạn hãy đọc nội dung câu hỏi nhé!');
+            showToast('Trình duyệt không hỗ trợ phát âm thanh.');
         }
     },
 
@@ -1303,33 +1306,35 @@ window.TOEICTrapsEngine = {
         }
     },
 
-    // Phát âm audio bằng Web Speech API chuẩn giọng Anh - Mỹ
+    // Phát âm audio bằng Universal Audio Engine chuẩn giọng Anh - Mỹ (Hỗ trợ 100% điện thoại)
     playAudio(text) {
-        if (!('speechSynthesis' in window)) {
-            showToast('Trình duyệt không hỗ trợ Web Speech Audio');
-            return;
+        if (window.UniversalAudioEngine) {
+            window.UniversalAudioEngine.setSpeed(this.audioPlaybackRate || 1.0);
+            window.UniversalAudioEngine.speak(text, { rate: this.audioPlaybackRate || 1.0 });
+        } else if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(decodeURIComponent(text));
+            utterance.lang = 'en-US';
+            utterance.rate = this.audioPlaybackRate || 1.0;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            showToast('Trình duyệt không hỗ trợ phát âm thanh');
         }
-        window.speechSynthesis.cancel(); // Dừng câu trước nếu có
-        const utterance = new SpeechSynthesisUtterance(decodeURIComponent(text));
-        utterance.lang = 'en-US';
-        utterance.rate = this.audioPlaybackRate || 1.0;
-        
-        // Tìm giọng tiếng Anh chuẩn nếu có
-        const voices = window.speechSynthesis.getVoices();
-        const enVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
-        if (enVoice) utterance.voice = enVoice;
-
-        window.speechSynthesis.speak(utterance);
     },
 
     stopAudio() {
-        if ('speechSynthesis' in window) {
+        if (window.UniversalAudioEngine) {
+            window.UniversalAudioEngine.stop();
+        } else if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
         }
     },
 
     setSpeed(speed) {
         this.audioPlaybackRate = speed;
+        if (window.UniversalAudioEngine) {
+            window.UniversalAudioEngine.setSpeed(speed);
+        }
         showToast(`Tốc độ nghe: ${speed}x`);
     }
 };

@@ -894,7 +894,10 @@ window.FullPartPracticeEngine = {
     },
 
     playAudio(text) {
-        if ('speechSynthesis' in window) {
+        if (window.UniversalAudioEngine) {
+            window.UniversalAudioEngine.speak(text, { rate: 0.95 });
+            showToast('🔊 Đang phát audio đề thi...');
+        } else if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
@@ -902,7 +905,7 @@ window.FullPartPracticeEngine = {
             window.speechSynthesis.speak(utterance);
             showToast('🔊 Đang phát audio đề thi...');
         } else {
-            showToast('Trình duyệt không hỗ trợ Web Speech');
+            showToast('Trình duyệt không hỗ trợ phát âm thanh');
         }
     },
 

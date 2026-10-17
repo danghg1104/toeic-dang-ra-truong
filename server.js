@@ -574,6 +574,46 @@ const server = http.createServer((req, res) => {
   }
 
   // =========================================================================
+  // API: TEXT-TO-SPEECH PROXY (CHUẨN BẢN XỨ MP3 - 100% TƯƠNG THÍCH MỌI ĐIỆN THOẠI)
+  // =========================================================================
+  if (reqPath === '/api/tts') {
+    const text = queryParams.get('text') || '';
+    const lang = queryParams.get('lang') || 'en';
+    if (!text.trim()) {
+      res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      return res.end(JSON.stringify({ error: 'Missing text parameter' }));
+    }
+
+    const cleanText = text.replace(/[\r\n\t]+/g, ' ').trim().slice(0, 300);
+    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${encodeURIComponent(lang)}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
+
+    const ttsReq = https.get(ttsUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Referer': 'https://translate.google.com/'
+      }
+    }, (ttsRes) => {
+      if (ttsRes.statusCode === 200) {
+        res.writeHead(200, {
+          'Content-Type': 'audio/mpeg',
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'public, max-age=86400'
+        });
+        ttsRes.pipe(res);
+      } else {
+        res.writeHead(ttsRes.statusCode || 500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({ error: 'TTS upstream status ' + ttsRes.statusCode }));
+      }
+    });
+
+    ttsReq.on('error', (err) => {
+      res.writeHead(500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ error: err.message }));
+    });
+    return;
+  }
+
+  // =========================================================================
   // API: AUTHENTICATION & TÀI KHOẢN (REGISTER, LOGIN, GOOGLE, COMMUNITY LIST)
   // =========================================================================
   

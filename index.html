@@ -27,6 +27,7 @@
     <script src="js/grammar-quiz-data.js"></script>
     <script src="js/vocab-decks-data.js"></script>
     <script src="js/dictionary-data.js"></script>
+    <script src="js/universal-audio-engine.js"></script>
     <script src="js/toeic-traps-data.js"></script>
     <script src="js/roadmap-and-traps.js"></script>
     <script src="js/full-part-practice.js"></script>
@@ -6433,7 +6434,10 @@
             const lesson = getActiveDictationLesson();
             if (!lesson) return;
             const item = lesson.sentences[currentDictIdx];
-            if ('speechSynthesis' in window) {
+            if (window.UniversalAudioEngine) {
+                window.UniversalAudioEngine.setSpeed(currentDictSpeed);
+                window.UniversalAudioEngine.speak(item.en, { rate: currentDictSpeed });
+            } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const u = new SpeechSynthesisUtterance(item.en);
                 u.lang = 'en-US';
@@ -6692,7 +6696,10 @@
 
         function speakCurrentMovieScene(lang = 'en-US') {
             const clip = movieClipsDatabase[currentYgIdx];
-            if ('speechSynthesis' in window) {
+            if (!clip || !clip.rawEn) return;
+            if (window.UniversalAudioEngine) {
+                window.UniversalAudioEngine.speak(clip.rawEn, { lang: lang, rate: 0.96 });
+            } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const u = new SpeechSynthesisUtterance(clip.rawEn);
                 u.lang = lang;
@@ -8258,9 +8265,13 @@
 
         function speakCurrentListeningQuestion() {
             const item = activeQuizList[activeQuizIndex];
-            if ('speechSynthesis' in window) {
+            if (!item) return;
+            const textToSpeak = item.audioScript || item.q;
+            if (window.UniversalAudioEngine) {
+                window.UniversalAudioEngine.speak(textToSpeak, { rate: 0.95 });
+            } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const utter = new SpeechSynthesisUtterance(item.audioScript || item.q);
+                const utter = new SpeechSynthesisUtterance(textToSpeak);
                 utter.lang = 'en-US';
                 utter.rate = 0.95;
                 window.speechSynthesis.speak(utter);
@@ -8370,7 +8381,10 @@
         function speakVocabWord(lang = 'en-US') {
             if (!currentDeckCards || currentDeckCards.length === 0) return;
             const item = currentDeckCards[fcIndex];
-            if ('speechSynthesis' in window) {
+            if (!item || !item.word) return;
+            if (window.UniversalAudioEngine) {
+                window.UniversalAudioEngine.speak(item.word, { lang: lang, rate: 0.9 });
+            } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const u = new SpeechSynthesisUtterance(item.word);
                 u.lang = lang;
@@ -8580,7 +8594,10 @@
         }
 
         function speakText(txt) {
-            if ('speechSynthesis' in window) {
+            if (!txt) return;
+            if (window.UniversalAudioEngine) {
+                window.UniversalAudioEngine.speak(txt, { rate: 0.9 });
+            } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const u = new SpeechSynthesisUtterance(txt);
                 u.lang = 'en-US';
