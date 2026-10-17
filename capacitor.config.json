@@ -1,0 +1,8 @@
+{
+  "appId": "com.danghg1104.cungdang",
+  "appName": "Cung Dang Ra Truong",
+  "webDir": "www",
+  "server": {
+    "url": "https://danghg1104.github.io/cungdangratruong/"
+  }
+}

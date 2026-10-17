@@ -1,0 +1,32 @@
+{
+  "userId": "acc-1792226310955-jka6",
+  "lastUpdated": 1792226310957,
+  "state": {
+    "xp": 10,
+    "streak": 1,
+    "vocabLearned": 0,
+    "dictationDone": 0,
+    "grammarDone": 0,
+    "readDone": 0,
+    "listenDone": 0,
+    "studyMinutes": 0
+  },
+  "learnedVocabItems": [],
+  "savedVocabItems": [],
+  "takeNotesList": [
+    {
+      "id": "note-welcome-1792226310956",
+      "title": "📒 Sổ tay của Test Mobile User",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "Vừa xong",
+      "updatedAtMs": 1792226310956,
+      "content": "<p>Xin chào <strong>Test Mobile User</strong>! Chúc bạn ôn thi <strong>TOEIC</strong> đạt mục tiêu <strong>750</strong> điểm!</p><p>Mọi ghi chú, ảnh chụp và từ vựng của bạn đều được sao lưu tự động an toàn tại đây.</p>"
+    }
+  ],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": []
+}

@@ -1,0 +1,33 @@
+{
+  "userId": "acc-g-1792229631247",
+  "lastUpdated": 1792229631276,
+  "state": {
+    "xp": 550,
+    "streak": 7,
+    "vocabLearned": 45
+  },
+  "learnedVocabItems": [
+    {
+      "word": "negotiate",
+      "def": "đàm phán"
+    }
+  ],
+  "savedVocabItems": [
+    {
+      "word": "deadline",
+      "def": "hạn chót"
+    }
+  ],
+  "takeNotesList": [
+    {
+      "id": "note-1",
+      "title": "Ghi chú TOEIC của Học Viên",
+      "content": "<p>Mục tiêu 750</p>"
+    }
+  ],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": []
+}

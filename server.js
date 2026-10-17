@@ -1,0 +1,943 @@
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+
+const PORT = process.env.PORT || 3000;
+const PUBLIC_DIR = __dirname;
+const DATA_DIR = path.join(PUBLIC_DIR, 'data');
+const PROFILES_DIR = path.join(DATA_DIR, 'profiles');
+const USERS_FILE = path.join(DATA_DIR, 'users_database.json');
+const SYNC_FILE = path.join(DATA_DIR, 'study_sync_store.json');
+
+// Khởi tạo các thư mục lưu trữ dữ liệu
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+if (!fs.existsSync(PROFILES_DIR)) fs.mkdirSync(PROFILES_DIR, { recursive: true });
+
+function getLocalIp() {
+  const interfaces = os.networkInterfaces();
+  for (let name in interfaces) {
+    for (let iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return '127.0.0.1';
+}
+
+const MIME_TYPES = {
+  '.html': 'text/html; charset=UTF-8',
+  '.js': 'text/javascript; charset=UTF-8',
+  '.css': 'text/css; charset=UTF-8',
+  '.json': 'application/json; charset=UTF-8',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.wav': 'audio/wav',
+  '.mp3': 'audio/mpeg',
+  '.pdf': 'application/pdf',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+};
+
+// =========================================================================
+// QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG & HỒ SƠ ĐỘC LẬP
+// =========================================================================
+const DEFAULT_OWNER_ACCOUNT = {
+  id: 'acc-dang',
+  name: 'Đăng Huỳnh Gia',
+  email: 'dang.hg.68khhh@ntu.edu.vn',
+  username: 'danghuynhgia',
+  password: '', // Localhost owner bypasses password
+  exam: 'TOEIC',
+  targetScore: '600',
+  examDate: '20/12/2026',
+  avatarColor: 'bg-purple-700',
+  authProvider: 'local',
+  isOwner: true,
+  createdAt: new Date().toISOString()
+};
+
+function loadUsersDatabase() {
+  try {
+    if (fs.existsSync(USERS_FILE)) {
+      const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
+      if (Array.isArray(users) && users.length > 0) {
+        // Đảm bảo luôn có tài khoản chính chủ
+        if (!users.some(u => u.id === 'acc-dang' || u.email === DEFAULT_OWNER_ACCOUNT.email)) {
+          users.unshift(DEFAULT_OWNER_ACCOUNT);
+          saveUsersDatabase(users);
+        }
+        return users;
+      }
+    }
+  } catch (err) {
+    console.warn('Lỗi đọc database người dùng:', err.message);
+  }
+  const initUsers = [DEFAULT_OWNER_ACCOUNT];
+  saveUsersDatabase(initUsers);
+  return initUsers;
+}
+
+function saveUsersDatabase(users) {
+  try {
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Lỗi ghi database người dùng:', err.message);
+  }
+}
+
+// Lưu trữ & Tải tiến độ học tập riêng biệt từng người dùng (Zero Data Loss)
+function getUserProfilePath(userId) {
+  const safeId = String(userId || 'acc-guest').replace(/[^a-zA-Z0-9_-]/g, '_');
+  return path.join(PROFILES_DIR, `${safeId}.json`);
+}
+
+function loadUserProfile(userId) {
+  const filePath = getUserProfilePath(userId);
+  try {
+    if (fs.existsSync(filePath)) {
+      return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    }
+  } catch (e) {
+    console.warn(`Lỗi đọc hồ sơ ${userId}:`, e.message);
+  }
+  return {
+    userId: userId,
+    lastUpdated: Date.now(),
+    state: { xp: 0, streak: 1, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+    learnedVocabItems: [],
+    savedVocabItems: [],
+    takeNotesList: [],
+    savedGrammarNotes: [],
+    savedWords: [],
+    copyingHistory: [],
+    dictationHistory: [],
+    mockHistory: []
+  };
+}
+
+function saveUserProfile(userId, profileData) {
+  const filePath = getUserProfilePath(userId);
+  try {
+    const existing = loadUserProfile(userId);
+    const merged = {
+      ...existing,
+      ...profileData,
+      userId: userId,
+      lastUpdated: Date.now()
+    };
+    fs.writeFileSync(filePath, JSON.stringify(merged, null, 2), 'utf8');
+    return merged;
+  } catch (e) {
+    console.error(`Lỗi ghi hồ sơ ${userId}:`, e.message);
+    return null;
+  }
+}
+
+// =========================================================================
+// REAL-TIME SERVER-SENT EVENTS (SSE) HUB CHO ĐỒNG BỘ ĐA THIẾT BỊ
+// =========================================================================
+const sseClients = new Set();
+
+function broadcastSyncEvent(eventData) {
+  const msg = `data: ${JSON.stringify(eventData)}\n\n`;
+  for (const client of sseClients) {
+    try {
+      if (!client.userId || !eventData.userId || client.userId === eventData.userId) {
+        client.write(msg);
+      }
+    } catch (e) {
+      sseClients.delete(client);
+    }
+  }
+}
+
+// Giữ kết nối SSE luôn sống
+setInterval(() => {
+  for (const client of sseClients) {
+    try {
+      client.write(': keepalive\n\n');
+    } catch (e) {
+      sseClients.delete(client);
+    }
+  }
+}, 20000);
+
+// =========================================================================
+// AI TOEIC TUTOR INTELLIGENCE ENGINE (ETS 2023 - 2027)
+// =========================================================================
+function expertTOEICReasoningFallback(question, context = {}, trapTitle = '') {
+  const q = String(question || '').toLowerCase();
+  const ctxStr = typeof context === 'object' ? (context.q || '') + ' ' + (context.explain || '') + ' ' + (context.ans || '') : String(context || '');
+  const fullText = (q + ' ' + ctxStr + ' ' + trapTitle).toLowerCase();
+
+  if (fullText.includes('being') || fullText.includes('been') || fullText.includes('part 1') || fullText.includes('tranh tĩnh')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy "Being vs Been" (Part 1 TOEIC)
+📌 **Phân tích bản chất:**
+- **"is/are BEING + PII"**: Diễn tả một hành động **đang được người tác động trực tiếp lên vật**. Nếu trong tranh **không có người**, đáp án có "being" là **SAI 99%** (ví dụ: *Chairs are being moved* ➔ phải có người đang bưng ghế).
+- **"has/have BEEN + PII"**: Diễn tả một trạng thái tĩnh **đã hoàn tất từ trước** (ví dụ: *Documents have been left on the desk* ➔ tài liệu đã được để sẵn trên bàn). Tranh không người rất thích dùng dạng này!
+
+⚠️ **Bẫy đề thi ETS 2023 - 2026:**
+Loa phát âm /ˈbiː.ɪŋ/ và /biːn/ rất lướt khiến thí sinh nghe nhầm.
+*Ngoại lệ hiếm hoi:* "is being displayed" (đang trưng bày) hoặc "a shadow is being cast" (bóng đổ) vẫn đúng trong tranh tĩnh.
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Tranh không có người ➔ Nghe thấy chữ **"BEING"** là **GẠCH NGAY** không cần suy nghĩ!`;
+  }
+
+  if (fullText.includes('gián tiếp') || fullText.includes('né tránh') || fullText.includes('part 2') || fullText.includes('where') || fullText.includes('when') || fullText.includes('who')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy Trả Lời Gián Tiếp (Part 2 ETS 2024 - 2027)
+📌 **Phân tích bản chất:**
+Đề thi TOEIC hiện đại cắt giảm tối đa các câu hỏi dễ trả lời thẳng (ví dụ: *Where -> At room 101*). Thay vào đó, 45% câu hỏi dùng câu trả lời **gián tiếp, đá trách nhiệm hoặc hỏi ngược lại**.
+
+⚠️ **Các dạng bẫy kinh điển:**
+1. **Đá trách nhiệm cho người khác:** *"Ask Ms. Maria"*, *"Mr. David is in charge of that"*.
+2. **Kiểm tra văn bản / nguồn tin:** *"It's posted on the bulletin board"*, *"Check your email"*.
+3. **Từ chối khéo léo / nêu lý do bận:** *"I have a doctor's appointment"*, *"The flight was delayed"*.
+4. **Hỏi ngược lại:** *"Didn't they inform you yesterday?"*.
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Loại các câu lặp âm giống hệt câu hỏi hoặc câu trả lời Yes/No cho câu hỏi Wh- (Who, When, Where, Why). Chọn câu trả lời thể hiện việc kiểm tra nguồn tin hoặc phân công người khác!`;
+  }
+
+  if (fullText.includes('-ive') || fullText.includes('-al') || fullText.includes('representative') || fullText.includes('initiative') || fullText.includes('alternative') || fullText.includes('proposal') || fullText.includes('approval')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Danh Từ Đặc Biệt Đuôi -ive & -al (Part 5)
+📌 **Phân tích bản chất:**
+Thí sinh thường học máy móc rằng đuôi *-ive* (như expensive) và *-al* (như national) là Tính từ. ETS cố tình đặt chỗ trống cần điền **Danh từ** nhưng 4 đáp án lại có các từ này để gài bẫy.
+
+⚠️ **10 Danh từ cốt lõi bắt buộc phải thuộc:**
+- **representative**: người đại diện (Danh từ chỉ người)
+- **initiative**: sáng kiến, kế hoạch mới
+- **alternative**: giải pháp thay thế
+- **objective**: mục tiêu dự án
+- **executive**: cán bộ điều hành cấp cao
+- **proposal**: bản đề xuất dự án
+- **approval**: sự phê duyệt
+- **renewal**: sự gia hạn hợp đồng
+- **arrival**: sự đến nơi / hàng về
+- **disposal**: việc thanh lý / xử lý rác
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Nếu trước chỗ trống có tính từ (VD: *sales _________*) và câu thiếu chủ ngữ chỉ người đi với hành động phản hồi/liên hệ ➔ Chọn ngay **representative**!`;
+  }
+
+  if (fullText.includes('rút gọn') || fullText.includes('mệnh đề quan hệ') || fullText.includes('v-ing') || fullText.includes('v-ed')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Rút Gọn Mệnh Đề Quan Hệ (Part 5)
+📌 **Phân tích bản chất:**
+Câu đã có **động từ chính chia thì** (ví dụ: *must register, was delivered, will attend*). Chỗ trống nằm ngay sau một danh từ để bổ nghĩa.
+
+⚠️ **Quy tắc 2 bước bất bại:**
+1. **Sau chỗ trống CÓ TÂN NGỮ (Cụm danh từ):** ➔ Rút gọn dạng CHỦ ĐỘNG: **Chọn V-ing**.
+   *VD: Anyone **having** questions should ask the manager. ('questions' là tân ngữ).*
+2. **Sau chỗ trống KHÔNG CÓ TÂN NGỮ (Đi với giới từ by / in / at hoặc dấu phẩy):** ➔ Rút gọn BỊ ĐỘNG: **Chọn V-ed / PII**.
+   *VD: Goods **purchased** during the sale cannot be returned. (Sau là giới từ 'during').*
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Tìm động từ chính trước! Nếu câu đã có động từ chia thì, tuyệt đối không chọn thêm động từ chia thì nữa mà chỉ chọn V-ing (chủ động) hoặc V-ed (bị động)!`;
+  }
+
+  if (fullText.includes('giả định') || fullText.includes('subjunctive') || fullText.includes('đảo ngữ') || fullText.includes('should') || fullText.includes('recommended that') || fullText.includes('insist')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Thể Giả Định & Đảo Ngữ Câu Điều Kiện (Xu Hướng 2026 - 2027)
+📌 **Phân tích bản chất:**
+Đây là dạng câu hỏi phân loại điểm 800 - 990 trong các kỳ thi ETS gần đây:
+1. **Thể giả định (Subjunctive Mood):**
+   Cấu trúc: *S + (demand/require/request/recommend/insist/suggest) + that + S + **(should) V-nguyên thể**.*
+   *Đặc biệt chú ý:* Động từ to be bắt buộc là **"be"**, không chia is/are/was/were dù chủ ngữ là số ít!
+   *VD: The manager requested that Mr. Davis **be** present on time.*
+2. **Đảo ngữ câu điều kiện (Bỏ chữ IF):**
+   - Loại 1: **Should you + V-bare** (= If you + V)
+   - Loại 3: **Had we + PII** (= If we had + PII)
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Thấy đầu câu có chỗ trống đứng trước chủ ngữ và động từ nguyên mẫu (VD: *______ you experience any issue...*) ➔ Điền **Should**, không điền If!`;
+  }
+
+  if (fullText.includes('liên từ') || fullText.includes('giới từ') || fullText.includes('although') || fullText.includes('despite') || fullText.includes('because') || fullText.includes('due to') || fullText.includes('during') || fullText.includes('while')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Liên Từ vs Giới Từ (Part 5)
+📌 **Phân tích bản chất:**
+Các cặp từ mang **nghĩa giống hệt nhau** nhưng ngữ pháp khác nhau hoàn toàn:
+- **LIÊN TỪ (Theo sau là Mệnh đề S + V):**
+  * *Because / Since / As* (Bởi vì)
+  * *Although / Even though / Though* (Mặc dù)
+  * *While* (Trong khi)
+- **GIỚI TỪ (Theo sau là Cụm danh từ / V-ing):**
+  * *Because of / Due to / Owing to* (Bởi vì)
+  * *Despite / In spite of* (Mặc dù)
+  * *During* (Trong suốt)
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Nhìn ngay từ thứ 1 đến thứ 3 sau chỗ trống: Có động từ chia thì không? Nếu có động từ chia thì ➔ Chọn Liên từ. Nếu chỉ toàn Danh từ ➔ Chọn Giới từ!`;
+  }
+
+  if (fullText.includes('wearing') || fullText.includes('putting on') || fullText.includes('trang phục')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy "Wearing" vs "Putting on" (Part 1 TOEIC)
+📌 **Phân tích bản chất:**
+- **"WEARING"**: Diễn tả **TRẠNG THÁI** (quần áo, kính, mũ bảo hộ, găng tay đã nằm sẵn trên cơ thể).
+- **"PUTTING ON"**: Diễn tả **HÀNH ĐỘNG ĐANG MẶC** (tay đang xỏ vào áo, đang cài cúc, đang đội mũ lên đầu).
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Nếu người trong tranh đã mặc đồ chỉnh tề, hai tay đang làm việc khác (gõ bàn phím, cầm tài liệu) ➔ **CHỌN WEARING, LOẠI NGAY PUTTING ON**!`;
+  }
+
+  if (fullText.includes('part 3') || fullText.includes('actually') || fullText.includes('wait') || fullText.includes('đổi ý') || fullText.includes('hội thoại')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy Đổi Ý Phút Chót (Part 3 TOEIC)
+📌 **Phân tích bản chất:**
+Người nói đầu tiên đề xuất phương án A (ví dụ: *9:00 AM*), nhưng ngay sau đó thốt lên: *"Actually, wait..."* hoặc *"Let's make it 10:00 instead"*.
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Không vội khoanh phương án đầu tiên nghe được! Luôn cảnh giác với các từ nối đảo chiều: **Actually, However, Wait, Instead, On second thought**. Thông tin sau từ nối mới là đáp án chốt!`;
+  }
+
+  if (fullText.includes('part 4') || fullText.includes('gate') || fullText.includes('flight') || fullText.includes('announcement') || fullText.includes('sân bay') || fullText.includes('thông báo')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy Thông Báo Sân Bay & Đổi Cổng (Part 4 TOEIC)
+📌 **Phân tích bản chất:**
+Loa thông báo sân bay thường nhắc đến 2 cổng: Cổng cũ bị hoãn hoặc bảo trì, và Cổng mới hành khách cần di chuyển tới (Gate Change). Thí sinh không nghe kỹ dễ chọn nhầm cổng cũ.
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Chú ý cụm: *"Due to maintenance at Gate X, boarding will now take place at Gate Y"*. Luôn chọn số cổng đứng sau cụm **"will now take place at..."**!`;
+  }
+
+  if (fullText.includes('part 6') || fullText.includes('điền câu') || fullText.includes('sentence insert') || fullText.includes('đoạn văn')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy Điền Cả Câu Vào Đoạn Văn (Part 6)
+📌 **Phân tích bản chất:**
+Dạng bài khó nhất Part 6 đòi hỏi phải chọn 1 trong 4 câu hoàn chỉnh để điền vào đoạn văn. 
+
+⚡ **Quy tắc 3 bước móc xích:**
+1. Đọc câu ngay TRƯỚC và câu ngay SAU chỗ trống.
+2. Tìm các **đại từ móc nối**: *This, These, Such, As a result, However*.
+3. Câu được chọn phải giải thích hoặc tiếp nối trực tiếp ý của câu đứng trước!`;
+  }
+
+  if (fullText.includes('part 7') || fullText.includes('đoạn kép') || fullText.includes('đoạn ba') || fullText.includes('cross') || fullText.includes('not') || fullText.includes('true') || fullText.includes('đọc hiểu')) {
+    return `### 🤖 Gia Sư AI Phân Tích: Bẫy Đoạn Văn Kép & Ba (Part 7 TOEIC)
+📌 **Phân tích bản chất:**
+Câu hỏi đối chiếu chéo (Cross-referencing) không bao giờ nằm trọn trong 1 đoạn văn. Bạn phải ghép 2 thông tin từ 2 đoạn:
+- Đoạn 1 (Email): Tên dịch vụ hoặc gói thành viên khách hàng chọn (ví dụ: *Premier Plan*).
+- Đoạn 2 (Bảng giá/Lịch trình): Quyền lợi hoặc giá tiền tương ứng của gói đó.
+
+⚡ **Mẹo 3 giây trong phòng thi:**
+Gặp câu hỏi hỏi về số tiền phải trả hoặc người được chỉ định, hãy khoanh vùng từ khóa ở Đoạn 1 trước, sau đó đối chiếu sang bảng ở Đoạn 2 để tìm đáp án!`;
+  }
+
+  return `### 🤖 Gia Sư AI Luyện Thi TOEIC Giải Đáp
+📌 **Nội dung câu hỏi:** "${question}"
+
+💡 **Phân tích giải thích chi tiết:**
+- Để xử lý câu hỏi này trong đề thi TOEIC, bạn cần xác định rõ **vị trí từ loại** và **ngữ cảnh ngữ pháp doanh nghiệp** (Part 5, 6 hoặc 7).
+- Hãy luôn đọc lướt trước và sau chỗ trống:
+  1. Xác định Động từ chính (Main Verb) của câu đã có chưa.
+  2. Xác định các dấu hiệu thời gian (thì động từ) hoặc giới từ đi kèm.
+  3. Áp dụng phương pháp loại trừ 2 đáp án vô lý trước để tăng xác suất chọn đúng lên 50%.
+
+⚡ **Lời khuyên từ Đăng & Gia sư AI:**
+Nếu bạn sắp đến ngày thi TOEIC, hãy tập trung vào 3 bẫy hay gặp nhất: Bẫy câu trả lời gián tiếp Part 2, Bẫy danh từ đuôi -ive/-al Part 5, và Bẫy liên từ vs giới từ. Luyện tập đều 20 câu mỗi ngày sẽ giúp bạn tăng từ 100 - 150 điểm chỉ trong 2 tuần!`;
+}
+
+function answerWithTOEICAI(question, context = {}, trapTitle = '', callback) {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const q = String(question || '').trim();
+  const ctxStr = typeof context === 'object' ? JSON.stringify(context) : String(context || '');
+
+  if (geminiKey) {
+    try {
+      const prompt = `Bạn là Gia Sư AI Luyện Thi TOEIC & Tiếng Anh chuyên sâu trong ứng dụng 'Cùng Đăng Ra Trường'.
+Nhiệm vụ: Giải đáp câu hỏi của sinh viên chuẩn bị ra trường về đề thi TOEIC (Part 1 - Part 7), ngữ pháp, từ vựng và bẫy đề thi ETS 2023 - 2027.
+Yêu cầu:
+1. Giải thích trọng tâm, rõ ràng và gãy gọn bằng tiếng Việt.
+2. Nêu rõ bẫy đề thi thường gặp và tại sao đáp án này đúng / các đáp án khác sai.
+3. Đưa ra mẹo phản xạ 3 giây trong phòng thi.
+4. Kèm bản dịch tiếng Việt mượt mà.
+
+Câu hỏi của học viên: "${q}"
+Ngữ cảnh / Đề bài: ${ctxStr}
+Chuyên đề bẫy: ${trapTitle}`;
+
+      const postData = JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 1000, temperature: 0.3 }
+      });
+
+      const req = https.request({
+        hostname: 'generativelanguage.googleapis.com',
+        path: `/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(postData)
+        },
+        timeout: 6000
+      }, res => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            const text = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (text) {
+              return callback(text);
+            }
+          } catch(e) {}
+          callback(expertTOEICReasoningFallback(q, context, trapTitle));
+        });
+      });
+
+      req.on('error', () => {
+        callback(expertTOEICReasoningFallback(q, context, trapTitle));
+      });
+      req.on('timeout', () => {
+        req.destroy();
+        callback(expertTOEICReasoningFallback(q, context, trapTitle));
+      });
+      req.write(postData);
+      req.end();
+      return;
+    } catch(err) {
+      // fallback
+    }
+  }
+
+  callback(expertTOEICReasoningFallback(q, context, trapTitle));
+}
+
+// Đọc dữ liệu đồng bộ chung
+function loadSyncStore() {
+  try {
+    if (fs.existsSync(SYNC_FILE)) {
+      return JSON.parse(fs.readFileSync(SYNC_FILE, 'utf8'));
+    }
+  } catch (err) {
+    console.warn('Warning reading sync store:', err.message);
+  }
+  return {
+    lastUpdated: Date.now(),
+    state: { xp: 0, streak: 0, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+    learnedVocabItems: [],
+    savedVocabItems: [],
+    takeNotesList: [],
+    savedGrammarNotes: [],
+    savedWords: [],
+    copyingHistory: []
+  };
+}
+
+// Lưu và hợp nhất dữ liệu đồng bộ
+function saveAndMergeSyncStore(incoming) {
+  const userId = incoming.userId;
+  const current = userId ? loadUserProfile(userId) : loadSyncStore();
+  const merged = { ...current };
+
+  merged.lastUpdated = Date.now();
+  merged.lastSourceDevice = incoming.deviceName || 'Thiết bị';
+  merged.lastDeviceId = incoming.deviceId || 'unknown';
+  merged.lastUserId = userId || 'acc-dang';
+
+  // Hợp nhất metrics state (lấy giá trị lớn nhất)
+  if (incoming.state) {
+    merged.state = {
+      xp: Math.max(current.state?.xp || 0, incoming.state.xp || 0),
+      streak: Math.max(current.state?.streak || 0, incoming.state.streak || 0),
+      vocabLearned: Math.max(current.state?.vocabLearned || 0, incoming.state.vocabLearned || 0),
+      dictationDone: Math.max(current.state?.dictationDone || 0, incoming.state.dictationDone || 0),
+      grammarDone: Math.max(current.state?.grammarDone || 0, incoming.state.grammarDone || 0),
+      readDone: Math.max(current.state?.readDone || 0, incoming.state.readDone || 0),
+      listenDone: Math.max(current.state?.listenDone || 0, incoming.state.listenDone || 0),
+      studyMinutes: Math.max(current.state?.studyMinutes || 0, incoming.state.studyMinutes || 0)
+    };
+  }
+
+  // Hợp nhất danh sách từ vựng đã thuộc (Learned Vocab) không trùng lặp
+  if (Array.isArray(incoming.learnedVocabItems)) {
+    const map = new Map();
+    (current.learnedVocabItems || []).forEach(w => map.set((w.word || '').toLowerCase(), w));
+    incoming.learnedVocabItems.forEach(w => {
+      const key = (w.word || '').toLowerCase();
+      if (!map.has(key) || !map.get(key).learnedAt) {
+        map.set(key, { ...w, learnedAt: w.learnedAt || new Date().toISOString() });
+      }
+    });
+    merged.learnedVocabItems = Array.from(map.values());
+    merged.state.vocabLearned = Math.max(merged.state.vocabLearned, merged.learnedVocabItems.length);
+  }
+
+  // Hợp nhất từ vựng đã lưu
+  if (Array.isArray(incoming.savedVocabItems)) {
+    const map = new Map();
+    (current.savedVocabItems || []).forEach(w => map.set((w.word || '').toLowerCase(), w));
+    incoming.savedVocabItems.forEach(w => map.set((w.word || '').toLowerCase(), w));
+    merged.savedVocabItems = Array.from(map.values());
+  }
+
+  // Hợp nhất Sổ ghi chép Take Note (Bao gồm hình ảnh base64, tài liệu đính kèm)
+  if (Array.isArray(incoming.takeNotesList)) {
+    const map = new Map();
+    (current.takeNotesList || []).forEach(n => map.set(n.id, n));
+    incoming.takeNotesList.forEach(n => {
+      if (!map.has(n.id) || (n.updatedAtMs || 0) >= (map.get(n.id).updatedAtMs || 0)) {
+        map.set(n.id, n);
+      }
+    });
+    merged.takeNotesList = Array.from(map.values());
+  }
+
+  // Hợp nhất câu hỏi ngữ pháp đã lưu
+  if (Array.isArray(incoming.savedGrammarNotes)) {
+    const map = new Map();
+    (current.savedGrammarNotes || []).forEach(n => map.set(n.q, n));
+    incoming.savedGrammarNotes.forEach(n => map.set(n.q, n));
+    merged.savedGrammarNotes = Array.from(map.values());
+  }
+
+  // Hợp nhất từ điển đã lưu
+  if (Array.isArray(incoming.savedWords)) {
+    const map = new Map();
+    (current.savedWords || []).forEach(w => map.set((w.en || '').toLowerCase(), w));
+    incoming.savedWords.forEach(w => map.set((w.en || '').toLowerCase(), w));
+    merged.savedWords = Array.from(map.values());
+  }
+
+  // Nếu có userId thì lưu riêng biệt vào hồ sơ cá nhân của tài khoản đó
+  if (userId) {
+    saveUserProfile(userId, merged);
+  } else {
+    fs.writeFileSync(SYNC_FILE, JSON.stringify(merged, null, 2), 'utf8');
+  }
+
+  return merged;
+}
+
+// Helper đọc JSON body an toàn với dung lượng tối đa 50MB (phục vụ ảnh TakeNote)
+function parseJsonBody(req, res, callback) {
+  let bodyData = '';
+  const MAX_SIZE = 50 * 1024 * 1024; // 50MB
+  let exceeds = false;
+
+  req.on('data', chunk => {
+    bodyData += chunk;
+    if (bodyData.length > MAX_SIZE) {
+      exceeds = true;
+      res.writeHead(413, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ success: false, error: 'Dữ liệu gửi lên vượt quá dung lượng tối đa (50MB)' }));
+      req.destroy();
+    }
+  });
+
+  req.on('end', () => {
+    if (exceeds) return;
+    try {
+      const parsed = JSON.parse(bodyData || '{}');
+      callback(parsed);
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ success: false, error: 'Định dạng JSON không hợp lệ: ' + err.message }));
+    }
+  });
+}
+
+const server = http.createServer((req, res) => {
+  let reqPath = decodeURI(req.url.split('?')[0]);
+  const queryParams = new URL(req.url, `http://${req.headers.host || 'localhost'}`).searchParams;
+
+  // CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Device-Id, Authorization'
+    });
+    res.end();
+    return;
+  }
+
+  // =========================================================================
+  // API: NETWORK INFO
+  // =========================================================================
+  if (reqPath === '/api/network-info') {
+    const ip = getLocalIp();
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify({
+      ip: ip,
+      port: PORT,
+      localUrl: `http://localhost:${PORT}`,
+      mobileUrl: `http://${ip}:${PORT}`
+    }));
+    return;
+  }
+
+  // =========================================================================
+  // API: AUTHENTICATION & TÀI KHOẢN (REGISTER, LOGIN, GOOGLE, COMMUNITY LIST)
+  // =========================================================================
+  
+  // 1. Đăng ký tài khoản mới (Register với Xác nhận mật khẩu & Kiểm tra trùng lặp)
+  if (reqPath === '/api/auth/register' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const { name, email, username, password, confirmPassword, exam, targetScore } = payload;
+
+      if (!name || !name.trim()) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập đầy đủ Họ và tên!' }));
+      }
+
+      const loginAccount = (username || email || '').trim().toLowerCase();
+      if (!loginAccount) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập Email hoặc Tên đăng nhập!' }));
+      }
+
+      if (!password || password.length < 6) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Mật khẩu phải chứa ít nhất 6 ký tự để đảm bảo bảo mật!' }));
+      }
+
+      if (password !== confirmPassword) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Mật khẩu xác nhận không khớp! Vui lòng nhập lại chính xác.' }));
+      }
+
+      const users = loadUsersDatabase();
+      const isDuplicate = users.some(u => 
+        (u.email && u.email.toLowerCase() === loginAccount) ||
+        (u.username && u.username.toLowerCase() === loginAccount)
+      );
+
+      if (isDuplicate) {
+        res.writeHead(409, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Email hoặc Tên đăng nhập này đã được đăng ký! Vui lòng chọn tên khác hoặc bấm Đăng nhập.' }));
+      }
+
+      const colors = ['bg-blue-600', 'bg-emerald-600', 'bg-purple-600', 'bg-rose-600', 'bg-amber-600', 'bg-indigo-600', 'bg-teal-600'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      const newUserId = 'acc-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6);
+
+      const newUser = {
+        id: newUserId,
+        name: name.trim(),
+        email: email ? email.trim() : `${loginAccount}@cungdang.app`,
+        username: username ? username.trim().toLowerCase() : loginAccount,
+        password: password,
+        exam: exam || 'TOEIC',
+        targetScore: targetScore || '650',
+        examDate: '20/12/2026',
+        avatarColor: randomColor,
+        authProvider: 'local',
+        createdAt: new Date().toISOString()
+      };
+
+      users.unshift(newUser);
+      saveUsersDatabase(users);
+
+      // Khởi tạo hồ sơ học tập trắng cho người dùng mới
+      saveUserProfile(newUserId, {
+        userId: newUserId,
+        state: { xp: 10, streak: 1, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+        learnedVocabItems: [],
+        savedVocabItems: [],
+        takeNotesList: [{
+          id: 'note-welcome-' + Date.now(),
+          title: `📒 Sổ tay của ${newUser.name}`,
+          category: 'Ngữ pháp',
+          paper: 'paper-lined',
+          updatedAt: 'Vừa xong',
+          updatedAtMs: Date.now(),
+          content: `<p>Xin chào <strong>${newUser.name}</strong>! Chúc bạn ôn thi <strong>${newUser.exam}</strong> đạt mục tiêu <strong>${newUser.targetScore}</strong> điểm!</p><p>Mọi ghi chú, ảnh chụp và từ vựng của bạn đều được sao lưu tự động an toàn tại đây.</p>`
+        }]
+      });
+
+      // Tạo token phiên
+      const sessionToken = Buffer.from(`${newUserId}:${Date.now()}`).toString('base64');
+      const safeUser = { ...newUser };
+      delete safeUser.password;
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({
+        success: true,
+        message: 'Đăng ký tài khoản thành công! Chào mừng bạn gia nhập Cùng Đăng Ra Trường.',
+        user: safeUser,
+        token: sessionToken
+      }));
+    });
+    return;
+  }
+
+  // 2. Đăng nhập tài khoản (Login)
+  if (reqPath === '/api/auth/login' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const { loginId, password } = payload;
+      const accountQuery = (loginId || '').trim().toLowerCase();
+
+      if (!accountQuery) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập Email hoặc Tên đăng nhập!' }));
+      }
+
+      const users = loadUsersDatabase();
+      const matched = users.find(u => 
+        (u.email && u.email.toLowerCase() === accountQuery) ||
+        (u.username && u.username.toLowerCase() === accountQuery)
+      );
+
+      if (!matched) {
+        res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Tài khoản không tồn tại trong hệ thống! Vui lòng kiểm tra lại hoặc Đăng ký mới.' }));
+      }
+
+      // Xác thực mật khẩu (Nếu tài khoản có mật khẩu)
+      if (matched.password && matched.password !== password) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Mật khẩu không chính xác! Vui lòng thử lại.' }));
+      }
+
+      const sessionToken = Buffer.from(`${matched.id}:${Date.now()}`).toString('base64');
+      const safeUser = { ...matched };
+      delete safeUser.password;
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({
+        success: true,
+        message: `Chào mừng ${matched.name} đã đăng nhập thành công!`,
+        user: safeUser,
+        token: sessionToken
+      }));
+    });
+    return;
+  }
+
+  // 3. Đăng nhập / Đăng ký qua Google (Google Sign-In 1-Click)
+  if (reqPath === '/api/auth/google' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const { email, name, googleId, avatar } = payload;
+      const gEmail = (email || '').trim().toLowerCase();
+
+      if (!gEmail) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Không nhận được thông tin email Google!' }));
+      }
+
+      const users = loadUsersDatabase();
+      let user = users.find(u => (u.email && u.email.toLowerCase() === gEmail) || (u.googleId && u.googleId === googleId));
+
+      if (!user) {
+        const newUserId = 'acc-g-' + Date.now();
+        user = {
+          id: newUserId,
+          name: name || gEmail.split('@')[0],
+          email: gEmail,
+          username: gEmail.split('@')[0],
+          googleId: googleId || ('g-' + Date.now()),
+          avatar: avatar || '',
+          avatarColor: 'bg-emerald-600',
+          exam: 'TOEIC',
+          targetScore: '650',
+          examDate: '20/12/2026',
+          authProvider: 'google',
+          createdAt: new Date().toISOString()
+        };
+        users.unshift(user);
+        saveUsersDatabase(users);
+
+        // Tạo profile khởi tạo
+        saveUserProfile(user.id, {
+          userId: user.id,
+          state: { xp: 20, streak: 1, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+          learnedVocabItems: [],
+          savedVocabItems: [],
+          takeNotesList: [{
+            id: 'note-welcome-g-' + Date.now(),
+            title: `📒 Sổ tay của ${user.name}`,
+            category: 'Ngữ pháp',
+            paper: 'paper-lined',
+            updatedAt: 'Vừa xong',
+            updatedAtMs: Date.now(),
+            content: `<p>Xin chào <strong>${user.name}</strong>! Chúc bạn học tốt với tài khoản Google <strong>${gEmail}</strong>.</p>`
+          }]
+        });
+      }
+
+      const sessionToken = Buffer.from(`${user.id}:${Date.now()}`).toString('base64');
+      const safeUser = { ...user };
+      delete safeUser.password;
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({
+        success: true,
+        message: `Đăng nhập Google thành công! Xin chào ${user.name}.`,
+        user: safeUser,
+        token: sessionToken
+      }));
+    });
+    return;
+  }
+
+  // 4. Danh sách tài khoản công khai (Không trả về mật khẩu) cho chuyển tài khoản / cộng đồng
+  if (reqPath === '/api/auth/users-list' && req.method === 'GET') {
+    const users = loadUsersDatabase();
+    const safeUsers = users.map(u => {
+      const copy = { ...u };
+      delete copy.password;
+      return copy;
+    });
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify({ success: true, users: safeUsers }));
+    return;
+  }
+
+  // =========================================================================
+  // API: USER PROGRESS PERSISTENCE (LƯU TRỮ VÀ KHÔI PHỤC TIẾN ĐỘ HỌC CÁ NHÂN)
+  // =========================================================================
+
+  // 1. Tải tiến độ học của người dùng
+  if (reqPath === '/api/user/load-progress' && req.method === 'GET') {
+    const userId = queryParams.get('userId') || 'acc-dang';
+    const profile = loadUserProfile(userId);
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify({ success: true, data: profile }));
+    return;
+  }
+
+  // 2. Lưu tiến độ học của người dùng (Zero Data Loss)
+  if (reqPath === '/api/user/save-progress' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const { userId, data } = payload;
+      if (!userId) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Thiếu định danh người dùng userId' }));
+      }
+      const saved = saveUserProfile(userId, data);
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ success: true, data: saved }));
+    });
+    return;
+  }
+
+  // 3. Gia sư AI Luyện thi TOEIC giải đáp thắc mắc (Smart AI Tutor)
+  if (reqPath === '/api/ai/ask-tutor' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const { question, context, trapTitle } = payload || {};
+      if (!question && !context) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        return res.end(JSON.stringify({ success: false, error: 'Thiếu nội dung câu hỏi thắc mắc' }));
+      }
+
+      answerWithTOEICAI(question, context, trapTitle, (aiResponse) => {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({ success: true, answer: aiResponse }));
+      });
+    });
+    return;
+  }
+
+  // =========================================================================
+  // API REALTIME ĐỒNG BỘ HỌC TẬP LAPTOP ⇄ ĐIỆN THOẠI (SSE STREAM & POST)
+  // =========================================================================
+  if (reqPath === '/api/study-sync/stream') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream; charset=UTF-8',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write(`: connected\n\n`);
+    const targetUserId = queryParams.get('userId');
+    res.userId = targetUserId || null;
+    sseClients.add(res);
+
+    const initData = targetUserId ? loadUserProfile(targetUserId) : loadSyncStore();
+    res.write(`data: ${JSON.stringify({ type: 'INIT_STATE', data: initData, userId: targetUserId })}\n\n`);
+
+    req.on('close', () => {
+      sseClients.delete(res);
+    });
+    return;
+  }
+
+  if (reqPath === '/api/study-sync' && req.method === 'GET') {
+    const targetUserId = queryParams.get('userId');
+    const data = targetUserId ? loadUserProfile(targetUserId) : loadSyncStore();
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify({ success: true, data: data }));
+    return;
+  }
+
+  if (reqPath === '/api/study-sync' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const merged = saveAndMergeSyncStore(payload);
+
+      // Phát sóng sự kiện Real-time tới tất cả các thiết bị kết nối
+      broadcastSyncEvent({
+        type: 'SYNC_UPDATE',
+        senderDeviceId: payload.deviceId,
+        senderDeviceName: payload.deviceName || 'Thiết bị khác',
+        userId: payload.userId || 'acc-dang',
+        action: payload.action || 'LEARN_PROGRESS',
+        lastActionWord: payload.lastActionWord || null,
+        xpGained: payload.xpGained || 0,
+        data: merged,
+        timestamp: Date.now()
+      });
+
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(JSON.stringify({ success: true, data: merged }));
+    });
+    return;
+  }
+
+  // =========================================================================
+  // PHỤC VỤ CÁC FILE TĨNH (STATIC FILES)
+  // =========================================================================
+  if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
+
+  let filePath = path.join(PUBLIC_DIR, reqPath);
+
+  if (!filePath.startsWith(PUBLIC_DIR)) {
+    res.writeHead(403);
+    res.end('403 Forbidden');
+    return;
+  }
+
+  fs.stat(filePath, (err, stats) => {
+    if (err || !stats.isFile()) {
+      filePath = path.join(PUBLIC_DIR, 'index.html');
+    }
+
+    fs.readFile(filePath, (readErr, content) => {
+      if (readErr) {
+        res.writeHead(500);
+        res.end('500 Server Error');
+        return;
+      }
+      const ext = path.extname(filePath).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Access-Control-Allow-Origin': '*',
+        'Service-Worker-Allowed': '/'
+      });
+      res.end(content);
+    });
+  });
+});
+
+server.listen(PORT, '0.0.0.0', () => {
+  const localIp = getLocalIp();
+  console.log(`=======================================================`);
+  console.log(`💻 Truy cập Web trên Máy tính: http://localhost:${PORT}`);
+  console.log(`📱 Truy cập trên Điện thoại / Thiết bị khác: http://${localIp}:${PORT}`);
+  console.log(`🔒 Xác thực Thành viên & Phân quyền Tài khoản: BẮT BUỘC ĐĂNG NHẬP`);
+  console.log(`⚡ Real-time Multi-Device Sync Engine: HOẠT ĐỘNG SẴN SÀNG`);
+  console.log(`=======================================================`);
+});

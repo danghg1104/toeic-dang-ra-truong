@@ -1,0 +1,32 @@
+{
+  "userId": "acc-g-1792229593150",
+  "lastUpdated": 1792229593182,
+  "state": {
+    "xp": 20,
+    "streak": 1,
+    "vocabLearned": 0,
+    "dictationDone": 0,
+    "grammarDone": 0,
+    "readDone": 0,
+    "listenDone": 0,
+    "studyMinutes": 0
+  },
+  "learnedVocabItems": [],
+  "savedVocabItems": [],
+  "takeNotesList": [
+    {
+      "id": "note-welcome-g-1792229593153",
+      "title": "📒 Sổ tay của Nguyen Van Test",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "Vừa xong",
+      "updatedAtMs": 1792229593154,
+      "content": "<p>Xin chào <strong>Nguyen Van Test</strong>! Chúc bạn học tốt với tài khoản Google <strong>testfriend@gmail.com</strong>.</p>"
+    }
+  ],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": []
+}

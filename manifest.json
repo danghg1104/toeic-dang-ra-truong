@@ -1,0 +1,25 @@
+{
+  "name": "Cùng Đăng Ra Trường — Luyện thi TOEIC & VSTEP",
+  "short_name": "Đăng Ra Trường",
+  "description": "Nền tảng luyện thi TOEIC & VSTEP toàn diện miễn phí với Lý thuyết chuyên sâu, Nghe chính tả CEFR, Sổ tay Take Note, Từ điển & Luyện chép từ vựng",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fffbeb",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

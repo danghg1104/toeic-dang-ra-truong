@@ -1,0 +1,32 @@
+{
+  "userId": "acc-1792238705599-v6ol",
+  "lastUpdated": 1792238705601,
+  "state": {
+    "xp": 10,
+    "streak": 1,
+    "vocabLearned": 0,
+    "dictationDone": 0,
+    "grammarDone": 0,
+    "readDone": 0,
+    "listenDone": 0,
+    "studyMinutes": 0
+  },
+  "learnedVocabItems": [],
+  "savedVocabItems": [],
+  "takeNotesList": [
+    {
+      "id": "note-welcome-1792238705600",
+      "title": "📒 Sổ tay của Huỳnh Gia Đăng",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "Vừa xong",
+      "updatedAtMs": 1792238705600,
+      "content": "<p>Xin chào <strong>Huỳnh Gia Đăng</strong>! Chúc bạn ôn thi <strong>TOEIC</strong> đạt mục tiêu <strong>650</strong> điểm!</p><p>Mọi ghi chú, ảnh chụp và từ vựng của bạn đều được sao lưu tự động an toàn tại đây.</p>"
+    }
+  ],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": []
+}
