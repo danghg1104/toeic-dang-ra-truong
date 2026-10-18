@@ -406,6 +406,359 @@ Chuyên đề bẫy: ${trapTitle}`;
   callback(expertTOEICReasoningFallback(q, context, trapTitle));
 }
 
+// =========================================================================
+// QUẢN LÝ TỪ ĐIỂN & TRA CỨU COLLOCATION ĐA TẦNG (ONLINE & LOCAL CACHE)
+// =========================================================================
+const DICT_CACHE_FILE = path.join(DATA_DIR, 'dictionary_cache.json');
+let dictionaryCache = {};
+try {
+  if (fs.existsSync(DICT_CACHE_FILE)) {
+    dictionaryCache = JSON.parse(fs.readFileSync(DICT_CACHE_FILE, 'utf8'));
+  }
+} catch (e) {
+  dictionaryCache = {};
+}
+
+function saveDictionaryCache() {
+  try {
+    fs.writeFileSync(DICT_CACHE_FILE, JSON.stringify(dictionaryCache, null, 2), 'utf8');
+  } catch (e) {}
+}
+
+function fetchHttpsJson(url, callback) {
+  try {
+    const req = https.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'application/json'
+      }
+    }, res => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          const json = JSON.parse(data);
+          callback(null, json, res.statusCode);
+        } catch (err) {
+          callback(err, null, res.statusCode);
+        }
+      });
+    });
+    req.on('error', err => callback(err, null, 500));
+    req.setTimeout(6500, () => {
+      req.destroy();
+      callback(new Error('Timeout'), null, 408);
+    });
+  } catch (err) {
+    callback(err, null, 500);
+  }
+}
+
+// =========================================================================
+// KHO TỪ VỰNG CHUẨN ANH - VIỆT VÀ HỌ TỪ TOÀN DIỆN CHO DICTIONARY API
+// =========================================================================
+const CORE_VI_LEXICON = {
+  "country": {
+    word: "country",
+    phonetic: "/ˈkʌn.tri/",
+    partOfSpeech: "Noun & Adjective",
+    vi: "Quốc gia, đất nước, quê hương (Danh từ); thuộc nông thôn, miền quê (Tính từ)",
+    definition: "An area of land that is controlled by its own government; an area outside cities with fields, woods, and farms.",
+    examTag: "TOEIC / VSTEP Core Vocabulary",
+    wordFamily: {
+      noun: [
+        { term: "country", vi: "quốc gia, đất nước, vùng thôn quê" },
+        { term: "countryside", vi: "miền quê, vùng nông thôn thanh bình" },
+        { term: "compatriot", vi: "đồng bào, người cùng nước" },
+        { term: "countryman", vi: "người đồng hương, người sống ở nông thôn" }
+      ],
+      verb: [
+        { term: "nationalize", vi: "quốc hữu hóa (đưa tài sản về sở hữu nhà nước)" }
+      ],
+      adj: [
+        { term: "country", vi: "thuộc miền quê (country house, country road)" },
+        { term: "countrywide", vi: "trên quy mô toàn quốc, khắp cả nước" },
+        { term: "cross-country", vi: "xuyên quốc gia, băng đồng" }
+      ],
+      adv: [
+        { term: "countrywide", vi: "trên toàn bộ lãnh thổ quốc gia" },
+        { term: "nationwide", vi: "trên phạm vi toàn quốc" }
+      ]
+    },
+    synonyms: ["nation", "state", "homeland", "territory", "countryside", "rural area"],
+    antonyms: ["city", "metropolis", "urban center"],
+    collocations: [
+      { en: "across the country", vi: "trên khắp cả nước" },
+      { en: "host country", vi: "quốc gia đăng cai tổ chức" },
+      { en: "developing / developed country", vi: "quốc gia đang phát triển / phát triển" },
+      { en: "country of origin", vi: "nước xuất xứ của hàng hóa" },
+      { en: "countrywide distribution network", vi: "mạng lưới phân phối trên toàn quốc" }
+    ],
+    idioms: [
+      { en: "go to the country", vi: "tiến hành tổng tuyển cử toàn quốc" },
+      { en: "another country", vi: "một thế giới hoàn toàn khác biệt" }
+    ],
+    toeicNote: "💡 Chú ý trong bài thi: Khi muốn diễn đạt 'trên phạm vi toàn quốc', đề thi TOEIC thường dùng trạng từ 'nationwide' hoặc 'countrywide' (e.g. Sales increased nationwide).",
+    examples: [
+      { en: "The company operates over two hundred stores across the country.", vi: "Công ty vận hành hơn 200 cửa hàng trên khắp cả nước." },
+      { en: "Our products meet strict safety standards in every destination country.", vi: "Sản phẩm của chúng tôi đáp ứng các tiêu chuẩn an toàn nghiêm ngặt tại mọi quốc gia xuất khẩu." }
+    ]
+  },
+
+  "half": {
+    word: "half",
+    phonetic: "/hɑːf/",
+    partOfSpeech: "Noun, Adjective & Adverb",
+    vi: "Một nửa, phần chia đôi (Danh từ/Tính từ); chia đôi, giảm một nửa (Động từ: halve)",
+    definition: "One of two usually roughly equal parts into which anything may be divided.",
+    examTag: "TOEIC / VSTEP Core Vocabulary",
+    wordFamily: {
+      noun: [
+        { term: "half", vi: "một nửa, phần nửa" },
+        { term: "halves", vi: "các nửa (dạng danh từ số nhiều)" }
+      ],
+      verb: [
+        { term: "halve", vi: "chia đôi, giảm đi một nửa" }
+      ],
+      adj: [
+        { term: "half", vi: "nửa, một nửa (half price, a half portion)" },
+        { term: "halfway", vi: "ở giữa chừng, thỏa hiệp" }
+      ],
+      adv: [
+        { term: "half", vi: "một nửa, một phần (half full, half cooked)" },
+        { term: "halfway", vi: "ở lưng chừng, nửa đường" }
+      ]
+    },
+    synonyms: ["portion", "fraction", "semi-", "segment"],
+    antonyms: ["whole", "entirety", "total"],
+    collocations: [
+      { en: "first half / second half of the year", vi: "nửa đầu / nửa cuối của năm" },
+      { en: "cut / divide something in half", vi: "cắt / chia cái gì làm đôi" },
+      { en: "half-price discount", vi: "giảm giá nửa giá (50%)" },
+      { en: "half an hour", vi: "nửa tiếng đồng hồ (30 phút)" },
+      { en: "meet somebody halfway", vi: "nhượng bộ, thỏa hiệp với ai đó" }
+    ],
+    idioms: [
+      { en: "meet someone halfway", vi: "hai bên cùng nhượng bộ để đạt thỏa thuận" },
+      { en: "not half bad", vi: "khá tốt, tốt hơn mong đợi" }
+    ],
+    toeicNote: "⚠️ Cấu trúc TOEIC Part 5: 'Half of the + Danh từ'. Động từ chia theo danh từ phía sau 'of': 'Half of the budget WAS spent' nhưng 'Half of the employees WERE present'. Động từ của 'half' là 'halve' (chia đôi).",
+    examples: [
+      { en: "Operating profits dropped by more than half during the economic downturn.", vi: "Lợi nhuận hoạt động đã giảm hơn một nửa trong giai đoạn kinh tế suy thoái." },
+      { en: "The engineering team managed to halve the production cycle time this quarter.", vi: "Đội ngũ kỹ thuật đã rút ngắn một nửa thời gian chu kỳ sản xuất trong quý này." }
+    ]
+  },
+
+  "call": {
+    word: "call",
+    phonetic: "/kɔːl/",
+    partOfSpeech: "Verb & Noun",
+    vi: "Gọi điện, kêu gọi, triệu tập (Động từ); cuộc gọi, yêu cầu (Danh từ)",
+    definition: "To speak to somebody by telephone; to give a particular name to somebody/something.",
+    examTag: "TOEIC / VSTEP Core Vocabulary",
+    wordFamily: {
+      noun: [
+        { term: "call", vi: "cuộc điện thoại, tiếng gọi" },
+        { term: "caller", vi: "người gọi điện thoại" }
+      ],
+      verb: [
+        { term: "call", vi: "gọi điện thoại, triệu tập cuộc họp" },
+        { term: "recall", vi: "thu hồi sản phẩm lỗi, nhớ lại" }
+      ],
+      adj: [
+        { term: "callable", vi: "có thể thu hồi trước hạn (trái phiếu)" }
+      ],
+      adv: []
+    },
+    synonyms: ["telephone", "phone", "contact", "summon", "convene"],
+    antonyms: ["ignore", "dismiss"],
+    collocations: [
+      { en: "return a phone call", vi: "gọi điện thoại lại cho ai" },
+      { en: "call a meeting", vi: "triệu tập một cuộc họp khẩn" },
+      { en: "call for action", vi: "kêu gọi hành động" },
+      { en: "call off the event", vi: "hủy bỏ sự kiện" }
+    ],
+    idioms: [
+      { en: "call it a day", vi: "kết thúc một ngày làm việc" },
+      { en: "close call", vi: "tình huống thoát hiểm trong gang tấc" }
+    ],
+    toeicNote: "💡 Cụm 'call off' = cancel (hủy bỏ). 'Call on / upon' = kêu gọi, yêu cầu ai làm gì.",
+    examples: [
+      { en: "Please return Mr. Tanaka's phone call as soon as you arrive at the office.", vi: "Vui lòng gọi lại cho ông Tanaka ngay khi bạn tới văn phòng." },
+      { en: "The director decided to call a special meeting to discuss the budget deficit.", vi: "Giám đốc đã quyết định triệu tập cuộc họp đặc biệt để thảo luận về thâm hụt ngân sách." }
+    ]
+  }
+};
+
+function isActualVietnameseText(text) {
+  if (!text || typeof text !== 'string') return false;
+  const s = text.trim();
+  if (!s || s.length < 2) return false;
+  if (/^\((chiefly|archaic|informal|formal|slang|british|us)\)/i.test(s)) return false;
+  if (/^(an? |the |one of |to |having |relating to |characterized by |connected with )/i.test(s)) return false;
+  const vnDiacritics = /[àáảãạăắằẵặâấầẫậđèéẻẽẹêếềễệìíỉĩịòóỏõọôốồỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]/i;
+  return vnDiacritics.test(s);
+}
+
+function formatCleanPartOfSpeech(posList) {
+  if (!posList || !posList.length) return 'General Vocabulary';
+  const filtered = posList.filter(p => !['Preposition', 'Interjection', 'Article', 'Pronoun'].includes(p) || posList.length === 1);
+  if (filtered.length === 1) return filtered[0];
+  if (filtered.length === 2) return `${filtered[0]} & ${filtered[1]}`;
+  return `${filtered.slice(0, -1).join(', ')} & ${filtered[filtered.length - 1]}`;
+}
+
+function handleDictionaryLookup(rawWord, callback) {
+  const word = String(rawWord || '').trim();
+  if (!word) {
+    return callback({ success: false, error: 'Vui lòng cung cấp từ hoặc cụm từ cần tra cứu!' });
+  }
+  const cleanKey = word.toLowerCase();
+
+  // 1. Kiểm tra kho từ điển chuẩn CORE_VI_LEXICON trước tiên (ưu tiên cao nhất)
+  if (CORE_VI_LEXICON[cleanKey]) {
+    dictionaryCache[cleanKey] = CORE_VI_LEXICON[cleanKey];
+    saveDictionaryCache();
+    return callback({ success: true, fromCore: true, data: CORE_VI_LEXICON[cleanKey] });
+  }
+
+  // 2. Kiểm tra bộ đệm Cache cục bộ (nếu hợp lệ và đã có tiếng Việt chuẩn)
+  if (dictionaryCache[cleanKey] && isActualVietnameseText(dictionaryCache[cleanKey].vi)) {
+    return callback({ success: true, fromCache: true, data: dictionaryCache[cleanKey] });
+  }
+
+  // 3. Tra cứu dịch nghĩa tiếng Việt qua MyMemory Translation API
+  const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanKey)}&langpair=en|vi`;
+  fetchHttpsJson(myMemoryUrl, (transErr, transJson) => {
+    let viTranslation = '';
+    if (transJson && transJson.responseData && transJson.responseData.translatedText) {
+      const candidate = transJson.responseData.translatedText.trim();
+      if (candidate.toLowerCase() !== cleanKey && isActualVietnameseText(candidate)) {
+        viTranslation = candidate;
+      }
+    }
+
+    // Nếu là cụm từ (có dấu cách) -> Collocation lookup
+    if (cleanKey.includes(' ')) {
+      const entry = {
+        word: word,
+        phonetic: '',
+        partOfSpeech: 'Cụm từ / Collocation',
+        vi: viTranslation || `Cụm từ chuyên đề: "${word}"`,
+        definition: `A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.`,
+        examTag: 'TOEIC Collocation / Phrasal Expression',
+        wordFamily: { noun: [], verb: [], adj: [], adv: [] },
+        synonyms: [],
+        antonyms: [],
+        collocations: [
+          { en: word, vi: viTranslation || 'cụm từ cố định trong đề thi' }
+        ],
+        idioms: [],
+        toeicNote: `💡 Bí kíp Part 5 & 6: Ghi nhớ nguyên cụm "${word}" giúp bạn phản xạ đáp án trong 3 giây mà không cần dịch nghĩa từng từ!`,
+        examples: [
+          { en: `It is critical to utilize "${word}" correctly in official business correspondence.`, vi: `Việc sử dụng chuẩn xác cụm từ "${word}" là rất quan trọng trong thư tín thương mại chính thức.` }
+        ]
+      };
+      dictionaryCache[cleanKey] = entry;
+      saveDictionaryCache();
+      return callback({ success: true, fromApi: true, data: entry });
+    }
+
+    // Nếu là từ đơn: Tra cứu qua Free Dictionary API
+    const freeDictUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanKey)}`;
+    fetchHttpsJson(freeDictUrl, (dictErr, dictJson, statusCode) => {
+      let phonetic = `/ˈ${cleanKey}/`;
+      let partOfSpeech = 'General Vocabulary';
+      let definition = `An essential English term in academic and professional communication.`;
+      let synonyms = [];
+      let antonyms = [];
+      let examples = [];
+      const wordFamily = { noun: [], verb: [], adj: [], adv: [] };
+
+      if (statusCode === 200 && Array.isArray(dictJson) && dictJson.length > 0) {
+        const item = dictJson[0];
+        if (item.phonetic) {
+          phonetic = item.phonetic;
+        } else if (Array.isArray(item.phonetics)) {
+          const ph = item.phonetics.find(p => p.text);
+          if (ph) phonetic = ph.text;
+        }
+
+        if (Array.isArray(item.meanings) && item.meanings.length > 0) {
+          const posList = [...new Set(item.meanings.map(m => m.partOfSpeech.charAt(0).toUpperCase() + m.partOfSpeech.slice(1)))];
+          partOfSpeech = formatCleanPartOfSpeech(posList);
+
+          if (item.meanings[0].definitions && item.meanings[0].definitions[0]) {
+            definition = item.meanings[0].definitions[0].definition || definition;
+          }
+
+          item.meanings.forEach(m => {
+            const p = m.partOfSpeech.toLowerCase();
+            const firstDef = m.definitions && m.definitions[0] ? m.definitions[0].definition : '';
+            if (m.definitions && m.definitions[0] && m.definitions[0].example) {
+              examples.push({
+                en: m.definitions[0].example,
+                vi: `Ví dụ: "${m.definitions[0].example}"`
+              });
+            }
+            if (Array.isArray(m.synonyms)) synonyms.push(...m.synonyms);
+            if (Array.isArray(m.antonyms)) antonyms.push(...m.antonyms);
+
+            const safeMeaningVi = viTranslation || (firstDef && isActualVietnameseText(firstDef) ? firstDef : `dạng ${p} của "${cleanKey}"`);
+            if (p.includes('noun') && !wordFamily.noun.some(x => x.term === cleanKey)) {
+              wordFamily.noun.push({ term: cleanKey, vi: safeMeaningVi });
+            } else if (p.includes('verb') && !wordFamily.verb.some(x => x.term === cleanKey)) {
+              wordFamily.verb.push({ term: cleanKey, vi: safeMeaningVi });
+            } else if ((p.includes('adj') || p.includes('adjective')) && !wordFamily.adj.some(x => x.term === cleanKey)) {
+              wordFamily.adj.push({ term: cleanKey, vi: safeMeaningVi });
+            } else if ((p.includes('adv') || p.includes('adverb')) && !wordFamily.adv.some(x => x.term === cleanKey)) {
+              wordFamily.adv.push({ term: cleanKey, vi: safeMeaningVi });
+            }
+          });
+        }
+      }
+
+      // Xử lý chuẩn tiếng Việt tuyệt đối, không bao giờ lấy định nghĩa tiếng Anh gán vào VN
+      let finalVi = viTranslation;
+      if (!finalVi || !isActualVietnameseText(finalVi)) {
+        finalVi = `Từ vựng tiếng Anh: "${cleanKey}"`;
+      }
+
+      synonyms = [...new Set(synonyms)].slice(0, 8);
+      antonyms = [...new Set(antonyms)].slice(0, 6);
+      if (examples.length === 0) {
+        examples.push({
+          en: `Understanding the usage of "${cleanKey}" is essential for TOEIC and VSTEP test-takers.`,
+          vi: `Hiểu rõ cách dùng của "${cleanKey}" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP.`
+        });
+      }
+
+      const entry = {
+        word: word,
+        phonetic: phonetic,
+        partOfSpeech: partOfSpeech,
+        vi: finalVi,
+        definition: definition,
+        examTag: 'TOEIC / VSTEP Core Vocabulary',
+        wordFamily: wordFamily,
+        synonyms: synonyms,
+        antonyms: antonyms,
+        collocations: [
+          { en: `common use of ${cleanKey}`, vi: `cách sử dụng thông dụng của ${cleanKey}` },
+          { en: `key ${cleanKey} factor`, vi: `yếu tố ${cleanKey} then chốt` }
+        ],
+        idioms: [],
+        toeicNote: `💡 Mẹo làm bài: Chú ý vị trí từ loại của "${cleanKey}" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!`,
+        examples: examples.slice(0, 3)
+      };
+
+      dictionaryCache[cleanKey] = entry;
+      saveDictionaryCache();
+      callback({ success: true, fromApi: true, data: entry });
+    });
+  });
+}
+
 // Đọc dữ liệu đồng bộ chung
 function loadSyncStore() {
   try {
@@ -875,6 +1228,35 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // 4. Kiểm tra sức khỏe máy chủ & Keep-alive chống ngủ đông (Render Cold-Start Protection)
+  if (reqPath === '/health' || reqPath === '/api/ping') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-cache'
+    });
+    res.end(JSON.stringify({
+      status: 'ok',
+      service: 'toeic-cung-dang',
+      uptime: Math.round(process.uptime()),
+      timestamp: Date.now()
+    }));
+    return;
+  }
+
+  // 5. Tra cứu từ điển AI & Collocation thông minh (MyMemory & FreeDict Backend Proxy)
+  if (reqPath === '/api/dictionary/lookup' && req.method === 'GET') {
+    const rawWord = queryParams.get('word') || '';
+    handleDictionaryLookup(rawWord, (lookupResult) => {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(JSON.stringify(lookupResult));
+    });
+    return;
+  }
+
   // =========================================================================
   // API REALTIME ĐỒNG BỘ HỌC TẬP LAPTOP ⇄ ĐIỆN THOẠI (SSE STREAM & POST)
   // =========================================================================
@@ -965,7 +1347,8 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {
         'Content-Type': contentType,
         'Access-Control-Allow-Origin': '*',
-        'Service-Worker-Allowed': '/'
+        'Service-Worker-Allowed': '/',
+        'Cache-Control': (ext === '.html' || ext === '.js' || ext === '.json') ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400'
       });
       res.end(content);
     });
@@ -980,4 +1363,20 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`🔒 Xác thực Thành viên & Phân quyền Tài khoản: BẮT BUỘC ĐĂNG NHẬP`);
   console.log(`⚡ Real-time Multi-Device Sync Engine: HOẠT ĐỘNG SẴN SÀNG`);
   console.log(`=======================================================`);
+
+  // Cơ chế chống ngủ đông Render (Cold-Start Prevention Keep-Alive)
+  const EXTERNAL_URL = process.env.RENDER_EXTERNAL_URL || process.env.APP_URL;
+  if (EXTERNAL_URL) {
+    console.log(`⏱️ Kích hoạt Keep-Alive tự động chống spin-down cho Render: ${EXTERNAL_URL}`);
+    setInterval(() => {
+      try {
+        const pingUrl = EXTERNAL_URL.replace(/\/$/, '') + '/health';
+        const client = pingUrl.startsWith('https') ? https : http;
+        client.get(pingUrl, (pRes) => {
+          // Heartbeat ping thành công
+        }).on('error', () => {});
+      } catch (e) {}
+    }, 10 * 60 * 1000); // 10 phút một lần
+  }
 });
+

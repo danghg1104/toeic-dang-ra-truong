@@ -1,5 +1,5 @@
 // Service Worker cho ứng dụng "Cùng Đăng Ra Trường"
-const CACHE_NAME = 'dang-ra-truong-cache-v1';
+const CACHE_NAME = 'dang-ra-truong-cache-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

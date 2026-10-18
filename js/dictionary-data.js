@@ -569,6 +569,436 @@ window.dictionaryData = {
             { en: "She smiled warmly and said hello as soon as the client walked into the office.", vi: "Cô ấy mỉm cười ấm áp và cất tiếng chào ngay khi khách hàng bước vào văn phòng." },
             { en: "Please say hello to the marketing team for me when you visit their branch.", vi: "Gửi lời chào của tôi đến đội ngũ tiếp thị khi bạn ghé thăm chi nhánh của họ nhé." }
         ]
+    },
+
+    "territory": {
+        word: "territory",
+        phonetic: "/ˈter.ə.tɔːr.i/",
+        partOfSpeech: "Noun",
+        vi: "Lãnh thổ, địa bàn quản lý, khu vực thị trường / phân phối kinh doanh",
+        definition: "An area of land that belongs to or is controlled by a particular country, ruler, or organization; an area in which a salesperson or company has the right or responsibility to operate.",
+        examTag: "TOEIC 550+ / VSTEP B1-B2",
+        wordFamily: {
+            noun: [
+                { term: "territory", vi: "lãnh thổ, địa bàn kinh doanh" },
+                { term: "territoriality", vi: "tính lãnh thổ, ý thức bảo vệ địa bàn" }
+            ],
+            verb: [
+                { term: "territorialize", vi: "phân chia theo địa bàn, quy hoạch khu vực" }
+            ],
+            adj: [
+                { term: "territorial", vi: "thuộc lãnh thổ, mang tính địa bàn (territorial waters / boundaries)" }
+            ],
+            adv: [
+                { term: "territorially", vi: "về mặt lãnh thổ, theo ranh giới địa lý" }
+            ]
+        },
+        synonyms: ["region", "area", "domain", "zone", "district", "sector", "province"],
+        antonyms: ["center", "whole"],
+        collocations: [
+            { en: "sales territory", vi: "địa bàn bán hàng, khu vực phân phối tiêu thụ sản phẩm" },
+            { en: "uncharted / unfamiliar territory", vi: "lĩnh vực hoàn toàn mới lạ, vùng đất chưa từng khám phá" },
+            { en: "disputed territory", vi: "vùng lãnh thổ đang tranh chấp" },
+            { en: "assigned territory", vi: "địa bàn được phân công phụ trách" },
+            { en: "expand into new territory", vi: "mở rộng hoạt động sang địa bàn mới" }
+        ],
+        idioms: [
+            { en: "comes with the territory", vi: "là điều tất yếu đi kèm với tính chất công việc hoặc vị trí đó" },
+            { en: "mark one's territory", vi: "khẳng định chủ quyền hoặc phạm vi ảnh hưởng của mình" }
+        ],
+        toeicNote: "⚠️ TOEIC Part 7 cực kỳ hay gặp cụm 'sales territory' (khu vực bán hàng của đại diện thương mại) hoặc 'reassign territories' (phân bổ lại địa bàn quản lý nhân viên thị trường).",
+        examples: [
+            { en: "Our regional sales director assigned each representative a distinct commercial territory.", vi: "Giám đốc bán hàng khu vực đã phân công cho mỗi đại diện một địa bàn thương mại riêng biệt." },
+            { en: "Dealing with tight deadlines unfortunately comes with the territory of project management.", vi: "Đối mặt với thời hạn gấp gáp đáng tiếc lại là điều tất yếu đi kèm với nghề quản lý dự án." }
+        ]
+    },
+
+    "sales territory": {
+        word: "sales territory",
+        phonetic: "/seɪlz ˈter.ə.tɔːr.i/",
+        partOfSpeech: "Cụm danh từ / Collocation",
+        vi: "Khu vực tiêu thụ, địa bàn phân phối bán hàng của doanh nghiệp",
+        definition: "The customer group or geographical area for which an individual salesperson or sales team holds responsibility.",
+        examTag: "TOEIC Part 7 Chuyên sâu / Business English",
+        wordFamily: {
+            noun: [
+                { term: "sales representative", vi: "đại diện bán hàng thị trường" },
+                { term: "territory management", vi: "quản lý địa bàn kinh doanh" }
+            ],
+            verb: [
+                { term: "assign a territory", vi: "giao địa bàn cho nhân viên" }
+            ],
+            adj: [
+                { term: "territorial", vi: "mang tính địa bàn" }
+            ],
+            adv: []
+        },
+        synonyms: ["market area", "sales district", "coverage zone", "target region"],
+        antonyms: [],
+        collocations: [
+            { en: "manage a sales territory", vi: "quản lý một địa bàn bán hàng" },
+            { en: "expand the sales territory", vi: "mở rộng khu vực tiêu thụ" },
+            { en: "sales territory realignment", vi: "tái cơ cấu, phân chia lại địa bàn bán hàng" }
+        ],
+        idioms: [
+            { en: "hit the ground running", vi: "bắt tay vào khai thác địa bàn mới đầy năng nổ và hiệu quả" }
+        ],
+        toeicNote: "💡 Ghi nhớ nguyên cụm 'sales territory' giúp bạn trả lời ngay câu hỏi ai phụ trách vùng nào trong bài đọc email / thông báo nội bộ Part 7!",
+        examples: [
+            { en: "Due to exceptional performance, John was promoted to oversee the entire Southeast Asian sales territory.", vi: "Nhờ thành tích xuất sắc, John đã được thăng chức để giám sát toàn bộ địa bàn bán hàng Đông Nam Á." }
+        ]
+    },
+
+    "collocation": {
+        word: "collocation",
+        phonetic: "/ˌkɒl.əˈkeɪ.ʃən/",
+        partOfSpeech: "Noun",
+        vi: "Cụm từ cố định, sự kết hợp từ tự nhiên theo thói quen của người bản xứ",
+        definition: "A combination of words in a language that happens very often and sounds natural to people who have spoken the language even though other combinations might make sense.",
+        examTag: "Cốt lõi TOEIC Part 5 & 6",
+        wordFamily: {
+            noun: [
+                { term: "collocation", vi: "sự kết hợp từ, cụm từ cố định" }
+            ],
+            verb: [
+                { term: "collocate", vi: "đi cùng với nhau một cách tự nhiên (từ vựng)" }
+            ],
+            adj: [
+                { term: "collocational", vi: "thuộc về cụm từ cố định" }
+            ],
+            adv: []
+        },
+        synonyms: ["word pairing", "idiomatic phrase", "fixed expression"],
+        antonyms: [],
+        collocations: [
+            { en: "strong / weak collocation", vi: "cụm kết hợp từ chặt chẽ / lỏng lẻo" },
+            { en: "learn words in collocation", vi: "học từ vựng theo cụm từ cố định" },
+            { en: "lexical collocation", vi: "sự kết hợp từ vựng tự nhiên" }
+        ],
+        idioms: [],
+        toeicNote: "⚠️ 60% câu hỏi từ vựng trong Part 5 kiểm tra kiến thức về Collocation (VD: 'conduct a survey', 'meet the deadline', 'make a reservation'). Học theo cụm giúp bạn chọn đáp án trong 2 giây!",
+        examples: [
+            { en: "In English, 'heavy rain' is a natural collocation, whereas 'strong rain' sounds unnatural.", vi: "Trong tiếng Anh, 'heavy rain' là một cụm từ tự nhiên, trong khi 'strong rain' nghe rất gượng gạo." }
+        ]
+    },
+
+    "strategy": {
+        word: "strategy",
+        phonetic: "/ˈstræt.ə.dʒi/",
+        partOfSpeech: "Noun",
+        vi: "Chiến lược, kế hoạch hành động dài hạn",
+        definition: "A detailed plan for achieving success in situations such as business, politics, war, etc.",
+        examTag: "TOEIC 500+ / VSTEP B1-C1",
+        wordFamily: {
+            noun: [
+                { term: "strategy", vi: "chiến lược" },
+                { term: "strategist", vi: "nhà chiến lược" }
+            ],
+            verb: [
+                { term: "strategize", vi: "lập chiến lược, hoạch định kế hoạch" }
+            ],
+            adj: [
+                { term: "strategic", vi: "mang tính chiến lược, có tầm quan trọng dài hạn" }
+            ],
+            adv: [
+                { term: "strategically", vi: "về mặt chiến lược, một cách có tính toán" }
+            ]
+        },
+        synonyms: ["tactics", "masterplan", "approach", "scheme", "roadmap"],
+        antonyms: ["impromptu", "chance"],
+        collocations: [
+            { en: "marketing / business strategy", vi: "chiến lược tiếp thị / kinh doanh" },
+            { en: "adopt / implement a strategy", vi: "áp dụng / triển khai một chiến lược" },
+            { en: "strategic partnership", vi: "quan hệ đối tác chiến lược" },
+            { en: "strategically located", vi: "tọa lạc tại vị trí chiến lược đắc địa" }
+        ],
+        idioms: [],
+        toeicNote: "Bẫy từ loại Part 5: Trước danh từ 'location' hay 'decision' cần tính từ 'strategic' (VD: a strategic decision).",
+        examples: [
+            { en: "The board met yesterday to devise a comprehensive strategy for expanding overseas.", vi: "Hội đồng quản trị đã họp hôm qua để vạch ra chiến lược toàn diện nhằm mở rộng ra nước ngoài." }
+        ]
+    },
+
+    "revenue": {
+        word: "revenue",
+        phonetic: "/ˈrev.ən.juː/",
+        partOfSpeech: "Noun",
+        vi: "Doanh thu, tổng thu nhập của công ty hoặc chính phủ",
+        definition: "The income that a government or company receives regularly.",
+        examTag: "TOEIC 500+ / Tài chính Doanh nghiệp",
+        wordFamily: {
+            noun: [
+                { term: "revenue", vi: "tổng doanh thu" }
+            ],
+            verb: [],
+            adj: [],
+            adv: []
+        },
+        synonyms: ["income", "proceeds", "turnover", "earnings", "receipts"],
+        antonyms: ["expenditure", "expenses", "loss", "deficit"],
+        collocations: [
+            { en: "generate revenue", vi: "tạo ra doanh thu" },
+            { en: "annual / quarterly revenue", vi: "doanh thu hàng năm / hàng quý" },
+            { en: "revenue growth / decline", vi: "sự tăng trưởng / sụt giảm doanh thu" },
+            { en: "tax revenue", vi: "nguồn thu ngân sách từ thuế" }
+        ],
+        idioms: [
+            { en: "the bottom line", vi: "lợi nhuận ròng sau cùng (sau khi trừ chi phí khỏi doanh thu)" }
+        ],
+        toeicNote: "Phân biệt: Revenue (doanh thu tổng trước chi phí) khác với Profit (lợi nhuận sau khi đã trừ đi mọi chi phí).",
+        examples: [
+            { en: "Online advertising now accounts for more than half of the newspaper's total revenue.", vi: "Quảng cáo trực tuyến hiện chiếm hơn một nửa tổng doanh thu của tòa soạn báo." }
+        ]
+    },
+
+    "in accordance with": {
+        word: "in accordance with",
+        phonetic: "/ɪn əˈkɔː.dəns wɪð/",
+        partOfSpeech: "Cụm giới từ / Collocation",
+        vi: "Phù hợp với, tuân theo, chiếu theo (quy định, hợp đồng, luật lệ)",
+        definition: "Following or obeying a rule, law, wish, or agreement.",
+        examTag: "Bẫy Ngữ Pháp TOEIC Part 5 & 6",
+        wordFamily: {
+            noun: [
+                { term: "accordance", vi: "sự tuân theo, sự phù hợp" }
+            ],
+            verb: [
+                { term: "accord", vi: "phù hợp, ban cho" }
+            ],
+            adj: [],
+            adv: []
+        },
+        synonyms: ["in compliance with", "conforming to", "pursuant to", "according to"],
+        antonyms: ["contrary to", "in violation of"],
+        collocations: [
+            { en: "in accordance with regulations / policy", vi: "chiếu theo quy định / chính sách" },
+            { en: "act in accordance with the law", vi: "hành động tuân theo pháp luật" }
+        ],
+        idioms: [],
+        toeicNote: "⚠️ Cực kỳ hay ra trong Part 5: Điền 'accordance' vào chỗ trống 'in _______ with' hoặc điền giới từ 'with' phía sau 'in accordance'!",
+        examples: [
+            { en: "All refunds will be processed in accordance with our standard customer policy.", vi: "Mọi khoản hoàn tiền sẽ được xử lý chiếu theo chính sách khách hàng tiêu chuẩn của chúng tôi." }
+        ]
+    },
+
+    "bear in mind": {
+        word: "bear in mind",
+        phonetic: "/beər ɪn maɪnd/",
+        partOfSpeech: "Cụm động từ / Idiom",
+        vi: "Ghi nhớ, luôn nhớ rằng, khắc ghi trong đầu",
+        definition: "To remember a piece of information when you are making a decision or thinking about a matter.",
+        examTag: "TOEIC Part 7 & Giao tiếp Doanh nghiệp",
+        wordFamily: {
+            noun: [],
+            verb: [],
+            adj: [],
+            adv: []
+        },
+        synonyms: ["keep in mind", "remember", "take into account", "consider"],
+        antonyms: ["forget", "disregard", "ignore"],
+        collocations: [
+            { en: "bear in mind that", vi: "luôn ghi nhớ rằng..." },
+            { en: "bear something in mind", vi: "lưu tâm điều gì đó khi đưa ra quyết định" }
+        ],
+        idioms: [
+            { en: "keep tabs on", vi: "theo dõi sát sao" }
+        ],
+        toeicNote: "Cụm đồng nghĩa tuyệt đối với 'keep in mind'. Thường xuất hiện trong lời nhắn của sếp hoặc email hướng dẫn nhân viên.",
+        examples: [
+            { en: "Please bear in mind that the office will be closed on Friday for building maintenance.", vi: "Xin lưu ý rằng văn phòng sẽ đóng cửa vào thứ Sáu để bảo trì tòa nhà." }
+        ]
+    },
+
+    "take into account": {
+        word: "take into account",
+        phonetic: "/teɪk ˈɪn.tuː əˈkaʊnt/",
+        partOfSpeech: "Cụm động từ / Collocation",
+        vi: "Tính đến, xem xét, cân nhắc một yếu tố khi quyết định",
+        definition: "To consider or remember something when evaluating a situation or making a decision.",
+        examTag: "TOEIC & VSTEP Trọng tâm",
+        wordFamily: {
+            noun: [],
+            verb: [],
+            adj: [],
+            adv: []
+        },
+        synonyms: ["take into consideration", "allow for", "factor in", "weigh"],
+        antonyms: ["overlook", "ignore", "dismiss"],
+        collocations: [
+            { en: "take all factors into account", vi: "cân nhắc mọi yếu tố" },
+            { en: "take customer feedback into account", vi: "tiếp thu ý kiến phản hồi của khách hàng" }
+        ],
+        idioms: [],
+        toeicNote: "Cấu trúc hay gặp: 'take something into account' hoặc 'take into account that + mệnh đề'.",
+        examples: [
+            { en: "We must take into account inflation rates before finalizing next year's budget.", vi: "Chúng ta phải tính đến tỷ lệ lạm phát trước khi hoàn thiện ngân sách cho năm tới." }
+        ]
+    },
+
+    "compliance": {
+        word: "compliance",
+        phonetic: "/kəmˈplaɪ.əns/",
+        partOfSpeech: "Noun",
+        vi: "Sự tuân thủ, chấp hành (luật pháp, tiêu chuẩn an toàn, nội quy)",
+        definition: "The act of obeying an order, rule, or request.",
+        examTag: "TOEIC 600+ / Luật & Doanh nghiệp",
+        wordFamily: {
+            noun: [
+                { term: "compliance", vi: "sự tuân thủ" }
+            ],
+            verb: [
+                { term: "comply", vi: "tuân thủ, chấp hành (đi với giới từ with)" }
+            ],
+            adj: [
+                { term: "compliant", vi: "biết vâng lời, tuân thủ đúng chuẩn" }
+            ],
+            adv: [
+                { term: "compliantly", vi: "một cách tuân thủ, phục tùng" }
+            ]
+        },
+        synonyms: ["conformity", "adherence", "observance", "agreement"],
+        antonyms: ["violation", "defiance", "non-compliance", "breach"],
+        collocations: [
+            { en: "in compliance with", vi: "tuân theo, phù hợp với" },
+            { en: "safety / regulatory compliance", vi: "sự tuân thủ an toàn / quy chuẩn pháp lý" },
+            { en: "ensure compliance", vi: "đảm bảo tính tuân thủ" }
+        ],
+        idioms: [],
+        toeicNote: "⚠️ Cực hay thi giới từ: Động từ 'comply' luôn đi với 'with' (comply with safety standards). Danh từ là 'in compliance with'.",
+        examples: [
+            { en: "The company operates in strict compliance with international environmental standards.", vi: "Công ty hoạt động tuân thủ nghiêm ngặt các tiêu chuẩn môi trường quốc tế." }
+        ]
+    },
+
+    "country": {
+        word: "country",
+        phonetic: "/ˈkʌn.tri/",
+        partOfSpeech: "Noun & Adjective",
+        vi: "Quốc gia, đất nước, quê hương (Danh từ); thuộc nông thôn, miền quê (Tính từ)",
+        definition: "An area of land that has or used to have its own government and laws; also rural areas outside cities.",
+        examTag: "TOEIC 350-990 / VSTEP B1-C1",
+        wordFamily: {
+            noun: [
+                { term: "country", vi: "quốc gia, đất nước, vùng thôn quê" },
+                { term: "countryside", vi: "miền quê, vùng nông thôn thanh bình" },
+                { term: "compatriot", vi: "người đồng hương, đồng bào" },
+                { term: "countryman", vi: "người sống ở nông thôn, đồng hương" }
+            ],
+            verb: [
+                { term: "nationalize", vi: "quốc hữu hóa (đưa tài sản về sở hữu nhà nước)" }
+            ],
+            adj: [
+                { term: "country", vi: "thuộc miền quê (country house, country road)" },
+                { term: "countrywide", vi: "trên quy mô toàn quốc, khắp cả nước" },
+                { term: "cross-country", vi: "xuyên quốc gia, băng đồng" }
+            ],
+            adv: [
+                { term: "countrywide", vi: "trên toàn bộ lãnh thổ quốc gia" },
+                { term: "nationwide", vi: "trên phạm vi toàn quốc" }
+            ]
+        },
+        synonyms: ["nation", "state", "homeland", "territory", "countryside", "rural area"],
+        antonyms: ["city", "metropolis", "urban center"],
+        collocations: [
+            { en: "across the country", vi: "trên khắp cả nước" },
+            { en: "host country", vi: "quốc gia đăng cai tổ chức" },
+            { en: "developing / developed country", vi: "quốc gia đang phát triển / phát triển" },
+            { en: "country of origin", vi: "nước xuất xứ của hàng hóa" },
+            { en: "countrywide distribution network", vi: "mạng lưới phân phối trên toàn quốc" }
+        ],
+        idioms: [
+            { en: "go to the country", vi: "tiến hành tổng tuyển cử toàn quốc" },
+            { en: "another country", vi: "một thế giới hoàn toàn khác biệt" }
+        ],
+        toeicNote: "💡 Phân biệt trong bài thi: 'country' vừa mang nghĩa 'đất nước' vừa mang nghĩa 'miền quê'. Khi nói về quy mô toàn quốc, đề thi thường dùng tính từ/trạng từ 'countrywide' hoặc 'nationwide'.",
+        examples: [
+            { en: "Our products are now exported to more than forty countries worldwide.", vi: "Sản phẩm của chúng tôi hiện được xuất khẩu tới hơn 40 quốc gia trên toàn thế giới." },
+            { en: "The retail chain opened 15 new branch stores across the country this quarter.", vi: "Chuỗi bán lẻ đã mở thêm 15 chi nhánh mới trên khắp cả nước trong quý này." }
+        ]
+    },
+
+    "half": {
+        word: "half",
+        phonetic: "/hɑːf/",
+        partOfSpeech: "Noun, Adjective & Adverb",
+        vi: "Một nửa, phần chia đôi (Danh từ/Tính từ); chia đôi, giảm một nửa (Động từ: halve)",
+        definition: "One of two usually roughly equal parts into which anything may be divided.",
+        examTag: "TOEIC 350-990 / VSTEP B1-C1",
+        wordFamily: {
+            noun: [
+                { term: "half", vi: "một nửa, phần nửa" },
+                { term: "halves", vi: "các nửa (dạng danh từ số nhiều)" }
+            ],
+            verb: [
+                { term: "halve", vi: "chia đôi, giảm đi một nửa" }
+            ],
+            adj: [
+                { term: "half", vi: "nửa, một nửa (half price, a half portion)" },
+                { term: "halfway", vi: "ở giữa chừng, thỏa hiệp" }
+            ],
+            adv: [
+                { term: "half", vi: "một nửa, một phần (half full, half cooked)" },
+                { term: "halfway", vi: "ở lưng chừng, nửa đường" }
+            ]
+        },
+        synonyms: ["portion", "fraction", "semi-", "segment"],
+        antonyms: ["whole", "entirety", "total"],
+        collocations: [
+            { en: "first half / second half of the year", vi: "nửa đầu / nửa cuối của năm" },
+            { en: "cut / divide something in half", vi: "cắt / chia cái gì làm đôi" },
+            { en: "half-price discount", vi: "giảm giá nửa giá (50%)" },
+            { en: "half an hour", vi: "nửa tiếng đồng hồ (30 phút)" },
+            { en: "meet somebody halfway", vi: "nhượng bộ, thỏa hiệp với ai đó" }
+        ],
+        idioms: [
+            { en: "meet someone halfway", vi: "hai bên cùng nhượng bộ để đạt thỏa thuận" },
+            { en: "not half bad", vi: "khá tốt, tốt hơn mong đợi" }
+        ],
+        toeicNote: "⚠️ Cấu trúc TOEIC Part 5: 'Half of the + Danh từ'. Động từ chia theo danh từ phía sau 'of': 'Half of the budget WAS spent' nhưng 'Half of the employees WERE present'. Động từ của 'half' là 'halve' (chia đôi).",
+        examples: [
+            { en: "Operating profits dropped by more than half during the global economic downturn.", vi: "Lợi nhuận hoạt động đã giảm hơn một nửa trong giai đoạn suy thoái kinh tế toàn cầu." },
+            { en: "The engineering team managed to halve the production cycle time this quarter.", vi: "Đội ngũ kỹ thuật đã rút ngắn một nửa thời gian chu kỳ sản xuất trong quý này." }
+        ]
+    },
+
+    "call": {
+        word: "call",
+        phonetic: "/kɔːl/",
+        partOfSpeech: "Verb & Noun",
+        vi: "Gọi điện, kêu gọi, triệu tập (Động từ); cuộc gọi, yêu cầu (Danh từ)",
+        definition: "To speak to somebody by telephone; to give a particular name to somebody/something.",
+        examTag: "TOEIC / VSTEP Core Vocabulary",
+        wordFamily: {
+            noun: [
+                { term: "call", vi: "cuộc điện thoại, tiếng gọi" },
+                { term: "caller", vi: "người gọi điện thoại" }
+            ],
+            verb: [
+                { term: "call", vi: "gọi điện thoại, triệu tập cuộc họp" },
+                { term: "recall", vi: "thu hồi sản phẩm lỗi, nhớ lại" }
+            ],
+            adj: [
+                { term: "callable", vi: "có thể thu hồi trước hạn (trái phiếu)" }
+            ],
+            adv: []
+        },
+        synonyms: ["telephone", "phone", "contact", "summon", "convene"],
+        antonyms: ["ignore", "dismiss"],
+        collocations: [
+            { en: "return a phone call", vi: "gọi điện thoại lại cho ai" },
+            { en: "call a meeting", vi: "triệu tập một cuộc họp khẩn" },
+            { en: "call for action", vi: "kêu gọi hành động" },
+            { en: "call off the event", vi: "hủy bỏ sự kiện" }
+        ],
+        idioms: [
+            { en: "call it a day", vi: "kết thúc một ngày làm việc" },
+            { en: "close call", vi: "tình huống thoát hiểm trong gang tấc" }
+        ],
+        toeicNote: "💡 Cụm 'call off' = cancel (hủy bỏ). 'Call on / upon' = kêu gọi, yêu cầu ai làm gì.",
+        examples: [
+            { en: "Please return Mr. Tanaka's phone call as soon as you arrive at the office.", vi: "Vui lòng gọi lại cho ông Tanaka ngay khi bạn tới văn phòng." },
+            { en: "The director decided to call a special meeting to discuss the budget deficit.", vi: "Giám đốc đã quyết định triệu tập cuộc họp đặc biệt để thảo luận về thâm hụt ngân sách." }
+        ]
     }
 };
 
@@ -721,81 +1151,171 @@ window.generateContextSentencesForWord = function(targetWord, totalCount = 10) {
 };
 
 // ======================================================================================
-// MORPHOLOGICAL EXPANDER ENGINE (BỘ BÓC TÁCH & PHÁT HIỆN HỌ TỪ THÔNG MINH CHO MỌI TỪ TIẾNG ANH)
-// Nếu người dùng nhập một từ chưa có trong danh mục cố định, hệ thống tự động suy luận:
-// Danh từ, Động từ, Tính từ, Trạng từ, Đồng nghĩa, và Phát âm gần đúng!
+// SMART DICTIONARY & COLLOCATION SEARCH ENGINE (BỘ TRA CỨU TỪ ĐIỂN & COLLOCATION CHUẨN XÁC)
+// Loại bỏ 100% việc tự chế hậu tố vô nghĩa (-tion, -able).
+// Kết hợp Cơ sở dữ liệu Cục bộ Offline + Tra cứu AI Online thông minh!
 // ======================================================================================
 
 window.lookupOrDeriveWordInfo = function(inputWord) {
     if (!inputWord) return null;
     const clean = inputWord.trim().toLowerCase();
     
-    // Check if directly in static database
+    // 1. Kiểm tra từ khớp chính xác trong từ điển offline
     if (window.dictionaryData[clean]) {
         return window.dictionaryData[clean];
     }
 
-    // Check fuzzy match in dictionary
+    // 2. Tra cứu cụm từ / Collocation trong danh sách collocations của các từ đã có
     for (let k in window.dictionaryData) {
-        if (clean.includes(k) || k.includes(clean)) {
-            return window.dictionaryData[k];
+        const item = window.dictionaryData[k];
+        if (item.collocations && Array.isArray(item.collocations)) {
+            const matchedCollocation = item.collocations.find(c => c.en.toLowerCase() === clean);
+            if (matchedCollocation) {
+                return {
+                    word: matchedCollocation.en,
+                    phonetic: item.phonetic || '',
+                    partOfSpeech: "Cụm từ / Collocation",
+                    vi: matchedCollocation.vi,
+                    definition: `A common business and TOEIC collocation connected with "${item.word}".`,
+                    examTag: "TOEIC Collocation / Phrasal Expression",
+                    wordFamily: { noun: [], verb: [], adj: [], adv: [] },
+                    synonyms: [],
+                    antonyms: [],
+                    collocations: [matchedCollocation],
+                    idioms: [],
+                    toeicNote: `💡 Đây là cụm từ đi liền (collocation) của từ gốc "${item.word}". Hãy học thuộc cả cụm để xử lý nhanh Part 5 & 6!`,
+                    examples: item.examples || []
+                };
+            }
         }
     }
 
-    // Algorithmic Morphological Inflection Derivation
-    let root = clean;
-    if (root.endsWith('ing') && root.length > 5) root = root.slice(0, -3);
-    else if (root.endsWith('tion') && root.length > 6) root = root.slice(0, -4);
-    else if (root.endsWith('ment') && root.length > 6) root = root.slice(0, -4);
-    else if (root.endsWith('ly') && root.length > 4) root = root.slice(0, -2);
-    else if (root.endsWith('ed') && root.length > 4) root = root.slice(0, -2);
+    // 3. Khử số nhiều hoặc biến thể cơ bản (e.g. territories -> territory, contracts -> contract)
+    if (clean.endsWith('ies') && clean.length > 5) {
+        const single = clean.slice(0, -3) + 'y';
+        if (window.dictionaryData[single]) return window.dictionaryData[single];
+    } else if (clean.endsWith('es') && clean.length > 4) {
+        const single = clean.slice(0, -2);
+        if (window.dictionaryData[single]) return window.dictionaryData[single];
+    } else if (clean.endsWith('s') && clean.length > 3) {
+        const single = clean.slice(0, -1);
+        if (window.dictionaryData[single]) return window.dictionaryData[single];
+    }
 
-    const derivedNoun = root.endsWith('e') ? root + 'ment' : root + 'tion';
-    const derivedVerb = root;
-    const derivedAdj = root.endsWith('e') ? root.slice(0, -1) + 'ive' : root + 'able';
-    const derivedAdv = derivedAdj + 'ly';
+    // Nếu không có trong offline cache, trả về null để renderDictionaryResult() tự động kích hoạt tra cứu online
+    return null;
+};
 
-    return {
-        word: clean,
-        phonetic: `/ˈ${clean}/`,
-        partOfSpeech: "General Vocabulary",
-        vi: `Từ vựng tiếng Anh: "${clean}"`,
-        definition: `A meaningful English term widely used in academic, business and daily communicative contexts.`,
-        examTag: "TOEIC / VSTEP Vocabulary",
-        wordFamily: {
-            noun: [
-                { term: derivedNoun, vi: `dạng danh từ liên quan (${derivedNoun})` },
-                { term: clean + 'ness', vi: `tính chất, sự việc (${clean}ness)` }
+// Hàm tra cứu từ điển trực tuyến đa tầng (MyMemory + FreeDictionary API)
+window.lookupWordOnlineAsync = async function(inputWord) {
+    if (!inputWord) return null;
+    const clean = inputWord.trim().toLowerCase();
+
+    // 1. Kiểm tra nếu đã có trong bộ nhớ
+    if (window.dictionaryData[clean]) return window.dictionaryData[clean];
+
+    // 2. Gọi API backend qua /api/dictionary/lookup
+    try {
+        const res = await fetch(`/api/dictionary/lookup?word=${encodeURIComponent(clean)}`);
+        if (res.ok) {
+            const json = await res.json();
+            if (json && json.success && json.data) {
+                window.dictionaryData[clean] = json.data;
+                return json.data;
+            }
+        }
+    } catch (err) {
+        console.warn('Backend dictionary lookup fallback to client APIs:', err.message);
+    }
+
+    // 3. Dự phòng client-side trực tiếp nếu máy chủ offline (MyMemory + FreeDict)
+    try {
+        const isVn = (str) => {
+            if (!str || typeof str !== 'string') return false;
+            const s = str.trim();
+            if (s.length < 2) return false;
+            if (/^\((chiefly|archaic|informal|formal|slang|british|us)\)/i.test(s)) return false;
+            if (/^(an? |the |one of |to |having |relating to |characterized by )/i.test(s)) return false;
+            return /[àáảãạăắằẵặâấầẫậđèéẻẽẹêếềễệìíỉĩịòóỏõọôốồỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]/i.test(s);
+        };
+
+        let vi = '';
+        try {
+            const tRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(clean)}&langpair=en|vi`);
+            if (tRes.ok) {
+                const tJson = await tRes.json();
+                const trans = tJson?.responseData?.translatedText || '';
+                if (trans.toLowerCase() !== clean && isVn(trans)) {
+                    vi = trans;
+                }
+            }
+        } catch(e) {}
+
+        let phonetic = `/ˈ${clean}/`;
+        let partOfSpeech = clean.includes(' ') ? 'Cụm từ / Collocation' : 'General Vocabulary';
+        let definition = `A meaningful English term widely used in academic, business and daily communicative contexts.`;
+        let examples = [];
+        const wordFamily = { noun: [], verb: [], adj: [], adv: [] };
+
+        if (!clean.includes(' ')) {
+            try {
+                const dRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(clean)}`);
+                if (dRes.ok) {
+                    const dJson = await dRes.json();
+                    if (Array.isArray(dJson) && dJson.length > 0) {
+                        const it = dJson[0];
+                        phonetic = it.phonetic || it.phonetics?.find(p => p.text)?.text || phonetic;
+                        if (it.meanings && it.meanings.length > 0) {
+                            const rawPos = [...new Set(it.meanings.map(m => m.partOfSpeech.charAt(0).toUpperCase() + m.partOfSpeech.slice(1)))];
+                            const filteredPos = rawPos.filter(p => !['Preposition', 'Interjection', 'Article', 'Pronoun'].includes(p) || rawPos.length === 1);
+                            partOfSpeech = filteredPos.length <= 2 ? filteredPos.join(' & ') : `${filteredPos.slice(0, -1).join(', ')} & ${filteredPos[filteredPos.length - 1]}`;
+                            definition = it.meanings[0].definitions?.[0]?.definition || definition;
+                            it.meanings.forEach(m => {
+                                const p = m.partOfSpeech.toLowerCase();
+                                const d = m.definitions?.[0]?.definition || '';
+                                if (m.definitions?.[0]?.example) {
+                                    examples.push({ en: m.definitions[0].example, vi: `Ví dụ: "${m.definitions[0].example}"` });
+                                }
+                                const viTag = vi || `dạng ${p} của "${clean}"`;
+                                if (p.includes('noun') && !wordFamily.noun.some(x => x.term === clean)) wordFamily.noun.push({ term: clean, vi: viTag });
+                                else if (p.includes('verb') && !wordFamily.verb.some(x => x.term === clean)) wordFamily.verb.push({ term: clean, vi: viTag });
+                                else if ((p.includes('adj') || p.includes('adjective')) && !wordFamily.adj.some(x => x.term === clean)) wordFamily.adj.push({ term: clean, vi: viTag });
+                                else if ((p.includes('adv') || p.includes('adverb')) && !wordFamily.adv.some(x => x.term === clean)) wordFamily.adv.push({ term: clean, vi: viTag });
+                            });
+                        }
+                    }
+                }
+            } catch(e) {}
+        }
+
+        const finalVi = isVn(vi) ? vi : `Từ vựng tiếng Anh: "${clean}"`;
+        const fallbackEntry = {
+            word: inputWord.trim(),
+            phonetic: phonetic,
+            partOfSpeech: partOfSpeech,
+            vi: finalVi,
+            definition: definition,
+            examTag: "TOEIC / VSTEP Core Vocabulary",
+            wordFamily: wordFamily,
+            synonyms: [],
+            antonyms: [],
+            collocations: [
+                { en: `common use of ${clean}`, vi: `cách sử dụng thông dụng của ${clean}` }
             ],
-            verb: [
-                { term: derivedVerb, vi: `dạng động từ hành động (${derivedVerb})` }
-            ],
-            adj: [
-                { term: derivedAdj, vi: `dạng tính từ đặc tính (${derivedAdj})` },
-                { term: clean, vi: `thuộc về ${clean}` }
-            ],
-            adv: [
-                { term: derivedAdv, vi: `dạng trạng từ bổ nghĩa (${derivedAdv})` }
+            idioms: [],
+            toeicNote: `💡 Lưu ý thi cử: Xác định rõ từ loại của "${clean}" dựa trên từ đứng ngay trước và ngay sau trong câu.`,
+            examples: examples.length > 0 ? examples.slice(0, 3) : [
+                { en: `You should learn how to use "${clean}" in appropriate contexts.`, vi: `Bạn nên học cách sử dụng "${clean}" trong đúng ngữ cảnh phù hợp.` }
             ]
-        },
-        synonyms: [`vital ${clean}`, `essential`, `appropriate`, `notable`, `significant`],
-        antonyms: [`unrelated`, `opposite`, `ineffective`],
-        collocations: [
-            { en: `apply ${clean} in practice`, vi: `áp dụng ${clean} vào thực tế` },
-            { en: `a key ${clean} factor`, vi: `yếu tố ${clean} then chốt` },
-            { en: `enhance and improve ${clean}`, vi: `nâng cao và cải thiện ${clean}` },
-            { en: `modern ${clean} approach`, vi: `cách tiếp cận ${clean} hiện đại` }
-        ],
-        idioms: [
-            { en: `make the most of ${clean}`, vi: `tận dụng tối đa giá trị của ${clean}` },
-            { en: `pay close attention to ${clean}`, vi: `chú ý đặc biệt đến ${clean}` }
-        ],
-        toeicNote: `💡 Gợi ý học từ: Khi gặp "${clean}" trong đề thi TOEIC/VSTEP, hãy chú ý vị trí đứng trước danh từ (cần Tính từ) hoặc sau giới từ (cần Danh từ hoặc V-ing).`,
-        examples: [
-            { en: `Understanding the essence of "${clean}" is crucial for your professional career.`, vi: `Hiểu rõ bản chất của "${clean}" là điều cốt yếu cho sự nghiệp của bạn.` },
-            { en: `She demonstrated how "${clean}" can be leveraged to solve complex problems.`, vi: `Cô ấy đã chứng minh cách áp dụng "${clean}" để giải quyết các vấn đề phức tạp.` }
-        ]
-    };
+        };
+
+        window.dictionaryData[clean] = fallbackEntry;
+        return fallbackEntry;
+    } catch (e) {
+        console.error('All online dictionary lookups failed:', e);
+        return null;
+    }
 };
 
 console.log("Dictionary and Word Family database initialized successfully.");
+

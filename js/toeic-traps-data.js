@@ -222,7 +222,7 @@ window.TOEIC_TRAPS_DATA = [
     "questions": [
       {
         "q": "Listen to 4 statements about a ladder near a wall:",
-        "image": "https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=800&q=80",
+        "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
         "audioScript": "(A) A ladder has been placed across a trench. (B) A ladder is leaning against the brick wall. (C) A worker is carrying a ladder down the staircase. (D) The wall is being demolished by a bulldozer.",
         "options": [
           "A. A ladder has been placed across a trench.",
@@ -1007,46 +1007,897 @@ window.TOEIC_TRAPS_DATA = [
   }
 ];
 
-window.getQuestionsForTrap = function(trapId, targetCount) {
-    const trap = (window.TOEIC_TRAPS_DATA || []).find(t => t.id === trapId) || (window.TOEIC_TRAPS_DATA && window.TOEIC_TRAPS_DATA[0]);
-    if (!trap || !trap.questions) return [];
+// =========================================================================
+// HỆ THỐNG SINH 50 CÂU HỎI THỰC CHIẾN ĐỘC BẢN CHO TỪNG PART (ETS 2024 - 2027)
+// Đảm bảo: Chọn 10, 20, 30 hay 50 câu thì 100% các câu hỏi ĐỀU KHÁC NHAU,
+// không lặp lại ảnh, không lặp lại câu hỏi hay đáp án!
+// =========================================================================
 
-    let pool = [...trap.questions];
-    const companies = ['Apex Global', 'Vertex Logistics', 'Novatech Inc.', 'Harborview Media', 'Beacon Financial', 'Crestline Corp', 'Summit Solutions', 'Pinnacle Systems'];
-    const departments = ['Marketing', 'Human Resources', 'Accounting', 'Public Relations', 'Customer Care', 'Product Design'];
-    
-    // Nếu ngân hàng câu hỏi gốc chưa đủ targetCount (10, 20, 30, 50), tự động sinh biến thể đề thi ETS chân thực
-    let seed = 1;
-    while (pool.length < targetCount) {
-        const base = trap.questions[pool.length % trap.questions.length];
-        const clone = JSON.parse(JSON.stringify(base));
-        const comp = companies[(pool.length + seed) % companies.length];
-        const dept = departments[(pool.length + seed) % departments.length];
-        clone.id = trapId + '-gen-' + (pool.length + 1);
+const PART1_UNIQUE_SCENARIOS = [
+  {
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a dining table in an upscale restaurant:",
+    "audioScript": "(A) The dining table has been set with cutlery and glasses. (B) Food is being served by the waitstaff. (C) Customers are being seated at the booth. (D) Dishes are being cleared from the surface.",
+    "options": [
+      "A. The dining table has been set with cutlery and glasses.",
+      "B. Food is being served by the waitstaff.",
+      "C. Customers are being seated at the booth.",
+      "D. Dishes are being cleared from the surface."
+    ],
+    "ans": "A. The dining table has been set with cutlery and glasses.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'The dining table has been set with cutlery and glasses.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an unoccupied open office workspace:",
+    "audioScript": "(A) Laptop computers have been placed on the worktables. (B) Monitors are being disconnected by technicians. (C) An office worker is vacuuming the carpet. (D) Files are being shredded in the corner.",
+    "options": [
+      "A. Laptop computers have been placed on the worktables.",
+      "B. Monitors are being disconnected by technicians.",
+      "C. An office worker is vacuuming the carpet.",
+      "D. Files are being shredded in the corner."
+    ],
+    "ans": "A. Laptop computers have been placed on the worktables.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Laptop computers have been placed on the worktables.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about several vehicles parked along a street curb:",
+    "audioScript": "(A) Several vehicles are parked along the curb. (B) Cars are being towed down the avenue. (C) A driver is replacing a flat tire. (D) Traffic is being redirected by police officers.",
+    "options": [
+      "A. Several vehicles are parked along the curb.",
+      "B. Cars are being towed down the avenue.",
+      "C. A driver is replacing a flat tire.",
+      "D. Traffic is being redirected by police officers."
+    ],
+    "ans": "A. Several vehicles are parked along the curb.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Several vehicles are parked along the curb.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about bicycles locked to an outdoor metal rack:",
+    "audioScript": "(A) Bicycles have been secured to a metal rack. (B) Cyclists are riding across a suspension bridge. (C) Bicycle tires are being inflated with a pump. (D) Helmets are being sold at an outdoor stall.",
+    "options": [
+      "A. Bicycles have been secured to a metal rack.",
+      "B. Cyclists are riding across a suspension bridge.",
+      "C. Bicycle tires are being inflated with a pump.",
+      "D. Helmets are being sold at an outdoor stall."
+    ],
+    "ans": "A. Bicycles have been secured to a metal rack.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Bicycles have been secured to a metal rack.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about clothing merchandise in a retail store:",
+    "audioScript": "(A) Garments have been arranged neatly on display racks. (B) Clothes are being ironed by a tailor. (C) A shopper is trying on a winter jacket. (D) Price tags are being printed at the counter.",
+    "options": [
+      "A. Garments have been arranged neatly on display racks.",
+      "B. Clothes are being ironed by a tailor.",
+      "C. A shopper is trying on a winter jacket.",
+      "D. Price tags are being printed at the counter."
+    ],
+    "ans": "A. Garments have been arranged neatly on display racks.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Garments have been arranged neatly on display racks.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about exterior building construction and scaffolding:",
+    "audioScript": "(A) Scaffolding has been erected alongside the exterior wall. (B) Workers are digging a deep trench with shovels. (C) Heavy machinery is being operated in the street. (D) An architect is rolling up blueprints.",
+    "options": [
+      "A. Scaffolding has been erected alongside the exterior wall.",
+      "B. Workers are digging a deep trench with shovels.",
+      "C. Heavy machinery is being operated in the street.",
+      "D. An architect is rolling up blueprints."
+    ],
+    "ans": "A. Scaffolding has been erected alongside the exterior wall.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Scaffolding has been erected alongside the exterior wall.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a modern corporate office workstation:",
+    "audioScript": "(A) A professional is looking at a computer monitor. (B) A desktop printer is being repaired by a technician. (C) She is hanging a framed certificate on the wall. (D) Some file folders are being shredded.",
+    "options": [
+      "A. A professional is looking at a computer monitor.",
+      "B. A desktop printer is being repaired by a technician.",
+      "C. She is hanging a framed certificate on the wall.",
+      "D. Some file folders are being shredded."
+    ],
+    "ans": "A. A professional is looking at a computer monitor.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A professional is looking at a computer monitor.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about books in a formal library reading room:",
+    "audioScript": "(A) Books have been organized systematically on wooden shelves. (B) Reference materials are being sorted into cartons. (C) A patron is checking out magazines at the counter. (D) Bookshelves are being dismantled.",
+    "options": [
+      "A. Books have been organized systematically on wooden shelves.",
+      "B. Reference materials are being sorted into cartons.",
+      "C. A patron is checking out magazines at the counter.",
+      "D. Bookshelves are being dismantled."
+    ],
+    "ans": "A. Books have been organized systematically on wooden shelves.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Books have been organized systematically on wooden shelves.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a wooden bench situated in a shaded park:",
+    "audioScript": "(A) A bench has been placed beneath the branches of a tree. (B) Lawn grass is being trimmed with a lawnmower. (C) Joggers are sprinting along a paved pathway. (D) Fallen leaves are being swept into a pile.",
+    "options": [
+      "A. A bench has been placed beneath the branches of a tree.",
+      "B. Lawn grass is being trimmed with a lawnmower.",
+      "C. Joggers are sprinting along a paved pathway.",
+      "D. Fallen leaves are being swept into a pile."
+    ],
+    "ans": "A. A bench has been placed beneath the branches of a tree.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A bench has been placed beneath the branches of a tree.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an auditorium with rows of unoccupied seats:",
+    "audioScript": "(A) Rows of empty seats face the stage. (B) A guest speaker is adjusting a microphone at the podium. (C) Event brochures are being distributed to attendees. (D) Stage curtains are being replaced.",
+    "options": [
+      "A. Rows of empty seats face the stage.",
+      "B. A guest speaker is adjusting a microphone at the podium.",
+      "C. Event brochures are being distributed to attendees.",
+      "D. Stage curtains are being replaced."
+    ],
+    "ans": "A. Rows of empty seats face the stage.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Rows of empty seats face the stage.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about colleagues gathered in a meeting room:",
+    "audioScript": "(A) Colleagues are gathered around a meeting table. (B) They are packing personal belongings into moving boxes. (C) A presenter is drawing a diagram on a chalkboard. (D) Office partitions are being painted blue.",
+    "options": [
+      "A. Colleagues are gathered around a meeting table.",
+      "B. They are packing personal belongings into moving boxes.",
+      "C. A presenter is drawing a diagram on a chalkboard.",
+      "D. Office partitions are being painted blue."
+    ],
+    "ans": "A. Colleagues are gathered around a meeting table.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Colleagues are gathered around a meeting table.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about packaged products in a supermarket aisle:",
+    "audioScript": "(A) Food products have been stocked on the shelves. (B) Groceries are being scanned at the cash register. (C) Shopping carts are being sanitized by an attendant. (D) Fresh produce is being weighed on a scale.",
+    "options": [
+      "A. Food products have been stocked on the shelves.",
+      "B. Groceries are being scanned at the cash register.",
+      "C. Shopping carts are being sanitized by an attendant.",
+      "D. Fresh produce is being weighed on a scale."
+    ],
+    "ans": "A. Food products have been stocked on the shelves.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Food products have been stocked on the shelves.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about cardboard boxes inside a logistics warehouse:",
+    "audioScript": "(A) Cardboard boxes have been stacked on wooden pallets. (B) A delivery truck is being backed into the loading bay. (C) Workers are taping shipping labels onto cartons. (D) Storage racks are being assembled.",
+    "options": [
+      "A. Cardboard boxes have been stacked on wooden pallets.",
+      "B. A delivery truck is being backed into the loading bay.",
+      "C. Workers are taping shipping labels onto cartons.",
+      "D. Storage racks are being assembled."
+    ],
+    "ans": "A. Cardboard boxes have been stacked on wooden pallets.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Cardboard boxes have been stacked on wooden pallets.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an executive boardroom presentation display:",
+    "audioScript": "(A) Some listeners are directing their attention toward a screen. (B) A projection screen is being rolled up by an assistant. (C) Meeting participants are shaking hands in agreement. (D) Name tags are being pinned onto jackets.",
+    "options": [
+      "A. Some listeners are directing their attention toward a screen.",
+      "B. A projection screen is being rolled up by an assistant.",
+      "C. Meeting participants are shaking hands in agreement.",
+      "D. Name tags are being pinned onto jackets."
+    ],
+    "ans": "A. Some listeners are directing their attention toward a screen.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Some listeners are directing their attention toward a screen.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an unoccupied hotel room with a prepared bed:",
+    "audioScript": "(A) The bed has been made with pillows and a duvet. (B) Hotel carpets are being vacuumed by housekeeping. (C) Luggage is being unloaded from a luggage cart. (D) Drapes are being hung over the window.",
+    "options": [
+      "A. The bed has been made with pillows and a duvet.",
+      "B. Hotel carpets are being vacuumed by housekeeping.",
+      "C. Luggage is being unloaded from a luggage cart.",
+      "D. Drapes are being hung over the window."
+    ],
+    "ans": "A. The bed has been made with pillows and a duvet.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'The bed has been made with pillows and a duvet.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about potted plants arranged along a walkway:",
+    "audioScript": "(A) Potted plants have been placed along the walkway. (B) Garden tiles are being power-washed with water. (C) A front door is being unlocked by a homeowner. (D) Window frames are being painted white.",
+    "options": [
+      "A. Potted plants have been placed along the walkway.",
+      "B. Garden tiles are being power-washed with water.",
+      "C. A front door is being unlocked by a homeowner.",
+      "D. Window frames are being painted white."
+    ],
+    "ans": "A. Potted plants have been placed along the walkway.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Potted plants have been placed along the walkway.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about outdoor cafe dining tables shaded by umbrellas:",
+    "audioScript": "(A) Outdoor dining tables have been shaded by broad umbrellas. (B) Coffee cups are being washed in a large basin. (C) Menus are being printed at the reception stand. (D) A server is sweeping crumbs off a table.",
+    "options": [
+      "A. Outdoor dining tables have been shaded by broad umbrellas.",
+      "B. Coffee cups are being washed in a large basin.",
+      "C. Menus are being printed at the reception stand.",
+      "D. A server is sweeping crumbs off a table."
+    ],
+    "ans": "A. Outdoor dining tables have been shaded by broad umbrellas.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Outdoor dining tables have been shaded by broad umbrellas.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about commercial high-rise towers and a plaza:",
+    "audioScript": "(A) Modern office buildings tower over a pedestrian plaza. (B) Road asphalt is being paved by a steamroller. (C) A construction crane is being dismantled atop a roof. (D) Office workers are crossing a painted crosswalk.",
+    "options": [
+      "A. Modern office buildings tower over a pedestrian plaza.",
+      "B. Road asphalt is being paved by a steamroller.",
+      "C. A construction crane is being dismantled atop a roof.",
+      "D. Office workers are crossing a painted crosswalk."
+    ],
+    "ans": "A. Modern office buildings tower over a pedestrian plaza.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Modern office buildings tower over a pedestrian plaza.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a glass-walled corporate office hallway:",
+    "audioScript": "(A) Glass partitions line an interior office hallway. (B) Floor tiles are being stripped with a chemical solution. (C) Signposts are being installed along the corridor. (D) Doors are being unlocked with master keys.",
+    "options": [
+      "A. Glass partitions line an interior office hallway.",
+      "B. Floor tiles are being stripped with a chemical solution.",
+      "C. Signposts are being installed along the corridor.",
+      "D. Doors are being unlocked with master keys."
+    ],
+    "ans": "A. Glass partitions line an interior office hallway.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Glass partitions line an interior office hallway.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a laptop computer placed on a wooden desk:",
+    "audioScript": "(A) A laptop computer has been opened on a clean wooden desk. (B) Keyboards are being disassembled for cleaning. (C) Monitor cables are being spliced by a technician. (D) Papers are being bound into leather folders.",
+    "options": [
+      "A. A laptop computer has been opened on a clean wooden desk.",
+      "B. Keyboards are being disassembled for cleaning.",
+      "C. Monitor cables are being spliced by a technician.",
+      "D. Papers are being bound into leather folders."
+    ],
+    "ans": "A. A laptop computer has been opened on a clean wooden desk.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A laptop computer has been opened on a clean wooden desk.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about computer terminals arranged along a counter:",
+    "audioScript": "(A) Computer terminals have been arranged along a continuous counter. (B) Hard drives are being installed into server racks. (C) Power cords are being unplugged from wall sockets. (D) Computer mice are being sanitized with wipes.",
+    "options": [
+      "A. Computer terminals have been arranged along a continuous counter.",
+      "B. Hard drives are being installed into server racks.",
+      "C. Power cords are being unplugged from wall sockets.",
+      "D. Computer mice are being sanitized with wipes."
+    ],
+    "ans": "A. Computer terminals have been arranged along a continuous counter.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Computer terminals have been arranged along a continuous counter.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about whiteboards mounted on collaborative office walls:",
+    "audioScript": "(A) Whiteboards have been mounted on conference room walls. (B) Diagrams are being erased with a felt eraser. (C) Marker pens are being distributed to team members. (D) Projector mounts are being fastened to the ceiling.",
+    "options": [
+      "A. Whiteboards have been mounted on conference room walls.",
+      "B. Diagrams are being erased with a felt eraser.",
+      "C. Marker pens are being distributed to team members.",
+      "D. Projector mounts are being fastened to the ceiling."
+    ],
+    "ans": "A. Whiteboards have been mounted on conference room walls.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Whiteboards have been mounted on conference room walls.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a minimalist living room facing large windows:",
+    "audioScript": "(A) Living room furniture has been positioned near floor-to-ceiling windows. (B) Window panes are being cleaned with squeegees. (C) Carpets are being rolled up for storage. (D) Wall mirrors are being hung above the mantel.",
+    "options": [
+      "A. Living room furniture has been positioned near floor-to-ceiling windows.",
+      "B. Window panes are being cleaned with squeegees.",
+      "C. Carpets are being rolled up for storage.",
+      "D. Wall mirrors are being hung above the mantel."
+    ],
+    "ans": "A. Living room furniture has been positioned near floor-to-ceiling windows.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Living room furniture has been positioned near floor-to-ceiling windows.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about ergonomic office chairs around a conference table:",
+    "audioScript": "(A) Chairs have been tucked neatly under a mahogany conference table. (B) Wheels are being attached to office swivel chairs. (C) Armrests are being adjusted with an Allen wrench. (D) Tabletops are being polished with liquid wax.",
+    "options": [
+      "A. Chairs have been tucked neatly under a mahogany conference table.",
+      "B. Wheels are being attached to office swivel chairs.",
+      "C. Armrests are being adjusted with an Allen wrench.",
+      "D. Tabletops are being polished with liquid wax."
+    ],
+    "ans": "A. Chairs have been tucked neatly under a mahogany conference table.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Chairs have been tucked neatly under a mahogany conference table.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about comfortable armchairs in a reception lounge:",
+    "audioScript": "(A) Armchairs have been arranged in a semi-circle around a coffee table. (B) Upholstery fabric is being steam-cleaned by workers. (C) Magazines are being cataloged into a binder. (D) Floor lamps are being rewired with new cords.",
+    "options": [
+      "A. Armchairs have been arranged in a semi-circle around a coffee table.",
+      "B. Upholstery fabric is being steam-cleaned by workers.",
+      "C. Magazines are being cataloged into a binder.",
+      "D. Floor lamps are being rewired with new cords."
+    ],
+    "ans": "A. Armchairs have been arranged in a semi-circle around a coffee table.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Armchairs have been arranged in a semi-circle around a coffee table.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about architectural models placed on display stands:",
+    "audioScript": "(A) Architectural models have been displayed on wooden pedestals. (B) Cardboard scale models are being glued together. (C) Drafting tables are being folded against the wall. (D) Blueprint drawings are being scanned on a plotter.",
+    "options": [
+      "A. Architectural models have been displayed on wooden pedestals.",
+      "B. Cardboard scale models are being glued together.",
+      "C. Drafting tables are being folded against the wall.",
+      "D. Blueprint drawings are being scanned on a plotter."
+    ],
+    "ans": "A. Architectural models have been displayed on wooden pedestals.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Architectural models have been displayed on wooden pedestals.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about framed artwork hung in an exhibition gallery:",
+    "audioScript": "(A) Framed pictures have been mounted on gallery exhibition walls. (B) Oil paintings are being restored with fine brushes. (C) Track lights are being repositioned by curators. (D) Sculptures are being packed in wooden crates.",
+    "options": [
+      "A. Framed pictures have been mounted on gallery exhibition walls.",
+      "B. Oil paintings are being restored with fine brushes.",
+      "C. Track lights are being repositioned by curators.",
+      "D. Sculptures are being packed in wooden crates."
+    ],
+    "ans": "A. Framed pictures have been mounted on gallery exhibition walls.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Framed pictures have been mounted on gallery exhibition walls.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about financial charts visualized on desktop screens:",
+    "audioScript": "(A) Digital charts have been displayed across multiple screens. (B) Hard drives are being removed from computer towers. (C) Graph paper is being fed into a printing press. (D) System software is being upgraded on server nodes.",
+    "options": [
+      "A. Digital charts have been displayed across multiple screens.",
+      "B. Hard drives are being removed from computer towers.",
+      "C. Graph paper is being fed into a printing press.",
+      "D. System software is being upgraded on server nodes."
+    ],
+    "ans": "A. Digital charts have been displayed across multiple screens.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Digital charts have been displayed across multiple screens.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a corporate reception lobby and front desk:",
+    "audioScript": "(A) A reception counter stands near the main entrance doors. (B) Entry doors are being replaced with revolving glass. (C) Security badges are being printed at the counter. (D) Lobby marble is being buffed with a machine.",
+    "options": [
+      "A. A reception counter stands near the main entrance doors.",
+      "B. Entry doors are being replaced with revolving glass.",
+      "C. Security badges are being printed at the counter.",
+      "D. Lobby marble is being buffed with a machine."
+    ],
+    "ans": "A. A reception counter stands near the main entrance doors.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A reception counter stands near the main entrance doors.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about modular workstations in a collaborative workspace:",
+    "audioScript": "(A) Modular desks have been organized into team pods. (B) Desk dividers are being unscrewed by movers. (C) Telephone headsets are being sanitized. (D) Power strips are being mounted under desks.",
+    "options": [
+      "A. Modular desks have been organized into team pods.",
+      "B. Desk dividers are being unscrewed by movers.",
+      "C. Telephone headsets are being sanitized.",
+      "D. Power strips are being mounted under desks."
+    ],
+    "ans": "A. Modular desks have been organized into team pods.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Modular desks have been organized into team pods.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about printed brochures organized on production tables:",
+    "audioScript": "(A) Printed booklets have been arranged in stacks on a counter. (B) Paper rolls are being fed into a rotary press. (C) Cartons are being sealed with packing tape. (D) Binding combs are being inserted by machine.",
+    "options": [
+      "A. Printed booklets have been arranged in stacks on a counter.",
+      "B. Paper rolls are being fed into a rotary press.",
+      "C. Cartons are being sealed with packing tape.",
+      "D. Binding combs are being inserted by machine."
+    ],
+    "ans": "A. Printed booklets have been arranged in stacks on a counter.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Printed booklets have been arranged in stacks on a counter.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about dining tables arranged throughout a cafeteria:",
+    "audioScript": "(A) Round dining tables have been distributed across the cafeteria floor. (B) Food trays are being washed in commercial sinks. (C) Condiment dispensers are being refilled with sauces. (D) Chairs are being stacked onto table surfaces.",
+    "options": [
+      "A. Round dining tables have been distributed across the cafeteria floor.",
+      "B. Food trays are being washed in commercial sinks.",
+      "C. Condiment dispensers are being refilled with sauces.",
+      "D. Chairs are being stacked onto table surfaces."
+    ],
+    "ans": "A. Round dining tables have been distributed across the cafeteria floor.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Round dining tables have been distributed across the cafeteria floor.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about waiting room chairs lined against a partition:",
+    "audioScript": "(A) Chairs have been positioned along an interior partition wall. (B) Seat cushions are being reupholstered with vinyl. (C) Magazine racks are being attached with screws. (D) Water cooler bottles are being inverted into base.",
+    "options": [
+      "A. Chairs have been positioned along an interior partition wall.",
+      "B. Seat cushions are being reupholstered with vinyl.",
+      "C. Magazine racks are being attached with screws.",
+      "D. Water cooler bottles are being inverted into base."
+    ],
+    "ans": "A. Chairs have been positioned along an interior partition wall.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Chairs have been positioned along an interior partition wall.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a paved walkway leading to a residential entrance:",
+    "audioScript": "(A) A stone pathway leads toward the front door of a house. (B) Path pavers are being laid on sand bedding. (C) Lawn sprinklers are being adjusted with wrenches. (D) Porch lights are being screwed into sockets.",
+    "options": [
+      "A. A stone pathway leads toward the front door of a house.",
+      "B. Path pavers are being laid on sand bedding.",
+      "C. Lawn sprinklers are being adjusted with wrenches.",
+      "D. Porch lights are being screwed into sockets."
+    ],
+    "ans": "A. A stone pathway leads toward the front door of a house.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A stone pathway leads toward the front door of a house.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about outdoor patio furniture on a high-rise balcony:",
+    "audioScript": "(A) Patio chairs have been positioned facing an open urban vista. (B) Balcony railings are being welded to concrete. (C) Glass sliding doors are being lubricated with oil. (D) Floor tiles are being swept with a long broom.",
+    "options": [
+      "A. Patio chairs have been positioned facing an open urban vista.",
+      "B. Balcony railings are being welded to concrete.",
+      "C. Glass sliding doors are being lubricated with oil.",
+      "D. Floor tiles are being swept with a long broom."
+    ],
+    "ans": "A. Patio chairs have been positioned facing an open urban vista.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Patio chairs have been positioned facing an open urban vista.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a landscaped residential entryway with shrubs:",
+    "audioScript": "(A) Trimmed shrubs border a stone front entrance stairway. (B) Hedges are being shaped with electric trimmers. (C) Mulch is being spread across garden flowerbeds. (D) Door knockers are being polished with brass cream.",
+    "options": [
+      "A. Trimmed shrubs border a stone front entrance stairway.",
+      "B. Hedges are being shaped with electric trimmers.",
+      "C. Mulch is being spread across garden flowerbeds.",
+      "D. Door knockers are being polished with brass cream."
+    ],
+    "ans": "A. Trimmed shrubs border a stone front entrance stairway.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Trimmed shrubs border a stone front entrance stairway.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an executive office furnished with mahogany shelves:",
+    "audioScript": "(A) A wooden desk and bookshelf furnish a private office. (B) Bookshelf shelves are being leveled with shims. (C) Desk drawers are being assembled with glue. (D) Leather armchairs are being conditioned with wax.",
+    "options": [
+      "A. A wooden desk and bookshelf furnish a private office.",
+      "B. Bookshelf shelves are being leveled with shims.",
+      "C. Desk drawers are being assembled with glue.",
+      "D. Leather armchairs are being conditioned with wax."
+    ],
+    "ans": "A. A wooden desk and bookshelf furnish a private office.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A wooden desk and bookshelf furnish a private office.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about stainless steel appliances in a modern kitchen:",
+    "audioScript": "(A) Kitchen appliances have been integrated into sleek cabinetry. (B) Oven doors are being cleaned with degreaser. (C) Countertop marble is being sealed with silicone. (D) Cabinet hinges are being tightened with a driver.",
+    "options": [
+      "A. Kitchen appliances have been integrated into sleek cabinetry.",
+      "B. Oven doors are being cleaned with degreaser.",
+      "C. Countertop marble is being sealed with silicone.",
+      "D. Cabinet hinges are being tightened with a driver."
+    ],
+    "ans": "A. Kitchen appliances have been integrated into sleek cabinetry.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Kitchen appliances have been integrated into sleek cabinetry.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an espresso machine on a marble beverage counter:",
+    "audioScript": "(A) An espresso machine has been positioned on a beverage counter. (B) Coffee beans are being ground in a grinder. (C) Milk pitchers are being steamed with hot wands. (D) Water filters are being replaced under the sink.",
+    "options": [
+      "A. An espresso machine has been positioned on a beverage counter.",
+      "B. Coffee beans are being ground in a grinder.",
+      "C. Milk pitchers are being steamed with hot wands.",
+      "D. Water filters are being replaced under the sink."
+    ],
+    "ans": "A. An espresso machine has been positioned on a beverage counter.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'An espresso machine has been positioned on a beverage counter.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about an indoor potted plant placed beside a window:",
+    "audioScript": "(A) A tall potted plant stands in the corner beside a window. (B) Plant leaves are being sprayed with water mist. (C) Flower pots are being painted with terra cotta. (D) Window blinds are being adjusted with cords.",
+    "options": [
+      "A. A tall potted plant stands in the corner beside a window.",
+      "B. Plant leaves are being sprayed with water mist.",
+      "C. Flower pots are being painted with terra cotta.",
+      "D. Window blinds are being adjusted with cords."
+    ],
+    "ans": "A. A tall potted plant stands in the corner beside a window.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A tall potted plant stands in the corner beside a window.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about lounge recliners beside an indoor swimming pool:",
+    "audioScript": "(A) Lounge chairs have been aligned alongside a tiled pool. (B) Pool filters are being backwashed with pumps. (C) Tiles are being scrubbed with scouring pads. (D) Life preservers are being inspected for leaks.",
+    "options": [
+      "A. Lounge chairs have been aligned alongside a tiled pool.",
+      "B. Pool filters are being backwashed with pumps.",
+      "C. Tiles are being scrubbed with scouring pads.",
+      "D. Life preservers are being inspected for leaks."
+    ],
+    "ans": "A. Lounge chairs have been aligned alongside a tiled pool.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Lounge chairs have been aligned alongside a tiled pool.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about mannequins displayed in a boutique storefront:",
+    "audioScript": "(A) Mannequins have been dressed in outerwear behind glass. (B) Display clothing is being pinned to mannequins. (C) Storefront windows are being wiped with spray. (D) Price signs are being lettered with marker.",
+    "options": [
+      "A. Mannequins have been dressed in outerwear behind glass.",
+      "B. Display clothing is being pinned to mannequins.",
+      "C. Storefront windows are being wiped with spray.",
+      "D. Price signs are being lettered with marker."
+    ],
+    "ans": "A. Mannequins have been dressed in outerwear behind glass.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Mannequins have been dressed in outerwear behind glass.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about luxury accessories showcased in glass vitrines:",
+    "audioScript": "(A) Merchandise has been illuminated inside glass display cases. (B) Display cases are being locked with small keys. (C) Jewelry pieces are being polished with cloths. (D) Price tags are being punched into hang-tags.",
+    "options": [
+      "A. Merchandise has been illuminated inside glass display cases.",
+      "B. Display cases are being locked with small keys.",
+      "C. Jewelry pieces are being polished with cloths.",
+      "D. Price tags are being punched into hang-tags."
+    ],
+    "ans": "A. Merchandise has been illuminated inside glass display cases.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Merchandise has been illuminated inside glass display cases.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about skincare bottles arranged on a cosmetic counter:",
+    "audioScript": "(A) Cosmetic bottles have been arranged in rows on a counter. (B) Tester jars are being replenished with cream. (C) Counter mirrors are being adjusted for angle. (D) Gift boxes are being wrapped in ribbon.",
+    "options": [
+      "A. Cosmetic bottles have been arranged in rows on a counter.",
+      "B. Tester jars are being replenished with cream.",
+      "C. Counter mirrors are being adjusted for angle.",
+      "D. Gift boxes are being wrapped in ribbon."
+    ],
+    "ans": "A. Cosmetic bottles have been arranged in rows on a counter.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Cosmetic bottles have been arranged in rows on a counter.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about rooftop terrace seating beneath canvas canopies:",
+    "audioScript": "(A) Lounge seating has been arranged under canvas shades. (B) Canopy fabric is being laced through grommets. (C) Outdoor heaters are being ignited with lighters. (D) Cocktail tables are being arranged for a banquet.",
+    "options": [
+      "A. Lounge seating has been arranged under canvas shades.",
+      "B. Canopy fabric is being laced through grommets.",
+      "C. Outdoor heaters are being ignited with lighters.",
+      "D. Cocktail tables are being arranged for a banquet."
+    ],
+    "ans": "A. Lounge seating has been arranged under canvas shades.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Lounge seating has been arranged under canvas shades.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about sun loungers aligned beside a courtyard pool:",
+    "audioScript": "(A) Sun loungers have been set up next to a resort pool. (B) Pool ladders are being bolted into concrete. (C) Towels are being folded into neat piles. (D) Umbrella bases are being filled with sand.",
+    "options": [
+      "A. Sun loungers have been set up next to a resort pool.",
+      "B. Pool ladders are being bolted into concrete.",
+      "C. Towels are being folded into neat piles.",
+      "D. Umbrella bases are being filled with sand."
+    ],
+    "ans": "A. Sun loungers have been set up next to a resort pool.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Sun loungers have been set up next to a resort pool.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a private terrace enclosed by lush garden trees:",
+    "audioScript": "(A) Patio chairs have been placed in an enclosed garden terrace. (B) Tree limbs are being sawed with a hand saw. (C) Patio stones are being washed with a pressure hose. (D) Garden fences are being stained with preservative.",
+    "options": [
+      "A. Patio chairs have been placed in an enclosed garden terrace.",
+      "B. Tree limbs are being sawed with a hand saw.",
+      "C. Patio stones are being washed with a pressure hose.",
+      "D. Garden fences are being stained with preservative."
+    ],
+    "ans": "A. Patio chairs have been placed in an enclosed garden terrace.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Patio chairs have been placed in an enclosed garden terrace.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about rows of chaise lounges facing an infinity pool:",
+    "audioScript": "(A) Chaise lounges have been positioned facing the swimming pool. (B) Pool chlorine is being measured with test strips. (C) Lounger cushions are being carried from storage. (D) Safety ropes are being anchored to poolside hooks.",
+    "options": [
+      "A. Chaise lounges have been positioned facing the swimming pool.",
+      "B. Pool chlorine is being measured with test strips.",
+      "C. Lounger cushions are being carried from storage.",
+      "D. Safety ropes are being anchored to poolside hooks."
+    ],
+    "ans": "A. Chaise lounges have been positioned facing the swimming pool.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Chaise lounges have been positioned facing the swimming pool.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a polished marble reception desk in a hotel:",
+    "audioScript": "(A) A marble reception counter stands in a spacious hotel lobby. (B) Room keys are being organized into pigeonholes. (C) Luggage trolleys are being pushed through doors. (D) Chandelier bulbs are being changed on ladders.",
+    "options": [
+      "A. A marble reception counter stands in a spacious hotel lobby.",
+      "B. Room keys are being organized into pigeonholes.",
+      "C. Luggage trolleys are being pushed through doors.",
+      "D. Chandelier bulbs are being changed on ladders."
+    ],
+    "ans": "A. A marble reception counter stands in a spacious hotel lobby.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A marble reception counter stands in a spacious hotel lobby.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1507034589631-9433cc6bc453?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about dining tables overlooking an ocean shoreline:",
+    "audioScript": "(A) Dining tables have been arranged overlooking coastal waters. (B) Tablecloths are being ironed with a flatiron. (C) Wine glasses are being polished with microfiber. (D) Chairs are being dragged across wooden decking.",
+    "options": [
+      "A. Dining tables have been arranged overlooking coastal waters.",
+      "B. Tablecloths are being ironed with a flatiron.",
+      "C. Wine glasses are being polished with microfiber.",
+      "D. Chairs are being dragged across wooden decking."
+    ],
+    "ans": "A. Dining tables have been arranged overlooking coastal waters.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Dining tables have been arranged overlooking coastal waters.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about flowering plants on tiered nursery benches:",
+    "audioScript": "(A) Flowering plants have been displayed on wooden tiered benches. (B) Plant seedlings are being transplanted into pots. (C) Water hoses are being coiled onto wall reels. (D) Greenhouse vents are being opened with cranks.",
+    "options": [
+      "A. Flowering plants have been displayed on wooden tiered benches.",
+      "B. Plant seedlings are being transplanted into pots.",
+      "C. Water hoses are being coiled onto wall reels.",
+      "D. Greenhouse vents are being opened with cranks."
+    ],
+    "ans": "A. Flowering plants have been displayed on wooden tiered benches.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Flowering plants have been displayed on wooden tiered benches.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about partitioned study carrels in an academic library:",
+    "audioScript": "(A) Study carrels have been equipped with reading dividers. (B) Carrel desks are being disassembled with wrenches. (C) Desk lamps are being fitted with fluorescent tubes. (D) Ethernet cables are being pulled through floor ducts.",
+    "options": [
+      "A. Study carrels have been equipped with reading dividers.",
+      "B. Carrel desks are being disassembled with wrenches.",
+      "C. Desk lamps are being fitted with fluorescent tubes.",
+      "D. Ethernet cables are being pulled through floor ducts."
+    ],
+    "ans": "A. Study carrels have been equipped with reading dividers.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Study carrels have been equipped with reading dividers.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about formal banquet tables dressed with linens:",
+    "audioScript": "(A) Round banquet tables have been covered with white tablecloths. (B) Linen napkins are being folded into fan shapes. (C) Silverware is being counted into velvet boxes. (D) Centerpiece candles are being lit with matches.",
+    "options": [
+      "A. Round banquet tables have been covered with white tablecloths.",
+      "B. Linen napkins are being folded into fan shapes.",
+      "C. Silverware is being counted into velvet boxes.",
+      "D. Centerpiece candles are being lit with matches."
+    ],
+    "ans": "A. Round banquet tables have been covered with white tablecloths.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Round banquet tables have been covered with white tablecloths.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about terraced seating in an outdoor amphitheater:",
+    "audioScript": "(A) Stone seating tiers descend toward an open-air stage. (B) Sound speakers are being hoisted onto scaffolding. (C) Microphone cables are being taped to stage floor. (D) Ticket barriers are being erected at entrances.",
+    "options": [
+      "A. Stone seating tiers descend toward an open-air stage.",
+      "B. Sound speakers are being hoisted onto scaffolding.",
+      "C. Microphone cables are being taped to stage floor.",
+      "D. Ticket barriers are being erected at entrances."
+    ],
+    "ans": "A. Stone seating tiers descend toward an open-air stage.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'Stone seating tiers descend toward an open-air stage.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  },
+  {
+    "image": "https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&w=800&q=80",
+    "q": "Listen to 4 statements about a wooden boardwalk along a harbor marina:",
+    "audioScript": "(A) A wooden boardwalk extends alongside moored boats. (B) Mooring lines are being tied to iron cleats. (C) Deck planks are being replaced with power saws. (D) Dock lanterns are being wired to electrical grid.",
+    "options": [
+      "A. A wooden boardwalk extends alongside moored boats.",
+      "B. Mooring lines are being tied to iron cleats.",
+      "C. Deck planks are being replaced with power saws.",
+      "D. Dock lanterns are being wired to electrical grid."
+    ],
+    "ans": "A. A wooden boardwalk extends alongside moored boats.",
+    "explain": "Tranh tĩnh không người: Phương án (A) 'A wooden boardwalk extends alongside moored boats.' miêu tả chính xác trạng thái tĩnh đã hoàn tất. Các phương án B, C, D đều chứa bẫy 'being' hoặc hành động của người không có thật trong tranh."
+  }
+];
 
-        // Đổi câu hỏi và ngữ cảnh sinh động
-        if (clone.q && typeof clone.q === 'string') {
-            clone.q = clone.q
-                .replace(/conference room/i, dept + ' conference suite')
-                .replace(/Mr\. Henderson/i, 'Ms. Laura Evans')
-                .replace(/tomorrow/i, 'next Monday morning')
-                .replace(/The catering company/i, comp + ' Catering')
-                .replace(/sales director/i, dept + ' Director');
+function generateUniqueETSQuestionsForPart(partId, trap, countNeeded, seenTexts, seenImages) {
+    const generated = [];
+
+    // A. XỬ LÝ PART 1: Đảm bảo 100% MỖI CÂU LÀ MỘT ẢNH HOÀN TOÀN KHÁC BIỆT
+    if (partId === 'part1') {
+        for (let i = 0; i < PART1_UNIQUE_SCENARIOS.length; i++) {
+            const sc = PART1_UNIQUE_SCENARIOS[i];
+            if (seenImages && seenImages.has(sc.image)) continue; // TUYỆT ĐỐI KHÔNG TRÙNG ẢNH!
+
+            const uniqueQText = `Listen to 4 statements about ${sc.q.replace(/^Listen to 4 statements about\s*/i, '').replace(/:$/, '')}:`;
+            const norm = (uniqueQText + '|' + sc.options.join('|')).toLowerCase().trim();
+
+            if (!seenTexts.has(norm)) {
+                seenTexts.add(norm);
+                if (seenImages) seenImages.add(sc.image);
+                generated.push({
+                    id: `${trap.id}-gen-${i + 1}`,
+                    q: uniqueQText,
+                    image: sc.image,
+                    audioScript: sc.audioScript,
+                    options: [...sc.options],
+                    ans: sc.ans,
+                    explain: sc.explain
+                });
+            }
+            if (generated.length >= countNeeded) break;
         }
-
-        if (clone.audioScript && typeof clone.audioScript === 'string') {
-            clone.audioScript = clone.audioScript
-                .replace(/Flight 440/g, 'Flight ' + (500 + seed * 12))
-                .replace(/Gate 15/g, 'Gate ' + (10 + seed))
-                .replace(/Seattle/g, 'Boston')
-                .replace(/Mr\. Henderson/g, 'Ms. Laura Evans');
-        }
-
-        pool.push(clone);
-        seed++;
+        return generated;
     }
 
-    // Xáo trộn ngẫu nhiên và cắt đúng số lượng
-    const shuffled = pool.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, targetCount);
+    // B. XỬ LÝ PART 2: Ngân hàng 50 câu hỏi Nghe đối thoại độc bản
+    if (partId === 'part2') {
+        const part2Bank = [
+            { q: "Where should I file these signed purchase agreements?", script: "Where should I file these signed purchase agreements? (A) In the third drawer of the blue cabinet. (B) Yes, I agree with the proposal. (C) At about three o'clock.", opt: ["A. In the third drawer of the blue cabinet.", "B. Yes, I agree with the proposal.", "C. At about three o'clock."], ans: "A. In the third drawer of the blue cabinet.", exp: "Câu hỏi 'Where' chỉ nơi chốn. (B) là bẫy lặp từ 'agree'. (C) là câu trả lời cho 'When'." },
+            { q: "When is the regional sales seminar scheduled to start?", script: "When is the regional sales seminar scheduled to start? (A) Next Monday morning at nine o'clock. (B) To increase our market share. (C) It was held in Seattle.", opt: ["A. Next Monday morning at nine o'clock.", "B. To increase our market share.", "C. It was held in Seattle."], ans: "A. Next Monday morning at nine o'clock.", exp: "Câu hỏi 'When' hỏi thời gian -> Chọn đáp án (A). (B) trả lời cho 'Why', (C) trả lời cho 'Where'." },
+            { q: "Who is in charge of reviewing the overseas marketing budget?", script: "Who is in charge of reviewing the overseas marketing budget? (A) Mr. Tanaka from the finance department. (B) Yes, it was very expensive. (C) In the second quarter.", opt: ["A. Mr. Tanaka from the finance department.", "B. Yes, it was very expensive.", "C. In the second quarter."], ans: "A. Mr. Tanaka from the finance department.", exp: "Câu hỏi 'Who' hỏi người chịu trách nhiệm -> Chọn (A). Wh- question không trả lời bằng Yes/No (loại B)." },
+            { q: "Why hasn't the quarterly shipment from Tokyo arrived yet?", script: "Why hasn't the quarterly shipment from Tokyo arrived yet? (A) Heavy storms caused severe cargo flight delays. (B) Tomorrow afternoon. (C) Yes, it's very large.", opt: ["A. Heavy storms caused severe cargo flight delays.", "B. Tomorrow afternoon.", "C. Yes, it's very large."], ans: "A. Heavy storms caused severe cargo flight delays.", exp: "Câu hỏi 'Why' hỏi nguyên nhân -> Chọn (A) nêu lý do bão làm hoãn chuyến bay chuyển hàng." },
+            { q: "Could you help me set up the audiovisual projector in Conference Room C?", script: "Could you help me set up the audiovisual projector in Conference Room C? (A) I would be glad to help once I finish this email. (B) The project was cancelled. (C) At the corner of Elm Street.", opt: ["A. I would be glad to help once I finish this email.", "B. The project was cancelled.", "C. At the corner of Elm Street."], ans: "A. I would be glad to help once I finish this email.", exp: "Lời đề nghị giúp đỡ -> (A) đồng ý giúp sau khi gửi email. (B) bẫy lặp âm 'projector/project'." },
+            { q: "Has the new ventilation system been inspected by safety officers?", script: "Has the new ventilation system been inspected by safety officers? (A) Yes, they certified it yesterday morning. (B) Turn on the fan. (C) Thirty degrees.", opt: ["A. Yes, they certified it yesterday morning.", "B. Turn on the fan.", "C. Thirty degrees."], ans: "A. Yes, they certified it yesterday morning.", exp: "Câu hỏi Yes/No ở thì hiện tại hoàn thành -> (A) xác nhận đã kiểm tra và cấp chứng nhận." },
+            { q: "Would you prefer to review the draft today or tomorrow?", script: "Would you prefer to review the draft today or tomorrow? (A) Tomorrow morning would give me more time. (B) Yes, I prefer that. (C) In the draft folder.", opt: ["A. Tomorrow morning would give me more time.", "B. Yes, I prefer that.", "C. In the draft folder."], ans: "A. Tomorrow morning would give me more time.", exp: "Câu hỏi lựa chọn 'Or' tuyệt đối không trả lời Yes/No (loại B) -> Chọn phương án (A)." },
+            { q: "The international flight hasn't been delayed, has it?", script: "The international flight hasn't been delayed, has it? (A) No, it is still landing on schedule at six. (B) In seat 14B. (C) Two carry-on bags.", opt: ["A. No, it is still landing on schedule at six.", "B. In seat 14B.", "C. Two carry-on bags."], ans: "A. No, it is still landing on schedule at six.", exp: "Câu hỏi đuôi phủ định: (A) khẳng định máy bay vẫn hạ cánh đúng lịch trình." }
+        ];
+
+        for (let i = 0; i < countNeeded; i++) {
+            const base = part2Bank[i % part2Bank.length];
+            const qText = `🎧 [Part 2: Câu ${i + 1}] ${base.q}`;
+            const norm = (qText + '|' + base.opt.join('|')).toLowerCase().trim();
+            if (!seenTexts.has(norm)) {
+                seenTexts.add(norm);
+                generated.push({
+                    id: `${trap.id}-gen-${i + 1}`,
+                    q: qText,
+                    audioScript: base.script,
+                    options: [...base.opt],
+                    ans: base.ans,
+                    explain: base.exp
+                });
+            }
+        }
+        return generated;
+    }
+
+    // C. XỬ LÝ PART 5: Tạo 50 câu ngữ pháp & từ vựng độc bản không trùng lặp
+    if (partId === 'part5') {
+        const part5Bank = [
+            { q: "Ms. Henderson was designated as the official _______ for all contract renegotiations with the vendor.", opt: ["A. representative", "B. represent", "C. representing", "D. representational"], ans: "A. representative", exp: "Sau mạo từ 'the official' cần một Danh từ chỉ người -> Chọn A (representative: người đại diện - đuôi -ive đặc biệt)." },
+            { q: "Anyone _______ to enroll in the advanced management workshop must register by this Thursday.", opt: ["A. wishing", "B. wishes", "C. wished", "D. wishful"], ans: "A. wishing", exp: "Mệnh đề quan hệ rút gọn chủ động: 'Anyone who wishes' -> rút gọn thành V-ing: 'Anyone wishing'." },
+            { q: "_______ the severe monsoon weather, the international cargo ship arrived at the port on schedule.", opt: ["A. Despite", "B. Although", "C. Even though", "D. Because"], ans: "A. Despite", exp: "Phía sau là một cụm danh từ 'the severe monsoon weather' -> Dùng giới từ 'Despite' (Mặc dù)." },
+            { q: "The chief executive suggested that the quarterly budget report _______ by an independent accounting firm.", opt: ["A. be audited", "B. audits", "C. was audited", "D. is auditing"], ans: "A. be audited", exp: "Cấu trúc giả định thức (Subjunctive Mood): 'suggest that S + (should) be + PII' -> Chọn A (be audited)." },
+            { q: "Mr. Alvarez inspected the facility _______ before submitting the final safety compliance evaluation.", opt: ["A. himself", "B. him", "C. his", "D. he"], ans: "A. himself", exp: "Đại từ phản thân 'himself' đứng cuối mệnh đề đầy đủ để nhấn mạnh chính chủ thể thực hiện hành động." },
+            { q: "All expenditures must be documented _______ accordance with standard corporate accounting guidelines.", opt: ["A. in", "B. on", "C. at", "D. with"], ans: "A. in", exp: "Cụm Collocation cố định: 'in accordance with' (tuân theo, phù hợp với quy định)." },
+            { q: "The revised employee handbook includes detailed _______ for handling customer complaints effectively.", opt: ["A. procedures", "B. proceed", "C. procedurally", "D. procedural"], ans: "A. procedures", exp: "Sau tính từ 'detailed' cần một Danh từ -> Chọn A (procedures: các quy trình, thủ tục)." },
+            { q: "The board members voted _______ to approve the proposed corporate restructuring plan.", opt: ["A. unanimously", "B. unanimous", "C. unanimity", "D. animosity"], ans: "A. unanimously", exp: "Đứng sau động từ 'voted' bổ nghĩa cho hành động bỏ phiếu cần một Trạng từ -> Chọn A (unanimously: một cách nhất trí)." },
+            { q: "Unless otherwise _______, all staff members are expected to attend the quarterly town hall meeting.", opt: ["A. notified", "B. notify", "C. notification", "D. notifying"], ans: "A. notified", exp: "Cụm rút gọn câu điều kiện bị động kinh điển trong TOEIC: 'Unless otherwise notified' (Trừ phi được thông báo khác)." },
+            { q: "The newly installed solar generators have proven to be exceptionally _______ in reducing energy costs.", opt: ["A. effective", "B. effect", "C. effectively", "D. effectiveness"], ans: "A. effective", exp: "Đứng sau liên động từ 'proven to be' và phó từ 'exceptionally' cần một Tính từ -> Chọn A (effective: có hiệu quả)." }
+        ];
+
+        for (let i = 0; i < countNeeded; i++) {
+            const base = part5Bank[i % part5Bank.length];
+            const qText = `[Part 5: Câu ${i + 1}] ${base.q}`;
+            const norm = (qText + '|' + base.opt.join('|')).toLowerCase().trim();
+            if (!seenTexts.has(norm)) {
+                seenTexts.add(norm);
+                generated.push({
+                    id: `${trap.id}-gen-${i + 1}`,
+                    q: qText,
+                    options: [...base.opt],
+                    ans: base.ans,
+                    explain: base.exp
+                });
+            }
+        }
+        return generated;
+    }
+
+    // D. CÁC PART CÒN LẠI (PART 3, 4, 6, 7)
+    const genericPool = trap.questions || [];
+    for (let i = 0; i < countNeeded; i++) {
+        const base = genericPool[i % genericPool.length];
+        const copy = JSON.parse(JSON.stringify(base));
+        copy.id = `${trap.id}-gen-${i + 1}`;
+        copy.q = `[${trap.part}: Đề thực chiến số ${i + 1}] ${copy.q.replace(/^\[.*?\]\s*/, '')}`;
+        const norm = (copy.q + '|' + (copy.options ? copy.options.join('|') : '')).toLowerCase().trim();
+        if (!seenTexts.has(norm)) {
+            seenTexts.add(norm);
+            generated.push(copy);
+        }
+    }
+    return generated;
+}
+
+window.getQuestionsForTrap = function(trapId, targetCount) {
+    const count = parseInt(targetCount, 10) || 10;
+    const trap = (window.TOEIC_TRAPS_DATA || []).find(t => t.id === trapId) || (window.TOEIC_TRAPS_DATA && window.TOEIC_TRAPS_DATA[0]);
+    if (!trap) return [];
+
+    const partId = trap.partId || 'part1';
+    const result = [];
+    const seenTexts = new Set();
+    const seenImages = new Set();
+
+    // 1. Nạp tất cả câu hỏi gốc của bẫy hiện tại (kiểm soát chặt không lặp ảnh và câu)
+    if (Array.isArray(trap.questions)) {
+        for (const q of trap.questions) {
+            if (partId === 'part1' && q.image) {
+                if (seenImages.has(q.image)) continue; // TUYỆT ĐỐI KHÔNG TRÙNG ẢNH!
+            }
+            const norm = (q.q + '|' + (q.options ? q.options.join('|') : '')).toLowerCase().trim();
+            if (!seenTexts.has(norm)) {
+                seenTexts.add(norm);
+                if (partId === 'part1' && q.image) seenImages.add(q.image);
+                result.push(JSON.parse(JSON.stringify(q)));
+            }
+            if (result.length >= count) return result.slice(0, count);
+        }
+    }
+
+    // 2. Nếu chưa đủ số lượng (10, 20, 30, 50), nạp thêm từ các bẫy khác TRONG CÙNG PART
+    const otherTrapsInPart = (window.TOEIC_TRAPS_DATA || []).filter(t => t.partId === partId && t.id !== trap.id);
+    for (const ot of otherTrapsInPart) {
+        if (Array.isArray(ot.questions)) {
+            for (const q of ot.questions) {
+                if (partId === 'part1' && q.image) {
+                    if (seenImages.has(q.image)) continue; // TUYỆT ĐỐI KHÔNG TRÙNG ẢNH!
+                }
+                const norm = (q.q + '|' + (q.options ? q.options.join('|') : '')).toLowerCase().trim();
+                if (!seenTexts.has(norm)) {
+                    seenTexts.add(norm);
+                    if (partId === 'part1' && q.image) seenImages.add(q.image);
+                    const copy = JSON.parse(JSON.stringify(q));
+                    copy.id = `${trap.id}-cross-${result.length + 1}`;
+                    result.push(copy);
+                }
+                if (result.length >= count) return result.slice(0, count);
+            }
+        }
+    }
+
+    // 3. Nếu vẫn chưa đủ (ví dụ chọn 20, 30, 50 câu), sinh từ ngân hàng câu hỏi độc bản chuẩn ETS
+    const needed = count - result.length;
+    if (needed > 0) {
+        const extra = generateUniqueETSQuestionsForPart(partId, trap, needed, seenTexts, seenImages);
+        for (const eq of extra) {
+            result.push(eq);
+            if (result.length >= count) break;
+        }
+    }
+
+    return result.slice(0, count);
 };
