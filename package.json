@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "copy-assets": "node -e \"const fs=require('fs'); fs.mkdirSync('www', {recursive:true}); ['index.html','manifest.json','sw.js','icon-192.png','icon-512.png'].forEach(f => fs.existsSync(f) && fs.copyFileSync(f, 'www/' + f)); if(fs.existsSync('js')) fs.cpSync('js', 'www/js', {recursive:true}); console.log('Assets copied to www!');\"",
+    "copy-assets": "node -e \"const fs=require('fs'); fs.mkdirSync('www', {recursive:true}); ['index.html','manifest.json','sw.js','icon-192.png','icon-512.png'].forEach(f => fs.existsSync(f) && fs.copyFileSync(f, 'www/' + f)); if(fs.existsSync('js')) fs.cpSync('js', 'www/js', {recursive:true}); if(fs.existsSync('data/ocr_lang')) { fs.mkdirSync('www/data/ocr_lang', {recursive:true}); fs.cpSync('data/ocr_lang', 'www/data/ocr_lang', {recursive:true}); } console.log('Assets copied to www!');\"",
     "sync": "npm run copy-assets && npx cap sync",
     "open:android": "npm run sync && npx cap open android"
   },
