@@ -240,63 +240,212 @@
     }
 
     /**
-     * Phát hiện đường kẻ ngang và đường kẻ dọc của bảng
+     * PHÂN TÍCH BỐ CỤC TOÀN DIỆN (P1 Layout Analysis Engine):
+     * - Nhị phân hóa Otsu
+     * - Tách đường kẻ bảng (Morphological opening ngang & dọc)
+     * - Tách con dấu đỏ & chữ ký xanh
+     * - Trích xuất vùng mực đen thuần (blackInk) & Clean Canvas
+     * - Hàm giải mã ô bảng hình học findCellBounds
      */
-    function detectTableLines(canvas) {
+    function analyzeDocumentLayout(canvas) {
         const ctx = canvas.getContext('2d');
         const W = canvas.width;
         const H = canvas.height;
-        const imgData = ctx.getImageData(0, 0, W, H);
-        const d = imgData.data;
+        const d = ctx.getImageData(0, 0, W, H).data;
 
-        const hLines = [];
-        const vLines = [];
+        // 1. Mức xám & Nhị phân hóa Otsu thích nghi
+        const gray = new Uint8Array(W * H);
+        const hist = new Int32Array(256);
+        for (let i = 0; i < W * H; i++) {
+            const idx = i * 4;
+            const g = Math.round(d[idx] * 0.299 + d[idx + 1] * 0.587 + d[idx + 2] * 0.114);
+            gray[i] = g;
+            hist[g]++;
+        }
+        let total = W * H, sum = 0;
+        for (let t = 0; t < 256; t++) sum += t * hist[t];
+        let sumB = 0, wB = 0, wF = 0, varMax = 0, otsu = 160;
+        for (let t = 0; t < 256; t++) {
+            wB += hist[t];
+            if (wB === 0) continue;
+            wF = total - wB;
+            if (wF === 0) break;
+            sumB += t * hist[t];
+            let mB = sumB / wB;
+            let mF = (sum - sumB) / wF;
+            let vb = wB * wF * (mB - mF) * (mB - mF);
+            if (vb > varMax) { varMax = vb; otsu = t; }
+        }
 
-        // Quét đường kẻ ngang (runs of dark pixels >= 35px)
-        for (let y = 0; y < H; y += 2) {
-            let runStart = -1;
+        const bin = new Uint8Array(W * H);
+        for (let i = 0; i < W * H; i++) bin[i] = gray[i] < otsu ? 1 : 0;
+
+        // 2. Morphological opening: Tách đường kẻ ngang (Kh >= 30px) & dọc (Kv >= 20px)
+        const Kh = 30, Kv = 20;
+        const hLineMask = new Uint8Array(W * H);
+        const vLineMask = new Uint8Array(W * H);
+
+        for (let y = 0; y < H; y++) {
+            let run = 0;
             for (let x = 0; x < W; x++) {
-                const idx = (y * W + x) * 4;
-                const lum = d[idx] * 0.299 + d[idx + 1] * 0.587 + d[idx + 2] * 0.114;
-                if (lum < 140) {
-                    if (runStart === -1) runStart = x;
-                } else {
-                    if (runStart !== -1) {
-                        if (x - runStart >= 35) {
-                            hLines.push({ y, x0: runStart, x1: x });
-                        }
-                        runStart = -1;
-                    }
+                if (bin[y * W + x] === 1) run++;
+                else {
+                    if (run >= Kh) for (let rx = x - run; rx < x; rx++) hLineMask[y * W + rx] = 1;
+                    run = 0;
                 }
             }
-            if (runStart !== -1 && (W - runStart >= 35)) {
-                hLines.push({ y, x0: runStart, x1: W });
-            }
+            if (run >= Kh) for (let rx = W - run; rx < W; rx++) hLineMask[y * W + rx] = 1;
         }
 
-        // Quét đường kẻ dọc (runs of dark pixels >= 22px)
-        for (let x = 0; x < W; x += 2) {
-            let runStart = -1;
+        for (let x = 0; x < W; x++) {
+            let run = 0;
             for (let y = 0; y < H; y++) {
-                const idx = (y * W + x) * 4;
-                const lum = d[idx] * 0.299 + d[idx + 1] * 0.587 + d[idx + 2] * 0.114;
-                if (lum < 140) {
-                    if (runStart === -1) runStart = y;
-                } else {
-                    if (runStart !== -1) {
-                        if (y - runStart >= 22) {
-                            vLines.push({ x, y0: runStart, y1: y });
-                        }
-                        runStart = -1;
-                    }
+                if (bin[y * W + x] === 1) run++;
+                else {
+                    if (run >= Kv) for (let ry = y - run; ry < y; ry++) vLineMask[ry * W + x] = 1;
+                    run = 0;
                 }
             }
-            if (runStart !== -1 && (H - runStart >= 22)) {
-                vLines.push({ x, y0: runStart, y1: H });
+            if (run >= Kv) for (let ry = H - run; ry < H; ry++) vLineMask[ry * W + x] = 1;
+        }
+
+        // Dilation tách biệt nhanh 2px cho mặt nạ đường kẻ
+        const rawLines = new Uint8Array(W * H);
+        for (let i = 0; i < W * H; i++) if (hLineMask[i] || vLineMask[i]) rawLines[i] = 1;
+
+        const dilatedH = new Uint8Array(W * H);
+        for (let y = 0; y < H; y++) {
+            const rowOffset = y * W;
+            for (let x = 0; x < W; x++) {
+                if (rawLines[rowOffset + x] ||
+                    (x > 0 && rawLines[rowOffset + x - 1]) ||
+                    (x < W - 1 && rawLines[rowOffset + x + 1]) ||
+                    (x > 1 && rawLines[rowOffset + x - 2]) ||
+                    (x < W - 2 && rawLines[rowOffset + x + 2])) {
+                    dilatedH[rowOffset + x] = 1;
+                }
             }
         }
 
-        return { hLines, vLines };
+        const lineMask = new Uint8Array(W * H);
+        for (let y = 0; y < H; y++) {
+            for (let x = 0; x < W; x++) {
+                const idx = y * W + x;
+                if (dilatedH[idx] ||
+                    (y > 0 && dilatedH[idx - W]) ||
+                    (y < H - 1 && dilatedH[idx + W]) ||
+                    (y > 1 && dilatedH[idx - 2 * W]) ||
+                    (y < H - 2 && dilatedH[idx + 2 * W])) {
+                    lineMask[idx] = 1;
+                }
+            }
+        }
+
+        // 3. Tách màu con dấu đỏ và chữ ký xanh
+        const stampMask = new Uint8Array(W * H);
+        const blackInk = new Uint8Array(W * H);
+        for (let i = 0; i < W * H; i++) {
+            const idx = i * 4;
+            const r = d[idx], g = d[idx + 1], b = d[idx + 2];
+            const isRed = (r > 130 && r > g * 1.3 && r > b * 1.3);
+            const isBlue = (b > 130 && b > r * 1.2 && b > g * 1.15);
+            if (isRed || isBlue) stampMask[i] = 1;
+            if (bin[i] === 1 && lineMask[i] === 0 && stampMask[i] === 0) blackInk[i] = 1;
+        }
+
+        // 4. Tạo Clean Canvas mực đen thuần trên nền trắng tinh khiết
+        const cleanCanvas = document.createElement('canvas');
+        cleanCanvas.width = W;
+        cleanCanvas.height = H;
+        const clCtx = cleanCanvas.getContext('2d');
+        clCtx.fillStyle = '#ffffff';
+        clCtx.fillRect(0, 0, W, H);
+        const clImg = clCtx.getImageData(0, 0, W, H);
+        const clData = clImg.data;
+        for (let i = 0; i < W * H; i++) {
+            if (blackInk[i] === 1) {
+                const idx = i * 4;
+                clData[idx] = 0;
+                clData[idx + 1] = 0;
+                clData[idx + 2] = 0;
+            }
+        }
+        clCtx.putImageData(clImg, 0, 0);
+
+        // 5. Trích xuất đoạn đường kẻ ngang & dọc
+        const hLines = [];
+        for (let y = 0; y < H; y++) {
+            let start = -1;
+            for (let x = 0; x < W; x++) {
+                if (hLineMask[y * W + x]) {
+                    if (start === -1) start = x;
+                } else {
+                    if (start !== -1) {
+                        if (x - start >= Kh) hLines.push({ y, x0: start, x1: x });
+                        start = -1;
+                    }
+                }
+            }
+            if (start !== -1 && W - start >= Kh) hLines.push({ y, x0: start, x1: W });
+        }
+
+        const vLines = [];
+        for (let x = 0; x < W; x++) {
+            let start = -1;
+            for (let y = 0; y < H; y++) {
+                if (vLineMask[y * W + x]) {
+                    if (start === -1) start = y;
+                } else {
+                    if (start !== -1) {
+                        if (y - start >= Kv) vLines.push({ x, y0: start, y1: y });
+                        start = -1;
+                    }
+                }
+            }
+            if (start !== -1 && H - start >= Kv) vLines.push({ x, y0: start, y1: H });
+        }
+
+        // 6. Bộ phân giải ô bảng hình học (Zero Leak Boundary Resolver)
+        function findCellBounds(px, py) {
+            let topY = 0, bottomY = H;
+            let leftX = 0, rightX = W;
+
+            for (const hl of hLines) {
+                if (hl.x0 <= px + 8 && hl.x1 >= px - 8) {
+                    if (hl.y <= py && hl.y > topY) topY = hl.y;
+                    if (hl.y >= py && hl.y < bottomY) bottomY = hl.y;
+                }
+            }
+
+            for (const vl of vLines) {
+                if (vl.y0 <= py + 8 && vl.y1 >= py - 8) {
+                    if (vl.x <= px && vl.x > leftX) leftX = vl.x;
+                    if (vl.x >= px && vl.x < rightX) rightX = vl.x;
+                }
+            }
+
+            return { x0: leftX, y0: topY, x1: rightX, y1: bottomY };
+        }
+
+        return {
+            tableLines: { hLines, vLines },
+            hLineMask,
+            vLineMask,
+            lineMask,
+            stampMask,
+            blackInk,
+            cleanCanvas,
+            findCellBounds,
+            W,
+            H
+        };
+    }
+
+    /**
+     * Tương thích ngược: Phát hiện đường kẻ bảng
+     */
+    function detectTableLines(canvas) {
+        return analyzeDocumentLayout(canvas).tableLines;
     }
 
     /**
@@ -419,9 +568,9 @@
 
     /**
      * Tạo mặt nạ điểm ảnh mực (Mask-based Dilation):
-     * Chỉ tô màu nền lên đúng nét chữ (giãn 2px), loại trừ đường kẻ bảng, bảo toàn 100% khung viền
+     * Chỉ tô màu nền lên đúng nét chữ (giãn 1.5–2px), loại trừ đường kẻ bảng, bảo toàn 100% khung viền
      */
-    function createInkMaskWhiteout(canvas, cluster, tableLines) {
+    function createInkMaskWhiteout(canvas, cluster, tableLines, lineMask) {
         const sx = Math.max(0, Math.floor(cluster.pixelBox.x0 - 2));
         const sy = Math.max(0, Math.floor(cluster.pixelBox.y0 - 2));
         const sw = Math.min(canvas.width - sx, Math.ceil(cluster.pixelBox.x1 - cluster.pixelBox.x0 + 4));
@@ -458,9 +607,9 @@
                 const idx = (y * sw + x) * 4;
                 const lum = srcData[idx] * 0.299 + srcData[idx + 1] * 0.587 + srcData[idx + 2] * 0.114;
 
-                // Kiểm tra xem pixel này có nằm sát đường kẻ bảng không
-                const isBorderLine = tableLines.vLines.some(vl => Math.abs(vl.x - globalX) <= 1 && globalY >= vl.y0 && globalY <= vl.y1)
-                    || tableLines.hLines.some(hl => Math.abs(hl.y - globalY) <= 1 && globalX >= hl.x0 && globalX <= hl.x1);
+                const isBorderLine = (lineMask && lineMask[globalY * canvas.width + globalX] === 1)
+                    || (tableLines && tableLines.vLines && tableLines.vLines.some(vl => Math.abs(vl.x - globalX) <= 1 && globalY >= vl.y0 && globalY <= vl.y1))
+                    || (tableLines && tableLines.hLines && tableLines.hLines.some(hl => Math.abs(hl.y - globalY) <= 1 && globalX >= hl.x0 && globalX <= hl.x1));
 
                 if (lum < 165 && !isBorderLine) {
                     isInk[y * sw + x] = 1;
@@ -468,7 +617,7 @@
             }
         }
 
-        // Bước 2: Dilation (Nở rộng mặt nạ 2px quanh nét chữ)
+        // Bước 2: Dilation (Nở rộng mặt nạ 1.5 - 2px quanh nét chữ)
         const dilated = new Uint8Array(sw * sh);
         for (let y = 0; y < sh; y++) {
             for (let x = 0; x < sw; x++) {
@@ -486,14 +635,24 @@
             }
         }
 
-        // Bước 3: Đổ màu nền giấy lên các pixel thuộc mặt nạ đã giãn
-        for (let i = 0; i < sw * sh; i++) {
-            if (dilated[i] === 1) {
-                const idx = i * 4;
-                mData[idx] = rBg;
-                mData[idx + 1] = gBg;
-                mData[idx + 2] = bBg;
-                mData[idx + 3] = 255;
+        // Bước 3: Đổ màu nền giấy lên các pixel thuộc mặt nạ đã giãn NHƯNG TUYỆT ĐỐI trừ lineMask
+        for (let y = 0; y < sh; y++) {
+            const globalY = sy + y;
+            for (let x = 0; x < sw; x++) {
+                const globalX = sx + x;
+                if (dilated[y * sw + x] === 1) {
+                    const isBorderLine = (lineMask && lineMask[globalY * canvas.width + globalX] === 1)
+                        || (tableLines && tableLines.vLines && tableLines.vLines.some(vl => Math.abs(vl.x - globalX) <= 1 && globalY >= vl.y0 && globalY <= vl.y1))
+                        || (tableLines && tableLines.hLines && tableLines.hLines.some(hl => Math.abs(hl.y - globalY) <= 1 && globalX >= hl.x0 && globalX <= hl.x1));
+
+                    if (!isBorderLine) {
+                        const idx = (y * sw + x) * 4;
+                        mData[idx] = rBg;
+                        mData[idx + 1] = gBg;
+                        mData[idx + 2] = bBg;
+                        mData[idx + 3] = 255;
+                    }
+                }
             }
         }
 
@@ -652,6 +811,10 @@
                 const styleEl = document.createElement('style');
                 styleEl.id = 'pdfStudioScopedStyles';
                 styleEl.innerHTML = `
+                    @font-face {
+                        font-family: 'AppPdfSerif';
+                        src: local('Times New Roman'), local('Times'), local('Tinos'), local('Liberation Serif'), local('Georgia'), serif;
+                    }
                     .pdf-scroll-stage {
                         overflow-y: auto;
                         overflow-x: auto;
@@ -696,6 +859,10 @@
                         margin: 0;
                         box-sizing: border-box;
                         z-index: 60;
+                    }
+                    #pdfClusterContextMenu button {
+                        cursor: pointer;
+                        user-select: none;
                     }
                 `;
                 document.head.appendChild(styleEl);
@@ -1006,7 +1173,7 @@
             const pageNum = this.ocrQueue.shift();
             this.updateOcrProgressUI(pageNum);
 
-            const cacheKey = `${this.fileName}_len${this.arrayBuffer ? this.arrayBuffer.byteLength : 0}_p${pageNum}_v3`;
+            const cacheKey = `${this.fileName}_len${this.arrayBuffer ? this.arrayBuffer.byteLength : 0}_p${pageNum}_v3_p1_v2`;
             const cached = await PdfOcrCache.get(cacheKey);
 
             if (cached && cached.clusters && cached.clusters.length > 0) {
@@ -1031,11 +1198,13 @@
                 const offCtx = offCanvas.getContext('2d');
                 await page.render({ canvasContext: offCtx, viewport }).promise;
 
-                // 1. Phát hiện đường kẻ bảng
-                const tableLines = detectTableLines(offCanvas);
-                this.pageTableLines[pageNum] = tableLines;
+                // 1. Phân tích bố cục tự xây (P1 Engine)
+                const layout = analyzeDocumentLayout(offCanvas);
+                this.pageTableLines[pageNum] = layout.tableLines;
+                if (!this.pageLayouts) this.pageLayouts = {};
+                this.pageLayouts[pageNum] = layout;
 
-                // 2. Khởi tạo Worker Tesseract với dữ liệu offline
+                // 2. Khởi tạo Worker Tesseract với dữ liệu offline & PSM 7 (Single Line)
                 if (!this.ocrWorker) {
                     this.ocrWorker = await window.Tesseract.createWorker(['vie', 'eng'], 1, {
                         workerPath: 'js/tesseract-dist/worker.min.js',
@@ -1045,79 +1214,131 @@
                         gzip: true
                     });
                 }
+                await this.ocrWorker.setParameters({ tessedit_pageseg_mode: '7' });
 
-                const result = await this.ocrWorker.recognize(offCanvas);
-                const rawWords = (result.data && result.data.words) || [];
-
-                // 3. Lọc và làm sạch từ
-                const validWords = [];
-                rawWords.forEach(w => {
-                    const textClean = cleanWordText(w.text);
-                    if (!textClean || w.confidence < 15) return;
-                    validWords.push({
-                        text: textClean,
-                        confidence: w.confidence || 80,
-                        bbox: w.bbox
-                    });
-                });
-
-                // Sắp xếp từ trên xuống dưới
-                validWords.sort((a, b) => (a.bbox.y0 - b.bbox.y0) || (a.bbox.x0 - b.bbox.x0));
-
-                // 4. Nhóm từ thành các dòng trực quan (Visual Lines) không vượt đường kẻ ngang
-                const visualLines = [];
-                validWords.forEach(word => {
-                    let placed = false;
-                    for (let line of visualLines) {
-                        const ref = line[0];
-                        const overlapY = Math.min(word.bbox.y1, ref.bbox.y1) - Math.max(word.bbox.y0, ref.bbox.y0);
-                        const minH = Math.min(word.bbox.y1 - word.bbox.y0, ref.bbox.y1 - ref.bbox.y0);
-                        if (overlapY >= minH * 0.45 && !hasHorizontalTableLineBetween(tableLines.hLines, ref.bbox.y0, word.bbox.y0, Math.min(ref.bbox.x0, word.bbox.x0), Math.max(ref.bbox.x1, word.bbox.x1))) {
-                            line.push(word);
-                            placed = true;
-                            break;
+                // 3. Khám phá toàn bộ ô bảng và vùng tự do bằng quét lưới mực đen (bước y: 10px, x: 12px)
+                const W = offCanvas.width;
+                const H = offCanvas.height;
+                const cellsMap = new Map();
+                for (let y = 10; y < H - 10; y += 10) {
+                    for (let x = 12; x < W - 12; x += 12) {
+                        if (layout.blackInk[y * W + x] === 1) {
+                            const c = layout.findCellBounds(x, y);
+                            const k = `${c.x0}_${c.y0}_${c.x1}_${c.y1}`;
+                            if (!cellsMap.has(k)) {
+                                cellsMap.set(k, c);
+                            }
                         }
                     }
-                    if (!placed) visualLines.push([word]);
-                });
+                }
 
-                // 5. Gom thành các cụm từ (Clusters) trong cùng ô bảng (ngăn gộp xuyên đường kẻ dọc)
-                const clusters = [];
-                visualLines.forEach(line => {
-                    line.sort((a, b) => a.bbox.x0 - b.bbox.x0);
-                    let currentCluster = [line[0]];
+                // 4. Trong từng ô / vùng, cắt dòng chữ (Horizontal Projection) & chống trùng lặp dòng
+                const candidateItems = [];
+                const seenLines = new Set();
 
-                    for (let i = 1; i < line.length; i++) {
-                        const prev = currentCluster[currentCluster.length - 1];
-                        const curr = line[i];
-                        const gap = curr.bbox.x0 - prev.bbox.x1;
-                        const charH = (prev.bbox.y1 - prev.bbox.y0 + curr.bbox.y1 - curr.bbox.y0) / 2;
-                        const vLineExists = hasVerticalTableLineBetween(tableLines.vLines, prev.bbox.x1, curr.bbox.x0, Math.min(prev.bbox.y0, curr.bbox.y0), Math.max(prev.bbox.y1, curr.bbox.y1));
+                for (const [k, cell] of cellsMap.entries()) {
+                    const x0 = cell.x0 + 2;
+                    const y0 = cell.y0 + 2;
+                    const x1 = cell.x1 - 2;
+                    const y1 = cell.y1 - 2;
+                    if (x1 <= x0 + 6 || y1 <= y0 + 6) continue;
 
-                        // Chỉ gom cụm nếu khoảng cách ngang <= 1.25 * chiều cao chữ VÀ KHÔNG có đường kẻ dọc
-                        if (gap <= charH * 1.25 && !vLineExists) {
-                            currentCluster.push(curr);
+                    const rowInk = new Int32Array(y1 - y0);
+                    for (let y = y0; y < y1; y++) {
+                        let cnt = 0;
+                        for (let x = x0; x < x1; x++) {
+                            if (layout.blackInk[y * W + x] === 1) cnt++;
+                        }
+                        rowInk[y - y0] = cnt;
+                    }
+
+                    const cellLines = [];
+                    let inL = false, lStart = -1;
+                    for (let i = 0; i < rowInk.length; i++) {
+                        if (rowInk[i] >= 2) {
+                            if (!inL) { inL = true; lStart = i; }
                         } else {
-                            clusters.push(currentCluster);
-                            currentCluster = [curr];
+                            if (inL) {
+                                if (i - lStart >= 6) {
+                                    cellLines.push({ y0: y0 + lStart, y1: y0 + i });
+                                }
+                                inL = false;
+                            }
                         }
                     }
-                    if (currentCluster.length > 0) clusters.push(currentCluster);
-                });
+                    if (inL && rowInk.length - lStart >= 6) {
+                        cellLines.push({ y0: y0 + lStart, y1: y0 + rowInk.length });
+                    }
 
-                // 6. Xây dựng các cụm hoàn chỉnh với Tight Ink Bounding Box và quy đổi tỷ lệ chuẩn
+                    // Từng dòng trong ô: tìm biên mực thật và khử trùng lặp
+                    for (const cln of cellLines) {
+                        let minX = x1, maxX = x0;
+                        for (let y = cln.y0; y < cln.y1; y++) {
+                            for (let x = x0; x < x1; x++) {
+                                if (layout.blackInk[y * W + x] === 1) {
+                                    if (x < minX) minX = x;
+                                    if (x > maxX) maxX = x;
+                                }
+                            }
+                        }
+                        if (maxX <= minX + 6) continue;
+
+                        // Khóa khử trùng lặp (Deduplication) theo tọa độ làm tròn 12px ngang, 5px dọc
+                        const lineKey = `${Math.round(minX / 12)}_${Math.round(cln.y0 / 5)}_${Math.round(maxX / 12)}_${Math.round(cln.y1 / 5)}`;
+                        if (seenLines.has(lineKey)) continue;
+                        seenLines.add(lineKey);
+
+                        const cellMid = (cell.x0 + cell.x1) / 2;
+                        const itemMid = (minX + maxX) / 2;
+                        const isCentered = (cell.x1 - cell.x0 < 400 && Math.abs(itemMid - cellMid) / (cell.x1 - cell.x0) < 0.16);
+
+                        candidateItems.push({
+                            cell,
+                            x0: minX,
+                            y0: cln.y0,
+                            x1: maxX,
+                            y1: cln.y1,
+                            isCentered
+                        });
+                    }
+                }
+
+                // Sắp xếp các cụm từ theo thứ tự đọc (trên xuống dưới, trái sang phải)
+                candidateItems.sort((a, b) => (a.y0 - b.y0) || (a.x0 - b.x0));
+
+                // 5. OCR In-Cell Line & Xây dựng các cụm hoàn chỉnh
                 const processedClusters = [];
-                clusters.forEach((wordList, cIdx) => {
-                    const text = wordList.map(w => w.text).join(' ');
-                    const avgConf = Math.round(wordList.reduce((s, w) => s + w.confidence, 0) / wordList.length);
+                for (let cIdx = 0; cIdx < candidateItems.length; cIdx++) {
+                    const item = candidateItems[cIdx];
+                    const pad = 4;
+                    const cx0 = Math.max(0, item.x0 - pad);
+                    const cy0 = Math.max(0, item.y0 - pad);
+                    const cx1 = Math.min(W, item.x1 + pad);
+                    const cy1 = Math.min(H, item.y1 + pad);
+                    const cw = cx1 - cx0;
+                    const ch = cy1 - cy0;
 
-                    const roughX0 = Math.min(...wordList.map(w => w.bbox.x0));
-                    const roughY0 = Math.min(...wordList.map(w => w.bbox.y0));
-                    const roughX1 = Math.max(...wordList.map(w => w.bbox.x1));
-                    const roughY1 = Math.max(...wordList.map(w => w.bbox.y1));
+                    if (cw <= 4 || ch <= 4) continue;
 
-                    // Ép chặt vào pixel mực thật (Zero drift)
-                    const tightBox = getTightInkBounds(offCanvas, roughX0, roughY0, roughX1, roughY1);
+                    const scale = Math.max(1.0, 36 / ch);
+                    const cropCanvas = document.createElement('canvas');
+                    cropCanvas.width = Math.round(cw * scale);
+                    cropCanvas.height = Math.round(ch * scale);
+                    const cctx = cropCanvas.getContext('2d');
+                    cctx.fillStyle = '#ffffff';
+                    cctx.fillRect(0, 0, cropCanvas.width, cropCanvas.height);
+                    cctx.imageSmoothingEnabled = true;
+                    cctx.imageSmoothingQuality = 'high';
+                    cctx.drawImage(layout.cleanCanvas, cx0, cy0, cw, ch, 0, 0, cropCanvas.width, cropCanvas.height);
+
+                    const res = await this.ocrWorker.recognize(cropCanvas);
+                    let recognizedText = (res.data && res.data.text || '').trim();
+                    recognizedText = cleanWordText(recognizedText);
+
+                    if (!recognizedText || res.data.confidence < 12) continue;
+
+                    // Ép chặt vào pixel mực thật
+                    const tightBox = getTightInkBounds(offCanvas, item.x0, item.y0, item.x1, item.y1);
 
                     const xRatio = Math.max(0, tightBox.x0 / viewport.width);
                     const yRatio = Math.max(0, tightBox.y0 / viewport.height);
@@ -1131,42 +1352,29 @@
                     const displayH = hRatio * (this.pageViewports[pageNum] ? this.pageViewports[pageNum].height : 800);
                     const fontSize = Math.max(9, Math.round(displayH * 0.88));
 
-                    // Xác định căn lề: nếu nằm giữa 2 đường kẻ dọc của ô bảng
-                    let isCentered = false;
-                    const leftLines = tableLines.vLines.filter(vl => vl.x < tightBox.x0 && vl.y0 <= tightBox.y1 && vl.y1 >= tightBox.y0);
-                    const rightLines = tableLines.vLines.filter(vl => vl.x > tightBox.x1 && vl.y0 <= tightBox.y1 && vl.y1 >= tightBox.y0);
-                    if (leftLines.length > 0 && rightLines.length > 0) {
-                        const nearestL = Math.max(...leftLines.map(l => l.x));
-                        const nearestR = Math.min(...rightLines.map(l => l.x));
-                        const cellCenter = (nearestL + nearestR) / 2;
-                        const clusterCenter = (tightBox.x0 + tightBox.x1) / 2;
-                        if (Math.abs(clusterCenter - cellCenter) / (nearestR - nearestL) < 0.12) {
-                            isCentered = true;
-                        }
-                    }
-
                     processedClusters.push({
                         id: `cl-${pageNum}-${cIdx}-${Date.now()}`,
                         pageNum: pageNum,
-                        text: text,
-                        confidence: avgConf,
+                        text: recognizedText,
+                        confidence: Math.round(res.data.confidence || 85),
                         pixelBox: tightBox,
+                        cellBounds: item.cell,
                         xRatio,
                         yRatio,
                         wRatio,
                         hRatio,
                         bgColor: sampledBg,
                         fontSize,
-                        fontFamily: "'Times New Roman', 'Tinos', 'Noto Serif', serif", // Mặc định Serif cho scan
+                        fontFamily: "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif",
                         isBold: false,
-                        isCentered
+                        isCentered: item.isCentered
                     });
-                });
+                }
 
                 // Lưu vào Cache IndexedDB
                 await PdfOcrCache.set(cacheKey, {
                     clusters: processedClusters,
-                    tableLines,
+                    tableLines: layout.tableLines,
                     createdAt: Date.now()
                 });
 
@@ -1298,6 +1506,12 @@
                     }
                 };
 
+                box.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.showClusterContextMenu(e, cluster, pageNum);
+                };
+
                 box.ondblclick = (e) => {
                     e.stopPropagation();
                     this.selectWholeCellClusters(cluster, pageNum);
@@ -1305,6 +1519,81 @@
 
                 layer.appendChild(box);
             });
+        },
+
+        showClusterContextMenu(e, cluster, pageNum) {
+            const oldMenu = document.getElementById('pdfClusterContextMenu');
+            if (oldMenu) oldMenu.remove();
+
+            const menu = document.createElement('div');
+            menu.id = 'pdfClusterContextMenu';
+            menu.className = 'fixed z-[9999] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-1.5 px-1 text-xs text-slate-800 dark:text-slate-100 min-w-[170px] space-y-0.5 animate-in fade-in duration-100';
+            menu.style.left = `${e.clientX}px`;
+            menu.style.top = `${e.clientY}px`;
+
+            const previewText = (cluster.text || '').slice(0, 15);
+            menu.innerHTML = `
+                <div class="px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-700 mb-1">
+                    Cụm: "${this.escapeHtml(previewText)}..."
+                </div>
+                <button type="button" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-2" id="pdfMenuEditBtn">
+                    <i class="fa-solid fa-pen text-xs"></i> Chỉnh sửa ô này
+                </button>
+                <button type="button" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2" id="pdfMenuMergePrevBtn">
+                    <i class="fa-solid fa-arrow-left text-xs"></i> Gộp với cụm trước
+                </button>
+                <button type="button" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2" id="pdfMenuMergeNextBtn">
+                    <i class="fa-solid fa-arrow-right text-xs"></i> Gộp với cụm sau
+                </button>
+            `;
+
+            document.body.appendChild(menu);
+
+            const closeMenu = () => {
+                menu.remove();
+                document.removeEventListener('click', closeMenu);
+            };
+            setTimeout(() => document.addEventListener('click', closeMenu), 50);
+
+            const editBtn = document.getElementById('pdfMenuEditBtn');
+            const prevBtn = document.getElementById('pdfMenuMergePrevBtn');
+            const nextBtn = document.getElementById('pdfMenuMergeNextBtn');
+
+            if (editBtn) editBtn.onclick = () => {
+                closeMenu();
+                this.openInPlaceClusterEdit(cluster, pageNum, document.getElementById(`cluster-box-${cluster.id}`));
+            };
+            if (prevBtn) prevBtn.onclick = () => {
+                closeMenu();
+                this.mergeClusterWithPrev(cluster, pageNum);
+            };
+            if (nextBtn) nextBtn.onclick = () => {
+                closeMenu();
+                this.expandClusterSelection(cluster, pageNum);
+            };
+        },
+
+        mergeClusterWithPrev(cluster, pageNum) {
+            const clusters = this.pageClusters[pageNum] || [];
+            const idx = clusters.findIndex(c => c.id === cluster.id);
+            if (idx > 0) {
+                const prev = clusters[idx - 1];
+                const merged = {
+                    ...prev,
+                    text: prev.text + ' ' + cluster.text,
+                    xRatio: Math.min(prev.xRatio, cluster.xRatio),
+                    yRatio: Math.min(prev.yRatio, cluster.yRatio),
+                    wRatio: Math.max(prev.xRatio + prev.wRatio, cluster.xRatio + cluster.wRatio) - Math.min(prev.xRatio, cluster.xRatio),
+                    hRatio: Math.max(prev.yRatio + prev.hRatio, cluster.yRatio + cluster.hRatio) - Math.min(prev.yRatio, cluster.yRatio),
+                    pixelBox: {
+                        x0: Math.min(prev.pixelBox.x0, cluster.pixelBox.x0),
+                        y0: Math.min(prev.pixelBox.y0, cluster.pixelBox.y0),
+                        x1: Math.max(prev.pixelBox.x1, cluster.pixelBox.x1),
+                        y1: Math.max(prev.pixelBox.y1, cluster.pixelBox.y1)
+                    }
+                };
+                this.openInPlaceClusterEdit(merged, pageNum, document.getElementById(`cluster-box-${prev.id}`));
+            }
         },
 
         /**
@@ -1324,12 +1613,12 @@
             input.type = 'text';
             input.value = cluster.text;
 
-            // Đồng nhất 100% thuộc tính hiển thị
+            // Đồng nhất 100% thuộc tính hiển thị (P3 Unified Typography)
             input.style.left = (cluster.xRatio * 100) + '%';
             input.style.top = (cluster.yRatio * 100) + '%';
             input.style.width = Math.max(cluster.wRatio * 100, 3) + '%';
             input.style.height = (cluster.hRatio * 100) + '%';
-            input.style.fontFamily = cluster.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', serif";
+            input.style.fontFamily = cluster.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
             input.style.fontSize = cluster.fontSize + 'px';
             input.style.fontWeight = cluster.isBold ? '700' : '400';
             input.style.color = cluster.textColor || '#111827';
@@ -1361,6 +1650,18 @@
                 } else if (e.key === 'Escape') {
                     e.preventDefault();
                     this.closeCurrentInPlaceEdit();
+                } else if (e.key === 'Tab') {
+                    e.preventDefault();
+                    this.applyInPlaceClusterEdit(input.value.trim());
+                    const allClusters = (this.pageClusters[pageNum] || []).slice().sort((a, b) => (a.yRatio - b.yRatio) || (a.xRatio - b.xRatio));
+                    const curIdx = allClusters.findIndex(c => c.id === cluster.id);
+                    const nextCluster = e.shiftKey ? allClusters[curIdx - 1] : allClusters[curIdx + 1];
+                    if (nextCluster) {
+                        setTimeout(() => {
+                            const nextEl = document.getElementById(`cluster-box-${nextCluster.id}`);
+                            this.openInPlaceClusterEdit(nextCluster, pageNum, nextEl);
+                        }, 50);
+                    }
                 }
             };
 
@@ -1398,11 +1699,12 @@
 
             const canvas = this.pageCanvases[pageNum];
             const tableLines = this.pageTableLines[pageNum] || { hLines: [], vLines: [] };
+            const lineMask = (this.pageLayouts && this.pageLayouts[pageNum]) ? this.pageLayouts[pageNum].lineMask : null;
 
             // 1. Tạo mặt nạ che nền (Mask Dilation) ôm sát nét mực, bảo toàn đường kẻ bảng
             let maskDataUrl = null;
             if (canvas && cluster.pixelBox) {
-                maskDataUrl = createInkMaskWhiteout(canvas, cluster, tableLines);
+                maskDataUrl = createInkMaskWhiteout(canvas, cluster, tableLines, lineMask);
             }
 
             const whiteoutAnn = {
@@ -1429,7 +1731,7 @@
                     text: newText,
                     color: cluster.textColor || '#111827',
                     fontSize: cluster.fontSize || 13,
-                    fontFamily: cluster.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', serif",
+                    fontFamily: cluster.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif",
                     fontWeight: cluster.isBold ? '700' : 'normal',
                     isCentered: cluster.isCentered,
                     bgColor: 'transparent'
@@ -1811,19 +2113,20 @@
                             ctx.fillRect(x, y, w, h);
                         } else if (ann.type === 'text') {
                             ctx.fillStyle = ann.color || '#111827';
-                            const fontSz = ann.fontSize || 13;
+                            // P3: Thống nhất cỡ chữ và phông chữ theo tỷ lệ chiều cao PDF thực tế
+                            const fontSz = Math.max(9, Math.round(ann.hRatio * pageHeight * 0.88));
                             const fWeight = ann.fontWeight || 'normal';
-                            const fFamily = (ann.fontFamily && ann.fontFamily.includes('Times')) ? 'Times New Roman, serif' : 'Inter, Arial, sans-serif';
+                            const fFamily = "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
 
                             ctx.font = `${fWeight} ${fontSz}px ${fFamily}`;
-                            ctx.textBaseline = 'top';
+                            ctx.textBaseline = 'middle';
 
                             if (ann.isCentered) {
                                 ctx.textAlign = 'center';
-                                ctx.fillText(ann.text, x + w / 2, y + 2);
+                                ctx.fillText(ann.text, x + w / 2, y + h / 2);
                             } else {
                                 ctx.textAlign = 'left';
-                                ctx.fillText(ann.text, x + 2, y + 2);
+                                ctx.fillText(ann.text, x + 2, y + h / 2);
                             }
                         }
                     }
