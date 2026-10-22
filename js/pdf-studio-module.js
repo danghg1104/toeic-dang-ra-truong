@@ -3233,22 +3233,37 @@
 
                     this.showLoading(`Đang xử lý lớp chữ & che nền trang ${pageNum}/${pages.length}...`);
                     const targetPage = pages[pageNum - 1];
-                    const pageWidth = targetPage.getWidth();
-                    const pageHeight = targetPage.getHeight();
+                    const rawW = targetPage.getWidth();
+                    const rawH = targetPage.getHeight();
+                    const rot = (targetPage.getRotation().angle || 0) % 360;
+
+                    // Kích thước hiển thị thực tế (trong viewport hiển thị mà người dùng thao tác)
+                    const displayW = (rot === 90 || rot === 270) ? rawH : rawW;
+                    const displayH = (rot === 90 || rot === 270) ? rawW : rawH;
 
                     const exportCanvas = document.createElement('canvas');
                     const scaleFactor = 2.0;
-                    exportCanvas.width = Math.round(pageWidth * scaleFactor);
-                    exportCanvas.height = Math.round(pageHeight * scaleFactor);
+                    exportCanvas.width = Math.round(rawW * scaleFactor);
+                    exportCanvas.height = Math.round(rawH * scaleFactor);
                     const ctx = exportCanvas.getContext('2d');
 
+                    if (rot === 90) {
+                        ctx.translate(0, rawH * scaleFactor);
+                        ctx.rotate(-Math.PI / 2);
+                    } else if (rot === 180) {
+                        ctx.translate(rawW * scaleFactor, rawH * scaleFactor);
+                        ctx.rotate(Math.PI);
+                    } else if (rot === 270) {
+                        ctx.translate(rawW * scaleFactor, 0);
+                        ctx.rotate(Math.PI / 2);
+                    }
                     ctx.scale(scaleFactor, scaleFactor);
 
                     for (const ann of anns) {
-                        const x = ann.xRatio * pageWidth;
-                        const y = ann.yRatio * pageHeight;
-                        const w = ann.wRatio * pageWidth;
-                        const h = ann.hRatio * pageHeight;
+                        const x = ann.xRatio * displayW;
+                        const y = ann.yRatio * displayH;
+                        const w = ann.wRatio * displayW;
+                        const h = ann.hRatio * displayH;
 
                         if (ann.type === 'mask-whiteout' && ann.maskDataUrl) {
                             // Vẽ mặt nạ điểm ảnh (giữ nguyên đường kẻ bảng)
@@ -3277,20 +3292,39 @@
                             ctx.fillRect(x, y, w, h);
                         } else if (ann.type === 'text') {
                             ctx.fillStyle = ann.color || '#111827';
-                            // P3: Thống nhất cỡ chữ và phông chữ theo tỷ lệ chiều cao PDF thực tế
-                            const fontSz = Math.max(9, Math.round(ann.hRatio * pageHeight * 0.88));
-                            const fWeight = ann.fontWeight || 'normal';
-                            const fFamily = "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
+                            // Thống nhất cỡ chữ và phông chữ theo tỷ lệ chiều cao PDF thực tế
+                            const fontSz = ann.fontSize ? Math.round(ann.fontSize) : Math.max(9, Math.round(ann.hRatio * displayH * 0.88));
+                            const fWeight = ann.fontWeight || (ann.isBold ? 'bold' : 'normal');
+                            const fStyle = ann.isItalic ? 'italic' : 'normal';
+                            const fFamily = ann.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
 
-                            ctx.font = `${fWeight} ${fontSz}px ${fFamily}`;
+                            ctx.font = `${fStyle} ${fWeight} ${fontSz}px ${fFamily}`;
                             ctx.textBaseline = 'middle';
 
-                            if (ann.isCentered) {
+                            let textX = x + 2;
+                            if (ann.isCentered || ann.textAlign === 'center') {
                                 ctx.textAlign = 'center';
-                                ctx.fillText(ann.text, x + w / 2, y + h / 2);
+                                textX = x + w / 2;
+                            } else if (ann.textAlign === 'right') {
+                                ctx.textAlign = 'right';
+                                textX = x + w - 2;
                             } else {
                                 ctx.textAlign = 'left';
-                                ctx.fillText(ann.text, x + 2, y + h / 2);
+                            }
+                            ctx.fillText(ann.text, textX, y + h / 2);
+
+                            if (ann.isUnderline) {
+                                const textMetrics = ctx.measureText(ann.text);
+                                const textWidth = textMetrics.width;
+                                let lineStartX = textX;
+                                if (ctx.textAlign === 'center') lineStartX = textX - textWidth / 2;
+                                else if (ctx.textAlign === 'right') lineStartX = textX - textWidth;
+                                ctx.lineWidth = Math.max(1, fontSz / 14);
+                                ctx.strokeStyle = ann.color || '#111827';
+                                ctx.beginPath();
+                                ctx.moveTo(lineStartX, y + h / 2 + fontSz * 0.45);
+                                ctx.lineTo(lineStartX + textWidth, y + h / 2 + fontSz * 0.45);
+                                ctx.stroke();
                             }
                         }
                     }
@@ -3301,13 +3335,14 @@
                     targetPage.drawImage(pngImage, {
                         x: 0,
                         y: 0,
-                        width: pageWidth,
-                        height: pageHeight
+                        width: rawW,
+                        height: rawH
                     });
                 }
 
                 this.showLoading('Đang nén và tạo tệp tin PDF hoàn chỉnh...');
                 const pdfBytes = await pdfDoc.save();
+                this.lastExportedPdfBytes = pdfBytes;
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                 const downloadUrl = URL.createObjectURL(blob);
 
@@ -3323,6 +3358,7 @@
                 if (window.showToast) {
                     window.showToast(`🎉 Đã xuất thành công file "${a.download}"!`);
                 }
+                return pdfBytes;
             } catch (err) {
                 console.error('Lỗi xuất PDF:', err);
                 this.hideLoading();
