@@ -882,7 +882,7 @@
     function renderRealisticScanText(canvas, newText, typo, cell, isCentered = false, alignLeftX = null, targetCapH = null, settings = {}) {
         if (!canvas || !canvas.getContext) return null;
         const tctx = canvas.getContext('2d');
-        const capH = targetCapH || (typo && typo.measuredCapHeight) || 14;
+        const capH = targetCapH || (typo && typo.measuredCapHeight) || 28;
         let fontSize = settings.fontSize || Math.round(capH / 0.72);
         const fontFamily = settings.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
         const fontWeight = settings.isBold ? '700' : '400';
@@ -910,7 +910,8 @@
         }
 
         // Đảm bảo không bao giờ tràn qua viền phải bảng nếu có ô cố định và không kéo tự do
-        if (cell && cell.x1 && settings.customDrawX === undefined) {
+        // (Chỉ tự động co chữ nếu người dùng KHÔNG chỉ định cỡ chữ riêng)
+        if (!settings.isExplicitFontSize && cell && cell.x1 && settings.customDrawX === undefined) {
             const maxAvailableW = Math.max(50, cell.x1 - startX - 10);
             if (textWidth > maxAvailableW) {
                 hscale = maxAvailableW / textWidth;
@@ -1739,9 +1740,10 @@
                     // Lấy mẫu màu nền trung vị quanh cụm
                     const sampledBg = sampleMedianBackgroundColor(offCanvas, tightBox.x0, tightBox.y0, tightBox.x1 - tightBox.x0, tightBox.y1 - tightBox.y0);
 
-                    // Ước tính cỡ chữ hiển thị
+                    // Ước tính cỡ chữ hiển thị (CSS screen pixels)
                     const displayH = hRatio * (this.pageViewports[pageNum] ? this.pageViewports[pageNum].height : 800);
-                    const fontSize = Math.max(9, Math.round(displayH * 0.88));
+                    // Chiều cao chữ in (cap-height) chiếm khoảng 70% cỡ chữ thực tế
+                    const fontSize = Math.max(12, Math.round(displayH / 0.72));
 
                     processedClusters.push({
                         id: `cl-${pageNum}-${cIdx}-${Date.now()}`,
@@ -1871,14 +1873,27 @@
             if (!layer || !clusters) return;
             layer.innerHTML = '';
 
-            clusters.forEach(cluster => {
+            // Lọc bỏ cụm rác point-cl cũ nếu có
+            const cleanClusters = clusters.filter(c => !c.id.startsWith('point-cl-'));
+
+            cleanClusters.forEach(cluster => {
                 const box = document.createElement('div');
                 box.id = `cluster-box-${cluster.id}`;
                 box.className = 'pdf-touch-cluster';
-                box.style.left = (cluster.xRatio * 100) + '%';
-                box.style.top = (cluster.yRatio * 100) + '%';
-                box.style.width = (cluster.wRatio * 100) + '%';
-                box.style.height = (cluster.hRatio * 100) + '%';
+
+                // Tăng diện tích chạm bao phủ (căn giữa theo chữ) để người dùng bấm chính xác tuyệt đối, không trượt
+                const minH_pct = 2.6; // ~22-26px trên trang chuẩn A4
+                const minW_pct = 4.0;
+                const hPct = Math.max(cluster.hRatio * 100, minH_pct);
+                const wPct = Math.max(cluster.wRatio * 100, minW_pct);
+                const topPct = Math.max(0, (cluster.yRatio * 100) - (hPct - cluster.hRatio * 100) / 2);
+                const leftPct = Math.max(0, (cluster.xRatio * 100) - (wPct - cluster.wRatio * 100) / 2);
+
+                box.style.left = leftPct + '%';
+                box.style.top = topPct + '%';
+                box.style.width = Math.min(100 - leftPct, wPct) + '%';
+                box.style.height = hPct + '%';
+                box.style.minHeight = '24px';
 
                 box.title = `Nhấp để sửa "${cluster.text}" (${Math.round(cluster.confidence)}%)`;
 
@@ -2027,12 +2042,14 @@
             // Định vị tọa độ
             const leftPct = (cluster.customXRatio !== undefined ? cluster.customXRatio : cluster.xRatio) * 100;
             const topPct = (cluster.customYRatio !== undefined ? cluster.customYRatio : cluster.yRatio) * 100;
-            const minWidthPct = Math.min(96, Math.max(cluster.wRatio * 100 + 4, cluster.isCentered ? 36 : 18));
+            const minWidthPct = Math.min(96, Math.max(cluster.wRatio * 100 + 4, cluster.isCentered ? 36 : 22));
 
             input.style.left = leftPct + '%';
             input.style.top = topPct + '%';
             input.style.width = minWidthPct + '%';
-            input.style.minHeight = Math.max(cluster.hRatio * (wrapper.offsetHeight || 800), 24) + 'px';
+            input.style.height = Math.max(Math.round(currentFontSize * 1.6 + 10), 32) + 'px';
+            input.style.lineHeight = Math.round(currentFontSize * 1.3) + 'px';
+            input.style.padding = '3px 8px';
             input.style.fontFamily = currentFontFamily;
             input.style.fontSize = currentFontSize + 'px';
             input.style.fontWeight = isBold ? '700' : '400';
@@ -2042,25 +2059,9 @@
             input.style.backgroundColor = cluster.bgColor || '#faf9f5';
             input.style.textAlign = currentAlign;
 
-            // Tự động co chữ hoặc mở rộng ô khi người dùng gõ
+            // Tự động mở rộng ô nhập theo chữ người dùng gõ
             input.oninput = () => {
-                const measurer = document.createElement('canvas').getContext('2d');
-                measurer.font = `${isItalic ? 'italic' : 'normal'} ${isBold ? 'bold' : 'normal'} ${currentFontSize}px ${currentFontFamily}`;
-                let testWidth = measurer.measureText(input.value).width;
-                const wrapperW = wrapper.offsetWidth || 800;
-                const maxPixelWidth = Math.max(cluster.wRatio * wrapperW * 1.5, 120);
-                if (testWidth > maxPixelWidth && currentFontSize > 7) {
-                    let fitFont = currentFontSize;
-                    while (testWidth > maxPixelWidth && fitFont > 7.0) {
-                        fitFont -= 0.5;
-                        measurer.font = `${isItalic ? 'italic' : 'normal'} ${isBold ? 'bold' : 'normal'} ${fitFont}px ${currentFontFamily}`;
-                        testWidth = measurer.measureText(input.value).width;
-                    }
-                    currentFontSize = Math.round(fitFont);
-                    input.style.fontSize = currentFontSize + 'px';
-                    const fsInput = document.getElementById('pdfFontSizeInput');
-                    if (fsInput) fsInput.value = currentFontSize;
-                }
+                if (typeof updateEditorStyles === 'function') updateEditorStyles();
             };
 
             // Thanh công cụ nổi chuẩn Word (Word Toolbar)
@@ -2220,6 +2221,20 @@
                 input.style.textAlign = currentAlign;
                 input.style.color = (currentColor === 'auto') ? (cluster.textColor || '#111827') : currentColor;
                 if (fontSizeInput) fontSizeInput.value = currentFontSize;
+
+                // Tự động mở rộng kích thước ô nhập theo cỡ chữ và độ dài nội dung để không bị che, cắt chữ, mất dấu
+                const measurer = document.createElement('canvas').getContext('2d');
+                measurer.font = `${isItalic ? 'italic' : 'normal'} ${isBold ? 'bold' : 'normal'} ${currentFontSize}px ${currentFontFamily}`;
+                const textW = measurer.measureText(input.value || 'M').width;
+                const wrapperW = wrapper.offsetWidth || 800;
+
+                const neededWidthPct = Math.min(96, Math.max((textW + 48) / wrapperW * 100, cluster.wRatio * 100 + 6, 24));
+                input.style.width = neededWidthPct + '%';
+
+                const neededHeightPx = Math.max(Math.round(currentFontSize * 1.6 + 12), 34);
+                input.style.height = neededHeightPx + 'px';
+                input.style.lineHeight = Math.round(currentFontSize * 1.35) + 'px';
+                input.style.padding = '4px 8px';
 
                 if (boldBtn) boldBtn.classList.toggle('active', isBold);
                 if (italicBtn) italicBtn.classList.toggle('active', isItalic);
@@ -2407,6 +2422,7 @@
 
             wrapper.appendChild(toolbar);
             wrapper.appendChild(input);
+            updateEditorStyles();
             input.focus();
             input.select();
         },
@@ -2452,6 +2468,10 @@
                 this.pageLayouts[pageNum] = layout;
             }
 
+            const wrapper = document.getElementById(`pdfPageWrapper-${pageNum}`);
+            const wrapperW = (wrapper && wrapper.offsetWidth) || (this.pageViewports[pageNum] ? this.pageViewports[pageNum].width : 595);
+            const canvasScale = (workingCanvas && wrapperW > 0) ? (workingCanvas.width / wrapperW) : 2.0;
+
             // TRƯỜNG HỢP 1: Chỉnh sửa lại một chú thích chữ đã tồn tại (Re-editing existing annotation)
             if (cluster.editingAnnId) {
                 const pageAnns = this.annotations[pageNum] || [];
@@ -2479,6 +2499,12 @@
                         settings.customDrawY = existingAnn.yRatio * workingCanvas.height;
                     }
 
+                    const renderSettings = { ...this.scanTextSettings, ...settings };
+                    if (settings.fontSize) {
+                        renderSettings.fontSize = Math.round(settings.fontSize * canvasScale);
+                        renderSettings.isExplicitFontSize = true;
+                    }
+
                     const renderResult = renderRealisticScanText(
                         workingCanvas,
                         newText,
@@ -2486,11 +2512,8 @@
                         cluster.cellBounds,
                         settings.textAlign === 'center' || (existingAnn && existingAnn.isCentered),
                         alignLeftX,
-                        settings.fontSize ? null : (cluster.fontSize || null),
-                        {
-                            ...this.scanTextSettings,
-                            ...settings
-                        }
+                        settings.fontSize ? null : (cluster.fontSize ? Math.round(cluster.fontSize * canvasScale) : null),
+                        renderSettings
                     );
 
                     if (renderResult && renderResult.pngDataUrl) {
@@ -2500,7 +2523,7 @@
                         existingAnn.yRatio = renderResult.drawY / workingCanvas.height;
                         existingAnn.wRatio = renderResult.drawW / workingCanvas.width;
                         existingAnn.hRatio = renderResult.drawH / workingCanvas.height;
-                        existingAnn.fontSize = renderResult.fontSize;
+                        existingAnn.fontSize = settings.fontSize || Math.round(renderResult.fontSize / canvasScale);
                         existingAnn.fontFamily = renderResult.fontFamily;
                         existingAnn.isBold = renderResult.isBold;
                         existingAnn.isItalic = renderResult.isItalic;
@@ -2604,8 +2627,14 @@
                         const peerTypo = measureClusterTypography(workingCanvas, belowPeers[0].pixelBox, cluster.cellBounds);
                         targetCapH = peerTypo.measuredCapHeight;
                     } else if (cluster.pixelBox && cluster.pixelBox.x0 >= 280 && cluster.pixelBox.x1 <= 850 && cluster.pixelBox.y0 >= 90 && cluster.pixelBox.y1 <= 130) {
-                        targetCapH = 14;
+                        targetCapH = 28;
                     }
+                }
+
+                const renderSettings = { ...this.scanTextSettings, ...settings };
+                if (settings.fontSize) {
+                    renderSettings.fontSize = Math.round(settings.fontSize * canvasScale);
+                    renderSettings.isExplicitFontSize = true;
                 }
 
                 const renderResult = renderRealisticScanText(
@@ -2616,10 +2645,7 @@
                     settings.textAlign === 'center' || cluster.isCentered,
                     alignLeftX,
                     targetCapH,
-                    {
-                        ...this.scanTextSettings,
-                        ...settings
-                    }
+                    renderSettings
                 );
 
                 if (renderResult && renderResult.pngDataUrl) {
@@ -2632,7 +2658,7 @@
                         wRatio: renderResult.drawW / workingCanvas.width,
                         hRatio: renderResult.drawH / workingCanvas.height,
                         text: newText,
-                        fontSize: renderResult.fontSize,
+                        fontSize: settings.fontSize || Math.round(renderResult.fontSize / canvasScale),
                         fontFamily: renderResult.fontFamily,
                         isBold: renderResult.isBold,
                         isItalic: renderResult.isItalic,
@@ -2691,11 +2717,59 @@
             const wrapper = document.getElementById(`pdfPageWrapper-${pageNum}`);
             if (!wrapper) return;
             const rect = wrapper.getBoundingClientRect();
-            const clickXRatio = (e.clientX - rect.left) / rect.width;
-            const clickYRatio = (e.clientY - rect.top) / rect.height;
+            const w = (rect && rect.width > 0) ? rect.width : (wrapper.offsetWidth || (this.pageViewports[pageNum] ? this.pageViewports[pageNum].width : 800));
+            const h = (rect && rect.height > 0) ? rect.height : (wrapper.offsetHeight || (this.pageViewports[pageNum] ? this.pageViewports[pageNum].height : 1100));
+            if (w <= 0 || h <= 0) return;
+
+            // Hỗ trợ cả e.clickXRatio/YRatio trực tiếp hoặc tính từ con trỏ chuột e.clientX/Y
+            const clickXRatio = (e.clickXRatio !== undefined) ? e.clickXRatio : Math.max(0, Math.min(1, (((e.clientX !== undefined) ? e.clientX : rect.left + w * 0.5) - rect.left) / w));
+            const clickYRatio = (e.clickYRatio !== undefined) ? e.clickYRatio : Math.max(0, Math.min(1, (((e.clientY !== undefined) ? e.clientY : rect.top + h * 0.5) - rect.top) / h));
 
             const viewport = this.pageViewports[pageNum];
             if (!viewport) return;
+
+            // KIỂM TRA ƯU TIÊN 1: Nếu điểm bấm nằm gần một cụm chữ đã nhận diện sẵn
+            const clusters = this.pageClusters[pageNum] || [];
+            let closestCluster = null;
+            let minDistance = Infinity;
+
+            for (const cl of clusters) {
+                if (cl.id.startsWith('point-cl-')) continue;
+
+                // Tính khoảng cách từ điểm click đến hình chữ nhật bao quanh chữ của cụm
+                const clLeft = cl.xRatio;
+                const clRight = cl.xRatio + cl.wRatio;
+                const clTop = cl.yRatio;
+                const clBottom = cl.yRatio + cl.hRatio;
+
+                // Khoảng cách theo trục X
+                let dx = 0;
+                if (clickXRatio < clLeft) dx = clLeft - clickXRatio;
+                else if (clickXRatio > clRight) dx = clickXRatio - clRight;
+
+                // Khoảng cách theo trục Y (nhân trọng số để ưu tiên đúng dòng)
+                let dy = 0;
+                if (clickYRatio < clTop) dy = clTop - clickYRatio;
+                else if (clickYRatio > clBottom) dy = clickYRatio - clBottom;
+
+                // Nếu click nằm trong phạm vi lân cận (ngang <= 6.0%, dọc <= 3.5%)
+                if (dx <= 0.060 && dy <= 0.035) {
+                    const dist = dx * dx + dy * dy * 4;
+                    if (dist < minDistance) {
+                        minDistance = dist;
+                        closestCluster = cl;
+                    }
+                }
+            }
+
+            if (closestCluster) {
+                console.log('[PdfStudio] Proximity click matched cluster:', closestCluster.text, 'id:', closestCluster.id);
+                const boxEl = document.getElementById(`cluster-box-${closestCluster.id}`);
+                this.openInPlaceClusterEdit(closestCluster, pageNum, boxEl || wrapper);
+                return;
+            }
+
+            console.log('[PdfStudio] Proximity click fallback at ratio:', clickXRatio.toFixed(3), clickYRatio.toFixed(3));
 
             const clickX = clickXRatio * viewport.width;
             const clickY = clickYRatio * viewport.height;
@@ -2711,13 +2785,15 @@
             }
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const d = ctx.getImageData(Math.floor(clickX), Math.floor(clickY), 1, 1).data;
+            const ix = Math.max(0, Math.min(canvas.width - 1, Math.floor(clickX) || 0));
+            const iy = Math.max(0, Math.min(canvas.height - 1, Math.floor(clickY) || 0));
+            const d = ctx.getImageData(ix, iy, 1, 1).data;
             const lum = d[0] * 0.299 + d[1] * 0.587 + d[2] * 0.114;
 
             // Nếu chạm vào mực hoặc vết con dấu
             if (lum < 165 || (d[0] > 150 && d[1] < 110)) {
-                const cropW = 120;
-                const cropH = 40;
+                const cropW = 70;
+                const cropH = 28;
                 const cropX = Math.max(0, clickX - cropW / 2);
                 const cropY = Math.max(0, clickY - cropH / 2);
 
