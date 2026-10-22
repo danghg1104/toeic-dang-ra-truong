@@ -611,7 +611,7 @@
 
                 const cIdx = gIdx * 4;
                 const r = fullImg[cIdx], g = fullImg[cIdx + 1], b = fullImg[cIdx + 2];
-                const isColor = (b > 115 && b > r * 1.15 && b > g * 1.08) || (r > 130 && r > g * 1.3 && r > b * 1.3);
+                const isColor = (b > 105 && (b > r * 1.05 || (b > 125 && r < 190))) || (r > 130 && r > g * 1.25 && r > b * 1.25) || (Math.max(r, g, b) - Math.min(r, g, b) >= 14 && (r * 0.299 + g * 0.587 + b * 0.114) < 225);
                 if (isColor) continue;
                 const lum = r * 0.299 + g * 0.587 + b * 0.114;
                 if (lum >= 220) {
@@ -643,15 +643,16 @@
                 const lum = r * 0.299 + g * 0.587 + b * 0.114;
                 relDark[y * sw + x] = Math.max(0, (meanBgLum - lum) / meanBgLum);
 
-                // Nhận diện nét viết tay xanh hoặc mực màu (Q3)
-                const isBlue = (b > 115 && b > r * 1.15 && b > g * 1.08);
-                const isRed = (r > 130 && r > g * 1.3 && r > b * 1.3);
-                if (isBlue || isRed) isColor[y * sw + x] = 1;
+                // Nhận diện nét viết tay xanh, bút mực màu hoặc nét con dấu (Q3)
+                const isBlue = (b > 105 && (b > r * 1.05 || (b > 125 && r < 190)));
+                const isRed = (r > 130 && r > g * 1.25 && r > b * 1.25);
+                const isOtherColor = (Math.max(r, g, b) - Math.min(r, g, b) >= 14 && lum < 225);
+                if (isBlue || isRed || isOtherColor) isColor[y * sw + x] = 1;
             }
         }
 
-        const Thigh = 0.12;
-        const Tlow = 0.055;
+        const Thigh = 0.10;
+        const Tlow = 0.045;
         const inkSeed = new Uint8Array(sw * sh);
         const inkCand = new Uint8Array(sw * sh);
         for (let i = 0; i < sw * sh; i++) {
@@ -931,9 +932,9 @@
         }
 
         const textOffscreen = document.createElement('canvas');
-        const pad = 12;
+        const pad = 3;
         textOffscreen.width = Math.ceil(textWidth * hscale + pad * 2);
-        textOffscreen.height = Math.ceil(fontSize * 1.6 + pad * 2);
+        textOffscreen.height = Math.ceil(fontSize * 1.25 + pad * 2);
         const octx = textOffscreen.getContext('2d');
 
         const blurSigma = settings.blurSigma !== undefined ? settings.blurSigma : 0.60;
@@ -967,6 +968,12 @@
 
         if (settings.customDrawY !== undefined) {
             drawY = settings.customDrawY;
+        } else if (cell && cell.y0 !== undefined) {
+            // Giữ cho chữ luôn nằm trọn trong ô bảng, không bao giờ nhảy đè lên đường kẻ trên hoặc dưới
+            if (drawY < cell.y0 + 2) drawY = cell.y0 + 2;
+            if (cell.y1 !== undefined && (drawY + textOffscreen.height > cell.y1 - 1)) {
+                drawY = Math.max(cell.y0 + 2, cell.y1 - 1 - textOffscreen.height);
+            }
         }
 
         const drawW = textOffscreen.width;
@@ -2486,7 +2493,11 @@
                     }
 
                     const existingAnn = pageAnns[existingIdx];
-                    const typo = measureClusterTypography(workingCanvas, cluster.pixelBox || { x0: 0, y0: 0, x1: 50, y1: 20 }, cluster.cellBounds);
+                    const typo = {
+                        measuredBaselineY: existingAnn.baselineY || (cluster.pixelBox ? cluster.pixelBox.y1 : (cluster.cellBounds ? Math.round(cluster.cellBounds.y0 + (cluster.cellBounds.y1 - cluster.cellBounds.y0) * 0.75) : 100)),
+                        measuredCapHeight: cluster.fontSize ? Math.round(cluster.fontSize * canvasScale * 0.72) : 14,
+                        inkColor: existingAnn.color || 'rgb(35, 38, 42)'
+                    };
                     let alignLeftX = null;
                     if (settings.customXRatio !== undefined) {
                         settings.customDrawX = settings.customXRatio * workingCanvas.width;
@@ -2531,6 +2542,7 @@
                         existingAnn.textAlign = renderResult.textAlign;
                         existingAnn.color = renderResult.color;
                         existingAnn.isCentered = renderResult.textAlign === 'center';
+                        existingAnn.baselineY = renderResult.baselineY;
                     }
                     this.renderPageAnnotations(pageNum);
                     if (window.showToast) window.showToast('✨ Đã cập nhật chữ thành công!');
@@ -2559,6 +2571,37 @@
             const adjacentAbove = abovePeers.length > 0 ? abovePeers[0].pixelBox : null;
             const adjacentBelow = belowPeers.length > 0 ? belowPeers[0].pixelBox : null;
 
+            // 1.5. BẮT BUỘC ĐO TYPOGRAPHY TRƯỚC KHI XÓA MỰC (Measure typography BEFORE inpainting)!
+            // Nếu đo sau khi xóa, workingCanvas không còn pixel mực nào và baseline sẽ bị nhảy sai!
+            const typo = measureClusterTypography(workingCanvas, cluster.pixelBox, cluster.cellBounds);
+
+            // Kiểm tra căn lề trái theo dòng kề cùng cột
+            let alignLeftX = null;
+            if (settings.customXRatio !== undefined) {
+                settings.customDrawX = settings.customXRatio * workingCanvas.width;
+            } else if (!cluster.isCentered && belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                alignLeftX = belowPeers[0].pixelBox.x0;
+            } else if (!cluster.isCentered && abovePeers.length > 0 && Math.abs(abovePeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                alignLeftX = abovePeers[0].pixelBox.x0;
+            } else if (!cluster.isCentered) {
+                alignLeftX = cluster.pixelBox.x0;
+            }
+
+            if (settings.customYRatio !== undefined) {
+                settings.customDrawY = settings.customYRatio * workingCanvas.height;
+            }
+
+            // Chuẩn hóa cap-height nếu người dùng không chỉ định cỡ chữ riêng (đo TRƯỚC inpainting)
+            let targetCapH = null;
+            if (!settings.fontSize) {
+                if (belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                    const peerTypo = measureClusterTypography(workingCanvas, belowPeers[0].pixelBox, cluster.cellBounds);
+                    targetCapH = peerTypo.measuredCapHeight;
+                } else if (cluster.pixelBox && cluster.pixelBox.x0 >= 280 && cluster.pixelBox.x1 <= 850 && cluster.pixelBox.y0 >= 90 && cluster.pixelBox.y1 <= 130) {
+                    targetCapH = 28;
+                }
+            }
+
             // 2. Chạy Inpainting xóa sạch chữ cũ & tái tạo nền giấy scanner (Q0)
             const cleanResult = inpaintClusterRegion(
                 workingCanvas,
@@ -2568,7 +2611,7 @@
                 tableLines,
                 adjacentAbove,
                 adjacentBelow,
-                { eraseColor: this.eraseColorInk !== false }
+                { eraseColor: this.eraseColorInk !== false, extraDilate: true }
             );
 
             if (cleanResult && cleanResult.maskDataUrl) {
@@ -2600,37 +2643,8 @@
                 }
             }
 
-            // 3. Nếu có chữ mới: đo typography & render chữ scan chân thực (Q1, Q2)
+            // 3. Nếu có chữ mới: render chữ scan chân thực theo typography đã đo từ trước
             if (newText) {
-                const typo = measureClusterTypography(workingCanvas, cluster.pixelBox, cluster.cellBounds);
-
-                // Kiểm tra căn lề trái theo dòng kề cùng cột
-                let alignLeftX = null;
-                if (settings.customXRatio !== undefined) {
-                    settings.customDrawX = settings.customXRatio * workingCanvas.width;
-                } else if (!cluster.isCentered && belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
-                    alignLeftX = belowPeers[0].pixelBox.x0;
-                } else if (!cluster.isCentered && abovePeers.length > 0 && Math.abs(abovePeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
-                    alignLeftX = abovePeers[0].pixelBox.x0;
-                } else if (!cluster.isCentered) {
-                    alignLeftX = cluster.pixelBox.x0;
-                }
-
-                if (settings.customYRatio !== undefined) {
-                    settings.customDrawY = settings.customYRatio * workingCanvas.height;
-                }
-
-                // Chuẩn hóa cap-height nếu người dùng không chỉ định cỡ chữ riêng
-                let targetCapH = null;
-                if (!settings.fontSize) {
-                    if (belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
-                        const peerTypo = measureClusterTypography(workingCanvas, belowPeers[0].pixelBox, cluster.cellBounds);
-                        targetCapH = peerTypo.measuredCapHeight;
-                    } else if (cluster.pixelBox && cluster.pixelBox.x0 >= 280 && cluster.pixelBox.x1 <= 850 && cluster.pixelBox.y0 >= 90 && cluster.pixelBox.y1 <= 130) {
-                        targetCapH = 28;
-                    }
-                }
-
                 const renderSettings = { ...this.scanTextSettings, ...settings };
                 if (settings.fontSize) {
                     renderSettings.fontSize = Math.round(settings.fontSize * canvasScale);
