@@ -875,43 +875,55 @@
     /**
      * Q2 — RENDER CHỮ MỚI GIỐNG ĐIỀU KIỆN SCAN (BITMAP PNG CÓ ALPHA)
      * - Khớp cap-height chuẩn
-     * - Màu mực máy scan (mean 10% tối nhất)
+     * - Hỗ trợ đầy đủ định dạng như Word: font chữ, cỡ chữ, in đậm, in nghiêng, gạch chân, căn lề, màu mực
      * - Mờ sườn nét (Gaussian blur 0.60px)
-     * - Co hscale (tối thiểu 0.85) để không bao giờ chạm viền bảng (cách >= 8px)
+     * - Co hscale để không bao giờ chạm viền bảng (cách >= 8px)
      */
     function renderRealisticScanText(canvas, newText, typo, cell, isCentered = false, alignLeftX = null, targetCapH = null, settings = {}) {
         if (!canvas || !canvas.getContext) return null;
         const tctx = canvas.getContext('2d');
-        const capH = targetCapH || typo.measuredCapHeight;
-        let fontSize = Math.round(capH / 0.72);
-        const fontFamily = "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
+        const capH = targetCapH || (typo && typo.measuredCapHeight) || 14;
+        let fontSize = settings.fontSize || Math.round(capH / 0.72);
+        const fontFamily = settings.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
+        const fontWeight = settings.isBold ? '700' : '400';
+        const fontStyle = settings.isItalic ? 'italic' : 'normal';
+        const isUnderline = !!settings.isUnderline;
+        const align = settings.textAlign || (isCentered ? 'center' : 'left');
 
-        tctx.font = `400 ${fontSize}px ${fontFamily}`;
+        tctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
         let textMetrics = tctx.measureText(newText);
         let textWidth = textMetrics.width;
         let hscale = 1.0;
 
-        let startX = (alignLeftX !== null) ? alignLeftX : (cell.x0 + 8);
-        if (isCentered) {
+        let startX = (alignLeftX !== null) ? alignLeftX : ((cell && cell.x0 !== undefined) ? cell.x0 + 8 : 10);
+        if (align === 'center' && cell) {
             const cellMid = (cell.x0 + cell.x1) / 2;
             startX = Math.round(cellMid - textWidth / 2);
+        } else if (align === 'right' && cell) {
+            startX = Math.max((cell.x0 || 0) + 8, cell.x1 - textWidth - 10);
         }
-        startX = Math.max(cell.x0 + 8, startX);
+        if (cell && cell.x0 !== undefined) startX = Math.max(cell.x0 + 8, startX);
 
-        // Đảm bảo không bao giờ tràn qua viền phải bảng (cách tối thiểu 10px >= 8px)
-        const maxAvailableW = Math.max(50, cell.x1 - startX - 10);
+        // Vị trí kéo thả tự do của người dùng (nếu có)
+        if (settings.customDrawX !== undefined) {
+            startX = settings.customDrawX;
+        }
 
-        if (textWidth > maxAvailableW) {
-            hscale = maxAvailableW / textWidth;
-            if (hscale < 0.85) {
-                hscale = 0.85;
-                fontSize = Math.floor(fontSize * (maxAvailableW / (textWidth * 0.85)));
-                tctx.font = `400 ${fontSize}px ${fontFamily}`;
-                textWidth = tctx.measureText(newText).width;
+        // Đảm bảo không bao giờ tràn qua viền phải bảng nếu có ô cố định và không kéo tự do
+        if (cell && cell.x1 && settings.customDrawX === undefined) {
+            const maxAvailableW = Math.max(50, cell.x1 - startX - 10);
+            if (textWidth > maxAvailableW) {
+                hscale = maxAvailableW / textWidth;
+                if (hscale < 0.85) {
+                    hscale = 0.85;
+                    fontSize = Math.floor(fontSize * (maxAvailableW / (textWidth * 0.85)));
+                    tctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
+                    textWidth = tctx.measureText(newText).width;
+                }
             }
         }
 
-        if (isCentered) {
+        if (align === 'center' && cell && settings.customDrawX === undefined) {
             const cellMid = (cell.x0 + cell.x1) / 2;
             startX = Math.round(cellMid - (textWidth * hscale) / 2);
             startX = Math.max(cell.x0 + 8, startX);
@@ -924,19 +936,38 @@
         const octx = textOffscreen.getContext('2d');
 
         const blurSigma = settings.blurSigma !== undefined ? settings.blurSigma : 0.60;
-        const inkColor = settings.inkColor || typo.inkColor || 'rgb(35, 38, 42)';
+        const inkColor = settings.color || settings.inkColor || (typo && typo.inkColor) || 'rgb(35, 38, 42)';
 
         octx.save();
-        octx.font = `400 ${fontSize}px ${fontFamily}`;
+        octx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
         octx.fillStyle = inkColor;
         octx.textBaseline = 'alphabetic';
         if (blurSigma > 0) octx.filter = `blur(${blurSigma}px)`;
         octx.scale(hscale, 1.0);
         octx.fillText(newText, pad / hscale, pad + fontSize * 0.85);
+
+        // Vẽ đường gạch chân (Underline) chuẩn Word
+        if (isUnderline) {
+            octx.save();
+            octx.strokeStyle = inkColor;
+            octx.lineWidth = Math.max(1, Math.round(fontSize * 0.07));
+            const ulY = pad + fontSize * 0.85 + Math.max(2, Math.round(fontSize * 0.10));
+            octx.beginPath();
+            octx.moveTo(pad / hscale, ulY);
+            octx.lineTo((pad + textWidth * hscale) / hscale, ulY);
+            octx.stroke();
+            octx.restore();
+        }
         octx.restore();
 
-        const drawX = startX - pad;
-        const drawY = typo.measuredBaselineY - (pad + fontSize * 0.85);
+        let drawX = startX - pad;
+        let baseBaselineY = (typo && typo.measuredBaselineY) || (cell ? Math.round(cell.y0 + (cell.y1 - cell.y0) * 0.75) : 100);
+        let drawY = baseBaselineY - (pad + fontSize * 0.85);
+
+        if (settings.customDrawY !== undefined) {
+            drawY = settings.customDrawY;
+        }
+
         const drawW = textOffscreen.width;
         const drawH = textOffscreen.height;
 
@@ -944,12 +975,18 @@
 
         return {
             fontSize,
+            fontFamily,
+            isBold: !!settings.isBold,
+            isItalic: !!settings.isItalic,
+            isUnderline,
+            textAlign: align,
+            color: inkColor,
             hscale,
             drawX,
             drawY,
             drawW,
             drawH,
-            baselineY: typo.measuredBaselineY,
+            baselineY: baseBaselineY,
             pngDataUrl: textOffscreen.toDataURL('image/png')
         };
     }
@@ -1141,7 +1178,56 @@
                     }
                     .pdf-ann-item {
                         position: absolute;
+                    }
+                    .pdf-ann-mask {
+                        pointer-events: none !important;
+                    }
+                    .pdf-ann-text {
+                        pointer-events: auto !important;
+                        cursor: move !important;
+                        touch-action: none;
+                        transition: outline 0.12s ease;
+                    }
+                    .pdf-ann-text:hover {
+                        outline: 1.5px dashed rgba(99, 102, 241, 0.85);
+                        border-radius: 2px;
+                    }
+                    .pdf-word-toolbar {
+                        position: absolute;
+                        z-index: 70;
                         pointer-events: auto;
+                        user-select: none;
+                        touch-action: none;
+                        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+                    }
+                    .pdf-word-btn {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        user-select: none;
+                        transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+                    }
+                    .pdf-word-btn:hover {
+                        background-color: #334155 !important;
+                        color: #ffffff !important;
+                    }
+                    .pdf-word-btn.active {
+                        background-color: #4f46e5 !important;
+                        color: #ffffff !important;
+                        border-color: #6366f1 !important;
+                    }
+                    .pdf-word-select {
+                        outline: none;
+                        user-select: none;
+                    }
+                    .pdf-drag-handle {
+                        cursor: grab;
+                        user-select: none;
+                        touch-action: none;
+                    }
+                    .pdf-drag-handle:active {
+                        cursor: grabbing;
                     }
                     .pdf-in-place-input {
                         position: absolute;
@@ -1586,7 +1672,9 @@
 
                         const cellMid = (cell.x0 + cell.x1) / 2;
                         const itemMid = (minX + maxX) / 2;
-                        const isCentered = (cell.x1 - cell.x0 < 400 && Math.abs(itemMid - cellMid) / (cell.x1 - cell.x0) < 0.16);
+                        const cellW = cell.x1 - cell.x0;
+                        const distFromMid = Math.abs(itemMid - cellMid);
+                        const isCentered = (distFromMid < 40) || (distFromMid / Math.max(100, cellW) < 0.08);
 
                         candidateItems.push({
                             cell,
@@ -1632,6 +1720,13 @@
                     recognizedText = cleanWordText(recognizedText);
 
                     if (!recognizedText || res.data.confidence < 12) continue;
+
+                    // Lọc rác cánh đại bàng logo ở góc trên bên trái (x < 270 && y < 170)
+                    if (item.x0 < 270 && item.y0 < 170) {
+                        if (recognizedText.length < 4 || (res.data && res.data.confidence < 60)) {
+                            continue;
+                        }
+                    }
 
                     // Ép chặt vào pixel mực thật
                     const tightBox = getTightInkBounds(offCanvas, item.x0, item.y0, item.x1, item.y1);
@@ -1893,8 +1988,17 @@
         },
 
         /**
-         * Mở ô sửa tại chỗ (In-Place Exact Overlay):
-         * Đặt đúng lên vị trí cụm từ, dùng CHÍNH phông Times có chân, cỡ, màu, căn lề
+         * Mở ô sửa tại chỗ (In-Place Exact Overlay) với Thanh công cụ Word đầy đủ:
+         * - Hỗ trợ chọn phông chữ (Times New Roman, Arial, Calibri, Roboto, Courier New)
+         * - Tự động nhận diện phông & kích thước chữ gốc scan
+         * - Nút A+ / A- và ô nhập trực tiếp cỡ chữ
+         * - Định dạng B (Đậm), I (Nghiêng), U (Gạch chân)
+         * - Căn lề Trái, Giữa, Phải
+         * - Bảng màu mực: Scan gốc, Đen, Xanh bút bi, Đỏ con dấu
+         * - Nút thu nhỏ / mở rộng thanh công cụ ("thu nhỏ các tính năng trong word á")
+         * - Nút kéo di chuyển (⠿ Kéo) di chuyển ô sửa đi bất cứ đâu
+         * - Nút "Chỉ xóa chữ gốc" (Whiteout nét cũ không thêm chữ)
+         * - Ngăn chặn triệt để mất focus (prevent premature blur)
          */
         openInPlaceClusterEdit(cluster, pageNum, targetEl) {
             this.closeCurrentInPlaceEdit();
@@ -1903,133 +2007,402 @@
             const wrapper = document.getElementById(`pdfPageWrapper-${pageNum}`);
             if (!wrapper) return;
 
+            // Nhận diện cài đặt ban đầu từ cụm từ
+            let currentFontFamily = cluster.fontFamily || "'Times New Roman', 'Tinos', serif";
+            let currentFontSize = cluster.fontSize || 14;
+            let isBold = !!cluster.isBold;
+            let isItalic = !!cluster.isItalic;
+            let isUnderline = !!cluster.isUnderline;
+            let currentAlign = cluster.textAlign || (cluster.isCentered ? 'center' : 'left');
+            let currentColor = cluster.color || cluster.textColor || 'auto';
+            let isCollapsed = false;
+
+            // Tạo ô nhập văn bản tại chỗ
             const input = document.createElement('input');
             input.id = 'activeInPlacePdfInput';
             input.className = 'pdf-in-place-input';
             input.type = 'text';
-            input.value = cluster.text;
+            input.value = cluster.text || '';
 
-            // Đồng nhất 100% thuộc tính hiển thị (P3 Unified Typography)
-            input.style.left = (cluster.xRatio * 100) + '%';
-            input.style.top = (cluster.yRatio * 100) + '%';
-            input.style.width = Math.max(cluster.wRatio * 100, 3) + '%';
-            input.style.height = (cluster.hRatio * 100) + '%';
-            input.style.fontFamily = cluster.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
-            input.style.fontSize = cluster.fontSize + 'px';
-            input.style.fontWeight = cluster.isBold ? '700' : '400';
-            input.style.color = cluster.textColor || '#111827';
+            // Định vị tọa độ
+            const leftPct = (cluster.customXRatio !== undefined ? cluster.customXRatio : cluster.xRatio) * 100;
+            const topPct = (cluster.customYRatio !== undefined ? cluster.customYRatio : cluster.yRatio) * 100;
+            const minWidthPct = Math.min(96, Math.max(cluster.wRatio * 100 + 4, cluster.isCentered ? 36 : 18));
+
+            input.style.left = leftPct + '%';
+            input.style.top = topPct + '%';
+            input.style.width = minWidthPct + '%';
+            input.style.minHeight = Math.max(cluster.hRatio * (wrapper.offsetHeight || 800), 24) + 'px';
+            input.style.fontFamily = currentFontFamily;
+            input.style.fontSize = currentFontSize + 'px';
+            input.style.fontWeight = isBold ? '700' : '400';
+            input.style.fontStyle = isItalic ? 'italic' : 'normal';
+            input.style.textDecoration = isUnderline ? 'underline' : 'none';
+            input.style.color = (currentColor === 'auto') ? (cluster.textColor || '#111827') : currentColor;
             input.style.backgroundColor = cluster.bgColor || '#faf9f5';
-            input.style.textAlign = cluster.isCentered ? 'center' : 'left';
+            input.style.textAlign = currentAlign;
 
-            // Auto-fit kích thước khi gõ
+            // Tự động co chữ hoặc mở rộng ô khi người dùng gõ
             input.oninput = () => {
                 const measurer = document.createElement('canvas').getContext('2d');
-                measurer.font = `${cluster.isBold ? 'bold' : 'normal'} ${cluster.fontSize}px ${cluster.fontFamily}`;
+                measurer.font = `${isItalic ? 'italic' : 'normal'} ${isBold ? 'bold' : 'normal'} ${currentFontSize}px ${currentFontFamily}`;
                 let testWidth = measurer.measureText(input.value).width;
                 const wrapperW = wrapper.offsetWidth || 800;
-                let curFont = cluster.fontSize;
-
-                // Tự động co chữ nếu vượt ô
-                const maxPixelWidth = Math.max(cluster.wRatio * wrapperW * 1.5, 60);
-                while (testWidth > maxPixelWidth && curFont > 8.0) {
-                    curFont -= 0.5;
-                    measurer.font = `${cluster.isBold ? 'bold' : 'normal'} ${curFont}px ${cluster.fontFamily}`;
-                    testWidth = measurer.measureText(input.value).width;
-                }
-                input.style.fontSize = curFont + 'px';
-            };
-
-            input.onkeydown = (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.applyInPlaceClusterEdit(input.value.trim());
-                } else if (e.key === 'Escape') {
-                    e.preventDefault();
-                    this.closeCurrentInPlaceEdit();
-                } else if (e.key === 'Tab') {
-                    e.preventDefault();
-                    this.applyInPlaceClusterEdit(input.value.trim());
-                    const allClusters = (this.pageClusters[pageNum] || []).slice().sort((a, b) => (a.yRatio - b.yRatio) || (a.xRatio - b.xRatio));
-                    const curIdx = allClusters.findIndex(c => c.id === cluster.id);
-                    const nextCluster = e.shiftKey ? allClusters[curIdx - 1] : allClusters[curIdx + 1];
-                    if (nextCluster) {
-                        setTimeout(() => {
-                            const nextEl = document.getElementById(`cluster-box-${nextCluster.id}`);
-                            this.openInPlaceClusterEdit(nextCluster, pageNum, nextEl);
-                        }, 50);
+                const maxPixelWidth = Math.max(cluster.wRatio * wrapperW * 1.5, 120);
+                if (testWidth > maxPixelWidth && currentFontSize > 7) {
+                    let fitFont = currentFontSize;
+                    while (testWidth > maxPixelWidth && fitFont > 7.0) {
+                        fitFont -= 0.5;
+                        measurer.font = `${isItalic ? 'italic' : 'normal'} ${isBold ? 'bold' : 'normal'} ${fitFont}px ${currentFontFamily}`;
+                        testWidth = measurer.measureText(input.value).width;
                     }
+                    currentFontSize = Math.round(fitFont);
+                    input.style.fontSize = currentFontSize + 'px';
+                    const fsInput = document.getElementById('pdfFontSizeInput');
+                    if (fsInput) fsInput.value = currentFontSize;
                 }
             };
 
-            // Click ra ngoài để lưu
-            input.onblur = () => {
-                setTimeout(() => {
-                    if (this.activeEditingCluster) {
-                        this.applyInPlaceClusterEdit(input.value.trim());
-                    }
-                }, 120);
-            };
-
-            // Toolbar nổi cho thao tác chỉnh sửa (Q2 & Q3)
+            // Thanh công cụ nổi chuẩn Word (Word Toolbar)
             const toolbar = document.createElement('div');
             toolbar.id = 'activeInPlacePdfToolbar';
-            toolbar.className = 'pdf-inplace-toolbar flex flex-col gap-1 p-1.5 rounded-lg bg-slate-900/95 text-white text-[11px] shadow-xl z-50 select-none';
-            toolbar.style.position = 'absolute';
-            toolbar.style.left = (cluster.xRatio * 100) + '%';
-            toolbar.style.top = Math.max(0, (cluster.yRatio * 100) - 1.5) + '%';
-            toolbar.style.transform = 'translateY(-100%)';
-            toolbar.style.pointerEvents = 'auto';
+            toolbar.className = 'pdf-word-toolbar flex flex-col gap-1 p-2 rounded-xl bg-slate-900/95 text-white text-[11px] shadow-2xl border border-slate-700/80 backdrop-blur-md z-70 select-none';
 
-            toolbar.onmousedown = (e) => e.stopPropagation();
+            // Định vị thanh công cụ (tránh tràn mép trên & tràn mép phải màn hình)
+            const placeToolbar = (tPct, lPct) => {
+                toolbar.style.left = Math.min(65, Math.max(1, lPct)) + '%';
+                if (tPct < 14) {
+                    toolbar.style.top = `calc(${tPct}% + 34px)`;
+                    toolbar.style.transform = 'none';
+                } else {
+                    toolbar.style.top = `calc(${tPct}% - 6px)`;
+                    toolbar.style.transform = 'translateY(-100%)';
+                }
+            };
+            placeToolbar(topPct, leftPct);
+
+            // BẮT BUỘC: Chặn mất focus khi bấm các nút trên thanh công cụ
+            toolbar.onmousedown = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            };
+            toolbar.onpointerdown = (e) => {
+                e.stopPropagation();
+            };
+
+            const fontDisplayName = currentFontFamily.includes('Times') ? 'Times New Roman' :
+                                   (currentFontFamily.includes('Arial') ? 'Arial' :
+                                   (currentFontFamily.includes('Calibri') ? 'Calibri' :
+                                   (currentFontFamily.includes('Roboto') ? 'Roboto' :
+                                   (currentFontFamily.includes('Courier') ? 'Courier New' : 'Phông Scan'))));
 
             toolbar.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <label class="flex items-center gap-1 cursor-pointer text-sky-300 hover:text-sky-200">
-                        <input type="checkbox" id="eraseColorInkCheck" class="rounded text-sky-500 focus:ring-0" ${this.eraseColorInk !== false ? 'checked' : ''}>
-                        <span>Xóa nét viết tay</span>
-                    </label>
-                    <span class="text-slate-500">|</span>
-                    <button type="button" id="toggleFineTuneBtn" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold flex items-center gap-1">
-                        <i class="fa-solid fa-sliders text-[10px]"></i> Tinh chỉnh nét
+                <!-- HÀNG 1: Nút kéo di chuyển, Phông tự động nhận diện, Nút thu nhỏ -->
+                <div class="flex items-center justify-between gap-2 border-b border-slate-700/60 pb-1">
+                    <div id="pdfToolbarDragHandle" class="pdf-drag-handle flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white cursor-grab transition text-[11px] font-semibold" title="Nhấp và kéo để di chuyển hộp chữ đi bất cứ đâu">
+                        <i class="fa-solid fa-grip-vertical text-indigo-400"></i>
+                        <span>Kéo di chuyển</span>
+                    </div>
+                    <div id="pdfDetectedFontBadge" class="text-[10px] text-emerald-400 font-mono truncate max-w-[210px]" title="Phông chữ tự động nhận diện từ bản scan">
+                        ⚡ Phông tự nhận diện: ${fontDisplayName} (~${currentFontSize}px)
+                    </div>
+                    <button type="button" id="pdfCollapseToolbarBtn" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 hover:text-white text-[10px] font-bold transition flex items-center gap-1" title="Thu nhỏ các tính năng thanh công cụ để không che văn bản">
+                        <i class="fa-solid fa-chevron-up text-[9px]" id="pdfCollapseIcon"></i>
+                        <span id="pdfCollapseBtnText">Thu gọn</span>
                     </button>
-                    <span class="text-[10px] text-slate-400 italic hidden sm:inline">(Chữ mới đặt dạng ảnh, gốc bảo toàn)</span>
                 </div>
-                <div id="fineTuneSettingsPanel" class="hidden flex flex-col gap-1 p-2 mt-1 rounded bg-slate-800 text-white text-[10px] border border-slate-700">
-                    <div class="flex items-center justify-between gap-2">
-                        <span>Độ mờ viền (Blur):</span>
-                        <input type="range" id="scanBlurSlider" min="0" max="1.5" step="0.1" value="0.6" class="w-20">
+
+                <!-- HÀNG 2: Bộ tính năng Word (Có thể thu nhỏ/mở rộng) -->
+                <div id="pdfWordToolbarBody" class="flex flex-wrap items-center gap-1.5 pt-0.5">
+                    <!-- Phông chữ -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-[10px] text-slate-400">Phông:</span>
+                        <select id="pdfWordFontSelect" class="pdf-word-select text-[11px] py-1 px-1.5 bg-slate-800 text-white rounded border border-slate-700 cursor-pointer">
+                            <option value="'Times New Roman', 'Tinos', serif" ${currentFontFamily.includes('Times') ? 'selected' : ''}>Times New Roman (Scan)</option>
+                            <option value="'Arial', sans-serif" ${currentFontFamily.includes('Arial') ? 'selected' : ''}>Arial</option>
+                            <option value="'Calibri', sans-serif" ${currentFontFamily.includes('Calibri') ? 'selected' : ''}>Calibri</option>
+                            <option value="'Roboto', sans-serif" ${currentFontFamily.includes('Roboto') ? 'selected' : ''}>Roboto</option>
+                            <option value="'Courier New', monospace" ${currentFontFamily.includes('Courier') ? 'selected' : ''}>Courier New</option>
+                        </select>
                     </div>
-                    <div class="flex items-center justify-between gap-2">
-                        <span>Độ đậm mực:</span>
-                        <input type="range" id="scanDarknessSlider" min="0.7" max="1.3" step="0.05" value="1.0" class="w-20">
+
+                    <span class="text-slate-600">|</span>
+
+                    <!-- Tăng / Giảm cỡ chữ (A-, ô nhập, A+) -->
+                    <div class="flex items-center gap-0.5 bg-slate-800 p-0.5 rounded border border-slate-700">
+                        <button type="button" id="pdfFontDownBtn" class="pdf-word-btn px-1.5 py-0.5 hover:bg-slate-700 rounded text-slate-200" title="Thu nhỏ cỡ chữ (A-)">
+                            <span class="font-bold text-[11px]">A⁻</span>
+                        </button>
+                        <input type="number" id="pdfFontSizeInput" min="6" max="72" value="${currentFontSize}" class="w-10 text-center bg-slate-900 text-white text-[11px] py-0.5 px-0.5 rounded border border-slate-700 focus:outline-none focus:border-indigo-500" title="Nhập trực tiếp cỡ chữ">
+                        <button type="button" id="pdfFontUpBtn" class="pdf-word-btn px-1.5 py-0.5 hover:bg-slate-700 rounded text-slate-200" title="Tăng cỡ chữ (A+)">
+                            <span class="font-bold text-[11px]">A⁺</span>
+                        </button>
                     </div>
-                    <div class="flex items-center justify-between gap-2">
-                        <span>Kiểu chữ:</span>
-                        <select id="scanTextModeSelect" class="bg-slate-900 text-white rounded px-1 py-0.5 text-[10px]">
-                            <option value="font">Font Scan (Times/Tinos)</option>
-                            <option value="clone">Ghép từ ảnh gốc (Q4)</option>
+
+                    <span class="text-slate-600">|</span>
+
+                    <!-- Định dạng B, I, U -->
+                    <div class="flex items-center gap-0.5 bg-slate-800 p-0.5 rounded border border-slate-700">
+                        <button type="button" id="pdfBoldBtn" class="pdf-word-btn px-2 py-0.5 font-bold rounded ${isBold ? 'active' : ''}" title="In đậm (Ctrl+B)">B</button>
+                        <button type="button" id="pdfItalicBtn" class="pdf-word-btn px-2 py-0.5 italic rounded ${isItalic ? 'active' : ''}" title="In nghiêng (Ctrl+I)">I</button>
+                        <button type="button" id="pdfUnderlineBtn" class="pdf-word-btn px-2 py-0.5 underline rounded ${isUnderline ? 'active' : ''}" title="Gạch chân (Ctrl+U)">U</button>
+                    </div>
+
+                    <span class="text-slate-600">|</span>
+
+                    <!-- Căn lề -->
+                    <div class="flex items-center gap-0.5 bg-slate-800 p-0.5 rounded border border-slate-700">
+                        <button type="button" id="pdfAlignLeftBtn" class="pdf-word-btn px-1.5 py-0.5 rounded ${currentAlign === 'left' ? 'active' : ''}" title="Căn trái">
+                            <i class="fa-solid fa-align-left text-[10px]"></i>
+                        </button>
+                        <button type="button" id="pdfAlignCenterBtn" class="pdf-word-btn px-1.5 py-0.5 rounded ${currentAlign === 'center' ? 'active' : ''}" title="Căn giữa">
+                            <i class="fa-solid fa-align-center text-[10px]"></i>
+                        </button>
+                        <button type="button" id="pdfAlignRightBtn" class="pdf-word-btn px-1.5 py-0.5 rounded ${currentAlign === 'right' ? 'active' : ''}" title="Căn phải">
+                            <i class="fa-solid fa-align-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <span class="text-slate-600">|</span>
+
+                    <!-- Màu sắc -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-[10px] text-slate-400">Màu:</span>
+                        <select id="pdfWordColorSelect" class="pdf-word-select text-[11px] py-1 px-1 bg-slate-800 text-white rounded border border-slate-700 cursor-pointer">
+                            <option value="auto" ${currentColor === 'auto' ? 'selected' : ''}>Mực scan gốc</option>
+                            <option value="#000000" ${currentColor === '#000000' ? 'selected' : ''}>Đen (#000)</option>
+                            <option value="#1d4ed8" ${currentColor === '#1d4ed8' ? 'selected' : ''}>Xanh bút bi</option>
+                            <option value="#dc2626" ${currentColor === '#dc2626' ? 'selected' : ''}>Đỏ con dấu</option>
                         </select>
                     </div>
                 </div>
+
+                <!-- HÀNG 3: Nút Áp dụng, Chỉ xóa chữ gốc, Hủy -->
+                <div class="flex items-center justify-between gap-2 border-t border-slate-700/60 pt-1.5 mt-0.5">
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" id="pdfApplyEditBtn" class="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] shadow-sm transition flex items-center gap-1">
+                            <i class="fa-solid fa-check text-[10px]"></i> Áp dụng (Enter)
+                        </button>
+                        <button type="button" id="pdfWhiteoutOnlyBtn" class="px-2 py-1 rounded-md bg-slate-800 hover:bg-amber-900/60 text-amber-300 hover:text-amber-200 text-[10.5px] font-semibold border border-amber-500/30 transition flex items-center gap-1" title="Chỉ xóa nét chữ scan cũ, không thêm chữ mới">
+                            <i class="fa-solid fa-eraser text-[10px]"></i> Chỉ xóa chữ gốc
+                        </button>
+                    </div>
+                    <button type="button" id="pdfCancelEditBtn" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10.5px] transition flex items-center gap-1">
+                        <i class="fa-solid fa-xmark text-[10px]"></i> Hủy (Esc)
+                    </button>
+                </div>
             `;
 
-            toolbar.querySelector('#eraseColorInkCheck').onchange = (e) => {
-                this.eraseColorInk = e.target.checked;
+            const fontSelect = toolbar.querySelector('#pdfWordFontSelect');
+            const fontDownBtn = toolbar.querySelector('#pdfFontDownBtn');
+            const fontUpBtn = toolbar.querySelector('#pdfFontUpBtn');
+            const fontSizeInput = toolbar.querySelector('#pdfFontSizeInput');
+            const boldBtn = toolbar.querySelector('#pdfBoldBtn');
+            const italicBtn = toolbar.querySelector('#pdfItalicBtn');
+            const underlineBtn = toolbar.querySelector('#pdfUnderlineBtn');
+            const alignLeftBtn = toolbar.querySelector('#pdfAlignLeftBtn');
+            const alignCenterBtn = toolbar.querySelector('#pdfAlignCenterBtn');
+            const alignRightBtn = toolbar.querySelector('#pdfAlignRightBtn');
+            const colorSelect = toolbar.querySelector('#pdfWordColorSelect');
+            const collapseBtn = toolbar.querySelector('#pdfCollapseToolbarBtn');
+            const toolbarBody = toolbar.querySelector('#pdfWordToolbarBody');
+            const applyBtn = toolbar.querySelector('#pdfApplyEditBtn');
+            const whiteoutBtn = toolbar.querySelector('#pdfWhiteoutOnlyBtn');
+            const cancelBtn = toolbar.querySelector('#pdfCancelEditBtn');
+            const dragHandle = toolbar.querySelector('#pdfToolbarDragHandle');
+
+            const updateEditorStyles = () => {
+                input.style.fontFamily = currentFontFamily;
+                input.style.fontSize = currentFontSize + 'px';
+                input.style.fontWeight = isBold ? '700' : '400';
+                input.style.fontStyle = isItalic ? 'italic' : 'normal';
+                input.style.textDecoration = isUnderline ? 'underline' : 'none';
+                input.style.textAlign = currentAlign;
+                input.style.color = (currentColor === 'auto') ? (cluster.textColor || '#111827') : currentColor;
+                if (fontSizeInput) fontSizeInput.value = currentFontSize;
+
+                if (boldBtn) boldBtn.classList.toggle('active', isBold);
+                if (italicBtn) italicBtn.classList.toggle('active', isItalic);
+                if (underlineBtn) underlineBtn.classList.toggle('active', isUnderline);
+                if (alignLeftBtn) alignLeftBtn.classList.toggle('active', currentAlign === 'left');
+                if (alignCenterBtn) alignCenterBtn.classList.toggle('active', currentAlign === 'center');
+                if (alignRightBtn) alignRightBtn.classList.toggle('active', currentAlign === 'right');
             };
 
-            toolbar.querySelector('#toggleFineTuneBtn').onclick = () => {
-                const p = toolbar.querySelector('#fineTuneSettingsPanel');
-                if (p) p.classList.toggle('hidden');
+            fontSelect.onchange = () => {
+                currentFontFamily = fontSelect.value;
+                updateEditorStyles();
+                input.focus();
             };
 
-            toolbar.querySelector('#scanBlurSlider').oninput = (e) => {
-                if (!this.scanTextSettings) this.scanTextSettings = {};
-                this.scanTextSettings.blurSigma = parseFloat(e.target.value);
+            fontDownBtn.onclick = () => {
+                currentFontSize = Math.max(6, currentFontSize - 1);
+                updateEditorStyles();
+                input.focus();
             };
 
-            toolbar.querySelector('#scanDarknessSlider').oninput = (e) => {
-                if (!this.scanTextSettings) this.scanTextSettings = {};
-                this.scanTextSettings.darknessMultiplier = parseFloat(e.target.value);
+            fontUpBtn.onclick = () => {
+                currentFontSize = Math.min(72, currentFontSize + 1);
+                updateEditorStyles();
+                input.focus();
+            };
+
+            fontSizeInput.oninput = () => {
+                const val = parseInt(fontSizeInput.value, 10);
+                if (!isNaN(val) && val >= 6 && val <= 72) {
+                    currentFontSize = val;
+                    updateEditorStyles();
+                }
+            };
+
+            boldBtn.onclick = () => {
+                isBold = !isBold;
+                updateEditorStyles();
+                input.focus();
+            };
+
+            italicBtn.onclick = () => {
+                isItalic = !isItalic;
+                updateEditorStyles();
+                input.focus();
+            };
+
+            underlineBtn.onclick = () => {
+                isUnderline = !isUnderline;
+                updateEditorStyles();
+                input.focus();
+            };
+
+            alignLeftBtn.onclick = () => {
+                currentAlign = 'left';
+                updateEditorStyles();
+                input.focus();
+            };
+
+            alignCenterBtn.onclick = () => {
+                currentAlign = 'center';
+                updateEditorStyles();
+                input.focus();
+            };
+
+            alignRightBtn.onclick = () => {
+                currentAlign = 'right';
+                updateEditorStyles();
+                input.focus();
+            };
+
+            colorSelect.onchange = () => {
+                currentColor = colorSelect.value;
+                updateEditorStyles();
+                input.focus();
+            };
+
+            // Thu nhỏ các tính năng trong Word
+            collapseBtn.onclick = () => {
+                isCollapsed = !isCollapsed;
+                if (toolbarBody) toolbarBody.classList.toggle('hidden', isCollapsed);
+                const icon = toolbar.querySelector('#pdfCollapseIcon');
+                const txt = toolbar.querySelector('#pdfCollapseBtnText');
+                if (isCollapsed) {
+                    if (icon) icon.className = 'fa-solid fa-chevron-down text-[9px]';
+                    if (txt) txt.textContent = 'Mở rộng';
+                } else {
+                    if (icon) icon.className = 'fa-solid fa-chevron-up text-[9px]';
+                    if (txt) txt.textContent = 'Thu gọn';
+                }
+                input.focus();
+            };
+
+            // Di chuyển kéo thả tự do hộp sửa chữ đi bất cứ đâu
+            let isEditorDragging = false;
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let startInputLeft = parseFloat(input.style.left) || leftPct;
+            let startInputTop = parseFloat(input.style.top) || topPct;
+
+            dragHandle.onpointerdown = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                isEditorDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                startInputLeft = parseFloat(input.style.left) || leftPct;
+                startInputTop = parseFloat(input.style.top) || topPct;
+                this._isDraggingEditor = true;
+                try { dragHandle.setPointerCapture(e.pointerId); } catch (_) {}
+                dragHandle.style.cursor = 'grabbing';
+            };
+
+            dragHandle.onpointermove = (e) => {
+                if (!isEditorDragging) return;
+                const dx = e.clientX - dragStartX;
+                const dy = e.clientY - dragStartY;
+                const w = wrapper.offsetWidth || 800;
+                const h = wrapper.offsetHeight || 1100;
+                if (w <= 0 || h <= 0) return;
+
+                const newLeft = Math.max(0, Math.min(95, startInputLeft + (dx / w) * 100));
+                const newTop = Math.max(0, Math.min(95, startInputTop + (dy / h) * 100));
+
+                input.style.left = newLeft + '%';
+                input.style.top = newTop + '%';
+                placeToolbar(newTop, newLeft);
+
+                this.activeEditingCluster.customXRatio = newLeft / 100;
+                this.activeEditingCluster.customYRatio = newTop / 100;
+            };
+
+            const endEditorDrag = (e) => {
+                if (!isEditorDragging) return;
+                isEditorDragging = false;
+                this._isDraggingEditor = false;
+                dragHandle.style.cursor = 'grab';
+                try { dragHandle.releasePointerCapture(e.pointerId); } catch (_) {}
+            };
+            dragHandle.onpointerup = endEditorDrag;
+            dragHandle.onpointercancel = endEditorDrag;
+
+            const doApply = (textToApply) => {
+                const editorSettings = {
+                    fontFamily: currentFontFamily,
+                    fontSize: currentFontSize,
+                    isBold,
+                    isItalic,
+                    isUnderline,
+                    textAlign: currentAlign,
+                    color: currentColor === 'auto' ? null : currentColor,
+                    customXRatio: this.activeEditingCluster ? this.activeEditingCluster.customXRatio : undefined,
+                    customYRatio: this.activeEditingCluster ? this.activeEditingCluster.customYRatio : undefined,
+                    editingAnnId: cluster.editingAnnId
+                };
+                this.applyInPlaceClusterEdit(textToApply, editorSettings);
+            };
+
+            applyBtn.onclick = () => doApply(input.value.trim());
+            whiteoutBtn.onclick = () => doApply('');
+            cancelBtn.onclick = () => this.closeCurrentInPlaceEdit();
+
+            // Phím tắt bàn phím
+            input.onkeydown = (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    doApply(input.value.trim());
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    this.closeCurrentInPlaceEdit();
+                } else if (e.ctrlKey && (e.key === 'b' || e.key === 'B')) {
+                    e.preventDefault();
+                    isBold = !isBold;
+                    updateEditorStyles();
+                } else if (e.ctrlKey && (e.key === 'i' || e.key === 'I')) {
+                    e.preventDefault();
+                    isItalic = !isItalic;
+                    updateEditorStyles();
+                } else if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+                    e.preventDefault();
+                    isUnderline = !isUnderline;
+                    updateEditorStyles();
+                }
             };
 
             wrapper.appendChild(toolbar);
@@ -2051,8 +2424,9 @@
          * - Xóa sạch nét cũ bằng Texture-aware Inpainting (Hysteresis, Dilation 3.5px, trừ lineMask)
          * - Tái tạo hạt nhiễu giấy scan chuẩn
          * - Render chữ mới dạng ảnh PNG có alpha chuẩn baseline, màu mực, cap-height và viền mờ
+         * - Hỗ trợ đầy đủ các thuộc tính Word (phông, cỡ, đậm, nghiêng, gạch chân, màu, tọa độ di chuyển)
          */
-        async applyInPlaceClusterEdit(newText) {
+        async applyInPlaceClusterEdit(newText, settings = {}) {
             if (!this.activeEditingCluster) return;
             const cluster = this.activeEditingCluster;
             const pageNum = cluster.pageNum;
@@ -2078,6 +2452,70 @@
                 this.pageLayouts[pageNum] = layout;
             }
 
+            // TRƯỜNG HỢP 1: Chỉnh sửa lại một chú thích chữ đã tồn tại (Re-editing existing annotation)
+            if (cluster.editingAnnId) {
+                const pageAnns = this.annotations[pageNum] || [];
+                const existingIdx = pageAnns.findIndex(a => a.id === cluster.editingAnnId);
+                if (existingIdx !== -1) {
+                    if (!newText) {
+                        // Người dùng xóa sạch chữ hoặc bấm "Chỉ xóa chữ gốc"
+                        pageAnns.splice(existingIdx, 1);
+                        this.renderPageAnnotations(pageNum);
+                        if (window.showToast) window.showToast('⌫ Đã xóa chữ, giữ nguyên nền giấy sạch!');
+                        return;
+                    }
+
+                    const existingAnn = pageAnns[existingIdx];
+                    const typo = measureClusterTypography(workingCanvas, cluster.pixelBox || { x0: 0, y0: 0, x1: 50, y1: 20 }, cluster.cellBounds);
+                    let alignLeftX = null;
+                    if (settings.customXRatio !== undefined) {
+                        settings.customDrawX = settings.customXRatio * workingCanvas.width;
+                    } else {
+                        alignLeftX = existingAnn.xRatio * workingCanvas.width;
+                    }
+                    if (settings.customYRatio !== undefined) {
+                        settings.customDrawY = settings.customYRatio * workingCanvas.height;
+                    } else {
+                        settings.customDrawY = existingAnn.yRatio * workingCanvas.height;
+                    }
+
+                    const renderResult = renderRealisticScanText(
+                        workingCanvas,
+                        newText,
+                        typo,
+                        cluster.cellBounds,
+                        settings.textAlign === 'center' || (existingAnn && existingAnn.isCentered),
+                        alignLeftX,
+                        settings.fontSize ? null : (cluster.fontSize || null),
+                        {
+                            ...this.scanTextSettings,
+                            ...settings
+                        }
+                    );
+
+                    if (renderResult && renderResult.pngDataUrl) {
+                        existingAnn.pngDataUrl = renderResult.pngDataUrl;
+                        existingAnn.text = newText;
+                        existingAnn.xRatio = renderResult.drawX / workingCanvas.width;
+                        existingAnn.yRatio = renderResult.drawY / workingCanvas.height;
+                        existingAnn.wRatio = renderResult.drawW / workingCanvas.width;
+                        existingAnn.hRatio = renderResult.drawH / workingCanvas.height;
+                        existingAnn.fontSize = renderResult.fontSize;
+                        existingAnn.fontFamily = renderResult.fontFamily;
+                        existingAnn.isBold = renderResult.isBold;
+                        existingAnn.isItalic = renderResult.isItalic;
+                        existingAnn.isUnderline = renderResult.isUnderline;
+                        existingAnn.textAlign = renderResult.textAlign;
+                        existingAnn.color = renderResult.color;
+                        existingAnn.isCentered = renderResult.textAlign === 'center';
+                    }
+                    this.renderPageAnnotations(pageNum);
+                    if (window.showToast) window.showToast('✨ Đã cập nhật chữ thành công!');
+                    return;
+                }
+            }
+
+            // TRƯỜNG HỢP 2: Chỉnh sửa trực tiếp từ nét chữ scan gốc (Lần đầu tiên)
             const tableLines = (layout && layout.tableLines) || this.pageTableLines[pageNum] || { hLines: [], vLines: [] };
             const lineMask = layout ? layout.lineMask : null;
 
@@ -2090,9 +2528,9 @@
                 c.cellBounds.x1 === cluster.cellBounds.x1 &&
                 c.cellBounds.y1 === cluster.cellBounds.y1
             );
-            const abovePeers = peerClusters.filter(c => c.pixelBox.y1 <= cluster.pixelBox.y0)
+            const abovePeers = peerClusters.filter(c => c.pixelBox && cluster.pixelBox && c.pixelBox.y1 <= cluster.pixelBox.y0)
                                           .sort((a, b) => b.pixelBox.y1 - a.pixelBox.y1);
-            const belowPeers = peerClusters.filter(c => c.pixelBox.y0 >= cluster.pixelBox.y1)
+            const belowPeers = peerClusters.filter(c => c.pixelBox && cluster.pixelBox && c.pixelBox.y0 >= cluster.pixelBox.y1)
                                           .sort((a, b) => a.pixelBox.y0 - b.pixelBox.y0);
 
             const adjacentAbove = abovePeers.length > 0 ? abovePeers[0].pixelBox : null;
@@ -2143,9 +2581,11 @@
             if (newText) {
                 const typo = measureClusterTypography(workingCanvas, cluster.pixelBox, cluster.cellBounds);
 
-                // Kiểm tra căn lề trái theo dòng kề cùng cột (như PR.WI- 02 khớp 00(01/06/24))
+                // Kiểm tra căn lề trái theo dòng kề cùng cột
                 let alignLeftX = null;
-                if (!cluster.isCentered && belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                if (settings.customXRatio !== undefined) {
+                    settings.customDrawX = settings.customXRatio * workingCanvas.width;
+                } else if (!cluster.isCentered && belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
                     alignLeftX = belowPeers[0].pixelBox.x0;
                 } else if (!cluster.isCentered && abovePeers.length > 0 && Math.abs(abovePeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
                     alignLeftX = abovePeers[0].pixelBox.x0;
@@ -2153,14 +2593,19 @@
                     alignLeftX = cluster.pixelBox.x0;
                 }
 
-                // Chuẩn hóa cap-height theo dòng kề cùng bảng nếu có
+                if (settings.customYRatio !== undefined) {
+                    settings.customDrawY = settings.customYRatio * workingCanvas.height;
+                }
+
+                // Chuẩn hóa cap-height nếu người dùng không chỉ định cỡ chữ riêng
                 let targetCapH = null;
-                if (belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
-                    const peerTypo = measureClusterTypography(workingCanvas, belowPeers[0].pixelBox, cluster.cellBounds);
-                    targetCapH = peerTypo.measuredCapHeight;
-                } else if (cluster.pixelBox.x0 >= 280 && cluster.pixelBox.x1 <= 850 && cluster.pixelBox.y0 >= 90 && cluster.pixelBox.y1 <= 130) {
-                    // Dòng VPĐD: khớp cap-height chuẩn 14px với Địa chỉ và ĐT
-                    targetCapH = 14;
+                if (!settings.fontSize) {
+                    if (belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                        const peerTypo = measureClusterTypography(workingCanvas, belowPeers[0].pixelBox, cluster.cellBounds);
+                        targetCapH = peerTypo.measuredCapHeight;
+                    } else if (cluster.pixelBox && cluster.pixelBox.x0 >= 280 && cluster.pixelBox.x1 <= 850 && cluster.pixelBox.y0 >= 90 && cluster.pixelBox.y1 <= 130) {
+                        targetCapH = 14;
+                    }
                 }
 
                 const renderResult = renderRealisticScanText(
@@ -2168,10 +2613,13 @@
                     newText,
                     typo,
                     cluster.cellBounds,
-                    cluster.isCentered,
+                    settings.textAlign === 'center' || cluster.isCentered,
                     alignLeftX,
                     targetCapH,
-                    this.scanTextSettings || {}
+                    {
+                        ...this.scanTextSettings,
+                        ...settings
+                    }
                 );
 
                 if (renderResult && renderResult.pngDataUrl) {
@@ -2185,9 +2633,16 @@
                         hRatio: renderResult.drawH / workingCanvas.height,
                         text: newText,
                         fontSize: renderResult.fontSize,
-                        fontFamily: "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif",
-                        isCentered: cluster.isCentered,
-                        baselineY: renderResult.baselineY
+                        fontFamily: renderResult.fontFamily,
+                        isBold: renderResult.isBold,
+                        isItalic: renderResult.isItalic,
+                        isUnderline: renderResult.isUnderline,
+                        textAlign: renderResult.textAlign,
+                        color: renderResult.color,
+                        isCentered: renderResult.textAlign === 'center',
+                        baselineY: renderResult.baselineY,
+                        pixelBox: cluster.pixelBox,
+                        cellBounds: cluster.cellBounds
                     };
                     this.addAnnotation(pageNum, textAnn);
                 }
@@ -2332,6 +2787,8 @@
                 el.style.height = (ann.hRatio * 100) + '%';
 
                 if (ann.type === 'mask-whiteout' && ann.maskDataUrl) {
+                    el.className = 'pdf-ann-item pdf-ann-mask';
+                    el.style.pointerEvents = 'none';
                     const img = document.createElement('img');
                     img.src = ann.maskDataUrl;
                     img.style.width = '100%';
@@ -2341,6 +2798,11 @@
                     el.appendChild(img);
                 } else if (ann.type === 'scan-text' && ann.pngDataUrl) {
                     // Q2: Render chữ mới dạng ảnh PNG có alpha chuẩn scan
+                    el.className = 'pdf-ann-item pdf-ann-text';
+                    el.style.pointerEvents = 'auto';
+                    el.style.cursor = 'move';
+                    el.title = 'Kéo để di chuyển vị trí, hoặc nhấp để sửa chữ và định dạng phông Word';
+
                     const img = document.createElement('img');
                     img.src = ann.pngDataUrl;
                     img.style.width = '100%';
@@ -2358,16 +2820,28 @@
                     hiddenText.style.height = '100%';
                     hiddenText.style.color = 'transparent';
                     hiddenText.style.userSelect = 'text';
+                    hiddenText.style.pointerEvents = 'none';
                     hiddenText.style.fontSize = (ann.fontSize || 13) + 'px';
                     hiddenText.style.fontFamily = ann.fontFamily || "'Times New Roman', serif";
                     hiddenText.innerText = ann.text || '';
                     el.appendChild(hiddenText);
+
+                    // Gắn tính năng kéo di chuyển tự do và nhấp để sửa lại
+                    this.attachAnnotationDrag(el, ann, pageNum);
                 } else if (ann.type === 'whiteout') {
+                    el.className = 'pdf-ann-item pdf-ann-mask';
+                    el.style.pointerEvents = 'none';
                     el.style.backgroundColor = ann.color || '#faf9f5';
                 } else if (ann.type === 'highlight') {
+                    el.className = 'pdf-ann-item pdf-ann-mask';
+                    el.style.pointerEvents = 'none';
                     el.style.backgroundColor = ann.color || this.highlightColor;
                     el.style.mixBlendMode = 'multiply';
                 } else if (ann.type === 'text') {
+                    el.className = 'pdf-ann-item pdf-ann-text';
+                    el.style.pointerEvents = 'auto';
+                    el.style.cursor = 'move';
+                    el.title = 'Kéo để di chuyển vị trí, hoặc nhấp để sửa chữ và định dạng phông Word';
                     el.style.color = ann.color || '#111827';
                     el.style.fontSize = (ann.fontSize || 13) + 'px';
                     el.style.fontFamily = ann.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', serif";
@@ -2376,10 +2850,115 @@
                     el.style.lineHeight = '1';
                     el.style.whiteSpace = 'nowrap';
                     el.innerText = ann.text || '';
+                    this.attachAnnotationDrag(el, ann, pageNum);
                 }
 
                 overlay.appendChild(el);
             });
+        },
+
+        /**
+         * Gắn cơ chế Kéo thả di chuyển tự do (Free Drag & Drop)
+         * và Nhấp một lần để mở lại hộp sửa chữ Word (Click to Re-edit)
+         */
+        attachAnnotationDrag(el, ann, pageNum) {
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let origXRatio = ann.xRatio;
+            let origYRatio = ann.yRatio;
+            let moved = false;
+
+            el.onpointerdown = (e) => {
+                if (e.button !== 0) return;
+                e.stopPropagation();
+                isDragging = true;
+                moved = false;
+                startX = e.clientX;
+                startY = e.clientY;
+                origXRatio = ann.xRatio;
+                origYRatio = ann.yRatio;
+                this._isDraggingAnn = true;
+                try { el.setPointerCapture(e.pointerId); } catch (_) {}
+                el.style.cursor = 'grabbing';
+                el.style.zIndex = '60';
+            };
+
+            el.onpointermove = (e) => {
+                if (!isDragging) return;
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+                    moved = true;
+                }
+                const wrapper = document.getElementById(`pdfPageWrapper-${pageNum}`);
+                if (!wrapper) return;
+                const w = wrapper.offsetWidth;
+                const h = wrapper.offsetHeight;
+                if (w <= 0 || h <= 0) return;
+
+                const newXRatio = Math.max(0, Math.min(1 - ann.wRatio, origXRatio + dx / w));
+                const newYRatio = Math.max(0, Math.min(1 - ann.hRatio, origYRatio + dy / h));
+                el.style.left = (newXRatio * 100) + '%';
+                el.style.top = (newYRatio * 100) + '%';
+            };
+
+            const finishDrag = (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                this._isDraggingAnn = false;
+                el.style.cursor = 'move';
+                el.style.zIndex = '';
+                try { el.releasePointerCapture(e.pointerId); } catch (_) {}
+
+                if (moved) {
+                    const wrapper = document.getElementById(`pdfPageWrapper-${pageNum}`);
+                    if (wrapper) {
+                        const w = wrapper.offsetWidth;
+                        const h = wrapper.offsetHeight;
+                        const dx = e.clientX - startX;
+                        const dy = e.clientY - startY;
+                        this.recordUndo();
+                        ann.xRatio = Math.max(0, Math.min(1 - ann.wRatio, origXRatio + dx / w));
+                        ann.yRatio = Math.max(0, Math.min(1 - ann.hRatio, origYRatio + dy / h));
+                        if (window.showToast) window.showToast('📍 Đã di chuyển vị trí chữ!');
+                    }
+                } else {
+                    // Nhấp không kéo: Mở lại bộ sửa chữ chuẩn Word
+                    this.openAnnotationEdit(ann, pageNum, el);
+                }
+            };
+
+            el.onpointerup = finishDrag;
+            el.onpointercancel = finishDrag;
+        },
+
+        /**
+         * Mở lại ô sửa chữ chuẩn Word từ một chú thích đã lưu
+         */
+        openAnnotationEdit(ann, pageNum, targetEl) {
+            const cluster = {
+                id: ann.id,
+                editingAnnId: ann.id,
+                pageNum: pageNum,
+                text: ann.text || '',
+                fontSize: ann.fontSize || 14,
+                fontFamily: ann.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif",
+                isBold: !!ann.isBold,
+                isItalic: !!ann.isItalic,
+                isUnderline: !!ann.isUnderline,
+                textAlign: ann.textAlign || (ann.isCentered ? 'center' : 'left'),
+                color: ann.color || '#111827',
+                textColor: ann.color || '#111827',
+                xRatio: ann.xRatio,
+                yRatio: ann.yRatio,
+                wRatio: ann.wRatio,
+                hRatio: ann.hRatio,
+                pixelBox: ann.pixelBox,
+                cellBounds: ann.cellBounds,
+                isCentered: !!ann.isCentered
+            };
+            this.openInPlaceClusterEdit(cluster, pageNum, targetEl);
         },
 
         addAnnotation(pageNum, ann) {
