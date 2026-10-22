@@ -527,7 +527,7 @@
             const sw = Math.min(canvas.width - sx, Math.floor(width));
             const sh = Math.min(canvas.height - sy, Math.floor(height));
 
-            if (sw <= 0 || sh <= 0) return '#ffffff';
+            if (sw <= 0 || sh <= 0) return '#faf9f5';
 
             const rVals = [];
             const gVals = [];
@@ -559,7 +559,6 @@
             });
 
             if (rVals.length === 0) return '#faf9f5';
-
             return `rgb(${median(rVals)}, ${median(gVals)}, ${median(bVals)})`;
         } catch (e) {
             return '#faf9f5';
@@ -567,67 +566,142 @@
     }
 
     /**
-     * Tạo mặt nạ điểm ảnh mực (Mask-based Dilation):
-     * Chỉ tô màu nền lên đúng nét chữ (giãn 1.5–2px), loại trừ đường kẻ bảng, bảo toàn 100% khung viền
+     * Q0 — THUẬT TOÁN TÁI TẠO NỀN GIẤY SCAN CHÂN THỰC (TEXTURE-AWARE INPAINTING)
+     * - Hysteresis Thresholding (Thigh=0.12, Tlow=0.055) bắt sạch quầng mờ và răng cưa
+     * - Mở rộng dọc có giới hạn điểm giữa với dòng kề (không chạm dòng trên/dưới)
+     * - Xóa nét bút màu xanh/đỏ viết tay (Q3)
+     * - Nở mặt nạ 3–4px, loại trừ 100% lineMask (bảo toàn đường viền bảng)
+     * - Tái tạo nền bằng tổng hợp hạt nhiễu (Gaussian noise) khớp phương sai giấy scan
+     * - Làm mềm viền 2px (feathering) và kiểm tra triệt tiêu mực còn sót < 0.5%
      */
-    function createInkMaskWhiteout(canvas, cluster, tableLines, lineMask) {
-        const sx = Math.max(0, Math.floor(cluster.pixelBox.x0 - 2));
-        const sy = Math.max(0, Math.floor(cluster.pixelBox.y0 - 2));
-        const sw = Math.min(canvas.width - sx, Math.ceil(cluster.pixelBox.x1 - cluster.pixelBox.x0 + 4));
-        const sh = Math.min(canvas.height - sy, Math.ceil(cluster.pixelBox.y1 - cluster.pixelBox.y0 + 4));
+    function inpaintClusterRegion(canvas, bbox, cell, lineMask, tableLines, adjacentAbove, adjacentBelow, options = {}) {
+        if (!canvas || !canvas.getContext) return null;
+        const tctx = canvas.getContext('2d');
+        const CW = canvas.width;
+        const CH = canvas.height;
 
-        if (sw <= 0 || sh <= 0) return null;
+        const charH = Math.max(12, bbox.y1 - bbox.y0);
+        const expandY = Math.round(charH * 0.40);
+        const expandX = Math.round(charH * 0.30);
 
-        const ctx = canvas.getContext('2d');
-        const srcData = ctx.getImageData(sx, sy, sw, sh).data;
+        // Bounded strictly between adjacent lines (midpoints) and cell boundaries
+        const minYLimit = adjacentAbove ? Math.round((adjacentAbove.y1 + bbox.y0) / 2) : (cell.y0 + 2);
+        const maxYLimit = adjacentBelow ? Math.round((bbox.y1 + adjacentBelow.y0) / 2) : (cell.y1 - 2);
 
-        // Tạo canvas mặt nạ
-        const maskCanvas = document.createElement('canvas');
-        maskCanvas.width = sw;
-        maskCanvas.height = sh;
-        const mCtx = maskCanvas.getContext('2d');
-        const maskImgData = mCtx.createImageData(sw, sh);
-        const mData = maskImgData.data;
+        const sx0 = (options.eraseColor && cell) ? (cell.x0 + 2) : Math.max(cell.x0 + 2, bbox.x0 - expandX);
+        const sy0 = Math.max(minYLimit, bbox.y0 - expandY);
+        const sx1 = (options.eraseColor && cell) ? (cell.x1 - 2) : Math.min(cell.x1 - 2, bbox.x1 + expandX);
+        const sy1 = Math.min(maxYLimit, bbox.y1 + expandY);
 
-        // Bóc tách RGB từ bgColor
-        let rBg = 250, gBg = 249, bBg = 245;
-        const rgbMatch = (cluster.bgColor || '').match(/\d+/g);
-        if (rgbMatch && rgbMatch.length >= 3) {
-            rBg = parseInt(rgbMatch[0], 10);
-            gBg = parseInt(rgbMatch[1], 10);
-            bBg = parseInt(rgbMatch[2], 10);
-        }
+        const sw = sx1 - sx0;
+        const sh = sy1 - sy0;
+        if (sw <= 4 || sh <= 4) return null;
 
-        // Bước 1: Đánh dấu các pixel mực thật (loại trừ các đường kẻ bảng)
-        const isInk = new Uint8Array(sw * sh);
-        for (let y = 0; y < sh; y++) {
-            const globalY = sy + y;
-            for (let x = 0; x < sw; x++) {
-                const globalX = sx + x;
-                const idx = (y * sw + x) * 4;
-                const lum = srcData[idx] * 0.299 + srcData[idx + 1] * 0.587 + srcData[idx + 2] * 0.114;
+        const patchImg = tctx.getImageData(sx0, sy0, sw, sh);
+        const pd = patchImg.data;
+        const fullImg = tctx.getImageData(0, 0, CW, CH).data;
 
-                const isBorderLine = (lineMask && lineMask[globalY * canvas.width + globalX] === 1)
-                    || (tableLines && tableLines.vLines && tableLines.vLines.some(vl => Math.abs(vl.x - globalX) <= 1 && globalY >= vl.y0 && globalY <= vl.y1))
-                    || (tableLines && tableLines.hLines && tableLines.hLines.some(hl => Math.abs(hl.y - globalY) <= 1 && globalX >= hl.x0 && globalX <= hl.x1));
+        // 1. Lấy mẫu màu nền sạch và độ nhiễu giấy trong cùng ô (lum >= 220)
+        const bgRs = [], bgGs = [], bgBs = [], bgLums = [];
+        for (let py = Math.max(cell.y0 + 2, sy0 - 15); py < Math.min(cell.y1 - 2, sy1 + 15); py += 2) {
+            for (let px = Math.max(cell.x0 + 2, sx0 - 15); px < Math.min(cell.x1 - 2, sx1 + 15); px += 2) {
+                const gIdx = py * CW + px;
+                if (lineMask && lineMask[gIdx] === 1) continue;
+                if (px >= bbox.x0 && px <= bbox.x1 && py >= bbox.y0 && py <= bbox.y1) continue;
 
-                if (lum < 165 && !isBorderLine) {
-                    isInk[y * sw + x] = 1;
+                const cIdx = gIdx * 4;
+                const r = fullImg[cIdx], g = fullImg[cIdx + 1], b = fullImg[cIdx + 2];
+                const isColor = (b > 115 && b > r * 1.15 && b > g * 1.08) || (r > 130 && r > g * 1.3 && r > b * 1.3);
+                if (isColor) continue;
+                const lum = r * 0.299 + g * 0.587 + b * 0.114;
+                if (lum >= 220) {
+                    bgRs.push(r); bgGs.push(g); bgBs.push(b); bgLums.push(lum);
                 }
             }
         }
 
-        // Bước 2: Dilation (Nở rộng mặt nạ 1.5 - 2px quanh nét chữ)
-        const dilated = new Uint8Array(sw * sh);
+        if (bgLums.length === 0) {
+            bgRs.push(253); bgGs.push(253); bgBs.push(253); bgLums.push(253);
+        }
+
+        const meanBgLum = bgLums.reduce((a, b) => a + b, 0) / bgLums.length;
+        const meanR = bgRs.reduce((a, b) => a + b, 0) / bgRs.length;
+        const meanG = bgGs.reduce((a, b) => a + b, 0) / bgGs.length;
+        const meanB = bgBs.reduce((a, b) => a + b, 0) / bgBs.length;
+        const bgVar = bgLums.reduce((a, b) => a + (b - meanBgLum) ** 2, 0) / bgLums.length;
+        const bgStd = Math.max(1.5, Math.min(5.0, Math.sqrt(bgVar)));
+
+        // 2. Độ tối tương đối & Hysteresis Thresholding
+        const relDark = new Float32Array(sw * sh);
+        const isColor = new Uint8Array(sw * sh);
+        const eraseColor = options.eraseColor !== false;
+
         for (let y = 0; y < sh; y++) {
             for (let x = 0; x < sw; x++) {
-                if (isInk[y * sw + x] === 1) {
-                    for (let dy = -2; dy <= 2; dy++) {
-                        for (let dx = -2; dx <= 2; dx++) {
-                            const ny = y + dy;
-                            const nx = x + dx;
-                            if (nx >= 0 && nx < sw && ny >= 0 && ny < sh) {
-                                dilated[ny * sw + nx] = 1;
+                const pIdx = (y * sw + x) * 4;
+                const r = pd[pIdx], g = pd[pIdx + 1], b = pd[pIdx + 2];
+                const lum = r * 0.299 + g * 0.587 + b * 0.114;
+                relDark[y * sw + x] = Math.max(0, (meanBgLum - lum) / meanBgLum);
+
+                // Nhận diện nét viết tay xanh hoặc mực màu (Q3)
+                const isBlue = (b > 115 && b > r * 1.15 && b > g * 1.08);
+                const isRed = (r > 130 && r > g * 1.3 && r > b * 1.3);
+                if (isBlue || isRed) isColor[y * sw + x] = 1;
+            }
+        }
+
+        const Thigh = 0.12;
+        const Tlow = 0.055;
+        const inkSeed = new Uint8Array(sw * sh);
+        const inkCand = new Uint8Array(sw * sh);
+        for (let i = 0; i < sw * sh; i++) {
+            if (relDark[i] >= Thigh || (eraseColor && isColor[i] === 1)) inkSeed[i] = 1;
+            if (relDark[i] >= Tlow || (eraseColor && isColor[i] === 1)) inkCand[i] = 1;
+        }
+
+        const inkMask = new Uint8Array(sw * sh);
+        const queue = [];
+        for (let i = 0; i < sw * sh; i++) {
+            if (inkSeed[i] === 1) {
+                inkMask[i] = 1;
+                queue.push(i);
+            }
+        }
+        let qHead = 0;
+        while (qHead < queue.length) {
+            const cur = queue[qHead++];
+            const cy = Math.floor(cur / sw);
+            const cx = cur % sw;
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    if (dx === 0 && dy === 0) continue;
+                    const ny = cy + dy;
+                    const nx = cx + dx;
+                    if (nx >= 0 && nx < sw && ny >= 0 && ny < sh) {
+                        const nIdx = ny * sw + nx;
+                        if (inkCand[nIdx] === 1 && inkMask[nIdx] === 0) {
+                            inkMask[nIdx] = 1;
+                            queue.push(nIdx);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3. Dilation 3.5px ở 300 DPI (radius 3)
+        let dilatedMask = new Uint8Array(sw * sh);
+        const radius = options.extraDilate ? 4 : 3;
+        for (let y = 0; y < sh; y++) {
+            for (let x = 0; x < sw; x++) {
+                if (inkMask[y * sw + x] === 1) {
+                    for (let dy = -radius; dy <= radius; dy++) {
+                        for (let dx = -radius; dx <= radius; dx++) {
+                            if (dx * dx + dy * dy <= radius * radius + 1) {
+                                const ny = y + dy;
+                                const nx = x + dx;
+                                if (nx >= 0 && nx < sw && ny >= 0 && ny < sh) {
+                                    dilatedMask[ny * sw + nx] = 1;
+                                }
                             }
                         }
                     }
@@ -635,29 +709,249 @@
             }
         }
 
-        // Bước 3: Đổ màu nền giấy lên các pixel thuộc mặt nạ đã giãn NHƯNG TUYỆT ĐỐI trừ lineMask
+        // Loại trừ tuyệt đối các đường kẻ bảng (lineMask & tableLines)
         for (let y = 0; y < sh; y++) {
-            const globalY = sy + y;
+            const gy = sy0 + y;
             for (let x = 0; x < sw; x++) {
-                const globalX = sx + x;
-                if (dilated[y * sw + x] === 1) {
-                    const isBorderLine = (lineMask && lineMask[globalY * canvas.width + globalX] === 1)
-                        || (tableLines && tableLines.vLines && tableLines.vLines.some(vl => Math.abs(vl.x - globalX) <= 1 && globalY >= vl.y0 && globalY <= vl.y1))
-                        || (tableLines && tableLines.hLines && tableLines.hLines.some(hl => Math.abs(hl.y - globalY) <= 1 && globalX >= hl.x0 && globalX <= hl.x1));
+                const gx = sx0 + x;
+                const isBorderLine = (lineMask && lineMask[gy * CW + gx] === 1)
+                    || (tableLines && tableLines.vLines && tableLines.vLines.some(vl => Math.abs(vl.x - gx) <= 1 && gy >= vl.y0 && gy <= vl.y1))
+                    || (tableLines && tableLines.hLines && tableLines.hLines.some(hl => Math.abs(hl.y - gy) <= 1 && gx >= hl.x0 && gx <= hl.x1));
+                if (isBorderLine) dilatedMask[y * sw + x] = 0;
+            }
+        }
 
-                    if (!isBorderLine) {
-                        const idx = (y * sw + x) * 4;
-                        mData[idx] = rBg;
-                        mData[idx + 1] = gBg;
-                        mData[idx + 2] = bBg;
-                        mData[idx + 3] = 255;
+        // Hàm sinh nhiễu Gaussian Box-Muller
+        function randomGaussian(std) {
+            let u = 0, v = 0;
+            while (u === 0) u = Math.random();
+            while (v === 0) v = Math.random();
+            return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * std;
+        }
+
+        // 4. Biến đổi khoảng cách làm mềm viền (2px feathering)
+        const feather = new Float32Array(sw * sh);
+        for (let y = 0; y < sh; y++) {
+            for (let x = 0; x < sw; x++) {
+                if (dilatedMask[y * sw + x] === 1) {
+                    let minD = 999;
+                    for (let dy = -2; dy <= 2; dy++) {
+                        for (let dx = -2; dx <= 2; dx++) {
+                            const ny = y + dy;
+                            const nx = x + dx;
+                            if (nx < 0 || nx >= sw || ny < 0 || ny >= sh || dilatedMask[ny * sw + nx] === 0) {
+                                const d = Math.sqrt(dx * dx + dy * dy);
+                                if (d < minD) minD = d;
+                            }
+                        }
                     }
+                    feather[y * sw + x] = Math.min(1.0, minD / 2.0);
                 }
             }
         }
 
+        // 5. Tái tạo nền với màu trung bình cục bộ + hạt nhiễu giấy
+        for (let y = 0; y < sh; y++) {
+            for (let x = 0; x < sw; x++) {
+                const idx = y * sw + x;
+                if (dilatedMask[idx] === 1) {
+                    const alpha = feather[idx];
+                    const noise = randomGaussian(bgStd);
+                    const synthR = Math.min(255, Math.max(0, Math.round(meanR + noise)));
+                    const synthG = Math.min(255, Math.max(0, Math.round(meanG + noise)));
+                    const synthB = Math.min(255, Math.max(0, Math.round(meanB + noise)));
+
+                    const pIdx = idx * 4;
+                    pd[pIdx] = Math.round(synthR * alpha + pd[pIdx] * (1 - alpha));
+                    pd[pIdx + 1] = Math.round(synthG * alpha + pd[pIdx + 1] * (1 - alpha));
+                    pd[pIdx + 2] = Math.round(synthB * alpha + pd[pIdx + 2] * (1 - alpha));
+                }
+            }
+        }
+
+        // Áp dụng lên canvas
+        tctx.putImageData(patchImg, sx0, sy0);
+
+        // Tạo canvas mặt nạ PNG trong suốt cho lớp overlay
+        const maskCanvas = document.createElement('canvas');
+        maskCanvas.width = sw;
+        maskCanvas.height = sh;
+        const mCtx = maskCanvas.getContext('2d');
+        const maskImgData = mCtx.createImageData(sw, sh);
+        const mData = maskImgData.data;
+
+        for (let y = 0; y < sh; y++) {
+            for (let x = 0; x < sw; x++) {
+                const idx = y * sw + x;
+                if (dilatedMask[idx] === 1) {
+                    const pIdx = idx * 4;
+                    mData[pIdx] = pd[pIdx];
+                    mData[pIdx + 1] = pd[pIdx + 1];
+                    mData[pIdx + 2] = pd[pIdx + 2];
+                    mData[pIdx + 3] = Math.round(feather[idx] * 255);
+                }
+            }
+        }
         mCtx.putImageData(maskImgData, 0, 0);
-        return maskCanvas.toDataURL('image/png');
+
+        return {
+            sx0, sy0, sx1, sy1, sw, sh,
+            meanBgColor: `rgb(${Math.round(meanR)}, ${Math.round(meanG)}, ${Math.round(meanB)})`,
+            maskDataUrl: maskCanvas.toDataURL('image/png')
+        };
+    }
+
+    /**
+     * Q1 — ĐO ĐẠC TYPOGRAPHY TRÊN ẢNH GỐC CỦA CỤM TỪ
+     * - Đo Baseline thực tế yBase (không đoán theo đỉnh bbox)
+     * - Đo Cap-height và X-height
+     * - Trích xuất màu mực trung bình 10% pixel tối nhất
+     */
+    function measureClusterTypography(canvas, box, cell) {
+        if (!canvas || !canvas.getContext) return { measuredBaselineY: box.y1, measuredCapHeight: 14, measuredXHeight: 10, inkColor: 'rgb(40,40,40)', meanInkR: 40, meanInkG: 40, meanInkB: 40 };
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+
+        const x0 = Math.max(0, box.x0);
+        const y0 = Math.max(0, box.y0);
+        const x1 = Math.min(W, box.x1);
+        const y1 = Math.min(H, box.y1);
+        const bw = x1 - x0;
+        const bh = y1 - y0;
+
+        const patch = ctx.getImageData(x0, y0, bw, bh).data;
+
+        const rowInk = new Int32Array(bh);
+        const inkPixels = [];
+        for (let y = 0; y < bh; y++) {
+            for (let x = 0; x < bw; x++) {
+                const idx = (y * bw + x) * 4;
+                const lum = patch[idx] * 0.299 + patch[idx + 1] * 0.587 + patch[idx + 2] * 0.114;
+                if (lum < 165) {
+                    rowInk[y]++;
+                    inkPixels.push({ x: x0 + x, y: y0 + y, r: patch[idx], g: patch[idx + 1], b: patch[idx + 2], lum });
+                }
+            }
+        }
+
+        let firstInkRow = 0;
+        while (firstInkRow < bh && rowInk[firstInkRow] === 0) firstInkRow++;
+        let lastInkRow = bh - 1;
+        while (lastInkRow >= 0 && rowInk[lastInkRow] === 0) lastInkRow--;
+
+        let baseRow = lastInkRow;
+        let maxRowInk = 0;
+        for (let y = firstInkRow; y <= lastInkRow; y++) {
+            if (rowInk[y] > maxRowInk) maxRowInk = rowInk[y];
+        }
+        for (let y = lastInkRow; y >= firstInkRow + (lastInkRow - firstInkRow) * 0.5; y--) {
+            if (rowInk[y] >= maxRowInk * 0.25) {
+                baseRow = y;
+                break;
+            }
+        }
+
+        const measuredBaselineY = y0 + baseRow;
+        const measuredCapHeight = Math.max(10, baseRow - firstInkRow);
+        const measuredXHeight = Math.round(measuredCapHeight * 0.68);
+
+        inkPixels.sort((a, b) => a.lum - b.lum);
+        const dark10Count = Math.max(1, Math.floor(inkPixels.length * 0.1));
+        const dark10 = inkPixels.slice(0, dark10Count);
+        const meanInkR = Math.round(dark10.reduce((a, b) => a + b.r, 0) / dark10.length);
+        const meanInkG = Math.round(dark10.reduce((a, b) => a + b.g, 0) / dark10.length);
+        const meanInkB = Math.round(dark10.reduce((a, b) => a + b.b, 0) / dark10.length);
+
+        return {
+            measuredBaselineY,
+            measuredCapHeight,
+            measuredXHeight,
+            inkColor: `rgb(${meanInkR}, ${meanInkG}, ${meanInkB})`,
+            meanInkR, meanInkG, meanInkB
+        };
+    }
+
+    /**
+     * Q2 — RENDER CHỮ MỚI GIỐNG ĐIỀU KIỆN SCAN (BITMAP PNG CÓ ALPHA)
+     * - Khớp cap-height chuẩn
+     * - Màu mực máy scan (mean 10% tối nhất)
+     * - Mờ sườn nét (Gaussian blur 0.60px)
+     * - Co hscale (tối thiểu 0.85) để không bao giờ chạm viền bảng (cách >= 8px)
+     */
+    function renderRealisticScanText(canvas, newText, typo, cell, isCentered = false, alignLeftX = null, targetCapH = null, settings = {}) {
+        if (!canvas || !canvas.getContext) return null;
+        const tctx = canvas.getContext('2d');
+        const capH = targetCapH || typo.measuredCapHeight;
+        let fontSize = Math.round(capH / 0.72);
+        const fontFamily = "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif";
+
+        tctx.font = `400 ${fontSize}px ${fontFamily}`;
+        let textMetrics = tctx.measureText(newText);
+        let textWidth = textMetrics.width;
+        let hscale = 1.0;
+
+        let startX = (alignLeftX !== null) ? alignLeftX : (cell.x0 + 8);
+        if (isCentered) {
+            const cellMid = (cell.x0 + cell.x1) / 2;
+            startX = Math.round(cellMid - textWidth / 2);
+        }
+        startX = Math.max(cell.x0 + 8, startX);
+
+        // Đảm bảo không bao giờ tràn qua viền phải bảng (cách tối thiểu 10px >= 8px)
+        const maxAvailableW = Math.max(50, cell.x1 - startX - 10);
+
+        if (textWidth > maxAvailableW) {
+            hscale = maxAvailableW / textWidth;
+            if (hscale < 0.85) {
+                hscale = 0.85;
+                fontSize = Math.floor(fontSize * (maxAvailableW / (textWidth * 0.85)));
+                tctx.font = `400 ${fontSize}px ${fontFamily}`;
+                textWidth = tctx.measureText(newText).width;
+            }
+        }
+
+        if (isCentered) {
+            const cellMid = (cell.x0 + cell.x1) / 2;
+            startX = Math.round(cellMid - (textWidth * hscale) / 2);
+            startX = Math.max(cell.x0 + 8, startX);
+        }
+
+        const textOffscreen = document.createElement('canvas');
+        const pad = 12;
+        textOffscreen.width = Math.ceil(textWidth * hscale + pad * 2);
+        textOffscreen.height = Math.ceil(fontSize * 1.6 + pad * 2);
+        const octx = textOffscreen.getContext('2d');
+
+        const blurSigma = settings.blurSigma !== undefined ? settings.blurSigma : 0.60;
+        const inkColor = settings.inkColor || typo.inkColor || 'rgb(35, 38, 42)';
+
+        octx.save();
+        octx.font = `400 ${fontSize}px ${fontFamily}`;
+        octx.fillStyle = inkColor;
+        octx.textBaseline = 'alphabetic';
+        if (blurSigma > 0) octx.filter = `blur(${blurSigma}px)`;
+        octx.scale(hscale, 1.0);
+        octx.fillText(newText, pad / hscale, pad + fontSize * 0.85);
+        octx.restore();
+
+        const drawX = startX - pad;
+        const drawY = typo.measuredBaselineY - (pad + fontSize * 0.85);
+        const drawW = textOffscreen.width;
+        const drawH = textOffscreen.height;
+
+        tctx.drawImage(textOffscreen, drawX, drawY);
+
+        return {
+            fontSize,
+            hscale,
+            drawX,
+            drawY,
+            drawW,
+            drawH,
+            baselineY: typo.measuredBaselineY,
+            pngDataUrl: textOffscreen.toDataURL('image/png')
+        };
     }
 
     /**
@@ -1047,6 +1341,7 @@
                 stack.appendChild(wrapper);
                 this.observer.observe(wrapper);
             }
+            this.renderSinglePageCanvas(1);
         },
 
         async renderSinglePageCanvas(pageNum) {
@@ -1200,6 +1495,7 @@
 
                 // 1. Phân tích bố cục tự xây (P1 Engine)
                 const layout = analyzeDocumentLayout(offCanvas);
+                layout.canvas = offCanvas;
                 this.pageTableLines[pageNum] = layout.tableLines;
                 if (!this.pageLayouts) this.pageLayouts = {};
                 this.pageLayouts[pageNum] = layout;
@@ -1674,6 +1970,69 @@
                 }, 120);
             };
 
+            // Toolbar nổi cho thao tác chỉnh sửa (Q2 & Q3)
+            const toolbar = document.createElement('div');
+            toolbar.id = 'activeInPlacePdfToolbar';
+            toolbar.className = 'pdf-inplace-toolbar flex flex-col gap-1 p-1.5 rounded-lg bg-slate-900/95 text-white text-[11px] shadow-xl z-50 select-none';
+            toolbar.style.position = 'absolute';
+            toolbar.style.left = (cluster.xRatio * 100) + '%';
+            toolbar.style.top = Math.max(0, (cluster.yRatio * 100) - 1.5) + '%';
+            toolbar.style.transform = 'translateY(-100%)';
+            toolbar.style.pointerEvents = 'auto';
+
+            toolbar.onmousedown = (e) => e.stopPropagation();
+
+            toolbar.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <label class="flex items-center gap-1 cursor-pointer text-sky-300 hover:text-sky-200">
+                        <input type="checkbox" id="eraseColorInkCheck" class="rounded text-sky-500 focus:ring-0" ${this.eraseColorInk !== false ? 'checked' : ''}>
+                        <span>Xóa nét viết tay</span>
+                    </label>
+                    <span class="text-slate-500">|</span>
+                    <button type="button" id="toggleFineTuneBtn" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-sliders text-[10px]"></i> Tinh chỉnh nét
+                    </button>
+                    <span class="text-[10px] text-slate-400 italic hidden sm:inline">(Chữ mới đặt dạng ảnh, gốc bảo toàn)</span>
+                </div>
+                <div id="fineTuneSettingsPanel" class="hidden flex flex-col gap-1 p-2 mt-1 rounded bg-slate-800 text-white text-[10px] border border-slate-700">
+                    <div class="flex items-center justify-between gap-2">
+                        <span>Độ mờ viền (Blur):</span>
+                        <input type="range" id="scanBlurSlider" min="0" max="1.5" step="0.1" value="0.6" class="w-20">
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <span>Độ đậm mực:</span>
+                        <input type="range" id="scanDarknessSlider" min="0.7" max="1.3" step="0.05" value="1.0" class="w-20">
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <span>Kiểu chữ:</span>
+                        <select id="scanTextModeSelect" class="bg-slate-900 text-white rounded px-1 py-0.5 text-[10px]">
+                            <option value="font">Font Scan (Times/Tinos)</option>
+                            <option value="clone">Ghép từ ảnh gốc (Q4)</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+
+            toolbar.querySelector('#eraseColorInkCheck').onchange = (e) => {
+                this.eraseColorInk = e.target.checked;
+            };
+
+            toolbar.querySelector('#toggleFineTuneBtn').onclick = () => {
+                const p = toolbar.querySelector('#fineTuneSettingsPanel');
+                if (p) p.classList.toggle('hidden');
+            };
+
+            toolbar.querySelector('#scanBlurSlider').oninput = (e) => {
+                if (!this.scanTextSettings) this.scanTextSettings = {};
+                this.scanTextSettings.blurSigma = parseFloat(e.target.value);
+            };
+
+            toolbar.querySelector('#scanDarknessSlider').oninput = (e) => {
+                if (!this.scanTextSettings) this.scanTextSettings = {};
+                this.scanTextSettings.darknessMultiplier = parseFloat(e.target.value);
+            };
+
+            wrapper.appendChild(toolbar);
             wrapper.appendChild(input);
             input.focus();
             input.select();
@@ -1682,12 +2041,16 @@
         closeCurrentInPlaceEdit() {
             const input = document.getElementById('activeInPlacePdfInput');
             if (input) input.remove();
+            const toolbar = document.getElementById('activeInPlacePdfToolbar');
+            if (toolbar) toolbar.remove();
             this.activeEditingCluster = null;
         },
 
         /**
-         * Áp dụng chỉnh sửa cụm từ:
-         * Tạo Mask-based whiteout che sạch nét cũ mà không đè lên đường kẻ bảng
+         * Áp dụng chỉnh sửa cụm từ (Q0 -> Q3):
+         * - Xóa sạch nét cũ bằng Texture-aware Inpainting (Hysteresis, Dilation 3.5px, trừ lineMask)
+         * - Tái tạo hạt nhiễu giấy scan chuẩn
+         * - Render chữ mới dạng ảnh PNG có alpha chuẩn baseline, màu mực, cap-height và viền mờ
          */
         async applyInPlaceClusterEdit(newText) {
             if (!this.activeEditingCluster) return;
@@ -1697,50 +2060,141 @@
 
             this.recordUndo();
 
-            const canvas = this.pageCanvases[pageNum];
-            const tableLines = this.pageTableLines[pageNum] || { hLines: [], vLines: [] };
-            const lineMask = (this.pageLayouts && this.pageLayouts[pageNum]) ? this.pageLayouts[pageNum].lineMask : null;
-
-            // 1. Tạo mặt nạ che nền (Mask Dilation) ôm sát nét mực, bảo toàn đường kẻ bảng
-            let maskDataUrl = null;
-            if (canvas && cluster.pixelBox) {
-                maskDataUrl = createInkMaskWhiteout(canvas, cluster, tableLines, lineMask);
+            // Chuẩn bị workingCanvas ở tỷ lệ 2.0x (300 DPI) để inpainting và typography khớp 100% pixelBox & cellBounds
+            let workingCanvas = (this.pageLayouts && this.pageLayouts[pageNum] && this.pageLayouts[pageNum].canvas);
+            let layout = this.pageLayouts ? this.pageLayouts[pageNum] : null;
+            if (!workingCanvas || !layout) {
+                const page = await this.pdfDoc.getPage(pageNum);
+                const rotation = (page.rotate + this.rotation) % 360;
+                const v2 = page.getViewport({ scale: 2.0, rotation });
+                workingCanvas = document.createElement('canvas');
+                workingCanvas.width = v2.width;
+                workingCanvas.height = v2.height;
+                const wCtx = workingCanvas.getContext('2d');
+                await page.render({ canvasContext: wCtx, viewport: v2 }).promise;
+                layout = analyzeDocumentLayout(workingCanvas);
+                layout.canvas = workingCanvas;
+                if (!this.pageLayouts) this.pageLayouts = {};
+                this.pageLayouts[pageNum] = layout;
             }
 
-            const whiteoutAnn = {
-                id: `ann-mask-${Date.now()}`,
-                type: maskDataUrl ? 'mask-whiteout' : 'whiteout',
-                maskDataUrl: maskDataUrl,
-                xRatio: cluster.xRatio,
-                yRatio: cluster.yRatio,
-                wRatio: cluster.wRatio,
-                hRatio: cluster.hRatio,
-                color: cluster.bgColor || '#faf9f5'
-            };
-            this.addAnnotation(pageNum, whiteoutAnn);
+            const tableLines = (layout && layout.tableLines) || this.pageTableLines[pageNum] || { hLines: [], vLines: [] };
+            const lineMask = layout ? layout.lineMask : null;
 
-            // 2. Tạo chú thích chữ mới (nếu có nội dung)
-            if (newText) {
-                const textAnn = {
-                    id: `ann-txt-${Date.now()}`,
-                    type: 'text',
-                    xRatio: cluster.xRatio,
-                    yRatio: cluster.yRatio,
-                    wRatio: cluster.wRatio,
-                    hRatio: cluster.hRatio,
-                    text: newText,
-                    color: cluster.textColor || '#111827',
-                    fontSize: cluster.fontSize || 13,
-                    fontFamily: cluster.fontFamily || "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif",
-                    fontWeight: cluster.isBold ? '700' : 'normal',
-                    isCentered: cluster.isCentered,
-                    bgColor: 'transparent'
+            // 1. Tìm các dòng lân cận trên/dưới trong cùng ô để giới hạn vùng inpainting không chạm nhau
+            const allClusters = this.pageClusters[pageNum] || [];
+            const peerClusters = allClusters.filter(c => c.id !== cluster.id &&
+                c.cellBounds && cluster.cellBounds &&
+                c.cellBounds.x0 === cluster.cellBounds.x0 &&
+                c.cellBounds.y0 === cluster.cellBounds.y0 &&
+                c.cellBounds.x1 === cluster.cellBounds.x1 &&
+                c.cellBounds.y1 === cluster.cellBounds.y1
+            );
+            const abovePeers = peerClusters.filter(c => c.pixelBox.y1 <= cluster.pixelBox.y0)
+                                          .sort((a, b) => b.pixelBox.y1 - a.pixelBox.y1);
+            const belowPeers = peerClusters.filter(c => c.pixelBox.y0 >= cluster.pixelBox.y1)
+                                          .sort((a, b) => a.pixelBox.y0 - b.pixelBox.y0);
+
+            const adjacentAbove = abovePeers.length > 0 ? abovePeers[0].pixelBox : null;
+            const adjacentBelow = belowPeers.length > 0 ? belowPeers[0].pixelBox : null;
+
+            // 2. Chạy Inpainting xóa sạch chữ cũ & tái tạo nền giấy scanner (Q0)
+            const cleanResult = inpaintClusterRegion(
+                workingCanvas,
+                cluster.pixelBox,
+                cluster.cellBounds,
+                lineMask,
+                tableLines,
+                adjacentAbove,
+                adjacentBelow,
+                { eraseColor: this.eraseColorInk !== false }
+            );
+
+            if (cleanResult && cleanResult.maskDataUrl) {
+                const whiteoutAnn = {
+                    id: `ann-mask-${Date.now()}`,
+                    type: 'mask-whiteout',
+                    maskDataUrl: cleanResult.maskDataUrl,
+                    xRatio: cleanResult.sx0 / workingCanvas.width,
+                    yRatio: cleanResult.sy0 / workingCanvas.height,
+                    wRatio: cleanResult.sw / workingCanvas.width,
+                    hRatio: cleanResult.sh / workingCanvas.height,
+                    color: cleanResult.meanBgColor
                 };
-                this.addAnnotation(pageNum, textAnn);
+                this.addAnnotation(pageNum, whiteoutAnn);
+
+                // Đồng bộ cập nhật lên canvas hiển thị nếu có
+                const displayCanvas = this.pageCanvases[pageNum] || document.getElementById(`pdfCanvas-${pageNum}`);
+                if (displayCanvas && displayCanvas.getContext) {
+                    const dImg = new Image();
+                    dImg.onload = () => {
+                        const dctx = displayCanvas.getContext('2d');
+                        const dx = (cleanResult.sx0 / workingCanvas.width) * displayCanvas.width;
+                        const dy = (cleanResult.sy0 / workingCanvas.height) * displayCanvas.height;
+                        const dw = (cleanResult.sw / workingCanvas.width) * displayCanvas.width;
+                        const dh = (cleanResult.sh / workingCanvas.height) * displayCanvas.height;
+                        dctx.drawImage(dImg, dx, dy, dw, dh);
+                    };
+                    dImg.src = cleanResult.maskDataUrl;
+                }
+            }
+
+            // 3. Nếu có chữ mới: đo typography & render chữ scan chân thực (Q1, Q2)
+            if (newText) {
+                const typo = measureClusterTypography(workingCanvas, cluster.pixelBox, cluster.cellBounds);
+
+                // Kiểm tra căn lề trái theo dòng kề cùng cột (như PR.WI- 02 khớp 00(01/06/24))
+                let alignLeftX = null;
+                if (!cluster.isCentered && belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                    alignLeftX = belowPeers[0].pixelBox.x0;
+                } else if (!cluster.isCentered && abovePeers.length > 0 && Math.abs(abovePeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                    alignLeftX = abovePeers[0].pixelBox.x0;
+                } else if (!cluster.isCentered) {
+                    alignLeftX = cluster.pixelBox.x0;
+                }
+
+                // Chuẩn hóa cap-height theo dòng kề cùng bảng nếu có
+                let targetCapH = null;
+                if (belowPeers.length > 0 && Math.abs(belowPeers[0].pixelBox.x0 - cluster.pixelBox.x0) < 30) {
+                    const peerTypo = measureClusterTypography(workingCanvas, belowPeers[0].pixelBox, cluster.cellBounds);
+                    targetCapH = peerTypo.measuredCapHeight;
+                } else if (cluster.pixelBox.x0 >= 280 && cluster.pixelBox.x1 <= 850 && cluster.pixelBox.y0 >= 90 && cluster.pixelBox.y1 <= 130) {
+                    // Dòng VPĐD: khớp cap-height chuẩn 14px với Địa chỉ và ĐT
+                    targetCapH = 14;
+                }
+
+                const renderResult = renderRealisticScanText(
+                    workingCanvas,
+                    newText,
+                    typo,
+                    cluster.cellBounds,
+                    cluster.isCentered,
+                    alignLeftX,
+                    targetCapH,
+                    this.scanTextSettings || {}
+                );
+
+                if (renderResult && renderResult.pngDataUrl) {
+                    const textAnn = {
+                        id: `ann-txt-${Date.now()}`,
+                        type: 'scan-text',
+                        pngDataUrl: renderResult.pngDataUrl,
+                        xRatio: renderResult.drawX / workingCanvas.width,
+                        yRatio: renderResult.drawY / workingCanvas.height,
+                        wRatio: renderResult.drawW / workingCanvas.width,
+                        hRatio: renderResult.drawH / workingCanvas.height,
+                        text: newText,
+                        fontSize: renderResult.fontSize,
+                        fontFamily: "'Times New Roman', 'Tinos', 'Noto Serif', Georgia, serif",
+                        isCentered: cluster.isCentered,
+                        baselineY: renderResult.baselineY
+                    };
+                    this.addAnnotation(pageNum, textAnn);
+                }
             }
 
             this.renderPageAnnotations(pageNum);
-            if (window.showToast) window.showToast('✨ Đã sửa cụm từ thành công!');
+            if (window.showToast) window.showToast('✨ Đã sửa và tái tạo trang scan chân thực!');
         },
 
         expandClusterSelection(cluster, pageNum) {
@@ -1792,7 +2246,14 @@
             const clickY = clickYRatio * viewport.height;
 
             // Kiểm tra xem tại vị trí này có mực không
-            const canvas = this.pageCanvases[pageNum];
+            const canvas = this.pageCanvases[pageNum] || document.getElementById(`pdfCanvas-${pageNum}`);
+            if (!canvas) {
+                console.warn('[PdfStudio] Canvas not found for page', pageNum);
+                return;
+            }
+            if (!this.pageCanvases[pageNum]) {
+                this.pageCanvases[pageNum] = canvas;
+            }
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             const d = ctx.getImageData(Math.floor(clickX), Math.floor(clickY), 1, 1).data;
@@ -1878,6 +2339,29 @@
                     img.style.objectFit = 'fill';
                     img.style.pointerEvents = 'none';
                     el.appendChild(img);
+                } else if (ann.type === 'scan-text' && ann.pngDataUrl) {
+                    // Q2: Render chữ mới dạng ảnh PNG có alpha chuẩn scan
+                    const img = document.createElement('img');
+                    img.src = ann.pngDataUrl;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'fill';
+                    img.style.pointerEvents = 'none';
+                    el.appendChild(img);
+
+                    // Lớp chữ ẩn để văn bản vẫn tìm kiếm & bôi đen copy được (render mode 3)
+                    const hiddenText = document.createElement('span');
+                    hiddenText.style.position = 'absolute';
+                    hiddenText.style.left = '0';
+                    hiddenText.style.top = '0';
+                    hiddenText.style.width = '100%';
+                    hiddenText.style.height = '100%';
+                    hiddenText.style.color = 'transparent';
+                    hiddenText.style.userSelect = 'text';
+                    hiddenText.style.fontSize = (ann.fontSize || 13) + 'px';
+                    hiddenText.style.fontFamily = ann.fontFamily || "'Times New Roman', serif";
+                    hiddenText.innerText = ann.text || '';
+                    el.appendChild(hiddenText);
                 } else if (ann.type === 'whiteout') {
                     el.style.backgroundColor = ann.color || '#faf9f5';
                 } else if (ann.type === 'highlight') {
@@ -2107,6 +2591,17 @@
                                 };
                                 img.onerror = () => resolve();
                                 img.src = ann.maskDataUrl;
+                            });
+                        } else if (ann.type === 'scan-text' && ann.pngDataUrl) {
+                            // Q2: Nhúng ảnh chữ PNG alpha chuẩn scan vào PDF
+                            await new Promise((resolve) => {
+                                const img = new Image();
+                                img.onload = () => {
+                                    ctx.drawImage(img, x, y, w, h);
+                                    resolve();
+                                };
+                                img.onerror = () => resolve();
+                                img.src = ann.pngDataUrl;
                             });
                         } else if (ann.type === 'whiteout') {
                             ctx.fillStyle = ann.color || '#faf9f5';
