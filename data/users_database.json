@@ -8,10 +8,11 @@
     "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIqf3GZEx2d0AUkcqFTnPvvecQ6MTf9v89adahm3RECplz0HQ=s96-c",
     "avatarColor": "bg-emerald-600",
     "exam": "TOEIC",
-    "targetScore": "",
-    "examDate": "",
+    "targetScore": "600",
+    "examDate": "20/12/2026",
     "authProvider": "google",
-    "createdAt": "2026-10-23T04:48:24.332Z"
+    "createdAt": "2026-10-23T04:48:24.332Z",
+    "streak": 1
   },
   {
     "id": "acc-g-1792724111567",
@@ -61,11 +62,12 @@
     "username": "usera_1792720086031",
     "password": "1d7520270d7875d7c7123cf3fb24dcec:252d40cfd87faeb5a32906297dca871584216b6d76b652b24d86fac9ef5b4db5978835e8c73b2fad01d9266b1907237b2399776f0b4487435c7a807c7562bbe8",
     "exam": "TOEIC",
-    "targetScore": "",
-    "examDate": "",
+    "targetScore": "650",
+    "examDate": "25/12/2026",
     "avatarColor": "bg-teal-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T01:48:06.205Z"
+    "createdAt": "2026-10-23T01:48:06.205Z",
+    "streak": 1
   },
   {
     "id": "acc-1792717299691-vyp1",

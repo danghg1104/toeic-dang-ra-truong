@@ -1010,7 +1010,7 @@
                                 <span id="memberVocabCount">0</span> <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400">từ</span>
                             </div>
                         </div>
-                        <div class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 truncate">
+                        <div id="memberVocabSub" class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 truncate">
                             Chưa học từ nào tuần này
                         </div>
                     </div>
@@ -1025,7 +1025,7 @@
                                 <span id="memberAccuracyVal">——</span> <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400">%</span>
                             </div>
                         </div>
-                        <div class="text-[11px] font-semibold text-purple-700 dark:text-purple-300 truncate">
+                        <div id="memberAccuracySub" class="text-[11px] font-semibold text-purple-700 dark:text-purple-300 truncate">
                             Làm bài để biết độ chính xác
                         </div>
                     </div>
@@ -1040,7 +1040,7 @@
                                 <span id="memberStudyTime">——</span>
                             </div>
                         </div>
-                        <div class="text-[11px] font-semibold text-rose-700 dark:text-rose-300 truncate">
+                        <div id="memberStudyTimeSub" class="text-[11px] font-semibold text-rose-700 dark:text-rose-300 truncate">
                             Hôm nay: chưa học
                         </div>
                     </div>
@@ -1123,38 +1123,38 @@
                             <div class="grid grid-cols-4 gap-2 text-center">
                                 <!-- Gauge 1: Ngữ pháp -->
                                 <div class="flex flex-col items-center">
-                                    <div class="relative w-14 h-14 rounded-full flex items-center justify-center bg-purple-50 dark:bg-purple-950/40 border-2 border-purple-300 dark:border-purple-700 shadow-xs">
-                                        <span class="text-xs font-black text-purple-700 dark:text-purple-300">85%</span>
+                                    <div id="skillAccuracyGrammarCircle" class="relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700">
+                                        <span id="skillAccuracyGrammarPct" class="text-xs font-bold text-slate-400">——</span>
                                     </div>
                                     <div class="mt-1 text-[11px] font-bold text-slate-800 dark:text-slate-200">Ngữ pháp</div>
-                                    <div class="text-[9.5px] text-slate-400">25/1500</div>
+                                    <div id="skillAccuracyGrammarCount" class="text-[9.5px] text-slate-400">0/1500</div>
                                 </div>
 
                                 <!-- Gauge 2: Từ vựng -->
                                 <div class="flex flex-col items-center">
-                                    <div class="relative w-14 h-14 rounded-full flex items-center justify-center bg-fuchsia-50 dark:bg-fuchsia-950/40 border-2 border-fuchsia-300 dark:border-fuchsia-700 shadow-xs">
-                                        <span class="text-xs font-black text-fuchsia-700 dark:text-fuchsia-300">100%</span>
+                                    <div id="skillAccuracyVocabCircle" class="relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700">
+                                        <span id="skillAccuracyVocabPct" class="text-xs font-bold text-slate-400">——</span>
                                     </div>
                                     <div class="mt-1 text-[11px] font-bold text-slate-800 dark:text-slate-200">Từ vựng</div>
-                                    <div class="text-[9.5px] text-slate-400">18/4514</div>
+                                    <div id="skillAccuracyVocabCount" class="text-[9.5px] text-slate-400">0/4514</div>
                                 </div>
 
                                 <!-- Gauge 3: Nghe -->
                                 <div class="flex flex-col items-center">
-                                    <div class="relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700">
-                                        <span class="text-xs font-bold text-slate-400">——</span>
+                                    <div id="skillAccuracyListenCircle" class="relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700">
+                                        <span id="skillAccuracyListenPct" class="text-xs font-bold text-slate-400">——</span>
                                     </div>
                                     <div class="mt-1 text-[11px] font-bold text-slate-800 dark:text-slate-200">Nghe</div>
-                                    <div class="text-[9.5px] text-slate-400">0/2100</div>
+                                    <div id="skillAccuracyListenCount" class="text-[9.5px] text-slate-400">0/2100</div>
                                 </div>
 
                                 <!-- Gauge 4: Đọc -->
                                 <div class="flex flex-col items-center">
-                                    <div class="relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700">
-                                        <span class="text-xs font-bold text-slate-400">——</span>
+                                    <div id="skillAccuracyReadCircle" class="relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700">
+                                        <span id="skillAccuracyReadPct" class="text-xs font-bold text-slate-400">——</span>
                                     </div>
                                     <div class="mt-1 text-[11px] font-bold text-slate-800 dark:text-slate-200">Đọc</div>
-                                    <div class="text-[9.5px] text-slate-400">0/2100</div>
+                                    <div id="skillAccuracyReadCount" class="text-[9.5px] text-slate-400">0/2100</div>
                                 </div>
                             </div>
                         </div>
@@ -5194,7 +5194,7 @@
         // =========================================================================
         // 1. NGỮ PHÁP (7 CHUYÊN ĐỀ LỚN · 30 CHỦ ĐỀ · SỔ TAY CÁ NHÂN)
         // =========================================================================
-        const savedGrammarNotes = [];
+        let savedGrammarNotes = [];
         let currentGrammarExamFilter = 'ALL';
         let currentGrammarSort = 'default';
 
@@ -5291,11 +5291,12 @@
                         levelBadge = '<span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-extrabold border border-amber-200">👑 800+</span>';
                     }
 
-                    // Progress & Accuracy from isolated storage
+                    // Progress & Accuracy from isolated storage theo từng tài khoản
                     let correctCount = 0;
                     let answeredCount = 0;
+                    const currentUId = (window.currentUserAccount && window.currentUserAccount.id) ? window.currentUserAccount.id : 'guest';
                     try {
-                        const progressRaw = localStorage.getItem(`grammar_progress_${slug}`);
+                        const progressRaw = localStorage.getItem(`grammar_progress_${currentUId}_${slug}`);
                         if (progressRaw) {
                             const p = JSON.parse(progressRaw);
                             if (p.questionStatusMap) {
@@ -5305,7 +5306,7 @@
                         }
                     } catch (e) {}
 
-                    const pct = Math.round((correctCount / totalQ) * 100);
+                    const pct = totalQ > 0 ? Math.round((correctCount / totalQ) * 100) : 0;
 
                     return `
                     <div class="glass-panel rounded-[22px] p-4 flex flex-col justify-between min-h-[175px] border border-purple-100/80 dark:border-slate-700 hover:shadow-md transition">
@@ -9745,6 +9746,164 @@
             if (taskBarRead) taskBarRead.style.width = `${Math.min(100, (rDone / 10) * 100)}%`;
             setTxt('task-count-read', `${Math.min(10, rDone)}/10`);
 
+            // Member Dashboard Summary Cards (5 thẻ Pastel chuẩn Ảnh 4)
+            if (currentUserAccount) {
+                setTxt('memberTargetScore', currentUserAccount.targetScore || '——');
+                setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: Chưa đặt');
+            } else {
+                setTxt('memberTargetScore', '——');
+                setTxt('memberExamDate', 'Thi: Chưa đặt');
+            }
+            setTxt('memberVocabCount', vLearned);
+            setTxt('memberVocabSub', vLearned > 0 ? `Đã học ${vLearned} từ mới tuần này` : 'Chưa học từ nào tuần này');
+
+            if (state.totalAnswers && state.totalAnswers > 0) {
+                const acc = Math.round((state.correctAnswers / state.totalAnswers) * 100);
+                setTxt('memberAccuracyVal', acc);
+                setTxt('memberAccuracySub', `Đã làm ${state.totalAnswers} câu`);
+            } else {
+                setTxt('memberAccuracyVal', '——');
+                setTxt('memberAccuracySub', 'Làm bài để biết độ chính xác');
+            }
+
+            if (sMinutes > 0) {
+                setTxt('memberStudyTime', `${sMinutes}p`);
+                setTxt('memberStudyTimeSub', `Hôm nay: ${sMinutes} phút`);
+            } else {
+                setTxt('memberStudyTime', '——');
+                setTxt('memberStudyTimeSub', 'Hôm nay: chưa học');
+            }
+
+            setTxt('sanhMemberStreakVal', `${currentStreak} ngày`);
+            setTxt('sanhMemberStreakTitle', `Streak ${currentStreak} ngày`);
+
+            // 4 Gauges Độ chính xác kỹ năng (Chuẩn Ảnh 2 - Hiển thị số liệu thật, không viết cứng số liệu ảnh)
+            // 1. Ngữ pháp
+            let gAnswered = 0;
+            let gCorrect = 0;
+            const currentUserId = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+            try {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const k = localStorage.key(i);
+                    if (k && k.startsWith(`grammar_progress_${currentUserId}_`)) {
+                        const raw = localStorage.getItem(k);
+                        if (raw) {
+                            const parsed = JSON.parse(raw);
+                            if (parsed.questionStatusMap) {
+                                const vals = Object.values(parsed.questionStatusMap);
+                                gAnswered += vals.length;
+                                gCorrect += vals.filter(v => v === 'correct').length;
+                            }
+                        }
+                    }
+                }
+            } catch (e) {}
+            if (gAnswered === 0 && (state.grammarDone || 0) > 0) {
+                gAnswered = state.grammarDone;
+                gCorrect = state.correctAnswers || state.grammarDone;
+            }
+
+            const gCircle = document.getElementById('skillAccuracyGrammarCircle');
+            const gPct = document.getElementById('skillAccuracyGrammarPct');
+            const gCount = document.getElementById('skillAccuracyGrammarCount');
+            if (gAnswered > 0) {
+                const gPctVal = Math.round((gCorrect / gAnswered) * 100);
+                if (gPct) {
+                    gPct.textContent = `${gPctVal}%`;
+                    gPct.className = 'text-xs font-black text-purple-700 dark:text-purple-300';
+                }
+                if (gCircle) {
+                    gCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-purple-50 dark:bg-purple-950/40 border-2 border-purple-300 dark:border-purple-700 shadow-xs';
+                }
+                if (gCount) gCount.textContent = `${gAnswered}/1500`;
+            } else {
+                if (gPct) {
+                    gPct.textContent = '——';
+                    gPct.className = 'text-xs font-bold text-slate-400';
+                }
+                if (gCircle) {
+                    gCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700';
+                }
+                if (gCount) gCount.textContent = '0/1500';
+            }
+
+            // 2. Từ vựng
+            const vCircle = document.getElementById('skillAccuracyVocabCircle');
+            const vPct = document.getElementById('skillAccuracyVocabPct');
+            const vCount = document.getElementById('skillAccuracyVocabCount');
+            const vAnswered = state.vocabTotalAnswers || (vLearned > 0 ? vLearned : 0);
+            const vCorrect = state.vocabCorrectAnswers || vLearned;
+            if (vAnswered > 0) {
+                const vPctVal = Math.round((vCorrect / vAnswered) * 100);
+                if (vPct) {
+                    vPct.textContent = `${vPctVal}%`;
+                    vPct.className = 'text-xs font-black text-fuchsia-700 dark:text-fuchsia-300';
+                }
+                if (vCircle) {
+                    vCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-fuchsia-50 dark:bg-fuchsia-950/40 border-2 border-fuchsia-300 dark:border-fuchsia-700 shadow-xs';
+                }
+                if (vCount) vCount.textContent = `${vAnswered}/4514`;
+            } else {
+                if (vPct) {
+                    vPct.textContent = '——';
+                    vPct.className = 'text-xs font-bold text-slate-400';
+                }
+                if (vCircle) {
+                    vCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700';
+                }
+                if (vCount) vCount.textContent = '0/4514';
+            }
+
+            // 3. Nghe
+            const lCircle = document.getElementById('skillAccuracyListenCircle');
+            const lPct = document.getElementById('skillAccuracyListenPct');
+            const lCount = document.getElementById('skillAccuracyListenCount');
+            if (lDone > 0) {
+                const lPctVal = state.listenTotalAnswers ? Math.round((state.listenCorrectAnswers / state.listenTotalAnswers) * 100) : 100;
+                if (lPct) {
+                    lPct.textContent = `${lPctVal}%`;
+                    lPct.className = 'text-xs font-black text-amber-700 dark:text-amber-300';
+                }
+                if (lCircle) {
+                    lCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-700 shadow-xs';
+                }
+                if (lCount) lCount.textContent = `${lDone}/2100`;
+            } else {
+                if (lPct) {
+                    lPct.textContent = '——';
+                    lPct.className = 'text-xs font-bold text-slate-400';
+                }
+                if (lCircle) {
+                    lCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700';
+                }
+                if (lCount) lCount.textContent = '0/2100';
+            }
+
+            // 4. Đọc
+            const rCircle = document.getElementById('skillAccuracyReadCircle');
+            const rPct = document.getElementById('skillAccuracyReadPct');
+            const rCount = document.getElementById('skillAccuracyReadCount');
+            if (rDone > 0) {
+                const rPctVal = state.readTotalAnswers ? Math.round((state.readCorrectAnswers / state.readTotalAnswers) * 100) : 100;
+                if (rPct) {
+                    rPct.textContent = `${rPctVal}%`;
+                    rPct.className = 'text-xs font-black text-emerald-700 dark:text-emerald-300';
+                }
+                if (rCircle) {
+                    rCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-300 dark:border-emerald-700 shadow-xs';
+                }
+                if (rCount) rCount.textContent = `${rDone}/2100`;
+            } else {
+                if (rPct) {
+                    rPct.textContent = '——';
+                    rPct.className = 'text-xs font-bold text-slate-400';
+                }
+                if (rCircle) {
+                    rCircle.className = 'relative w-14 h-14 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700';
+                }
+                if (rCount) rCount.textContent = '0/2100';
+            }
+
             // Cập nhật danh sách nhiệm vụ hôm nay theo tiến độ thực tế
             if (window.DailyTaskManager && typeof window.DailyTaskManager.render === 'function') {
                 window.DailyTaskManager.render();
@@ -9758,27 +9917,61 @@
                 if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
                 return;
             }
+            const inputScore = document.getElementById('inputTargetScore');
+            const inputDate = document.getElementById('inputTargetDate');
+            if (inputScore) inputScore.value = currentUserAccount.targetScore || '600';
+            if (inputDate) inputDate.value = currentUserAccount.examDate || '20/12/2026';
+
             const m = document.getElementById('targetModal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
+            if (m) {
+                m.classList.remove('hidden');
+                m.classList.add('flex');
+            }
         }
 
         function saveTargetSettings() {
-            const score = document.getElementById('inputTargetScore').value || '600';
-            const date = document.getElementById('inputTargetDate').value || '20/12/2026';
-            document.getElementById('targetScoreVal').textContent = score;
-            document.getElementById('targetDateVal').textContent = `Thi: ${date}`;
+            const scoreInput = document.getElementById('inputTargetScore');
+            const dateInput = document.getElementById('inputTargetDate');
+            const score = (scoreInput && scoreInput.value) ? scoreInput.value.trim() : '600';
+            const date = (dateInput && dateInput.value) ? dateInput.value.trim() : '20/12/2026';
+
+            // 1. Cập nhật thẻ mục tiêu trên Sảnh hôm nay (Ảnh 4 & Ảnh 1)
+            const scoreEl = document.getElementById('memberTargetScore');
+            if (scoreEl) scoreEl.textContent = score || '——';
+            const dateEl = document.getElementById('memberExamDate');
+            if (dateEl) dateEl.textContent = date ? `Thi: ${date}` : 'Thi: Chưa đặt';
+
+            // 2. Cập nhật các trường phụ trong trang cài đặt
             const profTarget = document.getElementById('profileTargetScoreInput');
             const profDate = document.getElementById('profileExamDateInput');
             if (profTarget) profTarget.value = score;
             if (profDate) profDate.value = date;
+
+            const oldScore = document.getElementById('targetScoreVal');
+            if (oldScore) oldScore.textContent = score;
+            const oldDate = document.getElementById('targetDateVal');
+            if (oldDate) oldDate.textContent = `Thi: ${date}`;
+
+            // 3. Cập nhật tài khoản hiện tại và đồng bộ
             if (currentUserAccount) {
                 currentUserAccount.targetScore = score;
                 currentUserAccount.examDate = date;
                 syncCurrentAccountState();
+
+                // Lưu lên server qua /api/user/update-target
+                fetch('/api/user/update-target', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ targetScore: score, examDate: date, userId: currentUserAccount.id })
+                }).catch(err => console.warn('Lỗi lưu mục tiêu lên máy chủ:', err));
             }
-            document.getElementById('targetModal').classList.add('hidden');
-            document.getElementById('targetModal').classList.remove('flex');
+
+            const m = document.getElementById('targetModal');
+            if (m) {
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+            }
             showToast('🎯 Đã lưu mục tiêu điểm số và ngày thi!');
         }
 
@@ -10390,6 +10583,10 @@
                                 state.readDone = p.state.readDone || 0;
                                 state.listenDone = p.state.listenDone || 0;
                                 state.studyMinutes = p.state.studyMinutes || 0;
+                            }
+                            if (currentUserAccount) {
+                                if (p.targetScore) currentUserAccount.targetScore = p.targetScore;
+                                if (p.examDate) currentUserAccount.examDate = p.examDate;
                             }
                             if (p.streakInfo) {
                                 renderStreakWeekDays(p.streakInfo);
@@ -12614,6 +12811,16 @@
 
         // Khởi chạy Gatekeeper & Master Views NGAY LẬP TỨC khi DOM sẵn sàng (Zero-delay)
         function bootstrapApplication() {
+            // Dọn dẹp an toàn các khóa tiến độ ngữ pháp cũ chưa gắn userId (tránh hiển thị nhầm 2% từ dữ liệu cache cũ)
+            try {
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('grammar_progress_') && !key.startsWith('grammar_progress_acc-') && !key.startsWith('grammar_progress_guest_')) {
+                        localStorage.removeItem(key);
+                    }
+                }
+            } catch (e) {}
+
             UserAuthEngine.init();
             initAllAppViews();
             setupTakeNotePasteListener();

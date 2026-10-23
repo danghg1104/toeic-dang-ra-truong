@@ -228,6 +228,11 @@
             } catch (e) {}
         },
 
+        getTopicStorageKey(slug) {
+            const userId = (window.currentUserAccount && window.currentUserAccount.id) ? window.currentUserAccount.id : 'guest';
+            return `grammar_progress_${userId}_${slug}`;
+        },
+
         loadTopicState(slug) {
             this.questionStatusMap = {};
             this.currentQuestionIndex = 0;
@@ -236,7 +241,7 @@
 
             if (!slug) return;
             try {
-                const raw = localStorage.getItem(`grammar_progress_${slug}`);
+                const raw = localStorage.getItem(this.getTopicStorageKey(slug));
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     if (parsed.questionStatusMap) this.questionStatusMap = parsed.questionStatusMap;
@@ -254,7 +259,7 @@
                     currentQuestionIndex: this.currentQuestionIndex,
                     lastUpdated: Date.now()
                 };
-                localStorage.setItem(`grammar_progress_${currentSlug}`, JSON.stringify(payload));
+                localStorage.setItem(this.getTopicStorageKey(currentSlug), JSON.stringify(payload));
             } catch (e) {}
         },
 

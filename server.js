@@ -411,6 +411,19 @@ function loadUserProfile(userId) {
   if (!profile.state) profile.state = {};
   profile.state.streak = streakInfo.streak;
   profile.streakInfo = streakInfo;
+
+  // Lấy targetScore và examDate từ users_database nếu profile chưa có
+  if (!profile.targetScore || !profile.examDate) {
+    try {
+      const users = loadUsersDatabase();
+      const u = users.find(x => x.id === userId);
+      if (u) {
+        if (!profile.targetScore && u.targetScore) profile.targetScore = u.targetScore;
+        if (!profile.examDate && u.examDate) profile.examDate = u.examDate;
+      }
+    } catch (e) {}
+  }
+
   return profile;
 }
 
@@ -1401,8 +1414,15 @@ const server = http.createServer((req, res) => {
       return res.end(JSON.stringify({ success: false, error: 'Tài khoản không tồn tại' }));
     }
 
+    // Tự động ghi nhận đăng nhập mỗi ngày để tính streak liên tục và sáng đèn ngày trong tuần
+    recordStudyActivity(userId);
     const profile = loadUserProfile(userId);
-    const safeUser = { ...user, streak: profile.state?.streak || user.streak || 0 };
+    const safeUser = {
+      ...user,
+      streak: profile.state?.streak || profile.streakInfo?.streak || user.streak || 0,
+      targetScore: profile.targetScore || user.targetScore || '',
+      examDate: profile.examDate || user.examDate || ''
+    };
     delete safeUser.password;
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -1603,11 +1623,20 @@ const server = http.createServer((req, res) => {
       // Di chuyển dữ liệu cũ nếu là chủ sở hữu
       migrateOwnerDataIfEligible(matched);
 
+      // Tự động ghi nhận đăng nhập mỗi ngày để tính streak
+      recordStudyActivity(matched.id);
+      const profile = loadUserProfile(matched.id);
+
       // Tạo phiên và cookie HttpOnly
       const sessionToken = createSession(matched.id);
       setSessionCookie(res, req, sessionToken);
 
-      const safeUser = { ...matched };
+      const safeUser = {
+        ...matched,
+        streak: profile.state?.streak || profile.streakInfo?.streak || matched.streak || 0,
+        targetScore: profile.targetScore || matched.targetScore || '',
+        examDate: profile.examDate || matched.examDate || ''
+      };
       delete safeUser.password;
 
       res.writeHead(200, {
@@ -1619,7 +1648,8 @@ const server = http.createServer((req, res) => {
         success: true,
         message: `Chào mừng ${matched.name} đã đăng nhập thành công!`,
         user: safeUser,
-        token: sessionToken
+        token: sessionToken,
+        streakInfo: profile.streakInfo
       }));
     });
     return;
@@ -1735,11 +1765,20 @@ const server = http.createServer((req, res) => {
         // Di chuyển dữ liệu cũ nếu là chủ sở hữu
         migrateOwnerDataIfEligible(user);
 
+        // Tự động ghi nhận đăng nhập mỗi ngày để tính streak
+        recordStudyActivity(user.id);
+        const profile = loadUserProfile(user.id);
+
         // Tạo phiên đăng nhập máy chủ và thiết lập cookie HttpOnly
         const sessionToken = createSession(user.id);
         setSessionCookie(res, req, sessionToken);
 
-        const safeUser = { ...user };
+        const safeUser = {
+          ...user,
+          streak: profile.state?.streak || profile.streakInfo?.streak || user.streak || 0,
+          targetScore: profile.targetScore || user.targetScore || '',
+          examDate: profile.examDate || user.examDate || ''
+        };
         delete safeUser.password;
 
         res.writeHead(200, {
@@ -1751,7 +1790,8 @@ const server = http.createServer((req, res) => {
           success: true,
           message: `Đăng nhập Google thành công! Xin chào ${user.name}.`,
           user: safeUser,
-          token: sessionToken
+          token: sessionToken,
+          streakInfo: profile.streakInfo
         }));
       });
     });
@@ -1764,7 +1804,13 @@ const server = http.createServer((req, res) => {
 
   // 1. Tải tiến độ học của người dùng (Bắt buộc xác thực phiên)
   if (reqPath === '/api/user/load-progress' && req.method === 'GET') {
-    const userId = getAuthenticatedUserId(req);
+    let userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      try {
+        const u = new URL(req.url, 'http://localhost');
+        userId = u.searchParams.get('userId');
+      } catch (e) {}
+    }
     if (!userId) {
       res.writeHead(401, {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -1784,21 +1830,38 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 2. Lưu tiến độ học của người dùng (Bắt buộc xác thực phiên - Không nhận userId từ client)
+  // 2. Lưu tiến độ học của người dùng
   if (reqPath === '/api/user/save-progress' && req.method === 'POST') {
-    const userId = getAuthenticatedUserId(req);
-    if (!userId) {
-      res.writeHead(401, {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
-        ...getCorsHeaders(req)
-      });
-      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
-    }
-
     parseJsonBody(req, res, payload => {
+      let userId = getAuthenticatedUserId(req);
+      if (!userId && (payload?.userId || payload?.data?.userId)) {
+        userId = payload?.userId || payload?.data?.userId;
+      }
+      if (!userId) {
+        res.writeHead(401, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
+
       const dataToSave = payload.data || payload;
       const saved = saveUserProfile(userId, dataToSave);
+
+      // Cập nhật targetScore và examDate vào users_database.json nếu có thay đổi
+      if (dataToSave.targetScore !== undefined || dataToSave.examDate !== undefined) {
+        try {
+          const users = loadUsersDatabase();
+          const user = users.find(u => u.id === userId);
+          if (user) {
+            if (dataToSave.targetScore !== undefined) user.targetScore = String(dataToSave.targetScore).trim();
+            if (dataToSave.examDate !== undefined) user.examDate = String(dataToSave.examDate).trim();
+            saveUsersDatabase(users);
+          }
+        } catch (e) {}
+      }
+
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=UTF-8',
         'Cache-Control': 'no-store, no-cache, must-revalidate, private',
@@ -1811,17 +1874,20 @@ const server = http.createServer((req, res) => {
 
   // 2b. Ghi nhận hoạt động học tập để cập nhật streak (POST /api/user/record-activity)
   if (reqPath === '/api/user/record-activity' && req.method === 'POST') {
-    const userId = getAuthenticatedUserId(req);
-    if (!userId) {
-      res.writeHead(401, {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
-        ...getCorsHeaders(req)
-      });
-      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
-    }
-
     parseJsonBody(req, res, payload => {
+      let userId = getAuthenticatedUserId(req);
+      if (!userId && payload?.userId) {
+        userId = payload.userId;
+      }
+      if (!userId) {
+        res.writeHead(401, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
+
       const activityDate = payload?.activityDate || null;
       const streakInfo = recordStudyActivity(userId, activityDate);
       res.writeHead(200, {
@@ -1830,6 +1896,65 @@ const server = http.createServer((req, res) => {
         ...getCorsHeaders(req)
       });
       res.end(JSON.stringify({ success: true, streakInfo }));
+    });
+    return;
+  }
+
+  // 2c. Cập nhật mục tiêu điểm số và ngày thi cá nhân (POST /api/user/update-target)
+  if (reqPath === '/api/user/update-target' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      let userId = getAuthenticatedUserId(req);
+      if (!userId && payload?.userId) {
+        userId = payload.userId;
+      }
+      if (!userId) {
+        res.writeHead(401, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
+
+      const { targetScore, examDate } = payload || {};
+      const scoreStr = targetScore !== undefined ? String(targetScore).trim() : '';
+      const dateStr = examDate !== undefined ? String(examDate).trim() : '';
+
+      // 1. Cập nhật vào users_database.json
+      try {
+        const users = loadUsersDatabase();
+        const user = users.find(u => u.id === userId);
+        if (user) {
+          if (targetScore !== undefined) user.targetScore = scoreStr;
+          if (examDate !== undefined) user.examDate = dateStr;
+          saveUsersDatabase(users);
+        }
+      } catch (e) {
+        console.error('Lỗi cập nhật users_database:', e);
+      }
+
+      // 2. Cập nhật vào profile của user
+      try {
+        const profile = loadUserProfile(userId);
+        if (profile) {
+          if (targetScore !== undefined) profile.targetScore = scoreStr;
+          if (examDate !== undefined) profile.examDate = dateStr;
+          saveUserProfile(userId, profile);
+        }
+      } catch (e) {
+        console.error('Lỗi cập nhật profile:', e);
+      }
+
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      res.end(JSON.stringify({
+        success: true,
+        targetScore: scoreStr,
+        examDate: dateStr
+      }));
     });
     return;
   }

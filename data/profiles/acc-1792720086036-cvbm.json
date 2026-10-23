@@ -1,12 +1,14 @@
 {
   "userId": "acc-1792720086036-cvbm",
-  "lastUpdated": 1792720086773,
+  "lastUpdated": 1792743145609,
   "state": {
     "xp": 150,
     "vocabLearned": 3,
-    "streak": 0
+    "streak": 1
   },
-  "activityDates": [],
+  "activityDates": [
+    "2026-10-23"
+  ],
   "learnedVocabItems": [
     {
       "word": "Metaphor",
@@ -27,8 +29,8 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 0,
-    "todayStudied": false,
+    "streak": 1,
+    "todayStudied": true,
     "yesterdayStudied": false,
     "weekDays": [
       {
@@ -59,7 +61,7 @@
         "label": "T6",
         "dateStr": "2026-10-23",
         "isToday": true,
-        "active": false
+        "active": true
       },
       {
         "label": "T7",
@@ -74,6 +76,8 @@
         "active": false
       }
     ],
-    "lastActivityDate": null
-  }
+    "lastActivityDate": "2026-10-23"
+  },
+  "targetScore": "650",
+  "examDate": "25/12/2026"
 }
