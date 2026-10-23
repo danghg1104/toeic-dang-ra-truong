@@ -16,6 +16,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Identity Services (Chính thức) -->
+    <script src="https://accounts.google.com/gsi/client" async defer onload="if(typeof initGoogleIdentityServices==='function') initGoogleIdentityServices();"></script>
     <!-- Mammoth.js for Word (.docx) to editable HTML conversion -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <!-- PDF.js for rendering PDF pages & extracting editable text -->
@@ -575,14 +577,14 @@
             <button onclick="toggleDarkMode()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-amber-300">
                 <i class="fa-regular fa-sun text-xs"></i>
             </button>
-            <!-- Mobile Auth: Avatar & Dropdown -->
-            <div class="relative" id="mobileProfileDropdownWrapper">
+            <!-- Mobile Auth: Avatar & Dropdown (Hiện khi đã đăng nhập) -->
+            <div class="relative hidden" id="mobileProfileDropdownWrapper">
                 <button type="button" onclick="toggleMobileProfileDropdown(event)" id="mobileTopAvatar" class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center ring-2 ring-blue-400/50 cursor-pointer">
-                    <span id="mobileTopAvatarText">H</span>
+                    <span id="mobileTopAvatarText"></span>
                 </button>
                 <div id="mobileProfileMenu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-700 p-2 z-[100]">
                     <div class="px-2.5 py-1.5 border-b border-slate-100 dark:border-slate-800 mb-1">
-                        <div id="mobileDropdownEmail" class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 truncate">neveralonevp@gmail.com</div>
+                        <div id="mobileDropdownEmail" class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 truncate"></div>
                     </div>
                     <div class="space-y-0.5">
                         <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-slate-100/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 text-xs font-bold transition text-left cursor-pointer">
@@ -597,15 +599,11 @@
                             <i class="fa-solid fa-arrow-right-from-bracket text-rose-600 w-4 text-center"></i>
                             <span>Đăng xuất</span>
                         </button>
-                        <button id="mobileLoginBtn" type="button" onclick="closeAllProfileDropdowns(); openAuthModal('login');" class="hidden w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 text-blue-600 text-xs font-bold transition text-left cursor-pointer">
-                            <i class="fa-solid fa-right-to-bracket text-blue-600 w-4 text-center"></i>
-                            <span>Đăng nhập</span>
-                        </button>
                     </div>
                 </div>
             </div>
-            <!-- Mobile Auth: Nút Đăng nhập phụ (ẩn theo mặc định vì đã có trong avatar) -->
-            <button id="mobileUnauthLoginBtn" onclick="openAuthModal('login')" class="hidden px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-sm flex items-center gap-1">
+            <!-- Mobile Auth: Nút Đăng nhập cho khách (Hiện khi chưa đăng nhập) -->
+            <button id="mobileUnauthLoginBtn" onclick="openAuthModal('login')" class="px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-sm flex items-center gap-1 cursor-pointer">
                 <i class="fa-solid fa-right-to-bracket text-[10px]"></i>
                 <span>Đăng nhập</span>
             </button>
@@ -817,7 +815,7 @@
                     <div class="flex items-center gap-2 text-slate-800 dark:text-white">
                         <span class="text-blue-600 text-lg">✦</span>
                         <h1 class="text-sm sm:text-base md:text-lg font-black tracking-tight">
-                            Cố gắng nhé bạn ơi, <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400">Huỳnh Gia Đăng</span>! 👏
+                            <span id="sanhGreetingPrefix">Chào bạn!</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400">Hãy đăng nhập để lưu tiến độ</span> 👏
                         </h1>
                     </div>
                     
@@ -825,13 +823,13 @@
                         <!-- Streak Pill -->
                         <div class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center gap-1.5">
                             <span>🔥</span>
-                            <span id="sanhMemberStreakVal">5 ngày</span>
+                            <span id="sanhMemberStreakVal">0 ngày</span>
                         </div>
 
                         <!-- XP Pill -->
                         <div class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-xs font-bold flex items-center gap-1.5">
                             <span>⭐</span>
-                            <span id="sanhMemberXpVal">+200 XP</span>
+                            <span id="sanhMemberXpVal">0 XP</span>
                         </div>
 
                         <!-- Notification Bell -->
@@ -851,21 +849,21 @@
                             <span>Đồng bộ Realtime</span>
                         </button>
 
-                        <!-- User Profile Pill & Dropdown (Chuẩn 100% Ảnh 1 & Ảnh 3) -->
-                        <div class="relative z-50" id="sanhMemberDropdownWrapper">
+                        <!-- User Profile Pill & Dropdown (Hiện khi đã đăng nhập) -->
+                        <div class="relative z-50 hidden" id="sanhMemberDropdownWrapper">
                             <button type="button" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-3.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-xs flex items-center gap-2 hover:border-blue-400 transition text-left cursor-pointer">
                                 <div id="sanhMemberAvatar" class="w-7 h-7 rounded-full bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center ring-2 ring-blue-300/40">
-                                    H
+                                    ?
                                 </div>
                                 <div class="leading-tight">
-                                    <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Huỳnh Gia Đăng</div>
+                                    <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Học viên</div>
                                     <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
                                 </div>
                             </button>
-                            <!-- Dropdown Menu (Chuẩn Ảnh 3: Chỉ giữ lại Tài khoản, Cài đặt và Đăng xuất) -->
+                            <!-- Dropdown Menu -->
                             <div id="sanhMemberProfileMenu" class="hidden absolute right-0 mt-2.5 w-60 rounded-[20px] bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-700 p-2.5 z-[100]">
                                 <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1">
-                                    <div id="sanhMemberDropdownEmail" class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">neveralonevp@gmail.com</div>
+                                    <div id="sanhMemberDropdownEmail" class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">...</div>
                                 </div>
                                 <div class="space-y-0.5">
                                     <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 text-[13.5px] font-bold transition text-left cursor-pointer">
@@ -880,17 +878,19 @@
                                         <i class="fa-solid fa-arrow-right-from-bracket text-rose-600 text-base w-5 text-center"></i>
                                         <span>Đăng xuất</span>
                                     </button>
-                                    <button id="sanhMemberLoginBtn" type="button" onclick="closeAllProfileDropdowns(); openAuthModal('login');" class="hidden w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 text-blue-600 text-[13.5px] font-bold transition text-left cursor-pointer">
-                                        <i class="fa-solid fa-right-to-bracket text-blue-600 text-base w-5 text-center"></i>
-                                        <span>Đăng nhập</span>
-                                    </button>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Desktop Guest Login Button (Hiện khi là khách / chưa đăng nhập) -->
+                        <button id="sanhGuestLoginBtn" type="button" onclick="openAuthModal('login')" class="px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-2 shadow-xs transition cursor-pointer">
+                            <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                            <span>Đăng nhập</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- 2. HÀNG 4 THẺ CHỈ SỐ PASTEL + THẺ STREAK 5 NGÀY (Chuẩn 100% Ảnh 5) -->
+                <!-- 2. HÀNG 4 THẺ CHỈ SỐ PASTEL + THẺ STREAK (Chuẩn 100% Ảnh 5) -->
                 <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4">
                     <!-- Thẻ 1: Mục tiêu -->
                     <div class="col-span-1 lg:col-span-2 rounded-2xl p-4 stat-card-blue flex flex-col justify-between shadow-xs">
@@ -900,12 +900,12 @@
                         </div>
                         <div class="my-2.5">
                             <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white leading-none">
-                                <span id="memberTargetScore">650</span> <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400">điểm</span>
+                                <span id="memberTargetScore">——</span> <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400">điểm</span>
                             </div>
                         </div>
                         <div class="text-[11px] font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-1">
                             <i class="fa-regular fa-calendar text-[10px]"></i>
-                            <span id="memberExamDate">Thi: 20/12/2026</span>
+                            <span id="memberExamDate">Thi: Chưa đặt</span>
                         </div>
                     </div>
 
@@ -916,11 +916,11 @@
                         </div>
                         <div class="my-2.5">
                             <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white leading-none">
-                                <span id="memberVocabCount">18</span> <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400">từ</span>
+                                <span id="memberVocabCount">0</span> <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400">từ</span>
                             </div>
                         </div>
                         <div class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 truncate">
-                            Đã học 18 từ mới tuần này
+                            Chưa học từ nào tuần này
                         </div>
                     </div>
 
@@ -954,15 +954,15 @@
                         </div>
                     </div>
 
-                    <!-- Thẻ 5: Streak 5 ngày -->
+                    <!-- Thẻ 5: Streak ngày -->
                     <div class="col-span-2 lg:col-span-4 rounded-2xl p-4 stat-card-streak flex flex-col justify-between shadow-xs">
                         <div class="flex items-center justify-between text-xs font-bold text-slate-800 dark:text-white">
                             <div class="flex items-center gap-1.5">
-                                <span class="font-black text-slate-900 dark:text-white text-[13px]">Streak 5 ngày</span>
+                                <span id="sanhMemberStreakTitle" class="font-black text-slate-900 dark:text-white text-[13px]">Streak 0 ngày</span>
                                 <span>🔥</span>
                             </div>
                         </div>
-                        <div class="grid grid-cols-7 gap-1 pt-1.5 text-center">
+                        <div id="memberStreakDaysRow" class="grid grid-cols-7 gap-1 pt-1.5 text-center">
                             <div class="flex flex-col items-center gap-1">
                                 <div class="w-7 h-7 rounded-full bg-slate-200/90 dark:bg-slate-700 flex items-center justify-center text-xs"></div>
                                 <span class="text-[10px] font-bold text-slate-500">T2</span>
@@ -980,10 +980,8 @@
                                 <span class="text-[10px] font-bold text-slate-500">T5</span>
                             </div>
                             <div class="flex flex-col items-center gap-1">
-                                <div class="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shadow-md shadow-orange-500/30">
-                                    🔥
-                                </div>
-                                <span class="text-[10px] font-extrabold text-orange-600">T6</span>
+                                <div class="w-7 h-7 rounded-full bg-slate-200/90 dark:bg-slate-700 flex items-center justify-center text-xs"></div>
+                                <span class="text-[10px] font-bold text-slate-500">T6</span>
                             </div>
                             <div class="flex flex-col items-center gap-1">
                                 <div class="w-7 h-7 rounded-full bg-slate-200/90 dark:bg-slate-700 flex items-center justify-center text-xs"></div>
@@ -1164,10 +1162,10 @@
                         <div class="rounded-2xl p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-850 dark:to-slate-800 border border-amber-200/80 dark:border-slate-700 shadow-xs space-y-1">
                             <div class="flex items-center gap-2 text-xs font-black text-amber-900 dark:text-amber-300">
                                 <span>👏</span>
-                                <span>Bạn đang làm rất tốt!</span>
+                                <span id="mascotEncouragementTitle">Bạn đang làm rất tốt!</span>
                             </div>
-                            <p class="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed">
-                                Tiến độ 5 ngày liên tiếp giúp khả năng ghi nhớ từ vựng tăng 3.4 lần so với học dồn vào cuối tuần.
+                            <p id="mascotEncouragementBody" class="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Duy trì học đều đặn mỗi ngày giúp khả năng ghi nhớ từ vựng tăng 3.4 lần so với học dồn vào cuối tuần.
                             </p>
                         </div>
 
@@ -3978,7 +3976,7 @@
                     quyền truy cập, sự tiếp cận
                 </div>
 
-                <!-- Collocation & Memory Tip Box (matching tienganhratruong.com) -->
+                <!-- Collocation & Memory Tip Box -->
                 <div class="w-full text-left mt-4 bg-white/85 dark:bg-slate-900/80 rounded-2xl p-3.5 border border-fuchsia-100 dark:border-slate-700 space-y-1.5 text-xs">
                     <div>
                         <span class="font-extrabold text-slate-700 dark:text-slate-200">Ví dụ nhớ nhanh:</span>
@@ -4334,17 +4332,23 @@
                     <span>Đăng nhập</span>
                 </button>
 
-                <!-- Divider HOẶC (Ảnh 4) -->
-                <div class="relative my-3 text-center">
-                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
-                    <span class="relative bg-white dark:bg-slate-900 px-3 text-xs font-bold text-slate-400 uppercase">HOẶC</span>
-                </div>
+                <!-- Khu vực Đăng nhập Google (Tự động ẩn nếu máy chủ chưa cấu hình GOOGLE_CLIENT_ID) -->
+                <div id="googleSignInSectionLogin" class="hidden">
+                    <!-- Divider HOẶC (Ảnh 4) -->
+                    <div class="relative my-3 text-center">
+                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
+                        <span class="relative bg-white dark:bg-slate-900 px-3 text-xs font-bold text-slate-400 uppercase">HOẶC</span>
+                    </div>
 
-                <!-- Google Sign In Button (Chuẩn Ảnh 4) -->
-                <button type="button" onclick="handleGoogleSignIn()" class="w-full py-3 px-4 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold flex items-center justify-center gap-3 shadow-xs transition">
-                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                    <span>Tiếp tục với Google</span>
-                </button>
+                    <!-- Google Sign In Button (Chuẩn GIS & Ảnh 4) -->
+                    <div class="w-full">
+                        <div id="googleOfficialBtnContainerLogin" class="hidden w-full flex justify-center min-h-[44px]"></div>
+                        <button type="button" id="customGoogleSignInBtnLogin" onclick="handleGoogleSignIn()" class="w-full py-3 px-4 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold flex items-center justify-center gap-3 shadow-xs transition">
+                            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                            <span>Tiếp tục với Google</span>
+                        </button>
+                    </div>
+                </div>
 
                 <!-- Footer link (Ảnh 4) -->
                 <p class="text-center text-xs text-slate-500 pt-3">
@@ -4360,6 +4364,23 @@
                         <span>← Quay lại Đăng nhập</span>
                     </button>
                     <span class="text-[11px] text-slate-400 font-semibold">Tạo tài khoản cá nhân mới</span>
+                </div>
+
+                <!-- Khu vực Đăng ký nhanh Google (Tự động ẩn nếu máy chủ chưa cấu hình GOOGLE_CLIENT_ID) -->
+                <div id="googleSignInSectionRegister" class="hidden">
+                    <div class="w-full pt-1">
+                        <div id="googleOfficialBtnContainerRegister" class="hidden w-full flex justify-center min-h-[44px]"></div>
+                        <button type="button" id="customGoogleSignInBtnRegister" onclick="handleGoogleSignIn()" class="w-full py-3 px-4 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold flex items-center justify-center gap-3 shadow-xs transition">
+                            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                            <span>Tiếp tục với Google</span>
+                        </button>
+                    </div>
+
+                    <!-- Divider HOẶC -->
+                    <div class="relative my-3 text-center">
+                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
+                        <span class="relative bg-white dark:bg-slate-900 px-3 text-xs font-bold text-slate-400 uppercase">HOẶC ĐIỀN THÔNG TIN BÊN DƯỚI</span>
+                    </div>
                 </div>
 
                 <div id="regErrorAlert" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-2">
@@ -4417,17 +4438,6 @@
                         ← Đã có tài khoản? Đăng nhập ngay
                     </button>
                 </div>
-
-                <!-- Hoặc đăng nhập Google -->
-                <div class="relative my-2 pt-2">
-                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
-                    <div class="relative flex justify-center text-[11px] uppercase"><span class="bg-white dark:bg-slate-900 px-3 text-slate-400 font-bold">Hoặc đăng ký nhanh</span></div>
-                </div>
-
-                <button type="button" onclick="handleGoogleSignIn()" class="w-full py-2.5 px-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center justify-center gap-2.5 shadow-sm transition">
-                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                    <span>Tiếp tục với tài khoản Google</span>
-                </button>
             </div>
 
             <!-- TAB 3: SWITCH SAVED ACCOUNTS -->
@@ -4447,102 +4457,7 @@
         </div>
     </div>
 
-    <!-- 8.5 OFFICIAL GOOGLE SIGN-IN MODAL (CHUẨN GIAO DIỆN CHỌN TÀI KHOẢN GOOGLE NHƯ ẢNH 5) -->
-    <div id="googleAuthModal" onclick="if(event.target === this) closeGoogleAuthModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] hidden items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-[28px] max-w-[500px] w-full p-7 sm:p-9 shadow-2xl border border-slate-200/80 dark:border-slate-800 relative">
-            
-            <!-- Close Modal Button -->
-            <button type="button" onclick="closeGoogleAuthModal()" aria-label="Đóng" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer">
-                <i class="fa-solid fa-xmark text-base"></i>
-            </button>
 
-            <!-- Google Header (Ảnh 5) -->
-            <div class="flex items-center gap-2.5 mb-5">
-                <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                </svg>
-                <span class="text-sm font-semibold text-slate-600 dark:text-slate-400">Đăng nhập bằng Google</span>
-            </div>
-
-            <h2 class="text-3xl font-normal text-slate-900 dark:text-white mb-1.5 tracking-tight">Chọn tài khoản</h2>
-            <p class="text-sm text-slate-600 dark:text-slate-300 mb-6">
-                Tiếp tục tới <span class="text-blue-600 font-bold">tienganhratruong.com</span>
-            </p>
-
-            <!-- DANH SÁCH TÀI KHOẢN GOOGLE (CHÍNH XÁC NHƯ ẢNH 5) -->
-            <div id="googleAccountsChooserList" class="divide-y divide-slate-100 dark:divide-slate-800 border-t border-b border-slate-100 dark:border-slate-800">
-                <!-- 1. Gia Đăng Huỳnh (Ảnh 5) -->
-                <button type="button" onclick="quickGoogleLogin('neveralonevp@gmail.com', 'Gia Đăng Huỳnh', 'G', 'bg-emerald-600')" class="w-full flex items-center gap-4 py-3.5 px-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left group cursor-pointer">
-                    <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 shrink-0 overflow-hidden font-bold text-sm">
-                        <i class="fa-solid fa-user-graduate text-slate-600 dark:text-slate-300"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 transition">Gia Đăng Huỳnh</div>
-                        <div class="text-xs text-slate-500 truncate">neveralonevp@gmail.com</div>
-                    </div>
-                </button>
-
-                <!-- 2. Huynh Dang (Ảnh 5) -->
-                <button type="button" onclick="quickGoogleLogin('danghg20008@gmail.com', 'Huynh Dang', 'H', 'bg-purple-600')" class="w-full flex items-center gap-4 py-3.5 px-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left group cursor-pointer">
-                    <div class="w-10 h-10 rounded-full bg-purple-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0">
-                        H
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 transition">Huynh Dang</div>
-                        <div class="text-xs text-slate-500 truncate">danghg20008@gmail.com</div>
-                    </div>
-                </button>
-
-                <!-- 3. cry don (Ảnh 5) -->
-                <button type="button" onclick="quickGoogleLogin('doncry152@gmail.com', 'cry don', 'c', 'bg-sky-500')" class="w-full flex items-center gap-4 py-3.5 px-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left group cursor-pointer">
-                    <div class="w-10 h-10 rounded-full bg-sky-500 text-white font-extrabold flex items-center justify-center text-sm shrink-0">
-                        c
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 transition">cry don</div>
-                        <div class="text-xs text-slate-500 truncate">doncry152@gmail.com</div>
-                    </div>
-                </button>
-
-                <!-- 4. Sử dụng một tài khoản khác (Ảnh 5) -->
-                <button type="button" onclick="toggleGoogleCustomInput()" class="w-full flex items-center gap-4 py-3.5 px-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left group cursor-pointer">
-                    <div class="w-10 h-10 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-slate-600 dark:text-slate-300 text-base shrink-0">
-                        <i class="fa-regular fa-circle-user"></i>
-                    </div>
-                    <div class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 transition">
-                        Sử dụng một tài khoản khác
-                    </div>
-                </button>
-            </div>
-
-            <!-- Form nhập tài khoản Google khác (Toggle khi bấm mục 4) -->
-            <div id="googleCustomAccountForm" class="hidden mt-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-3">
-                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Nhập địa chỉ Gmail của bạn:</label>
-                <input id="customGoogleEmailInput" type="email" placeholder="VD: yourname@gmail.com" onkeydown="if(event.key==='Enter') submitCustomGoogleAccount()" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-900 text-sm font-medium">
-                <div class="flex justify-end gap-2 pt-1">
-                    <button type="button" onclick="toggleGoogleCustomInput()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500">Hủy</button>
-                    <button type="button" onclick="submitCustomGoogleAccount()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow">Đăng nhập</button>
-                </div>
-            </div>
-
-            <!-- Footer matching Image 5 -->
-            <div class="flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 mt-7 pt-3">
-                <div class="flex items-center gap-1 cursor-pointer">
-                    <span>Tiếng Việt</span>
-                    <i class="fa-solid fa-caret-down text-[10px]"></i>
-                </div>
-                <div class="flex items-center gap-4">
-                    <a href="#" onclick="showToast('Trợ giúp đăng nhập Google'); return false;" class="hover:underline">Trợ giúp</a>
-                    <a href="#" onclick="showToast('Chính sách quyền riêng tư'); return false;" class="hover:underline">Quyền riêng tư</a>
-                    <a href="#" onclick="showToast('Điều khoản dịch vụ'); return false;" class="hover:underline">Điều khoản</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <!-- FLOATING AI TUTOR LAUNCHER (Gia Sư AI Đăng TOEIC) -->
     <button onclick="openAITutorModal()" class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-40 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 hover:scale-105 active:scale-95 transition-all text-xs font-black border-2 border-white/40 backdrop-blur-md cursor-pointer" title="Hỏi Gia Sư AI TOEIC">
@@ -5013,15 +4928,18 @@
 
         // =========================================================================
         // PHÂN BIỆT 2 SẢNH VÀ ĐIỀU KHIỂN THANH HỌC TẬP (SIDEBAR)
-        // Sảnh 1 (Trước đăng nhập): TẮT thanh học tập (Sidebar ẩn) -> Landing Full-Width
-        // Sảnh 2 (Khi đăng nhập): HIỆN LẠI thanh học tập (Sidebar hiện) -> Dashboard Ảnh 5
+        // Sảnh 1 (Trước đăng nhập): Thanh trên cùng hiện nút "Đăng nhập" thay avatar
+        // Sảnh 2 (Khi đăng nhập): Hiện avatar và menu tài khoản thành viên
         // =========================================================================
-        function updateSanhAndSidebarVisibility() {
+        function updateSanhAndSidebarVisibility(forceIsMember) {
+            const isMember = (typeof forceIsMember === 'boolean') ? forceIsMember : !!currentUserAccount;
             const sanhMember = document.getElementById('sanh-member');
             const sidebar = document.getElementById('sidebarContainer');
             const mobileBottomNav = document.getElementById('mobileBottomNav');
             const mobileTopAvatar = document.getElementById('mobileTopAvatar');
             const mobileUnauthBtn = document.getElementById('mobileUnauthLoginBtn');
+            const sanhGuestLoginBtn = document.getElementById('sanhGuestLoginBtn');
+            const sanhDropdownWrapper = document.getElementById('sanhMemberDropdownWrapper');
 
             if (sanhMember) sanhMember.classList.remove('hidden');
             if (sidebar) {
@@ -5029,14 +4947,21 @@
                 sidebar.style.display = '';
             }
             if (mobileBottomNav) mobileBottomNav.classList.remove('hidden');
-            if (mobileTopAvatar) mobileTopAvatar.classList.remove('hidden');
-            if (mobileUnauthBtn) mobileUnauthBtn.classList.add('hidden');
 
-            const isMember = !!currentUserAccount;
+            if (isMember) {
+                if (mobileTopAvatar) mobileTopAvatar.classList.remove('hidden');
+                if (mobileUnauthBtn) mobileUnauthBtn.classList.add('hidden');
+                if (sanhGuestLoginBtn) sanhGuestLoginBtn.classList.add('hidden');
+                if (sanhDropdownWrapper) sanhDropdownWrapper.classList.remove('hidden');
+            } else {
+                if (mobileTopAvatar) mobileTopAvatar.classList.add('hidden');
+                if (mobileUnauthBtn) mobileUnauthBtn.classList.remove('hidden');
+                if (sanhGuestLoginBtn) sanhGuestLoginBtn.classList.remove('hidden');
+                if (sanhDropdownWrapper) sanhDropdownWrapper.classList.add('hidden');
+            }
+
             const sanhLogoutBtn = document.getElementById('sanhMemberLogoutBtn');
-            const sanhLoginBtn = document.getElementById('sanhMemberLoginBtn');
             if (sanhLogoutBtn) sanhLogoutBtn.classList.toggle('hidden', !isMember);
-            if (sanhLoginBtn) sanhLoginBtn.classList.toggle('hidden', isMember);
 
             const mobLogoutBtn = document.getElementById('mobileLogoutBtn');
             const mobLoginBtn = document.getElementById('mobileLoginBtn');
@@ -5045,30 +4970,8 @@
         }
         window.updateSanhAndSidebarVisibility = updateSanhAndSidebarVisibility;
 
-        function loginAsDemoAccount(accId = 'acc-dang') {
-            const demoUser = (accountsDirectory && accountsDirectory.find(a => a.id === accId)) || {
-                id: 'acc-dang',
-                name: 'Huỳnh Gia Đăng',
-                email: 'dang.hg.68khhh@ntu.edu.vn',
-                targetScore: '650',
-                examDate: '20/12/2026',
-                avatarColor: 'bg-purple-700',
-                isOwner: true,
-                streak: 5,
-                xp: 200,
-                vocabLearned: 18
-            };
-            currentUserAccount = demoUser;
-            localStorage.setItem('cung_dang_session_user', JSON.stringify(demoUser));
-            if (window.UserAuthEngine) {
-                UserAuthEngine.dismissGatekeeper();
-                UserAuthEngine.loadUserProgress(demoUser.id);
-            }
-            switchTab('hom-nay');
-            applyCurrentAccountToUI();
-            updateSanhAndSidebarVisibility(true);
-            closeAuthModal();
-            showToast(`👋 Chào mừng bạn, ${currentUserAccount.name}! Đã vào Sảnh học viên.`);
+        function loginAsDemoAccount() {
+            openAuthModal('login');
         }
         window.loginAsDemoAccount = loginAsDemoAccount;
 
@@ -9516,6 +9419,58 @@
             return null;
         };
 
+        function renderStreakWeekDays(streakInfo) {
+            const row = document.getElementById('memberStreakDaysRow');
+            const title = document.getElementById('sanhMemberStreakTitle');
+            const streakVal = document.getElementById('sanhMemberStreakVal');
+            const streakCount = streakInfo?.streak || 0;
+
+            if (title) title.textContent = `Streak ${streakCount} ngày`;
+            if (streakVal) streakVal.textContent = `${streakCount} ngày`;
+
+            const encourBody = document.getElementById('mascotEncouragementBody');
+            if (encourBody) {
+                if (streakCount > 0) {
+                    encourBody.textContent = `Tiến độ ${streakCount} ngày liên tiếp giúp khả năng ghi nhớ từ vựng tăng 3.4 lần so với học dồn vào cuối tuần.`;
+                } else {
+                    encourBody.textContent = 'Duy trì học đều đặn mỗi ngày giúp khả năng ghi nhớ từ vựng tăng 3.4 lần so với học dồn vào cuối tuần.';
+                }
+            }
+
+            if (!row) return;
+            const weekDays = (streakInfo && Array.isArray(streakInfo.weekDays) && streakInfo.weekDays.length === 7)
+                ? streakInfo.weekDays
+                : [
+                    { label: 'T2', active: false },
+                    { label: 'T3', active: false },
+                    { label: 'T4', active: false },
+                    { label: 'T5', active: false },
+                    { label: 'T6', active: false },
+                    { label: 'T7', active: false },
+                    { label: 'CN', active: false }
+                ];
+
+            row.innerHTML = weekDays.map(d => {
+                if (d.active) {
+                    return `
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shadow-md shadow-orange-500/30" title="${d.label} - Đã học">
+                                🔥
+                            </div>
+                            <span class="text-[10px] font-extrabold text-orange-600">${d.label}</span>
+                        </div>
+                    `;
+                }
+                return `
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-7 h-7 rounded-full bg-slate-200/90 dark:bg-slate-700 flex items-center justify-center text-xs" title="${d.label} - Chưa học"></div>
+                        <span class="text-[10px] font-bold text-slate-500">${d.label}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        window.renderStreakWeekDays = renderStreakWeekDays;
+
         function applyGuestStateToUI() {
             currentUserAccount = null;
             window.currentUserAccount = null;
@@ -9525,26 +9480,33 @@
             setTxt('topUserName', 'Chưa đăng nhập');
             setTxt('dropdownUserName', 'Chưa đăng nhập');
             setTxt('dropdownUserEmail', 'Vui lòng đăng nhập để bắt đầu');
-            setTxt('sanhMemberGreetingName', 'Huỳnh Gia Đăng! 👏');
-            setTxt('sanhMemberProfileName', 'Chưa đăng nhập');
+            setTxt('sanhGreetingPrefix', 'Chào bạn!');
+            setTxt('sanhMemberGreetingName', 'Hãy đăng nhập để lưu tiến độ');
+            setTxt('sanhMemberProfileName', 'Học viên');
             setTxt('sanhMemberDropdownEmail', 'Chưa đăng nhập');
             setTxt('mobileDropdownEmail', 'Chưa đăng nhập');
-            setTxt('memberTargetScore', '650');
-            setTxt('memberExamDate', 'Thi: 20/12/2026');
-            setTxt('sanhMemberStreakVal', '5 ngày');
-            setTxt('sanhMemberXpVal', '+200 XP');
-            setTxt('targetScoreVal', '650');
-            setTxt('targetDateVal', 'Thi: 20/12/2026');
+            setTxt('memberTargetScore', '——');
+            setTxt('memberExamDate', 'Thi: Chưa đặt');
+            setTxt('memberVocabCount', '0');
+            setTxt('memberAccuracyVal', '——');
+            setTxt('memberStudyTime', '——');
+            setTxt('sanhMemberStreakVal', '0 ngày');
+            setTxt('sanhMemberStreakTitle', 'Streak 0 ngày');
+            setTxt('sanhMemberXpVal', '0 XP');
+            setTxt('targetScoreVal', '——');
+            setTxt('targetDateVal', 'Chưa đặt');
+
+            renderStreakWeekDays({ streak: 0, weekDays: [] });
 
             const sanhAv = document.getElementById('sanhMemberAvatar');
             if (sanhAv) {
-                sanhAv.textContent = 'H';
-                sanhAv.className = 'w-7 h-7 rounded-full bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center ring-2 ring-blue-300/40';
+                sanhAv.textContent = '?';
+                sanhAv.className = 'w-7 h-7 rounded-full bg-slate-400 text-white font-extrabold text-xs flex items-center justify-center ring-2 ring-slate-300/40';
             }
             const mobTopAv = document.getElementById('mobileTopAvatar');
             if (mobTopAv) {
-                mobTopAv.innerHTML = '<span id="mobileTopAvatarText">H</span>';
-                mobTopAv.className = 'w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center ring-2 ring-blue-400/50 cursor-pointer';
+                mobTopAv.innerHTML = '<span id="mobileTopAvatarText">?</span>';
+                mobTopAv.className = 'w-8 h-8 rounded-full bg-slate-400 text-white font-bold text-xs flex items-center justify-center ring-2 ring-slate-400/50 cursor-pointer';
             }
 
             // Đảm bảo các ô hồ sơ trống trơn
@@ -9882,18 +9844,20 @@
             }
 
             // Cập nhật các trường hiển thị ở Sảnh Thành viên (Chuẩn 100% Ảnh đính kèm)
-            setTxt('sanhMemberGreetingName', (currentUserAccount.name || 'Huỳnh Gia Đăng') + '! 👏');
-            setTxt('sanhMemberProfileName', currentUserAccount.name || 'Huỳnh Gia Đăng');
-            setTxt('memberTargetScore', currentUserAccount.targetScore || '650');
-            setTxt('memberExamDate', `Thi: ${currentUserAccount.examDate || '20/12/2026'}`);
-            setTxt('sanhMemberStreakVal', `${currentUserAccount.streak || 5} ngày`);
-            setTxt('sanhMemberXpVal', `+${currentUserAccount.xp || 200} XP`);
+            setTxt('sanhGreetingPrefix', 'Cố gắng nhé bạn ơi,');
+            setTxt('sanhMemberGreetingName', (currentUserAccount.name || 'bạn') + '! 👏');
+            setTxt('sanhMemberProfileName', currentUserAccount.name || 'Học viên');
+            setTxt('memberTargetScore', currentUserAccount.targetScore || '——');
+            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: Chưa đặt');
+            setTxt('sanhMemberStreakVal', `${currentUserAccount.streak || 0} ngày`);
+            setTxt('sanhMemberStreakTitle', `Streak ${currentUserAccount.streak || 0} ngày`);
+            setTxt('sanhMemberXpVal', `+${currentUserAccount.xp || 0} XP`);
             setTxt('sanhMemberDropdownEmail', currentUserAccount.email || '');
             setTxt('mobileDropdownEmail', currentUserAccount.email || '');
             renderUserAvatarElement(document.getElementById('sanhMemberAvatar'), currentUserAccount);
 
             if (typeof updateSanhAndSidebarVisibility === 'function') {
-                updateSanhAndSidebarVisibility();
+                updateSanhAndSidebarVisibility(true);
             }
         }
 
@@ -9911,41 +9875,59 @@
         }
 
         // =========================================================================
+        // KÊNH ĐỒNG BỘ ĐĂNG NHẬP / ĐĂNG XUẤT ĐA TAB (BROADCAST CHANNEL)
+        // =========================================================================
+        const authBroadcastChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('cung_dang_auth_channel') : null;
+        if (authBroadcastChannel) {
+            authBroadcastChannel.onmessage = (evt) => {
+                if (evt.data && evt.data.type === 'AUTH_LOGOUT') {
+                    handleLogoutUser(false);
+                } else if (evt.data && evt.data.type === 'AUTH_LOGIN') {
+                    UserAuthEngine.init();
+                }
+            };
+        }
+
+        // =========================================================================
         // HỆ THỐNG XÁC THỰC THÀNH VIÊN & RÀ SOÁT TÀI KHOẢN (USER AUTH ENGINE)
         // =========================================================================
         const UserAuthEngine = {
             isGatekeeperActive: false,
 
-            init() {
-                const sessionStr = localStorage.getItem('cung_dang_session_user');
-                let savedUser = null;
-                if (sessionStr) {
-                    try { savedUser = JSON.parse(sessionStr); } catch (e) {}
+            async init() {
+                try {
+                    const r = await fetch('/api/me', { credentials: 'include' });
+                    if (r.ok) {
+                        const res = await r.json();
+                        if (res && res.success && res.user) {
+                            currentUserAccount = res.user;
+                            window.currentUserAccount = res.user;
+                            try { localStorage.setItem('cung_dang_session_user', JSON.stringify(res.user)); } catch (e) {}
+                            applyCurrentAccountToUI();
+                            if (res.streakInfo) {
+                                renderStreakWeekDays(res.streakInfo);
+                            }
+                            this.loadUserProgress();
+                            if (window.StudySync) {
+                                window.StudySync.connectStream();
+                            }
+                            if (typeof updateSanhAndSidebarVisibility === 'function') {
+                                updateSanhAndSidebarVisibility(true);
+                            }
+                            return;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('[UserAuthEngine] Kiểm tra /api/me:', e.message);
                 }
 
-                if (!savedUser || !savedUser.id) {
-                    savedUser = {
-                        id: 'acc-dang',
-                        name: 'Huỳnh Gia Đăng',
-                        email: 'dang.hg.68khhh@ntu.edu.vn',
-                        username: 'danghuynhgia',
-                        targetScore: '650',
-                        examDate: '20/12/2026',
-                        avatarColor: 'bg-purple-700',
-                        isOwner: true,
-                        streak: 5,
-                        xp: 200,
-                        vocabLearned: 18
-                    };
-                    try { localStorage.setItem('cung_dang_session_user', JSON.stringify(savedUser)); } catch (e) {}
-                }
-
-                currentUserAccount = savedUser;
-                applyCurrentAccountToUI();
-                this.loadUserProgress(savedUser.id);
-                this.fetchServerUsers();
+                // Nếu chưa đăng nhập (401 / không có phiên)
+                localStorage.removeItem('cung_dang_session_user');
+                currentUserAccount = null;
+                window.currentUserAccount = null;
+                applyGuestStateToUI();
                 if (typeof updateSanhAndSidebarVisibility === 'function') {
-                    updateSanhAndSidebarVisibility(true);
+                    updateSanhAndSidebarVisibility(false);
                 }
             },
 
@@ -9962,6 +9944,9 @@
                 }
                 switchAuthModalTab('login');
                 this.fetchServerUsers();
+                if (typeof initGoogleIdentityServices === 'function') {
+                    initGoogleIdentityServices();
+                }
             },
 
             dismissGatekeeper() {
@@ -9989,10 +9974,13 @@
                     .catch(() => {});
             },
 
-            loadUserProgress(userId) {
-                if (!userId) return;
-                fetch(`/api/user/load-progress?userId=${encodeURIComponent(userId)}`)
-                    .then(r => r.json())
+            loadUserProgress() {
+                // Client không gửi userId - Server tự trích xuất từ phiên cookie an toàn
+                fetch('/api/user/load-progress')
+                    .then(r => {
+                        if (!r.ok) throw new Error('Chưa đăng nhập hoặc lỗi phiên');
+                        return r.json();
+                    })
                     .then(res => {
                         if (res && res.success && res.data) {
                             const p = res.data;
@@ -10005,6 +9993,11 @@
                                 state.readDone = p.state.readDone || 0;
                                 state.listenDone = p.state.listenDone || 0;
                                 state.studyMinutes = p.state.studyMinutes || 0;
+                            }
+                            if (p.streakInfo) {
+                                renderStreakWeekDays(p.streakInfo);
+                            } else {
+                                renderStreakWeekDays({ streak: state.streak, weekDays: [] });
                             }
                             // Tách biệt 100% dữ liệu từng người dùng: Gán trực tiếp, không gộp đè với tài khoản trước
                             learnedVocabItems = Array.isArray(p.learnedVocabItems) ? [...p.learnedVocabItems] : [];
@@ -10051,9 +10044,8 @@
             },
 
             saveUserProgress() {
-                if (!currentUserAccount || !currentUserAccount.id) return;
+                if (!currentUserAccount) return;
                 const payload = {
-                    userId: currentUserAccount.id,
                     data: {
                         state: {
                             xp: state.xp,
@@ -10077,7 +10069,14 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
-                }).catch(() => {});
+                })
+                .then(r => r.json())
+                .then(res => {
+                    if (res && res.data && res.data.streakInfo) {
+                        renderStreakWeekDays(res.data.streakInfo);
+                    }
+                })
+                .catch(() => {});
             }
         };
 
@@ -10107,6 +10106,7 @@
             switchAuthModalTab(defaultTab);
             UserAuthEngine.fetchServerUsers();
             renderMultiAccountLists();
+            initGoogleIdentityServices();
             const m = document.getElementById('authModal');
             if (m) {
                 m.classList.remove('hidden');
@@ -10175,10 +10175,12 @@
                 if (modalTitle) modalTitle.textContent = 'Đăng nhập tài khoản';
                 if (modalSubtitle) modalSubtitle.textContent = 'Nhập thông tin để vào học và đồng bộ tiến độ đa thiết bị';
                 if (modalIcon) modalIcon.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i>';
+                renderGoogleOfficialButtons();
             } else if (tab === 'register') {
                 if (modalTitle) modalTitle.textContent = 'Đăng ký tài khoản mới';
                 if (modalSubtitle) modalSubtitle.textContent = 'Khởi tạo tài khoản riêng để lưu từ vựng, điểm số và sổ tay';
                 if (modalIcon) modalIcon.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
+                renderGoogleOfficialButtons();
             } else if (tab === 'switch') {
                 if (modalTitle) modalTitle.textContent = 'Quản lý & Đổi tài khoản';
                 if (modalSubtitle) modalSubtitle.textContent = 'Chạm vào tài khoản bất kỳ bên dưới để chuyển nhanh';
@@ -10232,10 +10234,17 @@
 
                 // Đăng nhập thành công!
                 currentUserAccount = res.user;
+                window.currentUserAccount = res.user;
                 localStorage.setItem('cung_dang_session_user', JSON.stringify(res.user));
+                if (authBroadcastChannel) {
+                    authBroadcastChannel.postMessage({ type: 'AUTH_LOGIN' });
+                }
                 UserAuthEngine.dismissGatekeeper();
                 applyCurrentAccountToUI();
-                UserAuthEngine.loadUserProgress(res.user.id);
+                UserAuthEngine.loadUserProgress();
+                if (window.StudySync) window.StudySync.connectStream();
+                if (typeof updateSanhAndSidebarVisibility === 'function') updateSanhAndSidebarVisibility(true);
+                closeAuthModal();
                 showToast(`👋 Chào mừng ${currentUserAccount.name} đã đăng nhập!`);
             })
             .catch(err => {
@@ -10346,94 +10355,190 @@
             });
         }
 
-        function handleGoogleSignIn() {
-            closeAuthModal();
-            const gModal = document.getElementById('googleAuthModal');
-            if (!gModal) return;
-            const customForm = document.getElementById('googleCustomAccountForm');
-            if (customForm) customForm.classList.add('hidden');
-            gModal.classList.remove('hidden');
-            gModal.classList.add('flex');
-        }
-
-        function closeGoogleAuthModal() {
-            const gModal = document.getElementById('googleAuthModal');
-            if (gModal) {
-                gModal.classList.add('hidden');
-                gModal.classList.remove('flex');
-            }
-        }
-
-        function toggleGoogleCustomInput() {
-            const form = document.getElementById('googleCustomAccountForm');
-            if (!form) return;
-            const isHidden = form.classList.toggle('hidden');
-            if (!isHidden) {
-                const inp = document.getElementById('customGoogleEmailInput');
-                if (inp) {
-                    inp.value = '';
-                    setTimeout(() => inp.focus(), 100);
+        // =========================================================================
+        // ĐĂNG NHẬP GOOGLE IDENTITY SERVICES (GIS THẬT CHUẨN GOOGLE OAUTH)
+        // =========================================================================
+        let gsiClientInited = false;
+        async function initGoogleIdentityServices() {
+            try {
+                let clientId = window.googleAuthClientId || '';
+                if (!clientId) {
+                    try {
+                        const cfgRes = await fetch('/api/auth/config');
+                        const cfg = await cfgRes.json();
+                        clientId = (cfg.googleClientId || '').trim();
+                        window.googleAuthClientId = clientId;
+                    } catch (e) {}
                 }
-            }
-        }
 
-        function submitCustomGoogleAccount() {
-            const inp = document.getElementById('customGoogleEmailInput');
-            let email = (inp?.value || '').trim().toLowerCase();
-            if (!email) {
-                showToast('Vui lòng nhập địa chỉ Gmail của bạn!');
-                return;
-            }
-            if (!email.includes('@')) {
-                email += '@gmail.com';
-            }
-            const gName = email.split('@')[0];
-            const formattedName = gName.charAt(0).toUpperCase() + gName.slice(1);
-            quickGoogleLogin(email, formattedName, formattedName.charAt(0).toUpperCase(), 'bg-indigo-600');
-        }
+                const loginSec = document.getElementById('googleSignInSectionLogin');
+                const regSec = document.getElementById('googleSignInSectionRegister');
 
-        function quickGoogleLogin(email, name, initial = 'G', avatarColor = 'bg-emerald-600') {
-            closeGoogleAuthModal();
-            closeAuthModal();
-            const cleanEmail = (email || '').trim().toLowerCase();
-            const cleanName = (name || cleanEmail.split('@')[0]);
-
-            fetch('/api/auth/google', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: cleanEmail,
-                    name: cleanName,
-                    googleId: 'g-' + cleanEmail.replace(/[^a-zA-Z0-9]/g, ''),
-                    avatar: '',
-                    avatarColor: avatarColor
-                })
-            })
-            .then(r => r.json())
-            .then(res => {
-                if (!res.success) {
-                    showToast(res.error || 'Đăng nhập Google không thành công!');
+                if (!clientId) {
+                    // Yêu cầu c: Khi thiếu GOOGLE_CLIENT_ID: ẨN nút Google, chỉ hiện form email/mật khẩu. KHÔNG có bảng giả hay fallback đăng nhập nào.
+                    if (loginSec) loginSec.classList.add('hidden');
+                    if (regSec) regSec.classList.add('hidden');
                     return;
                 }
 
-                // Đăng nhập Google thành công!
-                currentUserAccount = res.user;
-                localStorage.setItem('cung_dang_session_user', JSON.stringify(res.user));
-                if (window.UserAuthEngine) {
-                    UserAuthEngine.dismissGatekeeper();
-                    UserAuthEngine.loadUserProgress(res.user.id);
+                // Khi có GOOGLE_CLIENT_ID: Hiện khu vực Google ngay lập tức trên cả 2 tab
+                if (loginSec) loginSec.classList.remove('hidden');
+                if (regSec) regSec.classList.remove('hidden');
+
+                if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+                    // Chờ thư viện GIS nạp xong và retry
+                    if (!window._gisInitPoll) {
+                        let attempts = 0;
+                        window._gisInitPoll = setInterval(() => {
+                            attempts++;
+                            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                                clearInterval(window._gisInitPoll);
+                                window._gisInitPoll = null;
+                                initGoogleIdentityServices();
+                            } else if (attempts >= 50) {
+                                clearInterval(window._gisInitPoll);
+                                window._gisInitPoll = null;
+                            }
+                        }, 100);
+                    }
+                    return;
                 }
-                applyCurrentAccountToUI();
-                if (typeof updateSanhAndSidebarVisibility === 'function') {
-                    updateSanhAndSidebarVisibility(true);
+
+                if (!gsiClientInited) {
+                    google.accounts.id.initialize({
+                        client_id: clientId,
+                        callback: handleGoogleCredentialResponse,
+                        auto_select: false,
+                        cancel_on_tap_outside: true
+                    });
+                    gsiClientInited = true;
                 }
-                switchTab('hom-nay');
-                showToast(`🌟 Đăng nhập Google thành công! Xin chào ${currentUserAccount.name}.`);
-            })
-            .catch(err => {
-                showToast('Lỗi kết nối máy chủ Google Auth: ' + err.message);
-            });
+                renderGoogleOfficialButtons();
+            } catch (err) {
+                console.warn('[Google Auth] Lỗi khởi tạo GIS:', err);
+            }
         }
+
+        function renderGoogleOfficialButtons() {
+            if (typeof google === 'undefined' || !google.accounts || !google.accounts.id || !window.googleAuthClientId) return;
+            try {
+                const loginContainer = document.getElementById('googleOfficialBtnContainerLogin');
+                const customLoginBtn = document.getElementById('customGoogleSignInBtnLogin');
+                if (loginContainer) {
+                    loginContainer.innerHTML = '';
+                    google.accounts.id.renderButton(loginContainer, {
+                        type: 'standard',
+                        shape: 'pill',
+                        theme: 'outline',
+                        text: 'continue_with',
+                        size: 'large',
+                        logo_alignment: 'left',
+                        width: 320
+                    });
+                    loginContainer.classList.remove('hidden');
+                    if (customLoginBtn) customLoginBtn.classList.add('hidden');
+                }
+
+                const regContainer = document.getElementById('googleOfficialBtnContainerRegister');
+                const customRegBtn = document.getElementById('customGoogleSignInBtnRegister');
+                if (regContainer) {
+                    regContainer.innerHTML = '';
+                    google.accounts.id.renderButton(regContainer, {
+                        type: 'standard',
+                        shape: 'pill',
+                        theme: 'outline',
+                        text: 'continue_with',
+                        size: 'large',
+                        logo_alignment: 'left',
+                        width: 320
+                    });
+                    regContainer.classList.remove('hidden');
+                    if (customRegBtn) customRegBtn.classList.add('hidden');
+                }
+            } catch (e) {
+                console.warn('[Google Auth] Lỗi render nút Google:', e);
+            }
+        }
+        window.renderGoogleOfficialButtons = renderGoogleOfficialButtons;
+
+        async function handleGoogleCredentialResponse(response) {
+            if (!response || !response.credential) {
+                showToast('⚠️ Không nhận được mã xác thực từ Google!');
+                return;
+            }
+            try {
+                const res = await fetch('/api/auth/google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ credential: response.credential })
+                });
+                const data = await res.json();
+                if (data && data.success && data.user) {
+                    currentUserAccount = data.user;
+                    window.currentUserAccount = data.user;
+                    try { localStorage.setItem('cung_dang_session_user', JSON.stringify(data.user)); } catch (e) {}
+                    if (authBroadcastChannel) {
+                        authBroadcastChannel.postMessage({ type: 'AUTH_LOGIN' });
+                    }
+                    UserAuthEngine.dismissGatekeeper();
+                    applyCurrentAccountToUI();
+                    UserAuthEngine.loadUserProgress();
+                    if (window.StudySync) window.StudySync.connectStream();
+                    if (typeof updateSanhAndSidebarVisibility === 'function') updateSanhAndSidebarVisibility(true);
+                    closeAuthModal();
+                    showToast(`🎉 Đăng nhập Google thành công! Xin chào ${data.user.name}.`);
+                } else {
+                    showToast('⚠️ Đăng nhập Google thất bại: ' + (data.error || 'Lỗi không xác định'));
+                }
+            } catch (err) {
+                showToast('⚠️ Lỗi kết nối máy chủ Google Auth: ' + err.message);
+            }
+        }
+        window.handleGoogleCredentialResponse = handleGoogleCredentialResponse;
+
+        async function handleGoogleSignIn() {
+            let clientId = window.googleAuthClientId || '';
+            if (!clientId) {
+                try {
+                    const cfgRes = await fetch('/api/auth/config');
+                    const cfg = await cfgRes.json();
+                    clientId = (cfg.googleClientId || '').trim();
+                    window.googleAuthClientId = clientId;
+                } catch (e) {}
+            }
+
+            if (!clientId) {
+                showToast('⚠️ Hệ thống chưa nhận được GOOGLE_CLIENT_ID từ biến môi trường. Vui lòng kiểm tra file .env hoặc cấu hình trên Render!');
+                return;
+            }
+
+            if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+                showToast('⚠️ Không thể tải thư viện Google Identity Services. Vui lòng kiểm tra kết nối mạng hoặc chặn quảng cáo!');
+                return;
+            }
+
+            try {
+                await initGoogleIdentityServices();
+                google.accounts.id.prompt((notification) => {
+                    if (notification.isNotDisplayed()) {
+                        const reason = notification.getNotDisplayedReason();
+                        console.warn('[Google Auth] One Tap không hiển thị:', reason);
+                        renderGoogleOfficialButtons();
+                        if (reason === 'unregistered_origin') {
+                            showToast('⚠️ Origin trình duyệt hiện tại chưa được khai báo trong Google Cloud Console!');
+                        }
+                    } else if (notification.isDismissedMoment()) {
+                        if (notification.getDismissedReason() !== 'credential_returned') {
+                            renderGoogleOfficialButtons();
+                        }
+                    }
+                });
+            } catch (err) {
+                console.warn('[Google Auth] Lỗi khởi chạy Google prompt:', err);
+                renderGoogleOfficialButtons();
+            }
+        }
+        window.handleGoogleSignIn = handleGoogleSignIn;
 
         function switchUserAccountById(accId) {
             const target = accountsDirectory.find(a => a.id === accId);
@@ -10442,29 +10547,44 @@
             currentUserAccount = target;
             localStorage.setItem('cung_dang_session_user', JSON.stringify(target));
             applyCurrentAccountToUI();
-            UserAuthEngine.loadUserProgress(target.id);
+            UserAuthEngine.loadUserProgress();
             closeAuthModal();
             showToast(`🔄 Đã chuyển sang tài khoản: ${currentUserAccount.name}`);
         }
 
-        function handleLogoutUser() {
+        async function handleLogoutUser(broadcast = true) {
             closeAllProfileDropdowns();
             
             // 1. Sao lưu tiến độ hiện tại lên server trước khi thoát (Bảo toàn dữ liệu)
-            UserAuthEngine.saveUserProgress();
+            try { UserAuthEngine.saveUserProgress(); } catch (e) {}
             
-            // 2. Xóa session lưu trữ
+            // 2. Gửi lệnh hủy phiên đăng nhập an toàn lên server
+            try {
+                await fetch('/api/auth/logout', { method: 'POST' });
+            } catch (e) {}
+
+            // 3. Tắt tự động đăng nhập Google One Tap
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                try { google.accounts.id.disableAutoSelect(); } catch (e) {}
+            }
+
+            // 4. Đóng luồng kết nối Realtime SSE
+            if (window.StudySync && typeof window.StudySync.disconnect === 'function') {
+                window.StudySync.disconnect();
+            }
+
+            // 5. Đồng bộ đăng xuất giữa các tab trình duyệt
+            if (broadcast && authBroadcastChannel) {
+                authBroadcastChannel.postMessage({ type: 'AUTH_LOGOUT' });
+            }
+
+            // 6. Xóa session lưu trữ client
             localStorage.removeItem('cung_dang_session_user');
             currentUserAccount = null;
             window.currentUserAccount = null;
             
-            // 3. Khôi phục giao diện khách sạch sẽ
+            // 7. Khôi phục giao diện khách sạch sẽ
             applyGuestStateToUI();
-
-            if (window.StudySync) {
-                window.StudySync.connectStream();
-            }
-
             switchTab('hom-nay');
             if (typeof updateSanhAndSidebarVisibility === 'function') {
                 updateSanhAndSidebarVisibility(false);
@@ -11428,13 +11548,21 @@
 
             connectStream() {
                 if (typeof EventSource === 'undefined') return;
+                if (!currentUserAccount) {
+                    if (this.evtSource) {
+                        this.evtSource.close();
+                        this.evtSource = null;
+                    }
+                    this.isConnected = false;
+                    this.updateUIStatus();
+                    return;
+                }
                 try {
                     if (this.evtSource) {
                         this.evtSource.close();
                         this.evtSource = null;
                     }
-                    const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'acc-guest';
-                    this.evtSource = new EventSource(`/api/study-sync/stream?userId=${encodeURIComponent(uid)}`);
+                    this.evtSource = new EventSource('/api/study-sync/stream');
 
                     this.evtSource.onopen = () => {
                         this.isConnected = true;
@@ -11464,6 +11592,15 @@
                         this.updateUIStatus();
                     };
                 } catch (e) {}
+            },
+
+            disconnect() {
+                if (this.evtSource) {
+                    this.evtSource.close();
+                    this.evtSource = null;
+                }
+                this.isConnected = false;
+                this.updateUIStatus();
             },
 
             handleIncomingData(data, isLiveUpdate = false, eventMeta = null) {
@@ -11597,16 +11734,16 @@
                 this.saveToLocalStorage();
                 updateDashboardMetrics();
 
+                if (!currentUserAccount) return;
+
                 const payload = {
                     deviceId: this.deviceId,
                     deviceName: this.deviceName,
-                    userId: currentUserAccount?.id || 'acc-dang',
                     action: action,
                     lastActionWord: lastActionWord,
                     xpGained: xpGained,
                     state: {
                         xp: state.xp,
-                        streak: state.streak,
                         vocabLearned: Math.max(state.vocabLearned, learnedVocabItems.length),
                         dictationDone: state.dictationDone,
                         grammarDone: state.grammarDone || 0,
@@ -11626,12 +11763,22 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
-                }).catch(() => {});
+                })
+                .then(r => r.json())
+                .then(res => {
+                    if (res && res.data && res.data.streakInfo) {
+                        renderStreakWeekDays(res.data.streakInfo);
+                    }
+                })
+                .catch(() => {});
             },
 
             forcePullLatest() {
-                const uid = currentUserAccount?.id ? `?userId=${encodeURIComponent(currentUserAccount.id)}` : '';
-                fetch(`/api/study-sync${uid}`)
+                if (!currentUserAccount) {
+                    showToast('ℹ️ Vui lòng đăng nhập để đồng bộ tiến độ.');
+                    return;
+                }
+                fetch('/api/study-sync')
                     .then(r => r.json())
                     .then(res => {
                         if (res && res.data) {
@@ -11640,6 +11787,9 @@
                                 lastActionWord: 'Toàn bộ dữ liệu',
                                 xpGained: 0
                             });
+                            if (res.data.streakInfo) {
+                                renderStreakWeekDays(res.data.streakInfo);
+                            }
                             showToast('✅ Đã kiểm tra và đồng bộ dữ liệu mới nhất!');
                         }
                     })
@@ -11762,11 +11912,10 @@
             }
         }
 
-        // Lắng nghe phím Escape để đóng nhanh cửa sổ Auth Modal / Google Modal (Khắc phục triệt để lỗi ảnh 3)
+        // Lắng nghe phím Escape để đóng nhanh cửa sổ Auth Modal
         window.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' || e.key === 'Esc') {
                 closeAuthModal();
-                closeGoogleAuthModal();
             }
         });
 
@@ -11777,6 +11926,9 @@
             setupTakeNotePasteListener();
             if (typeof updateSanhAndSidebarVisibility === 'function') {
                 updateSanhAndSidebarVisibility(!!currentUserAccount);
+            }
+            if (typeof initGoogleIdentityServices === 'function') {
+                initGoogleIdentityServices();
             }
         }
 

@@ -88,23 +88,14 @@ window.PersonalizedRoadmapEngine = {
             }
         } catch(e) {}
 
-        const fallback = {
-            id: 'acc-dang',
-            name: 'Đăng Huỳnh Gia',
-            email: 'dang.hg.68khhh@ntu.edu.vn',
-            targetScore: '600',
-            examDate: '20/12/2026',
-            avatarColor: 'bg-purple-700',
-            isOwner: true
-        };
-        window.currentUserAccount = fallback;
-        return fallback;
+        return null;
     },
 
     // Tính toán số ngày còn lại đến kỳ thi
     calculateDaysRemaining() {
         const user = this.getActiveUser();
-        const examDateStr = user?.examDate || '20/12/2026';
+        if (!user || !user.examDate) return null;
+        const examDateStr = user.examDate;
         const parts = examDateStr.split('/');
         if (parts.length === 3) {
             const targetDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`);

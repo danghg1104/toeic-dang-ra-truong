@@ -2,7 +2,7 @@
  * =========================================================================
  * MODULE HỌC & LUYỆN TẬP TỪ VỰNG CHUYÊN SÂU (EDTECH STANDARD)
  * Thương hiệu: "Cùng Đăng ra trường"
- * Kiến trúc theo chuẩn tienganhratruong.com & PassToeic.vn
+ * Kiến trúc theo chuẩn EdTech hiện đại & PassToeic.vn
  * 
  * Màn hình 1: Trung tâm Từ vựng & Phân tầng cấp độ (/vocabulary)
  * Màn hình 2: Không gian học sâu toàn màn hình (/vocabulary/[topic-slug]/study)

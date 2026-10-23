@@ -1,0 +1,73 @@
+{
+  "userId": "acc-1792717298981-zmk0",
+  "lastUpdated": 1792717299683,
+  "state": {
+    "xp": 99999,
+    "streak": 0
+  },
+  "activityDates": [],
+  "learnedVocabItems": [],
+  "savedVocabItems": [],
+  "takeNotesList": [
+    {
+      "id": "hack-note",
+      "title": "Hacked!",
+      "content": "Hack victim"
+    }
+  ],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": [],
+  "streakInfo": {
+    "streak": 0,
+    "todayStudied": false,
+    "yesterdayStudied": false,
+    "weekDays": [
+      {
+        "label": "T2",
+        "dateStr": "2026-10-19",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T3",
+        "dateStr": "2026-10-20",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T4",
+        "dateStr": "2026-10-21",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T5",
+        "dateStr": "2026-10-22",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T6",
+        "dateStr": "2026-10-23",
+        "isToday": true,
+        "active": false
+      },
+      {
+        "label": "T7",
+        "dateStr": "2026-10-24",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "CN",
+        "dateStr": "2026-10-25",
+        "isToday": false,
+        "active": false
+      }
+    ],
+    "lastActivityDate": null
+  }
+}

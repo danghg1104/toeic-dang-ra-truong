@@ -1,0 +1,121 @@
+{
+  "userId": "acc-dang",
+  "lastUpdated": 1792681976805,
+  "state": {
+    "xp": 200,
+    "streak": 5,
+    "vocabLearned": 18,
+    "dictationDone": 6,
+    "grammarDone": 25,
+    "readDone": 0,
+    "listenDone": 0,
+    "studyMinutes": 0
+  },
+  "learnedVocabItems": [
+    {
+      "word": "economic",
+      "meaning": "thuộc về kinh tế",
+      "phonetic": "/ˌiː.kəˈnɒm.ɪk/",
+      "learnedAt": "2026-10-17T08:12:53.749Z"
+    },
+    {
+      "word": "negotiate",
+      "meaning": "đàm phán, thương lượng",
+      "phonetic": "/nəˈɡoʊ.ʃi.eɪt/",
+      "learnedAt": "2026-10-17T08:21:00.122Z"
+    }
+  ],
+  "savedVocabItems": [],
+  "takeNotesList": [
+    {
+      "id": "note-1792681970123",
+      "title": "📂 PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1)_da_chinh_sua.pdf",
+      "category": "Tài liệu File",
+      "paper": "paper-lined",
+      "updatedAt": "22:12",
+      "updatedAtMs": 1792681976124,
+      "content": "<p>Bắt đầu viết ghi chú của bạn tại đây...</p>\n                    <div id=\"doc-block-1792681974825-265\" class=\"doc-imported-block\">\n                        <div contenteditable=\"false\" class=\"flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-3 border-b border-slate-200 dark:border-slate-700 select-none\">\n                            <div class=\"flex items-center gap-2\">\n                                <span class=\"px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-900 text-[11px] font-extrabold\">📕 PDF</span>\n                                <strong class=\"text-sm text-slate-900 dark:text-white\">PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1)_da_chinh_sua.pdf</strong>\n                                <span class=\"text-[11px] text-slate-400\">(2.37 MB)</span>\n                            </div>\n                            <div class=\"flex items-center gap-2\">\n                                <span class=\"text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full\">✏️ Đọc &amp; Chỉnh sửa trực tiếp</span>\n                                <button onclick=\"removeImportedDocBlock('doc-block-1792681974825-265')\" class=\"px-2 py-0.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-bold\">Xóa khối file</button>\n                            </div>\n                        </div>\n                        <div class=\"imported-doc-editable-body space-y-2 text-[14.5px] leading-relaxed\">\n                            \n                        <div class=\"my-3 p-4 rounded-2xl bg-rose-50/80 dark:bg-slate-800 border-2 border-rose-200 dark:border-rose-900/60 shadow-xs select-none\">\n                            <div class=\"flex flex-wrap items-center justify-between gap-3\">\n                                <div class=\"flex items-center gap-3\">\n                                    <div class=\"w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold text-base shadow-sm shrink-0\">\n                                        <i class=\"fa-solid fa-file-pdf\"></i>\n                                    </div>\n                                    <div>\n                                        <h4 class=\"font-bold text-sm text-slate-800 dark:text-slate-100\">PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1)_da_chinh_sua.pdf</h4>\n                                        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Tài liệu PDF • 7 trang • 2.37 MB • Đã nạp vào PDF Studio</p>\n                                    </div>\n                                </div>\n                                <div class=\"flex flex-wrap items-center gap-2\">\n                                    <button onclick=\"openExistingPdfInStudio('pdf-1792681974827-373', 'PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1)_da_chinh_sua.pdf', 'doc-block-1792681974825-265')\" class=\"px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-sm flex items-center gap-1.5 transition\">\n                                        <i class=\"fa-solid fa-bolt\"></i>\n                                        <span>Mở trong PDF Studio</span>\n                                    </button>\n                                    <button onclick=\"PdfStudio &amp;&amp; PdfStudio.exportPdf()\" class=\"px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 hover:bg-rose-100 text-rose-700 dark:text-rose-300 border border-rose-200 text-xs font-bold transition\">\n                                        <i class=\"fa-solid fa-download mr-1\"></i> Xuất PDF mới\n                                    </button>\n                                </div>\n                            </div>\n                            <div class=\"mt-3 pt-2.5 border-t border-rose-200/60 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-300\">\n                                <p class=\"font-medium italic\">💡 <strong>Mẹo:</strong> Tài liệu đang mở trong <strong>PDF Studio</strong> phía trên. Bạn có thể lật trang, phóng to, xoay trang, tô sáng (Highlight), thêm chữ mới, che nội dung cũ và quét chữ ảnh (OCR) mà không làm vỡ định dạng trang.</p>\n                            </div>\n                        </div>\n                    \n                        </div>\n                    </div>\n                    <p><br></p>\n                ",
+      "attachedFiles": [
+        {
+          "name": "PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1)_da_chinh_sua.pdf",
+          "sizeFormatted": "2.37 MB",
+          "badge": "📕 PDF",
+          "blockId": "doc-block-1792681974825-265",
+          "isPdf": true,
+          "fileId": "pdf-1792681974827-373"
+        }
+      ],
+      "previewText": "Bắt đầu viết ghi chú của bạn tại đây... 📕 PDF PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1)_da_chinh_sua.pdf (2.37 MB) ✏️ Đọc & Chỉnh "
+    },
+    {
+      "id": "note-1",
+      "title": "📌 Công thức Ngữ pháp TOEIC 5 giây (PassToeic & TART)",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "22:08",
+      "content": "<h3><strong>1. Quy tắc cụm Danh từ (Noun Phrase):</strong></h3><ul><li>Mạo từ (<em>a, an, the</em>) / Tính từ sở hữu (<em>his, her, our, their</em>) + <strong>[Adv] + [Adj] + Noun</strong>.</li><li>Trước giới từ (<em>in, on, at, of, for, with</em>) nếu có chỗ trống đứng sau <em>the/a</em> thì 99% điền <strong>Danh từ</strong>.</li></ul><h3><strong>2. Rút gọn Mệnh đề quan hệ:</strong></h3><ul><li>Chủ động (có tân ngữ phía sau) ➔ Dùng <span style=\"background-color: rgb(254, 240, 138);\"><strong>V-ing</strong></span></li><li>Bị động (có giới từ <em>by, in, at, to</em> phía sau) ➔ Dùng <span style=\"background-color: rgb(187, 247, 208);\"><strong>V3/ed</strong></span></li></ul>\n                    <div id=\"doc-block-1792681725465-494\" class=\"doc-imported-block\">\n                        <div contenteditable=\"false\" class=\"flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-3 border-b border-slate-200 dark:border-slate-700 select-none\">\n                            <div class=\"flex items-center gap-2\">\n                                <span class=\"px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-900 text-[11px] font-extrabold\">📕 PDF</span>\n                                <strong class=\"text-sm text-slate-900 dark:text-white\">PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1).pdf</strong>\n                                <span class=\"text-[11px] text-slate-400\">(2.35 MB)</span>\n                            </div>\n                            <div class=\"flex items-center gap-2\">\n                                <span class=\"text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full\">✏️ Đọc &amp; Chỉnh sửa trực tiếp</span>\n                                <button onclick=\"removeImportedDocBlock('doc-block-1792681725465-494')\" class=\"px-2 py-0.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-bold\">Xóa khối file</button>\n                            </div>\n                        </div>\n                        <div class=\"imported-doc-editable-body space-y-2 text-[14.5px] leading-relaxed\">\n                            \n                        <div class=\"my-3 p-4 rounded-2xl bg-rose-50/80 dark:bg-slate-800 border-2 border-rose-200 dark:border-rose-900/60 shadow-xs select-none\">\n                            <div class=\"flex flex-wrap items-center justify-between gap-3\">\n                                <div class=\"flex items-center gap-3\">\n                                    <div class=\"w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold text-base shadow-sm shrink-0\">\n                                        <i class=\"fa-solid fa-file-pdf\"></i>\n                                    </div>\n                                    <div>\n                                        <h4 class=\"font-bold text-sm text-slate-800 dark:text-slate-100\">PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1).pdf</h4>\n                                        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Tài liệu PDF • 7 trang • 2.35 MB • Đã nạp vào PDF Studio</p>\n                                    </div>\n                                </div>\n                                <div class=\"flex flex-wrap items-center gap-2\">\n                                    <button onclick=\"openExistingPdfInStudio('pdf-1792681725469-287', 'PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1).pdf', 'doc-block-1792681725465-494')\" class=\"px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-sm flex items-center gap-1.5 transition\">\n                                        <i class=\"fa-solid fa-bolt\"></i>\n                                        <span>Mở trong PDF Studio</span>\n                                    </button>\n                                    <button onclick=\"PdfStudio &amp;&amp; PdfStudio.exportPdf()\" class=\"px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 hover:bg-rose-100 text-rose-700 dark:text-rose-300 border border-rose-200 text-xs font-bold transition\">\n                                        <i class=\"fa-solid fa-download mr-1\"></i> Xuất PDF mới\n                                    </button>\n                                </div>\n                            </div>\n                            <div class=\"mt-3 pt-2.5 border-t border-rose-200/60 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-300\">\n                                <p class=\"font-medium italic\">💡 <strong>Mẹo:</strong> Tài liệu đang mở trong <strong>PDF Studio</strong> phía trên. Bạn có thể lật trang, phóng to, xoay trang, tô sáng (Highlight), thêm chữ mới, che nội dung cũ và quét chữ ảnh (OCR) mà không làm vỡ định dạng trang.</p>\n                            </div>\n                        </div>\n                    \n                        </div>\n                    </div>\n                    <p><br></p>\n                ",
+      "attachedFiles": [
+        {
+          "name": "PR.WI-21 Hướng dẫn hiệu chuẩn máy kiểm tra thể tích và áp suất lon (1).pdf",
+          "sizeFormatted": "2.35 MB",
+          "badge": "📕 PDF",
+          "blockId": "doc-block-1792681725465-494",
+          "isPdf": true,
+          "fileId": "pdf-1792681725469-287"
+        }
+      ],
+      "previewText": "1. Quy tắc cụm Danh từ (Noun Phrase): Mạo từ (a, an, the) / Tính từ sở hữu (his, her, our, their) + [Adv] + [Adj] + Noun. Trước giới từ (in, on, at, of, for, wi",
+      "updatedAtMs": 1792681726684
+    },
+    {
+      "id": "note-2",
+      "title": "🎬 Từ vựng học qua Phim (YouGlish) & Nghe chính tả",
+      "category": "Từ vựng",
+      "paper": "paper-dotted",
+      "updatedAt": "Hôm nay · 10:15",
+      "content": "<h3><strong>Tổng hợp Collocation ăn điểm TOEIC:</strong></h3><ul><li><strong>abide by = comply with = adhere to:</strong> tuân thủ (quy định, hợp đồng)</li><li><strong>behind schedule:</strong> trễ tiến độ ≠ <strong>ahead of schedule:</strong> vượt tiến độ</li><li><strong>out of the blue:</strong> hoàn toàn bất ngờ</li><li><strong>reimburse (v) / reimbursement (n):</strong> hoàn trả chi phí công tác</li></ul>"
+    },
+    {
+      "id": "note-image-sync-demo",
+      "title": "Công thức & Ảnh chụp sơ đồ ngữ pháp",
+      "category": "Ngữ pháp",
+      "content": "<p>Sơ đồ tư duy 12 thì tiếng Anh:</p><img src=\"data:image/png;base64,BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\" />",
+      "updatedAt": "15:45",
+      "updatedAtMs": 1792226760032
+    },
+    {
+      "id": "note-welcome-1792227012629",
+      "title": "📒 Sổ tay của Bích Ngân",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "Vừa xong",
+      "updatedAtMs": 1792227012629,
+      "content": "<p>Xin chào <strong>Bích Ngân</strong>! Chúc bạn ôn thi <strong>TOEIC</strong> đạt mục tiêu <strong>650</strong> điểm!</p><p>Mọi ghi chú, ảnh chụp và từ vựng của bạn đều được sao lưu tự động an toàn tại đây.</p>"
+    },
+    {
+      "id": "note-1792225344674",
+      "title": "📝 Trang ghi chú mới",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "Vừa xong",
+      "content": "<p>Bắt đầu viết ghi chú của bạn tại đây...</p>"
+    },
+    {
+      "id": "note-1792236526446",
+      "title": "📝 Trang ghi chú mới",
+      "category": "Ngữ pháp",
+      "paper": "paper-lined",
+      "updatedAt": "Vừa xong",
+      "updatedAtMs": 1792236526446,
+      "content": "<p>Bắt đầu viết ghi chú của bạn tại đây...</p>"
+    }
+  ],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": [],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "lastSourceDevice": "Laptop",
+  "lastDeviceId": "dev-i6hlqk2-1792226951203",
+  "lastUserId": "acc-dang"
+}

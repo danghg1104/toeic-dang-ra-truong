@@ -1,7 +1,7 @@
 /**
  * =========================================================================
  * MODULE HỌC & LUYỆN TẬP NGỮ PHÁP CHUYÊN SÂU (HIGH-END EDTECH STANDARD)
- * Kiến trúc theo chuẩn tienganhratruong.com & PassToeic.vn
+ * Kiến trúc theo chuẩn EdTech hiện đại & PassToeic.vn
  * 
  * Hỗ trợ Dynamic Routing & Dynamic Data Store cho 35+ Chuyên đề Ngữ pháp
  * - Màn hình 1: Lý thuyết Chuyên sâu & Chiến thuật (/grammar/[topic-slug])

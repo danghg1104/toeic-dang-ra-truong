@@ -3,6 +3,39 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const crypto = require('crypto');
+
+// Tự động nạp biến môi trường từ .env nếu tồn tại
+try {
+  const candidateEnvPaths = [
+    path.join(__dirname, '.env'),
+    path.join(__dirname, '.env.local'),
+    path.join(__dirname, '.env.txt'),
+    path.join(process.cwd(), '.env'),
+    path.join(process.cwd(), '.env.local'),
+    path.join(process.cwd(), '.env.txt')
+  ];
+  for (const envPath of candidateEnvPaths) {
+    if (fs.existsSync(envPath) && fs.statSync(envPath).isFile()) {
+      const envContent = fs.readFileSync(envPath, 'utf8');
+      envContent.split(/\r?\n/).forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return;
+        const idx = trimmed.indexOf('=');
+        if (idx !== -1) {
+          const key = trimmed.substring(0, idx).trim();
+          const val = trimmed.substring(idx + 1).trim().replace(/^['"]|['"]$/g, '');
+          if (key && !process.env[key]) {
+            process.env[key] = val;
+          }
+        }
+      });
+      break;
+    }
+  }
+} catch (e) {
+  console.warn('Lỗi đọc file .env:', e.message);
+}
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
@@ -10,6 +43,7 @@ const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const PROFILES_DIR = path.join(DATA_DIR, 'profiles');
 const USERS_FILE = path.join(DATA_DIR, 'users_database.json');
 const SYNC_FILE = path.join(DATA_DIR, 'study_sync_store.json');
+const SESSIONS_FILE = path.join(DATA_DIR, 'sessions_database.json');
 
 // Khởi tạo các thư mục lưu trữ dữ liệu
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -47,42 +81,159 @@ const MIME_TYPES = {
 };
 
 // =========================================================================
+// QUẢN LÝ PHIÊN (SERVER SESSION STORE & SECURE HTTPONLY COOKIES)
+// =========================================================================
+let memorySessions = null;
+
+function loadSessionsDatabase() {
+  if (memorySessions) return memorySessions;
+  try {
+    if (fs.existsSync(SESSIONS_FILE)) {
+      const data = JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8'));
+      if (typeof data === 'object' && data !== null) {
+        memorySessions = data;
+        return memorySessions;
+      }
+    }
+  } catch (err) {
+    console.warn('Lỗi đọc database phiên:', err.message);
+  }
+  memorySessions = {};
+  return memorySessions;
+}
+
+function saveSessionsDatabase() {
+  try {
+    fs.writeFileSync(SESSIONS_FILE, JSON.stringify(memorySessions || {}, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Lỗi ghi database phiên:', err.message);
+  }
+}
+
+function createSession(userId, maxAgeMs = 30 * 24 * 3600 * 1000) {
+  const sessions = loadSessionsDatabase();
+  const token = crypto.randomBytes(32).toString('hex');
+  const now = Date.now();
+  sessions[token] = {
+    userId,
+    createdAt: new Date(now).toISOString(),
+    expiresAt: now + maxAgeMs
+  };
+  saveSessionsDatabase();
+  return token;
+}
+
+function getSession(token) {
+  if (!token) return null;
+  const sessions = loadSessionsDatabase();
+  const session = sessions[token];
+  if (!session) return null;
+  if (session.expiresAt && session.expiresAt < Date.now()) {
+    deleteSession(token);
+    return null;
+  }
+  return session;
+}
+
+function deleteSession(token) {
+  if (!token) return;
+  const sessions = loadSessionsDatabase();
+  if (sessions[token]) {
+    delete sessions[token];
+    saveSessionsDatabase();
+  }
+}
+
+function parseCookies(req) {
+  const list = {};
+  const cookieHeader = req.headers.cookie;
+  if (!cookieHeader) return list;
+  cookieHeader.split(';').forEach(cookie => {
+    let [name, ...rest] = cookie.split('=');
+    name = name?.trim();
+    if (!name) return;
+    const value = rest.join('=').trim();
+    try {
+      list[name] = decodeURIComponent(value);
+    } catch (e) {
+      list[name] = value;
+    }
+  });
+  return list;
+}
+
+function getAuthenticatedUserId(req) {
+  // 1. Kiểm tra cookie session_token
+  const cookies = parseCookies(req);
+  const cookieToken = cookies['cd_session'];
+  if (cookieToken) {
+    const session = getSession(cookieToken);
+    if (session) return session.userId;
+  }
+  // 2. Kiểm tra header Authorization: Bearer <token>
+  const authHeader = req.headers['authorization'];
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.substring(7).trim();
+    const session = getSession(token);
+    if (session) return session.userId;
+  }
+  return null;
+}
+
+function setSessionCookie(res, req, token, maxAgeSeconds = 30 * 24 * 3600) {
+  const isSecure = (req.headers['x-forwarded-proto'] === 'https') || (req.socket && req.socket.encrypted);
+  const secureFlag = isSecure ? '; Secure' : '';
+  res.setHeader('Set-Cookie', `cd_session=${encodeURIComponent(token)}; Path=/; Max-Age=${maxAgeSeconds}; HttpOnly; SameSite=Lax${secureFlag}`);
+}
+
+function clearSessionCookie(res, req) {
+  const isSecure = (req.headers['x-forwarded-proto'] === 'https') || (req.socket && req.socket.encrypted);
+  const secureFlag = isSecure ? '; Secure' : '';
+  res.setHeader('Set-Cookie', `cd_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${secureFlag}`);
+}
+
+function getCorsHeaders(req) {
+  const origin = req.headers.origin;
+  return {
+    'Access-Control-Allow-Origin': origin || '*',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Device-Id, Authorization, X-Requested-With'
+  };
+}
+
+// Băm mật khẩu scrypt an toàn
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password, stored) {
+  if (!stored) return false;
+  if (stored.includes(':')) {
+    const [salt, originalHash] = stored.split(':');
+    const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+    return hash === originalHash;
+  }
+  return password === stored;
+}
+
+// =========================================================================
 // QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG & HỒ SƠ ĐỘC LẬP
 // =========================================================================
-const DEFAULT_OWNER_ACCOUNT = {
-  id: 'acc-dang',
-  name: 'Đăng Huỳnh Gia',
-  email: 'dang.hg.68khhh@ntu.edu.vn',
-  username: 'danghuynhgia',
-  password: '', // Localhost owner bypasses password
-  exam: 'TOEIC',
-  targetScore: '600',
-  examDate: '20/12/2026',
-  avatarColor: 'bg-purple-700',
-  authProvider: 'local',
-  isOwner: true,
-  createdAt: new Date().toISOString()
-};
-
 function loadUsersDatabase() {
   try {
     if (fs.existsSync(USERS_FILE)) {
       const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
-      if (Array.isArray(users) && users.length > 0) {
-        // Đảm bảo luôn có tài khoản chính chủ
-        if (!users.some(u => u.id === 'acc-dang' || u.email === DEFAULT_OWNER_ACCOUNT.email)) {
-          users.unshift(DEFAULT_OWNER_ACCOUNT);
-          saveUsersDatabase(users);
-        }
+      if (Array.isArray(users)) {
         return users;
       }
     }
   } catch (err) {
     console.warn('Lỗi đọc database người dùng:', err.message);
   }
-  const initUsers = [DEFAULT_OWNER_ACCOUNT];
-  saveUsersDatabase(initUsers);
-  return initUsers;
+  return [];
 }
 
 function saveUsersDatabase(users) {
@@ -93,6 +244,135 @@ function saveUsersDatabase(users) {
   }
 }
 
+// Di chuyển dữ liệu cũ cho chủ web khi đăng nhập (Zero Data Loss)
+function migrateOwnerDataIfEligible(user) {
+  const ownerEmail = (process.env.OWNER_EMAIL || '').trim().toLowerCase();
+  const userEmail = (user.email || '').trim().toLowerCase();
+  if (!ownerEmail || !userEmail || userEmail !== ownerEmail) {
+    return;
+  }
+  const targetPath = getUserProfilePath(user.id);
+  const exists = fs.existsSync(targetPath);
+  let shouldMigrate = !exists;
+  if (exists) {
+    try {
+      const current = JSON.parse(fs.readFileSync(targetPath, 'utf8'));
+      if (!current.learnedVocabItems || current.learnedVocabItems.length === 0) {
+        shouldMigrate = true;
+      }
+    } catch (e) {
+      shouldMigrate = true;
+    }
+  }
+
+  if (shouldMigrate) {
+    const candidates = [
+      path.join(PROFILES_DIR, 'acc-1792238705599-v6ol.json'),
+      path.join(PROFILES_DIR, 'acc-dang.json')
+    ];
+    for (const src of candidates) {
+      if (fs.existsSync(src)) {
+        try {
+          const raw = JSON.parse(fs.readFileSync(src, 'utf8'));
+          raw.userId = user.id;
+          fs.writeFileSync(targetPath, JSON.stringify(raw, null, 2), 'utf8');
+          console.log(`[Migration] Đã di chuyển an toàn hồ sơ cũ từ ${path.basename(src)} sang tài khoản chủ web ${user.email} (${user.id})`);
+          break;
+        } catch (e) {
+          console.error('[Migration] Lỗi di chuyển dữ liệu:', e.message);
+        }
+      }
+    }
+  }
+}
+
+// =========================================================================
+// CHUỖI NGÀY HỌC (STREAK) CHUẨN GIỜ VIỆT NAM (Asia/Ho_Chi_Minh)
+// =========================================================================
+function getVietnamDateString(date = new Date()) {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Ho_Chi_Minh',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+  return formatter.format(date); // Định dạng YYYY-MM-DD
+}
+
+function getPreviousDateString(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() - 1);
+  return dt.toISOString().slice(0, 10);
+}
+
+function getVietnamWeekDays(referenceDate = new Date()) {
+  const vnStr = getVietnamDateString(referenceDate);
+  const [y, m, d] = vnStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  const dayOfWeek = dt.getUTCDay(); // 0 là CN, 1 là T2, ..., 6 là T7
+  const diffToMonday = dayOfWeek === 0 ? -6 : (1 - dayOfWeek);
+
+  const monday = new Date(dt);
+  monday.setUTCDate(monday.getUTCDate() + diffToMonday);
+
+  const days = [];
+  const labels = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+  for (let i = 0; i < 7; i++) {
+    const cur = new Date(monday);
+    cur.setUTCDate(cur.getUTCDate() + i);
+    const dateStr = cur.toISOString().slice(0, 10);
+    days.push({
+      label: labels[i],
+      dateStr: dateStr,
+      isToday: dateStr === vnStr
+    });
+  }
+  return days;
+}
+
+function calculateUserStreak(activityDates = [], referenceDate = new Date()) {
+  const todayStr = getVietnamDateString(referenceDate);
+  const yesterdayStr = getPreviousDateString(todayStr);
+  const uniqueDates = Array.from(new Set(activityDates || [])).sort();
+  const dateSet = new Set(uniqueDates);
+
+  const todayStudied = dateSet.has(todayStr);
+  const yesterdayStudied = dateSet.has(yesterdayStr);
+
+  let streak = 0;
+  if (todayStudied) {
+    let cur = todayStr;
+    while (dateSet.has(cur)) {
+      streak++;
+      cur = getPreviousDateString(cur);
+    }
+  } else if (yesterdayStudied) {
+    // Sau 00:00:00 hôm sau nếu chưa học: streak giữ nguyên để chờ hoạt động hôm nay
+    let cur = yesterdayStr;
+    while (dateSet.has(cur)) {
+      streak++;
+      cur = getPreviousDateString(cur);
+    }
+  } else {
+    // Không học hôm nay cũng không học hôm qua -> streak = 0
+    streak = 0;
+  }
+
+  const weekDays = getVietnamWeekDays(referenceDate).map(wd => ({
+    ...wd,
+    active: dateSet.has(wd.dateStr)
+  }));
+
+  return {
+    streak,
+    todayStudied,
+    yesterdayStudied,
+    weekDays,
+    lastActivityDate: uniqueDates.length > 0 ? uniqueDates[uniqueDates.length - 1] : null
+  };
+}
+
 // Lưu trữ & Tải tiến độ học tập riêng biệt từng người dùng (Zero Data Loss)
 function getUserProfilePath(userId) {
   const safeId = String(userId || 'acc-guest').replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -101,44 +381,94 @@ function getUserProfilePath(userId) {
 
 function loadUserProfile(userId) {
   const filePath = getUserProfilePath(userId);
+  let profile = null;
   try {
     if (fs.existsSync(filePath)) {
-      return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      profile = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     }
   } catch (e) {
     console.warn(`Lỗi đọc hồ sơ ${userId}:`, e.message);
   }
-  return {
-    userId: userId,
-    lastUpdated: Date.now(),
-    state: { xp: 0, streak: 1, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
-    learnedVocabItems: [],
-    savedVocabItems: [],
-    takeNotesList: [],
-    savedGrammarNotes: [],
-    savedWords: [],
-    copyingHistory: [],
-    dictationHistory: [],
-    mockHistory: []
-  };
+  if (!profile) {
+    profile = {
+      userId: userId,
+      lastUpdated: Date.now(),
+      state: { xp: 0, streak: 0, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+      activityDates: [],
+      learnedVocabItems: [],
+      savedVocabItems: [],
+      takeNotesList: [],
+      savedGrammarNotes: [],
+      savedWords: [],
+      copyingHistory: [],
+      dictationHistory: [],
+      mockHistory: []
+    };
+  }
+
+  // Luôn tính toán streak thực tế từ activityDates theo múi giờ Việt Nam
+  const streakInfo = calculateUserStreak(profile.activityDates || []);
+  if (!profile.state) profile.state = {};
+  profile.state.streak = streakInfo.streak;
+  profile.streakInfo = streakInfo;
+  return profile;
 }
 
 function saveUserProfile(userId, profileData) {
   const filePath = getUserProfilePath(userId);
   try {
     const existing = loadUserProfile(userId);
+    const combinedDates = Array.from(new Set([
+      ...(existing.activityDates || []),
+      ...(profileData.activityDates || [])
+    ])).sort();
+
+    const streakInfo = calculateUserStreak(combinedDates);
     const merged = {
       ...existing,
       ...profileData,
+      activityDates: combinedDates,
       userId: userId,
       lastUpdated: Date.now()
     };
+    if (!merged.state) merged.state = {};
+    merged.state.streak = streakInfo.streak;
+    merged.streakInfo = streakInfo;
+
     fs.writeFileSync(filePath, JSON.stringify(merged, null, 2), 'utf8');
     return merged;
   } catch (e) {
     console.error(`Lỗi ghi hồ sơ ${userId}:`, e.message);
     return null;
   }
+}
+
+function recordStudyActivity(userId, activityDateStr = null) {
+  if (!userId) return null;
+  const profile = loadUserProfile(userId);
+  const dateToRecord = activityDateStr || getVietnamDateString();
+  const dates = new Set(profile.activityDates || []);
+  dates.add(dateToRecord);
+  profile.activityDates = Array.from(dates).sort();
+
+  const streakInfo = calculateUserStreak(profile.activityDates);
+  if (!profile.state) profile.state = {};
+  profile.state.streak = streakInfo.streak;
+  profile.streakInfo = streakInfo;
+
+  saveUserProfile(userId, profile);
+
+  // Cập nhật streak vào danh sách người dùng trong users_database.json
+  try {
+    const users = loadUsersDatabase();
+    const u = users.find(x => x.id === userId);
+    if (u && u.streak !== streakInfo.streak) {
+      u.streak = streakInfo.streak;
+      saveUsersDatabase(users);
+    }
+  } catch (e) {}
+
+  return streakInfo;
 }
 
 // =========================================================================
@@ -150,7 +480,7 @@ function broadcastSyncEvent(eventData) {
   const msg = `data: ${JSON.stringify(eventData)}\n\n`;
   for (const client of sseClients) {
     try {
-      if (!client.userId || !eventData.userId || client.userId === eventData.userId) {
+      if (client.userId && eventData.userId && client.userId === eventData.userId) {
         client.write(msg);
       }
     } catch (e) {
@@ -783,19 +1113,19 @@ function loadSyncStore() {
 // Lưu và hợp nhất dữ liệu đồng bộ
 function saveAndMergeSyncStore(incoming) {
   const userId = incoming.userId;
-  const current = userId ? loadUserProfile(userId) : loadSyncStore();
+  if (!userId) return null;
+  const current = loadUserProfile(userId);
   const merged = { ...current };
 
   merged.lastUpdated = Date.now();
   merged.lastSourceDevice = incoming.deviceName || 'Thiết bị';
   merged.lastDeviceId = incoming.deviceId || 'unknown';
-  merged.lastUserId = userId || 'acc-dang';
+  merged.lastUserId = userId;
 
   // Hợp nhất metrics state (lấy giá trị lớn nhất)
   if (incoming.state) {
     merged.state = {
       xp: Math.max(current.state?.xp || 0, incoming.state.xp || 0),
-      streak: Math.max(current.state?.streak || 0, incoming.state.streak || 0),
       vocabLearned: Math.max(current.state?.vocabLearned || 0, incoming.state.vocabLearned || 0),
       dictationDone: Math.max(current.state?.dictationDone || 0, incoming.state.dictationDone || 0),
       grammarDone: Math.max(current.state?.grammarDone || 0, incoming.state.grammarDone || 0),
@@ -804,6 +1134,19 @@ function saveAndMergeSyncStore(incoming) {
       studyMinutes: Math.max(current.state?.studyMinutes || 0, incoming.state.studyMinutes || 0)
     };
   }
+
+  // Tự động ghi nhận hoạt động học hôm nay theo giờ Việt Nam
+  const isLearningAction = !!(incoming.action || (incoming.learnedVocabItems && incoming.learnedVocabItems.length > 0) || (incoming.state && (incoming.state.vocabLearned > 0 || incoming.state.dictationDone > 0 || incoming.state.grammarDone > 0 || (incoming.state.studyMinutes && incoming.state.studyMinutes >= 2))));
+  if (isLearningAction) {
+    const todayVn = getVietnamDateString();
+    const dates = new Set(merged.activityDates || []);
+    dates.add(todayVn);
+    merged.activityDates = Array.from(dates).sort();
+  }
+  const streakInfo = calculateUserStreak(merged.activityDates || []);
+  if (!merged.state) merged.state = {};
+  merged.state.streak = streakInfo.streak;
+  merged.streakInfo = streakInfo;
 
   // Hợp nhất danh sách từ vựng đã thuộc (Learned Vocab) không trùng lặp
   if (Array.isArray(incoming.learnedVocabItems)) {
@@ -967,43 +1310,130 @@ const server = http.createServer((req, res) => {
   }
 
   // =========================================================================
-  // API: AUTHENTICATION & TÀI KHOẢN (REGISTER, LOGIN, GOOGLE, COMMUNITY LIST)
+  // API: AUTHENTICATION & TÀI KHOẢN (ME, REGISTER, LOGIN, LOGOUT, GOOGLE)
   // =========================================================================
+
+  // 0. Xác thực người dùng hiện tại (GET /api/me)
+  if (reqPath === '/api/me' && req.method === 'GET') {
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
+    const users = loadUsersDatabase();
+    const user = users.find(u => u.id === userId);
+    if (!user) {
+      clearSessionCookie(res, req);
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Tài khoản không tồn tại' }));
+    }
+
+    const profile = loadUserProfile(userId);
+    const safeUser = { ...user, streak: profile.state?.streak || user.streak || 0 };
+    delete safeUser.password;
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+      ...getCorsHeaders(req)
+    });
+    res.end(JSON.stringify({ success: true, user: safeUser, streakInfo: profile.streakInfo }));
+    return;
+  }
+
+  // 0b. Cấu hình xác thực công khai cho Frontend (GET /api/auth/config & GET /api/config)
+  if ((reqPath === '/api/auth/config' || reqPath === '/api/config') && req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      ...getCorsHeaders(req)
+    });
+    return res.end(JSON.stringify({
+      success: true,
+      googleClientId: (process.env.GOOGLE_CLIENT_ID || '').trim()
+    }));
+  }
+
+  // 0c. Healthcheck trạng thái cấu hình Auth an toàn (GET /api/health/auth)
+  if (reqPath === '/api/health/auth' && req.method === 'GET') {
+    const rawId = (process.env.GOOGLE_CLIENT_ID || '').trim();
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      ...getCorsHeaders(req)
+    });
+    return res.end(JSON.stringify({
+      googleClientIdConfigured: rawId.length > 0,
+      length: rawId.length,
+      endsWithGoogleusercontent: rawId.endsWith('.apps.googleusercontent.com')
+    }));
+  }
+
+  // 1. Đăng xuất tài khoản sạch (POST /api/auth/logout)
+  if (reqPath === '/api/auth/logout' && req.method === 'POST') {
+    const cookies = parseCookies(req);
+    const token = cookies['cd_session'] || (req.headers.authorization && req.headers.authorization.replace('Bearer ', '').trim());
+    if (token) {
+      deleteSession(token);
+    }
+    clearSessionCookie(res, req);
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+      ...getCorsHeaders(req)
+    });
+    res.end(JSON.stringify({ success: true, message: 'Đăng xuất thành công' }));
+    return;
+  }
   
-  // 1. Đăng ký tài khoản mới (Register với Xác nhận mật khẩu & Kiểm tra trùng lặp)
+  // 2. Đăng ký tài khoản mới bằng Email (Register)
   if (reqPath === '/api/auth/register' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
       const { name, email, username, password, confirmPassword, exam, targetScore } = payload;
 
       if (!name || !name.trim()) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập đầy đủ Họ và tên!' }));
       }
 
-      const loginAccount = (username || email || '').trim().toLowerCase();
+      const cleanEmail = (email || '').trim().toLowerCase();
+      const loginAccount = (username || cleanEmail).trim().toLowerCase();
       if (!loginAccount) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập Email hoặc Tên đăng nhập!' }));
       }
 
+      if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Định dạng email không hợp lệ!' }));
+      }
+
       if (!password || password.length < 6) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Mật khẩu phải chứa ít nhất 6 ký tự để đảm bảo bảo mật!' }));
       }
 
       if (password !== confirmPassword) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Mật khẩu xác nhận không khớp! Vui lòng nhập lại chính xác.' }));
       }
 
       const users = loadUsersDatabase();
       const isDuplicate = users.some(u => 
-        (u.email && u.email.toLowerCase() === loginAccount) ||
+        (cleanEmail && u.email && u.email.toLowerCase() === cleanEmail) ||
         (u.username && u.username.toLowerCase() === loginAccount)
       );
 
       if (isDuplicate) {
-        res.writeHead(409, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(409, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Email hoặc Tên đăng nhập này đã được đăng ký! Vui lòng chọn tên khác hoặc bấm Đăng nhập.' }));
       }
 
@@ -1014,12 +1444,12 @@ const server = http.createServer((req, res) => {
       const newUser = {
         id: newUserId,
         name: name.trim(),
-        email: email ? email.trim() : `${loginAccount}@cungdang.app`,
+        email: cleanEmail || `${loginAccount}@cungdang.app`,
         username: username ? username.trim().toLowerCase() : loginAccount,
-        password: password,
+        password: hashPassword(password),
         exam: exam || 'TOEIC',
-        targetScore: targetScore || '650',
-        examDate: '20/12/2026',
+        targetScore: targetScore || '',
+        examDate: '',
         avatarColor: randomColor,
         authProvider: 'local',
         createdAt: new Date().toISOString()
@@ -1028,29 +1458,36 @@ const server = http.createServer((req, res) => {
       users.unshift(newUser);
       saveUsersDatabase(users);
 
-      // Khởi tạo hồ sơ học tập trắng cho người dùng mới
+      // Tạo hồ sơ khởi tạo trắng cho người dùng mới
       saveUserProfile(newUserId, {
         userId: newUserId,
-        state: { xp: 10, streak: 1, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+        state: { xp: 0, streak: 0, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+        activityDates: [],
         learnedVocabItems: [],
         savedVocabItems: [],
-        takeNotesList: [{
-          id: 'note-welcome-' + Date.now(),
-          title: `📒 Sổ tay của ${newUser.name}`,
-          category: 'Ngữ pháp',
-          paper: 'paper-lined',
-          updatedAt: 'Vừa xong',
-          updatedAtMs: Date.now(),
-          content: `<p>Xin chào <strong>${newUser.name}</strong>! Chúc bạn ôn thi <strong>${newUser.exam}</strong> đạt mục tiêu <strong>${newUser.targetScore}</strong> điểm!</p><p>Mọi ghi chú, ảnh chụp và từ vựng của bạn đều được sao lưu tự động an toàn tại đây.</p>`
-        }]
+        takeNotesList: [],
+        savedGrammarNotes: [],
+        savedWords: [],
+        copyingHistory: [],
+        dictationHistory: [],
+        mockHistory: []
       });
 
-      // Tạo token phiên
-      const sessionToken = Buffer.from(`${newUserId}:${Date.now()}`).toString('base64');
+      // Di chuyển dữ liệu cũ nếu là chủ sở hữu
+      migrateOwnerDataIfEligible(newUser);
+
+      // Tạo phiên đăng nhập máy chủ và thiết lập cookie HttpOnly
+      const sessionToken = createSession(newUserId);
+      setSessionCookie(res, req, sessionToken);
+
       const safeUser = { ...newUser };
       delete safeUser.password;
 
-      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
       res.end(JSON.stringify({
         success: true,
         message: 'Đăng ký tài khoản thành công! Chào mừng bạn gia nhập Cùng Đăng Ra Trường.',
@@ -1061,15 +1498,19 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 2. Đăng nhập tài khoản (Login)
+  // 3. Đăng nhập tài khoản bằng Email / Tên đăng nhập (Login)
   if (reqPath === '/api/auth/login' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      const { loginId, password } = payload;
-      const accountQuery = (loginId || '').trim().toLowerCase();
+      const { loginId, email, username, password } = payload || {};
+      const accountQuery = (loginId || email || username || '').trim().toLowerCase();
 
-      if (!accountQuery) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
-        return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập Email hoặc Tên đăng nhập!' }));
+      if (!accountQuery || !password) {
+        res.writeHead(401, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        return res.end(JSON.stringify({ success: false, error: 'Từ chối xác thực: Đăng nhập bắt buộc mật khẩu hoặc xác thực Google thật. Máy chủ không tin tưởng email đơn thuần!' }));
       }
 
       const users = loadUsersDatabase();
@@ -1079,21 +1520,37 @@ const server = http.createServer((req, res) => {
       );
 
       if (!matched) {
-        res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Tài khoản không tồn tại trong hệ thống! Vui lòng kiểm tra lại hoặc Đăng ký mới.' }));
       }
 
-      // Xác thực mật khẩu (Nếu tài khoản có mật khẩu)
-      if (matched.password && matched.password !== password) {
-        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      // Xác thực mật khẩu
+      if (!verifyPassword(password, matched.password)) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Mật khẩu không chính xác! Vui lòng thử lại.' }));
       }
 
-      const sessionToken = Buffer.from(`${matched.id}:${Date.now()}`).toString('base64');
+      // Nâng cấp băm mật khẩu nếu tài khoản cũ dùng plain text
+      if (matched.password && !matched.password.includes(':')) {
+        matched.password = hashPassword(password);
+        saveUsersDatabase(users);
+      }
+
+      // Di chuyển dữ liệu cũ nếu là chủ sở hữu
+      migrateOwnerDataIfEligible(matched);
+
+      // Tạo phiên và cookie HttpOnly
+      const sessionToken = createSession(matched.id);
+      setSessionCookie(res, req, sessionToken);
+
       const safeUser = { ...matched };
       delete safeUser.password;
 
-      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
       res.end(JSON.stringify({
         success: true,
         message: `Chào mừng ${matched.name} đã đăng nhập thành công!`,
@@ -1104,82 +1561,136 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 3. Đăng nhập / Đăng ký qua Google (Google Sign-In 1-Click)
+  // 4. Đăng nhập / Đăng ký qua Google (Google Sign-In GIS chuẩn xác thực ID Token)
   if (reqPath === '/api/auth/google' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      const { email, name, googleId, avatar } = payload;
-      const gEmail = (email || '').trim().toLowerCase();
+      const { credential } = payload || {};
 
-      if (!gEmail) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
-        return res.end(JSON.stringify({ success: false, error: 'Không nhận được thông tin email Google!' }));
+      if (!credential) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Từ chối xác thực: Thiếu mã token Google Credential. Máy chủ không chấp nhận thông tin không có chữ ký số Google!' }));
       }
 
-      const users = loadUsersDatabase();
-      let user = users.find(u => (u.email && u.email.toLowerCase() === gEmail) || (u.googleId && u.googleId === googleId));
+      // Hàm xác thực ID Token với Google
+      const verifyToken = (idToken, cb) => {
+        // Chỉ cho phép mock token khi đang chạy bộ kiểm thử tự động nội bộ (NODE_ENV === 'test' hoặc ALLOW_MOCK_GOOGLE_AUTH === 'true'), tuyệt đối tắt ở production
+        if ((process.env.NODE_ENV === 'test' || process.env.ALLOW_MOCK_GOOGLE_AUTH === 'true') && idToken.startsWith('test-mock-token:')) {
+          const parts = idToken.split(':');
+          return cb(null, {
+            sub: parts[1] || 'mock-google-sub',
+            email: parts[2] || 'test@gmail.com',
+            name: parts[3] || 'Google User',
+            picture: '',
+            email_verified: 'true'
+          });
+        }
 
-      if (!user) {
-        const newUserId = 'acc-g-' + Date.now();
-        user = {
-          id: newUserId,
-          name: name || gEmail.split('@')[0],
-          email: gEmail,
-          username: gEmail.split('@')[0],
-          googleId: googleId || ('g-' + Date.now()),
-          avatar: avatar || '',
-          avatarColor: 'bg-emerald-600',
-          exam: 'TOEIC',
-          targetScore: '650',
-          examDate: '20/12/2026',
-          authProvider: 'google',
-          createdAt: new Date().toISOString()
-        };
-        users.unshift(user);
-        saveUsersDatabase(users);
-
-        // Tạo profile khởi tạo
-        saveUserProfile(user.id, {
-          userId: user.id,
-          state: { xp: 20, streak: 1, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
-          learnedVocabItems: [],
-          savedVocabItems: [],
-          takeNotesList: [{
-            id: 'note-welcome-g-' + Date.now(),
-            title: `📒 Sổ tay của ${user.name}`,
-            category: 'Ngữ pháp',
-            paper: 'paper-lined',
-            updatedAt: 'Vừa xong',
-            updatedAtMs: Date.now(),
-            content: `<p>Xin chào <strong>${user.name}</strong>! Chúc bạn học tốt với tài khoản Google <strong>${gEmail}</strong>.</p>`
-          }]
+        const tokenUrl = `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`;
+        https.get(tokenUrl, (gRes) => {
+          let body = '';
+          gRes.on('data', chunk => body += chunk);
+          gRes.on('end', () => {
+            try {
+              const info = JSON.parse(body);
+              if (gRes.statusCode !== 200 || info.error) {
+                return cb(new Error(info.error_description || info.error || 'Mã ID Token của Google không hợp lệ!'));
+              }
+              const expectedAud = (process.env.GOOGLE_CLIENT_ID || '').trim();
+              if (expectedAud && info.aud !== expectedAud) {
+                return cb(new Error('Mã Client ID không khớp với cấu hình hệ thống!'));
+              }
+              if (info.iss !== 'accounts.google.com' && info.iss !== 'https://accounts.google.com') {
+                return cb(new Error('Đơn vị phát hành token không phải Google!'));
+              }
+              if (info.email_verified !== 'true' && info.email_verified !== true) {
+                return cb(new Error('Email Google chưa được xác thực!'));
+              }
+              cb(null, info);
+            } catch (err) {
+              cb(new Error('Lỗi giải mã token Google: ' + err.message));
+            }
+          });
+        }).on('error', (err) => {
+          cb(new Error('Không thể kết nối đến máy chủ Google: ' + err.message));
         });
-      }
+      };
 
-      const sessionToken = Buffer.from(`${user.id}:${Date.now()}`).toString('base64');
-      const safeUser = { ...user };
-      delete safeUser.password;
+      verifyToken(credential, (err, gInfo) => {
+        if (err || !gInfo) {
+          res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+          return res.end(JSON.stringify({ success: false, error: err ? err.message : 'Xác thực Google thất bại' }));
+        }
 
-      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
-      res.end(JSON.stringify({
-        success: true,
-        message: `Đăng nhập Google thành công! Xin chào ${user.name}.`,
-        user: safeUser,
-        token: sessionToken
-      }));
+        const gEmail = (gInfo.email || '').trim().toLowerCase();
+        const gSub = gInfo.sub;
+        const gName = gInfo.name || gEmail.split('@')[0];
+        const gPicture = gInfo.picture || '';
+
+        const users = loadUsersDatabase();
+        let user = users.find(u => (u.googleSub && u.googleSub === gSub) || (u.email && u.email.toLowerCase() === gEmail));
+
+        if (!user) {
+          const newUserId = 'acc-g-' + Date.now();
+          user = {
+            id: newUserId,
+            name: gName,
+            email: gEmail,
+            username: gEmail.split('@')[0],
+            googleSub: gSub,
+            avatar: gPicture,
+            avatarColor: 'bg-emerald-600',
+            exam: 'TOEIC',
+            targetScore: '',
+            examDate: '',
+            authProvider: 'google',
+            createdAt: new Date().toISOString()
+          };
+          users.unshift(user);
+          saveUsersDatabase(users);
+
+          saveUserProfile(user.id, {
+            userId: user.id,
+            state: { xp: 0, streak: 0, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+            activityDates: [],
+            learnedVocabItems: [],
+            savedVocabItems: [],
+            takeNotesList: [],
+            savedGrammarNotes: [],
+            savedWords: [],
+            copyingHistory: [],
+            dictationHistory: [],
+            mockHistory: []
+          });
+        } else {
+          // Cập nhật googleSub nếu trước đó đăng ký bằng email thường
+          if (!user.googleSub) user.googleSub = gSub;
+          if (gPicture && !user.avatar) user.avatar = gPicture;
+          saveUsersDatabase(users);
+        }
+
+        // Di chuyển dữ liệu cũ nếu là chủ sở hữu
+        migrateOwnerDataIfEligible(user);
+
+        // Tạo phiên đăng nhập máy chủ và thiết lập cookie HttpOnly
+        const sessionToken = createSession(user.id);
+        setSessionCookie(res, req, sessionToken);
+
+        const safeUser = { ...user };
+        delete safeUser.password;
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        res.end(JSON.stringify({
+          success: true,
+          message: `Đăng nhập Google thành công! Xin chào ${user.name}.`,
+          user: safeUser,
+          token: sessionToken
+        }));
+      });
     });
-    return;
-  }
-
-  // 4. Danh sách tài khoản công khai (Không trả về mật khẩu) cho chuyển tài khoản / cộng đồng
-  if (reqPath === '/api/auth/users-list' && req.method === 'GET') {
-    const users = loadUsersDatabase();
-    const safeUsers = users.map(u => {
-      const copy = { ...u };
-      delete copy.password;
-      return copy;
-    });
-    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
-    res.end(JSON.stringify({ success: true, users: safeUsers }));
     return;
   }
 
@@ -1187,26 +1698,74 @@ const server = http.createServer((req, res) => {
   // API: USER PROGRESS PERSISTENCE (LƯU TRỮ VÀ KHÔI PHỤC TIẾN ĐỘ HỌC CÁ NHÂN)
   // =========================================================================
 
-  // 1. Tải tiến độ học của người dùng
+  // 1. Tải tiến độ học của người dùng (Bắt buộc xác thực phiên)
   if (reqPath === '/api/user/load-progress' && req.method === 'GET') {
-    const userId = queryParams.get('userId') || 'acc-dang';
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
     const profile = loadUserProfile(userId);
-    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+      ...getCorsHeaders(req)
+    });
     res.end(JSON.stringify({ success: true, data: profile }));
     return;
   }
 
-  // 2. Lưu tiến độ học của người dùng (Zero Data Loss)
+  // 2. Lưu tiến độ học của người dùng (Bắt buộc xác thực phiên - Không nhận userId từ client)
   if (reqPath === '/api/user/save-progress' && req.method === 'POST') {
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
     parseJsonBody(req, res, payload => {
-      const { userId, data } = payload;
-      if (!userId) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
-        return res.end(JSON.stringify({ success: false, error: 'Thiếu định danh người dùng userId' }));
-      }
-      const saved = saveUserProfile(userId, data);
-      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      const dataToSave = payload.data || payload;
+      const saved = saveUserProfile(userId, dataToSave);
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
       res.end(JSON.stringify({ success: true, data: saved }));
+    });
+    return;
+  }
+
+  // 2b. Ghi nhận hoạt động học tập để cập nhật streak (POST /api/user/record-activity)
+  if (reqPath === '/api/user/record-activity' && req.method === 'POST') {
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
+    parseJsonBody(req, res, payload => {
+      const activityDate = payload?.activityDate || null;
+      const streakInfo = recordStudyActivity(userId, activityDate);
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      res.end(JSON.stringify({ success: true, streakInfo }));
     });
     return;
   }
@@ -1216,12 +1775,12 @@ const server = http.createServer((req, res) => {
     parseJsonBody(req, res, payload => {
       const { question, context, trapTitle } = payload || {};
       if (!question && !context) {
-        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Thiếu nội dung câu hỏi thắc mắc' }));
       }
 
       answerWithTOEICAI(question, context, trapTitle, (aiResponse) => {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         res.end(JSON.stringify({ success: true, answer: aiResponse }));
       });
     });
@@ -1232,8 +1791,8 @@ const server = http.createServer((req, res) => {
   if (reqPath === '/health' || reqPath === '/api/ping') {
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      ...getCorsHeaders(req)
     });
     res.end(JSON.stringify({
       status: 'ok',
@@ -1250,7 +1809,7 @@ const server = http.createServer((req, res) => {
     handleDictionaryLookup(rawWord, (lookupResult) => {
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Access-Control-Allow-Origin': '*'
+        ...getCorsHeaders(req)
       });
       res.end(JSON.stringify(lookupResult));
     });
@@ -1261,19 +1820,28 @@ const server = http.createServer((req, res) => {
   // API REALTIME ĐỒNG BỘ HỌC TẬP LAPTOP ⇄ ĐIỆN THOẠI (SSE STREAM & POST)
   // =========================================================================
   if (reqPath === '/api/study-sync/stream') {
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
     res.writeHead(200, {
       'Content-Type': 'text/event-stream; charset=UTF-8',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
-      'Access-Control-Allow-Origin': '*'
+      ...getCorsHeaders(req)
     });
     res.write(`: connected\n\n`);
-    const targetUserId = queryParams.get('userId');
-    res.userId = targetUserId || null;
+    res.userId = userId;
     sseClients.add(res);
 
-    const initData = targetUserId ? loadUserProfile(targetUserId) : loadSyncStore();
-    res.write(`data: ${JSON.stringify({ type: 'INIT_STATE', data: initData, userId: targetUserId })}\n\n`);
+    const initData = loadUserProfile(userId);
+    res.write(`data: ${JSON.stringify({ type: 'INIT_STATE', data: initData, userId: userId })}\n\n`);
 
     req.on('close', () => {
       sseClients.delete(res);
@@ -1282,26 +1850,47 @@ const server = http.createServer((req, res) => {
   }
 
   if (reqPath === '/api/study-sync' && req.method === 'GET') {
-    const targetUserId = queryParams.get('userId');
-    const data = targetUserId ? loadUserProfile(targetUserId) : loadSyncStore();
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
+    const data = loadUserProfile(userId);
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*'
+      'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+      ...getCorsHeaders(req)
     });
     res.end(JSON.stringify({ success: true, data: data }));
     return;
   }
 
   if (reqPath === '/api/study-sync' && req.method === 'POST') {
+    const userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      res.writeHead(401, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
     parseJsonBody(req, res, payload => {
+      payload.userId = userId;
       const merged = saveAndMergeSyncStore(payload);
 
-      // Phát sóng sự kiện Real-time tới tất cả các thiết bị kết nối
+      // Phát sóng sự kiện Real-time tới đúng các thiết bị của người dùng này
       broadcastSyncEvent({
         type: 'SYNC_UPDATE',
         senderDeviceId: payload.deviceId,
         senderDeviceName: payload.deviceName || 'Thiết bị khác',
-        userId: payload.userId || 'acc-dang',
+        userId: userId,
         action: payload.action || 'LEARN_PROGRESS',
         lastActionWord: payload.lastActionWord || null,
         xpGained: payload.xpGained || 0,
@@ -1311,7 +1900,8 @@ const server = http.createServer((req, res) => {
 
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Access-Control-Allow-Origin': '*'
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
       });
       res.end(JSON.stringify({ success: true, data: merged }));
     });
@@ -1344,13 +1934,28 @@ const server = http.createServer((req, res) => {
       }
       const ext = path.extname(filePath).toLowerCase();
       const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      
+      let outContent = content;
+      if (ext === '.html') {
+        const rawClientId = (process.env.GOOGLE_CLIENT_ID || '').trim();
+        let htmlStr = content.toString('utf8');
+        const injection = `<script>window.googleAuthClientId = ${JSON.stringify(rawClientId)};</script>`;
+        htmlStr = htmlStr.replace('</head>', `${injection}\n</head>`);
+        if (rawClientId) {
+          htmlStr = htmlStr.replace('id="googleSignInSectionLogin" class="hidden"', 'id="googleSignInSectionLogin"');
+          htmlStr = htmlStr.replace('id="googleSignInSectionRegister" class="hidden"', 'id="googleSignInSectionRegister"');
+        }
+        outContent = Buffer.from(htmlStr, 'utf8');
+      }
+
+      const isNoCacheFile = ext === '.html' || ext === '.js' || ext === '.json' || filePath.endsWith('sw.js');
       res.writeHead(200, {
         'Content-Type': contentType,
         'Access-Control-Allow-Origin': '*',
         'Service-Worker-Allowed': '/',
-        'Cache-Control': (ext === '.html' || ext === '.js' || ext === '.json') ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400'
+        'Cache-Control': isNoCacheFile ? 'no-cache, no-store, must-revalidate, max-age=0' : 'public, max-age=86400'
       });
-      res.end(content);
+      res.end(outContent);
     });
   });
 });

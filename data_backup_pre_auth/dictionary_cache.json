@@ -1,0 +1,730 @@
+{
+  "territory": {
+    "word": "territory",
+    "phonetic": "/ˈtɛɹɪt(ə)ɹi/",
+    "partOfSpeech": "Noun",
+    "vi": "lãnh thổ",
+    "definition": "A large extent or tract of land; for example a region, country or district.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "territory",
+          "vi": "lãnh thổ"
+        },
+        {
+          "term": "territoriality",
+          "vi": "tính lãnh thổ, ý thức bảo vệ địa bàn"
+        }
+      ],
+      "verb": [
+        {
+          "term": "territorialize",
+          "vi": "phân định địa bàn, quy hoạch khu vực"
+        }
+      ],
+      "adj": [
+        {
+          "term": "territorial",
+          "vi": "thuộc lãnh thổ, mang tính địa bàn (territorial waters)"
+        }
+      ],
+      "adv": [
+        {
+          "term": "territorially",
+          "vi": "về mặt lãnh thổ"
+        }
+      ]
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "expand one's territory",
+        "vi": "mở rộng territory"
+      },
+      {
+        "en": "assigned territory",
+        "vi": "territory được phân công phụ trách"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"territory\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"territory\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"territory\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "sales territory": {
+    "word": "sales territory",
+    "phonetic": "",
+    "partOfSpeech": "Cụm từ / Collocation",
+    "vi": "khu vực tiêu thụ",
+    "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
+    "examTag": "TOEIC Collocation / Phrasal Expression",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "sales territory",
+        "vi": "khu vực tiêu thụ"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Bí kíp Part 5 & 6: Ghi nhớ nguyên cụm \"sales territory\" giúp bạn phản xạ đáp án trong 3 giây mà không cần dịch nghĩa từng từ!",
+    "examples": [
+      {
+        "en": "It is critical to utilize \"sales territory\" correctly in official business correspondence.",
+        "vi": "Việc sử dụng chuẩn xác cụm từ \"sales territory\" là rất quan trọng trong thư tín thương mại chính thức."
+      }
+    ]
+  },
+  "cozy": {
+    "word": "cozy",
+    "phonetic": "/ˈcozy/",
+    "partOfSpeech": "Noun & Verb & Adjective",
+    "vi": "Cozy.",
+    "definition": "A padded or knit covering put on an item to keep it warm, especially a teapot or egg.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "cozy",
+          "vi": "Cozy."
+        }
+      ],
+      "verb": [
+        {
+          "term": "cozy",
+          "vi": "Cozy."
+        }
+      ],
+      "adj": [
+        {
+          "term": "cozy",
+          "vi": "Cozy."
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "snug"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "expand one's cozy",
+        "vi": "mở rộng cozy"
+      },
+      {
+        "en": "assigned cozy",
+        "vi": "cozy được phân công phụ trách"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"cozy\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"cozy\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"cozy\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "knight": {
+    "word": "knight",
+    "phonetic": "/naɪt/",
+    "partOfSpeech": "Noun",
+    "vi": "Hiệp sĩ",
+    "definition": "A young servant or follower; a trained military attendant in service of a lord.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "knight",
+          "vi": "Hiệp sĩ"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "horse"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "expand one's knight",
+        "vi": "mở rộng knight"
+      },
+      {
+        "en": "assigned knight",
+        "vi": "knight được phân công phụ trách"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"knight\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"knight\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"knight\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "night": {
+    "word": "night",
+    "phonetic": "/naɪt/",
+    "partOfSpeech": "Noun & Verb & Interjection",
+    "vi": "đêm",
+    "definition": "The period between sunset and sunrise, when a location faces far away from the sun, thus when the sky is dark.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "night",
+          "vi": "đêm"
+        }
+      ],
+      "verb": [
+        {
+          "term": "night",
+          "vi": "đêm"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "blackness",
+      "darkness",
+      "gloom",
+      "obscurity",
+      "shadow",
+      "evening",
+      "dark",
+      "dusk"
+    ],
+    "antonyms": [
+      "brightness",
+      "daylight",
+      "light",
+      "day"
+    ],
+    "collocations": [
+      {
+        "en": "expand one's night",
+        "vi": "mở rộng night"
+      },
+      {
+        "en": "assigned night",
+        "vi": "night được phân công phụ trách"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"night\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "How do you sleep at night when you attack your kids like that!?",
+        "vi": "Ví dụ: \"How do you sleep at night when you attack your kids like that!?\""
+      },
+      {
+        "en": "Night, y'all! Thanks for a great evening!",
+        "vi": "Ví dụ: \"Night, y'all! Thanks for a great evening!\""
+      }
+    ]
+  },
+  "haft": {
+    "word": "haft",
+    "phonetic": "/ˈhaft/",
+    "partOfSpeech": "General Vocabulary",
+    "vi": "Chuôi dao",
+    "definition": "An essential English term in academic and professional communication.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "expand one's haft",
+        "vi": "mở rộng haft"
+      },
+      {
+        "en": "assigned haft",
+        "vi": "haft được phân công phụ trách"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"haft\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"haft\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"haft\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "country": {
+    "word": "country",
+    "phonetic": "/ˈkʌn.tri/",
+    "partOfSpeech": "Noun & Adjective",
+    "vi": "Quốc gia, đất nước, quê hương (Danh từ); thuộc nông thôn, miền quê (Tính từ)",
+    "definition": "An area of land that is controlled by its own government; an area outside cities with fields, woods, and farms.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "country",
+          "vi": "quốc gia, đất nước, vùng thôn quê"
+        },
+        {
+          "term": "countryside",
+          "vi": "miền quê, vùng nông thôn thanh bình"
+        },
+        {
+          "term": "compatriot",
+          "vi": "đồng bào, người cùng nước"
+        },
+        {
+          "term": "countryman",
+          "vi": "người đồng hương, người sống ở nông thôn"
+        }
+      ],
+      "verb": [
+        {
+          "term": "nationalize",
+          "vi": "quốc hữu hóa (đưa tài sản về sở hữu nhà nước)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "country",
+          "vi": "thuộc miền quê (country house, country road)"
+        },
+        {
+          "term": "countrywide",
+          "vi": "trên quy mô toàn quốc, khắp cả nước"
+        },
+        {
+          "term": "cross-country",
+          "vi": "xuyên quốc gia, băng đồng"
+        }
+      ],
+      "adv": [
+        {
+          "term": "countrywide",
+          "vi": "trên toàn bộ lãnh thổ quốc gia"
+        },
+        {
+          "term": "nationwide",
+          "vi": "trên phạm vi toàn quốc"
+        }
+      ]
+    },
+    "synonyms": [
+      "nation",
+      "state",
+      "homeland",
+      "territory",
+      "countryside",
+      "rural area"
+    ],
+    "antonyms": [
+      "city",
+      "metropolis",
+      "urban center"
+    ],
+    "collocations": [
+      {
+        "en": "across the country",
+        "vi": "trên khắp cả nước"
+      },
+      {
+        "en": "host country",
+        "vi": "quốc gia đăng cai tổ chức"
+      },
+      {
+        "en": "developing / developed country",
+        "vi": "quốc gia đang phát triển / phát triển"
+      },
+      {
+        "en": "country of origin",
+        "vi": "nước xuất xứ của hàng hóa"
+      },
+      {
+        "en": "countrywide distribution network",
+        "vi": "mạng lưới phân phối trên toàn quốc"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "go to the country",
+        "vi": "tiến hành tổng tuyển cử toàn quốc"
+      },
+      {
+        "en": "another country",
+        "vi": "một thế giới hoàn toàn khác biệt"
+      }
+    ],
+    "toeicNote": "💡 Chú ý trong bài thi: Khi muốn diễn đạt 'trên phạm vi toàn quốc', đề thi TOEIC thường dùng trạng từ 'nationwide' hoặc 'countrywide' (e.g. Sales increased nationwide).",
+    "examples": [
+      {
+        "en": "The company operates over two hundred stores across the country.",
+        "vi": "Công ty vận hành hơn 200 cửa hàng trên khắp cả nước."
+      },
+      {
+        "en": "Our products meet strict safety standards in every destination country.",
+        "vi": "Sản phẩm của chúng tôi đáp ứng các tiêu chuẩn an toàn nghiêm ngặt tại mọi quốc gia xuất khẩu."
+      }
+    ]
+  },
+  "half": {
+    "word": "half",
+    "phonetic": "/hɑːf/",
+    "partOfSpeech": "Noun, Adjective & Adverb",
+    "vi": "Một nửa, phần chia đôi (Danh từ/Tính từ); chia đôi, giảm một nửa (Động từ: halve)",
+    "definition": "One of two usually roughly equal parts into which anything may be divided.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "half",
+          "vi": "một nửa, phần nửa"
+        },
+        {
+          "term": "halves",
+          "vi": "các nửa (dạng danh từ số nhiều)"
+        }
+      ],
+      "verb": [
+        {
+          "term": "halve",
+          "vi": "chia đôi, giảm đi một nửa"
+        }
+      ],
+      "adj": [
+        {
+          "term": "half",
+          "vi": "nửa, một nửa (half price, a half portion)"
+        },
+        {
+          "term": "halfway",
+          "vi": "ở giữa chừng, thỏa hiệp"
+        }
+      ],
+      "adv": [
+        {
+          "term": "half",
+          "vi": "một nửa, một phần (half full, half cooked)"
+        },
+        {
+          "term": "halfway",
+          "vi": "ở lưng chừng, nửa đường"
+        }
+      ]
+    },
+    "synonyms": [
+      "portion",
+      "fraction",
+      "semi-",
+      "segment"
+    ],
+    "antonyms": [
+      "whole",
+      "entirety",
+      "total"
+    ],
+    "collocations": [
+      {
+        "en": "first half / second half of the year",
+        "vi": "nửa đầu / nửa cuối của năm"
+      },
+      {
+        "en": "cut / divide something in half",
+        "vi": "cắt / chia cái gì làm đôi"
+      },
+      {
+        "en": "half-price discount",
+        "vi": "giảm giá nửa giá (50%)"
+      },
+      {
+        "en": "half an hour",
+        "vi": "nửa tiếng đồng hồ (30 phút)"
+      },
+      {
+        "en": "meet somebody halfway",
+        "vi": "nhượng bộ, thỏa hiệp với ai đó"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "meet someone halfway",
+        "vi": "hai bên cùng nhượng bộ để đạt thỏa thuận"
+      },
+      {
+        "en": "not half bad",
+        "vi": "khá tốt, tốt hơn mong đợi"
+      }
+    ],
+    "toeicNote": "⚠️ Cấu trúc TOEIC Part 5: 'Half of the + Danh từ'. Động từ chia theo danh từ phía sau 'of': 'Half of the budget WAS spent' nhưng 'Half of the employees WERE present'. Động từ của 'half' là 'halve' (chia đôi).",
+    "examples": [
+      {
+        "en": "Operating profits dropped by more than half during the economic downturn.",
+        "vi": "Lợi nhuận hoạt động đã giảm hơn một nửa trong giai đoạn kinh tế suy thoái."
+      },
+      {
+        "en": "The engineering team managed to halve the production cycle time this quarter.",
+        "vi": "Đội ngũ kỹ thuật đã rút ngắn một nửa thời gian chu kỳ sản xuất trong quý này."
+      }
+    ]
+  },
+  "library": {
+    "word": "library",
+    "phonetic": "/ˈlibrary/",
+    "partOfSpeech": "General Vocabulary",
+    "vi": "thư viện",
+    "definition": "An essential English term in academic and professional communication.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "common use of library",
+        "vi": "cách sử dụng thông dụng của library"
+      },
+      {
+        "en": "key library factor",
+        "vi": "yếu tố library then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"library\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"library\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"library\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "sovereign": {
+    "word": "sovereign",
+    "phonetic": "/ˈsovereign/",
+    "partOfSpeech": "General Vocabulary",
+    "vi": "Chủ quyền",
+    "definition": "An essential English term in academic and professional communication.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "common use of sovereign",
+        "vi": "cách sử dụng thông dụng của sovereign"
+      },
+      {
+        "en": "key sovereign factor",
+        "vi": "yếu tố sovereign then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"sovereign\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"sovereign\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"sovereign\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "legislation": {
+    "word": "legislation",
+    "phonetic": "/ˌlɛd͡ʒɪsˈleɪʃən/",
+    "partOfSpeech": "Noun",
+    "vi": "pháp luật",
+    "definition": "The act of legislating; preparation and enactment of laws; the laws enacted.",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "legislation",
+          "vi": "pháp luật"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "common use of legislation",
+        "vi": "cách sử dụng thông dụng của legislation"
+      },
+      {
+        "en": "key legislation factor",
+        "vi": "yếu tố legislation then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"legislation\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"legislation\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"legislation\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "democracy": {
+    "word": "democracy",
+    "phonetic": "/dɪˈmɒkɹəsi/",
+    "partOfSpeech": "Noun",
+    "vi": "dân chủ",
+    "definition": "Rule by the people, especially as a form of government; either directly or through elected representatives (representative democracy).",
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "democracy",
+          "vi": "dân chủ"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "democratism"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "common use of democracy",
+        "vi": "cách sử dụng thông dụng của democracy"
+      },
+      {
+        "en": "key democracy factor",
+        "vi": "yếu tố democracy then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Chú ý vị trí từ loại của \"democracy\" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"democracy\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"democracy\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
+      }
+    ]
+  },
+  "greenhouse gas": {
+    "word": "greenhouse gas",
+    "phonetic": "",
+    "partOfSpeech": "Cụm từ / Collocation",
+    "vi": "khí gây ra hiệu ứng nhà kính",
+    "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
+    "examTag": "TOEIC Collocation / Phrasal Expression",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "greenhouse gas",
+        "vi": "khí gây ra hiệu ứng nhà kính"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Bí kíp Part 5 & 6: Ghi nhớ nguyên cụm \"greenhouse gas\" giúp bạn phản xạ đáp án trong 3 giây mà không cần dịch nghĩa từng từ!",
+    "examples": [
+      {
+        "en": "It is critical to utilize \"greenhouse gas\" correctly in official business correspondence.",
+        "vi": "Việc sử dụng chuẩn xác cụm từ \"greenhouse gas\" là rất quan trọng trong thư tín thương mại chính thức."
+      }
+    ]
+  },
+  "gross domestic product (gdp)": {
+    "word": "gross domestic product (gdp)",
+    "phonetic": "",
+    "partOfSpeech": "Cụm từ / Collocation",
+    "vi": "Tổng sản phẩm quốc nội (GDP)",
+    "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
+    "examTag": "TOEIC Collocation / Phrasal Expression",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "gross domestic product (gdp)",
+        "vi": "Tổng sản phẩm quốc nội (GDP)"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Bí kíp Part 5 & 6: Ghi nhớ nguyên cụm \"gross domestic product (gdp)\" giúp bạn phản xạ đáp án trong 3 giây mà không cần dịch nghĩa từng từ!",
+    "examples": [
+      {
+        "en": "It is critical to utilize \"gross domestic product (gdp)\" correctly in official business correspondence.",
+        "vi": "Việc sử dụng chuẩn xác cụm từ \"gross domestic product (gdp)\" là rất quan trọng trong thư tín thương mại chính thức."
+      }
+    ]
+  },
+  "economic policy": {
+    "word": "economic policy",
+    "phonetic": "",
+    "partOfSpeech": "Cụm từ / Collocation",
+    "vi": "chính sách kinh tế",
+    "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
+    "examTag": "TOEIC Collocation / Phrasal Expression",
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "economic policy",
+        "vi": "chính sách kinh tế"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Bí kíp Part 5 & 6: Ghi nhớ nguyên cụm \"economic policy\" giúp bạn phản xạ đáp án trong 3 giây mà không cần dịch nghĩa từng từ!",
+    "examples": [
+      {
+        "en": "It is critical to utilize \"economic policy\" correctly in official business correspondence.",
+        "vi": "Việc sử dụng chuẩn xác cụm từ \"economic policy\" là rất quan trọng trong thư tín thương mại chính thức."
+      }
+    ]
+  }
+}
