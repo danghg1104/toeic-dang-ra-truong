@@ -1,0 +1,6346 @@
+{
+  "economic": {
+    "headword": "economic",
+    "lemma": "economic",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌiː.kəˈnɒm.ɪk/",
+      "uk": "/ˌiː.kəˈnɒm.ɪk/"
+    },
+    "audio": {
+      "us": "/api/tts?text=economic&lang=en-US",
+      "uk": "/api/tts?text=economic&lang=en-GB"
+    },
+    "partOfSpeech": "Adjective",
+    "senses": [
+      {
+        "pos": "Adjective",
+        "defEn": "Connected with the trade, industry and development of wealth of a country, an area or a society.",
+        "meaningVi": "Thuộc về kinh tế, liên quan đến nền kinh tế",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The government announced a series of new economic policies to combat inflation.",
+            "vi": "Chính phủ vừa công bố một loạt chính sách kinh tế mới để kiểm soát lạm phát."
+          },
+          {
+            "en": "Hybrid vehicles are far more economical to drive in heavy city traffic.",
+            "vi": "Xe hybrid tiết kiệm chi phí hơn rất nhiều khi lái trong giờ cao điểm nội đô."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "economy",
+          "vi": "nền kinh tế, sự tiết kiệm"
+        },
+        {
+          "term": "economics",
+          "vi": "môn kinh tế học"
+        },
+        {
+          "term": "economist",
+          "vi": "nhà kinh tế học"
+        }
+      ],
+      "verb": [
+        {
+          "term": "economize",
+          "vi": "tiết kiệm chi tiêu, cắt giảm ngân sách"
+        }
+      ],
+      "adj": [
+        {
+          "term": "economic",
+          "vi": "thuộc kinh tế (economic policy, economic growth)"
+        },
+        {
+          "term": "economical",
+          "vi": "tiết kiệm, rẻ, kinh tế (an economical car, economical solution)"
+        }
+      ],
+      "adv": [
+        {
+          "term": "economically",
+          "vi": "về mặt kinh tế, một cách tiết kiệm"
+        }
+      ]
+    },
+    "synonyms": [
+      "financial",
+      "fiscal",
+      "monetary",
+      "commercial",
+      "profitable",
+      "thrifty"
+    ],
+    "antonyms": [
+      "uneconomical",
+      "wasteful",
+      "extravagant",
+      "loss-making"
+    ],
+    "collocations": [
+      {
+        "en": "economic growth / development",
+        "vi": "tăng trưởng / phát triển kinh tế"
+      },
+      {
+        "en": "economic crisis / downturn / recession",
+        "vi": "khủng hoảng / suy thoái kinh tế"
+      },
+      {
+        "en": "economic reform / policy",
+        "vi": "cải cách / chính sách kinh tế"
+      },
+      {
+        "en": "economical with energy / fuel",
+        "vi": "tiết kiệm năng lượng / nhiên liệu"
+      },
+      {
+        "en": "economize on expenses",
+        "vi": "thắt chặt chi tiêu, tiết kiệm chi phí"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "tighten one's belt",
+        "vi": "thắt lưng buộc bụng, cắt giảm chi tiêu trong giai đoạn khó khăn"
+      },
+      {
+        "en": "cut corners",
+        "vi": "đi đường tắt, cắt xén chi phí hoặc bỏ qua quy trình tiêu chuẩn"
+      },
+      {
+        "en": "pinch pennies",
+        "vi": "chắt bóp từng đồng, tằn tiện quá mức"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 500-900 / VSTEP B2-C1"
+    ],
+    "toeicNote": "⚠️ BẪY KINH ĐIỂN TOEIC PART 5: Đề thi thường cho 4 lựa chọn có cả 'economic' và 'economical'. Nhớ: 'economic' = thuộc về nền kinh tế (economic growth); 'economical' = tiết kiệm, đỡ tốn tiền (an economical small car).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "require": {
+    "headword": "require",
+    "lemma": "require",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/rɪˈkwaɪər/",
+      "uk": "/rɪˈkwaɪər/"
+    },
+    "audio": {
+      "us": "/api/tts?text=require&lang=en-US",
+      "uk": "/api/tts?text=require&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To need something; to depend on somebody/something; to demand by a law or rule.",
+        "meaningVi": "Yêu cầu, đòi hỏi, bắt buộc",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Applicants are required to submit three letters of recommendation with their resume.",
+            "vi": "Ứng viên được yêu cầu nộp 3 thư giới thiệu kèm theo sơ yếu lý lịch."
+          },
+          {
+            "en": "The proposed building expansion will require significant capital investment.",
+            "vi": "Dự án mở rộng tòa nhà sẽ đòi hỏi một khoản vốn đầu tư đáng kể."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "requirement",
+          "vi": "yêu cầu, điều kiện tiên quyết"
+        },
+        {
+          "term": "requisite",
+          "vi": "vật dụng cần thiết, điều kiện tất yếu"
+        }
+      ],
+      "verb": [
+        {
+          "term": "require",
+          "vi": "yêu cầu, bắt buộc"
+        }
+      ],
+      "adj": [
+        {
+          "term": "required",
+          "vi": "bắt buộc, được yêu cầu"
+        },
+        {
+          "term": "requisite",
+          "vi": "cần thiết, thiết yếu"
+        }
+      ],
+      "adv": [
+        {
+          "term": "requisitely",
+          "vi": "theo cách thiết yếu, cần thiết"
+        }
+      ]
+    },
+    "synonyms": [
+      "demand",
+      "necessitate",
+      "mandate",
+      "stipulate",
+      "call for",
+      "need"
+    ],
+    "antonyms": [
+      "exempt",
+      "waive",
+      "optional",
+      "eliminate"
+    ],
+    "collocations": [
+      {
+        "en": "meet / fulfill all requirements",
+        "vi": "đáp ứng / thỏa mãn mọi yêu cầu"
+      },
+      {
+        "en": "require prior approval",
+        "vi": "yêu cầu sự phê duyệt trước"
+      },
+      {
+        "en": "required by law",
+        "vi": "bị bắt buộc theo luật định"
+      },
+      {
+        "en": "strict safety requirements",
+        "vi": "những yêu cầu an toàn nghiêm ngặt"
+      },
+      {
+        "en": "minimum job requirements",
+        "vi": "yêu cầu công việc tối thiểu"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "stand in need of",
+        "vi": "đang trong tình trạng rất cần điều gì đó"
+      },
+      {
+        "en": "a must-have",
+        "vi": "thứ bắt buộc phải có, không thể thiếu"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 450+ / VSTEP B1-B2"
+    ],
+    "toeicNote": "Cấu trúc hay ra: 'require somebody to do something' (yêu cầu ai làm gì) và thể bị động: 'be required to do something' (bắt buộc phải làm gì).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "contract": {
+    "headword": "contract",
+    "lemma": "contract",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈkɒn.trækt/",
+      "uk": "/ˈkɒn.trækt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=contract&lang=en-US",
+      "uk": "/api/tts?text=contract&lang=en-GB"
+    },
+    "partOfSpeech": "Noun & Verb",
+    "senses": [
+      {
+        "pos": "Noun & Verb",
+        "defEn": "An official written agreement between two or more people, organizations, etc.",
+        "meaningVi": "Hợp đồng (danh từ); ký kết hợp đồng, thu hẹp lại (động từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Both parties agreed to review the terms of the contract before signing.",
+            "vi": "Cả hai bên đã đồng ý xem lại các điều khoản của hợp đồng trước khi đặt bút ký."
+          },
+          {
+            "en": "Failure to deliver the goods on schedule constitutes a breach of contract.",
+            "vi": "Việc không giao hàng đúng hạn cấu thành hành vi vi phạm hợp đồng."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "contract",
+          "vi": "bản hợp đồng, giao kèo"
+        },
+        {
+          "term": "contractor",
+          "vi": "nhà thầu, bên nhận thầu"
+        },
+        {
+          "term": "contraction",
+          "vi": "sự co rút, sự thu hẹp lại"
+        }
+      ],
+      "verb": [
+        {
+          "term": "contract",
+          "vi": "ký hợp đồng, giao kết; co lại"
+        },
+        {
+          "term": "subcontract",
+          "vi": "giao thầu phụ"
+        }
+      ],
+      "adj": [
+        {
+          "term": "contractual",
+          "vi": "thuộc về hợp đồng, có tính pháp lý"
+        }
+      ],
+      "adv": [
+        {
+          "term": "contractually",
+          "vi": "theo hợp đồng, chiếu theo quy định hợp đồng"
+        }
+      ]
+    },
+    "synonyms": [
+      "agreement",
+      "pact",
+      "deal",
+      "compact",
+      "covenant",
+      "treaty"
+    ],
+    "antonyms": [
+      "breach",
+      "cancellation",
+      "dissolution",
+      "expansion"
+    ],
+    "collocations": [
+      {
+        "en": "sign / terminate a contract",
+        "vi": "ký kết / chấm dứt một bản hợp đồng"
+      },
+      {
+        "en": "breach / violate a contract",
+        "vi": "vi phạm điều khoản hợp đồng"
+      },
+      {
+        "en": "renew a contract",
+        "vi": "gia hạn hợp đồng"
+      },
+      {
+        "en": "contractual obligation",
+        "vi": "nghĩa vụ theo hợp đồng"
+      },
+      {
+        "en": "binding contract",
+        "vi": "hợp đồng có giá trị ràng buộc pháp lý"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "seal the deal",
+        "vi": "chốt giao dịch, ký hợp đồng thành công"
+      },
+      {
+        "en": "in black and white",
+        "vi": "giấy trắng mực đen, rõ ràng minh bạch trên giấy tờ"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 500+ / VSTEP B1-B2"
+    ],
+    "toeicNote": "Phát âm: Danh từ đọc trọng âm rơi vào âm tiết 1 /ˈkɒn.trækt/, Động từ co lại/ký kết thường đọc trọng âm âm tiết 2 /kənˈtrækt/.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "produce": {
+    "headword": "produce",
+    "lemma": "produce",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/prəˈdjuːs/ (v) - /ˈprɒd.juːs/ (n)",
+      "uk": "/prəˈdjuːs/ (v) - /ˈprɒd.juːs/ (n)"
+    },
+    "audio": {
+      "us": "/api/tts?text=produce&lang=en-US",
+      "uk": "/api/tts?text=produce&lang=en-GB"
+    },
+    "partOfSpeech": "Verb & Noun",
+    "senses": [
+      {
+        "pos": "Verb & Noun",
+        "defEn": "To make things to be sold, especially in large quantities; (noun) things that have been made or grown, especially by farming.",
+        "meaningVi": "Sản xuất, chế tạo (động từ); nông sản tươi sống (danh từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The factory produces over five thousand automotive components every day.",
+            "vi": "Nhà máy sản xuất hơn 5.000 linh kiện ô tô mỗi ngày."
+          },
+          {
+            "en": "We buy our fresh produce directly from local organic farmers.",
+            "vi": "Chúng tôi mua nông sản tươi sống trực tiếp từ các nông dân hữu cơ địa phương."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "product",
+          "vi": "sản phẩm thành phẩm"
+        },
+        {
+          "term": "production",
+          "vi": "quá trình sản xuất, sản lượng"
+        },
+        {
+          "term": "producer",
+          "vi": "nhà sản xuất"
+        },
+        {
+          "term": "productivity",
+          "vi": "năng suất lao động"
+        },
+        {
+          "term": "produce",
+          "vi": "nông sản (rau củ quả tươi sống)"
+        }
+      ],
+      "verb": [
+        {
+          "term": "produce",
+          "vi": "sản xuất, tạo ra"
+        },
+        {
+          "term": "reproduce",
+          "vi": "tái sản xuất, sao chép"
+        }
+      ],
+      "adj": [
+        {
+          "term": "productive",
+          "vi": "năng suất cao, hiệu quả"
+        },
+        {
+          "term": "counterproductive",
+          "vi": "phản tác dụng, đem lại kết quả ngược"
+        }
+      ],
+      "adv": [
+        {
+          "term": "productively",
+          "vi": "một cách năng suất, hiệu quả cao"
+        }
+      ]
+    },
+    "synonyms": [
+      "manufacture",
+      "generate",
+      "create",
+      "yield",
+      "fabricate"
+    ],
+    "antonyms": [
+      "consume",
+      "destroy",
+      "deplete",
+      "demolish"
+    ],
+    "collocations": [
+      {
+        "en": "mass produce",
+        "vi": "sản xuất hàng loạt"
+      },
+      {
+        "en": "boost / increase productivity",
+        "vi": "thúc đẩy / nâng cao năng suất"
+      },
+      {
+        "en": "fresh local produce",
+        "vi": "nông sản tươi sống tại địa phương"
+      },
+      {
+        "en": "productive meeting",
+        "vi": "cuộc họp hiệu quả, năng suất"
+      },
+      {
+        "en": "production line",
+        "vi": "dây chuyền sản xuất"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "bear fruit",
+        "vi": "đơm hoa kết trái, mang lại thành quả tốt đẹp"
+      },
+      {
+        "en": "turn out",
+        "vi": "cho ra lò, xuất xưởng sản phẩm"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 400+ / VSTEP B1-C1"
+    ],
+    "toeicNote": "⚠️ Bẫy Part 5: 'Produce' là danh từ không đếm được chỉ nông sản (rau, quả). Khi nói về đồ dùng, máy móc, hàng hóa phải dùng 'Product' (đếm được).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "compete": {
+    "headword": "compete",
+    "lemma": "compete",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/kəmˈpiːt/",
+      "uk": "/kəmˈpiːt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=compete&lang=en-US",
+      "uk": "/api/tts?text=compete&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To try to be more successful than other companies or people in business, sports, etc.",
+        "meaningVi": "Cạnh tranh, đua tài, ganh đua",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Small businesses must offer exceptional service to compete with large corporations.",
+            "vi": "Các doanh nghiệp nhỏ phải cung cấp dịch vụ xuất sắc để cạnh tranh với các tập đoàn lớn."
+          },
+          {
+            "en": "Our newly launched software is competitively priced to attract corporate clients.",
+            "vi": "Phần mềm mới ra mắt của chúng tôi có giá rất cạnh tranh để thu hút khách hàng doanh nghiệp."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "competition",
+          "vi": "sự cạnh tranh, cuộc thi"
+        },
+        {
+          "term": "competitor",
+          "vi": "đối thủ cạnh tranh"
+        },
+        {
+          "term": "competitiveness",
+          "vi": "năng lực cạnh tranh"
+        },
+        {
+          "term": "competence",
+          "vi": "năng lực, trình độ chuyên môn"
+        }
+      ],
+      "verb": [
+        {
+          "term": "compete",
+          "vi": "cạnh tranh, thi đua"
+        }
+      ],
+      "adj": [
+        {
+          "term": "competitive",
+          "vi": "có tính cạnh tranh, giá cạnh tranh"
+        },
+        {
+          "term": "uncompetitive",
+          "vi": "kém cạnh tranh"
+        },
+        {
+          "term": "competent",
+          "vi": "thành thạo, có đủ năng lực"
+        }
+      ],
+      "adv": [
+        {
+          "term": "competitively",
+          "vi": "một cách cạnh tranh (competitively priced: giá cả rất cạnh tranh)"
+        },
+        {
+          "term": "competently",
+          "vi": "một cách thành thạo, có năng lực"
+        }
+      ]
+    },
+    "synonyms": [
+      "contend",
+      "vie",
+      "rival",
+      "contest",
+      "strive"
+    ],
+    "antonyms": [
+      "cooperate",
+      "collaborate",
+      "surrender",
+      "withdraw"
+    ],
+    "collocations": [
+      {
+        "en": "competitive edge / advantage",
+        "vi": "lợi thế cạnh tranh vượt trội"
+      },
+      {
+        "en": "competitively priced",
+        "vi": "được định giá cạnh tranh (rất hay gặp trong đề TOEIC!)"
+      },
+      {
+        "en": "fierce / intense competition",
+        "vi": "sự cạnh tranh khốc liệt"
+      },
+      {
+        "en": "compete against / with rivals",
+        "vi": "cạnh tranh với các đối thủ"
+      },
+      {
+        "en": "stay / remain competitive",
+        "vi": "duy trì vị thế cạnh tranh trên thị trường"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "run for one's money",
+        "vi": "tạo ra sự cạnh tranh gay gắt cho đối thủ"
+      },
+      {
+        "en": "ahead of the curve",
+        "vi": "đi trước đón đầu xu hướng, dẫn đầu cuộc đua"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 550+ / VSTEP B2"
+    ],
+    "toeicNote": "Cụm 'competitively priced' (được định giá cạnh tranh) xuất hiện với tần suất cực cao trong TOEIC Part 5 & 6.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "decide": {
+    "headword": "decide",
+    "lemma": "decide",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/dɪˈsaɪd/",
+      "uk": "/dɪˈsaɪd/"
+    },
+    "audio": {
+      "us": "/api/tts?text=decide&lang=en-US",
+      "uk": "/api/tts?text=decide&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To think carefully about the different possibilities that are available and choose one of them.",
+        "meaningVi": "Quyết định, định đoạt",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The board of directors will decide whether to approve the merger next Monday.",
+            "vi": "Hội đồng quản trị sẽ quyết định xem có phê duyệt thương vụ sáp nhập vào thứ Hai tới hay không."
+          },
+          {
+            "en": "A prompt and decisive response is critical when managing a customer service crisis.",
+            "vi": "Phản hồi nhanh chóng và dứt khoát là điều tối quan trọng khi xử lý khủng hoảng dịch vụ khách hàng."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "decision",
+          "vi": "quyết định"
+        },
+        {
+          "term": "decisiveness",
+          "vi": "tính quyết đoán"
+        }
+      ],
+      "verb": [
+        {
+          "term": "decide",
+          "vi": "quyết định"
+        }
+      ],
+      "adj": [
+        {
+          "term": "decisive",
+          "vi": "dứt khoát, mang tính bước ngoặt quyết định"
+        },
+        {
+          "term": "indecisive",
+          "vi": "do dự, thiếu quyết đoán"
+        },
+        {
+          "term": "decided",
+          "vi": "rõ rệt, dứt khoát"
+        }
+      ],
+      "adv": [
+        {
+          "term": "decisively",
+          "vi": "một cách dứt khoát, quyết đoán"
+        }
+      ]
+    },
+    "synonyms": [
+      "determine",
+      "resolve",
+      "settle",
+      "choose",
+      "opt"
+    ],
+    "antonyms": [
+      "hesitate",
+      "waver",
+      "delay",
+      "postpone"
+    ],
+    "collocations": [
+      {
+        "en": "make / reach a decision",
+        "vi": "đưa ra / đi đến một quyết định"
+      },
+      {
+        "en": "decisive factor / action",
+        "vi": "yếu tố quyết định / hành động dứt khoát"
+      },
+      {
+        "en": "decide against doing something",
+        "vi": "quyết định không làm điều gì đó"
+      },
+      {
+        "en": "unanimous decision",
+        "vi": "quyết định đồng thuận 100%"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "make up one's mind",
+        "vi": "hạ quyết tâm, quyết định dứt khoát"
+      },
+      {
+        "en": "sit on the fence",
+        "vi": "chần chừ, ba phải, chưa dám đưa ra quyết định"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 400+ / VSTEP B1"
+    ],
+    "toeicNote": "Sau 'decide' luôn đi với động từ to-V: 'decide to do something'. Danh từ là 'make a decision' (không dùng do a decision).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "apply": {
+    "headword": "apply",
+    "lemma": "apply",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/əˈplaɪ/",
+      "uk": "/əˈplaɪ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=apply&lang=en-US",
+      "uk": "/api/tts?text=apply&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To make a formal request, usually in writing, for something such as a job, a place at a college, or permission.",
+        "meaningVi": "Nộp đơn, ứng tuyển; áp dụng quy định",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Qualified candidates are encouraged to apply for the senior marketing manager post.",
+            "vi": "Các ứng viên đủ tiêu chuẩn được khuyến khích nộp đơn ứng tuyển vị trí giám đốc tiếp thị cấp cao."
+          },
+          {
+            "en": "The revised office safety rules apply to all permanent and contract personnel.",
+            "vi": "Quy định an toàn văn phòng sửa đổi được áp dụng cho toàn bộ nhân sự chính thức và thời vụ."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "application",
+          "vi": "đơn xin việc, ứng dụng, sự ứng dụng"
+        },
+        {
+          "term": "applicant",
+          "vi": "ứng viên nộp đơn"
+        },
+        {
+          "term": "appliance",
+          "vi": "thiết bị, đồ gia dụng (household appliances)"
+        },
+        {
+          "term": "applicability",
+          "vi": "khả năng ứng dụng thực tế"
+        }
+      ],
+      "verb": [
+        {
+          "term": "apply",
+          "vi": "ứng tuyển, áp dụng"
+        }
+      ],
+      "adj": [
+        {
+          "term": "applicable",
+          "vi": "có thể áp dụng được, thích hợp"
+        },
+        {
+          "term": "applied",
+          "vi": "ứng dụng (applied science: khoa học ứng dụng)"
+        }
+      ],
+      "adv": [
+        {
+          "term": "applicably",
+          "vi": "một cách thích hợp"
+        }
+      ]
+    },
+    "synonyms": [
+      "submit",
+      "petition",
+      "implement",
+      "utilize",
+      "employ"
+    ],
+    "antonyms": [
+      "withdraw",
+      "revoke",
+      "exempt",
+      "neglect"
+    ],
+    "collocations": [
+      {
+        "en": "apply for a position / grant",
+        "vi": "nộp đơn ứng tuyển một vị trí / xin tài trợ"
+      },
+      {
+        "en": "submit a job application",
+        "vi": "gửi đơn xin việc"
+      },
+      {
+        "en": "successful applicant",
+        "vi": "ứng viên trúng tuyển"
+      },
+      {
+        "en": "apply rules / regulations",
+        "vi": "áp dụng các quy tắc / quy định"
+      },
+      {
+        "en": "where applicable",
+        "vi": "nếu có thể áp dụng, nếu có"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "put into practice",
+        "vi": "đưa vào áp dụng thực tế"
+      },
+      {
+        "en": "throw one's hat into the ring",
+        "vi": "tuyên bố tham gia ứng cử hoặc tranh cử"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 450+ / VSTEP B1-B2"
+    ],
+    "toeicNote": "⚠️ Phân biệt bẫy cực hay gặp: 'Applicant' là người (ứng viên), 'Application' là vật (đơn xin việc / phần mềm).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "negotiate": {
+    "headword": "negotiate",
+    "lemma": "negotiate",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/nəˈɡoʊ.ʃi.eɪt/",
+      "uk": "/nəˈɡoʊ.ʃi.eɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=negotiate&lang=en-US",
+      "uk": "/api/tts?text=negotiate&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To try to reach an agreement by formal discussion with others.",
+        "meaningVi": "Đàm phán, thương lượng",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Our legal counsel will negotiate the final contract terms with the supplier.",
+            "vi": "Cố vấn pháp lý của chúng tôi sẽ thương lượng các điều khoản hợp đồng cuối cùng với nhà cung cấp."
+          },
+          {
+            "en": "After lengthy negotiations, the two firms agreed on a joint venture agreement.",
+            "vi": "Sau các cuộc đàm phán kéo dài, hai công ty đã thống nhất về thỏa thuận liên doanh."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "negotiation",
+          "vi": "cuộc đàm phán, quá trình thương lượng"
+        },
+        {
+          "term": "negotiator",
+          "vi": "nhà đàm phán"
+        }
+      ],
+      "verb": [
+        {
+          "term": "negotiate",
+          "vi": "thương lượng, đàm phán"
+        }
+      ],
+      "adj": [
+        {
+          "term": "negotiable",
+          "vi": "có thể thương lượng được (e.g. salary negotiable)"
+        },
+        {
+          "term": "non-negotiable",
+          "vi": "không thể thương lượng, bắt buộc cố định"
+        }
+      ],
+      "adv": [
+        {
+          "term": "negotiably",
+          "vi": "theo cách có thể thương lượng"
+        }
+      ]
+    },
+    "synonyms": [
+      "bargain",
+      "mediate",
+      "confer",
+      "settle",
+      "hammer out"
+    ],
+    "antonyms": [
+      "demand",
+      "dictate",
+      "impose",
+      "reject"
+    ],
+    "collocations": [
+      {
+        "en": "enter into negotiations",
+        "vi": "bước vào quá trình đàm phán"
+      },
+      {
+        "en": "negotiate a contract / lease",
+        "vi": "thương lượng hợp đồng / hợp đồng thuê"
+      },
+      {
+        "en": "salary is negotiable",
+        "vi": "mức lương có thể thỏa thuận (hay gặp ở tin tuyển dụng)"
+      },
+      {
+        "en": "successful negotiation",
+        "vi": "cuộc đàm phán thành công"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "meet halfway",
+        "vi": "thỏa hiệp, mỗi bên nhượng bộ một nửa"
+      },
+      {
+        "en": "drive a hard bargain",
+        "vi": "mặc cả quyết liệt để giành lợi thế tối đa"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 650+ / VSTEP B2-C1"
+    ],
+    "toeicNote": "Trong mục tuyển dụng TOEIC Part 7: 'Salary is negotiable depending on experience' (Lương thỏa thuận tùy theo kinh nghiệm làm việc).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "succeed": {
+    "headword": "succeed",
+    "lemma": "succeed",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/səkˈsiːd/",
+      "uk": "/səkˈsiːd/"
+    },
+    "audio": {
+      "us": "/api/tts?text=succeed&lang=en-US",
+      "uk": "/api/tts?text=succeed&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To achieve something that you have been trying to do or get; to come next after somebody/something and take their place.",
+        "meaningVi": "Thành công; kế nghiệp, kế vị",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The engineering team succeeded in launching the prototype ahead of deadline.",
+            "vi": "Đội ngũ kỹ thuật đã thành công trong việc cho ra mắt mẫu thử nghiệm trước thời hạn."
+          },
+          {
+            "en": "The company reported record profit growth for three successive financial years.",
+            "vi": "Công ty báo cáo mức tăng trưởng lợi nhuận kỷ lục trong ba năm tài chính liên tiếp."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "success",
+          "vi": "sự thành công"
+        },
+        {
+          "term": "successor",
+          "vi": "người kế nhiệm, người thừa kế"
+        },
+        {
+          "term": "succession",
+          "vi": "sự kế tiếp, chuỗi liên tiếp"
+        }
+      ],
+      "verb": [
+        {
+          "term": "succeed",
+          "vi": "thành công; kế nhiệm"
+        }
+      ],
+      "adj": [
+        {
+          "term": "successful",
+          "vi": "thành công, thắng lợi"
+        },
+        {
+          "term": "successive",
+          "vi": "liên tiếp, kế tiếp nhau (for three successive years: 3 năm liên tiếp)"
+        }
+      ],
+      "adv": [
+        {
+          "term": "successfully",
+          "vi": "một cách thành công"
+        },
+        {
+          "term": "successively",
+          "vi": "liên tiếp nhau, lần lượt"
+        }
+      ]
+    },
+    "synonyms": [
+      "triumph",
+      "prosper",
+      "flourish",
+      "follow",
+      "supersede"
+    ],
+    "antonyms": [
+      "fail",
+      "collapse",
+      "precede",
+      "surrender"
+    ],
+    "collocations": [
+      {
+        "en": "succeed in doing something",
+        "vi": "thành công trong việc làm gì"
+      },
+      {
+        "en": "achieve great success",
+        "vi": "đạt được thành công vang dội"
+      },
+      {
+        "en": "for three successive quarters",
+        "vi": "trong ba quý liên tiếp (rất hay thi!)"
+      },
+      {
+        "en": "name a successor",
+        "vi": "chỉ định người kế nhiệm chức vụ"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "hit the jackpot",
+        "vi": "trúng đậm, gặt hái thành công lớn ngoài mong đợi"
+      },
+      {
+        "en": "make it big",
+        "vi": "trở nên cực kỳ thành công và nổi tiếng"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 500+ / VSTEP B1-B2"
+    ],
+    "toeicNote": "⚠️ Bẫy Part 5: 'successful' = thành công (a successful project), nhưng 'successive' = liên tiếp (for five successive days). Rất nhiều bạn chọn nhầm!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "inform": {
+    "headword": "inform",
+    "lemma": "inform",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɪnˈfɔːrm/",
+      "uk": "/ɪnˈfɔːrm/"
+    },
+    "audio": {
+      "us": "/api/tts?text=inform&lang=en-US",
+      "uk": "/api/tts?text=inform&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To tell somebody about something, especially in an official way.",
+        "meaningVi": "Thông báo, báo tin, cho biết",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Please inform the human resources department immediately if your address changes.",
+            "vi": "Vui lòng thông báo cho phòng nhân sự ngay lập tức nếu địa chỉ của bạn thay đổi."
+          },
+          {
+            "en": "The keynote presentation delivered by Dr. Evans was extraordinarily informative.",
+            "vi": "Bài thuyết trình chính do Tiến sĩ Evans trình bày vô cùng bổ ích và giàu thông tin."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "information",
+          "vi": "thông tin (danh từ không đếm được)"
+        },
+        {
+          "term": "informant",
+          "vi": "người cung cấp tin tức"
+        },
+        {
+          "term": "informer",
+          "vi": "người chỉ điểm"
+        }
+      ],
+      "verb": [
+        {
+          "term": "inform",
+          "vi": "thông báo cho ai đó"
+        }
+      ],
+      "adj": [
+        {
+          "term": "informative",
+          "vi": "chứa nhiều thông tin hữu ích, bổ ích"
+        },
+        {
+          "term": "informed",
+          "vi": "có hiểu biết sâu rộng, nắm rõ thông tin"
+        },
+        {
+          "term": "uninformed",
+          "vi": "thiếu thông tin, không nắm được tình hình"
+        }
+      ],
+      "adv": [
+        {
+          "term": "informatively",
+          "vi": "một cách cung cấp nhiều thông tin"
+        },
+        {
+          "term": "informedly",
+          "vi": "dựa trên sự hiểu biết thấu đáo"
+        }
+      ]
+    },
+    "synonyms": [
+      "notify",
+      "apprise",
+      "brief",
+      "advise",
+      "update"
+    ],
+    "antonyms": [
+      "conceal",
+      "withhold",
+      "hide",
+      "mislead"
+    ],
+    "collocations": [
+      {
+        "en": "inform somebody of / about something",
+        "vi": "thông báo cho ai về điều gì"
+      },
+      {
+        "en": "keep somebody informed",
+        "vi": "liên tục cập nhật thông tin cho ai"
+      },
+      {
+        "en": "an informative seminar / workshop",
+        "vi": "buổi hội thảo rất bổ ích và nhiều thông tin"
+      },
+      {
+        "en": "make an informed decision",
+        "vi": "đưa ra quyết định dựa trên hiểu biết đầy đủ"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "keep in the loop",
+        "vi": "giữ cho ai luôn nắm được thông tin cập nhật"
+      },
+      {
+        "en": "spill the beans",
+        "vi": "tiết lộ bí mật hoặc thông tin nội bộ"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 400+ / VSTEP B1"
+    ],
+    "toeicNote": "⚠️ Lưu ý ngữ pháp: 'inform' luôn cần tân ngữ người đi sau: 'inform somebody that...' hoặc 'inform somebody of something'. Còn 'announce' thì không cần tân ngữ người ngay sau.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "invest": {
+    "headword": "invest",
+    "lemma": "invest",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɪnˈvest/",
+      "uk": "/ɪnˈvest/"
+    },
+    "audio": {
+      "us": "/api/tts?text=invest&lang=en-US",
+      "uk": "/api/tts?text=invest&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To buy property, shares in a company, etc. in the hope of making a profit.",
+        "meaningVi": "Đầu tư, bỏ vốn",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Our corporation plans to invest ten million dollars in renewable energy technology.",
+            "vi": "Tập đoàn chúng tôi dự định đầu tư 10 triệu đô la vào công nghệ năng lượng tái tạo."
+          },
+          {
+            "en": "Upgrading employee training programs represents an investment in long-term success.",
+            "vi": "Nâng cấp các chương trình đào tạo nhân viên là một sự đầu tư cho thành công dài hạn."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "investment",
+          "vi": "khoản đầu tư, sự đầu tư"
+        },
+        {
+          "term": "investor",
+          "vi": "nhà đầu tư"
+        }
+      ],
+      "verb": [
+        {
+          "term": "invest",
+          "vi": "đầu tư"
+        },
+        {
+          "term": "reinvest",
+          "vi": "tái đầu tư"
+        }
+      ],
+      "adj": [
+        {
+          "term": "invested",
+          "vi": "được đầu tư"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "venture",
+      "fund",
+      "finance",
+      "back",
+      "capitalize"
+    ],
+    "antonyms": [
+      "divest",
+      "withdraw",
+      "squander",
+      "waste"
+    ],
+    "collocations": [
+      {
+        "en": "invest in research and development (R&D)",
+        "vi": "đầu tư vào nghiên cứu và phát triển"
+      },
+      {
+        "en": "attract foreign investors",
+        "vi": "thu hút các nhà đầu tư nước ngoài"
+      },
+      {
+        "en": "return on investment (ROI)",
+        "vi": "tỷ suất hoàn vốn đầu tư (ROI)"
+      },
+      {
+        "en": "sound / wise investment",
+        "vi": "khoản đầu tư khôn ngoan, an toàn"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "put all eggs in one basket",
+        "vi": "bỏ tất cả trứng vào một giỏ (đầu tư quá mạo hiểm)"
+      },
+      {
+        "en": "put one's money where one's mouth is",
+        "vi": "nói đi đôi với làm bằng cách chịu bỏ tiền đầu tư"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 500+ / VSTEP B2"
+    ],
+    "toeicNote": "Giới từ cố định: 'invest in something'. 'ROI' (Return on Investment) là từ viết tắt rất phổ biến trong bài đọc TOEIC Part 7.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "manage": {
+    "headword": "manage",
+    "lemma": "manage",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈmæn.ɪdʒ/",
+      "uk": "/ˈmæn.ɪdʒ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=manage&lang=en-US",
+      "uk": "/api/tts?text=manage&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To control or be in charge of a business, a team, an organization, land, etc.; to succeed in doing something, especially something difficult.",
+        "meaningVi": "Quản lý, điều hành; xoay sở thành công",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Candidates with at least five years of managerial experience are preferred.",
+            "vi": "Ưu tiên các ứng viên có ít nhất 5 năm kinh nghiệm quản lý."
+          },
+          {
+            "en": "Despite strict budget cuts, she managed to complete the construction on time.",
+            "vi": "Dù bị cắt giảm ngân sách nghiêm ngặt, cô ấy vẫn xoay sở hoàn thành công trình đúng hạn."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "management",
+          "vi": "ban quản lý, sự quản lý"
+        },
+        {
+          "term": "manager",
+          "vi": "người quản lý, trưởng phòng"
+        },
+        {
+          "term": "manageress",
+          "vi": "nữ quản lý"
+        }
+      ],
+      "verb": [
+        {
+          "term": "manage",
+          "vi": "quản lý; xoay sở"
+        },
+        {
+          "term": "mismanage",
+          "vi": "quản lý yếu kém, sai sót"
+        }
+      ],
+      "adj": [
+        {
+          "term": "managerial",
+          "vi": "thuộc về quản lý (managerial experience / position)"
+        },
+        {
+          "term": "manageable",
+          "vi": "có thể quản lý, kiểm soát được"
+        },
+        {
+          "term": "unmanageable",
+          "vi": "bất kham, không thể kiểm soát"
+        }
+      ],
+      "adv": [
+        {
+          "term": "manageably",
+          "vi": "theo cách có thể xoay sở được"
+        }
+      ]
+    },
+    "synonyms": [
+      "oversee",
+      "supervise",
+      "administer",
+      "direct",
+      "cope"
+    ],
+    "antonyms": [
+      "mismanage",
+      "neglect",
+      "mishandle",
+      "fail"
+    ],
+    "collocations": [
+      {
+        "en": "managerial role / position",
+        "vi": "vị trí quản lý (cực hay thi từ loại Part 5!)"
+      },
+      {
+        "en": "manage time effectively",
+        "vi": "quản lý thời gian hiệu quả"
+      },
+      {
+        "en": "senior / executive management",
+        "vi": "ban quản lý cấp cao / ban điều hành"
+      },
+      {
+        "en": "manage to do something",
+        "vi": "xoay sở hoàn thành được việc gì đó khó khăn"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "call the shots",
+        "vi": "nắm quyền chỉ đạo, quyết định mọi việc"
+      },
+      {
+        "en": "keep tabs on",
+        "vi": "giám sát, theo dõi chặt chẽ tiến độ"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 400+ / VSTEP B1-B2"
+    ],
+    "toeicNote": "⚠️ Part 5 hay đố tính từ của 'manage': Lựa chọn cần điền trước danh từ 'experience' hoặc 'staff' là 'managerial' (chứ không phải managing).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "hello": {
+    "headword": "hello",
+    "lemma": "hello",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/həˈloʊ/",
+      "uk": "/həˈloʊ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=hello&lang=en-US",
+      "uk": "/api/tts?text=hello&lang=en-GB"
+    },
+    "partOfSpeech": "Interjection & Noun",
+    "senses": [
+      {
+        "pos": "Interjection & Noun",
+        "defEn": "Used as a greeting when you meet somebody, that you say when you answer the telephone, or when you want to attract somebody's attention.",
+        "meaningVi": "Xin chào; lời chào hỏi thân mật hoặc lịch thiệp",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "She smiled warmly and said hello as soon as the client walked into the office.",
+            "vi": "Cô ấy mỉm cười ấm áp và cất tiếng chào ngay khi khách hàng bước vào văn phòng."
+          },
+          {
+            "en": "Please say hello to the marketing team for me when you visit their branch.",
+            "vi": "Gửi lời chào của tôi đến đội ngũ tiếp thị khi bạn ghé thăm chi nhánh của họ nhé."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "hello",
+          "vi": "lời chào, câu chào hỏi"
+        }
+      ],
+      "verb": [
+        {
+          "term": "say hello",
+          "vi": "gửi lời chào hỏi"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "greeting",
+      "salutation",
+      "welcome",
+      "hi",
+      "good morning"
+    ],
+    "antonyms": [
+      "goodbye",
+      "farewell",
+      "adieu"
+    ],
+    "collocations": [
+      {
+        "en": "say hello to somebody",
+        "vi": "gửi lời chào đến ai đó"
+      },
+      {
+        "en": "wave hello",
+        "vi": "vẫy tay chào thân thiện"
+      },
+      {
+        "en": "a polite hello",
+        "vi": "lời chào lịch sự, nhã nhặn"
+      },
+      {
+        "en": "hello and welcome",
+        "vi": "xin chào và chào mừng bạn"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "break the ice",
+        "vi": "phá vỡ bầu không khí ngại ngùng ban đầu bằng một lời chào"
+      },
+      {
+        "en": "say a quick hello",
+        "vi": "ghé qua chào hỏi nhanh một câu"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "Giao tiếp hàng ngày / Phổ thông"
+    ],
+    "toeicNote": "Trong văn phong thư tín thương mại TOEIC, thay vì dùng 'hello', người ta thường dùng 'Dear Mr./Ms. [Tên]' hoặc 'Good morning / afternoon'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "territory": {
+    "headword": "territory",
+    "lemma": "territory",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈter.ə.tɔːr.i/",
+      "uk": "/ˈter.ə.tɔːr.i/"
+    },
+    "audio": {
+      "us": "/api/tts?text=territory&lang=en-US",
+      "uk": "/api/tts?text=territory&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "An area of land that belongs to or is controlled by a particular country, ruler, or organization; an area in which a salesperson or company has the right or responsibility to operate.",
+        "meaningVi": "Lãnh thổ, địa bàn quản lý, khu vực thị trường / phân phối kinh doanh",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Our regional sales director assigned each representative a distinct commercial territory.",
+            "vi": "Giám đốc bán hàng khu vực đã phân công cho mỗi đại diện một địa bàn thương mại riêng biệt."
+          },
+          {
+            "en": "Dealing with tight deadlines unfortunately comes with the territory of project management.",
+            "vi": "Đối mặt với thời hạn gấp gáp đáng tiếc lại là điều tất yếu đi kèm với nghề quản lý dự án."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "territory",
+          "vi": "lãnh thổ, địa bàn kinh doanh"
+        },
+        {
+          "term": "territoriality",
+          "vi": "tính lãnh thổ, ý thức bảo vệ địa bàn"
+        }
+      ],
+      "verb": [
+        {
+          "term": "territorialize",
+          "vi": "phân chia theo địa bàn, quy hoạch khu vực"
+        }
+      ],
+      "adj": [
+        {
+          "term": "territorial",
+          "vi": "thuộc lãnh thổ, mang tính địa bàn (territorial waters / boundaries)"
+        }
+      ],
+      "adv": [
+        {
+          "term": "territorially",
+          "vi": "về mặt lãnh thổ, theo ranh giới địa lý"
+        }
+      ]
+    },
+    "synonyms": [
+      "region",
+      "area",
+      "domain",
+      "zone",
+      "district",
+      "sector",
+      "province"
+    ],
+    "antonyms": [
+      "center",
+      "whole"
+    ],
+    "collocations": [
+      {
+        "en": "sales territory",
+        "vi": "địa bàn bán hàng, khu vực phân phối tiêu thụ sản phẩm"
+      },
+      {
+        "en": "uncharted / unfamiliar territory",
+        "vi": "lĩnh vực hoàn toàn mới lạ, vùng đất chưa từng khám phá"
+      },
+      {
+        "en": "disputed territory",
+        "vi": "vùng lãnh thổ đang tranh chấp"
+      },
+      {
+        "en": "assigned territory",
+        "vi": "địa bàn được phân công phụ trách"
+      },
+      {
+        "en": "expand into new territory",
+        "vi": "mở rộng hoạt động sang địa bàn mới"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "comes with the territory",
+        "vi": "là điều tất yếu đi kèm với tính chất công việc hoặc vị trí đó"
+      },
+      {
+        "en": "mark one's territory",
+        "vi": "khẳng định chủ quyền hoặc phạm vi ảnh hưởng của mình"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 550+ / VSTEP B1-B2"
+    ],
+    "toeicNote": "⚠️ TOEIC Part 7 cực kỳ hay gặp cụm 'sales territory' (khu vực bán hàng của đại diện thương mại) hoặc 'reassign territories' (phân bổ lại địa bàn quản lý nhân viên thị trường).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "sales territory": {
+    "headword": "sales territory",
+    "lemma": "sales territory",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/seɪlz ˈter.ə.tɔːr.i/",
+      "uk": "/seɪlz ˈter.ə.tɔːr.i/"
+    },
+    "audio": {
+      "us": "/api/tts?text=sales%20territory&lang=en-US",
+      "uk": "/api/tts?text=sales%20territory&lang=en-GB"
+    },
+    "partOfSpeech": "Cụm danh từ / Collocation",
+    "senses": [
+      {
+        "pos": "Cụm danh từ / Collocation",
+        "defEn": "The customer group or geographical area for which an individual salesperson or sales team holds responsibility.",
+        "meaningVi": "Khu vực tiêu thụ, địa bàn phân phối bán hàng của doanh nghiệp",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Due to exceptional performance, John was promoted to oversee the entire Southeast Asian sales territory.",
+            "vi": "Nhờ thành tích xuất sắc, John đã được thăng chức để giám sát toàn bộ địa bàn bán hàng Đông Nam Á."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "sales representative",
+          "vi": "đại diện bán hàng thị trường"
+        },
+        {
+          "term": "territory management",
+          "vi": "quản lý địa bàn kinh doanh"
+        }
+      ],
+      "verb": [
+        {
+          "term": "assign a territory",
+          "vi": "giao địa bàn cho nhân viên"
+        }
+      ],
+      "adj": [
+        {
+          "term": "territorial",
+          "vi": "mang tính địa bàn"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "market area",
+      "sales district",
+      "coverage zone",
+      "target region"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "manage a sales territory",
+        "vi": "quản lý một địa bàn bán hàng"
+      },
+      {
+        "en": "expand the sales territory",
+        "vi": "mở rộng khu vực tiêu thụ"
+      },
+      {
+        "en": "sales territory realignment",
+        "vi": "tái cơ cấu, phân chia lại địa bàn bán hàng"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "hit the ground running",
+        "vi": "bắt tay vào khai thác địa bàn mới đầy năng nổ và hiệu quả"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Part 7 Chuyên sâu / Business English"
+    ],
+    "toeicNote": "💡 Ghi nhớ nguyên cụm 'sales territory' giúp bạn trả lời ngay câu hỏi ai phụ trách vùng nào trong bài đọc email / thông báo nội bộ Part 7!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "collocation": {
+    "headword": "collocation",
+    "lemma": "collocation",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌkɒl.əˈkeɪ.ʃən/",
+      "uk": "/ˌkɒl.əˈkeɪ.ʃən/"
+    },
+    "audio": {
+      "us": "/api/tts?text=collocation&lang=en-US",
+      "uk": "/api/tts?text=collocation&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A combination of words in a language that happens very often and sounds natural to people who have spoken the language even though other combinations might make sense.",
+        "meaningVi": "Cụm từ cố định, sự kết hợp từ tự nhiên theo thói quen của người bản xứ",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "In English, 'heavy rain' is a natural collocation, whereas 'strong rain' sounds unnatural.",
+            "vi": "Trong tiếng Anh, 'heavy rain' là một cụm từ tự nhiên, trong khi 'strong rain' nghe rất gượng gạo."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "collocation",
+          "vi": "sự kết hợp từ, cụm từ cố định"
+        }
+      ],
+      "verb": [
+        {
+          "term": "collocate",
+          "vi": "đi cùng với nhau một cách tự nhiên (từ vựng)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "collocational",
+          "vi": "thuộc về cụm từ cố định"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "word pairing",
+      "idiomatic phrase",
+      "fixed expression"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "strong / weak collocation",
+        "vi": "cụm kết hợp từ chặt chẽ / lỏng lẻo"
+      },
+      {
+        "en": "learn words in collocation",
+        "vi": "học từ vựng theo cụm từ cố định"
+      },
+      {
+        "en": "lexical collocation",
+        "vi": "sự kết hợp từ vựng tự nhiên"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Cốt lõi TOEIC Part 5 & 6"
+    ],
+    "toeicNote": "⚠️ 60% câu hỏi từ vựng trong Part 5 kiểm tra kiến thức về Collocation (VD: 'conduct a survey', 'meet the deadline', 'make a reservation'). Học theo cụm giúp bạn chọn đáp án trong 2 giây!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "strategy": {
+    "headword": "strategy",
+    "lemma": "strategy",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈstræt.ə.dʒi/",
+      "uk": "/ˈstræt.ə.dʒi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=strategy&lang=en-US",
+      "uk": "/api/tts?text=strategy&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A detailed plan for achieving success in situations such as business, politics, war, etc.",
+        "meaningVi": "Chiến lược, kế hoạch hành động dài hạn",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The board met yesterday to devise a comprehensive strategy for expanding overseas.",
+            "vi": "Hội đồng quản trị đã họp hôm qua để vạch ra chiến lược toàn diện nhằm mở rộng ra nước ngoài."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "strategy",
+          "vi": "chiến lược"
+        },
+        {
+          "term": "strategist",
+          "vi": "nhà chiến lược"
+        }
+      ],
+      "verb": [
+        {
+          "term": "strategize",
+          "vi": "lập chiến lược, hoạch định kế hoạch"
+        }
+      ],
+      "adj": [
+        {
+          "term": "strategic",
+          "vi": "mang tính chiến lược, có tầm quan trọng dài hạn"
+        }
+      ],
+      "adv": [
+        {
+          "term": "strategically",
+          "vi": "về mặt chiến lược, một cách có tính toán"
+        }
+      ]
+    },
+    "synonyms": [
+      "tactics",
+      "masterplan",
+      "approach",
+      "scheme",
+      "roadmap"
+    ],
+    "antonyms": [
+      "impromptu",
+      "chance"
+    ],
+    "collocations": [
+      {
+        "en": "marketing / business strategy",
+        "vi": "chiến lược tiếp thị / kinh doanh"
+      },
+      {
+        "en": "adopt / implement a strategy",
+        "vi": "áp dụng / triển khai một chiến lược"
+      },
+      {
+        "en": "strategic partnership",
+        "vi": "quan hệ đối tác chiến lược"
+      },
+      {
+        "en": "strategically located",
+        "vi": "tọa lạc tại vị trí chiến lược đắc địa"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 500+ / VSTEP B1-C1"
+    ],
+    "toeicNote": "Bẫy từ loại Part 5: Trước danh từ 'location' hay 'decision' cần tính từ 'strategic' (VD: a strategic decision).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "revenue": {
+    "headword": "revenue",
+    "lemma": "revenue",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈrev.ən.juː/",
+      "uk": "/ˈrev.ən.juː/"
+    },
+    "audio": {
+      "us": "/api/tts?text=revenue&lang=en-US",
+      "uk": "/api/tts?text=revenue&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The income that a government or company receives regularly.",
+        "meaningVi": "Doanh thu, tổng thu nhập của công ty hoặc chính phủ",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Online advertising now accounts for more than half of the newspaper's total revenue.",
+            "vi": "Quảng cáo trực tuyến hiện chiếm hơn một nửa tổng doanh thu của tòa soạn báo."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "revenue",
+          "vi": "tổng doanh thu"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "income",
+      "proceeds",
+      "turnover",
+      "earnings",
+      "receipts"
+    ],
+    "antonyms": [
+      "expenditure",
+      "expenses",
+      "loss",
+      "deficit"
+    ],
+    "collocations": [
+      {
+        "en": "generate revenue",
+        "vi": "tạo ra doanh thu"
+      },
+      {
+        "en": "annual / quarterly revenue",
+        "vi": "doanh thu hàng năm / hàng quý"
+      },
+      {
+        "en": "revenue growth / decline",
+        "vi": "sự tăng trưởng / sụt giảm doanh thu"
+      },
+      {
+        "en": "tax revenue",
+        "vi": "nguồn thu ngân sách từ thuế"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "the bottom line",
+        "vi": "lợi nhuận ròng sau cùng (sau khi trừ chi phí khỏi doanh thu)"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 500+ / Tài chính Doanh nghiệp"
+    ],
+    "toeicNote": "Phân biệt: Revenue (doanh thu tổng trước chi phí) khác với Profit (lợi nhuận sau khi đã trừ đi mọi chi phí).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "in accordance with": {
+    "headword": "in accordance with",
+    "lemma": "in accordance with",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɪn əˈkɔː.dəns wɪð/",
+      "uk": "/ɪn əˈkɔː.dəns wɪð/"
+    },
+    "audio": {
+      "us": "/api/tts?text=in%20accordance%20with&lang=en-US",
+      "uk": "/api/tts?text=in%20accordance%20with&lang=en-GB"
+    },
+    "partOfSpeech": "Cụm giới từ / Collocation",
+    "senses": [
+      {
+        "pos": "Cụm giới từ / Collocation",
+        "defEn": "Following or obeying a rule, law, wish, or agreement.",
+        "meaningVi": "Phù hợp với, tuân theo, chiếu theo (quy định, hợp đồng, luật lệ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "All refunds will be processed in accordance with our standard customer policy.",
+            "vi": "Mọi khoản hoàn tiền sẽ được xử lý chiếu theo chính sách khách hàng tiêu chuẩn của chúng tôi."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "accordance",
+          "vi": "sự tuân theo, sự phù hợp"
+        }
+      ],
+      "verb": [
+        {
+          "term": "accord",
+          "vi": "phù hợp, ban cho"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "in compliance with",
+      "conforming to",
+      "pursuant to",
+      "according to"
+    ],
+    "antonyms": [
+      "contrary to",
+      "in violation of"
+    ],
+    "collocations": [
+      {
+        "en": "in accordance with regulations / policy",
+        "vi": "chiếu theo quy định / chính sách"
+      },
+      {
+        "en": "act in accordance with the law",
+        "vi": "hành động tuân theo pháp luật"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Bẫy Ngữ Pháp TOEIC Part 5 & 6"
+    ],
+    "toeicNote": "⚠️ Cực kỳ hay ra trong Part 5: Điền 'accordance' vào chỗ trống 'in _______ with' hoặc điền giới từ 'with' phía sau 'in accordance'!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "bear in mind": {
+    "headword": "bear in mind",
+    "lemma": "bear in mind",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/beər ɪn maɪnd/",
+      "uk": "/beər ɪn maɪnd/"
+    },
+    "audio": {
+      "us": "/api/tts?text=bear%20in%20mind&lang=en-US",
+      "uk": "/api/tts?text=bear%20in%20mind&lang=en-GB"
+    },
+    "partOfSpeech": "Cụm động từ / Idiom",
+    "senses": [
+      {
+        "pos": "Cụm động từ / Idiom",
+        "defEn": "To remember a piece of information when you are making a decision or thinking about a matter.",
+        "meaningVi": "Ghi nhớ, luôn nhớ rằng, khắc ghi trong đầu",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Please bear in mind that the office will be closed on Friday for building maintenance.",
+            "vi": "Xin lưu ý rằng văn phòng sẽ đóng cửa vào thứ Sáu để bảo trì tòa nhà."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "keep in mind",
+      "remember",
+      "take into account",
+      "consider"
+    ],
+    "antonyms": [
+      "forget",
+      "disregard",
+      "ignore"
+    ],
+    "collocations": [
+      {
+        "en": "bear in mind that",
+        "vi": "luôn ghi nhớ rằng..."
+      },
+      {
+        "en": "bear something in mind",
+        "vi": "lưu tâm điều gì đó khi đưa ra quyết định"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "keep tabs on",
+        "vi": "theo dõi sát sao"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Part 7 & Giao tiếp Doanh nghiệp"
+    ],
+    "toeicNote": "Cụm đồng nghĩa tuyệt đối với 'keep in mind'. Thường xuất hiện trong lời nhắn của sếp hoặc email hướng dẫn nhân viên.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "take into account": {
+    "headword": "take into account",
+    "lemma": "take into account",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/teɪk ˈɪn.tuː əˈkaʊnt/",
+      "uk": "/teɪk ˈɪn.tuː əˈkaʊnt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=take%20into%20account&lang=en-US",
+      "uk": "/api/tts?text=take%20into%20account&lang=en-GB"
+    },
+    "partOfSpeech": "Cụm động từ / Collocation",
+    "senses": [
+      {
+        "pos": "Cụm động từ / Collocation",
+        "defEn": "To consider or remember something when evaluating a situation or making a decision.",
+        "meaningVi": "Tính đến, xem xét, cân nhắc một yếu tố khi quyết định",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "We must take into account inflation rates before finalizing next year's budget.",
+            "vi": "Chúng ta phải tính đến tỷ lệ lạm phát trước khi hoàn thiện ngân sách cho năm tới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "take into consideration",
+      "allow for",
+      "factor in",
+      "weigh"
+    ],
+    "antonyms": [
+      "overlook",
+      "ignore",
+      "dismiss"
+    ],
+    "collocations": [
+      {
+        "en": "take all factors into account",
+        "vi": "cân nhắc mọi yếu tố"
+      },
+      {
+        "en": "take customer feedback into account",
+        "vi": "tiếp thu ý kiến phản hồi của khách hàng"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC & VSTEP Trọng tâm"
+    ],
+    "toeicNote": "Cấu trúc hay gặp: 'take something into account' hoặc 'take into account that + mệnh đề'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "compliance": {
+    "headword": "compliance",
+    "lemma": "compliance",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/kəmˈplaɪ.əns/",
+      "uk": "/kəmˈplaɪ.əns/"
+    },
+    "audio": {
+      "us": "/api/tts?text=compliance&lang=en-US",
+      "uk": "/api/tts?text=compliance&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The act of obeying an order, rule, or request.",
+        "meaningVi": "Sự tuân thủ, chấp hành (luật pháp, tiêu chuẩn an toàn, nội quy)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The company operates in strict compliance with international environmental standards.",
+            "vi": "Công ty hoạt động tuân thủ nghiêm ngặt các tiêu chuẩn môi trường quốc tế."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "compliance",
+          "vi": "sự tuân thủ"
+        }
+      ],
+      "verb": [
+        {
+          "term": "comply",
+          "vi": "tuân thủ, chấp hành (đi với giới từ with)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "compliant",
+          "vi": "biết vâng lời, tuân thủ đúng chuẩn"
+        }
+      ],
+      "adv": [
+        {
+          "term": "compliantly",
+          "vi": "một cách tuân thủ, phục tùng"
+        }
+      ]
+    },
+    "synonyms": [
+      "conformity",
+      "adherence",
+      "observance",
+      "agreement"
+    ],
+    "antonyms": [
+      "violation",
+      "defiance",
+      "non-compliance",
+      "breach"
+    ],
+    "collocations": [
+      {
+        "en": "in compliance with",
+        "vi": "tuân theo, phù hợp với"
+      },
+      {
+        "en": "safety / regulatory compliance",
+        "vi": "sự tuân thủ an toàn / quy chuẩn pháp lý"
+      },
+      {
+        "en": "ensure compliance",
+        "vi": "đảm bảo tính tuân thủ"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 600+ / Luật & Doanh nghiệp"
+    ],
+    "toeicNote": "⚠️ Cực hay thi giới từ: Động từ 'comply' luôn đi với 'with' (comply with safety standards). Danh từ là 'in compliance with'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "country": {
+    "headword": "country",
+    "lemma": "country",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈkʌn.tri/",
+      "uk": "/ˈkʌn.tri/"
+    },
+    "audio": {
+      "us": "/api/tts?text=country&lang=en-US",
+      "uk": "/api/tts?text=country&lang=en-GB"
+    },
+    "partOfSpeech": "Noun & Adjective",
+    "senses": [
+      {
+        "pos": "Noun & Adjective",
+        "defEn": "An area of land that has or used to have its own government and laws; also rural areas outside cities.",
+        "meaningVi": "Quốc gia, đất nước, quê hương (Danh từ); thuộc nông thôn, miền quê (Tính từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Our products are now exported to more than forty countries worldwide.",
+            "vi": "Sản phẩm của chúng tôi hiện được xuất khẩu tới hơn 40 quốc gia trên toàn thế giới."
+          },
+          {
+            "en": "The retail chain opened 15 new branch stores across the country this quarter.",
+            "vi": "Chuỗi bán lẻ đã mở thêm 15 chi nhánh mới trên khắp cả nước trong quý này."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "country",
+          "vi": "quốc gia, đất nước, vùng thôn quê"
+        },
+        {
+          "term": "countryside",
+          "vi": "miền quê, vùng nông thôn thanh bình"
+        },
+        {
+          "term": "compatriot",
+          "vi": "người đồng hương, đồng bào"
+        },
+        {
+          "term": "countryman",
+          "vi": "người sống ở nông thôn, đồng hương"
+        }
+      ],
+      "verb": [
+        {
+          "term": "nationalize",
+          "vi": "quốc hữu hóa (đưa tài sản về sở hữu nhà nước)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "country",
+          "vi": "thuộc miền quê (country house, country road)"
+        },
+        {
+          "term": "countrywide",
+          "vi": "trên quy mô toàn quốc, khắp cả nước"
+        },
+        {
+          "term": "cross-country",
+          "vi": "xuyên quốc gia, băng đồng"
+        }
+      ],
+      "adv": [
+        {
+          "term": "countrywide",
+          "vi": "trên toàn bộ lãnh thổ quốc gia"
+        },
+        {
+          "term": "nationwide",
+          "vi": "trên phạm vi toàn quốc"
+        }
+      ]
+    },
+    "synonyms": [
+      "nation",
+      "state",
+      "homeland",
+      "territory",
+      "countryside",
+      "rural area"
+    ],
+    "antonyms": [
+      "city",
+      "metropolis",
+      "urban center"
+    ],
+    "collocations": [
+      {
+        "en": "across the country",
+        "vi": "trên khắp cả nước"
+      },
+      {
+        "en": "host country",
+        "vi": "quốc gia đăng cai tổ chức"
+      },
+      {
+        "en": "developing / developed country",
+        "vi": "quốc gia đang phát triển / phát triển"
+      },
+      {
+        "en": "country of origin",
+        "vi": "nước xuất xứ của hàng hóa"
+      },
+      {
+        "en": "countrywide distribution network",
+        "vi": "mạng lưới phân phối trên toàn quốc"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "go to the country",
+        "vi": "tiến hành tổng tuyển cử toàn quốc"
+      },
+      {
+        "en": "another country",
+        "vi": "một thế giới hoàn toàn khác biệt"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 350-990 / VSTEP B1-C1"
+    ],
+    "toeicNote": "💡 Phân biệt trong bài thi: 'country' vừa mang nghĩa 'đất nước' vừa mang nghĩa 'miền quê'. Khi nói về quy mô toàn quốc, đề thi thường dùng tính từ/trạng từ 'countrywide' hoặc 'nationwide'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "half": {
+    "headword": "half",
+    "lemma": "half",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/hɑːf/",
+      "uk": "/hɑːf/"
+    },
+    "audio": {
+      "us": "/api/tts?text=half&lang=en-US",
+      "uk": "/api/tts?text=half&lang=en-GB"
+    },
+    "partOfSpeech": "Noun, Adjective & Adverb",
+    "senses": [
+      {
+        "pos": "Noun, Adjective & Adverb",
+        "defEn": "One of two usually roughly equal parts into which anything may be divided.",
+        "meaningVi": "Một nửa, phần chia đôi (Danh từ/Tính từ); chia đôi, giảm một nửa (Động từ: halve)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Operating profits dropped by more than half during the global economic downturn.",
+            "vi": "Lợi nhuận hoạt động đã giảm hơn một nửa trong giai đoạn suy thoái kinh tế toàn cầu."
+          },
+          {
+            "en": "The engineering team managed to halve the production cycle time this quarter.",
+            "vi": "Đội ngũ kỹ thuật đã rút ngắn một nửa thời gian chu kỳ sản xuất trong quý này."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "half",
+          "vi": "một nửa, phần nửa"
+        },
+        {
+          "term": "halves",
+          "vi": "các nửa (dạng danh từ số nhiều)"
+        }
+      ],
+      "verb": [
+        {
+          "term": "halve",
+          "vi": "chia đôi, giảm đi một nửa"
+        }
+      ],
+      "adj": [
+        {
+          "term": "half",
+          "vi": "nửa, một nửa (half price, a half portion)"
+        },
+        {
+          "term": "halfway",
+          "vi": "ở giữa chừng, thỏa hiệp"
+        }
+      ],
+      "adv": [
+        {
+          "term": "half",
+          "vi": "một nửa, một phần (half full, half cooked)"
+        },
+        {
+          "term": "halfway",
+          "vi": "ở lưng chừng, nửa đường"
+        }
+      ]
+    },
+    "synonyms": [
+      "portion",
+      "fraction",
+      "semi-",
+      "segment"
+    ],
+    "antonyms": [
+      "whole",
+      "entirety",
+      "total"
+    ],
+    "collocations": [
+      {
+        "en": "first half / second half of the year",
+        "vi": "nửa đầu / nửa cuối của năm"
+      },
+      {
+        "en": "cut / divide something in half",
+        "vi": "cắt / chia cái gì làm đôi"
+      },
+      {
+        "en": "half-price discount",
+        "vi": "giảm giá nửa giá (50%)"
+      },
+      {
+        "en": "half an hour",
+        "vi": "nửa tiếng đồng hồ (30 phút)"
+      },
+      {
+        "en": "meet somebody halfway",
+        "vi": "nhượng bộ, thỏa hiệp với ai đó"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "meet someone halfway",
+        "vi": "hai bên cùng nhượng bộ để đạt thỏa thuận"
+      },
+      {
+        "en": "not half bad",
+        "vi": "khá tốt, tốt hơn mong đợi"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC 350-990 / VSTEP B1-C1"
+    ],
+    "toeicNote": "⚠️ Cấu trúc TOEIC Part 5: 'Half of the + Danh từ'. Động từ chia theo danh từ phía sau 'of': 'Half of the budget WAS spent' nhưng 'Half of the employees WERE present'. Động từ của 'half' là 'halve' (chia đôi).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "call": {
+    "headword": "call",
+    "lemma": "call",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/kɔːl/",
+      "uk": "/kɔːl/"
+    },
+    "audio": {
+      "us": "/api/tts?text=call&lang=en-US",
+      "uk": "/api/tts?text=call&lang=en-GB"
+    },
+    "partOfSpeech": "Verb & Noun",
+    "senses": [
+      {
+        "pos": "Verb & Noun",
+        "defEn": "To speak to somebody by telephone; to give a particular name to somebody/something.",
+        "meaningVi": "Gọi điện, kêu gọi, triệu tập (Động từ); cuộc gọi, yêu cầu (Danh từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Please return Mr. Tanaka's phone call as soon as you arrive at the office.",
+            "vi": "Vui lòng gọi lại cho ông Tanaka ngay khi bạn tới văn phòng."
+          },
+          {
+            "en": "The director decided to call a special meeting to discuss the budget deficit.",
+            "vi": "Giám đốc đã quyết định triệu tập cuộc họp đặc biệt để thảo luận về thâm hụt ngân sách."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "call",
+          "vi": "cuộc điện thoại, tiếng gọi"
+        },
+        {
+          "term": "caller",
+          "vi": "người gọi điện thoại"
+        }
+      ],
+      "verb": [
+        {
+          "term": "call",
+          "vi": "gọi điện thoại, triệu tập cuộc họp"
+        },
+        {
+          "term": "recall",
+          "vi": "thu hồi sản phẩm lỗi, nhớ lại"
+        }
+      ],
+      "adj": [
+        {
+          "term": "callable",
+          "vi": "có thể thu hồi trước hạn (trái phiếu)"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "telephone",
+      "phone",
+      "contact",
+      "summon",
+      "convene"
+    ],
+    "antonyms": [
+      "ignore",
+      "dismiss"
+    ],
+    "collocations": [
+      {
+        "en": "return a phone call",
+        "vi": "gọi điện thoại lại cho ai"
+      },
+      {
+        "en": "call a meeting",
+        "vi": "triệu tập một cuộc họp khẩn"
+      },
+      {
+        "en": "call for action",
+        "vi": "kêu gọi hành động"
+      },
+      {
+        "en": "call off the event",
+        "vi": "hủy bỏ sự kiện"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "call it a day",
+        "vi": "kết thúc một ngày làm việc"
+      },
+      {
+        "en": "close call",
+        "vi": "tình huống thoát hiểm trong gang tấc"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC / VSTEP Core Vocabulary"
+    ],
+    "toeicNote": "💡 Cụm 'call off' = cancel (hủy bỏ). 'Call on / upon' = kêu gọi, yêu cầu ai làm gì.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "go": {
+    "headword": "go",
+    "lemma": "go",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɡoʊ/",
+      "uk": "/ɡəʊ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=go&lang=en-US",
+      "uk": "/api/tts?text=go&lang=en-GB"
+    },
+    "partOfSpeech": "Verb & Noun",
+    "senses": [
+      {
+        "pos": "Verb & Noun",
+        "defEn": "To move from one place to another; to leave a place; to be in a particular state.",
+        "meaningVi": "Đi, di chuyển, rời khỏi; diễn ra, tiếp diễn (Động từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The CEO went to London yesterday to finalize the merger agreement.",
+            "vi": "Hôm qua Tổng giám đốc đã đi Luân Đôn để hoàn tất thỏa thuận sáp nhập."
+          },
+          {
+            "en": "We are ready to go ahead with the marketing campaign next Monday.",
+            "vi": "Chúng tôi đã sẵn sàng tiến hành chiến dịch tiếp thị vào thứ Hai tới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "go",
+          "vi": "lượt đi, sự cố gắng (have a go)"
+        },
+        {
+          "term": "go-getter",
+          "vi": "người năng động, chí tiến thủ cao"
+        }
+      ],
+      "verb": [
+        {
+          "term": "go",
+          "vi": "đi, khởi hành, biến chuyển (quá khứ: went, phân từ: gone)"
+        },
+        {
+          "term": "undergo",
+          "vi": "trải qua (thử thách, phẫu thuật, cải cách)"
+        },
+        {
+          "term": "forego",
+          "vi": "bỏ qua, thôi không dùng"
+        }
+      ],
+      "adj": [
+        {
+          "term": "ongoing",
+          "vi": "đang diễn ra liên tục (ongoing project/discussion)"
+        },
+        {
+          "term": "outgoing",
+          "vi": "cởi mở, hòa đồng; sắp mãn nhiệm"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "proceed",
+      "travel",
+      "depart",
+      "head",
+      "advance"
+    ],
+    "antonyms": [
+      "stay",
+      "remain",
+      "arrive",
+      "stop"
+    ],
+    "collocations": [
+      {
+        "en": "go ahead with the project",
+        "vi": "tiến hành triển khai dự án"
+      },
+      {
+        "en": "go through the contract",
+        "vi": "kiểm tra kỹ lưỡng bản hợp đồng"
+      },
+      {
+        "en": "go on sale",
+        "vi": "bắt đầu được mở bán"
+      },
+      {
+        "en": "undergo inspection",
+        "vi": "trải qua đợt thanh tra/kiểm định"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "make a go of something",
+        "vi": "thực hiện thành công một việc gì đó"
+      },
+      {
+        "en": "from the get-go",
+        "vi": "ngay từ lúc ban đầu"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "A1-C1 Core Vocabulary"
+    ],
+    "toeicNote": "⚠️ Đề thi TOEIC rất hay ra cụm 'ongoing' (tính từ: đang diễn ra) trước danh từ như 'ongoing negotiations', 'ongoing maintenance'!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "child": {
+    "headword": "child",
+    "lemma": "child",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/tʃaɪld/",
+      "uk": "/tʃaɪld/"
+    },
+    "audio": {
+      "us": "/api/tts?text=child&lang=en-US",
+      "uk": "/api/tts?text=child&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A young human being below the age of puberty or below the legal age of majority.",
+        "meaningVi": "Đứa trẻ, trẻ em, con cái (số nhiều: children)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The company provides free childcare support for employees with young children.",
+            "vi": "Công ty cung cấp dịch vụ hỗ trợ trông trẻ miễn phí cho nhân viên có con nhỏ."
+          },
+          {
+            "en": "Balancing work and raising children requires flexible office schedules.",
+            "vi": "Cân bằng giữa công việc và nuôi dạy con cái đòi hỏi lịch làm việc linh hoạt."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "child",
+          "vi": "đứa bé, đứa trẻ (danh từ số ít)"
+        },
+        {
+          "term": "children",
+          "vi": "trẻ em, các con (danh từ số nhiều bất quy tắc)"
+        },
+        {
+          "term": "childhood",
+          "vi": "thời thơ ấu, tuổi thơ"
+        },
+        {
+          "term": "childcare",
+          "vi": "dịch vụ chăm sóc trông giữ trẻ"
+        }
+      ],
+      "verb": [],
+      "adj": [
+        {
+          "term": "childish",
+          "vi": "trẻ con, ngây ngô, thiếu chín chắn (nghĩa tiêu cực)"
+        },
+        {
+          "term": "childlike",
+          "vi": "hồn nhiên, ngây thơ như trẻ nhỏ (nghĩa tích cực)"
+        },
+        {
+          "term": "childless",
+          "vi": "không có con cái"
+        }
+      ],
+      "adv": [
+        {
+          "term": "childishly",
+          "vi": "một cách ấu trĩ, như trẻ con"
+        }
+      ]
+    },
+    "synonyms": [
+      "kid",
+      "youngster",
+      "infant",
+      "toddler",
+      "minor"
+    ],
+    "antonyms": [
+      "adult",
+      "grown-up"
+    ],
+    "collocations": [
+      {
+        "en": "childcare benefits / subsidies",
+        "vi": "trợ cấp / phúc lợi chăm sóc con cái cho nhân viên"
+      },
+      {
+        "en": "raise children",
+        "vi": "nuôi dạy con cái"
+      },
+      {
+        "en": "child welfare",
+        "vi": "phúc lợi trẻ em"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "child's play",
+        "vi": "trò trẻ con, việc cực kỳ dễ dàng giải quyết"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "General Core Vocabulary"
+    ],
+    "toeicNote": "💡 Lưu ý bẫy từ loại TOEIC: 'childish' mang sắc thái tiêu cực (ích kỷ, ấu trĩ), trong khi 'childlike' mang sắc thái tích cực (trong sáng, chân thật).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "good": {
+    "headword": "good",
+    "lemma": "good",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɡʊd/",
+      "uk": "/ɡʊd/"
+    },
+    "audio": {
+      "us": "/api/tts?text=good&lang=en-US",
+      "uk": "/api/tts?text=good&lang=en-GB"
+    },
+    "partOfSpeech": "Adjective & Noun",
+    "senses": [
+      {
+        "pos": "Adjective & Noun",
+        "defEn": "To be desired or approved of; having the required qualities; of a high standard.",
+        "meaningVi": "Tốt, xuất sắc, đạt tiêu chuẩn (Tính từ); Hàng hóa, lợi ích (Danh từ: goods / good)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Our new supplier offers much better prices and superior customer service.",
+            "vi": "Nhà cung cấp mới của chúng tôi đưa ra mức giá tốt hơn nhiều và dịch vụ khách hàng vượt trội."
+          },
+          {
+            "en": "All manufactured goods must pass strict quality control before shipping.",
+            "vi": "Mọi hàng hóa sản xuất ra đều phải vượt qua quy trình kiểm định chất lượng nghiêm ngặt trước khi xuất xưởng."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "good",
+          "vi": "điều tốt, lợi ích chung"
+        },
+        {
+          "term": "goods",
+          "vi": "hàng hóa, sản phẩm thương mại"
+        },
+        {
+          "term": "goodness",
+          "vi": "sự tốt lành, lòng nhân từ"
+        }
+      ],
+      "verb": [],
+      "adj": [
+        {
+          "term": "good",
+          "vi": "tốt, đạt yêu cầu (so sánh: better, so sánh nhất: best)"
+        }
+      ],
+      "adv": [
+        {
+          "term": "well",
+          "vi": "tốt, một cách thành thạo (trạng từ của good)"
+        }
+      ]
+    },
+    "synonyms": [
+      "fine",
+      "superior",
+      "excellent",
+      "favorable",
+      "beneficial"
+    ],
+    "antonyms": [
+      "bad",
+      "poor",
+      "inferior",
+      "unfavorable"
+    ],
+    "collocations": [
+      {
+        "en": "consumer goods",
+        "vi": "hàng tiêu dùng"
+      },
+      {
+        "en": "good working relationship",
+        "vi": "mối quan hệ công việc tốt đẹp"
+      },
+      {
+        "en": "in good condition",
+        "vi": "trong tình trạng tốt, nguyên vẹn"
+      },
+      {
+        "en": "as good as new",
+        "vi": "tốt như mới"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "for good",
+        "vi": "mãi mãi, vĩnh viễn"
+      },
+      {
+        "en": "make good on a promise",
+        "vi": "thực hiện trọn vẹn lời hứa"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC / VSTEP Core Vocabulary"
+    ],
+    "toeicNote": "⚠️ Chú ý: 'goods' (có 's') luôn là danh từ số nhiều có nghĩa là 'hàng hóa' (e.g., The damaged goods were returned to the manufacturer).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "carry out": {
+    "headword": "carry out",
+    "lemma": "carry out",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌkæri ˈaʊt/",
+      "uk": "/ˌkæri ˈaʊt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=carry%20out&lang=en-US",
+      "uk": "/api/tts?text=carry%20out&lang=en-GB"
+    },
+    "partOfSpeech": "Phrasal Verb",
+    "senses": [
+      {
+        "pos": "Phrasal Verb",
+        "defEn": "To perform or complete a job, task, inquiry, or scientific research; to put into execution.",
+        "meaningVi": "Tiến hành, thực hiện, thi hành (kế hoạch, khảo sát, kiểm tra, nghiên cứu)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The engineering team will carry out a thorough inspection of the production line.",
+            "vi": "Đội ngũ kỹ thuật sẽ tiến hành kiểm tra kỹ lưỡng toàn bộ dây chuyền sản xuất."
+          },
+          {
+            "en": "We carried out customer satisfaction surveys to improve our retail services.",
+            "vi": "Chúng tôi đã tiến hành khảo sát sự hài lòng của khách hàng để nâng cấp dịch vụ bán lẻ."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [
+        {
+          "term": "carry out",
+          "vi": "tiến hành, thực thi (quá khứ: carried out)"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "conduct",
+      "implement",
+      "execute",
+      "perform",
+      "undertake"
+    ],
+    "antonyms": [
+      "cancel",
+      "abandon",
+      "halt",
+      "neglect"
+    ],
+    "collocations": [
+      {
+        "en": "carry out a survey / market research",
+        "vi": "tiến hành khảo sát / nghiên cứu thị trường"
+      },
+      {
+        "en": "carry out regular inspections",
+        "vi": "tiến hành thanh tra định kỳ"
+      },
+      {
+        "en": "carry out instructions",
+        "vi": "thực hiện theo đúng các chỉ dẫn"
+      },
+      {
+        "en": "carry out repairs",
+        "vi": "tiến hành sửa chữa bảo dưỡng"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [
+      {
+        "phrase": "carry on",
+        "vi": "tiếp tục công việc",
+        "example": "Carry on with your task while I review the draft."
+      },
+      {
+        "phrase": "carry over",
+        "vi": "chuyển sang kỳ sau (ngân sách, ngày nghỉ phép)",
+        "example": "Unused vacation days cannot be carried over."
+      }
+    ],
+    "lists": [
+      "TOEIC High-Frequency Phrasal Verb"
+    ],
+    "toeicNote": "⚠️ Tần suất xuất hiện cực cao ở Part 7 TOEIC: Khi đề thi nói 'conduct a survey' thì đáp án suy luận rất hay dùng 'carry out an investigation/poll'!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "in charge of": {
+    "headword": "in charge of",
+    "lemma": "in charge of",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɪn ˈtʃɑːrdʒ əv/",
+      "uk": "/ɪn ˈtʃɑːdʒ əv/"
+    },
+    "audio": {
+      "us": "/api/tts?text=in%20charge%20of&lang=en-US",
+      "uk": "/api/tts?text=in%20charge%20of&lang=en-GB"
+    },
+    "partOfSpeech": "Idiomatic Prepositional Phrase",
+    "senses": [
+      {
+        "pos": "Idiomatic Prepositional Phrase",
+        "defEn": "Having control of or being responsible for someone, something, or a project.",
+        "meaningVi": "Phụ trách, chịu trách nhiệm chính về, đứng đầu quản lý",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Ms. Patel is currently in charge of the regional logistics operations.",
+            "vi": "Bà Patel hiện đang phụ trách các hoạt động hậu cần của toàn khu vực."
+          },
+          {
+            "en": "Who is in charge of organizing the annual shareholders' conference this year?",
+            "vi": "Ai là người chịu trách nhiệm tổ chức hội nghị cổ đông thường niên năm nay?"
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "charge",
+          "vi": "trách nhiệm, quyền cai quản, tiền phí"
+        }
+      ],
+      "verb": [
+        {
+          "term": "charge",
+          "vi": "tính phí, giao nhiệm vụ, sạc pin"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "responsible for",
+      "overseeing",
+      "in control of",
+      "heading",
+      "managing"
+    ],
+    "antonyms": [
+      "exempt from",
+      "unaccountable",
+      "subordinate to"
+    ],
+    "collocations": [
+      {
+        "en": "be in charge of sales / marketing",
+        "vi": "chịu trách nhiệm phụ trách mảng bán hàng / tiếp thị"
+      },
+      {
+        "en": "person in charge (PIC)",
+        "vi": "người phụ trách chính, đầu mối liên hệ"
+      },
+      {
+        "en": "put somebody in charge of",
+        "vi": "bổ nhiệm ai làm người phụ trách việc gì"
+      },
+      {
+        "en": "take charge of the department",
+        "vi": "tiếp quản điều hành phòng ban"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Office & Workplace Expression"
+    ],
+    "toeicNote": "💡 Phân biệt: 'in charge of' = chịu trách nhiệm quản lý; 'free of charge' = hoàn toàn miễn phí, không mất tiền!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "look forward to": {
+    "headword": "look forward to",
+    "lemma": "look forward to",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/lʊk ˈfɔːrwərd tuː/",
+      "uk": "/lʊk ˈfɔːwəd tuː/"
+    },
+    "audio": {
+      "us": "/api/tts?text=look%20forward%20to&lang=en-US",
+      "uk": "/api/tts?text=look%20forward%20to&lang=en-GB"
+    },
+    "partOfSpeech": "Phrasal Verb / Idiom",
+    "senses": [
+      {
+        "pos": "Phrasal Verb / Idiom",
+        "defEn": "To feel happy and excited about something that is going to happen in the future.",
+        "meaningVi": "Rất mong đợi, háo hức chờ đón (+ V-ing hoặc Danh từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "We look forward to receiving your quotation before the close of business Friday.",
+            "vi": "Chúng tôi rất mong nhận được bảng báo giá của quý công ty trước giờ tan tầm thứ Sáu."
+          },
+          {
+            "en": "I look forward to discussing how my experience can benefit your sales team.",
+            "vi": "Tôi rất mong có cơ hội thảo luận về việc kinh nghiệm của tôi có thể đóng góp cho đội ngũ bán hàng của quý vị."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [
+        {
+          "term": "look forward to",
+          "vi": "trông chờ, mong đợi (quá khứ: looked forward to)"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "anticipate",
+      "await eagerly",
+      "expect with pleasure",
+      "count down to"
+    ],
+    "antonyms": [
+      "dread",
+      "fear",
+      "be reluctant to"
+    ],
+    "collocations": [
+      {
+        "en": "look forward to hearing from you",
+        "vi": "rất mong sớm nhận được hồi âm từ bạn (kết thư)"
+      },
+      {
+        "en": "look forward to meeting you in person",
+        "vi": "rất mong được gặp gỡ trực tiếp bạn"
+      },
+      {
+        "en": "look forward to working together",
+        "vi": "rất mong được hợp tác cùng bạn"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Email & Letter Ending Gold Rule"
+    ],
+    "toeicNote": "🚨 BẪY KINH ĐIỂN NHẤT TOEIC PART 5: Sau 'look forward to', từ 'to' là GIỚI TỪ nên BẮT BUỘC ĐI VỚI V-ing hoặc Danh từ (VD: look forward to MEETING you, KHÔNG dùng to meet)!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "don't": {
+    "headword": "don't",
+    "lemma": "do",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/doʊnt/",
+      "uk": "/dəʊnt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=don't&lang=en-US",
+      "uk": "/api/tts?text=don't&lang=en-GB"
+    },
+    "partOfSpeech": "Auxiliary Verb Contraction",
+    "senses": [
+      {
+        "pos": "Auxiliary Verb Contraction",
+        "defEn": "Contraction of 'do not', used to form negative statements or commands.",
+        "meaningVi": "Đừng, không (dạng viết tắt của 'do not')",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Don't forget to submit your travel expense report by 5 PM.",
+            "vi": "Đừng quên nộp báo cáo công tác phí trước 5 giờ chiều."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "do not"
+    ],
+    "antonyms": [
+      "do"
+    ],
+    "collocations": [
+      {
+        "en": "don't hesitate to contact us",
+        "vi": "đừng ngần ngại liên hệ với chúng tôi (câu mẫu thư từ)"
+      },
+      {
+        "en": "dos and don'ts",
+        "vi": "những điều nên làm và không nên làm"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Grammar Contraction"
+    ],
+    "toeicNote": "Mẫu câu văn phòng: 'Please do not hesitate to contact our customer support' = 'Đừng ngần ngại liên hệ bộ phận hỗ trợ khách hàng'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "well-known": {
+    "headword": "well-known",
+    "lemma": "well-known",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌwel ˈnoʊn/",
+      "uk": "/ˌwel ˈnəʊn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=well-known&lang=en-US",
+      "uk": "/api/tts?text=well-known&lang=en-GB"
+    },
+    "partOfSpeech": "Compound Adjective",
+    "senses": [
+      {
+        "pos": "Compound Adjective",
+        "defEn": "Known about or recognized by many people; famous and reputable.",
+        "meaningVi": "Nổi tiếng, được nhiều người biết đến, uy tín",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The firm is well-known throughout Southeast Asia for its eco-friendly packaging.",
+            "vi": "Công ty rất nổi tiếng khắp Đông Nam Á về bao bì thân thiện với môi trường."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "fame",
+          "vi": "sự nổi tiếng, danh tiếng"
+        }
+      ],
+      "verb": [
+        {
+          "term": "know",
+          "vi": "biết, nhận thức (quá khứ: knew, phân từ: known)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "well-known",
+          "vi": "nổi tiếng, được biết rộng rãi"
+        },
+        {
+          "term": "unknown",
+          "vi": "vô danh, chưa được biết đến"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "famous",
+      "renowned",
+      "celebrated",
+      "prominent",
+      "distinguished"
+    ],
+    "antonyms": [
+      "unknown",
+      "obscure",
+      "anonymous",
+      "unfamiliar"
+    ],
+    "collocations": [
+      {
+        "en": "well-known brand / trademark",
+        "vi": "thương hiệu nổi tiếng, có tên tuổi"
+      },
+      {
+        "en": "be well-known for quality products",
+        "vi": "nổi tiếng về các dòng sản phẩm chất lượng cao"
+      },
+      {
+        "en": "a well-known industry expert",
+        "vi": "một chuyên gia có tiếng trong ngành"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Descriptive Adjective"
+    ],
+    "toeicNote": "Cụm 'well-known for something' tương đương với 'famous for' hoặc 'renowned for'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "covid-19": {
+    "headword": "COVID-19",
+    "lemma": "COVID-19",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌkoʊ.vɪd.naɪnˈtiːn/",
+      "uk": "/ˌkəʊ.vɪd.naɪnˈtiːn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=COVID-19&lang=en-US",
+      "uk": "/api/tts?text=COVID-19&lang=en-GB"
+    },
+    "partOfSpeech": "Proper Noun",
+    "senses": [
+      {
+        "pos": "Proper Noun",
+        "defEn": "An acute respiratory illness in humans caused by a coronavirus, capable of producing severe symptoms and death.",
+        "meaningVi": "Dịch bệnh do virus corona bùng phát năm 2019 (Coronavirus Disease 2019)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Many enterprises accelerated their digital transformation due to COVID-19.",
+            "vi": "Nhiều doanh nghiệp đã đẩy nhanh quá trình chuyển đổi số do ảnh hưởng của dịch COVID-19."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "coronavirus pandemic"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "COVID-19 pandemic / outbreak",
+        "vi": "đại dịch / đợt bùng phát COVID-19"
+      },
+      {
+        "en": "post-COVID-19 recovery plan",
+        "vi": "kế hoạch phục hồi kinh tế hậu đại dịch"
+      },
+      {
+        "en": "COVID-19 health protocols",
+        "vi": "quy chuẩn phòng dịch y tế"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Modern Context Vocabulary"
+    ],
+    "toeicNote": "Trong bài thi thời kỳ mới, đề thường nói về 'remote working' và 'hybrid work models' được thúc đẩy sau đại dịch.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "a": {
+    "headword": "a",
+    "lemma": "a",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/eɪ/ or /ə/",
+      "uk": "/eɪ/ or /ə/"
+    },
+    "audio": {
+      "us": "/api/tts?text=a&lang=en-US",
+      "uk": "/api/tts?text=a&lang=en-GB"
+    },
+    "partOfSpeech": "Indefinite Article",
+    "senses": [
+      {
+        "pos": "Indefinite Article",
+        "defEn": "Used when referring to someone or something for the first time, or not specifically identifying them.",
+        "meaningVi": "Một (mạo từ không xác định đứng trước danh từ đếm được số ít bắt đầu bằng phụ âm)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The company plans to open a new branch office in Da Nang next quarter.",
+            "vi": "Công ty dự định mở một văn phòng chi nhánh mới tại Đà Nẵng vào quý tới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "an",
+      "one"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "a wide variety of",
+        "vi": "nhiều loại, đa dạng các..."
+      },
+      {
+        "en": "a great deal of",
+        "vi": "một lượng lớn (dùng cho danh từ không đếm được)"
+      },
+      {
+        "en": "a number of",
+        "vi": "một số, vài (đi với danh từ số nhiều + động từ số nhiều)"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "English Core Grammar"
+    ],
+    "toeicNote": "⚠️ Chú ý: Dùng 'a' trước từ bắt đầu bằng âm phụ âm (a university, a European company), và 'an' trước âm nguyên âm (an hour, an honest mistake)!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "invoice": {
+    "headword": "invoice",
+    "lemma": "invoice",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈɪn.vɔɪs/",
+      "uk": "/ˈɪn.vɔɪs/"
+    },
+    "audio": {
+      "us": "/api/tts?text=invoice&lang=en-US",
+      "uk": "/api/tts?text=invoice&lang=en-GB"
+    },
+    "partOfSpeech": "Noun & Verb",
+    "senses": [
+      {
+        "pos": "Noun & Verb",
+        "defEn": "A list of goods sent or services provided, with a statement of the sum due for these; a bill.",
+        "meaningVi": "Hóa đơn thanh toán (Danh từ); Xuất hóa đơn, gửi hóa đơn (Động từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Please review the attached invoice and remit payment within 30 days.",
+            "vi": "Vui lòng kiểm tra hóa đơn đính kèm và thanh toán trong vòng 30 ngày."
+          },
+          {
+            "en": "Our accounting department will invoice your firm upon delivery of the supplies.",
+            "vi": "Phòng kế toán của chúng tôi sẽ xuất hóa đơn cho công ty bạn ngay khi giao hàng."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "invoice",
+          "vi": "hóa đơn thanh toán, chứng từ thanh toán"
+        },
+        {
+          "term": "invoicing",
+          "vi": "quy trình xuất hóa đơn và lập chứng từ"
+        }
+      ],
+      "verb": [
+        {
+          "term": "invoice",
+          "vi": "xuất hóa đơn tính tiền cho khách hàng"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "bill",
+      "statement of account",
+      "sales slip",
+      "receipt"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "issue an invoice",
+        "vi": "phát hành / xuất một hóa đơn"
+      },
+      {
+        "en": "outstanding / unpaid invoice",
+        "vi": "hóa đơn còn tồn đọng chưa được thanh toán"
+      },
+      {
+        "en": "invoice number and due date",
+        "vi": "mã số hóa đơn và hạn chót thanh toán"
+      },
+      {
+        "en": "attach an invoice to the email",
+        "vi": "đính kèm hóa đơn vào thư điện tử"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Part 3, 4 & 7 High-Frequency"
+    ],
+    "toeicNote": "💡 Part 7 thường hỏi: 'Where would this information most likely appear?' -> Đáp án: 'On an invoice' khi thấy có tên mặt hàng, đơn giá, mã số hóa đơn và hạn thanh toán.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "schedule": {
+    "headword": "schedule",
+    "lemma": "schedule",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈskedʒ.uːl/",
+      "uk": "/ˈʃedʒ.uːl/"
+    },
+    "audio": {
+      "us": "/api/tts?text=schedule&lang=en-US",
+      "uk": "/api/tts?text=schedule&lang=en-GB"
+    },
+    "partOfSpeech": "Noun & Verb",
+    "senses": [
+      {
+        "pos": "Noun & Verb",
+        "defEn": "A plan that gives a list of events or tasks and the times at which each one should happen.",
+        "meaningVi": "Lịch trình, thời khóa biểu (Danh từ); Lên lịch, sắp xếp thời gian (Động từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Thanks to the team's extra effort, the construction completed ahead of schedule.",
+            "vi": "Nhờ nỗ lực của cả đội, công trình đã hoàn thành trước tiến độ kế hoạch."
+          },
+          {
+            "en": "The quarterly board meeting is scheduled for next Thursday at 10 AM.",
+            "vi": "Cuộc họp hội đồng quản trị quý được lên lịch vào 10 giờ sáng thứ Năm tới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "schedule",
+          "vi": "lịch trình, tiến độ công việc"
+        },
+        {
+          "term": "scheduler",
+          "vi": "người hoặc phần mềm điều phối lịch"
+        }
+      ],
+      "verb": [
+        {
+          "term": "schedule",
+          "vi": "lên lịch, sắp xếp cuộc họp (quá khứ: scheduled)"
+        },
+        {
+          "term": "reschedule",
+          "vi": "dời lịch sang thời điểm khác"
+        }
+      ],
+      "adj": [
+        {
+          "term": "scheduled",
+          "vi": "được lên lịch trước (scheduled maintenance)"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "timetable",
+      "agenda",
+      "calendar",
+      "program",
+      "itinerary"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "ahead of schedule",
+        "vi": "trước thời hạn dự kiến, vượt tiến độ"
+      },
+      {
+        "en": "behind schedule",
+        "vi": "chậm tiến độ so với kế hoạch"
+      },
+      {
+        "en": "on schedule",
+        "vi": "đúng tiến độ dự định"
+      },
+      {
+        "en": "tight schedule",
+        "vi": "lịch trình bận rộn, sít sao"
+      },
+      {
+        "en": "scheduled maintenance",
+        "vi": "bảo trì định kỳ theo lịch"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Core Vocabulary"
+    ],
+    "toeicNote": "⚠️ Bẫy giới từ: Nhớ kỹ bộ 3 cụm từ tiến độ: 'ahead of schedule' (vượt tiến độ), 'on schedule' (đúng tiến độ), 'behind schedule' (chậm tiến độ)!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "postpone": {
+    "headword": "postpone",
+    "lemma": "postpone",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/poʊstˈpoʊn/",
+      "uk": "/pəʊstˈpəʊn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=postpone&lang=en-US",
+      "uk": "/api/tts?text=postpone&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To arrange for an event or action to take place at a later time than previously planned.",
+        "meaningVi": "Hoãn lại, dời lại sang một thời điểm sau đó (Động từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The management decided to postpone the annual conference due to flight cancellations.",
+            "vi": "Ban giám đốc đã quyết định hoãn hội nghị thường niên do các chuyến bay bị hủy."
+          },
+          {
+            "en": "We apologize for the postponement of the software launch until mid-June.",
+            "vi": "Chúng tôi xin lỗi vì sự dời lịch phát hành phần mềm đến giữa tháng 6."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "postponement",
+          "vi": "sự hoãn lại, việc dời lịch công tác"
+        }
+      ],
+      "verb": [
+        {
+          "term": "postpone",
+          "vi": "hoãn lại (quá khứ: postponed)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "postponable",
+          "vi": "có thể hoãn lại được"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "delay",
+      "defer",
+      "put off",
+      "reschedule",
+      "suspend"
+    ],
+    "antonyms": [
+      "advance",
+      "bring forward",
+      "expedite",
+      "proceed"
+    ],
+    "collocations": [
+      {
+        "en": "postpone an event / conference",
+        "vi": "hoãn lại một sự kiện / hội nghị"
+      },
+      {
+        "en": "postpone until next week",
+        "vi": "hoãn lại cho tới tuần sau"
+      },
+      {
+        "en": "postpone indefinitely",
+        "vi": "hoãn vô thời hạn"
+      },
+      {
+        "en": "due to bad weather, the match was postponed",
+        "vi": "do thời tiết xấu, trận đấu đã bị hoãn"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Core Action Verb"
+    ],
+    "toeicNote": "💡 Từ đồng nghĩa rất hay kiểm tra ở Part 7: Khi văn bản gốc dùng 'postpone', đáp án trắc nghiệm thường paraphrase thành 'put off' hoặc 'delay'!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "candidate": {
+    "headword": "candidate",
+    "lemma": "candidate",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈkæn.dɪ.dət/",
+      "uk": "/ˈkæn.dɪ.dət/"
+    },
+    "audio": {
+      "us": "/api/tts?text=candidate&lang=en-US",
+      "uk": "/api/tts?text=candidate&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A person who applies for a job, seeks an election, or takes an academic exam.",
+        "meaningVi": "Ứng viên (xin việc), thí sinh (dự thi), ứng cử viên (bầu cử)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The hiring committee selected three candidates for the final round of interviews.",
+            "vi": "Hội đồng tuyển dụng đã lựa chọn 3 ứng viên vào vòng phỏng vấn cuối cùng."
+          },
+          {
+            "en": "The successful candidate will demonstrate strong bilingual presentation skills.",
+            "vi": "Ứng viên trúng tuyển sẽ là người thể hiện kỹ năng thuyết trình song ngữ xuất sắc."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "candidate",
+          "vi": "ứng viên xin việc, thí sinh dự thi"
+        },
+        {
+          "term": "candidacy",
+          "vi": "sự ứng cử, tư cách ứng viên"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "applicant",
+      "interviewee",
+      "prospective employee",
+      "contender",
+      "examinee"
+    ],
+    "antonyms": [
+      "recruiter",
+      "employer",
+      "interviewer"
+    ],
+    "collocations": [
+      {
+        "en": "qualified / ideal candidate",
+        "vi": "ứng viên có đầy đủ năng lực / ứng viên lý tưởng"
+      },
+      {
+        "en": "successful candidate",
+        "vi": "ứng viên trúng tuyển"
+      },
+      {
+        "en": "interview candidates",
+        "vi": "phỏng vấn các ứng viên"
+      },
+      {
+        "en": "shortlist candidates",
+        "vi": "sàng lọc đưa ứng viên vào danh sách rút gọn"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Recruitment High-Frequency"
+    ],
+    "toeicNote": "Chủ đề tuyển dụng (Recruitment) trong TOEIC luôn xoay quanh: 'job opening', 'interview candidate', 'qualifications' và 'offer letter'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "confirm": {
+    "headword": "confirm",
+    "lemma": "confirm",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/kənˈfɜːrm/",
+      "uk": "/kənˈfɜːm/"
+    },
+    "audio": {
+      "us": "/api/tts?text=confirm&lang=en-US",
+      "uk": "/api/tts?text=confirm&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To state or prove the truth or accuracy of something; to make an arrangement definite.",
+        "meaningVi": "Xác nhận, chứng thực, phê chuẩn (cuộc hẹn, vé máy bay, hợp đồng)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "We would like to confirm your hotel reservation for the night of October 24th.",
+            "vi": "Chúng tôi xin phép xác nhận lại việc đặt phòng khách sạn của bạn cho đêm ngày 24/10."
+          },
+          {
+            "en": "A confirmation email with the tracking number has been sent to your inbox.",
+            "vi": "Một email xác nhận kèm theo mã vận đơn đã được gửi tới hộp thư của bạn."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "confirmation",
+          "vi": "sự xác nhận, thư/giấy xác nhận (confirmation email/code)"
+        }
+      ],
+      "verb": [
+        {
+          "term": "confirm",
+          "vi": "xác nhận, khẳng định (quá khứ: confirmed)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "confirmed",
+          "vi": "đã được xác nhận chắc chắn (confirmed reservation)"
+        },
+        {
+          "term": "confirmative",
+          "vi": "có tính chất xác nhận"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "verify",
+      "validate",
+      "affirm",
+      "corroborate",
+      "reiterate"
+    ],
+    "antonyms": [
+      "cancel",
+      "deny",
+      "contradict",
+      "refute",
+      "reject"
+    ],
+    "collocations": [
+      {
+        "en": "confirm a reservation / booking",
+        "vi": "xác nhận đặt chỗ / đặt phòng khách sạn"
+      },
+      {
+        "en": "confirmation email / number",
+        "vi": "email xác nhận / mã số xác nhận"
+      },
+      {
+        "en": "confirm receipt of the payment",
+        "vi": "xác nhận đã nhận được tiền thanh toán"
+      },
+      {
+        "en": "written confirmation",
+        "vi": "văn bản xác nhận chính thức"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Office & Travel Communication"
+    ],
+    "toeicNote": "⚠️ Cấu trúc Part 5: 'Please contact us to confirm your attendance' (Vui lòng liên hệ để xác nhận sự tham dự).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "deadline": {
+    "headword": "deadline",
+    "lemma": "deadline",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈded.laɪn/",
+      "uk": "/ˈded.laɪn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=deadline&lang=en-US",
+      "uk": "/api/tts?text=deadline&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The latest time or date by which something should be completed or submitted.",
+        "meaningVi": "Hạn chót, thời hạn hoàn thành công việc",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Our staff worked overtime during the weekend to meet the strict project deadline.",
+            "vi": "Đội ngũ nhân viên đã tăng ca vào dịp cuối tuần để kịp hạn chót nghiêm ngặt của dự án."
+          },
+          {
+            "en": "The client agreed to extend the submission deadline by two extra business days.",
+            "vi": "Khách hàng đã đồng ý gia hạn thời gian nộp thêm 2 ngày làm việc."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "deadline",
+          "vi": "hạn chót"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "due date",
+      "time limit",
+      "cutoff date",
+      "target date"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "meet a deadline",
+        "vi": "kịp hạn chót, hoàn thành đúng hạn"
+      },
+      {
+        "en": "miss a deadline",
+        "vi": "trễ hạn chót"
+      },
+      {
+        "en": "extend a deadline",
+        "vi": "gia hạn thêm thời gian hoàn thành"
+      },
+      {
+        "en": "strict / tight deadline",
+        "vi": "thời hạn nghiêm ngặt / gấp gáp"
+      },
+      {
+        "en": "approach the deadline",
+        "vi": "tiến gần đến hạn chót"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Core Project Vocabulary"
+    ],
+    "toeicNote": "🚨 BẪY ĐỘNG TỪ TOEIC: Luôn học thuộc cặp động từ đi với 'deadline': 'MEET the deadline' (kịp hạn) đối lập với 'MISS the deadline' (trễ hạn)!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "implement": {
+    "headword": "implement",
+    "lemma": "implement",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈɪm.plə.ment/",
+      "uk": "/ˈɪm.plɪ.ment/"
+    },
+    "audio": {
+      "us": "/api/tts?text=implement&lang=en-US",
+      "uk": "/api/tts?text=implement&lang=en-GB"
+    },
+    "partOfSpeech": "Verb & Noun",
+    "senses": [
+      {
+        "pos": "Verb & Noun",
+        "defEn": "To put a decision, plan, policy, or system into effect.",
+        "meaningVi": "Thực hiện, triển khai, thi hành (chính sách, phần mềm, kế hoạch) (Động từ); Công cụ, dụng cụ (Danh từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The corporation plans to implement energy-saving practices across all branch facilities.",
+            "vi": "Tập đoàn có kế hoạch triển khai các giải pháp tiết kiệm năng lượng trên toàn bộ các cơ sở chi nhánh."
+          },
+          {
+            "en": "The smooth implementation of the new database system minimized business disruption.",
+            "vi": "Việc triển khai trơn tru hệ thống cơ sở dữ liệu mới đã hạn chế tối đa việc gián đoạn kinh doanh."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "implementation",
+          "vi": "sự triển khai, quá trình thực thi kế hoạch"
+        },
+        {
+          "term": "implement",
+          "vi": "công cụ lao động, dụng cụ nông nghiệp"
+        }
+      ],
+      "verb": [
+        {
+          "term": "implement",
+          "vi": "triển khai thi hành (quá khứ: implemented)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "implemented",
+          "vi": "đã được đưa vào triển khai thực tế"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "execute",
+      "carry out",
+      "enact",
+      "apply",
+      "enforce",
+      "put into practice"
+    ],
+    "antonyms": [
+      "repeal",
+      "suspend",
+      "neglect",
+      "cancel"
+    ],
+    "collocations": [
+      {
+        "en": "implement a new policy / strategy",
+        "vi": "triển khai một chính sách / chiến lược mới"
+      },
+      {
+        "en": "implement safety regulations",
+        "vi": "thực thi các quy định an toàn lao động"
+      },
+      {
+        "en": "smooth implementation",
+        "vi": "quá trình triển khai êm đẹp, thuận lợi"
+      },
+      {
+        "en": "cost of implementation",
+        "vi": "chi phí triển khai lắp đặt/áp dụng"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Strategic Business Term"
+    ],
+    "toeicNote": "💡 TOEIC Part 5 thường kiểm tra họ từ: 'the successful __________ of the software' -> Chỗ trống cần một Danh từ, chọn ngay 'implementation'!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "policy": {
+    "headword": "policy",
+    "lemma": "policy",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈpɑː.lə.si/",
+      "uk": "/ˈpɒl.ə.si/"
+    },
+    "audio": {
+      "us": "/api/tts?text=policy&lang=en-US",
+      "uk": "/api/tts?text=policy&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A course or principle of action adopted or proposed by an organization or individual.",
+        "meaningVi": "Chính sách, quy định, nguyên tắc nội bộ; Hợp đồng bảo hiểm (insurance policy)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "All newly hired personnel must read and sign the company confidentiality policy.",
+            "vi": "Tất cả nhân sự mới được tuyển dụng đều phải đọc và ký vào chính sách bảo mật của công ty."
+          },
+          {
+            "en": "Under our updated return policy, items may be exchanged within 30 days of purchase.",
+            "vi": "Theo chính sách đổi trả mới cập nhật, sản phẩm có thể được đổi trong vòng 30 ngày kể từ ngày mua."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "policy",
+          "vi": "chính sách, quy định (số nhiều: policies)"
+        },
+        {
+          "term": "policymaker",
+          "vi": "nhà hoạch định chính sách"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "rule",
+      "regulation",
+      "guideline",
+      "protocol",
+      "strategy",
+      "code of conduct"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "company policy on remote work",
+        "vi": "chính sách công ty về việc làm từ xa"
+      },
+      {
+        "en": "privacy policy",
+        "vi": "chính sách bảo mật quyền riêng tư"
+      },
+      {
+        "en": "refund / return policy",
+        "vi": "chính sách hoàn tiền / đổi trả hàng"
+      },
+      {
+        "en": "strictly adhere to the policy",
+        "vi": "tuân thủ nghiêm ngặt theo chính sách"
+      },
+      {
+        "en": "insurance policy",
+        "vi": "hợp đồng bảo hiểm"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Workplace & Human Resources"
+    ],
+    "toeicNote": "⚠️ Part 7 rất phổ biến đoạn văn 'Store Return Policy': Thường nêu rõ điều kiện đổi trả trong 14 hoặc 30 ngày kèm hóa đơn gốc ('with original receipt').",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "warranty": {
+    "headword": "warranty",
+    "lemma": "warranty",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈwɔːr.ən.t̬i/",
+      "uk": "/ˈwɒr.ən.ti/"
+    },
+    "audio": {
+      "us": "/api/tts?text=warranty&lang=en-US",
+      "uk": "/api/tts?text=warranty&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A written guarantee, issued to the purchaser of an article by its manufacturer, promising to repair or replace it if necessary within a specified period.",
+        "meaningVi": "Phiếu bảo hành, cam kết bảo hành, thời hạn bảo hành sản phẩm",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The laptop comes with a two-year manufacturer warranty covering parts and labor.",
+            "vi": "Máy tính xách tay đi kèm gói bảo hành 2 năm của nhà sản xuất bao gồm linh kiện và công sửa chữa."
+          },
+          {
+            "en": "Opening the device casing without authorization will void the warranty.",
+            "vi": "Tự ý mở vỏ thiết bị mà không có sự ủy quyền sẽ làm mất hiệu lực bảo hành."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "warranty",
+          "vi": "giấy bảo hành, chế độ bảo hành (số nhiều: warranties)"
+        },
+        {
+          "term": "warrantor",
+          "vi": "bên đứng ra chịu trách nhiệm bảo hành"
+        }
+      ],
+      "verb": [
+        {
+          "term": "warrant",
+          "vi": "bảo đảm, biện minh cho"
+        }
+      ],
+      "adj": [
+        {
+          "term": "warranted",
+          "vi": "được bảo đảm, có lý"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "guarantee",
+      "certificate",
+      "assurance",
+      "pledge",
+      "covenant"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "under warranty",
+        "vi": "đang trong thời hạn bảo hành"
+      },
+      {
+        "en": "two-year limited warranty",
+        "vi": "bảo hành có giới hạn trong vòng 2 năm"
+      },
+      {
+        "en": "extended warranty",
+        "vi": "gói bảo hành mở rộng thêm thời gian"
+      },
+      {
+        "en": "void the warranty",
+        "vi": "làm mất hiệu lực bảo hành (do tự ý tháo lắp)"
+      },
+      {
+        "en": "warranty period expires",
+        "vi": "thời hạn bảo hành hết hiệu lực"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Consumer & Product Support"
+    ],
+    "toeicNote": "⚠️ Cụm giới từ hay ra: 'The electronic appliance is covered UNDER warranty' (Thiết bị điện tử được bảo hành dưới chế độ bảo hành).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "budget": {
+    "headword": "budget",
+    "lemma": "budget",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈbʌdʒ.ɪt/",
+      "uk": "/ˈbʌdʒ.ɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=budget&lang=en-US",
+      "uk": "/api/tts?text=budget&lang=en-GB"
+    },
+    "partOfSpeech": "Noun, Verb & Adjective",
+    "senses": [
+      {
+        "pos": "Noun, Verb & Adjective",
+        "defEn": "An estimate of income and expenditure for a set period of time; an allowance of money.",
+        "meaningVi": "Ngân sách, quỹ chi tiêu (Danh từ); Lập dự toán ngân sách (Động từ); Giá rẻ, tiết kiệm (Tính từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The marketing director submitted an updated budget proposal for the next fiscal year.",
+            "vi": "Giám đốc tiếp thị đã nộp bản đề xuất ngân sách cập nhật cho năm tài chính tiếp theo."
+          },
+          {
+            "en": "Due to budgetary constraints, we must postpone purchasing new office furniture.",
+            "vi": "Do hạn chế về ngân sách, chúng tôi buộc phải hoãn việc mua sắm bàn ghế văn phòng mới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "budget",
+          "vi": "ngân sách, dự toán chi tiêu"
+        },
+        {
+          "term": "budgeting",
+          "vi": "nghiệp vụ lập ngân sách và cân đối tài chính"
+        }
+      ],
+      "verb": [
+        {
+          "term": "budget",
+          "vi": "lập dự toán phân bổ ngân sách (quá khứ: budgeted)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "budgetary",
+          "vi": "thuộc về ngân sách (budgetary constraints)"
+        },
+        {
+          "term": "budget",
+          "vi": "giá bình dân, tiết kiệm (budget airline)"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "financial plan",
+      "allocation",
+      "funds",
+      "allowance",
+      "fiscal estimate"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "within budget",
+        "vi": "trong phạm vi ngân sách cho phép"
+      },
+      {
+        "en": "over budget",
+        "vi": "vượt quá hạn mức ngân sách"
+      },
+      {
+        "en": "budget deficit / surplus",
+        "vi": "thâm hụt / thặng dư ngân sách"
+      },
+      {
+        "en": "allocate the annual budget",
+        "vi": "phân bổ ngân sách thường niên"
+      },
+      {
+        "en": "budget constraints / cuts",
+        "vi": "các hạn chế / cắt giảm ngân sách"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "on a shoestring budget",
+        "vi": "với ngân sách cực kỳ eo hẹp, thắt lưng buộc bụng"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Finance & Corporate Planning"
+    ],
+    "toeicNote": "💡 Giới từ cực kỳ phổ biến trong đề thi: 'complete the renovation WITHIN budget' (hoàn thành cải tạo trong giới hạn ngân sách).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "announce": {
+    "headword": "announce",
+    "lemma": "announce",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/əˈnaʊns/",
+      "uk": "/əˈnaʊns/"
+    },
+    "audio": {
+      "us": "/api/tts?text=announce&lang=en-US",
+      "uk": "/api/tts?text=announce&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To make a formal public statement about a fact, occurrence, or intention.",
+        "meaningVi": "Thông báo, tuyên bố, công bố (tin tức, quyết định, việc sáp nhập)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The board of directors is pleased to announce the appointment of a new Managing Director.",
+            "vi": "Hội đồng quản trị vui mừng thông báo về việc bổ nhiệm Tổng giám đốc mới."
+          },
+          {
+            "en": "Passengers should listen carefully to all gate announcements before boarding.",
+            "vi": "Hành khách nên chú ý lắng nghe mọi thông báo tại cửa khởi hành trước khi lên máy bay."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "announcement",
+          "vi": "thông báo chính thức, lời tuyên bố"
+        },
+        {
+          "term": "announcer",
+          "vi": "phát thanh viên, người đọc thông báo"
+        }
+      ],
+      "verb": [
+        {
+          "term": "announce",
+          "vi": "thông báo, công bố (quá khứ: announced)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "announced",
+          "vi": "đã được công bố chính thức"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "declare",
+      "proclaim",
+      "broadcast",
+      "disclose",
+      "publish",
+      "state"
+    ],
+    "antonyms": [
+      "conceal",
+      "suppress",
+      "withhold",
+      "keep secret"
+    ],
+    "collocations": [
+      {
+        "en": "announce a merger / acquisition",
+        "vi": "công bố thương vụ sáp nhập / mua lại doanh nghiệp"
+      },
+      {
+        "en": "make an official announcement",
+        "vi": "đưa ra một thông báo chính thức"
+      },
+      {
+        "en": "proud to announce",
+        "vi": "vinh dự / tự hào thông báo"
+      },
+      {
+        "en": "publicly announce",
+        "vi": "công bố rộng rãi trước công chúng"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Corporate News & Part 4 Announcements"
+    ],
+    "toeicNote": "Trong phần Listening Part 4 (Short Talks), dạng bài 'Public Announcement' (thông báo nhà ga, sân bay, cửa hàng) xuất hiện đều đặn trong mọi đề thi!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "promote": {
+    "headword": "promote",
+    "lemma": "promote",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/prəˈmoʊt/",
+      "uk": "/prəˈməʊt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=promote&lang=en-US",
+      "uk": "/api/tts?text=promote&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To raise someone to a higher position or rank; to encourage or support the progress of something; to publicize.",
+        "meaningVi": "Thăng chức, cất nhắc (nhân sự); Đẩy mạnh, quảng bá (sản phẩm, dịch vụ); Thúc đẩy (tăng trưởng)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "After demonstrating exceptional leadership, Lisa was promoted to head of sales.",
+            "vi": "Sau khi thể hiện khả năng lãnh đạo xuất sắc, Lisa đã được thăng chức lên làm trưởng phòng kinh doanh."
+          },
+          {
+            "en": "The company launched an aggressive digital campaign to promote its new smartphone.",
+            "vi": "Công ty đã tung ra một chiến dịch kỹ thuật số rầm rộ để quảng bá dòng điện thoại thông minh mới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "promotion",
+          "vi": "sự thăng chức; chương trình khuyến mãi, sự quảng bá"
+        },
+        {
+          "term": "promoter",
+          "vi": "người quảng bá, nhà tổ chức quảng cáo"
+        }
+      ],
+      "verb": [
+        {
+          "term": "promote",
+          "vi": "thăng chức, xúc tiến (quá khứ: promoted)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "promotional",
+          "vi": "mang tính khuyến mãi, quảng cáo (promotional offer/discount)"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "advance",
+      "elevate",
+      "endorse",
+      "market",
+      "advertise",
+      "boost"
+    ],
+    "antonyms": [
+      "demote",
+      "degrade",
+      "hinder",
+      "discourage"
+    ],
+    "collocations": [
+      {
+        "en": "be promoted to senior manager",
+        "vi": "được thăng chức lên vị trí trưởng phòng cấp cao"
+      },
+      {
+        "en": "promotional discount / material",
+        "vi": "chiết khấu khuyến mãi / tài liệu quảng cáo"
+      },
+      {
+        "en": "promote economic growth",
+        "vi": "thúc đẩy sự tăng trưởng kinh tế"
+      },
+      {
+        "en": "promote healthy work-life balance",
+        "vi": "khuyến khích sự cân bằng giữa công việc và đời sống"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Human Resources & Marketing"
+    ],
+    "toeicNote": "🚨 2 NGHĨA RẤT HAY ĐƯỢC HỎI TRONG ĐỀ THI: 1) Nhân sự: 'He was promoted to director' (thăng chức); 2) Tiếp thị: 'Promote our spring clothing line' (quảng bá dòng sản phẩm).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "inspect": {
+    "headword": "inspect",
+    "lemma": "inspect",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ɪnˈspekt/",
+      "uk": "/ɪnˈspekt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=inspect&lang=en-US",
+      "uk": "/api/tts?text=inspect&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To look at someone or something closely, typically in order to detect errors or determine conditions.",
+        "meaningVi": "Kiểm tra, thanh tra, thị sát kỹ lưỡng (chất lượng, an toàn, công trình)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "A government official will inspect the factory to ensure adherence to environmental laws.",
+            "vi": "Một quan chức chính phủ sẽ thanh tra nhà máy để đảm bảo tuân thủ luật bảo vệ môi trường."
+          },
+          {
+            "en": "Technicians thoroughly inspect each vehicle before it leaves the assembly plant.",
+            "vi": "Các kỹ thuật viên kiểm tra kỹ lưỡng từng chiếc xe trước khi xuất xưởng khỏi xí nghiệp lắp ráp."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "inspection",
+          "vi": "buổi thanh tra, đợt kiểm tra chất lượng (safety inspection)"
+        },
+        {
+          "term": "inspector",
+          "vi": "thanh tra viên, người kiểm định chất lượng"
+        }
+      ],
+      "verb": [
+        {
+          "term": "inspect",
+          "vi": "thanh tra, xem xét (quá khứ: inspected)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "inspected",
+          "vi": "đã qua kiểm tra và đóng dấu đạt chuẩn"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "examine",
+      "audit",
+      "scrutinize",
+      "check",
+      "survey",
+      "review"
+    ],
+    "antonyms": [
+      "ignore",
+      "overlook",
+      "neglect"
+    ],
+    "collocations": [
+      {
+        "en": "inspect facilities / premises",
+        "vi": "thanh tra các cơ sở / mặt bằng hoạt động"
+      },
+      {
+        "en": "pass safety inspection",
+        "vi": "vượt qua đợt kiểm tra an toàn"
+      },
+      {
+        "en": "conduct an annual inspection",
+        "vi": "tiến hành một đợt thanh tra định kỳ hàng năm"
+      },
+      {
+        "en": "building inspector",
+        "vi": "thanh tra viên thẩm định xây dựng"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Quality Assurance & Manufacturing"
+    ],
+    "toeicNote": "Part 5 thường bẫy từ loại giữa danh từ chỉ người và danh từ chỉ vật: 'An experienced __________ arrived to evaluate the plant' -> Chọn 'inspector' (thanh tra viên), không chọn 'inspection'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "feedback": {
+    "headword": "feedback",
+    "lemma": "feedback",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈfiːd.bæk/",
+      "uk": "/ˈfiːd.bæk/"
+    },
+    "audio": {
+      "us": "/api/tts?text=feedback&lang=en-US",
+      "uk": "/api/tts?text=feedback&lang=en-GB"
+    },
+    "partOfSpeech": "Uncountable Noun",
+    "senses": [
+      {
+        "pos": "Uncountable Noun",
+        "defEn": "Information about reactions to a product, a person's performance of a task, etc. used as a basis for improvement.",
+        "meaningVi": "Ý kiến đóng góp, phản hồi đánh giá (Danh từ không đếm được)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "We appreciate your feedback and will use your suggestions to enhance our services.",
+            "vi": "Chúng tôi rất trân trọng ý kiến phản hồi của bạn và sẽ dùng các đề xuất đó để hoàn thiện dịch vụ."
+          },
+          {
+            "en": "The seminar participants provided overwhelmingly positive feedback on the keynote speech.",
+            "vi": "Những người tham dự hội thảo đã đưa ra những đánh giá phản hồi hết sức tích cực về bài phát biểu chính."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "feedback",
+          "vi": "ý kiến phản hồi"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "input",
+      "evaluation",
+      "assessment",
+      "critique",
+      "comments",
+      "reviews"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "valuable / constructive feedback",
+        "vi": "ý kiến đóng góp quý báu / có tính xây dựng"
+      },
+      {
+        "en": "customer feedback survey",
+        "vi": "bản khảo sát lấy ý kiến khách hàng"
+      },
+      {
+        "en": "provide positive / negative feedback",
+        "vi": "đưa ra phản hồi tích cực / tiêu cực"
+      },
+      {
+        "en": "welcome user feedback",
+        "vi": "rất hoan nghênh phản hồi từ người sử dụng"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Customer Relations & Surveys"
+    ],
+    "toeicNote": "⚠️ LƯU Ý NGỮ PHÁP TOEIC: 'Feedback' là DANH TỪ KHÔNG ĐẾM ĐƯỢC! Không bao giờ dùng 'a feedback' hay 'feedbacks'. Hãy dùng 'some feedback' hoặc 'a piece of feedback'.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "eligible": {
+    "headword": "eligible",
+    "lemma": "eligible",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈel.ə.dʒə.bəl/",
+      "uk": "/ˈel.ɪ.dʒə.bəl/"
+    },
+    "audio": {
+      "us": "/api/tts?text=eligible&lang=en-US",
+      "uk": "/api/tts?text=eligible&lang=en-GB"
+    },
+    "partOfSpeech": "Adjective",
+    "senses": [
+      {
+        "pos": "Adjective",
+        "defEn": "Having the right, qualifications, or meeting the conditions to do or receive something.",
+        "meaningVi": "Đủ tư cách, đủ điều kiện, thích hợp (để nhận phúc lợi, ứng tuyển, thăng tiến)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Full-time employees who have completed probation are eligible for comprehensive medical benefits.",
+            "vi": "Nhân viên chính thức đã hoàn thành thời gian thử việc sẽ đủ điều kiện hưởng đầy đủ phúc lợi y tế."
+          },
+          {
+            "en": "Please check the company policy to see if you are eligible to apply for sabbatical leave.",
+            "vi": "Vui lòng xem lại quy định công ty để biết bạn có đủ điều kiện nộp đơn xin nghỉ phép dài hạn hay không."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "eligibility",
+          "vi": "điều kiện hợp lệ, tư cách đủ tiêu chuẩn (eligibility criteria)"
+        }
+      ],
+      "verb": [],
+      "adj": [
+        {
+          "term": "eligible",
+          "vi": "đủ điều kiện, hợp lệ"
+        },
+        {
+          "term": "ineligible",
+          "vi": "không đủ tư cách, không hợp lệ"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "qualified",
+      "entitled",
+      "authorized",
+      "suitable",
+      "permitted"
+    ],
+    "antonyms": [
+      "ineligible",
+      "disqualified",
+      "unfit",
+      "unsuitable"
+    ],
+    "collocations": [
+      {
+        "en": "eligible for a promotion / bonus",
+        "vi": "đủ điều kiện để được thăng chức / thưởng"
+      },
+      {
+        "en": "eligible to receive tuition assistance",
+        "vi": "đủ điều kiện nhận trợ cấp học phí"
+      },
+      {
+        "en": "eligibility requirements / criteria",
+        "vi": "các tiêu chí / điều kiện xét duyệt hợp lệ"
+      },
+      {
+        "en": "become eligible after six months",
+        "vi": "trở nên đủ điều kiện sau 6 tháng công tác"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC Corporate Benefits & Regulations"
+    ],
+    "toeicNote": "🚨 CẤU TRÚC BẮT BUỘC NHỚ TOEIC PART 5: 1) 'be eligible FOR + Danh từ' (e.g. eligible for a discount); 2) 'be eligible TO + Động từ nguyên mẫu' (e.g. eligible to vote).",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "result": {
+    "headword": "result",
+    "lemma": "result",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/rɪˈzʌlt/",
+      "uk": "/rɪˈzʌlt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=result&lang=en-US",
+      "uk": "/api/tts?text=result&lang=en-GB"
+    },
+    "partOfSpeech": "Noun & Verb",
+    "senses": [
+      {
+        "pos": "Noun & Verb",
+        "defEn": "A thing that is caused or produced by something else; a consequence or outcome.",
+        "meaningVi": "Kết quả, thành quả (Danh từ); Dẫn đến, bắt nguồn từ (Động từ)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The positive quarterly results reflect the success of our digital marketing strategy.",
+            "vi": "Kết quả tích cực theo quý phản ánh sự thành công của chiến lược tiếp thị số của chúng tôi."
+          },
+          {
+            "en": "Careful planning resulted in a smooth office relocation without any downtime.",
+            "vi": "Việc lên kế hoạch cẩn thận đã dẫn đến một cuộc chuyển văn phòng êm đẹp mà không bị gián đoạn."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "result",
+          "vi": "kết quả, hiệu quả"
+        }
+      ],
+      "verb": [
+        {
+          "term": "result",
+          "vi": "dẫn tới (result in), bắt nguồn từ (result from)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "resultant",
+          "vi": "xảy ra như là hậu quả của"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "outcome",
+      "consequence",
+      "effect",
+      "conclusion",
+      "finding"
+    ],
+    "antonyms": [
+      "cause",
+      "origin",
+      "source"
+    ],
+    "collocations": [
+      {
+        "en": "as a result of",
+        "vi": "do là kết quả của, vì lý do..."
+      },
+      {
+        "en": "achieve excellent results",
+        "vi": "đạt được những kết quả xuất sắc"
+      },
+      {
+        "en": "result in significant savings",
+        "vi": "dẫn đến việc tiết kiệm đáng kể"
+      },
+      {
+        "en": "result from mechanical failure",
+        "vi": "bắt nguồn từ lỗi kỹ thuật cơ khí"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC High-Frequency"
+    ],
+    "toeicNote": "⚠️ Phân biệt quan trọng: 'result IN' = dẫn đến kết quả gì; 'result FROM' = bắt nguồn từ nguyên nhân gì!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "outcome": {
+    "headword": "outcome",
+    "lemma": "outcome",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈaʊt.kʌm/",
+      "uk": "/ˈaʊt.kʌm/"
+    },
+    "audio": {
+      "us": "/api/tts?text=outcome&lang=en-US",
+      "uk": "/api/tts?text=outcome&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The way a thing turns out; a consequence, conclusion, or final result.",
+        "meaningVi": "Kết quả cuối cùng, cục diện, kết cục của một sự việc",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Both parties were satisfied with the outcome of the contract negotiations.",
+            "vi": "Cả hai bên đều hài lòng với kết quả của cuộc đàm phán hợp đồng."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "outcome",
+          "vi": "kết quả cuối cùng"
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "result",
+      "consequence",
+      "end result",
+      "aftermath"
+    ],
+    "antonyms": [
+      "beginning",
+      "cause",
+      "start"
+    ],
+    "collocations": [
+      {
+        "en": "favorable / successful outcome",
+        "vi": "kết quả thuận lợi / thắng lợi"
+      },
+      {
+        "en": "outcome of the negotiation",
+        "vi": "kết quả của cuộc đàm phán"
+      },
+      {
+        "en": "anticipate the outcome",
+        "vi": "dự đoán trước kết quả"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC High-Frequency"
+    ],
+    "toeicNote": "Thường dùng để nói về kết quả của đàm phán ('negotiation outcome') hoặc nghiên cứu khảo nghiệm.",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "receive": {
+    "headword": "receive",
+    "lemma": "receive",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/rɪˈsiːv/",
+      "uk": "/rɪˈsiːv/"
+    },
+    "audio": {
+      "us": "/api/tts?text=receive&lang=en-US",
+      "uk": "/api/tts?text=receive&lang=en-GB"
+    },
+    "partOfSpeech": "Verb",
+    "senses": [
+      {
+        "pos": "Verb",
+        "defEn": "To be given, presented with, or paid something; to accept delivery of something.",
+        "meaningVi": "Nhận, tiếp nhận (thư từ, thanh toán, giải thưởng, cuộc gọi)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "You will receive an automated notification as soon as your shipment departs.",
+            "vi": "Bạn sẽ nhận được thông báo tự động ngay khi lô hàng của bạn bắt đầu xuất phát."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "receipt",
+          "vi": "hóa đơn biên lai; sự nhận được (upon receipt of)"
+        },
+        {
+          "term": "receiver",
+          "vi": "người nhận, ống nghe điện thoại"
+        },
+        {
+          "term": "reception",
+          "vi": "quầy lễ tân, sự tiếp đón nồng hậu"
+        },
+        {
+          "term": "recipient",
+          "vi": "người nhận (giải thưởng, thư từ, bưu phẩm)"
+        }
+      ],
+      "verb": [
+        {
+          "term": "receive",
+          "vi": "nhận được (quá khứ: received)"
+        }
+      ],
+      "adj": [
+        {
+          "term": "receptive",
+          "vi": "sẵn sàng đón nhận ý kiến mới"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "accept",
+      "obtain",
+      "acquire",
+      "get",
+      "collect"
+    ],
+    "antonyms": [
+      "send",
+      "dispatch",
+      "give",
+      "distribute"
+    ],
+    "collocations": [
+      {
+        "en": "receive confirmation",
+        "vi": "nhận được văn bản xác nhận"
+      },
+      {
+        "en": "upon receipt of your payment",
+        "vi": "ngay sau khi nhận được tiền thanh toán của quý khách"
+      },
+      {
+        "en": "receive an award for excellence",
+        "vi": "nhận giải thưởng về sự cống hiến xuất sắc"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC High-Frequency"
+    ],
+    "toeicNote": "⚠️ LƯU Ý CHÍNH TẢ: Chữ 'e' đứng trước 'i' sau 'c': R-E-C-E-I-V-E (hay bị gõ sai thành 'recieve')!",
+    "sources": [
+      {
+        "name": "Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://en.wiktionary.org"
+      },
+      {
+        "name": "WordNet 3.0",
+        "license": "WordNet License",
+        "url": "https://wordnet.princeton.edu"
+      },
+      {
+        "name": "Tatoeba Project",
+        "license": "CC BY 2.0 FR",
+        "url": "https://tatoeba.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  }
+}

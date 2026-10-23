@@ -1,0 +1,497 @@
+{
+  "went": {
+    "lemma": "go",
+    "form": "past tense of go",
+    "vi": "Quá khứ đơn (V2) của động từ 'go'"
+  },
+  "gone": {
+    "lemma": "go",
+    "form": "past participle of go",
+    "vi": "Quá khứ phân từ (V3) của động từ 'go'"
+  },
+  "goes": {
+    "lemma": "go",
+    "form": "third person singular of go",
+    "vi": "Ngôi thứ 3 số ít thì hiện tại đơn của 'go'"
+  },
+  "going": {
+    "lemma": "go",
+    "form": "present participle of go",
+    "vi": "Dạng V-ing của động từ 'go'"
+  },
+  "ran": {
+    "lemma": "run",
+    "form": "past tense of run",
+    "vi": "Quá khứ đơn của 'run'"
+  },
+  "saw": {
+    "lemma": "see",
+    "form": "past tense of see",
+    "vi": "Quá khứ đơn của 'see'"
+  },
+  "seen": {
+    "lemma": "see",
+    "form": "past participle of see",
+    "vi": "Quá khứ phân từ của 'see'"
+  },
+  "did": {
+    "lemma": "do",
+    "form": "past tense of do",
+    "vi": "Quá khứ đơn của 'do'"
+  },
+  "done": {
+    "lemma": "do",
+    "form": "past participle of do",
+    "vi": "Quá khứ phân từ của 'do'"
+  },
+  "had": {
+    "lemma": "have",
+    "form": "past tense/participle of have",
+    "vi": "Quá khứ / phân từ của 'have'"
+  },
+  "has": {
+    "lemma": "have",
+    "form": "third person singular of have",
+    "vi": "Ngôi thứ 3 số ít của 'have'"
+  },
+  "was": {
+    "lemma": "be",
+    "form": "past tense of be (singular)",
+    "vi": "Quá khứ số ít của động từ to be"
+  },
+  "were": {
+    "lemma": "be",
+    "form": "past tense of be (plural)",
+    "vi": "Quá khứ số nhiều của động từ to be"
+  },
+  "been": {
+    "lemma": "be",
+    "form": "past participle of be",
+    "vi": "Quá khứ phân từ của động từ to be"
+  },
+  "made": {
+    "lemma": "make",
+    "form": "past tense/participle of make",
+    "vi": "Quá khứ / phân từ của 'make'"
+  },
+  "took": {
+    "lemma": "take",
+    "form": "past tense of take",
+    "vi": "Quá khứ đơn của 'take'"
+  },
+  "taken": {
+    "lemma": "take",
+    "form": "past participle of take",
+    "vi": "Quá khứ phân từ của 'take'"
+  },
+  "bought": {
+    "lemma": "buy",
+    "form": "past tense/participle of buy",
+    "vi": "Quá khứ / phân từ của 'buy'"
+  },
+  "brought": {
+    "lemma": "bring",
+    "form": "past tense/participle of bring",
+    "vi": "Quá khứ / phân từ của 'bring'"
+  },
+  "thought": {
+    "lemma": "think",
+    "form": "past tense/participle of think",
+    "vi": "Quá khứ / phân từ của 'think'"
+  },
+  "taught": {
+    "lemma": "teach",
+    "form": "past tense/participle of teach",
+    "vi": "Quá khứ / phân từ của 'teach'"
+  },
+  "caught": {
+    "lemma": "catch",
+    "form": "past tense/participle of catch",
+    "vi": "Quá khứ / phân từ của 'catch'"
+  },
+  "found": {
+    "lemma": "find",
+    "form": "past tense/participle of find",
+    "vi": "Quá khứ / phân từ của 'find'"
+  },
+  "left": {
+    "lemma": "leave",
+    "form": "past tense/participle of leave",
+    "vi": "Quá khứ / phân từ của 'leave'"
+  },
+  "held": {
+    "lemma": "hold",
+    "form": "past tense/participle of hold",
+    "vi": "Quá khứ / phân từ của 'hold'"
+  },
+  "met": {
+    "lemma": "meet",
+    "form": "past tense/participle of meet",
+    "vi": "Quá khứ / phân từ của 'meet'"
+  },
+  "sent": {
+    "lemma": "send",
+    "form": "past tense/participle of send",
+    "vi": "Quá khứ / phân từ của 'send'"
+  },
+  "spent": {
+    "lemma": "spend",
+    "form": "past tense/participle of spend",
+    "vi": "Quá khứ / phân từ của 'spend'"
+  },
+  "built": {
+    "lemma": "build",
+    "form": "past tense/participle of build",
+    "vi": "Quá khứ / phân từ của 'build'"
+  },
+  "paid": {
+    "lemma": "pay",
+    "form": "past tense/participle of pay",
+    "vi": "Quá khứ / phân từ của 'pay'"
+  },
+  "chose": {
+    "lemma": "choose",
+    "form": "past tense of choose",
+    "vi": "Quá khứ đơn của 'choose'"
+  },
+  "chosen": {
+    "lemma": "choose",
+    "form": "past participle of choose",
+    "vi": "Quá khứ phân từ của 'choose'"
+  },
+  "wrote": {
+    "lemma": "write",
+    "form": "past tense of write",
+    "vi": "Quá khứ đơn của 'write'"
+  },
+  "written": {
+    "lemma": "write",
+    "form": "past participle of write",
+    "vi": "Quá khứ phân từ của 'write'"
+  },
+  "spoke": {
+    "lemma": "speak",
+    "form": "past tense of speak",
+    "vi": "Quá khứ đơn của 'speak'"
+  },
+  "spoken": {
+    "lemma": "speak",
+    "form": "past participle of speak",
+    "vi": "Quá khứ phân từ của 'speak'"
+  },
+  "children": {
+    "lemma": "child",
+    "form": "irregular plural of child",
+    "vi": "Dạng số nhiều bất quy tắc của danh từ 'child' (trẻ em)"
+  },
+  "people": {
+    "lemma": "person",
+    "form": "plural of person",
+    "vi": "Dạng số nhiều của 'person' (con người/mọi người)"
+  },
+  "men": {
+    "lemma": "man",
+    "form": "plural of man",
+    "vi": "Dạng số nhiều của 'man' (đàn ông)"
+  },
+  "women": {
+    "lemma": "woman",
+    "form": "plural of woman",
+    "vi": "Dạng số nhiều của 'woman' (phụ nữ)"
+  },
+  "feet": {
+    "lemma": "foot",
+    "form": "plural of foot",
+    "vi": "Dạng số nhiều của 'foot' (bàn chân/đơn vị foot)"
+  },
+  "teeth": {
+    "lemma": "tooth",
+    "form": "plural of tooth",
+    "vi": "Dạng số nhiều của 'tooth' (răng)"
+  },
+  "mice": {
+    "lemma": "mouse",
+    "form": "plural of mouse",
+    "vi": "Dạng số nhiều của 'mouse' (chuột)"
+  },
+  "halves": {
+    "lemma": "half",
+    "form": "plural of half",
+    "vi": "Dạng số nhiều của 'half' (các nửa)"
+  },
+  "crises": {
+    "lemma": "crisis",
+    "form": "plural of crisis",
+    "vi": "Dạng số nhiều của 'crisis' (các cuộc khủng hoảng)"
+  },
+  "criteria": {
+    "lemma": "criterion",
+    "form": "plural of criterion",
+    "vi": "Dạng số nhiều của 'criterion' (các tiêu chí)"
+  },
+  "analyses": {
+    "lemma": "analysis",
+    "form": "plural of analysis",
+    "vi": "Dạng số nhiều của 'analysis' (các bản phân tích)"
+  },
+  "better": {
+    "lemma": "good",
+    "form": "comparative of good/well",
+    "vi": "Dạng so sánh hơn của tính từ 'good' hoặc trạng từ 'well' (tốt hơn, giỏi hơn)"
+  },
+  "best": {
+    "lemma": "good",
+    "form": "superlative of good/well",
+    "vi": "Dạng so sánh nhất của tính từ 'good' hoặc trạng từ 'well' (tốt nhất, đỉnh nhất)"
+  },
+  "worse": {
+    "lemma": "bad",
+    "form": "comparative of bad/badly",
+    "vi": "Dạng so sánh hơn của 'bad/badly' (tệ hơn)"
+  },
+  "worst": {
+    "lemma": "bad",
+    "form": "superlative of bad/badly",
+    "vi": "Dạng so sánh nhất của 'bad/badly' (tệ nhất)"
+  },
+  "more": {
+    "lemma": "much",
+    "form": "comparative of much/many",
+    "vi": "Dạng so sánh hơn của 'much/many' (nhiều hơn)"
+  },
+  "most": {
+    "lemma": "much",
+    "form": "superlative of much/many",
+    "vi": "Dạng so sánh nhất của 'much/many' (nhiều nhất)"
+  },
+  "less": {
+    "lemma": "little",
+    "form": "comparative of little",
+    "vi": "Dạng so sánh hơn của 'little' (ít hơn)"
+  },
+  "least": {
+    "lemma": "little",
+    "form": "superlative of little",
+    "vi": "Dạng so sánh nhất của 'little' (ít nhất)"
+  },
+  "farther": {
+    "lemma": "far",
+    "form": "comparative of far",
+    "vi": "Dạng so sánh hơn của 'far' (xa hơn về khoảng cách)"
+  },
+  "further": {
+    "lemma": "far",
+    "form": "comparative of far",
+    "vi": "Dạng so sánh hơn của 'far' (sâu hơn, thêm nữa)"
+  },
+  "contracts": {
+    "lemma": "contract",
+    "form": "plural or 3rd singular of contract",
+    "vi": "Dạng số nhiều hoặc động từ ngôi thứ 3 số ít của 'contract'"
+  },
+  "required": {
+    "lemma": "require",
+    "form": "past tense/participle of require",
+    "vi": "Dạng quá khứ / phân từ (bắt buộc, được yêu cầu) của 'require'"
+  },
+  "requiring": {
+    "lemma": "require",
+    "form": "present participle of require",
+    "vi": "Dạng V-ing của 'require'"
+  },
+  "requirement": {
+    "lemma": "require",
+    "form": "noun derivative of require",
+    "vi": "Danh từ (yêu cầu, điều kiện tiên quyết) thuộc họ từ 'require'"
+  },
+  "requirements": {
+    "lemma": "require",
+    "form": "plural noun of requirement",
+    "vi": "Dạng danh từ số nhiều (các yêu cầu) thuộc họ từ 'require'"
+  },
+  "managing": {
+    "lemma": "manage",
+    "form": "present participle/gerund of manage",
+    "vi": "Dạng V-ing / danh động từ (đang quản lý, sự quản lý) của 'manage'"
+  },
+  "managed": {
+    "lemma": "manage",
+    "form": "past tense/participle of manage",
+    "vi": "Dạng quá khứ / phân từ của 'manage'"
+  },
+  "manager": {
+    "lemma": "manage",
+    "form": "noun (person) of manage",
+    "vi": "Danh từ chỉ người (người quản lý, trưởng phòng) của 'manage'"
+  },
+  "management": {
+    "lemma": "manage",
+    "form": "noun (system) of manage",
+    "vi": "Danh từ (ban giám đốc, sự điều hành/quản lý) của 'manage'"
+  },
+  "managerial": {
+    "lemma": "manage",
+    "form": "adjective of manage",
+    "vi": "Tính từ (thuộc về quản lý/điều hành) của 'manage'"
+  },
+  "competitive": {
+    "lemma": "compete",
+    "form": "adjective derivative of compete",
+    "vi": "Tính từ (cạnh tranh, có tính ganh đua) của 'compete'"
+  },
+  "competitor": {
+    "lemma": "compete",
+    "form": "noun (person/entity) of compete",
+    "vi": "Danh từ (đối thủ cạnh tranh) của 'compete'"
+  },
+  "competition": {
+    "lemma": "compete",
+    "form": "noun (activity) of compete",
+    "vi": "Danh từ (cuộc thi, sự cạnh tranh thị trường) của 'compete'"
+  },
+  "competitively": {
+    "lemma": "compete",
+    "form": "adverb derivative of compete",
+    "vi": "Trạng từ (một cách cạnh tranh) của 'compete'"
+  },
+  "application": {
+    "lemma": "apply",
+    "form": "noun derivative of apply",
+    "vi": "Danh từ (đơn xin việc, sự ứng dụng) của 'apply'"
+  },
+  "applications": {
+    "lemma": "apply",
+    "form": "plural of application",
+    "vi": "Dạng số nhiều của 'application'"
+  },
+  "applicant": {
+    "lemma": "apply",
+    "form": "noun (person) of apply",
+    "vi": "Danh từ (ứng viên, người nộp đơn) của 'apply'"
+  },
+  "applied": {
+    "lemma": "apply",
+    "form": "past tense/participle of apply",
+    "vi": "Quá khứ / phân từ của 'apply'"
+  },
+  "applying": {
+    "lemma": "apply",
+    "form": "present participle of apply",
+    "vi": "Dạng V-ing của 'apply'"
+  },
+  "applicable": {
+    "lemma": "apply",
+    "form": "adjective of apply",
+    "vi": "Tính từ (có thể áp dụng được) của 'apply'"
+  },
+  "economy": {
+    "lemma": "economic",
+    "form": "noun root of economic",
+    "vi": "Danh từ (nền kinh tế, sự tiết kiệm) thuộc họ từ 'economic'"
+  },
+  "economical": {
+    "lemma": "economic",
+    "form": "adjective derivative of economy",
+    "vi": "Tính từ (tiết kiệm, kinh tế) thuộc họ từ 'economic'"
+  },
+  "economically": {
+    "lemma": "economic",
+    "form": "adverb derivative of economic",
+    "vi": "Trạng từ (về mặt kinh tế) của 'economic'"
+  },
+  "economics": {
+    "lemma": "economic",
+    "form": "noun (field) of economic",
+    "vi": "Danh từ (ngành kinh tế học) của 'economic'"
+  },
+  "economist": {
+    "lemma": "economic",
+    "form": "noun (person) of economic",
+    "vi": "Danh từ (nhà kinh tế học) của 'economic'"
+  },
+  "economize": {
+    "lemma": "economic",
+    "form": "verb of economic",
+    "vi": "Động từ (thắt chặt chi tiêu, tiết kiệm) của 'economic'"
+  },
+  "production": {
+    "lemma": "produce",
+    "form": "noun (output/process) of produce",
+    "vi": "Danh từ (sự sản xuất, sản lượng) của 'produce'"
+  },
+  "producer": {
+    "lemma": "produce",
+    "form": "noun (person) of produce",
+    "vi": "Danh từ (nhà sản xuất) của 'produce'"
+  },
+  "productive": {
+    "lemma": "produce",
+    "form": "adjective of produce",
+    "vi": "Tính từ (năng suất cao, hiệu quả) của 'produce'"
+  },
+  "productively": {
+    "lemma": "produce",
+    "form": "adverb of produce",
+    "vi": "Trạng từ (một cách năng suất) của 'produce'"
+  },
+  "productivity": {
+    "lemma": "produce",
+    "form": "noun (efficiency) of produce",
+    "vi": "Danh từ (năng suất làm việc) của 'produce'"
+  },
+  "produced": {
+    "lemma": "produce",
+    "form": "past tense/participle of produce",
+    "vi": "Quá khứ / phân từ của 'produce'"
+  },
+  "producing": {
+    "lemma": "produce",
+    "form": "present participle of produce",
+    "vi": "Dạng V-ing của 'produce'"
+  },
+  "negotiation": {
+    "lemma": "negotiate",
+    "form": "noun of negotiate",
+    "vi": "Danh từ (cuộc đàm phán, thương lượng) của 'negotiate'"
+  },
+  "negotiator": {
+    "lemma": "negotiate",
+    "form": "noun (person) of negotiate",
+    "vi": "Danh từ (nhà đàm phán) của 'negotiate'"
+  },
+  "negotiated": {
+    "lemma": "negotiate",
+    "form": "past tense/participle of negotiate",
+    "vi": "Quá khứ / phân từ của 'negotiate'"
+  },
+  "negotiable": {
+    "lemma": "negotiate",
+    "form": "adjective of negotiate",
+    "vi": "Tính từ (có thể thương lượng được) của 'negotiate'"
+  },
+  "success": {
+    "lemma": "succeed",
+    "form": "noun of succeed",
+    "vi": "Danh từ (sự thành công, thành tựu) của 'succeed'"
+  },
+  "successful": {
+    "lemma": "succeed",
+    "form": "adjective of succeed",
+    "vi": "Tính từ (thành công, thắng lợi) của 'succeed'"
+  },
+  "successfully": {
+    "lemma": "succeed",
+    "form": "adverb of succeed",
+    "vi": "Trạng từ (một cách thành công) của 'succeed'"
+  },
+  "succeeded": {
+    "lemma": "succeed",
+    "form": "past tense/participle of succeed",
+    "vi": "Quá khứ / phân từ của 'succeed'"
+  },
+  "succeeding": {
+    "lemma": "succeed",
+    "form": "present participle of succeed",
+    "vi": "Dạng V-ing của 'succeed'"
+  }
+}

@@ -740,13 +740,35 @@ Chuyên đề bẫy: ${trapTitle}`;
 // QUẢN LÝ TỪ ĐIỂN & TRA CỨU COLLOCATION ĐA TẦNG (ONLINE & LOCAL CACHE)
 // =========================================================================
 const DICT_CACHE_FILE = path.join(DATA_DIR, 'dictionary_cache.json');
+const DICT_LEXICON_FILE = path.join(DATA_DIR, 'dictionary_lexicon.json');
+const DICT_LEMMAS_FILE = path.join(DATA_DIR, 'dictionary_lemmas.json');
+
 let dictionaryCache = {};
+let dictionaryLexicon = {};
+let dictionaryLemmas = {};
+
 try {
   if (fs.existsSync(DICT_CACHE_FILE)) {
     dictionaryCache = JSON.parse(fs.readFileSync(DICT_CACHE_FILE, 'utf8'));
   }
 } catch (e) {
   dictionaryCache = {};
+}
+
+try {
+  if (fs.existsSync(DICT_LEXICON_FILE)) {
+    dictionaryLexicon = JSON.parse(fs.readFileSync(DICT_LEXICON_FILE, 'utf8'));
+  }
+} catch (e) {
+  dictionaryLexicon = {};
+}
+
+try {
+  if (fs.existsSync(DICT_LEMMAS_FILE)) {
+    dictionaryLemmas = JSON.parse(fs.readFileSync(DICT_LEMMAS_FILE, 'utf8'));
+  }
+} catch (e) {
+  dictionaryLemmas = {};
 }
 
 function saveDictionaryCache() {
@@ -945,58 +967,81 @@ function handleDictionaryLookup(rawWord, callback) {
   }
   const cleanKey = word.toLowerCase();
 
-  // 1. Kiểm tra kho từ điển chuẩn CORE_VI_LEXICON trước tiên (ưu tiên cao nhất)
+  // 1. Kiểm tra trong dictionaryLexicon (Kho từ điển chuẩn hóa mở rộng)
+  if (dictionaryLexicon[cleanKey]) {
+    return callback({ success: true, fromLexicon: true, data: dictionaryLexicon[cleanKey] });
+  }
+
+  // 2. Kiểm tra trong Lemmatizer (từ bất quy tắc: went -> go, children -> child, better -> good)
+  if (dictionaryLemmas[cleanKey]) {
+    const lem = dictionaryLemmas[cleanKey];
+    const targetLemma = lem.lemma.toLowerCase();
+    if (dictionaryLexicon[targetLemma]) {
+      const entry = JSON.parse(JSON.stringify(dictionaryLexicon[targetLemma]));
+      entry.flags = entry.flags || {};
+      entry.flags.isLemmaRedirect = true;
+      entry.matchedForm = lem.vi || lem.form;
+      entry.searchedQuery = word;
+      return callback({ success: true, fromLemmas: true, data: entry });
+    }
+  }
+
+  // 3. Kiểm tra kho từ điển chuẩn CORE_VI_LEXICON trước tiên (nếu có)
   if (CORE_VI_LEXICON[cleanKey]) {
     dictionaryCache[cleanKey] = CORE_VI_LEXICON[cleanKey];
     saveDictionaryCache();
     return callback({ success: true, fromCore: true, data: CORE_VI_LEXICON[cleanKey] });
   }
 
-  // 2. Kiểm tra bộ đệm Cache cục bộ (nếu hợp lệ và đã có tiếng Việt chuẩn)
+  // 4. Kiểm tra bộ đệm Cache cục bộ (nếu hợp lệ và đã có tiếng Việt chuẩn)
   if (dictionaryCache[cleanKey] && isActualVietnameseText(dictionaryCache[cleanKey].vi)) {
     return callback({ success: true, fromCache: true, data: dictionaryCache[cleanKey] });
   }
 
-  // 3. Tra cứu dịch nghĩa tiếng Việt qua MyMemory Translation API
-  const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanKey)}&langpair=en|vi`;
-  fetchHttpsJson(myMemoryUrl, (transErr, transJson) => {
-    let viTranslation = '';
-    if (transJson && transJson.responseData && transJson.responseData.translatedText) {
-      const candidate = transJson.responseData.translatedText.trim();
-      if (candidate.toLowerCase() !== cleanKey && isActualVietnameseText(candidate)) {
-        viTranslation = candidate;
+  // 5. Kiểm tra tra cứu ngược nếu từ khóa là tiếng Việt
+  if (isActualVietnameseText(cleanKey)) {
+    const matches = [];
+    for (const [k, v] of Object.entries(dictionaryLexicon)) {
+      const viText = (v.senses?.[0]?.meaningVi || v.vi || '').toLowerCase();
+      if (viText.includes(cleanKey)) {
+        matches.push(v);
+        if (matches.length >= 6) break;
       }
     }
+    if (matches.length > 0) {
+      return callback({
+        success: true,
+        isReverseLookup: true,
+        query: word,
+        results: matches
+      });
+    }
+  }
 
-    // Nếu là cụm từ (có dấu cách) -> Collocation lookup
-    if (cleanKey.includes(' ')) {
-      const entry = {
-        word: word,
-        phonetic: '',
-        partOfSpeech: 'Cụm từ / Collocation',
-        vi: viTranslation || `Cụm từ chuyên đề: "${word}"`,
-        definition: `A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.`,
-        examTag: 'TOEIC Collocation / Phrasal Expression',
-        wordFamily: { noun: [], verb: [], adj: [], adv: [] },
-        synonyms: [],
-        antonyms: [],
-        collocations: [
-          { en: word, vi: viTranslation || 'cụm từ cố định trong đề thi' }
-        ],
-        idioms: [],
-        toeicNote: `💡 Bí kíp Part 5 & 6: Ghi nhớ nguyên cụm "${word}" giúp bạn phản xạ đáp án trong 3 giây mà không cần dịch nghĩa từng từ!`,
-        examples: [
-          { en: `It is critical to utilize "${word}" correctly in official business correspondence.`, vi: `Việc sử dụng chuẩn xác cụm từ "${word}" là rất quan trọng trong thư tín thương mại chính thức.` }
-        ]
-      };
-      dictionaryCache[cleanKey] = entry;
-      saveDictionaryCache();
-      return callback({ success: true, fromApi: true, data: entry });
+  // 6. Tra cứu trực tuyến qua Free Dictionary API (không bịa từ nếu API không trả về)
+  const freeDictUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanKey)}`;
+  fetchHttpsJson(freeDictUrl, (dictErr, dictJson, statusCode) => {
+    // Nếu API trả về 404 hoặc không tìm thấy: Báo Not Found thực sự, TUYỆT ĐỐI không bịa từ
+    if (statusCode !== 200 || !Array.isArray(dictJson) || dictJson.length === 0) {
+      return callback({
+        success: false,
+        notFound: true,
+        query: word,
+        message: `Không tìm thấy từ hoặc cụm từ "${word}" trong từ điển.`
+      });
     }
 
-    // Nếu là từ đơn: Tra cứu qua Free Dictionary API
-    const freeDictUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanKey)}`;
-    fetchHttpsJson(freeDictUrl, (dictErr, dictJson, statusCode) => {
+    // Nếu từ có thật trên Free Dictionary: Tra tiếp nghĩa Việt qua MyMemory
+    const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanKey)}&langpair=en|vi`;
+    fetchHttpsJson(myMemoryUrl, (transErr, transJson) => {
+      let viTranslation = '';
+      if (transJson && transJson.responseData && transJson.responseData.translatedText) {
+        const candidate = transJson.responseData.translatedText.trim();
+        if (candidate.toLowerCase() !== cleanKey && isActualVietnameseText(candidate)) {
+          viTranslation = candidate;
+        }
+      }
+
       let phonetic = `/ˈ${cleanKey}/`;
       let partOfSpeech = 'General Vocabulary';
       let definition = `An essential English term in academic and professional communication.`;
@@ -1005,53 +1050,50 @@ function handleDictionaryLookup(rawWord, callback) {
       let examples = [];
       const wordFamily = { noun: [], verb: [], adj: [], adv: [] };
 
-      if (statusCode === 200 && Array.isArray(dictJson) && dictJson.length > 0) {
-        const item = dictJson[0];
-        if (item.phonetic) {
-          phonetic = item.phonetic;
-        } else if (Array.isArray(item.phonetics)) {
-          const ph = item.phonetics.find(p => p.text);
-          if (ph) phonetic = ph.text;
-        }
-
-        if (Array.isArray(item.meanings) && item.meanings.length > 0) {
-          const posList = [...new Set(item.meanings.map(m => m.partOfSpeech.charAt(0).toUpperCase() + m.partOfSpeech.slice(1)))];
-          partOfSpeech = formatCleanPartOfSpeech(posList);
-
-          if (item.meanings[0].definitions && item.meanings[0].definitions[0]) {
-            definition = item.meanings[0].definitions[0].definition || definition;
-          }
-
-          item.meanings.forEach(m => {
-            const p = m.partOfSpeech.toLowerCase();
-            const firstDef = m.definitions && m.definitions[0] ? m.definitions[0].definition : '';
-            if (m.definitions && m.definitions[0] && m.definitions[0].example) {
-              examples.push({
-                en: m.definitions[0].example,
-                vi: `Ví dụ: "${m.definitions[0].example}"`
-              });
-            }
-            if (Array.isArray(m.synonyms)) synonyms.push(...m.synonyms);
-            if (Array.isArray(m.antonyms)) antonyms.push(...m.antonyms);
-
-            const safeMeaningVi = viTranslation || (firstDef && isActualVietnameseText(firstDef) ? firstDef : `dạng ${p} của "${cleanKey}"`);
-            if (p.includes('noun') && !wordFamily.noun.some(x => x.term === cleanKey)) {
-              wordFamily.noun.push({ term: cleanKey, vi: safeMeaningVi });
-            } else if (p.includes('verb') && !wordFamily.verb.some(x => x.term === cleanKey)) {
-              wordFamily.verb.push({ term: cleanKey, vi: safeMeaningVi });
-            } else if ((p.includes('adj') || p.includes('adjective')) && !wordFamily.adj.some(x => x.term === cleanKey)) {
-              wordFamily.adj.push({ term: cleanKey, vi: safeMeaningVi });
-            } else if ((p.includes('adv') || p.includes('adverb')) && !wordFamily.adv.some(x => x.term === cleanKey)) {
-              wordFamily.adv.push({ term: cleanKey, vi: safeMeaningVi });
-            }
-          });
-        }
+      const item = dictJson[0];
+      if (item.phonetic) {
+        phonetic = item.phonetic;
+      } else if (Array.isArray(item.phonetics)) {
+        const ph = item.phonetics.find(p => p.text);
+        if (ph) phonetic = ph.text;
       }
 
-      // Xử lý chuẩn tiếng Việt tuyệt đối, không bao giờ lấy định nghĩa tiếng Anh gán vào VN
+      if (Array.isArray(item.meanings) && item.meanings.length > 0) {
+        const posList = [...new Set(item.meanings.map(m => m.partOfSpeech.charAt(0).toUpperCase() + m.partOfSpeech.slice(1)))];
+        partOfSpeech = formatCleanPartOfSpeech(posList);
+
+        if (item.meanings[0].definitions && item.meanings[0].definitions[0]) {
+          definition = item.meanings[0].definitions[0].definition || definition;
+        }
+
+        item.meanings.forEach(m => {
+          const p = m.partOfSpeech.toLowerCase();
+          const firstDef = m.definitions && m.definitions[0] ? m.definitions[0].definition : '';
+          if (m.definitions && m.definitions[0] && m.definitions[0].example) {
+            examples.push({
+              en: m.definitions[0].example,
+              vi: `Ví dụ: "${m.definitions[0].example}"`
+            });
+          }
+          if (Array.isArray(m.synonyms)) synonyms.push(...m.synonyms);
+          if (Array.isArray(m.antonyms)) antonyms.push(...m.antonyms);
+
+          const safeMeaningVi = viTranslation || (firstDef && isActualVietnameseText(firstDef) ? firstDef : `dạng ${p} của "${cleanKey}"`);
+          if (p.includes('noun') && !wordFamily.noun.some(x => x.term === cleanKey)) {
+            wordFamily.noun.push({ term: cleanKey, vi: safeMeaningVi });
+          } else if (p.includes('verb') && !wordFamily.verb.some(x => x.term === cleanKey)) {
+            wordFamily.verb.push({ term: cleanKey, vi: safeMeaningVi });
+          } else if ((p.includes('adj') || p.includes('adjective')) && !wordFamily.adj.some(x => x.term === cleanKey)) {
+            wordFamily.adj.push({ term: cleanKey, vi: safeMeaningVi });
+          } else if ((p.includes('adv') || p.includes('adverb')) && !wordFamily.adv.some(x => x.term === cleanKey)) {
+            wordFamily.adv.push({ term: cleanKey, vi: safeMeaningVi });
+          }
+        });
+      }
+
       let finalVi = viTranslation;
       if (!finalVi || !isActualVietnameseText(finalVi)) {
-        finalVi = `Từ vựng tiếng Anh: "${cleanKey}"`;
+        finalVi = `Thuật ngữ tiếng Anh: "${cleanKey}" (Bản dịch đang được cập nhật)`;
       }
 
       synonyms = [...new Set(synonyms)].slice(0, 8);
@@ -1059,27 +1101,49 @@ function handleDictionaryLookup(rawWord, callback) {
       if (examples.length === 0) {
         examples.push({
           en: `Understanding the usage of "${cleanKey}" is essential for TOEIC and VSTEP test-takers.`,
-          vi: `Hiểu rõ cách dùng của "${cleanKey}" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP.`
+          vi: `Hiểu rõ cách dùng của "${cleanKey}" là điều hữu ích cho thí sinh thi TOEIC và VSTEP.`
         });
       }
 
       const entry = {
+        headword: word,
+        lemma: cleanKey,
         word: word,
         phonetic: phonetic,
+        ipa: { us: phonetic, uk: phonetic },
         partOfSpeech: partOfSpeech,
         vi: finalVi,
         definition: definition,
+        senses: [
+          {
+            pos: partOfSpeech,
+            defEn: definition,
+            meaningVi: finalVi,
+            level: 'B1-B2',
+            examples: examples.slice(0, 3)
+          }
+        ],
         examTag: 'TOEIC / VSTEP Core Vocabulary',
+        lists: ['TOEIC / VSTEP Core Vocabulary'],
         wordFamily: wordFamily,
         synonyms: synonyms,
         antonyms: antonyms,
         collocations: [
-          { en: `common use of ${cleanKey}`, vi: `cách sử dụng thông dụng của ${cleanKey}` },
-          { en: `key ${cleanKey} factor`, vi: `yếu tố ${cleanKey} then chốt` }
+          { phrase: `common use of ${cleanKey}`, vi: `cách sử dụng thông dụng của ${cleanKey}` },
+          { phrase: `key ${cleanKey} factor`, vi: `yếu tố ${cleanKey} then chốt` }
         ],
         idioms: [],
-        toeicNote: `💡 Mẹo làm bài: Chú ý vị trí từ loại của "${cleanKey}" khi đứng sau tính từ sở hữu hoặc mạo từ a/an/the!`,
-        examples: examples.slice(0, 3)
+        toeicNote: `💡 Mẹo làm bài: Xác định rõ từ loại của "${cleanKey}" dựa trên từ đứng trước và sau trong câu!`,
+        examples: examples.slice(0, 3),
+        sources: [
+          { name: 'Free Dictionary API / Wiktionary', license: 'CC BY-SA 3.0', url: 'https://dictionaryapi.dev' },
+          { name: 'MyMemory Translation', license: 'Public translation memory', url: 'https://mymemory.translated.net' }
+        ],
+        flags: {
+          exactMatch: true,
+          machineTranslated: true,
+          incomplete: false
+        }
       };
 
       dictionaryCache[cleanKey] = entry;
