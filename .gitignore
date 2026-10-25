@@ -19,3 +19,5 @@ yarn-error.log*
 .env.txt
 .DS_Store
 Thumbs.db
+
+data/ets2026_raw/
