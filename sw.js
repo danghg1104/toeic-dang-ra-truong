@@ -1,5 +1,5 @@
-// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V5 Clean & Network First for HTML)
-const CACHE_NAME = 'dang-ra-truong-cache-v5-clean';
+// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V8 ETS 2026 Listening Workstation)
+const CACHE_NAME = 'dang-ra-truong-cache-v8-listening-workstation';
 const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/icon-192.png',

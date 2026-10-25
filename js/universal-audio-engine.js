@@ -1,7 +1,11 @@
 /**
+ * =========================================================================
  * UNIVERSAL AUDIO ENGINE CHO LAPTOP & ĐIỆN THOẠI (HYBRID AUDIO ENGINE)
- * Khắc phục 100% lỗi câm tiếng / không phát được audio trên Mobile (Android, iOS Safari, Capacitor WebView)
- * Cơ chế: Web Speech API (Đã vá Garbage Collection & Cancel Bug) + Tự động Fallback sang Native HTML5 MP3 Stream
+ * =========================================================================
+ * Tích hợp chặt chẽ với AudioService (3-Tier Resolver Engine).
+ * Khắc phục 100% lỗi câm tiếng / không phát được audio trên Mobile (Android, iOS Safari, WebView).
+ * Khắc phục 100% lỗi trùng 1 giọng giữa nút US và UK.
+ * =========================================================================
  */
 
 window.UniversalAudioEngine = {
@@ -18,7 +22,6 @@ window.UniversalAudioEngine = {
             this.audioElement.preload = 'auto';
             this.audioElement.crossOrigin = 'anonymous';
             
-            // Xử lý sự kiện kết thúc của HTML5 Audio
             this.audioElement.onended = () => {
                 this.isSpeaking = false;
             };
@@ -75,29 +78,50 @@ window.UniversalAudioEngine = {
                 window.speechSynthesis.cancel();
             } catch (e) {}
         }
+        if (window.AudioService && typeof window.AudioService.stop === 'function') {
+            try {
+                window.AudioService.stop();
+            } catch (e) {}
+        }
         this.activeUtterance = null;
     },
 
     setSpeed(speed) {
-        this.currentSpeed = parseFloat(speed) || 1.0;
+        this.currentSpeed = Math.max(0.5, Math.min(2.0, parseFloat(speed) || 1.0));
         if (this.audioElement) {
             this.audioElement.playbackRate = this.currentSpeed;
+        }
+        if (window.AudioService && typeof window.AudioService.setSpeed === 'function') {
+            window.AudioService.setSpeed(this.currentSpeed);
         }
     },
 
     // Phát âm thanh văn bản tiếng Anh chuẩn bản xứ
     speak(rawText, options = {}) {
         if (!rawText) return;
+
+        // Nếu AudioService đã sẵn sàng, ủy quyền xử lý theo cơ chế 3 tầng chuẩn mực
+        if (window.AudioService && typeof window.AudioService.playWord === 'function') {
+            const accent = options.accent || (options.lang === 'en-GB' ? 'UK' : 'US');
+            window.AudioService.playWord(rawText, accent, {
+                rate: options.rate || this.currentSpeed || 1.0,
+                lang: options.lang || (accent === 'UK' ? 'en-GB' : 'en-US'),
+                explicitAudioUrl: options.explicitAudioUrl || options.audioUrl
+            });
+            return;
+        }
+
         this.init();
         this.stop();
 
         const text = decodeURIComponent(rawText).trim();
-        const lang = options.lang || 'en-US';
+        const lang = options.lang || (options.accent === 'UK' ? 'en-GB' : 'en-US');
+        const isUk = lang === 'en-GB' || options.accent === 'UK';
         const speed = options.rate || this.currentSpeed || 1.0;
         let started = false;
 
         // ========================================================
-        // PHƯƠNG ÁN 2: HTML5 NATIVE MP3 CLOUD STREAM (100% HOẠT ĐỘNG TRÊN MỌI ĐIỆN THOẠI)
+        // PHƯƠNG ÁN 2: HTML5 NATIVE MP3 CLOUD STREAM (100% HOẠT ĐỘNG TRÊN MỌI THIẾT BỊ)
         // ========================================================
         const playWithHtmlAudio = () => {
             if (started) return;
@@ -110,19 +134,19 @@ window.UniversalAudioEngine = {
                 }
             } catch (e) {}
 
-            // Rút gọn đoạn văn bản dài nếu cần để phát stream mượt mà
             const cleanText = text.replace(/[\r\n\t]+/g, ' ').slice(0, 320);
+            const accentParam = isUk ? 'UK' : 'US';
+            const langParam = isUk ? 'en-GB' : 'en-US';
             
-            // 1. Thử endpoint proxy của máy chủ trước (/api/tts)
-            const primaryUrl = `/api/tts?text=${encodeURIComponent(cleanText)}&lang=en`;
+            // 1. Thử endpoint proxy của máy chủ trước (/api/tts) với đúng accent
+            const primaryUrl = `/api/tts?text=${encodeURIComponent(cleanText)}&accent=${accentParam}&lang=${langParam}&rate=${speed}`;
             // 2. Dự phòng trực tiếp nếu mất kết nối local server
-            const fallbackUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
+            const fallbackUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langParam}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
 
             this.audioElement.src = primaryUrl;
             this.audioElement.playbackRate = speed;
 
             this.audioElement.onerror = () => {
-                // Tự động chuyển sang link dự phòng nếu server proxy trả lỗi
                 if (this.audioElement.src !== fallbackUrl) {
                     this.audioElement.src = fallbackUrl;
                     this.audioElement.play().catch(err => {
@@ -142,11 +166,10 @@ window.UniversalAudioEngine = {
         };
 
         // ========================================================
-        // PHƯƠNG ÁN 1: WEB SPEECH API (VỚI BẢN VÁ CHO ANDROID & IOS)
+        // PHƯƠNG ÁN 1: WEB SPEECH API (VỚI BỘ LỌC GIỌNG CHUẨN XÁC US VS UK)
         // ========================================================
         if ('speechSynthesis' in window) {
             try {
-                // Sửa lỗi Android: Nếu speech engine đang ở trạng thái paused, gọi resume()
                 if (window.speechSynthesis.paused) {
                     window.speechSynthesis.resume();
                 }
@@ -155,25 +178,38 @@ window.UniversalAudioEngine = {
                 utterance.lang = lang;
                 utterance.rate = speed;
 
-                // Lưu vào biến toàn cục để tránh bị V8 Garbage Collector dọn dẹp sớm trên mobile
                 this.activeUtterance = utterance;
                 window._activeMobileSpeechUtterance = utterance;
 
-                // Gán giọng bản xứ tốt nhất nếu có sẵn
                 const voices = this.cachedVoices.length > 0 ? this.cachedVoices : window.speechSynthesis.getVoices();
-                if (voices && voices.length > 0) {
-                    const enVoice = voices.find(v => v.lang && v.lang.startsWith('en') && 
-                        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('US') || v.name.includes('English')));
-                    if (enVoice) utterance.voice = enVoice;
+                let matchedVoice = null;
+
+                if (isUk) {
+                    // Tuyệt đối chỉ chọn giọng British (en-GB)
+                    matchedVoice = voices.find(v => (v.lang === 'en-GB' || v.lang === 'en_UK') && 
+                        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Daniel') || v.name.includes('Oliver') || v.name.includes('George') || v.name.includes('Hazel'))) ||
+                        voices.find(v => v.lang && v.lang.startsWith('en-GB'));
+                } else {
+                    // Chọn giọng American (en-US)
+                    matchedVoice = voices.find(v => v.lang === 'en-US' && 
+                        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('David'))) ||
+                        voices.find(v => v.lang === 'en-US');
                 }
 
-                // WATCHDOG TIMER: Nếu sau 600ms không có âm thanh phát ra (thường do máy thiếu gói ngôn ngữ tiếng Anh)
-                // -> Tự động chuyển ngay sang phương án HTML5 Audio MP3
+                if (matchedVoice) {
+                    utterance.voice = matchedVoice;
+                } else if (isUk) {
+                    // Nếu hệ điều hành không cài giọng Anh - Anh (như Windows mặc định chỉ có US Zira):
+                    // Chuyển thẳng sang HTML5 Audio MP3 để đảm bảo 100% phát ra giọng Anh chuẩn
+                    playWithHtmlAudio();
+                    return;
+                }
+
                 const watchdogTimer = setTimeout(() => {
                     if (!started) {
                         playWithHtmlAudio();
                     }
-                }, 600);
+                }, 500);
 
                 utterance.onstart = () => {
                     started = true;
@@ -191,7 +227,6 @@ window.UniversalAudioEngine = {
                     playWithHtmlAudio();
                 };
 
-                // Tránh lỗi cancel() race-condition trên Chromium Mobile bằng một tick ngắn
                 setTimeout(() => {
                     if (!started) {
                         try {
@@ -208,7 +243,7 @@ window.UniversalAudioEngine = {
             }
         }
 
-        // Nếu thiết bị hoàn toàn không hỗ trợ Web Speech
+        // Nếu thiết bị không hỗ trợ Web Speech
         playWithHtmlAudio();
     }
 };

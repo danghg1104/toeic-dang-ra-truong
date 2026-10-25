@@ -1,0 +1,5217 @@
+/**
+ * =========================================================================
+ * TOEIC LISTENING DATABASE V2 & ENGINE (ETS 2026 EDITION)
+ * =========================================================================
+ * Chuẩn 100 câu đề thi ETS TOEIC Listening:
+ * - Part 1: Photographs (6 câu · hình ảnh thực tế · 4 options A-D)
+ * - Part 2: Question-Response (25 câu · chuẩn 3 options A-C)
+ * - Part 3: Conversations (13 sets × 3 = 39 câu · đa giọng · câu hỏi ý định & bảng biểu)
+ * - Part 4: Short Talks (10 sets × 3 = 30 câu · độc thoại · câu hỏi ý định & biểu đồ)
+ * =========================================================================
+ */
+
+(function(window) {
+    'use strict';
+
+    const RAW_DB = {
+  "metadata": {
+    "version": "2.0.0",
+    "standard": "ETS TOEIC Listening 2026",
+    "title": "Cùng Đăng Ra Trường - Ngân Hàng Luyện Nghe TOEIC Chuẩn ETS",
+    "description": "100 câu luyện nghe chuẩn ETS (P1: 6 câu, P2: 25 câu, P3: 39 câu / 13 sets, P4: 30 câu / 10 sets) với giọng đọc đa accent (US, UK, AU, CA), phân tích bẫy, từ vựng IPA và lời giải tiếng Việt chất lượng cao.",
+    "totalQuestions": 100,
+    "parts": {
+      "part1": {
+        "count": 6,
+        "sets": 6,
+        "optionsPerQuestion": 4
+      },
+      "part2": {
+        "count": 25,
+        "sets": 25,
+        "optionsPerQuestion": 3
+      },
+      "part3": {
+        "count": 39,
+        "sets": 13,
+        "questionsPerSet": 3,
+        "optionsPerQuestion": 4
+      },
+      "part4": {
+        "count": 30,
+        "sets": 10,
+        "questionsPerSet": 3,
+        "optionsPerQuestion": 4
+      }
+    },
+    "generatedAt": "2026-10-24T05:14:50.264Z",
+    "total_questions": 134,
+    "part1_count": 40
+  },
+  "part1": [
+    {
+      "id": "p1_q01",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Kiến trúc sư làm việc với bản vẽ",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_01_person.webp",
+      "alt_text": "A professional female architect examining an architectural blueprint floor plan on a drafting table",
+      "audioScript": "Number 1. Look at the picture marked number 1 in your test book. (A) She is hanging a picture frame on the wall. (B) A woman is examining a blueprint on a table. (C) She is rolling up a sheet of paper. (D) She is speaking into a telephone receiver.",
+      "transcript": "(A) She is hanging a picture frame on the wall. (B) A woman is examining a blueprint on a table. (C) She is rolling up a sheet of paper. (D) She is speaking into a telephone receiver.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. She is hanging a picture frame on the wall.",
+        "B. A woman is examining a blueprint on a table.",
+        "C. She is rolling up a sheet of paper.",
+        "D. She is speaking into a telephone receiver."
+      ],
+      "ans": 1,
+      "ansLetter": "B",
+      "question_type": "action",
+      "trap_type": "bẫy hành động sai và trạng thái tiếp diễn",
+      "correct_reason": "Người phụ nữ đang đứng cúi người đặt hai tay lên mặt bàn và chăm chú nhìn bản vẽ kiến trúc trải phẳng.",
+      "explanation_vi": "Phân tích tranh: Người phụ nữ đứng bên bàn làm việc và nhìn chăm chú vào bản vẽ kiến trúc trải phẳng. (B) 'A woman is examining a blueprint on a table' mô tả chính xác nhất. (A) sai vì không treo tranh. (C) sai vì bản vẽ đang mở phẳng, không cuộn. (D) sai vì không dùng điện thoại.",
+      "key_vocab": [
+        {
+          "word": "examine",
+          "ipa": "/ɪɡˈzæm.ɪn/",
+          "meaning": "quan sát kỹ, kiểm tra"
+        },
+        {
+          "word": "blueprint",
+          "ipa": "/ˈbluː.prɪnt/",
+          "meaning": "bản vẽ thiết kế kiến trúc"
+        },
+        {
+          "word": "drafting table",
+          "ipa": "/ˈdrɑːf.tɪŋ ˌteɪ.bəl/",
+          "meaning": "bàn vẽ kỹ thuật"
+        }
+      ],
+      "exam_tip": "Với tranh tả người, hãy chú ý mắt nhìn vào đâu và tay đang làm hành động gì. Động từ 'examine' rất thường xuyên là đáp án đúng trong ETS.",
+      "audio_url": "/audio/listening/part1/p1_q01.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q02",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Bác sĩ tại phòng khám",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_05_doctor.webp",
+      "alt_text": "A doctor examining a chest X-ray on an illuminated wall display",
+      "audioScript": "Number 2. Look at the picture marked number 2 in your test book. (A) A physician is reviewing an X-ray on a wall display. (B) He is prescribing medication to a patient. (C) A stethoscope is lying on the examination table. (D) The lights in the laboratory have been switched off.",
+      "transcript": "(A) A physician is reviewing an X-ray on a wall display. (B) He is prescribing medication to a patient. (C) A stethoscope is lying on the examination table. (D) The lights in the laboratory have been switched off.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A physician is reviewing an X-ray on a wall display.",
+        "B. He is prescribing medication to a patient.",
+        "C. A stethoscope is lying on the examination table.",
+        "D. The lights in the laboratory have been switched off."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy đối tượng không xuất hiện trong hình (no patient)",
+      "correct_reason": "Bác sĩ mặc áo blouse trắng đang nhìn vào tấm phim X-quang gắn trên bảng đèn chiếu sáng trên tường.",
+      "explanation_vi": "(A) đúng vì bác sĩ đang xem phim chụp X-quang trên bảng đèn ('reviewing an X-ray on a wall display'). (B) sai vì trong phòng không có bệnh nhân. (C) sai vì ống nghe đeo trên cổ bác sĩ, không nằm trên bàn. (D) sai vì đèn đang bật sáng.",
+      "key_vocab": [
+        {
+          "word": "physician",
+          "ipa": "/fɪˈzɪʃ.ən/",
+          "meaning": "bác sĩ điều trị"
+        },
+        {
+          "word": "review",
+          "ipa": "/rɪˈvjuː/",
+          "meaning": "xem xét, đánh giá"
+        },
+        {
+          "word": "illuminated",
+          "ipa": "/ɪˈluː.mɪ.neɪ.tɪd/",
+          "meaning": "được chiếu sáng"
+        }
+      ],
+      "exam_tip": "Khi nghe đáp án có danh từ chỉ người khác (patient, customer), hãy liếc thật nhanh xem trong ảnh có người đó hay không.",
+      "audio_url": "/audio/listening/part1/p1_q02.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q03",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Thư viện & Sắp xếp sách",
+      "difficulty": "B1",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_06_librarian.webp",
+      "alt_text": "A librarian reaching up to place books on a high wooden bookshelf",
+      "audioScript": "Number 3. Look at the picture marked number 3 in your test book. (A) A woman is checking out a library book. (B) She is stacking books onto a tall shelf. (C) Patrons are reading newspapers at a study carrel. (D) She is adjusting the lens of a photocopier.",
+      "transcript": "(A) A woman is checking out a library book. (B) She is stacking books onto a tall shelf. (C) Patrons are reading newspapers at a study carrel. (D) She is adjusting the lens of a photocopier.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A woman is checking out a library book.",
+        "B. She is stacking books onto a tall shelf.",
+        "C. Patrons are reading newspapers at a study carrel.",
+        "D. She is adjusting the lens of a photocopier."
+      ],
+      "ans": 1,
+      "ansLetter": "B",
+      "question_type": "action",
+      "trap_type": "bẫy hành động thường gặp ở thư viện (checking out vs shelving)",
+      "correct_reason": "Người phụ nữ đang với tay xếp những cuốn sách lên giá sách gỗ cao.",
+      "explanation_vi": "(B) đúng: 'She is stacking books onto a tall shelf'. (A) sai vì cô ấy không đứng ở quầy mượn sách. (C) sai vì không có độc giả nào đang đọc báo. (D) sai vì không có máy photocopy.",
+      "key_vocab": [
+        {
+          "word": "stack",
+          "ipa": "/stæk/",
+          "meaning": "xếp chồng, xếp lên giá"
+        },
+        {
+          "word": "patron",
+          "ipa": "/ˈpeɪ.trən/",
+          "meaning": "độc giả, khách quen"
+        },
+        {
+          "word": "carrel",
+          "ipa": "/ˈkær.əl/",
+          "meaning": "bàn học cá nhân có vách ngăn"
+        }
+      ],
+      "exam_tip": "Động từ 'stack', 'shelve', 'arrange' là từ khóa ăn điểm kinh điển trong tranh thư viện và kho hàng.",
+      "audio_url": "/audio/listening/part1/p1_q03.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q04",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Quán cà phê & Dọn dẹp",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_07_barista.webp",
+      "alt_text": "A barista wiping down a wooden coffee shop counter with a clean cloth",
+      "audioScript": "Number 4. Look at the picture marked number 4 in your test book. (A) A server is wiping down a wooden counter. (B) He is pouring coffee into a customer's mug. (C) Chairs are stacked on top of the dining tables. (D) A menu board is being replaced on the wall.",
+      "transcript": "(A) A server is wiping down a wooden counter. (B) He is pouring coffee into a customer's mug. (C) Chairs are stacked on top of the dining tables. (D) A menu board is being replaced on the wall.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A server is wiping down a wooden counter.",
+        "B. He is pouring coffee into a customer's mug.",
+        "C. Chairs are stacked on top of the dining tables.",
+        "D. A menu board is being replaced on the wall."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy hành động phục vụ đồ uống (pouring coffee)",
+      "correct_reason": "Nhân viên quán cầm khăn lau mặt quầy gỗ.",
+      "explanation_vi": "(A) đúng vì nhân viên đang lau chùi mặt quầy bar ('wiping down a wooden counter'). (B) sai vì anh ấy không rót cà phê. (C) sai vì ghế đặt bình thường dưới sàn. (D) sai vì không ai thay bảng thực đơn.",
+      "key_vocab": [
+        {
+          "word": "wipe down",
+          "ipa": "/waɪp daʊn/",
+          "meaning": "lau sạch bề mặt"
+        },
+        {
+          "word": "counter",
+          "ipa": "/ˈkaʊn.tər/",
+          "meaning": "quầy phục vụ, quầy thu ngân"
+        },
+        {
+          "word": "stack",
+          "ipa": "/stæk/",
+          "meaning": "chồng lên nhau"
+        }
+      ],
+      "exam_tip": "Hành động lau dọn ('wiping', 'cleaning', 'sweeping') thường xuất hiện trong tranh nhà hàng, khách sạn.",
+      "audio_url": "/audio/listening/part1/p1_q04.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q05",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Công trường xây dựng",
+      "difficulty": "B1",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_08_construction.webp",
+      "alt_text": "A construction engineer wearing a hardhat looking down at technical blueprints",
+      "audioScript": "Number 5. Look at the picture marked number 5 in your test book. (A) A worker is operating heavy machinery. (B) He is looking down at a technical document. (C) Scaffolding has been dismantled around the structure. (D) Safety cones are being loaded into a truck.",
+      "transcript": "(A) A worker is operating heavy machinery. (B) He is looking down at a technical document. (C) Scaffolding has been dismantled around the structure. (D) Safety cones are being loaded into a truck.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A worker is operating heavy machinery.",
+        "B. He is looking down at a technical document.",
+        "C. Scaffolding has been dismantled around the structure.",
+        "D. Safety cones are being loaded into a truck."
+      ],
+      "ans": 1,
+      "ansLetter": "B",
+      "question_type": "action",
+      "trap_type": "bẫy hành động lái máy móc nặng (operating machinery)",
+      "correct_reason": "Kỹ sư đội mũ bảo hộ đang cúi đầu xem tài liệu kỹ thuật trên tay.",
+      "explanation_vi": "(B) đúng: 'looking down at a technical document'. (A) sai vì người này đứng trên mặt đất, không lái máy ủi/cần cẩu. (C) sai vì giàn giáo vẫn đang dựng. (D) sai vì không ai bốc dỡ cọc tiêu giao thông.",
+      "key_vocab": [
+        {
+          "word": "hardhat",
+          "ipa": "/ˈhɑːd.hæt/",
+          "meaning": "mũ bảo hộ lao động"
+        },
+        {
+          "word": "scaffolding",
+          "ipa": "/ˈskæf.əl.dɪŋ/",
+          "meaning": "giàn giáo xây dựng"
+        },
+        {
+          "word": "dismantle",
+          "ipa": "/dɪsˈmæn.təl/",
+          "meaning": "tháo dỡ"
+        }
+      ],
+      "exam_tip": "Tranh công trường ETS rất hay bẫy hành động 'operating heavy machinery' khi thực tế nhân vật chỉ đang xem bản vẽ hoặc đo đạc.",
+      "audio_url": "/audio/listening/part1/p1_q05.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q06",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Thuyết trình hội nghị",
+      "difficulty": "B2",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_09_podium.webp",
+      "alt_text": "A business executive delivering a presentation from behind a wooden lectern",
+      "audioScript": "Number 6. Look at the picture marked number 6 in your test book. (A) A speaker is addressing an audience from behind a podium. (B) He is handing out printed agendas to the attendees. (C) The projector screen has been lowered onto the stage. (D) People are exiting through the auditorium doors.",
+      "transcript": "(A) A speaker is addressing an audience from behind a podium. (B) He is handing out printed agendas to the attendees. (C) The projector screen has been lowered onto the stage. (D) People are exiting through the auditorium doors.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A speaker is addressing an audience from behind a podium.",
+        "B. He is handing out printed agendas to the attendees.",
+        "C. The projector screen has been lowered onto the stage.",
+        "D. People are exiting through the auditorium doors."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy phân phát tài liệu (handing out agendas)",
+      "correct_reason": "Diễn giả đứng sau bục phát biểu nói chuyện trước hội trường.",
+      "explanation_vi": "(A) đúng: 'addressing an audience from behind a podium'. (B) sai vì ông ấy đứng nói, không phát tài liệu. (C) sai vì màn chiếu treo cố định phía sau. (D) sai vì cử tọa đang ngồi chăm chú lắng nghe.",
+      "key_vocab": [
+        {
+          "word": "address",
+          "ipa": "/əˈdres/",
+          "meaning": "phát biểu, diễn thuyết trước"
+        },
+        {
+          "word": "podium",
+          "ipa": "/ˈpəʊ.di.əm/",
+          "meaning": "bục phát biểu (lectern)"
+        },
+        {
+          "word": "attendee",
+          "ipa": "/ə.tenˈdiː/",
+          "meaning": "người tham dự"
+        }
+      ],
+      "exam_tip": "Động từ 'address' trong TOEIC Listening thường mang nghĩa là phát biểu trước một cử tọa ('addressing a gathering/audience').",
+      "audio_url": "/audio/listening/part1/p1_q06.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q07",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Kho hàng & Vận chuyển",
+      "difficulty": "A2",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_10_warehouse_cart.webp",
+      "alt_text": "A warehouse worker pushing a handcart stacked with cardboard boxes down an aisle",
+      "audioScript": "Number 7. Look at the picture marked number 7 in your test book. (A) A man is pushing a handcart through a warehouse aisle. (B) He is sealing a carton with packing tape. (C) Cargo containers are being hoisted by a crane. (D) Shelves are empty of merchandise.",
+      "transcript": "(A) A man is pushing a handcart through a warehouse aisle. (B) He is sealing a carton with packing tape. (C) Cargo containers are being hoisted by a crane. (D) Shelves are empty of merchandise.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A man is pushing a handcart through a warehouse aisle.",
+        "B. He is sealing a carton with packing tape.",
+        "C. Cargo containers are being hoisted by a crane.",
+        "D. Shelves are empty of merchandise."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy niêm phong thùng hàng (sealing a carton)",
+      "correct_reason": "Người đàn ông hai tay đẩy chiếc xe đẩy chở các thùng carton đi dọc lối đi trong kho.",
+      "explanation_vi": "(A) đúng: 'pushing a handcart through a warehouse aisle'. (B) sai vì không có cuộn băng dính dán thùng. (C) sai vì trong kho không có cần cẩu nâng container. (D) sai vì các kệ chứa đầy hàng hóa.",
+      "key_vocab": [
+        {
+          "word": "handcart",
+          "ipa": "/ˈhænd.kɑːt/",
+          "meaning": "xe đẩy hàng bằng tay"
+        },
+        {
+          "word": "aisle",
+          "ipa": "/aɪl/",
+          "meaning": "lối đi giữa các dãy kệ (chữ s câm)"
+        },
+        {
+          "word": "merchandise",
+          "ipa": "/ˈmɜː.tʃən.daɪs/",
+          "meaning": "hàng hóa thương mại"
+        }
+      ],
+      "exam_tip": "Chú ý phát âm từ 'aisle' (/aɪl/) có âm 's' câm, rất hay xuất hiện trong tranh kho hàng, siêu thị và máy bay.",
+      "audio_url": "/audio/listening/part1/p1_q07.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q08",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Đầu bếp nhà hàng",
+      "difficulty": "B1",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_11_chef.webp",
+      "alt_text": "A professional chef in a white uniform preparing food in a frying pan over a stove",
+      "audioScript": "Number 8. Look at the picture marked number 8 in your test book. (A) A cook is preparing food over a kitchen stove. (B) He is washing dirty dishes in a stainless steel sink. (C) Plates of food are being served to patrons. (D) The refrigerator door has been left wide open.",
+      "transcript": "(A) A cook is preparing food over a kitchen stove. (B) He is washing dirty dishes in a stainless steel sink. (C) Plates of food are being served to patrons. (D) The refrigerator door has been left wide open.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A cook is preparing food over a kitchen stove.",
+        "B. He is washing dirty dishes in a stainless steel sink.",
+        "C. Plates of food are being served to patrons.",
+        "D. The refrigerator door has been left wide open."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy rửa bát đĩa (washing dishes)",
+      "correct_reason": "Đầu bếp đứng trước bếp nấu đang đảo chảo thức ăn.",
+      "explanation_vi": "(A) đúng: 'preparing food over a kitchen stove'. (B) sai vì anh ấy không đứng ở bồn rửa bát. (C) sai vì chưa đưa món ăn ra bàn phục vụ khách. (D) sai vì cửa tủ lạnh đóng kín.",
+      "key_vocab": [
+        {
+          "word": "cook",
+          "ipa": "/kʊk/",
+          "meaning": "người nấu ăn, đầu bếp"
+        },
+        {
+          "word": "stove",
+          "ipa": "/stəʊv/",
+          "meaning": "bếp nấu"
+        },
+        {
+          "word": "stainless steel",
+          "ipa": "/ˌsteɪn.ləs ˈstiːl/",
+          "meaning": "thép không gỉ, inox"
+        }
+      ],
+      "exam_tip": "'Cook' vừa là động từ nấu ăn vừa là danh từ chỉ người nấu. Tránh nhầm với 'cooker' (nồi cơm điện/bếp nấu).",
+      "audio_url": "/audio/listening/part1/p1_q08.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q09",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Kỹ thuật viên sửa chữa xe",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_12_mechanic.webp",
+      "alt_text": "An auto mechanic inspecting a car engine under the raised hood",
+      "audioScript": "Number 9. Look at the picture marked number 9 in your test book. (A) A technician is inspecting a vehicle engine. (B) He is changing the front tire of an automobile. (C) A car is being driven into an automatic wash bay. (D) Tools have been locked inside a metal storage box.",
+      "transcript": "(A) A technician is inspecting a vehicle engine. (B) He is changing the front tire of an automobile. (C) A car is being driven into an automatic wash bay. (D) Tools have been locked inside a metal storage box.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A technician is inspecting a vehicle engine.",
+        "B. He is changing the front tire of an automobile.",
+        "C. A car is being driven into an automatic wash bay.",
+        "D. Tools have been locked inside a metal storage box."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy thay lốp xe (changing a tire)",
+      "correct_reason": "Kỹ thuật viên đang cúi người kiểm tra động cơ dưới nắp capo mở.",
+      "explanation_vi": "(A) đúng: 'inspecting a vehicle engine'. (B) sai vì anh ấy đứng ở đầu xe xem máy, không thay lốp. (C) sai vì xe đang đỗ tĩnh trong xưởng sửa chữa. (D) sai vì dụng cụ đang để sẵn trên xe đẩy dụng cụ.",
+      "key_vocab": [
+        {
+          "word": "technician",
+          "ipa": "/tekˈnɪʃ.ən/",
+          "meaning": "kỹ thuật viên"
+        },
+        {
+          "word": "inspect",
+          "ipa": "/ɪnˈspekt/",
+          "meaning": "kiểm tra, giám định"
+        },
+        {
+          "word": "vehicle",
+          "ipa": "/ˈvɪə.kəl/",
+          "meaning": "phương tiện giao thông (chữ h câm)"
+        }
+      ],
+      "exam_tip": "Từ 'vehicle' phát âm là /ˈvɪə.kəl/, chữ 'h' hoàn toàn câm. Đây là từ bẫy nghe rất phổ biến trong đề thi.",
+      "audio_url": "/audio/listening/part1/p1_q09.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q10",
+      "part": 1,
+      "topic": "Tranh tả người",
+      "subtopic": "Lễ tân khách sạn",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_13_receptionist.webp",
+      "alt_text": "A hotel receptionist typing on a desktop keyboard behind the check-in desk",
+      "audioScript": "Number 10. Look at the picture marked number 10 in your test book. (A) A staff member is entering information on a keyboard. (B) She is carrying luggage up a flight of stairs. (C) Guests are queuing in front of the elevator. (D) Key cards are being sorted on a coffee table.",
+      "transcript": "(A) A staff member is entering information on a keyboard. (B) She is carrying luggage up a flight of stairs. (C) Guests are queuing in front of the elevator. (D) Key cards are being sorted on a coffee table.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A staff member is entering information on a keyboard.",
+        "B. She is carrying luggage up a flight of stairs.",
+        "C. Guests are queuing in front of the elevator.",
+        "D. Key cards are being sorted on a coffee table."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "action",
+      "trap_type": "bẫy mang vác hành lý (carrying luggage)",
+      "correct_reason": "Nhân viên lễ tân đặt tay gõ phím trên bàn quầy.",
+      "explanation_vi": "(A) đúng: 'entering information on a keyboard'. (B) sai vì cô ấy đứng tại quầy, không vác hành lý. (C) sai vì không có khách nào xếp hàng trước thang máy. (D) sai vì không có hành động phân loại thẻ khóa trên bàn cà phê.",
+      "key_vocab": [
+        {
+          "word": "staff member",
+          "ipa": "/stɑːf ˈmem.bər/",
+          "meaning": "nhân viên"
+        },
+        {
+          "word": "enter information",
+          "ipa": "/ˈen.tər ˌɪn.fəˈmeɪ.ʃən/",
+          "meaning": "nhập thông tin"
+        },
+        {
+          "word": "flight of stairs",
+          "ipa": "/flaɪt əv steəz/",
+          "meaning": "dãy bậc cầu thang"
+        }
+      ],
+      "exam_tip": "'Typing on a keyboard' thường được paraphrase thành 'entering information on a computer' hoặc 'inputting data'.",
+      "audio_url": "/audio/listening/part1/p1_q10.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q11",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Phòng họp & Bàn ghế",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_02_object.webp",
+      "alt_text": "An empty corporate conference room with modern office chairs arranged neatly around a polished oval conference table",
+      "audioScript": "Number 11. Look at the picture marked number 11 in your test book. (A) People are seated in a circle on the floor. (B) A projector is being mounted onto the ceiling. (C) Chairs are arranged around a long table. (D) Papers are scattered across the carpet.",
+      "transcript": "(A) People are seated in a circle on the floor. (B) A projector is being mounted onto the ceiling. (C) Chairs are arranged around a long table. (D) Papers are scattered across the carpet.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. People are seated in a circle on the floor.",
+        "B. A projector is being mounted onto the ceiling.",
+        "C. Chairs are arranged around a long table.",
+        "D. Papers are scattered across the carpet."
+      ],
+      "ans": 2,
+      "ansLetter": "C",
+      "question_type": "state",
+      "trap_type": "bẫy người trong tranh chỉ có đồ vật (People are seated)",
+      "correct_reason": "Các ghế văn phòng được xếp ngay ngắn bao quanh chiếc bàn họp dài hình bầu dục, không có người trong phòng.",
+      "explanation_vi": "Phân tích tranh vật: Phòng họp trống, không có người. (C) 'Chairs are arranged around a long table' (Ghế được sắp xếp quanh một bàn dài) mô tả hoàn hảo. (A) sai vì không có người. (B) sai bẫy bị động 'is being mounted'. (D) sai vì sàn nhà sạch sẽ.",
+      "key_vocab": [
+        {
+          "word": "arrange",
+          "ipa": "/əˈreɪndʒ/",
+          "meaning": "sắp xếp, bài trí"
+        },
+        {
+          "word": "conference table",
+          "ipa": "/ˈkɒn.fər.əns ˌteɪ.bəl/",
+          "meaning": "bàn hội nghị"
+        },
+        {
+          "word": "scatter",
+          "ipa": "/ˈskæt.ər/",
+          "meaning": "rải rác bừa bãi"
+        }
+      ],
+      "exam_tip": "Khi tranh KHÔNG CÓ NGƯỜI, hãy loại ngay lập tức các đáp án chứa 'being + V3/ed' (đang được làm) và các câu có chủ ngữ là người.",
+      "audio_url": "/audio/listening/part1/p1_q11.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q12",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Bàn làm việc máy tính",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_14_desk.webp",
+      "alt_text": "A tidy office desk with dual computer monitors and a desk lamp",
+      "audioScript": "Number 12. Look at the picture marked number 12 in your test book. (A) Computer monitors are positioned on a desk surface. (B) A keyboard is being cleaned with a cloth. (C) A desk lamp has fallen to the carpeted floor. (D) Documents are scattered across an office chair.",
+      "transcript": "(A) Computer monitors are positioned on a desk surface. (B) A keyboard is being cleaned with a cloth. (C) A desk lamp has fallen to the carpeted floor. (D) Documents are scattered across an office chair.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Computer monitors are positioned on a desk surface.",
+        "B. A keyboard is being cleaned with a cloth.",
+        "C. A desk lamp has fallen to the carpeted floor.",
+        "D. Documents are scattered across an office chair."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy bị động đang diễn ra (is being cleaned)",
+      "correct_reason": "Hai màn hình máy tính được đặt ngay ngắn trên mặt bàn làm việc.",
+      "explanation_vi": "(A) đúng: 'Computer monitors are positioned on a desk surface'. (B) sai bẫy bị động 'is being cleaned'. (C) sai vì đèn bàn đứng thẳng trên bàn. (D) sai vì ghế trống không có tài liệu.",
+      "key_vocab": [
+        {
+          "word": "monitor",
+          "ipa": "/ˈmɒn.ɪ.tər/",
+          "meaning": "màn hình hiển thị"
+        },
+        {
+          "word": "positioned",
+          "ipa": "/pəˈzɪʃ.ənd/",
+          "meaning": "được đặt ở vị trí"
+        },
+        {
+          "word": "surface",
+          "ipa": "/ˈsɜː.fɪs/",
+          "meaning": "bề mặt"
+        }
+      ],
+      "exam_tip": "Các cụm từ chỉ vị trí tĩnh như 'be positioned on', 'be placed on', 'rest on' rất hay là đáp án đúng cho tranh tĩnh vật.",
+      "audio_url": "/audio/listening/part1/p1_q12.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q13",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Xe đạp tựa tường",
+      "difficulty": "A2",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_15_bicycle.webp",
+      "alt_text": "A vintage bicycle leaning against a red brick building exterior wall",
+      "audioScript": "Number 13. Look at the picture marked number 13 in your test book. (A) A bicycle is leaning against an exterior wall. (B) A cyclist is pedaling down a paved street. (C) Bikes are locked to a metal parking rack. (D) The storefront window has been shattered.",
+      "transcript": "(A) A bicycle is leaning against an exterior wall. (B) A cyclist is pedaling down a paved street. (C) Bikes are locked to a metal parking rack. (D) The storefront window has been shattered.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A bicycle is leaning against an exterior wall.",
+        "B. A cyclist is pedaling down a paved street.",
+        "C. Bikes are locked to a metal parking rack.",
+        "D. The storefront window has been shattered."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy giá đỡ xe đạp kinh điển (metal parking rack)",
+      "correct_reason": "Chiếc xe đạp đang tựa nghiêng vào bức tường gạch đỏ bên ngoài tòa nhà.",
+      "explanation_vi": "(A) đúng: 'A bicycle is leaning against an exterior wall'. (B) sai vì không có người đi xe đạp. (C) sai vì xe tựa vào tường chứ không khóa vào giá đỡ (metal rack). (D) sai vì cửa kính nguyên vẹn.",
+      "key_vocab": [
+        {
+          "word": "lean against",
+          "ipa": "/liːn əˈɡenst/",
+          "meaning": "dựa vào, tựa vào"
+        },
+        {
+          "word": "exterior",
+          "ipa": "/ɪkˈstɪə.ri.ər/",
+          "meaning": "bên ngoài"
+        },
+        {
+          "word": "pedal",
+          "ipa": "/ˈped.əl/",
+          "meaning": "đạp bàn đạp xe"
+        }
+      ],
+      "exam_tip": "Bẫy xe đạp: ETS hay ra tranh một chiếc xe tựa tường và cho đáp án nhiễu là 'locked to a rack' hoặc 'riding a bicycle'.",
+      "audio_url": "/audio/listening/part1/p1_q13.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q14",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Tủ hồ sơ văn phòng",
+      "difficulty": "B1",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_16_cabinets.webp",
+      "alt_text": "Metal office filing cabinets with one top drawer pulled open",
+      "audioScript": "Number 14. Look at the picture marked number 14 in your test book. (A) One of the cabinet drawers is pulled open. (B) A clerk is filing folders alphabetically. (C) Filing cabinets are being moved into an elevator. (D) Labels have fallen off the drawer fronts.",
+      "transcript": "(A) One of the cabinet drawers is pulled open. (B) A clerk is filing folders alphabetically. (C) Filing cabinets are being moved into an elevator. (D) Labels have fallen off the drawer fronts.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. One of the cabinet drawers is pulled open.",
+        "B. A clerk is filing folders alphabetically.",
+        "C. Filing cabinets are being moved into an elevator.",
+        "D. Labels have fallen off the drawer fronts."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy người phân loại hồ sơ (filing folders)",
+      "correct_reason": "Một ngăn kéo phía trên của tủ hồ sơ bằng kim loại đang được kéo mở ra.",
+      "explanation_vi": "(A) đúng: 'One of the cabinet drawers is pulled open'. (B) sai vì phòng lưu trữ không có người. (C) sai bẫy bị động 'are being moved'. (D) sai vì nhãn tên vẫn gắn rõ trên ngăn kéo.",
+      "key_vocab": [
+        {
+          "word": "drawer",
+          "ipa": "/drɔːr/",
+          "meaning": "ngăn kéo tủ"
+        },
+        {
+          "word": "filing cabinet",
+          "ipa": "/ˈfaɪ.lɪŋ ˌkæb.ɪ.nət/",
+          "meaning": "tủ tài liệu"
+        },
+        {
+          "word": "pulled open",
+          "ipa": "/pʊld ˈəʊ.pən/",
+          "meaning": "được kéo mở"
+        }
+      ],
+      "exam_tip": "Từ 'drawer' phát âm là /drɔːr/, chỉ ngăn kéo. Hãy chú ý trạng thái 'left open' hoặc 'pulled open'.",
+      "audio_url": "/audio/listening/part1/p1_q14.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q15",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Giá treo quần áo cửa hàng",
+      "difficulty": "A2",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_17_clothing_rack.webp",
+      "alt_text": "Garments hanging neatly on display racks in a fashion retail boutique",
+      "audioScript": "Number 15. Look at the picture marked number 15 in your test book. (A) Garments are hanging neatly on a display rack. (B) A customer is trying on a jacket in a dressing room. (C) Clothes have been folded into cardboard shipping boxes. (D) A tailor is measuring fabric with a tape.",
+      "transcript": "(A) Garments are hanging neatly on a display rack. (B) A customer is trying on a jacket in a dressing room. (C) Clothes have been folded into cardboard shipping boxes. (D) A tailor is measuring fabric with a tape.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Garments are hanging neatly on a display rack.",
+        "B. A customer is trying on a jacket in a dressing room.",
+        "C. Clothes have been folded into cardboard shipping boxes.",
+        "D. A tailor is measuring fabric with a tape."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy khách thử áo trong phòng thay đồ (trying on a jacket)",
+      "correct_reason": "Quần áo được treo ngay ngắn trên các thanh giá treo đồ trong cửa hàng thời trang.",
+      "explanation_vi": "(A) đúng: 'Garments are hanging neatly on a display rack'. (B) sai vì không có khách hàng thử áo. (C) sai vì quần áo treo chứ không gấp vào thùng carton. (D) sai vì không có thợ may đo vải.",
+      "key_vocab": [
+        {
+          "word": "garment",
+          "ipa": "/ˈɡɑː.mənt/",
+          "meaning": "quần áo, trang phục"
+        },
+        {
+          "word": "display rack",
+          "ipa": "/dɪˈspleɪ ræk/",
+          "meaning": "giá trưng bày"
+        },
+        {
+          "word": "neatly",
+          "ipa": "/ˈniːt.li/",
+          "meaning": "ngay ngắn, gọn gàng"
+        }
+      ],
+      "exam_tip": "'Garment' là từ đồng nghĩa trang trọng của 'clothes/clothing', xuất hiện liên tục trong đề thi Part 1 và Part 7.",
+      "audio_url": "/audio/listening/part1/p1_q15.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q16",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Hành lý sân bay",
+      "difficulty": "B1",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_18_luggage.webp",
+      "alt_text": "Suitcases and luggage bags standing upright on the pavement",
+      "audioScript": "Number 16. Look at the picture marked number 16 in your test book. (A) Several pieces of luggage are resting on a pavement. (B) Passengers are rolling their bags through an entryway. (C) Suitcases are being loaded onto a luggage carousel. (D) A taxi trunk has been opened by a driver.",
+      "transcript": "(A) Several pieces of luggage are resting on a pavement. (B) Passengers are rolling their bags through an entryway. (C) Suitcases are being loaded onto a luggage carousel. (D) A taxi trunk has been opened by a driver.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Several pieces of luggage are resting on a pavement.",
+        "B. Passengers are rolling their bags through an entryway.",
+        "C. Suitcases are being loaded onto a luggage carousel.",
+        "D. A taxi trunk has been opened by a driver."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy băng chuyền hành lý (luggage carousel)",
+      "correct_reason": "Nhiều vali hành lý đang dựng đứng trên vỉa hè lối ra sân bay.",
+      "explanation_vi": "(A) đúng: 'Several pieces of luggage are resting on a pavement'. (B) sai vì hành lý để tĩnh trên mặt đất, không có người kéo. (C) sai vì không có băng chuyền hành lý (carousel). (D) sai vì không có cốp taxi mở.",
+      "key_vocab": [
+        {
+          "word": "luggage",
+          "ipa": "/ˈlʌɡ.ɪdʒ/",
+          "meaning": "hành lý (danh từ không đếm được)"
+        },
+        {
+          "word": "pavement",
+          "ipa": "/ˈpeɪv.mənt/",
+          "meaning": "vỉa hè, mặt đường lát gạch"
+        },
+        {
+          "word": "carousel",
+          "ipa": "/ˌkær.əˈsel/",
+          "meaning": "băng chuyền nhận hành lý"
+        }
+      ],
+      "exam_tip": "'Luggage' và 'baggage' là danh từ không đếm được, thường dùng với đơn vị 'a piece of luggage' / 'pieces of luggage'.",
+      "audio_url": "/audio/listening/part1/p1_q16.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q17",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Bàn tiệc buffet",
+      "difficulty": "B2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_19_buffet.webp",
+      "alt_text": "Silver chafing dishes with covers arranged along a banquet buffet table",
+      "audioScript": "Number 17. Look at the picture marked number 17 in your test book. (A) Serving dishes are arranged on a long buffet table. (B) Diners are lining up with dinner plates. (C) A waiter is collecting empty glasses from tables. (D) The dining room lights have been dimmed.",
+      "transcript": "(A) Serving dishes are arranged on a long buffet table. (B) Diners are lining up with dinner plates. (C) A waiter is collecting empty glasses from tables. (D) The dining room lights have been dimmed.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Serving dishes are arranged on a long buffet table.",
+        "B. Diners are lining up with dinner plates.",
+        "C. A waiter is collecting empty glasses from tables.",
+        "D. The dining room lights have been dimmed."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy thực khách xếp hàng (diners lining up)",
+      "correct_reason": "Các khay đựng thức ăn kim loại có nắp đậy được xếp thành hàng dọc theo bàn tiệc dài.",
+      "explanation_vi": "(A) đúng: 'Serving dishes are arranged on a long buffet table'. (B) sai vì không có thực khách xếp hàng. (C) sai vì không có bồi bàn thu dọn ly. (D) sai vì phòng tiệc sáng rực rỡ.",
+      "key_vocab": [
+        {
+          "word": "serving dish",
+          "ipa": "/ˈsɜː.vɪŋ dɪʃ/",
+          "meaning": "khay/đĩa phục vụ thức ăn"
+        },
+        {
+          "word": "buffet",
+          "ipa": "/ˈbʊf.eɪ/",
+          "meaning": "tiệc đứng, tiệc tự chọn"
+        },
+        {
+          "word": "diner",
+          "ipa": "/ˈdaɪ.nər/",
+          "meaning": "người đi ăn nhà hàng"
+        }
+      ],
+      "exam_tip": "'Diner' (/ˈdaɪ.nər/) là người ăn, tránh nhầm với 'dinner' (/ˈdɪn.ər/) là bữa tối.",
+      "audio_url": "/audio/listening/part1/p1_q17.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q18",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Máy in trong văn phòng",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_20_copier.webp",
+      "alt_text": "A commercial office photocopier with printed documents in the output tray",
+      "audioScript": "Number 18. Look at the picture marked number 18 in your test book. (A) Paper documents are stacked in the printer tray. (B) An employee is clearing a paper jam inside the machine. (C) A copier is being plugged into an electrical socket. (D) Toner cartridges are scattered across the floor.",
+      "transcript": "(A) Paper documents are stacked in the printer tray. (B) An employee is clearing a paper jam inside the machine. (C) A copier is being plugged into an electrical socket. (D) Toner cartridges are scattered across the floor.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Paper documents are stacked in the printer tray.",
+        "B. An employee is clearing a paper jam inside the machine.",
+        "C. A copier is being plugged into an electrical socket.",
+        "D. Toner cartridges are scattered across the floor."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy kẹt giấy máy in (clearing a paper jam)",
+      "correct_reason": "Các tập tài liệu giấy đã in xếp ngay ngắn trong khay giấy đầu ra của máy photocopy.",
+      "explanation_vi": "(A) đúng: 'Paper documents are stacked in the printer tray'. (B) sai vì máy in đứng một mình, không ai sửa kẹt giấy. (C) sai bẫy bị động 'is being plugged'. (D) sai vì sàn nhà gọn gàng, không có hộp mực rơi vãi.",
+      "key_vocab": [
+        {
+          "word": "printer tray",
+          "ipa": "/ˈprɪn.tər treɪ/",
+          "meaning": "khay đựng giấy máy in"
+        },
+        {
+          "word": "paper jam",
+          "ipa": "/ˈpeɪ.pər dʒæm/",
+          "meaning": "kẹt giấy máy in"
+        },
+        {
+          "word": "toner cartridge",
+          "ipa": "/ˈtəʊ.nər ˌkɑː.trɪdʒ/",
+          "meaning": "hộp mực máy in laser"
+        }
+      ],
+      "exam_tip": "Khi tranh tả máy móc văn phòng tĩnh, hãy để ý khay giấy ('tray') và các nút điều khiển ('control panel').",
+      "audio_url": "/audio/listening/part1/p1_q18.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q19",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Dù che hiên quán cà phê",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_21_patio.webp",
+      "alt_text": "Folded sun umbrellas over empty wooden tables on an outdoor restaurant patio",
+      "audioScript": "Number 19. Look at the picture marked number 19 in your test book. (A) Sun umbrellas are folded over outdoor patio tables. (B) Waiters are setting place mats for the evening dinner. (C) Rain has flooded the restaurant terrace. (D) Chairs have been overturned by strong wind.",
+      "transcript": "(A) Sun umbrellas are folded over outdoor patio tables. (B) Waiters are setting place mats for the evening dinner. (C) Rain has flooded the restaurant terrace. (D) Chairs have been overturned by strong wind.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Sun umbrellas are folded over outdoor patio tables.",
+        "B. Waiters are setting place mats for the evening dinner.",
+        "C. Rain has flooded the restaurant terrace.",
+        "D. Chairs have been overturned by strong wind."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy người phục vụ dọn bàn (setting place mats)",
+      "correct_reason": "Những chiếc ô che nắng lớn đang được xếp gập lại bên trên các bàn gỗ ngoài trời.",
+      "explanation_vi": "(A) đúng: 'Sun umbrellas are folded over outdoor patio tables'. (B) sai vì ngoài hiên không có nhân viên phục vụ. (C) sai vì sân hiên khô ráo. (D) sai vì ghế đứng ngay ngắn quanh bàn.",
+      "key_vocab": [
+        {
+          "word": "folded",
+          "ipa": "/ˈfəʊl.dɪd/",
+          "meaning": "được gấp lại, xếp lại"
+        },
+        {
+          "word": "patio",
+          "ipa": "/ˈpæt.i.əʊ/",
+          "meaning": "sân hiên ngoài trời (lát gạch/gỗ)"
+        },
+        {
+          "word": "overturned",
+          "ipa": "/ˌəʊ.vəˈtɜːnd/",
+          "meaning": "bị lật úp"
+        }
+      ],
+      "exam_tip": "Từ 'folded' (được gấp lại) và 'unfolded' (được mở ra) thường dùng để miêu tả ô (umbrellas) hoặc ghế gấp (folding chairs).",
+      "audio_url": "/audio/listening/part1/p1_q19.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q20",
+      "part": 1,
+      "topic": "Tranh tả vật",
+      "subtopic": "Pallet gỗ kho hàng",
+      "difficulty": "B1",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_22_pallets.webp",
+      "alt_text": "Stacks of wooden shipping pallets stored in a warehouse bay",
+      "audioScript": "Number 20. Look at the picture marked number 20 in your test book. (A) Wooden pallets are stacked inside a storage facility. (B) A forklift is unloading cargo from a shipping container. (C) Boxes are tumbling off a conveyor belt. (D) The warehouse roll-up door is bolted shut.",
+      "transcript": "(A) Wooden pallets are stacked inside a storage facility. (B) A forklift is unloading cargo from a shipping container. (C) Boxes are tumbling off a conveyor belt. (D) The warehouse roll-up door is bolted shut.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Wooden pallets are stacked inside a storage facility.",
+        "B. A forklift is unloading cargo from a shipping container.",
+        "C. Boxes are tumbling off a conveyor belt.",
+        "D. The warehouse roll-up door is bolted shut."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy xe nâng bốc hàng (forklift unloading cargo)",
+      "correct_reason": "Các pallet gỗ kê hàng được xếp chồng gọn gàng theo từng cột trong nhà kho.",
+      "explanation_vi": "(A) đúng: 'Wooden pallets are stacked inside a storage facility'. (B) sai vì không có xe nâng đang vận hành. (C) sai vì không có băng chuyền hàng hóa. (D) sai vì cửa cuốn kho đang mở cao đón ánh sáng.",
+      "key_vocab": [
+        {
+          "word": "pallet",
+          "ipa": "/ˈpæl.ət/",
+          "meaning": "kệ kê hàng bằng gỗ/nhựa"
+        },
+        {
+          "word": "storage facility",
+          "ipa": "/ˈstɔː.rɪdʒ fəˌsɪl.ə.ti/",
+          "meaning": "cơ sở lưu trữ, kho bãi"
+        },
+        {
+          "word": "forklift",
+          "ipa": "/ˈfɔːk.lɪft/",
+          "meaning": "xe nâng hàng"
+        }
+      ],
+      "exam_tip": "'Pallet' là vật phẩm xuất hiện trong hơn 60% tranh kho bãi của đề thi TOEIC. Hãy ghi nhớ từ này.",
+      "audio_url": "/audio/listening/part1/p1_q20.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q21",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Công viên & Lối đi bộ",
+      "difficulty": "B1",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_03_scene.webp",
+      "alt_text": "A scenic outdoor public park with curved stone paving, green grass, autumn trees, and empty wooden benches alongside the path",
+      "audioScript": "Number 21. Look at the picture marked number 21 in your test book. (A) Benches have been placed along a walkway. (B) Pedestrians are jogging on a path. (C) Leaves are being swept into a pile. (D) Streetlights are being installed near the grass.",
+      "transcript": "(A) Benches have been placed along a walkway. (B) Pedestrians are jogging on a path. (C) Leaves are being swept into a pile. (D) Streetlights are being installed near the grass.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Benches have been placed along a walkway.",
+        "B. Pedestrians are jogging on a path.",
+        "C. Leaves are being swept into a pile.",
+        "D. Streetlights are being installed near the grass."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy thì tiếp diễn bị động (are being swept / are being installed)",
+      "correct_reason": "Những chiếc ghế băng gỗ ngoài trời được đặt dọc theo lối đi lát đá uốn lượn trong công viên.",
+      "explanation_vi": "Phân tích cảnh quan: Khung cảnh công viên mùa thu thanh bình, không có bóng người. (A) 'Benches have been placed along a walkway' (Ghế băng đã được đặt dọc lối đi) là đáp án đúng duy nhất ở thể hoàn thành miêu tả trạng thái tĩnh. (B) sai vì không có người chạy bộ. (C) và (D) sai bẫy bị động 'are being'.",
+      "key_vocab": [
+        {
+          "word": "bench",
+          "ipa": "/bentʃ/",
+          "meaning": "ghế dài, ghế băng ngoài trời"
+        },
+        {
+          "word": "walkway",
+          "ipa": "/ˈwɔːk.weɪ/",
+          "meaning": "đường dành cho người đi bộ, lối đi"
+        },
+        {
+          "word": "sweep",
+          "ipa": "/swiːp/",
+          "meaning": "quét dọn (lá cây, rác)"
+        }
+      ],
+      "exam_tip": "Khi tranh không có người, thể bị động hiện tại tiếp diễn 'are being + V3/ed' hầu như luôn là BẪY SAI vì không có ai đang thực hiện hành động đó.",
+      "audio_url": "/audio/listening/part1/p1_q21.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q22",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Sảnh sân bay",
+      "difficulty": "B1",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_23_terminal.webp",
+      "alt_text": "An airport departure concourse with digital flight information screens suspended from ceiling",
+      "audioScript": "Number 22. Look at the picture marked number 22 in your test book. (A) Information screens are suspended from the terminal ceiling. (B) An aircraft is taxiing down an active runway. (C) Travelers are boarding an international flight. (D) Luggage is being inspected by customs officers.",
+      "transcript": "(A) Information screens are suspended from the terminal ceiling. (B) An aircraft is taxiing down an active runway. (C) Travelers are boarding an international flight. (D) Luggage is being inspected by customs officers.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Information screens are suspended from the terminal ceiling.",
+        "B. An aircraft is taxiing down an active runway.",
+        "C. Travelers are boarding an international flight.",
+        "D. Luggage is being inspected by customs officers."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy máy bay lăn trên đường băng (taxiing on runway)",
+      "correct_reason": "Các màn hình điện tử hiển thị chuyến bay được treo từ trần sảnh nhà ga sân bay.",
+      "explanation_vi": "(A) đúng: 'Information screens are suspended from the terminal ceiling'. (B) sai vì góc chụp bên trong nhà ga, không thấy máy bay trên đường băng. (C) sai vì hành khách đang đứng xem bảng giờ bay chứ chưa lên máy bay. (D) sai bẫy bị động 'is being inspected'.",
+      "key_vocab": [
+        {
+          "word": "suspend",
+          "ipa": "/səˈspend/",
+          "meaning": "treo lơ lửng"
+        },
+        {
+          "word": "concourse",
+          "ipa": "/ˈkɒŋ.kɔːs/",
+          "meaning": "sảnh lớn nhà ga/sân bay"
+        },
+        {
+          "word": "taxi",
+          "ipa": "/ˈtæk.si/",
+          "meaning": "(máy bay) di chuyển chậm trên đường băng"
+        }
+      ],
+      "exam_tip": "'Suspend from' (được treo từ...) là cấu trúc chỉ vị trí rất hay gặp khi mô tả đèn chùm, màn hình hoặc biển báo trần.",
+      "audio_url": "/audio/listening/part1/p1_q22.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q23",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Ngã tư đường phố thành phố",
+      "difficulty": "A2",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_24_crosswalk.webp",
+      "alt_text": "A pedestrian crosswalk painted on the asphalt street between modern skyscrapers",
+      "audioScript": "Number 23. Look at the picture marked number 23 in your test book. (A) White pedestrian stripes are painted on the roadway. (B) Traffic is backed up at a toll plaza. (C) A parade is marching down the boulevard. (D) Streetlights are being repaired by utility workers.",
+      "transcript": "(A) White pedestrian stripes are painted on the roadway. (B) Traffic is backed up at a toll plaza. (C) A parade is marching down the boulevard. (D) Streetlights are being repaired by utility workers.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. White pedestrian stripes are painted on the roadway.",
+        "B. Traffic is backed up at a toll plaza.",
+        "C. A parade is marching down the boulevard.",
+        "D. Streetlights are being repaired by utility workers."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy trạm thu phí (toll plaza)",
+      "correct_reason": "Vạch kẻ màu trắng dành cho người đi bộ qua đường được sơn rõ nét trên mặt đường nhựa.",
+      "explanation_vi": "(A) đúng: 'White pedestrian stripes are painted on the roadway'. (B) sai vì không có trạm thu phí nào trên đường phố nội đô. (C) sai vì không có đoàn diễu hành. (D) sai bẫy bị động 'are being repaired'.",
+      "key_vocab": [
+        {
+          "word": "crosswalk",
+          "ipa": "/ˈkrɒs.wɔːk/",
+          "meaning": "vạch qua đường cho người đi bộ (zebra crossing)"
+        },
+        {
+          "word": "stripe",
+          "ipa": "/straɪp/",
+          "meaning": "đường kẻ vạch, sọc"
+        },
+        {
+          "word": "roadway",
+          "ipa": "/ˈrəʊd.weɪ/",
+          "meaning": "lòng đường, mặt đường xe chạy"
+        }
+      ],
+      "exam_tip": "Khi tranh có đường phố, hãy chú ý các đặc điểm kẻ vạch ('lines painted on the street', 'crosswalk').",
+      "audio_url": "/audio/listening/part1/p1_q23.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q24",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Giảng đường đại học trống",
+      "difficulty": "B1",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_25_auditorium.webp",
+      "alt_text": "An empty university lecture auditorium with tiered wooden desks descending to stage",
+      "audioScript": "Number 24. Look at the picture marked number 24 in your test book. (A) Rows of wooden desks descend toward a podium. (B) A professor is lecturing in front of a chalkboard. (C) Students are taking an exam in an auditorium. (D) The stage curtains are drawn completely closed.",
+      "transcript": "(A) Rows of wooden desks descend toward a podium. (B) A professor is lecturing in front of a chalkboard. (C) Students are taking an exam in an auditorium. (D) The stage curtains are drawn completely closed.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Rows of wooden desks descend toward a podium.",
+        "B. A professor is lecturing in front of a chalkboard.",
+        "C. Students are taking an exam in an auditorium.",
+        "D. The stage curtains are drawn completely closed."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy người trong giảng đường trống (professor lecturing / students taking exam)",
+      "correct_reason": "Các dãy bàn học gỗ xếp theo bậc thang thoai thoải hướng xuống phía bục giảng trung tâm.",
+      "explanation_vi": "(A) đúng: 'Rows of wooden desks descend toward a podium'. (B) và (C) sai vì giảng đường trống, không có giáo sư hay sinh viên. (D) sai vì sân khấu mở, không có rèm che.",
+      "key_vocab": [
+        {
+          "word": "tiered",
+          "ipa": "/tɪəd/",
+          "meaning": "xếp theo bậc thang, tầng tầng lớp lớp"
+        },
+        {
+          "word": "descend",
+          "ipa": "/dɪˈsend/",
+          "meaning": "dốc xuống, đi xuống"
+        },
+        {
+          "word": "auditorium",
+          "ipa": "/ˌɔː.dɪˈtɔː.ri.əm/",
+          "meaning": "khán phòng, giảng đường lớn"
+        }
+      ],
+      "exam_tip": "Động từ 'descend' (dốc xuống) và 'ascend' (dốc lên) thường dùng miêu tả cấu trúc bậc thang hoặc khán đài dốc.",
+      "audio_url": "/audio/listening/part1/p1_q24.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q25",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Bến cảng ven sông",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_26_pier.webp",
+      "alt_text": "Small boats and yachts docked along a wooden waterfront pier",
+      "audioScript": "Number 25. Look at the picture marked number 25 in your test book. (A) Boats are docked along the edge of a pier. (B) Passengers are disembarking from a large ferry. (C) A vessel is sailing across an open ocean. (D) Fishermen are casting nets into the water.",
+      "transcript": "(A) Boats are docked along the edge of a pier. (B) Passengers are disembarking from a large ferry. (C) A vessel is sailing across an open ocean. (D) Fishermen are casting nets into the water.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Boats are docked along the edge of a pier.",
+        "B. Passengers are disembarking from a large ferry.",
+        "C. A vessel is sailing across an open ocean.",
+        "D. Fishermen are casting nets into the water."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy hành khách rời phà (passengers disembarking)",
+      "correct_reason": "Nhiều thuyền nhỏ đang neo đậu dọc theo mép cầu tàu gỗ.",
+      "explanation_vi": "(A) đúng: 'Boats are docked along the edge of a pier'. (B) sai vì không có chiếc phà lớn hay hành khách lên xuống. (C) sai vì thuyền đang neo tĩnh bên cầu cảng, không chạy ngoài khơi. (D) sai vì không có ngư dân quăng lưới.",
+      "key_vocab": [
+        {
+          "word": "dock",
+          "ipa": "/dɒk/",
+          "meaning": "cập bến, neo đậu ở bến tàu"
+        },
+        {
+          "word": "pier",
+          "ipa": "/pɪər/",
+          "meaning": "cầu tàu, bến tàu nhô ra biển"
+        },
+        {
+          "word": "disembark",
+          "ipa": "/ˌdɪs.ɪmˈbɑːk/",
+          "meaning": "xuống tàu/máy bay"
+        }
+      ],
+      "exam_tip": "'Dock' và 'moor' là hai động từ miêu tả thuyền bè neo đậu phổ biến nhất trong đề thi TOEIC.",
+      "audio_url": "/audio/listening/part1/p1_q25.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q26",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Khu vực chờ sảnh khách sạn",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_27_lounge.webp",
+      "alt_text": "A contemporary hotel lobby lounge with indoor green plants and comfortable sofas",
+      "audioScript": "Number 26. Look at the picture marked number 26 in your test book. (A) Potted plants are positioned beside upholstered seating. (B) A receptionist is answering phone calls at the desk. (C) Carpets are being vacuumed by housekeeping staff. (D) Luggage carts are blocking the entrance doorway.",
+      "transcript": "(A) Potted plants are positioned beside upholstered seating. (B) A receptionist is answering phone calls at the desk. (C) Carpets are being vacuumed by housekeeping staff. (D) Luggage carts are blocking the entrance doorway.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Potted plants are positioned beside upholstered seating.",
+        "B. A receptionist is answering phone calls at the desk.",
+        "C. Carpets are being vacuumed by housekeeping staff.",
+        "D. Luggage carts are blocking the entrance doorway."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy hút bụi thảm (carpets being vacuumed)",
+      "correct_reason": "Những chậu cây cảnh được đặt cạnh các bộ ghế bành bọc nệm trong sảnh.",
+      "explanation_vi": "(A) đúng: 'Potted plants are positioned beside upholstered seating'. (B) sai vì góc chụp phòng chờ không thấy quầy lễ tân. (C) sai bẫy bị động 'are being vacuumed'. (D) sai vì không có xe chở hành lý chắn cửa.",
+      "key_vocab": [
+        {
+          "word": "potted plant",
+          "ipa": "/ˈpɒt.ɪd plɑːnt/",
+          "meaning": "cây trồng trong chậu"
+        },
+        {
+          "word": "upholstered",
+          "ipa": "/ʌpˈhəʊl.stəd/",
+          "meaning": "bọc đệm/da (ghế sofa)"
+        },
+        {
+          "word": "vacuum",
+          "ipa": "/ˈvæk.juːm/",
+          "meaning": "hút bụi"
+        }
+      ],
+      "exam_tip": "'Potted plants' (cây trồng trong chậu) là đối tượng tĩnh xuất hiện cực kỳ thường xuyên ở sảnh khách sạn, văn phòng.",
+      "audio_url": "/audio/listening/part1/p1_q26.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q27",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Sân ga đường sắt",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_28_platform.webp",
+      "alt_text": "An outdoor railway platform alongside parallel steel train tracks",
+      "audioScript": "Number 27. Look at the picture marked number 27 in your test book. (A) A railway platform borders a pair of empty tracks. (B) A high-speed train is arriving at the terminal. (C) Commuters are rushing toward the ticket barriers. (D) Construction barriers block the passenger concourse.",
+      "transcript": "(A) A railway platform borders a pair of empty tracks. (B) A high-speed train is arriving at the terminal. (C) Commuters are rushing toward the ticket barriers. (D) Construction barriers block the passenger concourse.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A railway platform borders a pair of empty tracks.",
+        "B. A high-speed train is arriving at the terminal.",
+        "C. Commuters are rushing toward the ticket barriers.",
+        "D. Construction barriers block the passenger concourse."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy tàu hỏa đang tiến vào ga (train arriving at terminal)",
+      "correct_reason": "Sân ga tàu hỏa chạy dài song song cạnh đường ray sắt đang trống, không có đoàn tàu nào.",
+      "explanation_vi": "(A) đúng: 'A railway platform borders a pair of empty tracks'. (B) sai vì đường ray trống, không có tàu đang vào ga. (C) sai vì sân ga vắng người, không ai chạy qua cửa soát vé. (D) sai vì không có rào chắn thi công.",
+      "key_vocab": [
+        {
+          "word": "railway platform",
+          "ipa": "/ˈreɪl.weɪ ˌplæt.fɔːm/",
+          "meaning": "sân ga xe lửa"
+        },
+        {
+          "word": "track",
+          "ipa": "/træk/",
+          "meaning": "đường ray tàu hỏa"
+        },
+        {
+          "word": "commuter",
+          "ipa": "/kəˈmjuː.tər/",
+          "meaning": "người đi làm bằng phương tiện công cộng"
+        }
+      ],
+      "exam_tip": "Khi nhìn thấy đường ray trống, cảnh giác với đáp án có từ 'train arriving' hoặc 'boarding the train'.",
+      "audio_url": "/audio/listening/part1/p1_q27.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q28",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Văn phòng mở không người",
+      "difficulty": "B1",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_29_cubicles.webp",
+      "alt_text": "An open corporate office layout with modular cubicle partitions and workstations",
+      "audioScript": "Number 28. Look at the picture marked number 28 in your test book. (A) Cubicle partitions divide an open office space. (B) Employees are participating in a group video call. (C) Blinds have been pulled down over every window. (D) Office furniture is being loaded onto a delivery van.",
+      "transcript": "(A) Cubicle partitions divide an open office space. (B) Employees are participating in a group video call. (C) Blinds have been pulled down over every window. (D) Office furniture is being loaded onto a delivery van.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Cubicle partitions divide an open office space.",
+        "B. Employees are participating in a group video call.",
+        "C. Blinds have been pulled down over every window.",
+        "D. Office furniture is being loaded onto a delivery van."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy họp video nhóm (participating in video call)",
+      "correct_reason": "Các vách ngăn ô làm việc phân chia không gian văn phòng thành các góc làm việc chuyên biệt.",
+      "explanation_vi": "(A) đúng: 'Cubicle partitions divide an open office space'. (B) sai vì văn phòng không có nhân viên. (C) sai vì rèm cửa sổ đang mở để lộ ánh sáng tự nhiên. (D) sai bẫy bị động 'is being loaded'.",
+      "key_vocab": [
+        {
+          "word": "cubicle",
+          "ipa": "/ˈkjuː.bɪ.kəl/",
+          "meaning": "ô/vách ngăn góc làm việc văn phòng"
+        },
+        {
+          "word": "partition",
+          "ipa": "/pɑːˈtɪʃ.ən/",
+          "meaning": "vách ngăn phân chia"
+        },
+        {
+          "word": "blinds",
+          "ipa": "/blaɪndz/",
+          "meaning": "rèm sáo che cửa sổ"
+        }
+      ],
+      "exam_tip": "'Partition' (vách ngăn) và 'cubicle' (ô làm việc) là bộ đôi từ vựng quen thuộc mô tả bố cục văn phòng hiện đại.",
+      "audio_url": "/audio/listening/part1/p1_q28.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q29",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Cầu vượt xa lộ",
+      "difficulty": "A2",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_30_overpass.webp",
+      "alt_text": "A concrete highway overpass spanning across multiple lanes of road traffic",
+      "audioScript": "Number 29. Look at the picture marked number 29 in your test book. (A) A concrete overpass spans across a multi-lane highway. (B) Vehicles are stopped at an intersection red light. (C) A bridge is undergoing major structural demolition. (D) Pedestrians are jogging across a suspension bridge.",
+      "transcript": "(A) A concrete overpass spans across a multi-lane highway. (B) Vehicles are stopped at an intersection red light. (C) A bridge is undergoing major structural demolition. (D) Pedestrians are jogging across a suspension bridge.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A concrete overpass spans across a multi-lane highway.",
+        "B. Vehicles are stopped at an intersection red light.",
+        "C. A bridge is undergoing major structural demolition.",
+        "D. Pedestrians are jogging across a suspension bridge."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy đèn đỏ ngã tư (intersection red light)",
+      "correct_reason": "Cây cầu vượt bằng bê tông bắc ngang qua xa lộ cao tốc nhiều làn xe.",
+      "explanation_vi": "(A) đúng: 'A concrete overpass spans across a multi-lane highway'. (B) sai vì xa lộ xe cộ đang di chuyển, không có đèn đỏ ngã tư. (C) sai vì cầu hoàn thiện kiên cố, không bị phá dỡ. (D) sai vì không có người chạy bộ trên cầu.",
+      "key_vocab": [
+        {
+          "word": "overpass",
+          "ipa": "/ˈəʊ.və.pɑːs/",
+          "meaning": "cầu vượt đường bộ"
+        },
+        {
+          "word": "span",
+          "ipa": "/spæn/",
+          "meaning": "bắc qua, trải rộng qua"
+        },
+        {
+          "word": "lane",
+          "ipa": "/leɪn/",
+          "meaning": "làn đường xe chạy"
+        }
+      ],
+      "exam_tip": "Động từ 'span' (bắc ngang qua) rất thường đi kèm với danh từ 'bridge', 'overpass' hoặc 'arch'.",
+      "audio_url": "/audio/listening/part1/p1_q29.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q30",
+      "part": 1,
+      "topic": "Cảnh & bối cảnh",
+      "subtopic": "Lối đi siêu thị",
+      "difficulty": "A2",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_31_supermarket.webp",
+      "alt_text": "A clean supermarket grocery aisle with shelves stocked with packaged food items",
+      "audioScript": "Number 30. Look at the picture marked number 30 in your test book. (A) Shelves are stocked with packaged goods in an aisle. (B) A shopper is pushing an overloaded shopping cart. (C) Produce is being weighed on an electronic scale. (D) A spilled liquid is being cleaned with a mop.",
+      "transcript": "(A) Shelves are stocked with packaged goods in an aisle. (B) A shopper is pushing an overloaded shopping cart. (C) Produce is being weighed on an electronic scale. (D) A spilled liquid is being cleaned with a mop.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Shelves are stocked with packaged goods in an aisle.",
+        "B. A shopper is pushing an overloaded shopping cart.",
+        "C. Produce is being weighed on an electronic scale.",
+        "D. A spilled liquid is being cleaned with a mop."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "state",
+      "trap_type": "bẫy người đẩy xe đẩy hàng (pushing a shopping cart)",
+      "correct_reason": "Các dãy kệ kim loại trong lối đi siêu thị chứa đầy các mặt hàng đóng gói ngay ngắn.",
+      "explanation_vi": "(A) đúng: 'Shelves are stocked with packaged goods in an aisle'. (B) sai vì không có người mua sắm hay xe đẩy hàng trong lối đi. (C) sai bẫy bị động 'is being weighed'. (D) sai vì sàn nhà sạch bóng, không ai lau nhà.",
+      "key_vocab": [
+        {
+          "word": "be stocked with",
+          "ipa": "/stɒkt wɪð/",
+          "meaning": "chứa đầy, chất đầy hàng"
+        },
+        {
+          "word": "packaged goods",
+          "ipa": "/ˈpæk.ɪdʒd ɡʊdz/",
+          "meaning": "hàng hóa đóng gói sẵn"
+        },
+        {
+          "word": "scale",
+          "ipa": "/skeɪl/",
+          "meaning": "cái cân điện tử"
+        }
+      ],
+      "exam_tip": "'Be stocked with' (được chất đầy hàng hóa) là cụm động từ miêu tả trạng thái siêu thị, cửa hàng tạp hóa thường xuyên ra thi.",
+      "audio_url": "/audio/listening/part1/p1_q30.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q31",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Thu ngân & Khách hàng",
+      "difficulty": "B1",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_04_interaction.webp",
+      "alt_text": "A friendly female cashier at a modern supermarket checkout counter handing a brown paper grocery shopping bag to an adult male customer",
+      "audioScript": "Number 31. Look at the picture marked number 31 in your test book. (A) A customer is pushing a grocery cart through the entrance. (B) Groceries are being loaded onto a delivery truck. (C) Shelves are being stocked with canned vegetables. (D) A cashier is handing a bag to a customer.",
+      "transcript": "(A) A customer is pushing a grocery cart through the entrance. (B) Groceries are being loaded onto a delivery truck. (C) Shelves are being stocked with canned vegetables. (D) A cashier is handing a bag to a customer.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A customer is pushing a grocery cart through the entrance.",
+        "B. Groceries are being loaded onto a delivery truck.",
+        "C. Shelves are being stocked with canned vegetables.",
+        "D. A cashier is handing a bag to a customer."
+      ],
+      "ans": 3,
+      "ansLetter": "D",
+      "question_type": "interaction",
+      "trap_type": "bẫy hành động nhập hàng / bốc hàng (loaded onto truck)",
+      "correct_reason": "Thu ngân đang cầm túi giấy đựng hàng đưa cho khách hàng qua quầy thanh toán.",
+      "explanation_vi": "Phân tích tương tác người & vật: Thu ngân và khách hàng đứng đối diện tại quầy thu ngân. (D) 'A cashier is handing a bag to a customer' (Thu ngân đang đưa túi đồ cho khách hàng) mô tả chính xác 100%. (A) sai vì khách đang đứng nhận túi, không đẩy xe. (B) và (C) sai bẫy bị động 'are being loaded/stocked'.",
+      "key_vocab": [
+        {
+          "word": "cashier",
+          "ipa": "/kæˈʃɪər/",
+          "meaning": "nhân viên thu ngân"
+        },
+        {
+          "word": "hand",
+          "ipa": "/hænd/",
+          "meaning": "trao tay, đưa tận tay cho ai"
+        },
+        {
+          "word": "checkout counter",
+          "ipa": "/ˈtʃek.aʊt ˌkaʊn.tər/",
+          "meaning": "quầy thu ngân thanh toán"
+        }
+      ],
+      "exam_tip": "Hành động 'handing sth to sb' (đưa cái gì cho ai) rất hay xuất hiện trong tương tác giữa nhân viên và khách hàng.",
+      "audio_url": "/audio/listening/part1/p1_q31.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q32",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Tiếp viên hàng không phục vụ",
+      "difficulty": "A2",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_32_flight_attendant.webp",
+      "alt_text": "A flight attendant serving a drinking cup to a passenger in an airplane cabin",
+      "audioScript": "Number 32. Look at the picture marked number 32 in your test book. (A) A cabin attendant is serving a beverage to a seated traveler. (B) A passenger is stowing luggage in an overhead bin. (C) Meals are being loaded onto a beverage cart. (D) The airplane window blinds are all drawn shut.",
+      "transcript": "(A) A cabin attendant is serving a beverage to a seated traveler. (B) A passenger is stowing luggage in an overhead bin. (C) Meals are being loaded onto a beverage cart. (D) The airplane window blinds are all drawn shut.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A cabin attendant is serving a beverage to a seated traveler.",
+        "B. A passenger is stowing luggage in an overhead bin.",
+        "C. Meals are being loaded onto a beverage cart.",
+        "D. The airplane window blinds are all drawn shut."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy cất hành lý lên khoang trên (stowing luggage in bin)",
+      "correct_reason": "Tiếp viên hàng không đang cúi người trao cốc nước uống cho hành khách ngồi trên ghế.",
+      "explanation_vi": "(A) đúng: 'serving a beverage to a seated traveler'. (B) sai vì không ai cất hành lý lên khoang trên. (C) sai bẫy bị động 'are being loaded'. (D) sai vì cửa sổ máy bay đang mở đón ánh sáng.",
+      "key_vocab": [
+        {
+          "word": "attendant",
+          "ipa": "/əˈten.dənt/",
+          "meaning": "tiếp viên, người phục vụ"
+        },
+        {
+          "word": "stow",
+          "ipa": "/stəʊ/",
+          "meaning": "cất gọn gàng (hành lý)"
+        },
+        {
+          "word": "overhead bin",
+          "ipa": "/ˌəʊ.və.hed ˈbɪn/",
+          "meaning": "khoang chứa đồ phía trên đầu"
+        }
+      ],
+      "exam_tip": "'Stow' là từ vựng TOEIC đặc thù chỉ hành động xếp hành lý vào khoang phía trên ('stowing carry-on bags in the overhead compartment').",
+      "audio_url": "/audio/listening/part1/p1_q32.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q33",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Bắt tay hợp tác",
+      "difficulty": "A2",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_33_handshake.webp",
+      "alt_text": "Two business associates shaking hands across a meeting conference table",
+      "audioScript": "Number 33. Look at the picture marked number 33 in your test book. (A) Two professionals are shaking hands over a meeting table. (B) They are exchanging printed business cards. (C) One person is signing a legal contract with a pen. (D) Laptops are being packed into leather briefcases.",
+      "transcript": "(A) Two professionals are shaking hands over a meeting table. (B) They are exchanging printed business cards. (C) One person is signing a legal contract with a pen. (D) Laptops are being packed into leather briefcases.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Two professionals are shaking hands over a meeting table.",
+        "B. They are exchanging printed business cards.",
+        "C. One person is signing a legal contract with a pen.",
+        "D. Laptops are being packed into leather briefcases."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy ký hợp đồng (signing a contract)",
+      "correct_reason": "Hai đối tác kinh doanh đang bắt tay nhau qua mặt bàn hội nghị.",
+      "explanation_vi": "(A) đúng: 'shaking hands over a meeting table'. (B) sai vì họ bắt tay chứ không trao danh thiếp. (C) sai vì không ai cầm bút ký giấy tờ. (D) sai bẫy bị động 'are being packed'.",
+      "key_vocab": [
+        {
+          "word": "shake hands",
+          "ipa": "/ʃeɪk hændz/",
+          "meaning": "bắt tay chào hỏi/hợp tác"
+        },
+        {
+          "word": "business card",
+          "ipa": "/ˈbɪz.nɪs kɑːd/",
+          "meaning": "danh thiếp"
+        },
+        {
+          "word": "briefcase",
+          "ipa": "/ˈbriːf.keɪs/",
+          "meaning": "cặp tài liệu công sở"
+        }
+      ],
+      "exam_tip": "'Shaking hands' là một trong những hành động tương tác phổ biến nhất trong tranh đàm phán, phỏng vấn.",
+      "audio_url": "/audio/listening/part1/p1_q33.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q34",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Nạp giấy máy in",
+      "difficulty": "B1",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_34_loading_paper.webp",
+      "alt_text": "An office worker inserting a stack of paper into the open side paper tray of a photocopier",
+      "audioScript": "Number 34. Look at the picture marked number 34 in your test book. (A) An employee is loading paper into a copying machine. (B) He is collating bound reports for a meeting. (C) A technician is disassembling the printer motor. (D) Paper shreds are overflowing from a wastebasket.",
+      "transcript": "(A) An employee is loading paper into a copying machine. (B) He is collating bound reports for a meeting. (C) A technician is disassembling the printer motor. (D) Paper shreds are overflowing from a wastebasket.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. An employee is loading paper into a copying machine.",
+        "B. He is collating bound reports for a meeting.",
+        "C. A technician is disassembling the printer motor.",
+        "D. Paper shreds are overflowing from a wastebasket."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy tháo lắp động cơ máy in (disassembling the motor)",
+      "correct_reason": "Nhân viên cầm xấp giấy trắng đặt vào khay nạp giấy mở bên hông máy photocopy.",
+      "explanation_vi": "(A) đúng: 'loading paper into a copying machine'. (B) sai vì không có việc sắp xếp báo cáo đóng gáy. (C) sai vì không có kỹ thuật viên tháo dỡ máy. (D) sai vì thùng rác không có giấy vụn tràn ra.",
+      "key_vocab": [
+        {
+          "word": "load",
+          "ipa": "/ləʊd/",
+          "meaning": "nạp vào, tải vào (giấy, hành lý)"
+        },
+        {
+          "word": "collate",
+          "ipa": "/kəˈleɪt/",
+          "meaning": "đối chiếu, sắp xếp trang in theo thứ tự"
+        },
+        {
+          "word": "wastebasket",
+          "ipa": "/ˈweɪstˌbɑː.skɪt/",
+          "meaning": "thùng rác văn phòng"
+        }
+      ],
+      "exam_tip": "'Loading' (nạp vào/chất lên) trái nghĩa với 'unloading' (dỡ ra/lấy ra). Hãy nghe kỹ tiền tố 'un-'.",
+      "audio_url": "/audio/listening/part1/p1_q34.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q35",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Làm thủ tục nhận phòng",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_35_checkin.webp",
+      "alt_text": "A hotel guest handing a credit card to the front-desk clerk at check-in",
+      "audioScript": "Number 35. Look at the picture marked number 35 in your test book. (A) A guest is handing a card to a front-desk agent. (B) The clerk is checking baggage on a luggage scale. (C) A guest is relaxing on a lobby armchair. (D) Room keys are being programmed in a back office.",
+      "transcript": "(A) A guest is handing a card to a front-desk agent. (B) The clerk is checking baggage on a luggage scale. (C) A guest is relaxing on a lobby armchair. (D) Room keys are being programmed in a back office.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A guest is handing a card to a front-desk agent.",
+        "B. The clerk is checking baggage on a luggage scale.",
+        "C. A guest is relaxing on a lobby armchair.",
+        "D. Room keys are being programmed in a back office."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy cân hành lý (weighing baggage on scale)",
+      "correct_reason": "Vị khách đưa chiếc thẻ cho nhân viên lễ tân khách sạn qua mặt bàn quầy.",
+      "explanation_vi": "(A) đúng: 'handing a card to a front-desk agent'. (B) sai vì khách sạn không có cân hành lý sân bay. (C) sai vì khách đang đứng làm thủ tục, không ngồi ghế bành. (D) sai bẫy bị động 'are being programmed'.",
+      "key_vocab": [
+        {
+          "word": "guest",
+          "ipa": "/ɡest/",
+          "meaning": "khách thuê phòng, khách mời"
+        },
+        {
+          "word": "front-desk agent",
+          "ipa": "/ˌfrʌnt ˈdesk ˈeɪ.dʒənt/",
+          "meaning": "nhân viên quầy lễ tân"
+        },
+        {
+          "word": "baggage scale",
+          "ipa": "/ˈbæɡ.ɪdʒ skeɪl/",
+          "meaning": "cân hành lý"
+        }
+      ],
+      "exam_tip": "'Front desk', 'reception desk', 'service counter' đều chỉ quầy lễ tân phục vụ khách hàng.",
+      "audio_url": "/audio/listening/part1/p1_q35.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q36",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Giao nhận bưu kiện",
+      "difficulty": "A2",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_36_courier.webp",
+      "alt_text": "A delivery courier in uniform handing a cardboard package and clipboard to a receptionist",
+      "audioScript": "Number 36. Look at the picture marked number 36 in your test book. (A) A courier is delivering a package to an office worker. (B) He is loading freight onto the back of a delivery truck. (C) A box is being opened with a utility knife. (D) The reception area is closed to visitors.",
+      "transcript": "(A) A courier is delivering a package to an office worker. (B) He is loading freight onto the back of a delivery truck. (C) A box is being opened with a utility knife. (D) The reception area is closed to visitors.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A courier is delivering a package to an office worker.",
+        "B. He is loading freight onto the back of a delivery truck.",
+        "C. A box is being opened with a utility knife.",
+        "D. The reception area is closed to visitors."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy rạch hộp bằng dao (opening with a utility knife)",
+      "correct_reason": "Người giao hàng mặc đồng phục đang trao gói bưu phẩm cho nữ nhân viên văn phòng.",
+      "explanation_vi": "(A) đúng: 'delivering a package to an office worker'. (B) sai vì người này đang giao hàng trong văn phòng, không chất hàng lên xe tải. (C) sai vì hộp bưu kiện còn nguyên vẹn. (D) sai vì quầy lễ tân đang mở cửa tiếp khách.",
+      "key_vocab": [
+        {
+          "word": "courier",
+          "ipa": "/ˈkʊr.i.ər/",
+          "meaning": "người chuyển phát nhanh, người giao hàng"
+        },
+        {
+          "word": "freight",
+          "ipa": "/freɪt/",
+          "meaning": "hàng hóa chuyên chở"
+        },
+        {
+          "word": "clipboard",
+          "ipa": "/ˈklɪp.bɔːd/",
+          "meaning": "bảng kẹp tài liệu"
+        }
+      ],
+      "exam_tip": "'Courier' (/ˈkʊr.i.ər/) hoặc 'delivery driver' là từ vựng quen thuộc mô tả nhân vật giao nhận bưu phẩm.",
+      "audio_url": "/audio/listening/part1/p1_q36.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q37",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Thử kính mắt tại cửa hàng",
+      "difficulty": "B1",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_37_optician.webp",
+      "alt_text": "A customer trying on a pair of eyeglasses in front of a mirror with an optician standing nearby",
+      "audioScript": "Number 37. Look at the picture marked number 37 in your test book. (A) A customer is trying on eyewear in front of a mirror. (B) An optometrist is performing an eye exam with a machine. (C) Glasses frames are being polished with a special spray. (D) The shop windows are covered with promotional posters.",
+      "transcript": "(A) A customer is trying on eyewear in front of a mirror. (B) An optometrist is performing an eye exam with a machine. (C) Glasses frames are being polished with a special spray. (D) The shop windows are covered with promotional posters.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A customer is trying on eyewear in front of a mirror.",
+        "B. An optometrist is performing an eye exam with a machine.",
+        "C. Glasses frames are being polished with a special spray.",
+        "D. The shop windows are covered with promotional posters."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy đo thị lực bằng máy (performing an eye exam)",
+      "correct_reason": "Khách hàng đeo thử gọng kính và nhìn vào gương nhỏ để ngắm.",
+      "explanation_vi": "(A) đúng: 'trying on eyewear in front of a mirror'. (B) sai vì không có máy đo khúc xạ mắt nào đang vận hành. (C) sai bẫy bị động 'are being polished'. (D) sai vì cửa kính cửa hàng quang đãng, không dán kín poster.",
+      "key_vocab": [
+        {
+          "word": "try on",
+          "ipa": "/traɪ ɒn/",
+          "meaning": "thử (quần áo, kính, giày dép)"
+        },
+        {
+          "word": "eyewear",
+          "ipa": "/ˈaɪ.weər/",
+          "meaning": "kính mắt thời trang/cận thị"
+        },
+        {
+          "word": "optician",
+          "ipa": "/ɒpˈtɪʃ.ən/",
+          "meaning": "chuyên viên nhãn khoa, người bán kính"
+        }
+      ],
+      "exam_tip": "'Eyewear' là từ vựng chỉ chung cho kính mắt (glasses/spectacles/sunglasses).",
+      "audio_url": "/audio/listening/part1/p1_q37.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q38",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Nghiên cứu trong phòng thí nghiệm",
+      "difficulty": "B2",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_38_lab.webp",
+      "alt_text": "Two researchers wearing protective lab coats examining a liquid flask together in a laboratory",
+      "audioScript": "Number 38. Look at the picture marked number 38 in your test book. (A) Researchers are inspecting a liquid container in a lab. (B) They are cleaning glass beakers in a sterilization unit. (C) Microscopes have been packed into wooden crates. (D) A scientist is typing notes into a desktop computer.",
+      "transcript": "(A) Researchers are inspecting a liquid container in a lab. (B) They are cleaning glass beakers in a sterilization unit. (C) Microscopes have been packed into wooden crates. (D) A scientist is typing notes into a desktop computer.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. Researchers are inspecting a liquid container in a lab.",
+        "B. They are cleaning glass beakers in a sterilization unit.",
+        "C. Microscopes have been packed into wooden crates.",
+        "D. A scientist is typing notes into a desktop computer."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy gõ ghi chú vào máy tính (typing notes on computer)",
+      "correct_reason": "Hai nhà nghiên cứu mặc áo blouse trắng cùng quan sát bình chứa dung dịch thủy tinh.",
+      "explanation_vi": "(A) đúng: 'inspecting a liquid container in a lab'. (B) sai vì không ai rửa dụng cụ thí nghiệm. (C) sai vì kính hiển vi để sẵn trên bàn, không đóng thùng gỗ. (D) sai vì không ai ngồi gõ máy tính.",
+      "key_vocab": [
+        {
+          "word": "flask",
+          "ipa": "/flɑːsk/",
+          "meaning": "bình tam giác thủy tinh thí nghiệm"
+        },
+        {
+          "word": "beaker",
+          "ipa": "/ˈbiː.kər/",
+          "meaning": "cốc đong thủy tinh có mỏ"
+        },
+        {
+          "word": "sterilization",
+          "ipa": "/ˌster.ə.laɪˈzeɪ.ʃən/",
+          "meaning": "khử trùng, tiệt trùng"
+        }
+      ],
+      "exam_tip": "Tranh phòng thí nghiệm ETS thường xoay quanh các động từ 'inspecting', 'adjusting equipment' hoặc 'examining a sample'.",
+      "audio_url": "/audio/listening/part1/p1_q38.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male"
+    },
+    {
+      "id": "p1_q39",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Tư vấn mua đồng hồ",
+      "difficulty": "B1",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_39_watch_display.webp",
+      "alt_text": "A jewelry sales associate holding a velvet display tray showing a luxury wristwatch to a shopper",
+      "audioScript": "Number 39. Look at the picture marked number 39 in your test book. (A) A salesperson is presenting an item on a display tray. (B) A customer is repairing a broken watch strap with tools. (C) The jewelry display case has been shattered. (D) The store cash register is being emptied by an owner.",
+      "transcript": "(A) A salesperson is presenting an item on a display tray. (B) A customer is repairing a broken watch strap with tools. (C) The jewelry display case has been shattered. (D) The store cash register is being emptied by an owner.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. A salesperson is presenting an item on a display tray.",
+        "B. A customer is repairing a broken watch strap with tools.",
+        "C. The jewelry display case has been shattered.",
+        "D. The store cash register is being emptied by an owner."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy sửa quai đồng hồ (repairing watch strap)",
+      "correct_reason": "Nhân viên bán hàng hai tay cầm khay nhung giới thiệu chiếc đồng hồ đeo tay cho khách.",
+      "explanation_vi": "(A) đúng: 'presenting an item on a display tray'. (B) sai vì khách đang xem hàng, không dùng dụng cụ sửa đồng hồ. (C) sai vì tủ kính trưng bày nguyên vẹn. (D) sai bẫy bị động 'is being emptied'.",
+      "key_vocab": [
+        {
+          "word": "salesperson",
+          "ipa": "/ˈseɪlzˌpɜː.sən/",
+          "meaning": "nhân viên bán hàng"
+        },
+        {
+          "word": "display tray",
+          "ipa": "/dɪˈspleɪ treɪ/",
+          "meaning": "khay nhung trưng bày trang sức"
+        },
+        {
+          "word": "strap",
+          "ipa": "/stræp/",
+          "meaning": "quai đeo (đồng hồ, túi xách)"
+        }
+      ],
+      "exam_tip": "'Presenting' trong ngữ cảnh bán hàng có nghĩa là giới thiệu/đưa ra cho khách xem ('presenting merchandise to a buyer').",
+      "audio_url": "/audio/listening/part1/p1_q39.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female"
+    },
+    {
+      "id": "p1_q40",
+      "part": 1,
+      "topic": "Người & vật",
+      "subtopic": "Bàn giao chìa khóa thuê xe",
+      "difficulty": "A2",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ],
+      "image": "assets/listening/part1/p1_sample_40_car_rental.webp",
+      "alt_text": "A car rental agent handing automobile keys over the service counter to a customer",
+      "audioScript": "Number 40. Look at the picture marked number 40 in your test book. (A) An agent is handing keys to a customer over a service desk. (B) A driver is inspecting the exterior of a rental sedan. (C) Luggage is being transferred into a vehicle trunk. (D) The rental counter is unattended by staff.",
+      "transcript": "(A) An agent is handing keys to a customer over a service desk. (B) A driver is inspecting the exterior of a rental sedan. (C) Luggage is being transferred into a vehicle trunk. (D) The rental counter is unattended by staff.",
+      "q": "Look at the picture and choose the statement that best describes what you see:",
+      "options": [
+        "A. An agent is handing keys to a customer over a service desk.",
+        "B. A driver is inspecting the exterior of a rental sedan.",
+        "C. Luggage is being transferred into a vehicle trunk.",
+        "D. The rental counter is unattended by staff."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "interaction",
+      "trap_type": "bẫy kiểm tra thân xe bên ngoài (inspecting the exterior)",
+      "correct_reason": "Nhân viên dịch vụ đang đưa chùm chìa khóa qua quầy cho khách hàng.",
+      "explanation_vi": "(A) đúng: 'handing keys to a customer over a service desk'. (B) sai vì họ đang ở trong văn phòng làm thủ tục nhận chìa, chưa ra bãi xe kiểm tra. (C) sai bẫy bị động 'is being transferred'. (D) sai vì quầy có nhân viên phục vụ tận tình.",
+      "key_vocab": [
+        {
+          "word": "hand over",
+          "ipa": "/hænd ˈəʊ.vər/",
+          "meaning": "trao tay, bàn giao"
+        },
+        {
+          "word": "service desk",
+          "ipa": "/ˈsɜː.vɪs desk/",
+          "meaning": "bàn quầy làm thủ tục dịch vụ"
+        },
+        {
+          "word": "unattended",
+          "ipa": "/ˌʌn.əˈten.dɪd/",
+          "meaning": "không có người trông coi/phục vụ"
+        }
+      ],
+      "exam_tip": "'Unattended' (không có người trông coi) là tính từ bẫy cực kỳ phổ biến trong đề thi cho cả tranh tả người và tranh tả vật.",
+      "audio_url": "/audio/listening/part1/p1_q40.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male"
+    }
+  ],
+  "part2": [
+    {
+      "id": "p2_q01",
+      "part": 2,
+      "topic": "Lịch họp & Thời gian",
+      "difficulty": "A2",
+      "accent": "US",
+      "q": "When will the quarterly budget meeting take place?",
+      "audioScript": "Number 7. When will the quarterly budget meeting take place? (A) In Conference Room B. (B) Next Tuesday at ten A.M. (C) Yes, I met him yesterday.",
+      "transcript": "When will the quarterly budget meeting take place? (A) In Conference Room B. (B) Next Tuesday at ten A.M. (C) Yes, I met him yesterday.",
+      "options": [
+        "A. In Conference Room B.",
+        "B. Next Tuesday at 10:00 A.M.",
+        "C. Yes, I met him yesterday."
+      ],
+      "ans": 1,
+      "ansLetter": "B",
+      "question_type": "when",
+      "trap_type": "bẫy trả lời cho Where và bẫy đồng âm 'meeting/met'",
+      "correct_reason": "Câu hỏi bắt đầu bằng 'When' (Khi nào) cần câu trả lời chỉ mốc thời gian: 'Next Tuesday at 10:00 A.M.'",
+      "explanation_vi": "Phân tích câu hỏi Wh-: Từ để hỏi 'When' hỏi thời gian. (A) trả lời cho câu hỏi 'Where'. (C) là câu Yes/No (sai với Wh-) và gài bẫy đồng âm 'meeting - met'. Chọn (B).",
+      "key_vocab": [
+        {
+          "word": "take place",
+          "ipa": "/teɪk pleɪs/",
+          "meaning": "diễn ra, tổ chức"
+        }
+      ],
+      "exam_tip": "Câu hỏi Wh- tuyệt đối không bao giờ trả lời bằng Yes hoặc No.",
+      "audio_url": "/audio/listening/part2/p2_q01.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q02",
+      "part": 2,
+      "topic": "Vị trí đồ vật văn phòng",
+      "difficulty": "A2",
+      "accent": "US",
+      "q": "Where did you put the revised employee handbooks?",
+      "audioScript": "Number 8. Where did you put the revised employee handbooks? (A) Yes, I revised them. (B) On the shelf in the copy room. (C) No later than Friday.",
+      "transcript": "Where did you put the revised employee handbooks? (A) Yes, I revised them. (B) On the shelf in the copy room. (C) No later than Friday.",
+      "options": [
+        "A. Yes, I revised them.",
+        "B. On the shelf in the copy room.",
+        "C. No later than Friday."
+      ],
+      "ans": 1,
+      "ansLetter": "B",
+      "question_type": "where",
+      "trap_type": "bẫy lặp lại từ 'revised' và bẫy thời gian 'Friday'",
+      "correct_reason": "Từ để hỏi 'Where' yêu cầu câu trả lời chỉ nơi chốn/vị trí: 'On the shelf in the copy room'.",
+      "explanation_vi": "(A) bẫy Yes/No và lặp lại từ 'revised'. (C) 'No later than Friday' trả lời cho 'When'. (B) chỉ rõ vị trí trên giá trong phòng photocopy. Chọn (B).",
+      "key_vocab": [
+        {
+          "word": "handbook",
+          "ipa": "/ˈhændbʊk/",
+          "meaning": "sổ tay hướng dẫn"
+        }
+      ],
+      "exam_tip": "Đề thi ETS thường gài bẫy lặp lại chính xác động từ của câu hỏi trong đáp án sai.",
+      "audio_url": "/audio/listening/part2/p2_q02.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q03",
+      "part": 2,
+      "topic": "Lý do & Nguyên nhân",
+      "difficulty": "B1",
+      "accent": "UK",
+      "q": "Why was the client presentation postponed?",
+      "audioScript": "Number 9. Why was the client presentation postponed? (A) At the main post office. (B) Because the projector was being repaired. (C) I bought a birthday present.",
+      "transcript": "Why was the client presentation postponed? (A) At the main post office. (B) Because the projector was being repaired. (C) I bought a birthday present.",
+      "options": [
+        "A. At the main post office.",
+        "B. Because the projector was being repaired.",
+        "C. I bought a birthday present."
+      ],
+      "ans": 1,
+      "ansLetter": "B",
+      "question_type": "why",
+      "trap_type": "bẫy đồng âm 'postponed - post' và 'presentation - present'",
+      "correct_reason": "'Why' hỏi lý do trì hoãn, đáp án giải thích 'Because the projector was being repaired'.",
+      "explanation_vi": "Câu hỏi 'Why' (Tại sao buổi thuyết trình bị hoãn?). (A) bẫy đồng âm giữa 'postponed' và 'post office'. (C) bẫy đồng âm 'presentation' và 'birthday present'. (B) nêu trực tiếp lý do máy chiếu hỏng. Chọn (B).",
+      "key_vocab": [
+        {
+          "word": "postpone",
+          "ipa": "/pəʊstˈpəʊn/",
+          "meaning": "hoãn lại, dời lịch"
+        }
+      ],
+      "exam_tip": "Cảnh giác với các từ phát âm na ná một phần của từ khóa chính trong câu hỏi.",
+      "audio_url": "/audio/listening/part2/p2_q03.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q04",
+      "part": 2,
+      "topic": "Nhân sự & Phụ trách",
+      "difficulty": "A2",
+      "accent": "UK",
+      "q": "Who is in charge of organizing the retirement reception?",
+      "audioScript": "Number 10. Who is in charge of organizing the retirement reception? (A) Sandra from Human Resources. (B) At six o'clock this evening. (C) He retired last year.",
+      "transcript": "Who is in charge of organizing the retirement reception? (A) Sandra from Human Resources. (B) At six o'clock this evening. (C) He retired last year.",
+      "options": [
+        "A. Sandra from Human Resources.",
+        "B. At six o'clock this evening.",
+        "C. He retired last year."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "who",
+      "trap_type": "bẫy thời gian và bẫy lặp từ 'retired'",
+      "correct_reason": "Câu hỏi 'Who' cần người chịu trách nhiệm: 'Sandra from Human Resources'.",
+      "explanation_vi": "'Who is in charge of...' (Ai chịu trách nhiệm tổ chức tiệc chia tay nghỉ hưu?). (A) chỉ đích danh nhân vật Sandra phòng Nhân sự. (B) trả lời cho 'When'. (C) bẫy biến thể từ 'retirement - retired'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "be in charge of",
+          "ipa": "/biː ɪn tʃɑːdʒ ɒv/",
+          "meaning": "chịu trách nhiệm, phụ trách"
+        }
+      ],
+      "exam_tip": "'Who' thường được trả lời bằng Tên riêng, Chức danh hoặc Tên phòng ban.",
+      "audio_url": "/audio/listening/part2/p2_q04.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q05",
+      "part": 2,
+      "topic": "Lựa chọn phương tiện & Cách thức",
+      "difficulty": "B1",
+      "accent": "AU",
+      "q": "How will the inspection team travel to the factory site?",
+      "audioScript": "Number 11. How will the inspection team travel to the factory site? (A) By rented passenger van. (B) About forty-five minutes. (C) To inspect the assembly line.",
+      "transcript": "How will the inspection team travel to the factory site? (A) By rented passenger van. (B) About forty-five minutes. (C) To inspect the assembly line.",
+      "options": [
+        "A. By rented passenger van.",
+        "B. About forty-five minutes.",
+        "C. To inspect the assembly line."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "how",
+      "trap_type": "bẫy trả lời thời lượng 'How long' và mục đích 'Why'",
+      "correct_reason": "'How will... travel' hỏi phương tiện đi lại -> 'By rented passenger van' (Bằng xe van chở khách thuê).",
+      "explanation_vi": "'How' đi với động từ di chuyển 'travel' hỏi về phương tiện. (A) dùng giới từ 'By + phương tiện' là đáp án chuẩn. (B) trả lời cho 'How long'. (C) trả lời cho 'Why'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "inspection team",
+          "ipa": "/ɪnˈspɛkʃən tiːm/",
+          "meaning": "đội thanh tra"
+        }
+      ],
+      "exam_tip": "'How + travel/get to' gần như luôn đi kèm câu trả lời chỉ phương tiện (by car, by train, take a taxi).",
+      "audio_url": "/audio/listening/part2/p2_q05.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q06",
+      "part": 2,
+      "topic": "Ý kiến & Đánh giá",
+      "difficulty": "B1",
+      "accent": "AU",
+      "q": "What do you think of the new marketing slogan?",
+      "audioScript": "Number 12. What do you think of the new marketing slogan? (A) It sounds very catchy and modern. (B) In the morning newspaper. (C) Yes, I think so too.",
+      "transcript": "What do you think of the new marketing slogan? (A) It sounds very catchy and modern. (B) In the morning newspaper. (C) Yes, I think so too.",
+      "options": [
+        "A. It sounds very catchy and modern.",
+        "B. In the morning newspaper.",
+        "C. Yes, I think so too."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "opinion",
+      "trap_type": "bẫy Yes/No cho câu hỏi Wh-",
+      "correct_reason": "'What do you think of...' hỏi ý kiến/nhận xét cá nhân -> 'It sounds very catchy and modern' (Nghe rất bắt tai và hiện đại).",
+      "explanation_vi": "Câu hỏi thăm dò ý kiến 'What do you think of...'. (A) đưa ra tính từ nhận xét 'catchy and modern'. (B) trả lời cho 'Where'. (C) là câu Yes/No sai luật với Wh-. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "catchy",
+          "ipa": "/ˈkætʃi/",
+          "meaning": "bắt tai, dễ nhớ"
+        }
+      ],
+      "exam_tip": "Hỏi nhận xét thường trả lời bằng các tính từ đánh giá hoặc cụm 'I find it...'.",
+      "audio_url": "/audio/listening/part2/p2_q06.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q07",
+      "part": 2,
+      "topic": "Lựa chọn phương án",
+      "difficulty": "B1",
+      "accent": "CA",
+      "q": "Should we order lunch from the bistro or eat at the cafeteria?",
+      "audioScript": "Number 13. Should we order lunch from the bistro or eat at the cafeteria? (A) The cafeteria is closed for maintenance today. (B) Yes, I am hungry. (C) Fifteen dollars per person.",
+      "transcript": "Should we order lunch from the bistro or eat at the cafeteria? (A) The cafeteria is closed for maintenance today. (B) Yes, I am hungry. (C) Fifteen dollars per person.",
+      "options": [
+        "A. The cafeteria is closed for maintenance today.",
+        "B. Yes, I am hungry.",
+        "C. Fifteen dollars per person."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "choice",
+      "trap_type": "bẫy trả lời Yes/No cho câu hỏi lựa chọn 'or' và đáp án gián tiếp",
+      "correct_reason": "Đáp án gián tiếp loại trừ một vế: 'The cafeteria is closed for maintenance today' ngụ ý bắt buộc phải chọn vế đặt món từ bistro.",
+      "explanation_vi": "Câu hỏi lựa chọn 'A or B'. Quy tắc: Không trả lời Yes/No (loại B). (C) trả lời cho 'How much'. (A) đưa ra thông tin quán ăn tự phục vụ đóng cửa để ngầm chọn bistro. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "cafeteria",
+          "ipa": "/ˌkæfəˈtɪəriə/",
+          "meaning": "quán ăn tự phục vụ"
+        }
+      ],
+      "exam_tip": "Câu hỏi 'or' ngày nay ETS rất chuộng đáp án gián tiếp giải thích lý do loại trừ một trong hai lựa chọn.",
+      "audio_url": "/audio/listening/part2/p2_q07.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q08",
+      "part": 2,
+      "topic": "Đề nghị & Lời mời",
+      "difficulty": "A2",
+      "accent": "CA",
+      "q": "Would you like me to proofread that press release for you?",
+      "audioScript": "Number 14. Would you like me to proofread that press release for you? (A) That would be a huge help, thanks! (B) The press conference starts soon. (C) Yes, I read the newspaper.",
+      "transcript": "Would you like me to proofread that press release for you? (A) That would be a huge help, thanks! (B) The press conference starts soon. (C) Yes, I read the newspaper.",
+      "options": [
+        "A. That would be a huge help, thanks!",
+        "B. The press conference starts soon.",
+        "C. Yes, I read the newspaper."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "offer",
+      "trap_type": "bẫy lặp lại từ 'press' và từ 'read'",
+      "correct_reason": "Lời đề nghị giúp đỡ 'Would you like me to...' được đón nhận nồng nhiệt bằng 'That would be a huge help, thanks!'.",
+      "explanation_vi": "(A) là phản hồi cảm ơn kinh điển khi nhận được đề nghị giúp đỡ. (B) bẫy lặp từ 'press'. (C) bẫy từ 'read' liên quan đến 'proofread'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "proofread",
+          "ipa": "/ˈpruːfriːd/",
+          "meaning": "đọc và sửa lỗi bản in/văn bản"
+        },
+        {
+          "word": "press release",
+          "ipa": "/ˈprɛs rɪˌliːs/",
+          "meaning": "thông cáo báo chí"
+        }
+      ],
+      "exam_tip": "Lời đề nghị giúp đỡ thường được đáp lại bằng 'That would be great/helpful' hoặc 'No thanks, I can manage'.",
+      "audio_url": "/audio/listening/part2/p2_q08.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q09",
+      "part": 2,
+      "topic": "Thông báo thiết bị & Giải pháp",
+      "difficulty": "B1",
+      "accent": "US",
+      "q": "The heavy-duty color printer on the third floor is out of paper.",
+      "audioScript": "Number 15. The heavy-duty color printer on the third floor is out of paper. (A) I will grab a fresh pack from the supply room. (B) Yes, print twenty copies. (C) The third page is missing.",
+      "transcript": "The heavy-duty color printer on the third floor is out of paper. (A) I will grab a fresh pack from the supply room. (B) Yes, print twenty copies. (C) The third page is missing.",
+      "options": [
+        "A. I will grab a fresh pack from the supply room.",
+        "B. Yes, print twenty copies.",
+        "C. The third page is missing."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "statement",
+      "trap_type": "bẫy đồng âm 'third' và từ gây nhiễu 'print'",
+      "correct_reason": "Câu trần thuật thông báo máy in hết giấy được phản hồi bằng hành động giải quyết sự cố ngay lập tức.",
+      "explanation_vi": "Câu trần thuật (Statement) nêu vấn đề. (A) 'I will grab a fresh pack from the supply room' (Tôi sẽ lấy một bọc mới từ kho vật tư) là phản hồi logic giải quyết vấn đề. (B) và (C) bẫy lặp từ 'print' và 'third'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "supply room",
+          "ipa": "/səˈplaɪ ruːm/",
+          "meaning": "kho chứa văn phòng phẩm/vật tư"
+        }
+      ],
+      "exam_tip": "Với câu trần thuật nêu trục trặc, người đáp lại thường đề xuất phương án khắc phục.",
+      "audio_url": "/audio/listening/part2/p2_q09.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q10",
+      "part": 2,
+      "topic": "Câu hỏi đuôi xác nhận",
+      "difficulty": "B1",
+      "accent": "US",
+      "q": "You submitted the travel reimbursement form online, didn't you?",
+      "audioScript": "Number 16. You submitted the travel reimbursement form online, didn't you? (A) Yes, earlier this morning. (B) I prefer traveling by train. (C) In the online catalog.",
+      "transcript": "You submitted the travel reimbursement form online, didn't you? (A) Yes, earlier this morning. (B) I prefer traveling by train. (C) In the online catalog.",
+      "options": [
+        "A. Yes, earlier this morning.",
+        "B. I prefer traveling by train.",
+        "C. In the online catalog."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "tag_question",
+      "trap_type": "bẫy lặp lại từ 'travel' và 'online'",
+      "correct_reason": "Câu hỏi đuôi xác nhận hành động nộp đơn -> 'Yes, earlier this morning' (Vâng, lúc sáng sớm nay).",
+      "explanation_vi": "Câu hỏi đuôi (Tag question) xác nhận xem đã nộp đơn thanh toán công tác phí chưa. (A) trả lời 'Yes' và bổ sung mốc thời gian đã làm. (B) bẫy từ 'travel'. (C) bẫy từ 'online'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "reimbursement",
+          "ipa": "/ˌriːɪmˈbɜːsmənt/",
+          "meaning": "khoản hoàn tiền/thanh toán lại chi phí"
+        }
+      ],
+      "exam_tip": "Câu hỏi đuôi kiểm tra sự thật đã xảy ra hay chưa, câu trả lời thường đi kèm thời điểm xác thực.",
+      "audio_url": "/audio/listening/part2/p2_q10.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q11",
+      "part": 2,
+      "topic": "Số lượng & Quy mô",
+      "difficulty": "B1",
+      "accent": "UK",
+      "q": "How many copies of the training syllabus should I print?",
+      "audioScript": "Number 17. How many copies of the training syllabus should I print? (A) We have twelve participants registered. (B) It's printed on glossy paper. (C) Yes, please print them now.",
+      "transcript": "How many copies of the training syllabus should I print? (A) We have twelve participants registered. (B) It's printed on glossy paper. (C) Yes, please print them now.",
+      "options": [
+        "A. We have twelve participants registered.",
+        "B. It's printed on glossy paper.",
+        "C. Yes, please print them now."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "how_many",
+      "trap_type": "đáp án gián tiếp qua số lượng người tham gia",
+      "correct_reason": "'How many copies' hỏi số bản in -> cung cấp số học viên 'twelve participants' ngụ ý in 12 bản.",
+      "explanation_vi": "(A) 'We have twelve participants registered' cung cấp căn cứ trực tiếp để người hỏi biết số lượng cần in là 12. (B) nói về chất liệu giấy. (C) là câu Yes/No sai với 'How many'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "syllabus",
+          "ipa": "/ˈsɪləbəs/",
+          "meaning": "đề cương môn học/giáo trình"
+        }
+      ],
+      "exam_tip": "Hỏi 'how many' không nhất thiết phải nói thẳng số bản, mà có thể nói gián tiếp số người nhận.",
+      "audio_url": "/audio/listening/part2/p2_q11.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q12",
+      "part": 2,
+      "topic": "Câu hỏi phủ định",
+      "difficulty": "B2",
+      "accent": "UK",
+      "q": "Isn't the warranty on this photocopy machine still valid?",
+      "audioScript": "Number 18. Isn't the warranty on this photocopy machine still valid? (A) Yes, it expires at the end of next month. (B) No, he made thirty copies. (C) Contact the warranty department.",
+      "transcript": "Isn't the warranty on this photocopy machine still valid? (A) Yes, it expires at the end of next month. (B) No, he made thirty copies. (C) Contact the warranty department.",
+      "options": [
+        "A. Yes, it expires at the end of next month.",
+        "B. No, he made thirty copies.",
+        "C. Contact the warranty department."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "negative_question",
+      "trap_type": "bẫy trả lời No lạc đề và bẫy lặp lại từ 'copies'",
+      "correct_reason": "'Isn't the warranty still valid?' xác nhận bảo hành còn hạn không -> 'Yes, it expires at the end of next month'.",
+      "explanation_vi": "Câu hỏi phủ định 'Isn't... valid?'. Trong tiếng Anh, nếu vẫn còn hạn thì trả lời 'Yes' kèm chi tiết ngày hết hạn. (B) bẫy lặp từ 'copies'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "warranty",
+          "ipa": "/ˈwɒrənti/",
+          "meaning": "phiếu bảo hành/thời hạn bảo hành"
+        },
+        {
+          "word": "valid",
+          "ipa": "/ˈvælɪd/",
+          "meaning": "còn hiệu lực, hợp lệ"
+        }
+      ],
+      "exam_tip": "Quy tắc câu hỏi phủ định tiếng Anh: Cứ sự thật là CÒN thì nói YES, HẾT thì nói NO.",
+      "audio_url": "/audio/listening/part2/p2_q12.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q13",
+      "part": 2,
+      "topic": "Địa điểm sự kiện",
+      "difficulty": "A2",
+      "accent": "AU",
+      "q": "Where are we holding the regional branch managers' luncheon?",
+      "audioScript": "Number 19. Where are we holding the regional branch managers' luncheon? (A) At the Italian bistro across the street. (B) At two o'clock sharp. (C) Yes, I have lunch every day.",
+      "transcript": "Where are we holding the regional branch managers' luncheon? (A) At the Italian bistro across the street. (B) At two o'clock sharp. (C) Yes, I have lunch every day.",
+      "options": [
+        "A. At the Italian bistro across the street.",
+        "B. At two o'clock sharp.",
+        "C. Yes, I have lunch every day."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "where",
+      "trap_type": "bẫy thời gian 'At two o'clock' và đồng âm 'luncheon/lunch'",
+      "correct_reason": "'Where' hỏi địa điểm tổ chức tiệc trưa -> 'At the Italian bistro across the street'.",
+      "explanation_vi": "(A) chỉ rõ địa chỉ nhà hàng Ý bên kia đường. (B) trả lời cho 'When'. (C) bẫy từ 'lunch' và trả lời Yes/No vô nghĩa. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "luncheon",
+          "ipa": "/ˈlʌntʃən/",
+          "meaning": "tiệc trưa thân mật/trang trọng"
+        }
+      ],
+      "exam_tip": "'Where' luôn tìm cụm giới từ chỉ nơi chốn (at, in, on, across, opposite).",
+      "audio_url": "/audio/listening/part2/p2_q13.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q14",
+      "part": 2,
+      "topic": "Người phê duyệt & Ký duyệt",
+      "difficulty": "B1",
+      "accent": "AU",
+      "q": "Who approved the budget increase for the ad campaign?",
+      "audioScript": "Number 20. Who approved the budget increase for the ad campaign? (A) Mr. Henderson signed off on it. (B) The advertisement was effective. (C) About twenty percent higher.",
+      "transcript": "Who approved the budget increase for the ad campaign? (A) Mr. Henderson signed off on it. (B) The advertisement was effective. (C) About twenty percent higher.",
+      "options": [
+        "A. Mr. Henderson signed off on it.",
+        "B. The advertisement was effective.",
+        "C. About twenty percent higher."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "who",
+      "trap_type": "bẫy từ đồng nghĩa 'ad/advertisement' và tỷ lệ phần trăm",
+      "correct_reason": "'Who approved' -> 'Mr. Henderson signed off on it' (Ông Henderson đã ký duyệt).",
+      "explanation_vi": "Cụm 'sign off on something' là cách diễn đạt đồng nghĩa (paraphrase) của 'approve'. (A) nêu chính xác người duyệt. (B) bẫy lặp từ 'advertisement'. (C) bẫy số liệu mức tăng. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "sign off on",
+          "ipa": "/saɪn ɒf ɒn/",
+          "meaning": "ký duyệt, chính thức phê chuẩn"
+        }
+      ],
+      "exam_tip": "Học kỹ cụm 'sign off on' vì ETS rất hay dùng để paraphrase từ 'approve'.",
+      "audio_url": "/audio/listening/part2/p2_q14.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q15",
+      "part": 2,
+      "topic": "Khen ngợi & Phản hồi xã giao",
+      "difficulty": "B1",
+      "accent": "CA",
+      "q": "I really enjoyed reading your article in the corporate newsletter.",
+      "audioScript": "Number 21. I really enjoyed reading your article in the corporate newsletter. (A) Thanks, I spent a lot of time researching it. (B) In the morning paper. (C) Yes, I wrote a letter.",
+      "transcript": "I really enjoyed reading your article in the corporate newsletter. (A) Thanks, I spent a lot of time researching it. (B) In the morning paper. (C) Yes, I wrote a letter.",
+      "options": [
+        "A. Thanks, I spent a lot of time researching it.",
+        "B. In the morning paper.",
+        "C. Yes, I wrote a letter."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "compliment",
+      "trap_type": "bẫy đồng âm 'newsletter/letter'",
+      "correct_reason": "Khi nhận được lời khen về bài viết, phản hồi lịch sự nhất là cảm ơn và chia sẻ thêm nỗ lực.",
+      "explanation_vi": "Đây là câu trần thuật mang tính khen ngợi. (A) 'Thanks, I spent a lot of time researching it' là phản hồi chuẩn mực. (B) trả lời cho Where. (C) bẫy từ 'letter'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "newsletter",
+          "ipa": "/ˈnjuːzˌlɛtər/",
+          "meaning": "bản tin nội bộ doanh nghiệp"
+        }
+      ],
+      "exam_tip": "Trước lời khen ngợi, câu trả lời đúng 90% sẽ bắt đầu bằng 'Thank you' hoặc 'Thanks'.",
+      "audio_url": "/audio/listening/part2/p2_q15.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q16",
+      "part": 2,
+      "topic": "Bảo trì & Sự cố thang máy",
+      "difficulty": "B1",
+      "accent": "CA",
+      "q": "Why hasn't the maintenance team fixed the elevator yet?",
+      "audioScript": "Number 22. Why hasn't the maintenance team fixed the elevator yet? (A) They are waiting for a replacement part. (B) On the twelfth floor. (C) Yes, take the stairs.",
+      "transcript": "Why hasn't the maintenance team fixed the elevator yet? (A) They are waiting for a replacement part. (B) On the twelfth floor. (C) Yes, take the stairs.",
+      "options": [
+        "A. They are waiting for a replacement part.",
+        "B. On the twelfth floor.",
+        "C. Yes, take the stairs."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "why",
+      "trap_type": "bẫy nơi chốn và bẫy Yes/No",
+      "correct_reason": "'Why hasn't... fixed' hỏi lý do chưa sửa xong -> 'They are waiting for a replacement part' (Họ đang chờ linh kiện thay thế).",
+      "explanation_vi": "(A) giải thích nguyên nhân chậm trễ do thiếu phụ tùng thay thế. (B) trả lời cho Where. (C) là câu Yes/No sai cấu trúc với câu hỏi Why. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "replacement part",
+          "ipa": "/rɪˈpleɪsmənt pɑːt/",
+          "meaning": "linh kiện/phụ tùng thay thế"
+        }
+      ],
+      "exam_tip": "Lý do trì hoãn kỹ thuật trong đề TOEIC thường là 'waiting for parts' hoặc 'short on staff'.",
+      "audio_url": "/audio/listening/part2/p2_q16.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q17",
+      "part": 2,
+      "topic": "Đề xuất đi chung xe",
+      "difficulty": "A2",
+      "accent": "US",
+      "q": "Do you want to carpool together to the branch opening tomorrow?",
+      "audioScript": "Number 23. Do you want to carpool together to the branch opening tomorrow? (A) That would save us gas and parking fees. (B) The car is blue. (C) Opened last Friday.",
+      "transcript": "Do you want to carpool together to the branch opening tomorrow? (A) That would save us gas and parking fees. (B) The car is blue. (C) Opened last Friday.",
+      "options": [
+        "A. That would save us gas and parking fees.",
+        "B. The car is blue.",
+        "C. Opened last Friday."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "suggestion",
+      "trap_type": "bẫy lặp từ 'car' và 'opened'",
+      "correct_reason": "Lời rủ đi chung xe 'carpool' được đồng ý với lý do 'That would save us gas and parking fees'.",
+      "explanation_vi": "'Carpool' nghĩa là đi chung xe. (A) đồng tình vì giúp tiết kiệm tiền xăng và phí đỗ xe. (B) bẫy lặp từ 'car'. (C) bẫy lặp từ 'opened'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "carpool",
+          "ipa": "/ˈkɑːpuːl/",
+          "meaning": "đi chung một xe ô tô để tiết kiệm chi phí"
+        }
+      ],
+      "exam_tip": "Khi được rủ đi chung xe, đáp án thường đề cập đến 'save money', 'share gas', hoặc 'meet at the parking lot'.",
+      "audio_url": "/audio/listening/part2/p2_q17.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q18",
+      "part": 2,
+      "topic": "Hợp đồng & Bản thảo",
+      "difficulty": "B1",
+      "accent": "US",
+      "q": "When can we expect the final draft of the contract?",
+      "audioScript": "Number 24. When can we expect the final draft of the contract? (A) By the end of business today. (B) The contract was five pages. (C) Yes, draft it carefully.",
+      "transcript": "When can we expect the final draft of the contract? (A) By the end of business today. (B) The contract was five pages. (C) Yes, draft it carefully.",
+      "options": [
+        "A. By the end of business today.",
+        "B. The contract was five pages.",
+        "C. Yes, draft it carefully."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "when",
+      "trap_type": "bẫy độ dài văn bản và bẫy lặp từ 'draft'",
+      "correct_reason": "'When' hỏi hạn hoàn thành -> 'By the end of business today' (Trước giờ tan làm hôm nay).",
+      "explanation_vi": "(A) 'By the end of business today' (viết tắt là COB/EOB) chỉ thời hạn cụ thể. (B) trả lời cho câu hỏi về số trang. (C) bẫy lặp từ 'draft'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "end of business",
+          "ipa": "/ɛnd ɒv ˈbɪznɪs/",
+          "meaning": "cuối ngày làm việc (khoảng 5h chiều)"
+        }
+      ],
+      "exam_tip": "'By the end of business / day' là cụm thời gian kinh điển trong TOEIC Listening Part 2.",
+      "audio_url": "/audio/listening/part2/p2_q18.mp3",
+      "voice_name": "en-US-GuyNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Guy (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q19",
+      "part": 2,
+      "topic": "Đấu thầu & Nhà cung cấp",
+      "difficulty": "B2",
+      "accent": "UK",
+      "q": "Which vendor submitted the lowest bid for catering?",
+      "audioScript": "Number 25. Which vendor submitted the lowest bid for catering? (A) Green Leaf Bakery offered the best price. (B) Yes, the food was delicious. (C) At noon tomorrow.",
+      "transcript": "Which vendor submitted the lowest bid for catering? (A) Green Leaf Bakery offered the best price. (B) Yes, the food was delicious. (C) At noon tomorrow.",
+      "options": [
+        "A. Green Leaf Bakery offered the best price.",
+        "B. Yes, the food was delicious.",
+        "C. At noon tomorrow."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "which",
+      "trap_type": "bẫy liên quan đến thức ăn 'delicious' và bẫy thời gian",
+      "correct_reason": "'Which vendor submitted the lowest bid' hỏi nhà cung cấp giá thấp nhất -> 'Green Leaf Bakery offered the best price'.",
+      "explanation_vi": "'Lowest bid' (giá thầu thấp nhất) được diễn đạt lại bằng 'the best price' (mức giá tốt nhất). (A) nêu đích danh Green Leaf Bakery. (B) nói về chất lượng món ăn. (C) là mốc thời gian. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "vendor",
+          "ipa": "/ˈvɛndɔːr/",
+          "meaning": "nhà cung cấp / đối tác bán hàng"
+        },
+        {
+          "word": "lowest bid",
+          "ipa": "/ˈləʊɪst bɪd/",
+          "meaning": "mức giá dự thầu thấp nhất"
+        }
+      ],
+      "exam_tip": "'Lowest bid' thường được paraphrase bằng 'most affordable', 'best rate' hoặc 'cheapest option'.",
+      "audio_url": "/audio/listening/part2/p2_q19.mp3",
+      "voice_name": "en-GB-SoniaNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Sonia (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q20",
+      "part": 2,
+      "topic": "Tuyển dụng nhân sự",
+      "difficulty": "B2",
+      "accent": "UK",
+      "q": "Are you planning to hire a full-time assistant or an intern?",
+      "audioScript": "Number 26. Are you planning to hire a full-time assistant or an intern? (A) We haven't finalized the department budget yet. (B) He is a very capable assistant. (C) At the university job fair.",
+      "transcript": "Are you planning to hire a full-time assistant or an intern? (A) We haven't finalized the department budget yet. (B) He is a very capable assistant. (C) At the university job fair.",
+      "options": [
+        "A. We haven't finalized the department budget yet.",
+        "B. He is a very capable assistant.",
+        "C. At the university job fair."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "choice",
+      "trap_type": "đáp án né tránh / gián tiếp chưa thể quyết định",
+      "correct_reason": "Đáp án gián tiếp: Chưa chốt ngân sách nên chưa biết thuê ai: 'We haven't finalized the department budget yet'.",
+      "explanation_vi": "Bẫy đáp án né tránh kinh điển của đề thi thật ETS: Hỏi chọn phương án A hay B, người đáp đưa ra nguyên nhân 'chưa chốt ngân sách' nên chưa quyết định. (B) bẫy lặp từ 'assistant'. (C) trả lời cho Where. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "finalize",
+          "ipa": "/ˈfaɪnəlaɪz/",
+          "meaning": "hoàn tất, chốt lần cuối"
+        }
+      ],
+      "exam_tip": "Khi thấy câu trả lời có 'haven't decided / not sure yet / depends on budget', tỷ lệ đúng lên tới 99%.",
+      "audio_url": "/audio/listening/part2/p2_q20.mp3",
+      "voice_name": "en-GB-RyanNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Ryan (UK)",
+          "accent": "en-GB",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q21",
+      "part": 2,
+      "topic": "Hỗ trợ công nghệ thông tin",
+      "difficulty": "A2",
+      "accent": "AU",
+      "q": "How do I log into the remote working portal?",
+      "audioScript": "Number 27. How do I log into the remote working portal? (A) IT sent instructions in your welcome email. (B) Yes, I work remotely on Mondays. (C) The log was delivered yesterday.",
+      "transcript": "How do I log into the remote working portal? (A) IT sent instructions in your welcome email. (B) Yes, I work remotely on Mondays. (C) The log was delivered yesterday.",
+      "options": [
+        "A. IT sent instructions in your welcome email.",
+        "B. Yes, I work remotely on Mondays.",
+        "C. The log was delivered yesterday."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "how",
+      "trap_type": "bẫy đồng âm 'log' (đăng nhập vs khúc gỗ/nhật ký) và 'remotely'",
+      "correct_reason": "'How do I log into...' hỏi cách đăng nhập -> hướng dẫn tìm email chào mừng của IT: 'IT sent instructions in your welcome email'.",
+      "explanation_vi": "(A) chỉ dẫn người hỏi nơi tìm hướng dẫn đăng nhập. (B) trả lời Yes/No lạc đề và lặp từ 'remotely'. (C) bẫy đồng âm từ 'log'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "remote working",
+          "ipa": "/rɪˈməʊt ˈwɜːkɪŋ/",
+          "meaning": "làm việc từ xa"
+        }
+      ],
+      "exam_tip": "Hỏi cách làm cái gì thường được hướng dẫn xem tài liệu ('check the manual') hoặc hỏi bộ phận IT.",
+      "audio_url": "/audio/listening/part2/p2_q21.mp3",
+      "voice_name": "en-AU-NatashaNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Natasha (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q22",
+      "part": 2,
+      "topic": "Dời lịch họp đại hội cổ đông",
+      "difficulty": "B1",
+      "accent": "AU",
+      "q": "The annual shareholder meeting has been rescheduled, hasn't it?",
+      "audioScript": "Number 28. The annual shareholder meeting has been rescheduled, hasn't it? (A) Yes, it's now set for next Thursday. (B) I met the shareholders yesterday. (C) In the main boardroom.",
+      "transcript": "The annual shareholder meeting has been rescheduled, hasn't it? (A) Yes, it's now set for next Thursday. (B) I met the shareholders yesterday. (C) In the main boardroom.",
+      "options": [
+        "A. Yes, it's now set for next Thursday.",
+        "B. I met the shareholders yesterday.",
+        "C. In the main boardroom."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "tag_question",
+      "trap_type": "bẫy đồng âm 'meeting/met' và lặp từ 'shareholders'",
+      "correct_reason": "Câu hỏi đuôi xác nhận việc đổi lịch -> 'Yes, it's now set for next Thursday' (Đúng vậy, giờ ấn định vào thứ Năm tuần sau).",
+      "explanation_vi": "(A) xác nhận sự việc đã được đổi và cung cấp ngày mới. (B) bẫy lặp từ 'shareholders' và từ 'met'. (C) trả lời cho Where. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "reschedule",
+          "ipa": "/ˌriːˈʃɛdjuːl/",
+          "meaning": "sắp xếp lại lịch trình"
+        },
+        {
+          "word": "shareholder",
+          "ipa": "/ˈʃeəˌhəʊldər/",
+          "meaning": "cổ đông công ty"
+        }
+      ],
+      "exam_tip": "'Reschedule' hay đi cùng cụm chỉ mốc mới như 'set for / moved to [Day/Date]'.",
+      "audio_url": "/audio/listening/part2/p2_q22.mp3",
+      "voice_name": "en-AU-WilliamMultilingualNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "William (AU)",
+          "accent": "en-AU",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q23",
+      "part": 2,
+      "topic": "Yêu cầu cung cấp thông tin",
+      "difficulty": "B2",
+      "accent": "CA",
+      "q": "Could you tell me who requested these sales projections?",
+      "audioScript": "Number 29. Could you tell me who requested these sales projections? (A) That would be Ms. Chen from Finance. (B) Sales increased by fifteen percent. (C) At the upcoming convention.",
+      "transcript": "Could you tell me who requested these sales projections? (A) That would be Ms. Chen from Finance. (B) Sales increased by fifteen percent. (C) At the upcoming convention.",
+      "options": [
+        "A. That would be Ms. Chen from Finance.",
+        "B. Sales increased by fifteen percent.",
+        "C. At the upcoming convention."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "indirect_question",
+      "trap_type": "bẫy số liệu doanh số và bẫy nơi chốn",
+      "correct_reason": "Câu hỏi gián tiếp chứa từ để hỏi 'who' -> 'That would be Ms. Chen from Finance'.",
+      "explanation_vi": "'Could you tell me who...' là dạng câu hỏi gián tiếp lịch sự. Trọng tâm là 'who' (Ai yêu cầu bảng dự báo?). (A) chỉ rõ Ms. Chen phòng Tài chính. (B) bẫy lặp từ 'sales'. (C) trả lời cho Where. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "sales projection",
+          "ipa": "/seɪlz prəˈdʒɛkʃən/",
+          "meaning": "bản dự báo doanh số bán hàng"
+        }
+      ],
+      "exam_tip": "Với câu hỏi gián tiếp 'Could you tell me + Wh-...', hãy tập trung vào từ để hỏi Wh- đứng sau.",
+      "audio_url": "/audio/listening/part2/p2_q23.mp3",
+      "voice_name": "en-CA-ClaraNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Clara (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q24",
+      "part": 2,
+      "topic": "Đáp án né tránh thông minh",
+      "difficulty": "C1",
+      "accent": "CA",
+      "q": "Do you know if the client approved our revised design proposal?",
+      "audioScript": "Number 30. Do you know if the client approved our revised design proposal? (A) I haven't had a chance to check my inbox yet. (B) The proposal was fifty pages long. (C) Yes, I designed the logo.",
+      "transcript": "Do you know if the client approved our revised design proposal? (A) I haven't had a chance to check my inbox yet. (B) The proposal was fifty pages long. (C) Yes, I designed the logo.",
+      "options": [
+        "A. I haven't had a chance to check my inbox yet.",
+        "B. The proposal was fifty pages long.",
+        "C. Yes, I designed the logo."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "indirect_avoidance",
+      "trap_type": "đáp án né tránh / chưa kiểm tra email",
+      "correct_reason": "Đáp án né tránh thực tế: Người được hỏi chưa kịp mở hòm thư nên chưa rõ: 'I haven't had a chance to check my inbox yet'.",
+      "explanation_vi": "Dạng câu hỏi độ khó cao trong đề ETS: Hỏi kết quả phê duyệt, người trả lời bảo 'Tôi chưa có cơ hội kiểm tra hòm thư' (ngụ ý chưa biết). (B) nói về độ dài văn bản. (C) bẫy từ 'designed'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "proposal",
+          "ipa": "/prəˈpəʊzəl/",
+          "meaning": "bản đề xuất/bản kế hoạch dự án"
+        }
+      ],
+      "exam_tip": "'I haven't checked my email / phone yet' là mẫu câu né tránh xuất hiện dày đặc ở các câu 25-31 của Part 2.",
+      "audio_url": "/audio/listening/part2/p2_q24.mp3",
+      "voice_name": "en-CA-LiamNeural",
+      "gender": "Male",
+      "speakers": [
+        {
+          "name": "Liam (CA)",
+          "accent": "en-CA",
+          "role": "Narrator"
+        }
+      ]
+    },
+    {
+      "id": "p2_q25",
+      "part": 2,
+      "topic": "Thắc mắc địa điểm chuyển phòng",
+      "difficulty": "B2",
+      "accent": "US",
+      "q": "Why is the accounting department moving to the fifth floor?",
+      "audioScript": "Number 31. Why is the accounting department moving to the fifth floor? (A) They need more space for new hires. (B) At nine o'clock tomorrow morning. (C) Accounting was my major in college.",
+      "transcript": "Why is the accounting department moving to the fifth floor? (A) They need more space for new hires. (B) At nine o'clock tomorrow morning. (C) Accounting was my major in college.",
+      "options": [
+        "A. They need more space for new hires.",
+        "B. At nine o'clock tomorrow morning.",
+        "C. Accounting was my major in college."
+      ],
+      "ans": 0,
+      "ansLetter": "A",
+      "question_type": "why",
+      "trap_type": "bẫy mốc thời gian chuyển đồ và bẫy lặp từ 'accounting'",
+      "correct_reason": "'Why' hỏi lý do chuyển văn phòng -> 'They need more space for new hires' (Họ cần thêm không gian cho nhân viên mới).",
+      "explanation_vi": "Câu 31 chốt Part 2: Hỏi lý do 'Why'. (A) nêu chính xác nhu cầu mở rộng diện tích cho nhân sự mới. (B) trả lời cho When. (C) bẫy lặp từ 'accounting'. Chọn (A).",
+      "key_vocab": [
+        {
+          "word": "new hires",
+          "ipa": "/njuː ˈhaɪərz/",
+          "meaning": "nhân viên mới được tuyển dụng"
+        }
+      ],
+      "exam_tip": "Các lý do chuyển văn phòng trong TOEIC thường xoay quanh 'expansion' (mở rộng) hoặc 'renovation' (sửa chữa).",
+      "audio_url": "/audio/listening/part2/p2_q25.mp3",
+      "voice_name": "en-US-JennyNeural",
+      "gender": "Female",
+      "speakers": [
+        {
+          "name": "Jenny (US)",
+          "accent": "en-US",
+          "role": "Narrator"
+        }
+      ]
+    }
+  ],
+  "part3": [
+    {
+      "setId": "p3_set01",
+      "part": 3,
+      "setNumber": 1,
+      "topic": "Dự án & Tiến độ công việc",
+      "accent": "US",
+      "secondaryAccent": "UK",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-US",
+          "role": "Project Lead (David)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-GB",
+          "role": "Software Developer (Rachel)"
+        }
+      ],
+      "audioScript": "Man: Hi Rachel, have you had a chance to test the payment processing module for our new e-commerce client?\nWoman: Yes David, but unfortunately I encountered a compatibility issue with international credit cards during the sandbox test.\nMan: That's concerning because the client wants to launch the platform globally next Monday. Do you think you can patch the code before Friday?\nWoman: If I collaborate with the cybersecurity team today, we should be able to resolve the vulnerability and finish testing by tomorrow afternoon.",
+      "transcript": "Man: Hi Rachel, have you had a chance to test the payment processing module for our new e-commerce client?\nWoman: Yes David, but unfortunately I encountered a compatibility issue with international credit cards during the sandbox test.\nMan: That's concerning because the client wants to launch the platform globally next Monday. Do you think you can patch the code before Friday?\nWoman: If I collaborate with the cybersecurity team today, we should be able to resolve the vulnerability and finish testing by tomorrow afternoon.",
+      "translation_vi": "Nam: Chào Rachel, bạn đã có dịp kiểm thử mô-đun xử lý thanh toán cho khách hàng thương mại điện tử mới của chúng ta chưa?\nNữ: Rồi David, nhưng không may là tôi gặp sự cố tương thích với thẻ tín dụng quốc tế trong quá trình thử nghiệm.\nNam: Đáng lo ngại đấy vì khách hàng muốn kích hoạt nền tảng trên toàn cầu vào thứ Hai tới. Bạn có nghĩ mình sửa được mã nguồn trước thứ Sáu không?\nNữ: Nếu hôm nay tôi phối hợp với đội ngũ an ninh mạng, chúng tôi có thể xử lý lỗ hổng này và hoàn tất việc kiểm thử trước chiều mai.",
+      "questions": [
+        {
+          "id": "p3_s01_q01",
+          "q": "What project are the speakers working on?",
+          "options": [
+            "A. An e-commerce payment system",
+            "B. A warehouse inventory tracking database",
+            "C. A mobile banking application for employees",
+            "D. An office security badge scanner"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "từ gây nhiễu công nghệ",
+          "correct_reason": "Man: 'have you had a chance to test the payment processing module for our new e-commerce client?'",
+          "explanation_vi": "Người đàn ông hỏi về mô-đun xử lý thanh toán (payment processing module) cho khách hàng thương mại điện tử (e-commerce). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set01.mp3"
+        },
+        {
+          "id": "p3_s01_q02",
+          "q": "What problem does the woman mention?",
+          "options": [
+            "A. The budget has been exceeded",
+            "B. A compatibility issue with international cards",
+            "C. A server hardware malfunction",
+            "D. Lack of client feedback on design"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase trực tiếp từ transcript",
+          "correct_reason": "Woman: 'I encountered a compatibility issue with international credit cards'",
+          "explanation_vi": "Người phụ nữ nói rõ: 'encountered a compatibility issue with international credit cards'. Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set01.mp3"
+        },
+        {
+          "id": "p3_s01_q03",
+          "q": "What will the woman most likely do today?",
+          "options": [
+            "A. Contact the client to postpone the launch",
+            "B. Work with the cybersecurity team",
+            "C. Hire a freelance programmer",
+            "D. Submit a formal budget request"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu hành động khác",
+          "correct_reason": "Woman: 'If I collaborate with the cybersecurity team today, we should be able to resolve...'",
+          "explanation_vi": "Người phụ nữ chốt kế hoạch: 'collaborate with the cybersecurity team today' (phối hợp với đội an ninh mạng). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set01.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set01.mp3"
+    },
+    {
+      "setId": "p3_set02",
+      "part": 3,
+      "setNumber": 2,
+      "topic": "Dịch vụ khách hàng & Giao hàng",
+      "accent": "UK",
+      "secondaryAccent": "US",
+      "speakers": [
+        {
+          "name": "Woman",
+          "accent": "en-GB",
+          "role": "Customer (Laura)"
+        },
+        {
+          "name": "Man",
+          "accent": "en-US",
+          "role": "Customer Service Agent (Mark)"
+        }
+      ],
+      "audioScript": "Woman: Hello, I am calling regarding order number 8421 for twenty ergonomic desk chairs for our law firm. They were supposed to arrive yesterday morning.\nMan: Let me pull up your account in our shipping tracking database. Ah, yes, it appears the logistics carrier experienced severe delays due to a snowstorm near the regional depot.\nWoman: Oh dear, our new associate attorneys are starting on Thursday, so we desperately need those chairs in place by Wednesday afternoon.\nMan: Understood. I will expedite the shipment via priority courier at no additional cost to your firm so that they arrive tomorrow by two P.M.",
+      "transcript": "Woman: Hello, I am calling regarding order number 8421 for twenty ergonomic desk chairs for our law firm. They were supposed to arrive yesterday morning.\nMan: Let me pull up your account in our shipping tracking database. Ah, yes, it appears the logistics carrier experienced severe delays due to a snowstorm near the regional depot.\nWoman: Oh dear, our new associate attorneys are starting on Thursday, so we desperately need those chairs in place by Wednesday afternoon.\nMan: Understood. I will expedite the shipment via priority courier at no additional cost to your firm so that they arrive tomorrow by two P.M.",
+      "translation_vi": "Nữ: Xin chào, tôi gọi điện về đơn hàng số 8421 gồm 20 chiếc ghế làm việc công thái học cho công ty luật của chúng tôi. Lẽ ra chúng phải được giao từ sáng hôm qua.\nNam: Để tôi tra cứu tài khoản của quý khách trên cơ sở dữ liệu vận chuyển. À vâng, có vẻ đơn vị vận chuyển bị trễ nghiêm trọng do bão tuyết gần kho trung chuyển khu vực.\nNữ: Ôi trời, các luật sư cộng tác mới của chúng tôi sẽ bắt đầu làm việc vào thứ Năm, nên chúng tôi rất cần số ghế đó được sắp đặt trước chiều thứ Tư.\nNam: Tôi hiểu rồi. Tôi sẽ đẩy nhanh tiến độ giao hàng qua dịch vụ chuyển phát ưu tiên mà công ty của bạn không phải trả thêm bất kỳ chi phí nào, đảm bảo giao tới trước 2 giờ chiều mai.",
+      "questions": [
+        {
+          "id": "p3_s02_q01",
+          "q": "Why is the woman calling?",
+          "options": [
+            "A. To inquire about a delayed furniture delivery",
+            "B. To request a price quote for legal services",
+            "C. To cancel an annual software subscription",
+            "D. To return defective computer monitors"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "paraphrase 'twenty desk chairs' thành 'furniture'",
+          "correct_reason": "Woman: 'They were supposed to arrive yesterday morning.'",
+          "explanation_vi": "Người phụ nữ thắc mắc về đơn hàng 20 chiếc ghế bàn làm việc lẽ ra phải đến sáng hôm qua (delayed furniture delivery). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set02.mp3"
+        },
+        {
+          "id": "p3_s02_q02",
+          "q": "What caused the shipping delay?",
+          "options": [
+            "A. A warehouse inventory discrepancy",
+            "B. Severe winter weather conditions",
+            "C. Incorrect shipping address provided",
+            "D. A labor strike at the shipping dock"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'snowstorm' thành 'severe winter weather'",
+          "correct_reason": "Man: 'delays due to a snowstorm near the regional depot.'",
+          "explanation_vi": "Người đàn ông nêu rõ nguyên nhân: 'snowstorm' (bão tuyết) được paraphrase thành 'severe winter weather conditions'. Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set02.mp3"
+        },
+        {
+          "id": "p3_s02_q03",
+          "q": "What does the man offer to do for the customer?",
+          "options": [
+            "A. Provide a full refund immediately",
+            "B. Upgrade the chairs to leather models",
+            "C. Expedite the order via priority courier for free",
+            "D. Give a discount voucher for future purchases"
+          ],
+          "ans": 2,
+          "ansLetter": "C",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu ưu đãi",
+          "correct_reason": "Man: 'I will expedite the shipment via priority courier at no additional cost...'",
+          "explanation_vi": "Người đàn ông đề xuất: 'expedite the shipment via priority courier at no additional cost' (chuyển phát ưu tiên hỏa tốc miễn phí). Chọn C.",
+          "audio_url": "/audio/listening/part3/p3_set02.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set02.mp3"
+    },
+    {
+      "setId": "p3_set03",
+      "part": 3,
+      "setNumber": 3,
+      "topic": "Thiết bị văn phòng & Bảo trì IT",
+      "accent": "AU",
+      "secondaryAccent": "CA",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-AU",
+          "role": "Employee (Simon)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-CA",
+          "role": "IT Support Manager (Jessica)"
+        }
+      ],
+      "audioScript": "Man: Jessica, do you have a minute? The network color printer in Marketing has been leaving black smudges on all our client brochures this morning.\nWoman: Oh, that usually happens when the transfer roller collects excess toner powder. We received a batch of replacement rollers just last week.\nMan: That's great, because Vice President Miller needs fifty printed copies of the annual report for his presentation at three o'clock today.\nWoman: I will head upstairs with a technician right away. It should take us less than twenty minutes to swap the roller and run a test print.",
+      "transcript": "Man: Jessica, do you have a minute? The network color printer in Marketing has been leaving black smudges on all our client brochures this morning.\nWoman: Oh, that usually happens when the transfer roller collects excess toner powder. We received a batch of replacement rollers just last week.\nMan: That's great, because Vice President Miller needs fifty printed copies of the annual report for his presentation at three o'clock today.\nWoman: I will head upstairs with a technician right away. It should take us less than twenty minutes to swap the roller and run a test print.",
+      "translation_vi": "Nam: Jessica, bạn có chút thời gian không? Máy in màu kết nối mạng ở phòng Marketing sáng nay cứ để lại các vết mực đen loang lổ trên tất cả tờ gấp của khách hàng.\nNữ: Ồ, hiện tượng đó thường xảy ra khi trục cuốn mực bị bám bột mực thừa. Chúng tôi vừa nhận được một lô trục lăn thay thế vào tuần trước.\nNam: Tuyệt quá, vì Phó chủ tịch Miller cần 50 bản in báo cáo thường niên cho bài thuyết trình của ông ấy lúc 3 giờ chiều nay.\nNữ: Tôi sẽ cùng một kỹ thuật viên lên tầng trên ngay bây giờ. Chúng tôi chỉ mất chưa đầy 20 phút để thay trục lăn và in thử một bản kiểm tra.",
+      "questions": [
+        {
+          "id": "p3_s03_q01",
+          "q": "What problem is the man reporting?",
+          "options": [
+            "A. A printer is producing smudged documents",
+            "B. The Internet connection in Marketing is down",
+            "C. A computer monitor screen is flickering",
+            "D. An office keycard reader is malfunctioning"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "problem",
+          "trap_type": "paraphrase 'leaving black smudges' thành 'smudged documents'",
+          "correct_reason": "Man: 'leaving black smudges on all our client brochures'",
+          "explanation_vi": "Người đàn ông báo sự cố máy in làm lem mực đen trên tờ gấp (smudged documents). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set03.mp3"
+        },
+        {
+          "id": "p3_s03_q02",
+          "q": "Why is the deadline urgent?",
+          "options": [
+            "A. An executive needs copies for a three o'clock meeting",
+            "B. An external audit is scheduled for tomorrow",
+            "C. The print shop closes at noon",
+            "D. A mail delivery courier is arriving soon"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "detail",
+          "trap_type": "bẫy số liệu thời gian",
+          "correct_reason": "Man: 'Vice President Miller needs fifty printed copies... for his presentation at three o'clock today.'",
+          "explanation_vi": "Phó chủ tịch cần 50 bản in cho bài thuyết trình lúc 3 giờ chiều nay. Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set03.mp3"
+        },
+        {
+          "id": "p3_s03_q03",
+          "q": "What does the woman say she will do next?",
+          "options": [
+            "A. Order new toner cartridges online",
+            "B. Go upstairs with a technician to replace a part",
+            "C. Send an email to all Marketing staff",
+            "D. Ask the vice president to postpone his talk"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu hành động",
+          "correct_reason": "Woman: 'I will head upstairs with a technician right away. It should take us less than twenty minutes to swap the roller...'",
+          "explanation_vi": "Người phụ nữ cam kết sẽ lên tầng cùng kỹ thuật viên để thay thế linh kiện (swap the roller = replace a part). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set03.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set03.mp3"
+    },
+    {
+      "setId": "p3_set04",
+      "part": 3,
+      "setNumber": 4,
+      "topic": "Đi công tác & Đặt vé máy bay",
+      "accent": "US",
+      "secondaryAccent": "UK",
+      "speakers": [
+        {
+          "name": "Woman",
+          "accent": "en-US",
+          "role": "Executive Assistant (Karen)"
+        },
+        {
+          "name": "Man",
+          "accent": "en-GB",
+          "role": "Regional Sales Director (Greg)"
+        }
+      ],
+      "audioScript": "Woman: Greg, I was reviewing your travel itinerary for the medical equipment expo in Chicago next week. Airline tickets are getting quite expensive.\nMan: Yes, I noticed that too Karen. What options did our corporate travel agency suggest?\nWoman: Well, flying out on Tuesday morning costs nearly eight hundred dollars, but if you depart Monday evening instead, the fare drops to four hundred and twenty dollars.\nMan: Let's book the Monday evening flight then. The savings are substantial, and it will give me extra time to meet our Midwest sales representatives for dinner.",
+      "transcript": "Woman: Greg, I was reviewing your travel itinerary for the medical equipment expo in Chicago next week. Airline tickets are getting quite expensive.\nMan: Yes, I noticed that too Karen. What options did our corporate travel agency suggest?\nWoman: Well, flying out on Tuesday morning costs nearly eight hundred dollars, but if you depart Monday evening instead, the fare drops to four hundred and twenty dollars.\nMan: Let's book the Monday evening flight then. The savings are substantial, and it will give me extra time to meet our Midwest sales representatives for dinner.",
+      "translation_vi": "Nữ: Greg, tôi vừa xem lại lịch trình chuyến đi của bạn tới triển lãm thiết bị y tế ở Chicago vào tuần tới. Vé máy bay đang đắt lên khá nhiều.\nNam: Vâng, tôi cũng nhận thấy điều đó Karen. Đại lý du lịch công ty chúng ta gợi ý những lựa chọn nào?\nNữ: À, bay vào sáng thứ Ba tốn gần 800 đô, nhưng nếu bạn khởi hành vào tối thứ Hai, giá vé giảm xuống chỉ còn 420 đô.\nNam: Vậy hãy đặt chuyến bay tối thứ Hai đi. Khoản tiết kiệm được là rất đáng kể, vả lại tôi sẽ có thêm thời gian gặp gỡ các đại diện bán hàng khu vực Trung Tây để ăn tối.",
+      "questions": [
+        {
+          "id": "p3_s04_q01",
+          "q": "What is the main topic of the conversation?",
+          "options": [
+            "A. Booking business travel arrangements",
+            "B. Designing medical equipment prototypes",
+            "C. Organizing an office dinner party",
+            "D. Negotiating a commercial hotel contract"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "paraphrase tổng quan",
+          "correct_reason": "Woman: 'I was reviewing your travel itinerary for the medical equipment expo...'",
+          "explanation_vi": "Đoạn hội thoại thảo luận về việc sắp xếp chuyến đi công tác (travel itinerary/booking business travel). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set04.mp3"
+        },
+        {
+          "id": "p3_s04_q02",
+          "q": "What advantage does departing on Monday offer?",
+          "options": [
+            "A. It includes first-class seating upgrade",
+            "B. The ticket price is significantly lower",
+            "C. The flight duration is much shorter",
+            "D. Hotel shuttle service is provided for free"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "bẫy số liệu giá cả",
+          "correct_reason": "Woman: 'fare drops to four hundred and twenty dollars' & Man: 'The savings are substantial'",
+          "explanation_vi": "Bay tối thứ Hai giúp giảm giá vé từ $800 xuống $420 (giá vé thấp hơn đáng kể). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set04.mp3"
+        },
+        {
+          "id": "p3_s04_q03",
+          "q": "What does the man plan to do on Monday evening?",
+          "options": [
+            "A. Prepare his presentation slides in the hotel room",
+            "B. Have dinner with regional sales colleagues",
+            "C. Attend the expo opening ceremony",
+            "D. Visit a medical device manufacturing facility"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "từ gây nhiễu hoạt động",
+          "correct_reason": "Man: 'it will give me extra time to meet our Midwest sales representatives for dinner.'",
+          "explanation_vi": "Người đàn ông dự định ăn tối cùng các đại diện bán hàng khu vực (meet sales representatives for dinner). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set04.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set04.mp3"
+    },
+    {
+      "setId": "p3_set05",
+      "part": 3,
+      "setNumber": 5,
+      "topic": "Tiếp thị & Ngân sách quảng cáo",
+      "accent": "CA",
+      "secondaryAccent": "AU",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-CA",
+          "role": "Marketing Director (Brian)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-AU",
+          "role": "Digital Campaign Strategist (Sophia)"
+        }
+      ],
+      "audioScript": "Man: Sophia, our preliminary analytics show that online video ads generated thirty percent more web traffic than static banners last month.\nWoman: That is impressive Brian! However, producing high-definition video advertisements requires approximately double our current monthly creative budget.\nMan: I discussed this with the executive committee yesterday, and they agreed to reallocate unused funds from our print advertising account.\nWoman: Wonderful! In that case, I will reach out to our freelance video production agency this afternoon to storyboard three new product clips.",
+      "transcript": "Man: Sophia, our preliminary analytics show that online video ads generated thirty percent more web traffic than static banners last month.\nWoman: That is impressive Brian! However, producing high-definition video advertisements requires approximately double our current monthly creative budget.\nMan: I discussed this with the executive committee yesterday, and they agreed to reallocate unused funds from our print advertising account.\nWoman: Wonderful! In that case, I will reach out to our freelance video production agency this afternoon to storyboard three new product clips.",
+      "translation_vi": "Nam: Sophia, số liệu phân tích sơ bộ cho thấy quảng cáo video trực tuyến tạo ra lượng truy cập web nhiều hơn 30% so với biểu ngữ tĩnh vào tháng trước.\nNữ: Thật ấn tượng Brian! Tuy nhiên, việc sản xuất quảng cáo video độ nét cao đòi hỏi ngân sách sáng tạo hàng tháng gần như gấp đôi hiện tại.\nNam: Tôi đã thảo luận điều này với ban điều hành ngày hôm qua, và họ đã đồng ý tái phân bổ các quỹ chưa sử dụng từ tài khoản quảng cáo in ấn sang.\nNữ: Tuyệt vời! Trong trường hợp đó, chiều nay tôi sẽ liên hệ với công ty sản xuất video độc lập để lên kịch bản hình ảnh cho ba đoạn clip sản phẩm mới.",
+      "questions": [
+        {
+          "id": "p3_s05_q01",
+          "q": "What marketing strategy proved successful last month?",
+          "options": [
+            "A. Distributing flyers in shopping centers",
+            "B. Running online video advertisements",
+            "C. Sponsoring a regional charity marathon",
+            "D. Offering buy-one-get-one coupons in magazines"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase",
+          "correct_reason": "Man: 'online video ads generated thirty percent more web traffic than static banners'",
+          "explanation_vi": "Quảng cáo video trực tuyến (online video ads) đạt hiệu quả cao hơn 30% lưu lượng truy cập so với banner tĩnh. Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set05.mp3"
+        },
+        {
+          "id": "p3_s05_q02",
+          "q": "How will the extra production costs be covered?",
+          "options": [
+            "A. By taking out a short-term commercial loan",
+            "B. By charging customers a premium platform fee",
+            "C. By reallocating funds from print advertising",
+            "D. By partnering with an external investor"
+          ],
+          "ans": 2,
+          "ansLetter": "C",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'reallocate unused funds from print advertising'",
+          "correct_reason": "Man: 'agreed to reallocate unused funds from our print advertising account.'",
+          "explanation_vi": "Ban điều hành duyệt chuyển tiền từ quỹ quảng cáo in ấn chưa dùng (reallocating funds from print advertising). Chọn C.",
+          "audio_url": "/audio/listening/part3/p3_set05.mp3"
+        },
+        {
+          "id": "p3_s05_q03",
+          "q": "What will the woman do this afternoon?",
+          "options": [
+            "A. Contact a video production agency",
+            "B. Present to the executive board",
+            "C. Cancel the print magazine contract",
+            "D. Review customer satisfaction surveys"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu hành động",
+          "correct_reason": "Woman: 'I will reach out to our freelance video production agency this afternoon...'",
+          "explanation_vi": "Người phụ nữ sẽ liên hệ với đơn vị sản xuất video (reach out to video production agency). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set05.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set05.mp3"
+    },
+    {
+      "setId": "p3_set06",
+      "part": 3,
+      "setNumber": 6,
+      "topic": "Nhân sự & Đào tạo nội bộ (Intent Question)",
+      "accent": "US",
+      "secondaryAccent": "UK",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-US",
+          "role": "Team Supervisor (Kevin)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-GB",
+          "role": "HR Coordinator (Elena)"
+        }
+      ],
+      "audioScript": "Man: Elena, several of my senior technicians asked if they could skip Friday's mandatory cybersecurity workshop because they are behind on client project deliverables.\nWoman: Well, corporate compliance requires one hundred percent attendance records for our annual cybersecurity audit. My hands are tied.\nMan: I see. Could we perhaps offer them an online recorded version that they can complete over the weekend instead?\nWoman: Actually, the IT compliance team just approved self-paced modules yesterday. I will send your team the registration link right away.",
+      "transcript": "Man: Elena, several of my senior technicians asked if they could skip Friday's mandatory cybersecurity workshop because they are behind on client project deliverables.\nWoman: Well, corporate compliance requires one hundred percent attendance records for our annual cybersecurity audit. My hands are tied.\nMan: I see. Could we perhaps offer them an online recorded version that they can complete over the weekend instead?\nWoman: Actually, the IT compliance team just approved self-paced modules yesterday. I will send your team the registration link right away.",
+      "translation_vi": "Nam: Elena, vài kỹ thuật viên cấp cao của tôi hỏi xem họ có thể xin nghỉ buổi tập huấn an ninh mạng bắt buộc vào thứ Sáu không vì họ đang bị trễ tiến độ dự án của khách hàng.\nNữ: Ồ, quy định tuân thủ của tập đoàn đòi hỏi 100% tỷ lệ tham dự để phục vụ đợt kiểm toán an ninh mạng hàng năm. Tôi bị trói tay rồi (Tôi không có quyền quyết định khác đi).\nNam: Tôi hiểu rồi. Liệu chúng ta có thể cho họ học bản ghi hình trực tuyến để họ hoàn thành trong dịp cuối tuần được không?\nNữ: Thật ra, đội tuân thủ IT vừa phê duyệt các học phần tự học theo tiến độ vào hôm qua. Tôi sẽ gửi cho nhóm của bạn liên kết đăng ký ngay.",
+      "questions": [
+        {
+          "id": "p3_s06_q01",
+          "q": "What request does the man make?",
+          "options": [
+            "A. To allow staff members to miss a training session",
+            "B. To reschedule a client project presentation",
+            "C. To hire additional external cybersecurity consultants",
+            "D. To purchase new antivirus software licenses"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'skip Friday mandatory workshop'",
+          "correct_reason": "Man: 'asked if they could skip Friday's mandatory cybersecurity workshop'",
+          "explanation_vi": "Người đàn ông xin phép cho nhân viên của mình không tham dự buổi tập huấn bắt buộc (miss a training session). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set06.mp3"
+        },
+        {
+          "id": "p3_s06_q02",
+          "q": "What does the woman mean when she says: 'My hands are tied'?",
+          "options": [
+            "A. She is physically unable to type on the computer",
+            "B. She lacks the authority to make an exception to company policy",
+            "C. She is overwhelmed by too many pending tasks",
+            "D. She disagrees with the cybersecurity audit requirements"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "intent",
+          "trap_type": "nghĩa đen vs nghĩa bóng của thành ngữ ETS",
+          "correct_reason": "Woman: 'corporate compliance requires one hundred percent attendance... My hands are tied.'",
+          "explanation_vi": "Câu hỏi ý định (Intent question): Cụm 'My hands are tied' là thành ngữ chỉ việc người nói không thể giúp hay tạo ngoại lệ do bị ràng buộc bởi luật lệ/chính sách công ty (lacks the authority to make an exception). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set06.mp3"
+        },
+        {
+          "id": "p3_s06_q03",
+          "q": "What alternative solution is agreed upon?",
+          "options": [
+            "A. Taking a proctored written exam next Monday",
+            "B. Completing self-paced online training modules",
+            "C. Attending a workshop at the regional branch",
+            "D. Writing a project exemption essay"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu phương án",
+          "correct_reason": "Woman: 'the IT compliance team just approved self-paced modules yesterday...'",
+          "explanation_vi": "Giải pháp thay thế là học trực tuyến tự chủ tiến độ (self-paced online training modules). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set06.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set06.mp3"
+    },
+    {
+      "setId": "p3_set07",
+      "part": 3,
+      "setNumber": 7,
+      "topic": "Bán lẻ & Chính sách đổi trả",
+      "accent": "UK",
+      "secondaryAccent": "CA",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-GB",
+          "role": "Customer (Arthur)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-CA",
+          "role": "Store Associate (Chloe)"
+        }
+      ],
+      "audioScript": "Man: Good morning. I purchased this wireless Bluetooth headset here two weeks ago, but the left earpiece has completely stopped charging.\nWoman: I am sorry to hear that sir. If you have the original store purchase receipt and the original packaging, we can issue an exchange for a brand-new unit right away.\nMan: I brought the sales receipt and the original box with all the accessories.\nWoman: Excellent. Let me inspect the serial number. Since this model is currently in stock on aisle four, I will process the replacement at this register.",
+      "transcript": "Man: Good morning. I purchased this wireless Bluetooth headset here two weeks ago, but the left earpiece has completely stopped charging.\nWoman: I am sorry to hear that sir. If you have the original store purchase receipt and the original packaging, we can issue an exchange for a brand-new unit right away.\nMan: I brought the sales receipt and the original box with all the accessories.\nWoman: Excellent. Let me inspect the serial number. Since this model is currently in stock on aisle four, I will process the replacement at this register.",
+      "translation_vi": "Nam: Chào cô. Tôi mua tai nghe Bluetooth không dây này ở đây hai tuần trước, nhưng tai nghe bên trái đã hoàn toàn ngừng nhận sạc.\nNữ: Tôi rất tiếc khi nghe điều đó thưa quý khách. Nếu ông có hóa đơn mua hàng gốc và vỏ hộp ban đầu, chúng tôi có thể đổi cho ông một chiếc mới nguyên seal ngay lập tức.\nNam: Tôi có mang theo hóa đơn mua hàng và hộp gốc với đầy đủ phụ kiện đây.\nNữ: Tuyệt vời. Để tôi kiểm tra số seri. Vì mẫu này hiện đang có sẵn trên dãy hàng số 4, tôi sẽ thực hiện đổi mới ngay tại quầy thu ngân này.",
+      "questions": [
+        {
+          "id": "p3_s07_q01",
+          "q": "What item is the man returning?",
+          "options": [
+            "A. A wireless computer mouse",
+            "B. A Bluetooth audio headset",
+            "C. A portable tablet charger",
+            "D. A digital voice recorder"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "từ đồng nghĩa 'headset'",
+          "correct_reason": "Man: 'purchased this wireless Bluetooth headset here two weeks ago'",
+          "explanation_vi": "Khách hàng mang đổi tai nghe Bluetooth không dây (Bluetooth audio headset). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set07.mp3"
+        },
+        {
+          "id": "p3_s07_q02",
+          "q": "What requirement did the store associate mention for an exchange?",
+          "options": [
+            "A. Bringing a valid passport for verification",
+            "B. Having the original receipt and packaging",
+            "C. Paying a restocking inspection fee",
+            "D. Submitting a warranty claim form online"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase điều kiện đổi trả",
+          "correct_reason": "Woman: 'If you have the original store purchase receipt and the original packaging...'",
+          "explanation_vi": "Điều kiện đổi hàng là có hóa đơn mua gốc và bao bì ban đầu (original receipt and packaging). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set07.mp3"
+        },
+        {
+          "id": "p3_s07_q03",
+          "q": "What will the woman do next?",
+          "options": [
+            "A. Process a product replacement",
+            "B. Issue a cash refund",
+            "C. Call the store general manager",
+            "D. Order a replacement unit from the factory"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu hành động thu ngân",
+          "correct_reason": "Woman: 'I will process the replacement at this register.'",
+          "explanation_vi": "Người phụ nữ nói sẽ thực hiện quy trình đổi máy mới ngay tại quầy (process a product replacement). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set07.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set07.mp3"
+    },
+    {
+      "setId": "p3_set08",
+      "part": 3,
+      "setNumber": 8,
+      "topic": "Hội nghị & Diễn giả khách mời",
+      "accent": "AU",
+      "secondaryAccent": "US",
+      "speakers": [
+        {
+          "name": "Woman",
+          "accent": "en-AU",
+          "role": "Conference Organizer (Vanessa)"
+        },
+        {
+          "name": "Man",
+          "accent": "en-US",
+          "role": "Event Manager (Marcus)"
+        }
+      ],
+      "audioScript": "Woman: Marcus, Professor Tanaka's flight from Tokyo has been delayed by three hours, which means he won't land in time to deliver his morning keynote address.\nMan: That is troublesome because over three hundred attendees registered specifically for his renewable energy session.\nWoman: How about we shift his speech to the afternoon slot at two o'clock and move Dr. Sarah Collins' panel discussion to the morning instead?\nMan: That's a sensible solution. I will update the digital schedule screens in the foyer and send an instant push notification via our conference mobile app.",
+      "transcript": "Woman: Marcus, Professor Tanaka's flight from Tokyo has been delayed by three hours, which means he won't land in time to deliver his morning keynote address.\nMan: That is troublesome because over three hundred attendees registered specifically for his renewable energy session.\nWoman: How about we shift his speech to the afternoon slot at two o'clock and move Dr. Sarah Collins' panel discussion to the morning instead?\nMan: That's a sensible solution. I will update the digital schedule screens in the foyer and send an instant push notification via our conference mobile app.",
+      "translation_vi": "Nữ: Marcus, chuyến bay của Giáo sư Tanaka từ Tokyo bị trễ 3 tiếng, đồng nghĩa với việc ông ấy sẽ không kịp hạ cánh để trình bày bài diễn văn chính vào buổi sáng.\nNam: Rắc rối đấy vì có hơn 300 người đăng ký tham dự chủ yếu vì phiên thảo luận về năng lượng tái tạo của ông ấy.\nNữ: Hay là chúng ta chuyển bài nói của ông ấy sang khung giờ chiều lúc 2 giờ, và đưa tọa đàm của Tiến sĩ Sarah Collins lên buổi sáng thay thế?\nNam: Đó là giải pháp hợp lý. Tôi sẽ cập nhật màn hình hiển thị lịch trình điện tử ở sảnh chờ và gửi thông báo đẩy tức thì qua ứng dụng di động của hội nghị.",
+      "questions": [
+        {
+          "id": "p3_s08_q01",
+          "q": "What event problem are the speakers discussing?",
+          "options": [
+            "A. A keynote speaker's delayed arrival",
+            "B. A catering company cancelation",
+            "C. A power outage in the main auditorium",
+            "D. Low attendance ticket sales"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "problem",
+          "trap_type": "paraphrase 'flight delayed by three hours'",
+          "correct_reason": "Woman: 'Professor Tanaka's flight from Tokyo has been delayed by three hours... won't land in time'",
+          "explanation_vi": "Vấn đề sự kiện là diễn giả chính bị trễ chuyến bay không kịp thuyết trình sáng (speaker's delayed arrival). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set08.mp3"
+        },
+        {
+          "id": "p3_s08_q02",
+          "q": "What adjustment does the woman recommend?",
+          "options": [
+            "A. Canceling the renewable energy session entirely",
+            "B. Swapping the morning and afternoon speaking slots",
+            "C. Streaming the keynote lecture via video conference",
+            "D. Refunding registration fees to all attendees"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "suggestion",
+          "trap_type": "paraphrase hoán đổi lịch trình",
+          "correct_reason": "Woman: 'shift his speech to the afternoon slot... and move Dr. Sarah Collins' panel discussion to the morning'",
+          "explanation_vi": "Người phụ nữ đề xuất hoán đổi khung giờ diễn thuyết buổi sáng và buổi chiều (swapping morning and afternoon speaking slots). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set08.mp3"
+        },
+        {
+          "id": "p3_s08_q03",
+          "q": "How will conference attendees be notified of the change?",
+          "options": [
+            "A. By verbal announcements in the hotel lobby",
+            "B. Through digital screens and a mobile app notification",
+            "C. Via printed leaflets distributed at the entrance",
+            "D. By automated text messages to cell phones"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "kết hợp hai phương thức thông báo trong câu",
+          "correct_reason": "Man: 'update the digital schedule screens in the foyer and send an instant push notification via our conference mobile app.'",
+          "explanation_vi": "Người nghe sẽ được thông báo qua màn hình điện tử ở sảnh và thông báo ứng dụng điện thoại (digital screens and a mobile app notification). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set08.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set08.mp3"
+    },
+    {
+      "setId": "p3_set09",
+      "part": 3,
+      "setNumber": 9,
+      "topic": "Bảo trì tòa nhà & Thẻ ra vào",
+      "accent": "CA",
+      "secondaryAccent": "UK",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-CA",
+          "role": "Facility Manager (Dan)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-GB",
+          "role": "Office Administrator (Paula)"
+        }
+      ],
+      "audioScript": "Man: Paula, please be aware that the building management company will be upgrading the magnetic electronic lock systems on the fourth and fifth floors this Saturday.\nWoman: Thanks for letting me know Dan. Does that mean our accounting staff won't be able to enter the office to work overtime this weekend?\nMan: Staff can still gain entry, but they must check in at the ground floor security desk and show their employee photo ID to obtain a temporary visitor pass.\nWoman: Got it. I will draft an announcement email and distribute it to all department managers before five o'clock today.",
+      "transcript": "Man: Paula, please be aware that the building management company will be upgrading the magnetic electronic lock systems on the fourth and fifth floors this Saturday.\nWoman: Thanks for letting me know Dan. Does that mean our accounting staff won't be able to enter the office to work overtime this weekend?\nMan: Staff can still gain entry, but they must check in at the ground floor security desk and show their employee photo ID to obtain a temporary visitor pass.\nWoman: Got it. I will draft an announcement email and distribute it to all department managers before five o'clock today.",
+      "translation_vi": "Nam: Paula, xin lưu ý là công ty quản lý tòa nhà sẽ nâng cấp hệ thống khóa từ điện tử ở tầng 4 và tầng 5 vào thứ Bảy này.\nNữ: Cảm ơn Dan đã báo. Điều đó có nghĩa là nhân viên kế toán của chúng ta sẽ không thể vào văn phòng để làm thêm giờ dịp cuối tuần này đúng không?\nNam: Nhân viên vẫn có thể vào, nhưng họ phải làm thủ tục đăng ký tại bàn bảo vệ tầng trệt và xuất trình thẻ căn cước nhân viên để lấy thẻ khách tạm thời.\nNữ: Tôi hiểu rồi. Tôi sẽ soạn thảo một email thông báo và gửi tới tất cả các trưởng phòng trước 5 giờ chiều hôm nay.",
+      "questions": [
+        {
+          "id": "p3_s09_q01",
+          "q": "What maintenance work is scheduled for Saturday?",
+          "options": [
+            "A. Replacing elevator cables",
+            "B. Upgrading electronic door lock systems",
+            "C. Repainting hallway walls",
+            "D. Cleaning office window exteriors"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'magnetic electronic lock systems'",
+          "correct_reason": "Man: 'upgrading the magnetic electronic lock systems on the fourth and fifth floors'",
+          "explanation_vi": "Lịch bảo trì thứ Bảy là nâng cấp hệ thống khóa cửa điện tử (upgrading electronic door lock systems). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set09.mp3"
+        },
+        {
+          "id": "p3_s09_q02",
+          "q": "What must weekend workers do to enter the premises?",
+          "options": [
+            "A. Call the building facility director in advance",
+            "B. Check in with security and show employee ID",
+            "C. Use the rear freight elevator entrance",
+            "D. Pay a weekend facility usage surcharge"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase quy trình đăng ký",
+          "correct_reason": "Man: 'check in at the ground floor security desk and show their employee photo ID'",
+          "explanation_vi": "Nhân viên làm cuối tuần phải đăng ký với bảo vệ và xuất trình thẻ nhân viên (check in with security and show employee ID). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set09.mp3"
+        },
+        {
+          "id": "p3_s09_q03",
+          "q": "What does the woman promise to do?",
+          "options": [
+            "A. Postpone the weekend accounting audit",
+            "B. Send an informational email to department heads",
+            "C. Distribute temporary keycards in person",
+            "D. Inspect the door locks on Friday evening"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "paraphrase 'department managers' thành 'department heads'",
+          "correct_reason": "Woman: 'I will draft an announcement email and distribute it to all department managers...'",
+          "explanation_vi": "Người phụ nữ hứa sẽ gửi email thông báo cho các trưởng phòng (department heads). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set09.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set09.mp3"
+    },
+    {
+      "setId": "p3_set10",
+      "part": 3,
+      "setNumber": 10,
+      "topic": "Lịch hội thảo đào tạo (Graphic Question)",
+      "accent": "US",
+      "secondaryAccent": "AU",
+      "speakers": [
+        {
+          "name": "Woman",
+          "accent": "en-US",
+          "role": "Employee (Hannah)"
+        },
+        {
+          "name": "Man",
+          "accent": "en-AU",
+          "role": "Senior Colleague (Tom)"
+        }
+      ],
+      "graphic": {
+        "type": "table",
+        "title": "Professional Development Workshop Schedule (Room 302)",
+        "columns": [
+          "Time",
+          "Workshop Title",
+          "Instructor"
+        ],
+        "rows": [
+          [
+            "9:00 AM - 10:30 AM",
+            "Advanced Data Visualization",
+            "Dr. Robert Vance"
+          ],
+          [
+            "11:00 AM - 12:30 PM",
+            "Strategic Budget Negotiation",
+            "Ms. Patricia Cole"
+          ],
+          [
+            "1:30 PM - 3:00 PM",
+            "Cross-Functional Leadership",
+            "Mr. Arthur Young"
+          ],
+          [
+            "3:30 PM - 5:00 PM",
+            "AI Tools for Business Workflow",
+            "Dr. Emily Zhang"
+          ]
+        ]
+      },
+      "audioScript": "Woman: Tom, are you going to attend any of the professional development sessions in Room 302 this Thursday?\nMan: Definitely. I really need help refining our department quarterly projections, so I am planning on attending the session led by Patricia Cole.\nWoman: Oh, Patricia is an expert at financial modeling. Just remember to bring your company laptop because her workshop involves practical spreadsheet exercises.\nMan: Thanks for the heads up! I will also make sure to download the financial dataset from the employee portal before the session starts.",
+      "transcript": "Woman: Tom, are you going to attend any of the professional development sessions in Room 302 this Thursday?\nMan: Definitely. I really need help refining our department quarterly projections, so I am planning on attending the session led by Patricia Cole.\nWoman: Oh, Patricia is an expert at financial modeling. Just remember to bring your company laptop because her workshop involves practical spreadsheet exercises.\nMan: Thanks for the heads up! I will also make sure to download the financial dataset from the employee portal before the session starts.",
+      "translation_vi": "Nữ: Tom, bạn có tham gia buổi phát triển chuyên môn nào ở Phòng 302 vào thứ Năm này không?\nNam: Chắc chắn rồi. Tôi thực sự cần trợ giúp để hoàn thiện bản dự báo hàng quý của phòng ban chúng ta, nên tôi dự định tham dự buổi do cô Patricia Cole giảng dạy.\nNữ: Ồ, Patricia là một chuyên gia về mô hình hóa tài chính đấy. Nhớ mang theo máy tính xách tay của công ty nhé vì buổi của cô ấy có bài tập bảng tính thực hành.\nNam: Cảm ơn bạn đã báo trước! Tôi cũng sẽ đảm bảo tải bộ dữ liệu tài chính từ cổng thông tin nhân viên trước khi buổi học bắt đầu.",
+      "questions": [
+        {
+          "id": "p3_s10_q01",
+          "q": "What topic is the man trying to improve on?",
+          "options": [
+            "A. Public speaking techniques",
+            "B. Quarterly financial and budget projections",
+            "C. Artificial intelligence coding",
+            "D. Conflict resolution strategies"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'refining quarterly projections'",
+          "correct_reason": "Man: 'refining our department quarterly projections'",
+          "explanation_vi": "Người đàn ông muốn hoàn thiện bản dự báo tài chính hàng quý (quarterly financial and budget projections). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set10.mp3"
+        },
+        {
+          "id": "p3_s10_q02",
+          "q": "Look at the graphic. What time does the workshop the man wants to attend begin?",
+          "options": [
+            "A. 9:00 AM",
+            "B. 11:00 AM",
+            "C. 1:30 PM",
+            "D. 3:30 PM"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "graphic",
+          "trap_type": "đọc đối chiếu bảng biểu graphic với tên diễn giả",
+          "correct_reason": "Man: 'attending the session led by Patricia Cole.' Đối chiếu bảng: Patricia Cole hướng dẫn buổi 'Strategic Budget Negotiation' lúc 11:00 AM - 12:30 PM.",
+          "explanation_vi": "Câu hỏi bảng biểu (Graphic question): Người đàn ông tham dự buổi của Patricia Cole. Tra bảng: Patricia Cole dạy lúc 11:00 AM. Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set10.mp3"
+        },
+        {
+          "id": "p3_s10_q03",
+          "q": "What does the woman advise the man to bring?",
+          "options": [
+            "A. A notebook and pen",
+            "B. His company laptop",
+            "C. A printed training manual",
+            "D. His business cards"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "từ gây nhiễu vật dụng",
+          "correct_reason": "Woman: 'Just remember to bring your company laptop because her workshop involves practical spreadsheet exercises.'",
+          "explanation_vi": "Người phụ nữ nhắc nhở mang theo máy tính xách tay công ty (company laptop). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set10.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set10.mp3"
+    },
+    {
+      "setId": "p3_set11",
+      "part": 3,
+      "setNumber": 11,
+      "topic": "Sơ đồ tầng văn phòng (Graphic Question)",
+      "accent": "UK",
+      "secondaryAccent": "US",
+      "speakers": [
+        {
+          "name": "Man",
+          "accent": "en-GB",
+          "role": "Security Receptionist (Gary)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-US",
+          "role": "Visiting Auditor (Claire)"
+        }
+      ],
+      "graphic": {
+        "type": "floor_plan",
+        "title": "Executive Building - Level 4 Directory",
+        "columns": [
+          "Suite",
+          "Department",
+          "Contact Person"
+        ],
+        "rows": [
+          [
+            "Suite 401",
+            "Corporate Legal Counsel",
+            "Mr. Harold Barnes"
+          ],
+          [
+            "Suite 402",
+            "Taxation & Internal Audit",
+            "Ms. Janice Bennett"
+          ],
+          [
+            "Suite 403",
+            "Human Resources & Payroll",
+            "Mr. Liam Taylor"
+          ],
+          [
+            "Suite 404",
+            "Executive Boardroom",
+            "Reception Desk"
+          ]
+        ]
+      },
+      "audioScript": "Man: Good morning. Welcome to Meridian Tower. How may I assist you today?\nWoman: Good morning. I am Claire Jenkins from Apex Consulting. I have a ten o'clock appointment with Janice Bennett to review the tax audit paperwork.\nMan: Certainly, Ms. Jenkins. Let me issue your visitor security pass. Please take the express elevator to the fourth floor. Her office is located directly adjacent to the legal counsel suite.\nWoman: Thank you very much for your guidance. Have a wonderful day!",
+      "transcript": "Man: Good morning. Welcome to Meridian Tower. How may I assist you today?\nWoman: Good morning. I am Claire Jenkins from Apex Consulting. I have a ten o'clock appointment with Janice Bennett to review the tax audit paperwork.\nMan: Certainly, Ms. Jenkins. Let me issue your visitor security pass. Please take the express elevator to the fourth floor. Her office is located directly adjacent to the legal counsel suite.\nWoman: Thank you very much for your guidance. Have a wonderful day!",
+      "translation_vi": "Nam: Chào buổi sáng. Chào mừng quý khách đến với Tháp Meridian. Tôi có thể giúp gì cho quý khách hôm nay?\nNữ: Chào anh. Tôi là Claire Jenkins từ công ty Tư vấn Apex. Tôi có hẹn lúc 10 giờ với cô Janice Bennett để xem lại hồ sơ kiểm toán thuế.\nNam: Vâng, thưa bà Jenkins. Để tôi cấp thẻ an ninh cho khách. Xin mời bà đi thang máy tốc hành lên tầng 4. Văn phòng của cô ấy nằm ngay cạnh phòng cố vấn pháp lý.\nNữ: Cảm ơn anh rất nhiều vì đã chỉ đường. Chúc anh một ngày tốt lành!",
+      "questions": [
+        {
+          "id": "p3_s11_q01",
+          "q": "Why is the woman visiting Meridian Tower?",
+          "options": [
+            "A. To attend a job interview in Human Resources",
+            "B. To conduct a tax audit review with Ms. Bennett",
+            "C. To install security software on Level 4",
+            "D. To deliver office supplies to Suite 404"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "main_idea",
+          "trap_type": "chi tiết mục đích cuộc hẹn",
+          "correct_reason": "Woman: 'appointment with Janice Bennett to review the tax audit paperwork.'",
+          "explanation_vi": "Mục đích đến là để xem xét hồ sơ kiểm toán thuế cùng cô Bennett (conduct a tax audit review). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set11.mp3"
+        },
+        {
+          "id": "p3_s11_q02",
+          "q": "Look at the graphic. Which suite will the woman visit?",
+          "options": [
+            "A. Suite 401",
+            "B. Suite 402",
+            "C. Suite 403",
+            "D. Suite 404"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "graphic",
+          "trap_type": "đối chiếu sơ đồ bảng danh mục phòng ban",
+          "correct_reason": "Woman: 'appointment with Janice Bennett'. Đối chiếu bảng: Janice Bennett phụ trách phòng Taxation & Internal Audit tại Suite 402.",
+          "explanation_vi": "Câu hỏi bảng biểu (Graphic question): Khách hẹn với Janice Bennett. Tra danh bạ tầng 4: Janice Bennett ở Suite 402. Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set11.mp3"
+        },
+        {
+          "id": "p3_s11_q03",
+          "q": "What does the receptionist provide to the woman?",
+          "options": [
+            "A. A parking validation coupon",
+            "B. A visitor security pass",
+            "C. A printed company brochure",
+            "D. A bottle of mineral water"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "từ gây nhiễu vật phẩm quầy lễ tân",
+          "correct_reason": "Man: 'Let me issue your visitor security pass.'",
+          "explanation_vi": "Lễ tân cấp thẻ an ninh khách cho cô Jenkins (visitor security pass). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set11.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set11.mp3"
+    },
+    {
+      "setId": "p3_set12",
+      "part": 3,
+      "setNumber": 12,
+      "topic": "Bảng báo giá dịch vụ (Graphic Question)",
+      "accent": "CA",
+      "secondaryAccent": "AU",
+      "speakers": [
+        {
+          "name": "Woman",
+          "accent": "en-CA",
+          "role": "Catering Manager (Rachel)"
+        },
+        {
+          "name": "Man",
+          "accent": "en-AU",
+          "role": "Corporate Client (Martin)"
+        }
+      ],
+      "graphic": {
+        "type": "pricing_table",
+        "title": "Bayside Catering - Buffet Package Options",
+        "columns": [
+          "Package Tier",
+          "Price Per Guest",
+          "Included Features"
+        ],
+        "rows": [
+          [
+            "Bronze Tier",
+            "$25",
+            "Standard buffet, soft drinks, paper cutlery"
+          ],
+          [
+            "Silver Tier",
+            "$40",
+            "Full hot buffet, dessert bar, ceramic tableware"
+          ],
+          [
+            "Gold Tier",
+            "$60",
+            "Gourmet carving station, wine pairing, dedicated waitstaff"
+          ],
+          [
+            "Platinum Tier",
+            "$85",
+            "Seafood bar, champagne toast, floral centerpieces"
+          ]
+        ]
+      },
+      "audioScript": "Woman: Thank you for considering Bayside Catering for your company anniversary banquet Martin.\nMan: We are expecting approximately eighty employees. We definitely want real ceramic tableware and a dedicated dessert bar, but our budget cannot stretch to gourmet carving stations or wine pairings.\nWoman: In that case, I have the ideal package tier for your group. Furthermore, since your event is booked on a Thursday, our corporate loyalty discount of ten percent will apply to the total bill.\nMan: That sounds like a wonderful deal Rachel. Please draft the formal catering contract and email it to my office today.",
+      "transcript": "Woman: Thank you for considering Bayside Catering for your company anniversary banquet Martin.\nMan: We are expecting approximately eighty employees. We definitely want real ceramic tableware and a dedicated dessert bar, but our budget cannot stretch to gourmet carving stations or wine pairings.\nWoman: In that case, I have the ideal package tier for your group. Furthermore, since your event is booked on a Thursday, our corporate loyalty discount of ten percent will apply to the total bill.\nMan: That sounds like a wonderful deal Rachel. Please draft the formal catering contract and email it to my office today.",
+      "translation_vi": "Nữ: Cảm ơn anh Martin đã cân nhắc Bayside Catering cho tiệc kỷ niệm thành lập công ty.\nNam: Chúng tôi dự kiến có khoảng 80 nhân viên. Chúng tôi chắc chắn muốn có bát đĩa sứ thật và một quầy tráng miệng riêng, nhưng ngân sách không đủ cho các quầy thịt nướng cao cấp hay rượu vang kết hợp.\nNữ: Trong trường hợp đó, tôi có gói dịch vụ lý tưởng cho quý công ty. Hơn nữa, vì sự kiện được đặt vào thứ Năm, chiết khấu khách hàng thân thiết 10% sẽ được áp dụng cho tổng hóa đơn.\nNam: Nghe thật tuyệt vời Rachel. Xin hãy soạn thảo hợp đồng dịch vụ chính thức và gửi email đến văn phòng tôi hôm nay nhé.",
+      "questions": [
+        {
+          "id": "p3_s12_q01",
+          "q": "What event is the man planning?",
+          "options": [
+            "A. A company anniversary banquet",
+            "B. A retirement party for a founder",
+            "C. A client product demonstration dinner",
+            "D. A holiday charity fundraiser"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "paraphrase sự kiện công ty",
+          "correct_reason": "Woman: 'considering Bayside Catering for your company anniversary banquet'",
+          "explanation_vi": "Sự kiện được chuẩn bị là tiệc kỷ niệm thành lập công ty (company anniversary banquet). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set12.mp3"
+        },
+        {
+          "id": "p3_s12_q02",
+          "q": "Look at the graphic. Which package tier will the man most likely choose?",
+          "options": [
+            "A. Bronze Tier",
+            "B. Silver Tier",
+            "C. Gold Tier",
+            "D. Platinum Tier"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "graphic",
+          "trap_type": "đối chiếu tính năng dịch vụ yêu cầu với bảng giá",
+          "correct_reason": "Man: 'ceramic tableware and a dedicated dessert bar, but our budget cannot stretch to gourmet carving stations'. Đối chiếu bảng: Silver Tier ($40) bao gồm ceramic tableware và dessert bar.",
+          "explanation_vi": "Câu hỏi bảng biểu (Graphic question): Khách muốn có 'ceramic tableware' và 'dessert bar' nhưng từ chối 'gourmet carving'. Tra bảng: Gói phù hợp chính xác là Silver Tier. Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set12.mp3"
+        },
+        {
+          "id": "p3_s12_q03",
+          "q": "What discount is offered for the Thursday booking?",
+          "options": [
+            "A. Five percent",
+            "B. Ten percent",
+            "C. Fifteen percent",
+            "D. Twenty percent"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "bẫy số liệu phần trăm",
+          "correct_reason": "Woman: 'corporate loyalty discount of ten percent will apply to the total bill.'",
+          "explanation_vi": "Ưu đãi đặt vào thứ Năm là giảm giá 10% trên tổng hóa đơn (ten percent). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set12.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set12.mp3"
+    },
+    {
+      "setId": "p3_set13",
+      "part": 3,
+      "setNumber": 13,
+      "topic": "Hội thoại 3 người & Ý định phát ngôn (3 Speakers & Intent)",
+      "accent": "US",
+      "secondaryAccent": "UK",
+      "speakers": [
+        {
+          "name": "Man 1",
+          "accent": "en-US",
+          "role": "Warehouse Manager (Steve)"
+        },
+        {
+          "name": "Woman",
+          "accent": "en-GB",
+          "role": "Logistics Coordinator (Megan)"
+        },
+        {
+          "name": "Man 2",
+          "accent": "en-US",
+          "role": "Truck Driver (Carlos)"
+        }
+      ],
+      "audioScript": "Man 1: Megan, the delivery manifest says we have forty pallets of solar panels scheduled for the Vancouver depot, but Carlos' flatbed truck only has space for thirty pallets.\nWoman: That's problematic. The client signed a strict contract guaranteeing full delivery before Friday afternoon.\nMan 2: Look, the highway patrol closes the mountain pass for maintenance at five P.M. We don't have all day!\nMan 1: Understood Carlos. Megan, let's call Dispatch immediately to send a secondary cargo van to transport the remaining ten pallets so Carlos can leave now.",
+      "transcript": "Man 1: Megan, the delivery manifest says we have forty pallets of solar panels scheduled for the Vancouver depot, but Carlos' flatbed truck only has space for thirty pallets.\nWoman: That's problematic. The client signed a strict contract guaranteeing full delivery before Friday afternoon.\nMan 2: Look, the highway patrol closes the mountain pass for maintenance at five P.M. We don't have all day!\nMan 1: Understood Carlos. Megan, let's call Dispatch immediately to send a secondary cargo van to transport the remaining ten pallets so Carlos can leave now.",
+      "translation_vi": "Nam 1: Megan, bảng kê hàng ghi chúng ta có 40 pallet pin mặt trời chuyển tới kho Vancouver, nhưng xe tải sàn phẳng của Carlos chỉ đủ chỗ cho 30 pallet.\nNữ: Rắc rối đấy. Khách hàng đã ký hợp đồng nghiêm ngặt cam kết giao đủ toàn bộ trước chiều thứ Sáu.\nNam 2: Này, cảnh sát tuần tra đường cao tốc sẽ đóng đèo núi để bảo trì lúc 5 giờ chiều đấy. Chúng ta không có cả ngày để chần chừ đâu!\nNam 1: Hiểu rồi Carlos. Megan, chúng ta hãy gọi ngay cho bộ phận điều phối xe để cử một xe van chở hàng thứ hai vận chuyển 10 pallet còn lại để Carlos có thể lên đường ngay bây giờ.",
+      "questions": [
+        {
+          "id": "p3_s13_q01",
+          "q": "What logistical problem does the first man describe?",
+          "options": [
+            "A. A vehicle does not have enough capacity for the entire cargo",
+            "B. The shipping documentation contains incorrect billing rates",
+            "C. Several solar panels were damaged during unloading",
+            "D. A driver lost his commercial trucking license"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "problem",
+          "trap_type": "paraphrase sức chứa xe tải",
+          "correct_reason": "Man 1: 'manifest says we have forty pallets... but Carlos' flatbed truck only has space for thirty pallets.'",
+          "explanation_vi": "Vấn đề là xe tải không đủ sức chứa cho toàn bộ 40 pallet hàng (not enough capacity for entire cargo). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set13.mp3"
+        },
+        {
+          "id": "p3_s13_q02",
+          "q": "What does the second man mean when he says: 'We don't have all day!'?",
+          "options": [
+            "A. He wants the team to hurry because time is running out",
+            "B. He refuses to work overtime after five o'clock",
+            "C. He forgot his watch at the security gate",
+            "D. The warehouse closes early for a national holiday"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "intent",
+          "trap_type": "nghĩa bóng thành ngữ dục dã",
+          "correct_reason": "Man 2: 'closes the mountain pass for maintenance at five P.M. We don't have all day!'",
+          "explanation_vi": "Câu hỏi ý định (Intent question): Carlos hối thúc mọi người ra quyết định nhanh vì sắp đến giờ đóng đèo vượt núi (wants the team to hurry because time is running out). Chọn A.",
+          "audio_url": "/audio/listening/part3/p3_set13.mp3"
+        },
+        {
+          "id": "p3_s13_q03",
+          "q": "What solution does the first man propose?",
+          "options": [
+            "A. Leaving the remaining pallets for next week's shipment",
+            "B. Requesting a secondary cargo vehicle from Dispatch",
+            "C. Hiring an external air freight contractor",
+            "D. Asking the customer to pick up the goods"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "paraphrase giải pháp điều xe",
+          "correct_reason": "Man 1: 'call Dispatch immediately to send a secondary cargo van to transport the remaining ten pallets'",
+          "explanation_vi": "Giải pháp là gọi điều phối xe gửi thêm một xe van phụ chở nốt 10 pallet còn lại (requesting a secondary cargo vehicle). Chọn B.",
+          "audio_url": "/audio/listening/part3/p3_set13.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part3/p3_set13.mp3"
+    }
+  ],
+  "part4": [
+    {
+      "setId": "p4_set01",
+      "part": 4,
+      "setNumber": 1,
+      "topic": "Tin nhắn thoại hẹn khám bệnh (Telephone Voicemail)",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Speaker (Dr. Harrison's Office)",
+          "accent": "en-US",
+          "role": "Medical Receptionist"
+        }
+      ],
+      "audioScript": "Hello, this message is for Mr. Robert Sterling. This is Amanda calling from Oakwood Dental Associates. I am calling regarding your routine dental cleaning and examination scheduled for this Thursday, October fourteenth, at three o'clock in the afternoon. Unfortunately, Dr. Harrison has an emergency dental surgery scheduled at that time and will be unavailable. We would like to reschedule your appointment to Friday morning at ten o'clock or next Monday afternoon at two. Please call our clinic back at 555-0192 by five P.M. today to confirm which time works best for you. We apologize for any inconvenience.",
+      "transcript": "Hello, this message is for Mr. Robert Sterling. This is Amanda calling from Oakwood Dental Associates. I am calling regarding your routine dental cleaning and examination scheduled for this Thursday, October fourteenth, at three o'clock in the afternoon. Unfortunately, Dr. Harrison has an emergency dental surgery scheduled at that time and will be unavailable. We would like to reschedule your appointment to Friday morning at ten o'clock or next Monday afternoon at two. Please call our clinic back at 555-0192 by five P.M. today to confirm which time works best for you. We apologize for any inconvenience.",
+      "translation_vi": "Xin chào, tin nhắn này gửi tới ông Robert Sterling. Tôi là Amanda gọi từ Nha khoa Oakwood. Tôi gọi về buổi khám và lấy cao răng định kỳ của ông dự kiến vào thứ Năm tuần này, ngày 14 tháng 10, lúc 3 giờ chiều. Rất tiếc, Bác sĩ Harrison có một ca phẫu thuật nha khoa khẩn cấp vào thời điểm đó nên sẽ vắng mặt. Chúng tôi muốn dời lịch hẹn của ông sang sáng thứ Sáu lúc 10 giờ hoặc chiều thứ Hai tuần tới lúc 2 giờ. Xin vui lòng gọi lại cho phòng khám chúng tôi theo số 555-0192 trước 5 giờ chiều hôm nay để xác nhận khung giờ phù hợp nhất với ông. Chúng tôi thành thật xin lỗi vì sự bất tiện này.",
+      "questions": [
+        {
+          "id": "p4_s01_q01",
+          "q": "Where does the speaker work?",
+          "options": [
+            "A. At an insurance agency",
+            "B. At a dental clinic",
+            "C. At a pharmacy",
+            "D. At a medical equipment supplier"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "main_idea",
+          "trap_type": "paraphrase 'Oakwood Dental Associates'",
+          "correct_reason": "Speaker: 'Amanda calling from Oakwood Dental Associates.'",
+          "explanation_vi": "Người nói công tác tại phòng khám nha khoa (dental clinic). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set01.mp3"
+        },
+        {
+          "id": "p4_s01_q02",
+          "q": "Why is the appointment being rescheduled?",
+          "options": [
+            "A. The dental office is undergoing renovation",
+            "B. The doctor has an urgent surgical procedure",
+            "C. Severe weather caused clinic closures",
+            "D. The patient's insurance was denied"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'emergency dental surgery'",
+          "correct_reason": "Speaker: 'Dr. Harrison has an emergency dental surgery scheduled at that time'",
+          "explanation_vi": "Lý do dời lịch là bác sĩ có ca phẫu thuật khẩn cấp (urgent surgical procedure). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set01.mp3"
+        },
+        {
+          "id": "p4_s01_q03",
+          "q": "What is the listener asked to do by five P.M. today?",
+          "options": [
+            "A. Fill out an online medical history form",
+            "B. Call the clinic to select a new appointment time",
+            "C. Transfer a copay deposit fee",
+            "D. Pick up a prescription medication"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "next_action",
+          "trap_type": "hành động yêu cầu trong tin nhắn",
+          "correct_reason": "Speaker: 'Please call our clinic back at 555-0192 by five P.M. today to confirm which time works best for you.'",
+          "explanation_vi": "Bệnh nhân được yêu cầu gọi lại phòng khám trước 5h chiều để chọn giờ hẹn mới. Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set01.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set01.mp3"
+    },
+    {
+      "setId": "p4_set02",
+      "part": 4,
+      "setNumber": 2,
+      "topic": "Thông báo sân bay (Airport Announcement)",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Speaker (Airport Staff)",
+          "accent": "en-GB",
+          "role": "Airport Gate Agent"
+        }
+      ],
+      "audioScript": "Attention all passengers holding boarding passes for Skyways Flight 408 with nonstop service to London Heathrow. Due to late arrival of the inbound aircraft and unexpected ground fog at the departure runway, our departure has been delayed by approximately forty-five minutes. In addition, please take note of an official gate reassignment: Flight 408 will now be boarding at Gate 26B at the north end of Terminal 3, rather than Gate 14. We request that all passengers proceed quietly toward Gate 26B where our ground crew will begin priority boarding for families with young children and passengers needing special assistance shortly. Complimentary water bottles are available at our service desk. Thank you for your patience.",
+      "transcript": "Attention all passengers holding boarding passes for Skyways Flight 408 with nonstop service to London Heathrow. Due to late arrival of the inbound aircraft and unexpected ground fog at the departure runway, our departure has been delayed by approximately forty-five minutes. In addition, please take note of an official gate reassignment: Flight 408 will now be boarding at Gate 26B at the north end of Terminal 3, rather than Gate 14. We request that all passengers proceed quietly toward Gate 26B where our ground crew will begin priority boarding for families with young children and passengers needing special assistance shortly. Complimentary water bottles are available at our service desk. Thank you for your patience.",
+      "translation_vi": "Xin quý hành khách có thẻ lên máy bay chuyến 408 của hãng Skyways bay thẳng đến London Heathrow chú ý. Do máy bay đến muộn và sương mù bất ngờ trên đường băng cất cánh, chuyến bay của chúng ta sẽ bị hoãn khoảng 45 phút. Ngoài ra, xin quý khách lưu ý sự thay đổi cửa khởi hành chính thức: Chuyến bay 408 hiện sẽ đón khách tại Cửa 26B ở phía bắc Nhà ga số 3, thay vì Cửa 14. Chúng tôi đề nghị tất cả hành khách di chuyển trật tự về phía Cửa 26B, nơi nhân viên mặt đất của chúng tôi sẽ bắt đầu ưu tiên lên máy bay cho các gia đình có trẻ nhỏ và hành khách cần trợ giúp đặc biệt trong ít phút tới. Nước suối miễn phí được phục vụ tại quầy dịch vụ của chúng tôi. Cảm ơn sự kiên nhẫn của quý khách.",
+      "questions": [
+        {
+          "id": "p4_s02_q01",
+          "q": "What is the purpose of the announcement?",
+          "options": [
+            "A. To announce a flight delay and gate change",
+            "B. To alert passengers of lost luggage in Terminal 3",
+            "C. To offer ticket upgrades to business class",
+            "D. To inform passengers of a terminal evacuation"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "tổng hợp nội dung chính",
+          "correct_reason": "Speaker: 'our departure has been delayed... gate reassignment: Flight 408 will now be boarding at Gate 26B'",
+          "explanation_vi": "Mục đích thông báo là báo hoãn chuyến bay 45 phút và chuyển sang cửa 26B (flight delay and gate change). Chọn A.",
+          "audio_url": "/audio/listening/part4/p4_set02.mp3"
+        },
+        {
+          "id": "p4_s02_q02",
+          "q": "What caused the flight delay?",
+          "options": [
+            "A. Severe mechanical engine failure",
+            "B. Late inbound plane and runway weather fog",
+            "C. Missing security inspection paperwork",
+            "D. Flight crew scheduling strike"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "nguyên nhân kết hợp",
+          "correct_reason": "Speaker: 'late arrival of the inbound aircraft and unexpected ground fog at the departure runway'",
+          "explanation_vi": "Nguyên nhân chậm giờ là do máy bay đến trễ và sương mù đường băng. Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set02.mp3"
+        },
+        {
+          "id": "p4_s02_q03",
+          "q": "What group will be invited to board first?",
+          "options": [
+            "A. Frequent flyer gold members",
+            "B. Passengers seated in row thirty and higher",
+            "C. Families with young children and passengers needing assistance",
+            "D. Airline pilots and cabin crew"
+          ],
+          "ans": 2,
+          "ansLetter": "C",
+          "question_type": "detail",
+          "trap_type": "đối tượng ưu tiên lên máy bay",
+          "correct_reason": "Speaker: 'begin priority boarding for families with young children and passengers needing special assistance'",
+          "explanation_vi": "Nhóm được ưu tiên lên máy bay trước là gia đình có trẻ nhỏ và khách cần trợ giúp đặc biệt. Chọn C.",
+          "audio_url": "/audio/listening/part4/p4_set02.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set02.mp3"
+    },
+    {
+      "setId": "p4_set03",
+      "part": 4,
+      "setNumber": 3,
+      "topic": "Thuyết trình kết quả kinh doanh quý (Business Presentation)",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Speaker (Chief Financial Officer)",
+          "accent": "en-US",
+          "role": "CFO (Victor Ramos)"
+        }
+      ],
+      "audioScript": "Good afternoon board members and department managers. I am pleased to present our third-quarter financial overview for NexaCorp. Over the past three months, our revenue grew by twelve percent compared to the previous quarter, exceeding Wall Street projections. The primary driver of this outstanding expansion was our enterprise cloud storage division, which onboarded thirty-five new international corporate clients. However, operational expenses also rose by six percent, primarily driven by investments in data server infrastructure and software engineering hiring. To maintain our healthy profit margins going into the fourth quarter, we will implement energy efficiency protocols across all data facilities and streamline vendor subscriptions. Thank you, and I now welcome your questions.",
+      "transcript": "Good afternoon board members and department managers. I am pleased to present our third-quarter financial overview for NexaCorp. Over the past three months, our revenue grew by twelve percent compared to the previous quarter, exceeding Wall Street projections. The primary driver of this outstanding expansion was our enterprise cloud storage division, which onboarded thirty-five new international corporate clients. However, operational expenses also rose by six percent, primarily driven by investments in data server infrastructure and software engineering hiring. To maintain our healthy profit margins going into the fourth quarter, we will implement energy efficiency protocols across all data facilities and streamline vendor subscriptions. Thank you, and I now welcome your questions.",
+      "translation_vi": "Xin chào các thành viên hội đồng quản trị và các trưởng phòng. Tôi rất vui mừng được trình bày bức tranh tổng quan tài chính quý ba của NexaCorp. Trong 3 tháng qua, doanh thu của chúng ta tăng trưởng 12% so với quý trước, vượt dự báo của Phố Wall. Động lực chính cho sự mở rộng vượt bậc này là mảng lưu trữ đám mây doanh nghiệp, đã đón thêm 35 khách hàng doanh nghiệp quốc tế mới. Tuy nhiên, chi phí vận hành cũng tăng 6%, chủ yếu do đầu tư vào hạ tầng máy chủ dữ liệu và tuyển dụng kỹ sư phần mềm. Để duy trì biên lợi nhuận vững mạnh bước vào quý 4, chúng ta sẽ áp dụng các quy chuẩn tiết kiệm năng lượng tại tất cả cơ sở dữ liệu và tinh gọn các gói đăng ký nhà cung cấp. Xin cảm ơn, và giờ tôi xin lắng nghe các câu hỏi của quý vị.",
+      "questions": [
+        {
+          "id": "p4_s03_q01",
+          "q": "What is the speaker mainly reporting on?",
+          "options": [
+            "A. Third-quarter financial performance and revenue growth",
+            "B. A merger with an international telecom provider",
+            "C. Employee annual bonus calculations",
+            "D. A lawsuit regarding software patent rights"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "chủ đề báo cáo doanh nghiệp",
+          "correct_reason": "Speaker: 'pleased to present our third-quarter financial overview for NexaCorp... revenue grew by twelve percent'",
+          "explanation_vi": "Người nói báo cáo về kết quả tài chính quý 3 và mức tăng trưởng doanh thu 12%. Chọn A.",
+          "audio_url": "/audio/listening/part4/p4_set03.mp3"
+        },
+        {
+          "id": "p4_s03_q02",
+          "q": "Which division accounted for the largest revenue increase?",
+          "options": [
+            "A. Consumer hardware retail",
+            "B. Enterprise cloud storage services",
+            "C. Print marketing consulting",
+            "D. Corporate cybersecurity training"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "bộ phận tạo doanh số chính",
+          "correct_reason": "Speaker: 'primary driver of this outstanding expansion was our enterprise cloud storage division'",
+          "explanation_vi": "Bộ phận đóng góp lớn nhất vào tăng trưởng doanh thu là mảng lưu trữ đám mây doanh nghiệp (enterprise cloud storage division). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set03.mp3"
+        },
+        {
+          "id": "p4_s03_q03",
+          "q": "How does the company plan to manage operating costs in the fourth quarter?",
+          "options": [
+            "A. By laying off junior engineering staff",
+            "B. By lowering prices for new subscription signups",
+            "C. By adopting energy efficiency measures and streamlining vendors",
+            "D. By leasing older computer hardware equipment"
+          ],
+          "ans": 2,
+          "ansLetter": "C",
+          "question_type": "next_action",
+          "trap_type": "paraphrase biện pháp tối ưu chi phí",
+          "correct_reason": "Speaker: 'implement energy efficiency protocols across all data facilities and streamline vendor subscriptions.'",
+          "explanation_vi": "Kế hoạch kiểm soát chi phí là áp dụng biện pháp tiết kiệm năng lượng và tinh giản nhà cung cấp (energy efficiency measures and streamlining vendors). Chọn C.",
+          "audio_url": "/audio/listening/part4/p4_set03.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set03.mp3"
+    },
+    {
+      "setId": "p4_set04",
+      "part": 4,
+      "setNumber": 4,
+      "topic": "Bản tin giao thông & thời tiết radio (Radio Broadcast)",
+      "accent": "AU",
+      "speakers": [
+        {
+          "name": "Speaker (Radio Announcer)",
+          "accent": "en-AU",
+          "role": "Traffic & Weather Reporter"
+        }
+      ],
+      "audioScript": "Good morning Metro commuters. This is Dave Lawson with your 88.5 FM rush-hour traffic and weather bulletin. If you are traveling inbound toward downtown on Highway 101, expect major delays of up to forty minutes. An overturned commercial delivery truck near the Maple Street overpass has blocked the two right lanes. Emergency crews and tow trucks are currently on the scene clearing debris. Commuters are strongly advised to exit early at River Road and take the Harbor Parkway as an alternate route. On the weather front, our overcast morning skies will give way to heavy rain showers by early afternoon, so make sure to keep your umbrella handy and reduce your driving speeds on slippery roadways. Stay tuned for sports news coming up next.",
+      "transcript": "Good morning Metro commuters. This is Dave Lawson with your 88.5 FM rush-hour traffic and weather bulletin. If you are traveling inbound toward downtown on Highway 101, expect major delays of up to forty minutes. An overturned commercial delivery truck near the Maple Street overpass has blocked the two right lanes. Emergency crews and tow trucks are currently on the scene clearing debris. Commuters are strongly advised to exit early at River Road and take the Harbor Parkway as an alternate route. On the weather front, our overcast morning skies will give way to heavy rain showers by early afternoon, so make sure to keep your umbrella handy and reduce your driving speeds on slippery roadways. Stay tuned for sports news coming up next.",
+      "translation_vi": "Chào buổi sáng quý thính giả đi lại trong thành phố. Tôi là Dave Lawson với bản tin giao thông và thời tiết giờ cao điểm trên kênh 88.5 FM. Nếu quý vị đang đi vào hướng trung tâm trên Cao tốc 101, hãy chuẩn bị cho việc trễ tới 40 phút. Một chiếc xe tải chở hàng bị lật gần cầu vượt Phố Maple đã chắn hai làn đường bên phải. Lực lượng cứu hộ và xe cứu hộ giao thông hiện đang có mặt tại hiện trường để dọn dẹp hiện trường. Người tham gia giao thông được khuyến cáo nên rẽ sớm ở đường River Road và đi đường Harbor Parkway làm tuyến đường thay thế. Về mặt thời tiết, bầu trời nhiều mây buổi sáng sẽ nhường chỗ cho những cơn mưa rào lớn vào đầu giờ chiều, vì vậy hãy giữ ô bên mình và giảm tốc độ lái xe trên những đoạn đường trơn trượt. Hãy tiếp tục theo dõi bản tin thể thao ngay sau đây.",
+      "questions": [
+        {
+          "id": "p4_s04_q01",
+          "q": "What problem is being reported on Highway 101?",
+          "options": [
+            "A. Scheduled road resurfacing construction",
+            "B. An overturned truck blocking traffic lanes",
+            "C. A bridge toll booth system malfunction",
+            "D. A parade causing temporary street closures"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "problem",
+          "trap_type": "paraphrase nguyên nhân kẹt xe",
+          "correct_reason": "Speaker: 'An overturned commercial delivery truck near the Maple Street overpass has blocked the two right lanes.'",
+          "explanation_vi": "Sự cố trên Cao tốc 101 là một xe tải bị lật chắn các làn đường (overturned truck blocking traffic lanes). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set04.mp3"
+        },
+        {
+          "id": "p4_s04_q02",
+          "q": "What detour route does the reporter suggest?",
+          "options": [
+            "A. Taking the subway train system",
+            "B. Using Harbor Parkway via River Road",
+            "C. Crossing the downtown suspension bridge",
+            "D. Taking Maple Street through the residential area"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "tên tuyến đường thay thế",
+          "correct_reason": "Speaker: 'advised to exit early at River Road and take the Harbor Parkway as an alternate route.'",
+          "explanation_vi": "Tuyến đường thay thế được khuyên đi là Harbor Parkway qua lối ra River Road. Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set04.mp3"
+        },
+        {
+          "id": "p4_s04_q03",
+          "q": "What weather change is forecast for the afternoon?",
+          "options": [
+            "A. Clear blue skies with bright sunshine",
+            "B. Freezing temperatures and light snowfall",
+            "C. Heavy rain showers",
+            "D. Strong high-speed gusting winds"
+          ],
+          "ans": 2,
+          "ansLetter": "C",
+          "question_type": "detail",
+          "trap_type": "dự báo thời tiết buổi chiều",
+          "correct_reason": "Speaker: 'overcast morning skies will give way to heavy rain showers by early afternoon'",
+          "explanation_vi": "Dự báo buổi chiều sẽ có mưa rào lớn (heavy rain showers). Chọn C.",
+          "audio_url": "/audio/listening/part4/p4_set04.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set04.mp3"
+    },
+    {
+      "setId": "p4_set05",
+      "part": 4,
+      "setNumber": 5,
+      "topic": "Cuộc họp nội bộ công ty (Company Meeting)",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Speaker (HR Vice President)",
+          "accent": "en-CA",
+          "role": "VP of Human Resources"
+        }
+      ],
+      "audioScript": "Good morning everyone. Thank you for assembling promptly for this company-wide staff meeting. Following feedback gathered from our recent workplace survey, executive leadership has officially decided to modernize our remote work policy starting on the first of next month. Under the revised guidelines, all full-time employees will be eligible to work remotely up to two days per week, provided they coordinate their designated days with department supervisors. In addition, our IT department will disburse a one-time home office subsidy of three hundred dollars to assist with ergonomic desk equipment and high-speed internet connections. A comprehensive policy handbook will be posted to the employee intranet by three P.M. today. Thank you for your commitment to our collaborative workplace culture.",
+      "transcript": "Good morning everyone. Thank you for assembling promptly for this company-wide staff meeting. Following feedback gathered from our recent workplace survey, executive leadership has officially decided to modernize our remote work policy starting on the first of next month. Under the revised guidelines, all full-time employees will be eligible to work remotely up to two days per week, provided they coordinate their designated days with department supervisors. In addition, our IT department will disburse a one-time home office subsidy of three hundred dollars to assist with ergonomic desk equipment and high-speed internet connections. A comprehensive policy handbook will be posted to the employee intranet by three P.M. today. Thank you for your commitment to our collaborative workplace culture.",
+      "translation_vi": "Chào buổi sáng tất cả mọi người. Cảm ơn các bạn đã tập hợp nhanh chóng cho cuộc họp toàn thể nhân viên này. Sau các phản hồi thu thập từ khảo sát môi trường làm việc gần đây, ban lãnh đạo đã chính thức quyết định hiện đại hóa chính sách làm việc từ xa bắt đầu từ ngày đầu tiên của tháng tới. Theo quy định sửa đổi, tất cả nhân viên toàn thời gian sẽ đủ điều kiện làm việc từ xa tối đa 2 ngày mỗi tuần, với điều kiện họ phối hợp các ngày được chỉ định với người giám sát phòng ban. Ngoài ra, bộ phận IT của chúng ta sẽ chi trả khoản trợ cấp văn phòng tại nhà một lần trị giá 300 đô la để hỗ trợ mua sắm thiết bị bàn làm việc công thái học và kết nối internet tốc độ cao. Sổ tay chính sách toàn diện sẽ được đăng tải lên mạng nội bộ nhân viên trước 3 giờ chiều hôm nay. Cảm ơn sự cống hiến của các bạn cho văn hóa làm việc hợp tác của chúng ta.",
+      "questions": [
+        {
+          "id": "p4_s05_q01",
+          "q": "What is the primary topic of the meeting announcement?",
+          "options": [
+            "A. An updated hybrid and remote work policy",
+            "B. Changes to employee medical insurance providers",
+            "C. Mandatory annual fire evacuation training",
+            "D. A new company dress code policy"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "paraphrase chính sách làm việc",
+          "correct_reason": "Speaker: 'decided to modernize our remote work policy starting on the first of next month.'",
+          "explanation_vi": "Chủ đề chính là cập nhật chính sách làm việc từ xa kết hợp (updated hybrid and remote work policy). Chọn A.",
+          "audio_url": "/audio/listening/part4/p4_set05.mp3"
+        },
+        {
+          "id": "p4_s05_q02",
+          "q": "What additional benefit will the company provide to employees?",
+          "options": [
+            "A. Company-paid gym memberships",
+            "B. A three-hundred-dollar home office stipend",
+            "C. Free daily catered lunches",
+            "D. Additional paid vacation days"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "paraphrase 'subsidy' thành 'stipend'",
+          "correct_reason": "Speaker: 'disburse a one-time home office subsidy of three hundred dollars'",
+          "explanation_vi": "Công ty cung cấp khoản trợ cấp thiết lập văn phòng tại nhà 300 đô la (home office stipend). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set05.mp3"
+        },
+        {
+          "id": "p4_s05_q03",
+          "q": "Where can employees review the detailed policy handbook?",
+          "options": [
+            "A. In the human resources reception lobby",
+            "B. On the corporate employee intranet",
+            "C. In a printed company newsletter",
+            "D. In their personal home mailbox"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "nơi đăng tải tài liệu",
+          "correct_reason": "Speaker: 'comprehensive policy handbook will be posted to the employee intranet by three P.M. today.'",
+          "explanation_vi": "Nhân viên xem sổ tay chính sách trên mạng nội bộ công ty (employee intranet). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set05.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set05.mp3"
+    },
+    {
+      "setId": "p4_set06",
+      "part": 4,
+      "setNumber": 6,
+      "topic": "Thuyết minh hướng dẫn bảo tàng (Guided Tour)",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Speaker (Museum Docent)",
+          "accent": "en-GB",
+          "role": "Tour Guide"
+        }
+      ],
+      "audioScript": "Welcome to the Royal Maritime Museum visitors. My name is Julian, and I will be guiding you through our special exhibition commemorating nineteenth-century shipbuilding craftsmanship. Our tour will begin in Gallery A, where you will examine authentic scale models and hand-carved navigational compasses used during transatlantic expeditions. Before we step into the gallery, please note a few important museum regulations: to preserve the delicate varnished wood and aged leather artifacts, flash photography is strictly prohibited inside all exhibition chambers. You are welcome to take non-flash photos. Also, please place your mobile phones on silent mode. At the end of our forty-minute tour, you can visit the museum gift shop on the ground floor where replicas and souvenir books are available with a ten percent discount today. Let us proceed through the double doors.",
+      "transcript": "Welcome to the Royal Maritime Museum visitors. My name is Julian, and I will be guiding you through our special exhibition commemorating nineteenth-century shipbuilding craftsmanship. Our tour will begin in Gallery A, where you will examine authentic scale models and hand-carved navigational compasses used during transatlantic expeditions. Before we step into the gallery, please note a few important museum regulations: to preserve the delicate varnished wood and aged leather artifacts, flash photography is strictly prohibited inside all exhibition chambers. You are welcome to take non-flash photos. Also, please place your mobile phones on silent mode. At the end of our forty-minute tour, you can visit the museum gift shop on the ground floor where replicas and souvenir books are available with a ten percent discount today. Let us proceed through the double doors.",
+      "translation_vi": "Chào mừng quý khách đến với Bảo tàng Hàng hải Hoàng gia. Tôi tên là Julian, và tôi sẽ hướng dẫn quý vị đi tham quan triển lãm đặc biệt tôn vinh kỹ nghệ đóng tàu thế kỷ 19. Chuyến tham quan của chúng ta sẽ bắt đầu tại Phòng trưng bày A, nơi quý vị sẽ được chiêm ngưỡng các mô hình thu nhỏ nguyên bản và những chiếc la bàn định vị chạm khắc thủ công từng được sử dụng trong các chuyến thám hiểm xuyên Đại Tây Dương. Trước khi bước vào phòng trưng bày, xin quý vị lưu ý một vài quy định quan trọng của bảo tàng: để bảo tồn các hiện vật gỗ đánh vec-ni và đồ da cổ nhạy cảm, việc chụp ảnh có đèn flash bị nghiêm cấm trong tất cả các phòng triển lãm. Quý vị được thoải mái chụp ảnh không flash. Ngoài ra, xin vui lòng chuyển điện thoại sang chế độ im lặng. Vào cuối chuyến tham quan kéo dài 40 phút, quý vị có thể ghé thăm cửa hàng lưu niệm bảo tàng ở tầng trệt, nơi các bản sao và sách lưu niệm đang được giảm giá 10% hôm nay. Xin mời chúng ta cùng bước qua cửa đôi.",
+      "questions": [
+        {
+          "id": "p4_s06_q01",
+          "q": "What is the focus of the museum exhibition?",
+          "options": [
+            "A. Ancient Egyptian pottery making",
+            "B. Nineteenth-century maritime shipbuilding craftsmanship",
+            "C. Modern submarine technology",
+            "D. Renaissance oil paintings"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "main_idea",
+          "trap_type": "chủ đề bảo tàng hàng hải",
+          "correct_reason": "Speaker: 'special exhibition commemorating nineteenth-century shipbuilding craftsmanship.'",
+          "explanation_vi": "Trọng tâm triển lãm là kỹ nghệ đóng tàu hàng hải thế kỷ 19 (maritime shipbuilding craftsmanship). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set06.mp3"
+        },
+        {
+          "id": "p4_s06_q02",
+          "q": "What visitor behavior is strictly prohibited?",
+          "options": [
+            "A. Taking photos with a flash",
+            "B. Wearing coats inside the gallery",
+            "C. Asking questions during the tour",
+            "D. Bringing personal bottled water"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "detail",
+          "trap_type": "quy định cấm đèn flash",
+          "correct_reason": "Speaker: 'flash photography is strictly prohibited inside all exhibition chambers.'",
+          "explanation_vi": "Hành vi bị cấm nghiêm ngặt là chụp ảnh có bật đèn flash (taking photos with a flash). Chọn A.",
+          "audio_url": "/audio/listening/part4/p4_set06.mp3"
+        },
+        {
+          "id": "p4_s06_q03",
+          "q": "What can visitors do at the end of the tour?",
+          "options": [
+            "A. Meet with the museum curator in private",
+            "B. Receive a discount at the gift shop",
+            "C. Participate in a wooden boat building workshop",
+            "D. Have afternoon tea at the rooftop cafe"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "ưu đãi cuối tour tham quan",
+          "correct_reason": "Speaker: 'visit the museum gift shop on the ground floor where replicas and souvenir books are available with a ten percent discount today.'",
+          "explanation_vi": "Cuối tour du khách có thể nhận ưu đãi giảm giá tại cửa hàng lưu niệm (discount at the gift shop). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set06.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set06.mp3"
+    },
+    {
+      "setId": "p4_set07",
+      "part": 4,
+      "setNumber": 7,
+      "topic": "Quảng cáo thương mại (Radio Commercial)",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Speaker (Voice Actor)",
+          "accent": "en-US",
+          "role": "Commercial Voiceover"
+        }
+      ],
+      "audioScript": "Is your growing enterprise struggling to keep its office workspace pristine and hygienic? Introducing PurePro Cleaners, the region's leading eco-friendly commercial cleaning service. Unlike traditional janitorial companies that rely on harsh chemical sprays, PurePro exclusively uses plant-based, non-toxic sanitizing solutions certified safe for both your employees and the environment. Whether you manage a small legal office or a multi-floor technology headquarters, our bonded and insured custodial teams customize a schedule that fits your operational needs, seven nights a week. Sign up for a six-month cleaning contract before the end of this month, and you will receive your first two weeks of deep cleaning service absolutely free! Visit our website at www.pureproclean.com or call 1-800-555-PURE today to schedule your complimentary on-site estimate.",
+      "transcript": "Is your growing enterprise struggling to keep its office workspace pristine and hygienic? Introducing PurePro Cleaners, the region's leading eco-friendly commercial cleaning service. Unlike traditional janitorial companies that rely on harsh chemical sprays, PurePro exclusively uses plant-based, non-toxic sanitizing solutions certified safe for both your employees and the environment. Whether you manage a small legal office or a multi-floor technology headquarters, our bonded and insured custodial teams customize a schedule that fits your operational needs, seven nights a week. Sign up for a six-month cleaning contract before the end of this month, and you will receive your first two weeks of deep cleaning service absolutely free! Visit our website at www.pureproclean.com or call 1-800-555-PURE today to schedule your complimentary on-site estimate.",
+      "translation_vi": "Doanh nghiệp đang phát triển của bạn có đang chật vật để giữ cho không gian văn phòng luôn sạch bóng và vệ sinh không? Xin giới thiệu PurePro Cleaners, dịch vụ vệ sinh thương mại thân thiện với môi trường hàng đầu khu vực. Khác với các công ty tạp vụ truyền thống dựa vào các hóa chất tẩy rửa mạnh độc hại, PurePro chỉ sử dụng các dung dịch khử khuẩn chiết xuất từ thực vật, không độc tố được chứng nhận an toàn cho cả nhân viên của bạn lẫn môi trường. Cho dù bạn quản lý một văn phòng luật nhỏ hay một trụ sở công nghệ nhiều tầng, đội ngũ vệ sinh có bảo hiểm và bảo lãnh của chúng tôi sẽ tùy chỉnh lịch trình phù hợp với nhu cầu vận hành của bạn, 7 đêm một tuần. Đăng ký hợp đồng vệ sinh 6 tháng trước cuối tháng này, và bạn sẽ nhận được 2 tuần đầu tiên dịch vụ dọn dẹp chuyên sâu hoàn toàn miễn phí! Hãy truy cập trang web của chúng tôi tại www.pureproclean.com hoặc gọi 1-800-555-PURE hôm nay để đặt lịch khảo sát và báo giá tận nơi miễn phí.",
+      "questions": [
+        {
+          "id": "p4_s07_q01",
+          "q": "What service is being advertised?",
+          "options": [
+            "A. Eco-friendly commercial office cleaning",
+            "B. Ergonomic office furniture leasing",
+            "C. Business document shredding and recycling",
+            "D. Commercial air conditioning repair"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "main_idea",
+          "trap_type": "dịch vụ quảng cáo chính",
+          "correct_reason": "Speaker: 'PurePro Cleaners, the region's leading eco-friendly commercial cleaning service.'",
+          "explanation_vi": "Dịch vụ được quảng cáo là dịch vụ vệ sinh văn phòng thương mại thân thiện với môi trường (eco-friendly commercial office cleaning). Chọn A.",
+          "audio_url": "/audio/listening/part4/p4_set07.mp3"
+        },
+        {
+          "id": "p4_s07_q02",
+          "q": "What makes PurePro different from conventional competitors?",
+          "options": [
+            "A. They guarantee the lowest hourly rates in the state",
+            "B. They use plant-based, non-toxic cleaning products",
+            "C. They only clean residential apartments",
+            "D. They operate twenty-four hours during weekends"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "điểm khác biệt sản phẩm",
+          "correct_reason": "Speaker: 'exclusively uses plant-based, non-toxic sanitizing solutions'",
+          "explanation_vi": "Điểm nổi bật là dùng sản phẩm vệ sinh chiết xuất thực vật không độc hại (plant-based, non-toxic products). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set07.mp3"
+        },
+        {
+          "id": "p4_s07_q03",
+          "q": "What promotional offer is available this month?",
+          "options": [
+            "A. A free company vacuum cleaner",
+            "B. Two weeks of deep cleaning service at no cost",
+            "C. Half-price weekend window cleaning",
+            "D. Free carpet replacement installation"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "chương trình khuyến mãi",
+          "correct_reason": "Speaker: 'receive your first two weeks of deep cleaning service absolutely free!'",
+          "explanation_vi": "Khuyến mại trong tháng là miễn phí 2 tuần dịch vụ vệ sinh chuyên sâu đầu tiên (two weeks of deep cleaning at no cost). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set07.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set07.mp3"
+    },
+    {
+      "setId": "p4_set08",
+      "part": 4,
+      "setNumber": 8,
+      "topic": "Thông báo nội bộ & Ý định phát ngôn (Intent Question)",
+      "accent": "UK",
+      "speakers": [
+        {
+          "name": "Speaker (Product Development Director)",
+          "accent": "en-GB",
+          "role": "Director (Gareth)"
+        }
+      ],
+      "audioScript": "Team, thank you for dialing into this emergency product sprint briefing. As you know, our target launch for the FitTrack Pro smart fitness band was set for late November. However, yesterday morning our primary rival in the market announced their holiday wearable device. Our competitor just launched something similar. We cannot afford to lose market share during Black Friday weekend. Therefore, I am asking our hardware quality assurance group to streamline validation tests and authorize overtime work through the weekend so we can begin manufacturing packaging next Monday. To compensate everyone for their dedication, a hot buffet lunch will be provided in the cafeteria every day this week, along with compensatory paid time off next quarter. Let us review the sprint milestones now.",
+      "transcript": "Team, thank you for dialing into this emergency product sprint briefing. As you know, our target launch for the FitTrack Pro smart fitness band was set for late November. However, yesterday morning our primary rival in the market announced their holiday wearable device. Our competitor just launched something similar. We cannot afford to lose market share during Black Friday weekend. Therefore, I am asking our hardware quality assurance group to streamline validation tests and authorize overtime work through the weekend so we can begin manufacturing packaging next Monday. To compensate everyone for their dedication, a hot buffet lunch will be provided in the cafeteria every day this week, along with compensatory paid time off next quarter. Let us review the sprint milestones now.",
+      "translation_vi": "Cả đội, cảm ơn mọi người đã tham gia cuộc họp nhanh khẩn cấp về giai đoạn nước rút của sản phẩm này. Như các bạn đã biết, mục tiêu ra mắt chiếc vòng đeo tay thể dục thông minh FitTrack Pro của chúng ta ban đầu dự kiến vào cuối tháng 11. Tuy nhiên, sáng hôm qua đối thủ cạnh tranh chính của chúng ta trên thị trường đã công bố thiết bị đeo tay mùa lễ hội của họ. Đối thủ vừa mới ra mắt một thứ tương tự. Chúng ta không thể để mất thị phần trong dịp cuối tuần Black Friday. Do đó, tôi yêu cầu nhóm đảm bảo chất lượng phần cứng tối giản hóa các bài kiểm thử xác nhận và phê duyệt làm thêm giờ suốt dịp cuối tuần để chúng ta có thể bắt đầu đóng gói sản xuất vào thứ Hai tới. Để đền đáp sự cống hiến của mọi người, bữa trưa tự chọn nóng sốt sẽ được phục vụ tại nhà ăn mỗi ngày trong tuần này, cùng với ngày nghỉ bù có lương vào quý tới. Giờ chúng ta hãy cùng xem lại các mốc thời gian của đợt nước rút này.",
+      "questions": [
+        {
+          "id": "p4_s08_q01",
+          "q": "What product is the team preparing to launch?",
+          "options": [
+            "A. A mobile banking smartphone app",
+            "B. A smart wearable fitness tracker band",
+            "C. A wireless noise-canceling earbud",
+            "D. An electric bicycle GPS navigator"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "sản phẩm công nghệ",
+          "correct_reason": "Speaker: 'launch for the FitTrack Pro smart fitness band'",
+          "explanation_vi": "Sản phẩm chuẩn bị ra mắt là vòng đeo tay thông minh theo dõi sức khỏe (smart wearable fitness tracker band). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set08.mp3"
+        },
+        {
+          "id": "p4_s08_q02",
+          "q": "What does the speaker imply when he says: 'Our competitor just launched something similar'?",
+          "options": [
+            "A. The team must speed up development to stay competitive",
+            "B. The company should purchase the competitor's patent",
+            "C. The FitTrack Pro project should be canceled immediately",
+            "D. The marketing department needs to hire new advertising designers"
+          ],
+          "ans": 0,
+          "ansLetter": "A",
+          "question_type": "intent",
+          "trap_type": "ngụ ý chiến lược trong câu nói",
+          "correct_reason": "Speaker: 'Our competitor just launched something similar. We cannot afford to lose market share... streamline validation tests and authorize overtime'",
+          "explanation_vi": "Câu hỏi ý định (Intent question): Khi nói đối thủ vừa tung ra sản phẩm tương tự, người nói ngụ ý cả nhóm phải đẩy nhanh tiến độ làm việc để không mất thị phần (speed up development to stay competitive). Chọn A.",
+          "audio_url": "/audio/listening/part4/p4_set08.mp3"
+        },
+        {
+          "id": "p4_s08_q03",
+          "q": "What reward does the speaker offer for working overtime?",
+          "options": [
+            "A. Cash bonuses deposited this Friday",
+            "B. Free daily hot lunches and compensatory paid time off",
+            "C. First-class business flight tickets",
+            "D. A free fitness band prototype for each engineer"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "phần thưởng đền đáp công sức",
+          "correct_reason": "Speaker: 'a hot buffet lunch will be provided in the cafeteria every day this week, along with compensatory paid time off next quarter.'",
+          "explanation_vi": "Phần thưởng gồm bữa trưa nóng hàng ngày và ngày nghỉ bù có lương (free daily hot lunches and compensatory paid time off). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set08.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set08.mp3"
+    },
+    {
+      "setId": "p4_set09",
+      "part": 4,
+      "setNumber": 9,
+      "topic": "Lịch hội nghị công nghệ (Graphic Question)",
+      "accent": "US",
+      "speakers": [
+        {
+          "name": "Speaker (Conference Coordinator)",
+          "accent": "en-US",
+          "role": "Event Host"
+        }
+      ],
+      "graphic": {
+        "type": "table",
+        "title": "TechNext 2026 Afternoon Breakout Sessions (East Wing)",
+        "columns": [
+          "Track",
+          "Session Title",
+          "Room",
+          "Presenter"
+        ],
+        "rows": [
+          [
+            "Track 1",
+            "Next-Gen Cyber Defense Architecture",
+            "Room 101",
+            "Marcus Bennett"
+          ],
+          [
+            "Track 2",
+            "Scalable Microservices on Cloud Platforms",
+            "Room 102",
+            "Elena Rostova"
+          ],
+          [
+            "Track 3",
+            "Data Privacy & Regulatory Compliance",
+            "Room 103",
+            "Jonathan Hayes"
+          ],
+          [
+            "Track 4",
+            "Applied Machine Learning for Retailers",
+            "Room 104",
+            "Dr. Aaliyah Patel"
+          ]
+        ]
+      },
+      "audioScript": "Good afternoon attendees, and welcome back from our lunch banquet. I have an important logistical update regarding the afternoon breakout schedule printed on your program flyers. Due to an unexpected plumbing leak in the east corridor, one of our breakout chambers had to be evacuated for emergency repairs. Therefore, the cloud computing architecture presentation delivered by Elena Rostova has been relocated from its original venue to the Grand Ballroom on the second floor. All other sessions will proceed according to the printed schedule in their respective rooms. If you plan to attend Elena's talk, please take the central escalators upstairs. Microphones will be open for questions during the final fifteen minutes of each workshop. Enjoy your afternoon sessions!",
+      "transcript": "Good afternoon attendees, and welcome back from our lunch banquet. I have an important logistical update regarding the afternoon breakout schedule printed on your program flyers. Due to an unexpected plumbing leak in the east corridor, one of our breakout chambers had to be evacuated for emergency repairs. Therefore, the cloud computing architecture presentation delivered by Elena Rostova has been relocated from its original venue to the Grand Ballroom on the second floor. All other sessions will proceed according to the printed schedule in their respective rooms. If you plan to attend Elena's talk, please take the central escalators upstairs. Microphones will be open for questions during the final fifteen minutes of each workshop. Enjoy your afternoon sessions!",
+      "translation_vi": "Chào buổi chiều các vị khách tham dự, và mừng các bạn quay trở lại sau bữa tiệc trưa. Tôi có một cập nhật quan trọng về lịch trình các phiên thảo luận chuyên đề buổi chiều được in trên tờ rơi chương trình của các bạn. Do sự cố rò rỉ đường ống nước bất ngờ ở hành lang phía đông, một trong các phòng hội thảo của chúng ta đã phải sơ tán để sửa chữa khẩn cấp. Do đó, bài thuyết trình về kiến trúc điện toán đám mây do cô Elena Rostova trình bày đã được chuyển từ địa điểm ban đầu sang Phòng khiêu vũ lớn (Grand Ballroom) ở tầng 2. Tất cả các phiên khác vẫn sẽ diễn ra theo đúng lịch trình đã in tại các phòng tương ứng. Nếu bạn dự định tham dự buổi nói chuyện của Elena, vui lòng đi thang cuốn trung tâm lên tầng trên. Micro sẽ được mở cho phần đặt câu hỏi trong 15 phút cuối của mỗi buổi hội thảo. Chúc các bạn có những buổi chiều bổ ích!",
+      "questions": [
+        {
+          "id": "p4_s09_q01",
+          "q": "What caused the schedule change?",
+          "options": [
+            "A. A speaker missed their flight connection",
+            "B. A plumbing leak required emergency repairs",
+            "C. Audiovisual projectors broke down",
+            "D. Excessive attendance overflowed the hall"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "nguyên nhân đổi phòng hội thảo",
+          "correct_reason": "Speaker: 'unexpected plumbing leak in the east corridor, one of our breakout chambers had to be evacuated for emergency repairs.'",
+          "explanation_vi": "Nguyên nhân chuyển phòng là rò rỉ đường ống nước cần sửa khẩn cấp (plumbing leak required emergency repairs). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set09.mp3"
+        },
+        {
+          "id": "p4_s09_q02",
+          "q": "Look at the graphic. Which room was originally scheduled for Elena Rostova's presentation?",
+          "options": [
+            "A. Room 101",
+            "B. Room 102",
+            "C. Room 103",
+            "D. Room 104"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "graphic",
+          "trap_type": "đối chiếu tên diễn giả với số phòng ban đầu",
+          "correct_reason": "Speaker: 'cloud computing architecture presentation delivered by Elena Rostova has been relocated from its original venue'. Tra bảng: Elena Rostova được xếp lịch ban đầu tại Room 102.",
+          "explanation_vi": "Câu hỏi bảng biểu (Graphic question): Bài của Elena Rostova ban đầu được xếp lịch ở đâu? Tra bảng: Elena Rostova phụ trách Track 2 ở Room 102. Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set09.mp3"
+        },
+        {
+          "id": "p4_s09_q03",
+          "q": "Where has the relocated session been moved to?",
+          "options": [
+            "A. The outdoor courtyard pavilion",
+            "B. The Grand Ballroom on the second floor",
+            "C. The basement executive auditorium",
+            "D. The hotel business conference lounge"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "địa điểm phòng họp mới",
+          "correct_reason": "Speaker: 'relocated from its original venue to the Grand Ballroom on the second floor.'",
+          "explanation_vi": "Địa điểm chuyển đến mới là Phòng Grand Ballroom ở tầng 2. Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set09.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set09.mp3"
+    },
+    {
+      "setId": "p4_set10",
+      "part": 4,
+      "setNumber": 10,
+      "topic": "Biểu đồ hiệu suất doanh số khu vực (Graphic Question)",
+      "accent": "CA",
+      "speakers": [
+        {
+          "name": "Speaker (National Sales Director)",
+          "accent": "en-CA",
+          "role": "Sales Director (Monica)"
+        }
+      ],
+      "graphic": {
+        "type": "bar_chart",
+        "title": "Annual Automotive Sales Targets vs Actual Units Sold",
+        "columns": [
+          "Sales Region",
+          "Annual Target (Units)",
+          "Actual Sold (Units)",
+          "Variance"
+        ],
+        "rows": [
+          [
+            "Northern Territory",
+            "15,000",
+            "14,200",
+            "-800"
+          ],
+          [
+            "Eastern Coast",
+            "22,000",
+            "26,500",
+            "+4,500"
+          ],
+          [
+            "Central Prairies",
+            "18,000",
+            "17,100",
+            "-900"
+          ],
+          [
+            "Western Pacific",
+            "20,000",
+            "19,800",
+            "-200"
+          ]
+        ]
+      },
+      "audioScript": "Good morning sales managers. Looking at our finalized end-of-year automotive unit numbers on the slide projection, I want to commend everyone for an exceptional effort in a challenging economic climate. While supply chain disruptions in semiconductor chips caused slight shortfalls in three of our operational districts, one region performed extraordinarily well by closing fleet vehicle contracts with municipal governments, beating its annual goal by over twenty percent. Because of this stellar accomplishment, all sales account executives from that leading district will receive the President's Diamond Award and an all-expenses-paid trip to our global summit in Honolulu this spring. Let us now examine our inventory strategy for electric vehicle rollouts in the upcoming quarters.",
+      "transcript": "Good morning sales managers. Looking at our finalized end-of-year automotive unit numbers on the slide projection, I want to commend everyone for an exceptional effort in a challenging economic climate. While supply chain disruptions in semiconductor chips caused slight shortfalls in three of our operational districts, one region performed extraordinarily well by closing fleet vehicle contracts with municipal governments, beating its annual goal by over twenty percent. Because of this stellar accomplishment, all sales account executives from that leading district will receive the President's Diamond Award and an all-expenses-paid trip to our global summit in Honolulu this spring. Let us now examine our inventory strategy for electric vehicle rollouts in the upcoming quarters.",
+      "translation_vi": "Chào buổi sáng các trưởng phòng bán hàng. Nhìn vào những con số bán xe ô tô cuối năm đã được chốt trên màn chiếu, tôi muốn khen ngợi mọi người vì một nỗ lực phi thường trong bối cảnh kinh tế đầy thách thức. Mặc dù sự gián đoạn chuỗi cung ứng chip bán dẫn đã gây ra sự thiếu hụt nhẹ ở ba trong số các khu vực hoạt động của chúng ta, một khu vực đã thể hiện xuất sắc phi thường bằng cách ký kết các hợp đồng xe đoàn với các chính quyền thành phố, vượt mục tiêu hàng năm hơn 20%. Nhờ thành tích xuất sắc này, tất cả các chuyên viên bán hàng từ khu vực dẫn đầu đó sẽ nhận được Giải thưởng Kim cương của Chủ tịch và một chuyến đi đài thọ toàn bộ chi phí đến hội nghị thượng đỉnh toàn cầu của chúng ta tại Honolulu vào mùa xuân này. Giờ chúng ta hãy cùng xem xét chiến lược hàng tồn kho cho việc triển khai xe điện trong các quý tới.",
+      "questions": [
+        {
+          "id": "p4_s10_q01",
+          "q": "What challenge affected vehicle sales during the year?",
+          "options": [
+            "A. Severe foreign currency inflation",
+            "B. Supply chain disruptions in semiconductor chips",
+            "C. A nationwide dockworkers labor strike",
+            "D. A surge in automotive fuel prices"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "thách thức chuỗi cung ứng",
+          "correct_reason": "Speaker: 'supply chain disruptions in semiconductor chips caused slight shortfalls'",
+          "explanation_vi": "Khó khăn trong năm là sự gián đoạn chuỗi cung ứng chip bán dẫn (supply chain disruptions in semiconductor chips). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set10.mp3"
+        },
+        {
+          "id": "p4_s10_q02",
+          "q": "Look at the graphic. Which region will receive the President's Diamond Award?",
+          "options": [
+            "A. Northern Territory",
+            "B. Eastern Coast",
+            "C. Central Prairies",
+            "D. Western Pacific"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "graphic",
+          "trap_type": "đối chiếu khu vực vượt chỉ tiêu doanh số",
+          "correct_reason": "Speaker: 'beating its annual goal by over twenty percent... all sales account executives from that leading district will receive the President's Diamond Award.' Đối chiếu bảng: Eastern Coast đạt 26,500 so với chỉ tiêu 22,000 (+4,500 units ~ +20.5%).",
+          "explanation_vi": "Câu hỏi bảng biểu (Graphic question): Khu vực nào nhận giải thưởng? Người nói bảo khu vực duy nhất vượt chỉ tiêu trên 20%. Tra bảng: Eastern Coast đạt 26,500 xe so với mục tiêu 22,000 (vượt +4,500 xe). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set10.mp3"
+        },
+        {
+          "id": "p4_s10_q03",
+          "q": "What prize is included with the award?",
+          "options": [
+            "A. A new company-provided electric vehicle",
+            "B. A fully funded trip to a summit in Honolulu",
+            "C. Additional company shares and stock options",
+            "D. A six-week sabbatical leave"
+          ],
+          "ans": 1,
+          "ansLetter": "B",
+          "question_type": "detail",
+          "trap_type": "giải thưởng chuyến đi hội nghị",
+          "correct_reason": "Speaker: 'all-expenses-paid trip to our global summit in Honolulu this spring.'",
+          "explanation_vi": "Phần thưởng kèm theo là chuyến đi được đài thọ toàn bộ chi phí dự hội nghị thượng đỉnh tại Honolulu (fully funded trip to Honolulu). Chọn B.",
+          "audio_url": "/audio/listening/part4/p4_set10.mp3"
+        }
+      ],
+      "audio_url": "/audio/listening/part4/p4_set10.mp3"
+    }
+  ]
+};
+    const SCORE_TABLE = [5,5,5,5,5,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,115,120,125,130,135,140,145,150,160,165,170,175,180,185,190,195,200,210,215,220,230,240,245,250,255,260,270,275,280,290,295,300,310,315,320,325,330,340,345,350,360,365,370,380,385,390,395,400,405,410,420,425,430,440,445,450,460,465,470,475,480,485,490,495,495,495,495,495,495,495,495,495,495,495,495];
+
+    const ListeningDatabaseV2 = {
+        metadata: RAW_DB.metadata,
+        part1: RAW_DB.part1,
+        part2: RAW_DB.part2,
+        part3: RAW_DB.part3,
+        part4: RAW_DB.part4,
+
+        // Lấy danh sách câu hỏi theo Part (dạng Set nguyên bản cho Part 3 & 4)
+        getPartQuestions(partNum) {
+            const p = parseInt(partNum, 10);
+            if (p === 1) return this.part1;
+            if (p === 2) return this.part2;
+            if (p === 3) return this.part3;
+            if (p === 4) return this.part4;
+            return [];
+        },
+
+        // Làm phẳng Part 3 & Part 4 thành danh sách từng câu hỏi độc lập (dành cho QuickQuiz & tương thích ngược)
+        getFlattenedQuestions(partNum) {
+            const p = parseInt(partNum, 10);
+            if (p === 1) return this.part1;
+            if (p === 2) return this.part2;
+
+            if (p === 3) {
+                const flat = [];
+                this.part3.forEach((set, setIdx) => {
+                    const audioUrl = set.audio_url || `/audio/listening/part3/p3-set${setIdx + 1}.mp3`;
+                    set.questions.forEach((q, qIdx) => {
+                        flat.push({
+                            ...q,
+                            part: 3,
+                            setIndex: setIdx + 1,
+                            audio_url: audioUrl,
+                            audioScript: set.audioScript,
+                            transcript: set.transcript,
+                            passage: `<strong>🎧 Transcript Part 3 (Đoạn ${setIdx + 1}/13):</strong><br>` + set.transcript.replace(/\n/g, '<br>'),
+                            graphic: set.graphic || null,
+                            translation_vi: set.translation_vi,
+                            accent: set.accent
+                        });
+                    });
+                });
+                return flat;
+            }
+
+            if (p === 4) {
+                const flat = [];
+                this.part4.forEach((set, setIdx) => {
+                    const audioUrl = set.audio_url || `/audio/listening/part4/p4-set${setIdx + 1}.mp3`;
+                    set.questions.forEach((q, qIdx) => {
+                        flat.push({
+                            ...q,
+                            part: 4,
+                            setIndex: setIdx + 1,
+                            audio_url: audioUrl,
+                            audioScript: set.audioScript,
+                            transcript: set.transcript,
+                            passage: `<strong>🎧 Transcript Part 4 (Bài ${setIdx + 1}/10):</strong><br>` + set.transcript.replace(/\n/g, '<br>'),
+                            graphic: set.graphic || null,
+                            translation_vi: set.translation_vi,
+                            accent: set.accent
+                        });
+                    });
+                });
+                return flat;
+            }
+
+            return [];
+        },
+
+        // Lấy toàn bộ 100 câu cho Thi Thử Full Test (P1: 6, P2: 25, P3: 39, P4: 30)
+        getAllMockTestQuestions() {
+            return [
+                ...this.getFlattenedQuestions(1),
+                ...this.getFlattenedQuestions(2),
+                ...this.getFlattenedQuestions(3),
+                ...this.getFlattenedQuestions(4)
+            ];
+        },
+
+        // Lấy 25 câu ngẫu nhiên cho Mini Test (P1: 2, P2: 6, P3: 9 [3 sets], P4: 8 [~3 sets])
+        getMiniTestQuestions() {
+            const p1 = [...this.part1].sort(() => 0.5 - Math.random()).slice(0, 2);
+            const p2 = [...this.part2].sort(() => 0.5 - Math.random()).slice(0, 6);
+            
+            // Lấy 3 sets ngẫu nhiên từ Part 3 (9 câu)
+            const p3Sets = [...this.part3].sort(() => 0.5 - Math.random()).slice(0, 3);
+            const p3Flat = [];
+            p3Sets.forEach((set, setIdx) => {
+                const audioUrl = set.audio_url || `/audio/listening/part3/p3-set${set.setNumber}.mp3`;
+                set.questions.forEach(q => {
+                    p3Flat.push({
+                        ...q,
+                        part: 3,
+                        audio_url: audioUrl,
+                        audioScript: set.audioScript,
+                        transcript: set.transcript,
+                        graphic: set.graphic || null,
+                        translation_vi: set.translation_vi
+                    });
+                });
+            });
+
+            // Lấy 3 sets từ Part 4 (hoặc 8 câu)
+            const p4Sets = [...this.part4].sort(() => 0.5 - Math.random()).slice(0, 3);
+            const p4Flat = [];
+            p4Sets.forEach((set, setIdx) => {
+                const audioUrl = set.audio_url || `/audio/listening/part4/p4-set${set.setNumber}.mp3`;
+                set.questions.forEach(q => {
+                    p4Flat.push({
+                        ...q,
+                        part: 4,
+                        audio_url: audioUrl,
+                        audioScript: set.audioScript,
+                        transcript: set.transcript,
+                        graphic: set.graphic || null,
+                        translation_vi: set.translation_vi
+                    });
+                });
+            });
+
+            return [...p1, ...p2, ...p3Flat, ...p4Flat.slice(0, 8)];
+        },
+
+        // Quy đổi điểm thi TOEIC Listening chuẩn ETS (0 - 100 câu đúng -> Thang điểm 5 - 495)
+        calculateScore(correctCount) {
+            const count = Math.max(0, Math.min(100, parseInt(correctCount, 10) || 0));
+            const scaledScore = SCORE_TABLE[count] || 5;
+
+            // Đánh giá cấp độ CEFR
+            let cefr = 'A1';
+            let evaluation = 'Mức độ sơ cấp (Beginner)';
+            if (scaledScore >= 400) {
+                cefr = 'C1';
+                evaluation = 'Xuất sắc: Tiệm cận người bản xứ (Advanced / Fluent)';
+            } else if (scaledScore >= 300) {
+                cefr = 'B2';
+                evaluation = 'Tốt: Đủ điều kiện làm việc trong môi trường quốc tế (Upper-Intermediate)';
+            } else if (scaledScore >= 200) {
+                cefr = 'B1';
+                evaluation = 'Trung bình khá: Giao tiếp cơ bản và xử lý công việc thường nhật (Intermediate)';
+            } else if (scaledScore >= 110) {
+                cefr = 'A2';
+                evaluation = 'Sơ trung cấp: Hiểu được các câu giao tiếp cơ bản chậm và rõ (Elementary)';
+            }
+
+            return {
+                correctCount: count,
+                totalQuestions: 100,
+                scaledScore,
+                cefr,
+                evaluation,
+                accuracyPercent: Math.round((count / 100) * 100)
+            };
+        }
+    };
+
+    window.ListeningDatabaseV2 = ListeningDatabaseV2;
+
+})(typeof window !== 'undefined' ? window : global);

@@ -1,0 +1,542 @@
+{
+  "p1_q01": {
+    "id": "p1_q01",
+    "part": 1,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part1\\p1_q01.mp3",
+    "audio_url": "/audio/listening/part1/p1_q01.mp3",
+    "accent": "US",
+    "bytes": 185472,
+    "hash": "454f47867843352d00de058d9f81f7ba392b5e64a491656082153f27f12ea0f2",
+    "updated_at": "2026-10-24T05:12:35.976Z"
+  },
+  "p1_q02": {
+    "id": "p1_q02",
+    "part": 1,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part1\\p1_q02.mp3",
+    "audio_url": "/audio/listening/part1/p1_q02.mp3",
+    "accent": "UK",
+    "bytes": 205248,
+    "hash": "d0dcbd10a6d3b84f3a1fded41c5004ddc73e82ac83298fbaeea8820e0a17c88d",
+    "updated_at": "2026-10-24T05:12:37.536Z"
+  },
+  "p1_q03": {
+    "id": "p1_q03",
+    "part": 1,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part1\\p1_q03.mp3",
+    "audio_url": "/audio/listening/part1/p1_q03.mp3",
+    "accent": "AU",
+    "bytes": 211584,
+    "hash": "c4299096520a79eebc4dcfc8db21c638314e6f45c879b56bd7fab95df30d2bc4",
+    "updated_at": "2026-10-24T05:12:38.586Z"
+  },
+  "p1_q04": {
+    "id": "p1_q04",
+    "part": 1,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part1\\p1_q04.mp3",
+    "audio_url": "/audio/listening/part1/p1_q04.mp3",
+    "accent": "CA",
+    "bytes": 203904,
+    "hash": "b90ffaceaaa58e4b911c01ac514156f65da5a2d44d98109ed27b7265dc54b652",
+    "updated_at": "2026-10-24T05:12:39.756Z"
+  },
+  "p1_q05": {
+    "id": "p1_q05",
+    "part": 1,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part1\\p1_q05.mp3",
+    "audio_url": "/audio/listening/part1/p1_q05.mp3",
+    "accent": "US",
+    "bytes": 208320,
+    "hash": "abba323db47e27393875997c72ee364ec2d887999ac95cde1d3ff427193143e0",
+    "updated_at": "2026-10-24T05:12:40.776Z"
+  },
+  "p1_q06": {
+    "id": "p1_q06",
+    "part": 1,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part1\\p1_q06.mp3",
+    "audio_url": "/audio/listening/part1/p1_q06.mp3",
+    "accent": "UK",
+    "bytes": 214656,
+    "hash": "70fe1070fdacce7710e4a2774daee0299f077c87b21220f13e7402883343264b",
+    "updated_at": "2026-10-24T05:12:42.198Z"
+  },
+  "p2_q01": {
+    "id": "p2_q01",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q01.mp3",
+    "audio_url": "/audio/listening/part2/p2_q01.mp3",
+    "accent": "US",
+    "bytes": 143808,
+    "hash": "649081ae250d2f4448dc73c6258f0defa6d0b8e48af5947622f1eb1a9516255f",
+    "updated_at": "2026-10-24T05:12:42.880Z"
+  },
+  "p2_q02": {
+    "id": "p2_q02",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q02.mp3",
+    "audio_url": "/audio/listening/part2/p2_q02.mp3",
+    "accent": "UK",
+    "bytes": 141120,
+    "hash": "2a942414729f6d7303d2c8f0a791d6b318434280fc5a938ee3579cc34d4f35a8",
+    "updated_at": "2026-10-24T05:12:44.254Z"
+  },
+  "p2_q03": {
+    "id": "p2_q03",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q03.mp3",
+    "audio_url": "/audio/listening/part2/p2_q03.mp3",
+    "accent": "US",
+    "bytes": 144000,
+    "hash": "6261d86e4f4b12d90e83fac4b4d295b30fd6033e6140b2761349a59161aa3ac1",
+    "updated_at": "2026-10-24T05:12:44.996Z"
+  },
+  "p2_q04": {
+    "id": "p2_q04",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q04.mp3",
+    "audio_url": "/audio/listening/part2/p2_q04.mp3",
+    "accent": "AU",
+    "bytes": 162240,
+    "hash": "dc41f2e3df328d6ba1a46c9030353f54de004b32ca79583fa718937d3ba64b99",
+    "updated_at": "2026-10-24T05:12:45.804Z"
+  },
+  "p2_q05": {
+    "id": "p2_q05",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q05.mp3",
+    "audio_url": "/audio/listening/part2/p2_q05.mp3",
+    "accent": "CA",
+    "bytes": 146880,
+    "hash": "697114725361735836bb0d9f8ae953eb853032313ac183b132ee4912fbf2866a",
+    "updated_at": "2026-10-24T05:12:46.637Z"
+  },
+  "p2_q06": {
+    "id": "p2_q06",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q06.mp3",
+    "audio_url": "/audio/listening/part2/p2_q06.mp3",
+    "accent": "US",
+    "bytes": 140736,
+    "hash": "8dbde7eb6d665772c761f0afae1cca13c2066d70d391868803c005f183046e49",
+    "updated_at": "2026-10-24T05:12:47.478Z"
+  },
+  "p2_q07": {
+    "id": "p2_q07",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q07.mp3",
+    "audio_url": "/audio/listening/part2/p2_q07.mp3",
+    "accent": "UK",
+    "bytes": 166848,
+    "hash": "c9661da66160a17d3bf16fa8612aa5209555c221bd447cff615058d7e6d65659",
+    "updated_at": "2026-10-24T05:12:48.644Z"
+  },
+  "p2_q08": {
+    "id": "p2_q08",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q08.mp3",
+    "audio_url": "/audio/listening/part2/p2_q08.mp3",
+    "accent": "US",
+    "bytes": 151680,
+    "hash": "7c12fbfb3417a85b8cf9d41e3f9f431060e2c55ba59a48ff154967f2698d5e64",
+    "updated_at": "2026-10-24T05:12:49.510Z"
+  },
+  "p2_q09": {
+    "id": "p2_q09",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q09.mp3",
+    "audio_url": "/audio/listening/part2/p2_q09.mp3",
+    "accent": "AU",
+    "bytes": 183744,
+    "hash": "0d215c90136c90e4a706fed293ffb79126477dc46dfa75d233f252a7f0d70868",
+    "updated_at": "2026-10-24T05:12:50.293Z"
+  },
+  "p2_q10": {
+    "id": "p2_q10",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q10.mp3",
+    "audio_url": "/audio/listening/part2/p2_q10.mp3",
+    "accent": "US",
+    "bytes": 154368,
+    "hash": "36fd9770a351f075c0bf93a05ab6cf32d13038a8cffb0803e325d3ece8876899",
+    "updated_at": "2026-10-24T05:12:51.160Z"
+  },
+  "p2_q11": {
+    "id": "p2_q11",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q11.mp3",
+    "audio_url": "/audio/listening/part2/p2_q11.mp3",
+    "accent": "UK",
+    "bytes": 160320,
+    "hash": "68619ba9c33ff0ef88ac4f84a18e7c3db6ac268998171b98ab9cc94129e44424",
+    "updated_at": "2026-10-24T05:12:52.285Z"
+  },
+  "p2_q12": {
+    "id": "p2_q12",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q12.mp3",
+    "audio_url": "/audio/listening/part2/p2_q12.mp3",
+    "accent": "CA",
+    "bytes": 166656,
+    "hash": "9b4aba7254925702ac1880120dedd29d59ac98834c0cc34d9de90d7aa450b01a",
+    "updated_at": "2026-10-24T05:12:52.869Z"
+  },
+  "p2_q13": {
+    "id": "p2_q13",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q13.mp3",
+    "audio_url": "/audio/listening/part2/p2_q13.mp3",
+    "accent": "US",
+    "bytes": 153408,
+    "hash": "8efc1f9c30994973b44ea1f2d15ecf63be31dd891d351714f2b4737341a7d046",
+    "updated_at": "2026-10-24T05:12:53.589Z"
+  },
+  "p2_q14": {
+    "id": "p2_q14",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q14.mp3",
+    "audio_url": "/audio/listening/part2/p2_q14.mp3",
+    "accent": "UK",
+    "bytes": 155136,
+    "hash": "cc868bc86eebf0a012207eeb14874a10f62e5bdd6279f66bc0fded3da7194273",
+    "updated_at": "2026-10-24T05:12:54.713Z"
+  },
+  "p2_q15": {
+    "id": "p2_q15",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q15.mp3",
+    "audio_url": "/audio/listening/part2/p2_q15.mp3",
+    "accent": "AU",
+    "bytes": 174336,
+    "hash": "2a8c6ac5ead6b5327853f7ef769dc75c4f91b26db6818181e7b89a185466404a",
+    "updated_at": "2026-10-24T05:12:55.433Z"
+  },
+  "p2_q16": {
+    "id": "p2_q16",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q16.mp3",
+    "audio_url": "/audio/listening/part2/p2_q16.mp3",
+    "accent": "US",
+    "bytes": 145152,
+    "hash": "140c4d4126e84a1de81d96fc9cdc46c9ace88ea11feb3ac9e933832c4174d0b2",
+    "updated_at": "2026-10-24T05:12:56.217Z"
+  },
+  "p2_q17": {
+    "id": "p2_q17",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q17.mp3",
+    "audio_url": "/audio/listening/part2/p2_q17.mp3",
+    "accent": "CA",
+    "bytes": 147840,
+    "hash": "897bb8b26f5d45c75caf4099d7adb85a305fe1e81373fa0c20f6bbc11cb33b43",
+    "updated_at": "2026-10-24T05:12:56.905Z"
+  },
+  "p2_q18": {
+    "id": "p2_q18",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q18.mp3",
+    "audio_url": "/audio/listening/part2/p2_q18.mp3",
+    "accent": "US",
+    "bytes": 149376,
+    "hash": "0df6b3212dbfada3b63f2198c44032f78fab20b949a388a2a3d7698bf96edb51",
+    "updated_at": "2026-10-24T05:12:57.711Z"
+  },
+  "p2_q19": {
+    "id": "p2_q19",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q19.mp3",
+    "audio_url": "/audio/listening/part2/p2_q19.mp3",
+    "accent": "UK",
+    "bytes": 163200,
+    "hash": "18a7be6fd2b01300cb7101dc4b4c4e3d35ae4a9827180c88b9ceed2ccaa1930e",
+    "updated_at": "2026-10-24T05:12:59.005Z"
+  },
+  "p2_q20": {
+    "id": "p2_q20",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q20.mp3",
+    "audio_url": "/audio/listening/part2/p2_q20.mp3",
+    "accent": "AU",
+    "bytes": 177984,
+    "hash": "f6beac7bc74542de0a04d579431831eace7183bec0dfc3d13a209fbaf3e06e66",
+    "updated_at": "2026-10-24T05:12:59.834Z"
+  },
+  "p2_q21": {
+    "id": "p2_q21",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q21.mp3",
+    "audio_url": "/audio/listening/part2/p2_q21.mp3",
+    "accent": "US",
+    "bytes": 161280,
+    "hash": "100828f97f2586a7c1bf89da440bc8a7c632057e10d6b0549b6d1bce55663a88",
+    "updated_at": "2026-10-24T05:13:00.520Z"
+  },
+  "p2_q22": {
+    "id": "p2_q22",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q22.mp3",
+    "audio_url": "/audio/listening/part2/p2_q22.mp3",
+    "accent": "UK",
+    "bytes": 165888,
+    "hash": "8af51ec9cf7960cf6cde1a29c7ba360b724af41a512c24203cebed2de2bc74be",
+    "updated_at": "2026-10-24T05:13:01.635Z"
+  },
+  "p2_q23": {
+    "id": "p2_q23",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q23.mp3",
+    "audio_url": "/audio/listening/part2/p2_q23.mp3",
+    "accent": "US",
+    "bytes": 159168,
+    "hash": "fe52a89bcb6a7afe9d3239ad58d2d6b45c9fdcbf73ebedf7c5207917eb8e0b9f",
+    "updated_at": "2026-10-24T05:13:02.466Z"
+  },
+  "p2_q24": {
+    "id": "p2_q24",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q24.mp3",
+    "audio_url": "/audio/listening/part2/p2_q24.mp3",
+    "accent": "AU",
+    "bytes": 183936,
+    "hash": "b100377f8c7b00081b2ad8849b0a72d5c14fe30e884a6347ebd5d758ba74ba2a",
+    "updated_at": "2026-10-24T05:13:03.334Z"
+  },
+  "p2_q25": {
+    "id": "p2_q25",
+    "part": 2,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part2\\p2_q25.mp3",
+    "audio_url": "/audio/listening/part2/p2_q25.mp3",
+    "accent": "CA",
+    "bytes": 160704,
+    "hash": "c8cd57a84cb9b15eb5d5259399d58aa14ac21e1310b7c777ec68a5a374aab4c5",
+    "updated_at": "2026-10-24T05:13:04.165Z"
+  },
+  "p3_set01": {
+    "id": "p3_set01",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set01.mp3",
+    "audio_url": "/audio/listening/part3/p3_set01.mp3",
+    "accent": "US",
+    "bytes": 593856,
+    "hash": "ad7d33f2cdede516a3c6306d8b98363c6011888d5c0f427b8b5a60db93bedf75",
+    "updated_at": "2026-10-24T05:13:06.541Z"
+  },
+  "p3_set02": {
+    "id": "p3_set02",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set02.mp3",
+    "audio_url": "/audio/listening/part3/p3_set02.mp3",
+    "accent": "UK",
+    "bytes": 669696,
+    "hash": "f139b0885b4ebe7809710c30d3d4f14e8a5fdedacc320097c20e1fd369483184",
+    "updated_at": "2026-10-24T05:13:10.002Z"
+  },
+  "p3_set03": {
+    "id": "p3_set03",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set03.mp3",
+    "audio_url": "/audio/listening/part3/p3_set03.mp3",
+    "accent": "AU",
+    "bytes": 635904,
+    "hash": "fa6f7ba8c0f67b17ffcea44f4f8f4e6d0699f2c8b21bdffda71a6e74cac3a60e",
+    "updated_at": "2026-10-24T05:13:12.732Z"
+  },
+  "p3_set04": {
+    "id": "p3_set04",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set04.mp3",
+    "audio_url": "/audio/listening/part3/p3_set04.mp3",
+    "accent": "US",
+    "bytes": 637056,
+    "hash": "d3f28a15b95bfab8253b8572ad7cd2b2f4542c90e9dd09ea69b9c48adbbb2686",
+    "updated_at": "2026-10-24T05:13:15.243Z"
+  },
+  "p3_set05": {
+    "id": "p3_set05",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set05.mp3",
+    "audio_url": "/audio/listening/part3/p3_set05.mp3",
+    "accent": "CA",
+    "bytes": 645888,
+    "hash": "56f24b5dabfe165da396e0f738dff821e018b36c827a408e85c19199b9026249",
+    "updated_at": "2026-10-24T05:13:18.113Z"
+  },
+  "p3_set06": {
+    "id": "p3_set06",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set06.mp3",
+    "audio_url": "/audio/listening/part3/p3_set06.mp3",
+    "accent": "US",
+    "bytes": 638400,
+    "hash": "a2a622cd195fe51da72fc8a809103b8f82ee3821a85c4ec8b2cfb538e452c317",
+    "updated_at": "2026-10-24T05:13:20.772Z"
+  },
+  "p3_set07": {
+    "id": "p3_set07",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set07.mp3",
+    "audio_url": "/audio/listening/part3/p3_set07.mp3",
+    "accent": "UK",
+    "bytes": 611328,
+    "hash": "51a7deb8a668eb808df523435996d299e49e4e8604fdf27684508a768bec7ecd",
+    "updated_at": "2026-10-24T05:13:24.418Z"
+  },
+  "p3_set08": {
+    "id": "p3_set08",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set08.mp3",
+    "audio_url": "/audio/listening/part3/p3_set08.mp3",
+    "accent": "AU",
+    "bytes": 664512,
+    "hash": "a8d736a7230a73e3d1124caf7b5a5fce512689e6a91c5050fb1789054e370ace",
+    "updated_at": "2026-10-24T05:13:27.266Z"
+  },
+  "p3_set09": {
+    "id": "p3_set09",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set09.mp3",
+    "audio_url": "/audio/listening/part3/p3_set09.mp3",
+    "accent": "CA",
+    "bytes": 626496,
+    "hash": "1c0efb28e71e963517e8d1d5f1fa42a2183c3fb5d54876ced8e69657ffc1e5fd",
+    "updated_at": "2026-10-24T05:13:29.814Z"
+  },
+  "p3_set10": {
+    "id": "p3_set10",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set10.mp3",
+    "audio_url": "/audio/listening/part3/p3_set10.mp3",
+    "accent": "US",
+    "bytes": 641664,
+    "hash": "a215f28f6b09820735ce86361a792aa00da7a8bcbbbf1d13529e031ed1fce9c5",
+    "updated_at": "2026-10-24T05:13:32.578Z"
+  },
+  "p3_set11": {
+    "id": "p3_set11",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set11.mp3",
+    "audio_url": "/audio/listening/part3/p3_set11.mp3",
+    "accent": "UK",
+    "bytes": 613824,
+    "hash": "6283989034eb6ba801a909f2554b389c726400805eef13a73c2b7316da4d5377",
+    "updated_at": "2026-10-24T05:13:35.829Z"
+  },
+  "p3_set12": {
+    "id": "p3_set12",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set12.mp3",
+    "audio_url": "/audio/listening/part3/p3_set12.mp3",
+    "accent": "CA",
+    "bytes": 674304,
+    "hash": "51d9fc4d2a9d35e1ee0c4afa8527df44ee5cdc371bc62db3ee28b945f8e38726",
+    "updated_at": "2026-10-24T05:13:38.471Z"
+  },
+  "p3_set13": {
+    "id": "p3_set13",
+    "part": 3,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part3\\p3_set13.mp3",
+    "audio_url": "/audio/listening/part3/p3_set13.mp3",
+    "accent": "US",
+    "bytes": 651264,
+    "hash": "47e502370fa5de7618b8e8d37b55582e64dd47b3e17f5600acb2b4ee57d0312b",
+    "updated_at": "2026-10-24T05:13:41.379Z"
+  },
+  "p4_set01": {
+    "id": "p4_set01",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set01.mp3",
+    "audio_url": "/audio/listening/part4/p4_set01.mp3",
+    "accent": "US",
+    "bytes": 627072,
+    "hash": "5e5cfd1fcc1ec1fe7d87cd7c64d689f150e217672e7f941ac5476b8536724d8d",
+    "updated_at": "2026-10-24T05:13:43.802Z"
+  },
+  "p4_set02": {
+    "id": "p4_set02",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set02.mp3",
+    "audio_url": "/audio/listening/part4/p4_set02.mp3",
+    "accent": "UK",
+    "bytes": 697728,
+    "hash": "0d17af573de444c5761b5a5e7c5ff987b23939375330beedc3905c0f62f0d1bc",
+    "updated_at": "2026-10-24T05:13:47.425Z"
+  },
+  "p4_set03": {
+    "id": "p4_set03",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set03.mp3",
+    "audio_url": "/audio/listening/part4/p4_set03.mp3",
+    "accent": "US",
+    "bytes": 743424,
+    "hash": "86b4a850f0025fcf870f9d7b5a10dd95264e222ad99edbd7ae7295a4e8d08a49",
+    "updated_at": "2026-10-24T05:13:50.906Z"
+  },
+  "p4_set04": {
+    "id": "p4_set04",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set04.mp3",
+    "audio_url": "/audio/listening/part4/p4_set04.mp3",
+    "accent": "AU",
+    "bytes": 734400,
+    "hash": "df9adca0cac1f831a67a011d8db3e4a8fd8a81ad8b72757bc9edf663ba610bc2",
+    "updated_at": "2026-10-24T05:13:54.306Z"
+  },
+  "p4_set05": {
+    "id": "p4_set05",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set05.mp3",
+    "audio_url": "/audio/listening/part4/p4_set05.mp3",
+    "accent": "CA",
+    "bytes": 713664,
+    "hash": "53191f9d2a855fee38f767e7a768520a72d08a0b28dfa1425949dfa97bfafc3a",
+    "updated_at": "2026-10-24T05:13:57.692Z"
+  },
+  "p4_set06": {
+    "id": "p4_set06",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set06.mp3",
+    "audio_url": "/audio/listening/part4/p4_set06.mp3",
+    "accent": "UK",
+    "bytes": 769536,
+    "hash": "a0b43a535a2714033f58f9d09c651ea4ddcebab49e92563cb42c1a840317cf68",
+    "updated_at": "2026-10-24T05:14:01.723Z"
+  },
+  "p4_set07": {
+    "id": "p4_set07",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set07.mp3",
+    "audio_url": "/audio/listening/part4/p4_set07.mp3",
+    "accent": "US",
+    "bytes": 778176,
+    "hash": "6b9f261a28b70e0e9dc00d3c64a1639dd72ab8d14e9fa1022c0875a77bf2a18e",
+    "updated_at": "2026-10-24T05:14:04.919Z"
+  },
+  "p4_set08": {
+    "id": "p4_set08",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set08.mp3",
+    "audio_url": "/audio/listening/part4/p4_set08.mp3",
+    "accent": "UK",
+    "bytes": 752064,
+    "hash": "1657cede24629cbd8c755fc158ae65eb1aed5a1bdc7d335bccd8b539b16aa418",
+    "updated_at": "2026-10-24T05:14:12.832Z"
+  },
+  "p4_set09": {
+    "id": "p4_set09",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set09.mp3",
+    "audio_url": "/audio/listening/part4/p4_set09.mp3",
+    "accent": "US",
+    "bytes": 716352,
+    "hash": "4a3abe5a9010a7a287a57b8df56d69c942c864f361db545a57138d9beed3bc0e",
+    "updated_at": "2026-10-24T05:14:15.891Z"
+  },
+  "p4_set10": {
+    "id": "p4_set10",
+    "part": 4,
+    "file_path": "C:\\Users\\Admin\\Documents\\antigravity\\noble-franklin\\public\\audio\\listening\\part4\\p4_set10.mp3",
+    "audio_url": "/audio/listening/part4/p4_set10.mp3",
+    "accent": "CA",
+    "bytes": 708096,
+    "hash": "7180b46b9ab2269f49aa7297a689ceab9d888dc985239c3d550972b6962d39cb",
+    "updated_at": "2026-10-24T05:14:18.992Z"
+  }
+}

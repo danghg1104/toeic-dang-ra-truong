@@ -1,7 +1,7 @@
 {
   "territory": {
     "word": "territory",
-    "phonetic": "/ˈtɛɹɪt(ə)ɹi/",
+    "phonetic": "/ˈtɜːrrɪtɔːri/",
     "partOfSpeech": "Noun",
     "vi": "lãnh thổ",
     "definition": "A large extent or tract of land; for example a region, country or district.",
@@ -55,11 +55,19 @@
         "en": "Understanding the usage of \"territory\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"territory\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈtɜːrrɪtɔːri/",
+      "uk": "/ˈtɜːrɪtɔːi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=territory&accent=US&lang=en-US",
+      "uk": "/api/tts?text=territory&accent=UK&lang=en-GB"
+    }
   },
   "sales territory": {
     "word": "sales territory",
-    "phonetic": "",
+    "phonetic": "/ˌsæles ˈtɜːrrɪtɔːri/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "khu vực tiêu thụ",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -85,11 +93,19 @@
         "en": "It is critical to utilize \"sales territory\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"sales territory\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌsæles ˈtɜːrrɪtɔːri/",
+      "uk": "/ˌsæles ˈtɜːrɪtɔːi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=sales%20territory&accent=US&lang=en-US",
+      "uk": "/api/tts?text=sales%20territory&accent=UK&lang=en-GB"
+    }
   },
   "cozy": {
     "word": "cozy",
-    "phonetic": "/ˈcozy/",
+    "phonetic": "/ˈkɑːzi/",
     "partOfSpeech": "Noun & Verb & Adjective",
     "vi": "Cozy.",
     "definition": "A padded or knit covering put on an item to keep it warm, especially a teapot or egg.",
@@ -136,11 +152,19 @@
         "en": "Understanding the usage of \"cozy\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"cozy\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈkɑːzi/",
+      "uk": "/ˈkɒzi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=cozy&accent=US&lang=en-US",
+      "uk": "/api/tts?text=cozy&accent=UK&lang=en-GB"
+    }
   },
   "knight": {
     "word": "knight",
-    "phonetic": "/naɪt/",
+    "phonetic": "/ˈknæɪt/",
     "partOfSpeech": "Noun",
     "vi": "Hiệp sĩ",
     "definition": "A young servant or follower; a trained military attendant in service of a lord.",
@@ -177,11 +201,19 @@
         "en": "Understanding the usage of \"knight\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"knight\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈknæɪt/",
+      "uk": "/ˈknæɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=knight&accent=US&lang=en-US",
+      "uk": "/api/tts?text=knight&accent=UK&lang=en-GB"
+    }
   },
   "night": {
     "word": "night",
-    "phonetic": "/naɪt/",
+    "phonetic": "/ˈnæɪt/",
     "partOfSpeech": "Noun & Verb & Interjection",
     "vi": "đêm",
     "definition": "The period between sunset and sunrise, when a location faces far away from the sun, thus when the sky is dark.",
@@ -239,11 +271,19 @@
         "en": "Night, y'all! Thanks for a great evening!",
         "vi": "Ví dụ: \"Night, y'all! Thanks for a great evening!\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈnæɪt/",
+      "uk": "/ˈnæɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=night&accent=US&lang=en-US",
+      "uk": "/api/tts?text=night&accent=UK&lang=en-GB"
+    }
   },
   "haft": {
     "word": "haft",
-    "phonetic": "/ˈhaft/",
+    "phonetic": "/ˈhæft/",
     "partOfSpeech": "General Vocabulary",
     "vi": "Chuôi dao",
     "definition": "An essential English term in academic and professional communication.",
@@ -273,11 +313,19 @@
         "en": "Understanding the usage of \"haft\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"haft\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈhæft/",
+      "uk": "/ˈhæft/"
+    },
+    "audio": {
+      "us": "/api/tts?text=haft&accent=US&lang=en-US",
+      "uk": "/api/tts?text=haft&accent=UK&lang=en-GB"
+    }
   },
   "country": {
     "word": "country",
-    "phonetic": "/ˈkʌn.tri/",
+    "phonetic": "/ˈkʌntri/",
     "partOfSpeech": "Noun & Adjective",
     "vi": "Quốc gia, đất nước, quê hương (Danh từ); thuộc nông thôn, miền quê (Tính từ)",
     "definition": "An area of land that is controlled by its own government; an area outside cities with fields, woods, and farms.",
@@ -387,11 +435,19 @@
         "en": "Our products meet strict safety standards in every destination country.",
         "vi": "Sản phẩm của chúng tôi đáp ứng các tiêu chuẩn an toàn nghiêm ngặt tại mọi quốc gia xuất khẩu."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈkʌntri/",
+      "uk": "/ˈkʌntri/"
+    },
+    "audio": {
+      "us": "/api/tts?text=country&accent=US&lang=en-US",
+      "uk": "/api/tts?text=country&accent=UK&lang=en-GB"
+    }
   },
   "half": {
     "word": "half",
-    "phonetic": "/hɑːf/",
+    "phonetic": "/ˈhælf/",
     "partOfSpeech": "Noun, Adjective & Adverb",
     "vi": "Một nửa, phần chia đôi (Danh từ/Tính từ); chia đôi, giảm một nửa (Động từ: halve)",
     "definition": "One of two usually roughly equal parts into which anything may be divided.",
@@ -487,11 +543,19 @@
         "en": "The engineering team managed to halve the production cycle time this quarter.",
         "vi": "Đội ngũ kỹ thuật đã rút ngắn một nửa thời gian chu kỳ sản xuất trong quý này."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈhælf/",
+      "uk": "/ˈhælf/"
+    },
+    "audio": {
+      "us": "/api/tts?text=half&accent=US&lang=en-US",
+      "uk": "/api/tts?text=half&accent=UK&lang=en-GB"
+    }
   },
   "library": {
     "word": "library",
-    "phonetic": "/ˈlibrary/",
+    "phonetic": "/ˈlɪbrɑːri/",
     "partOfSpeech": "General Vocabulary",
     "vi": "thư viện",
     "definition": "An essential English term in academic and professional communication.",
@@ -521,11 +585,19 @@
         "en": "Understanding the usage of \"library\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"library\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈlɪbrɑːri/",
+      "uk": "/ˈlɪbrɑːi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=library&accent=US&lang=en-US",
+      "uk": "/api/tts?text=library&accent=UK&lang=en-GB"
+    }
   },
   "sovereign": {
     "word": "sovereign",
-    "phonetic": "/ˈsovereign/",
+    "phonetic": "/ˈsɑːvɜːreɪgn/",
     "partOfSpeech": "General Vocabulary",
     "vi": "Chủ quyền",
     "definition": "An essential English term in academic and professional communication.",
@@ -555,11 +627,19 @@
         "en": "Understanding the usage of \"sovereign\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"sovereign\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈsɑːvɜːreɪgn/",
+      "uk": "/ˈsɒvɜːeɪgn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=sovereign&accent=US&lang=en-US",
+      "uk": "/api/tts?text=sovereign&accent=UK&lang=en-GB"
+    }
   },
   "legislation": {
     "word": "legislation",
-    "phonetic": "/ˌlɛd͡ʒɪsˈleɪʃən/",
+    "phonetic": "/ˈlegɪslæ.ʃn/",
     "partOfSpeech": "Noun",
     "vi": "pháp luật",
     "definition": "The act of legislating; preparation and enactment of laws; the laws enacted.",
@@ -594,11 +674,19 @@
         "en": "Understanding the usage of \"legislation\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"legislation\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈlegɪslæ.ʃn/",
+      "uk": "/ˈlegɪslæ.ʃn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=legislation&accent=US&lang=en-US",
+      "uk": "/api/tts?text=legislation&accent=UK&lang=en-GB"
+    }
   },
   "democracy": {
     "word": "democracy",
-    "phonetic": "/dɪˈmɒkɹəsi/",
+    "phonetic": "/ˈdemɑːkræsi/",
     "partOfSpeech": "Noun",
     "vi": "dân chủ",
     "definition": "Rule by the people, especially as a form of government; either directly or through elected representatives (representative democracy).",
@@ -635,11 +723,19 @@
         "en": "Understanding the usage of \"democracy\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"democracy\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈdemɑːkræsi/",
+      "uk": "/ˈdemɒkræsi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=democracy&accent=US&lang=en-US",
+      "uk": "/api/tts?text=democracy&accent=UK&lang=en-GB"
+    }
   },
   "greenhouse gas": {
     "word": "greenhouse gas",
-    "phonetic": "",
+    "phonetic": "/ˌgrɪːnhæʊse ˈgæs/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "khí gây ra hiệu ứng nhà kính",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -665,11 +761,19 @@
         "en": "It is critical to utilize \"greenhouse gas\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"greenhouse gas\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌgrɪːnhæʊse ˈgæs/",
+      "uk": "/ˌgrɪːnhæʊse ˈgæs/"
+    },
+    "audio": {
+      "us": "/api/tts?text=greenhouse%20gas&accent=US&lang=en-US",
+      "uk": "/api/tts?text=greenhouse%20gas&accent=UK&lang=en-GB"
+    }
   },
   "gross domestic product (gdp)": {
     "word": "gross domestic product (gdp)",
-    "phonetic": "",
+    "phonetic": "/ˌgrɑːss ˈdɑːmestɪk ˈprɑːdʌkt ˈgdp/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "Tổng sản phẩm quốc nội (GDP)",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -695,11 +799,19 @@
         "en": "It is critical to utilize \"gross domestic product (gdp)\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"gross domestic product (gdp)\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌgrɑːss ˈdɑːmestɪk ˈprɑːdʌkt ˈgdp/",
+      "uk": "/ˌgrɒss ˈdɒmestɪk ˈprɒdʌkt ˈgdp/"
+    },
+    "audio": {
+      "us": "/api/tts?text=gross%20domestic%20product%20(gdp)&accent=US&lang=en-US",
+      "uk": "/api/tts?text=gross%20domestic%20product%20(gdp)&accent=UK&lang=en-GB"
+    }
   },
   "economic policy": {
     "word": "economic policy",
-    "phonetic": "",
+    "phonetic": "/ˌekɑːnɑːmɪk ˈpɑːləsi/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "chính sách kinh tế",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -725,11 +837,19 @@
         "en": "It is critical to utilize \"economic policy\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"economic policy\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌekɑːnɑːmɪk ˈpɑːləsi/",
+      "uk": "/ˌekɒnɒmɪk ˈpɒləsi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=economic%20policy&accent=US&lang=en-US",
+      "uk": "/api/tts?text=economic%20policy&accent=UK&lang=en-GB"
+    }
   },
   "strong argument": {
     "word": "strong argument",
-    "phonetic": "",
+    "phonetic": "/ˌstrɑːŋ ˈɑːrgʌ.ment/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "tranh luận mạnh mẽ",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -755,11 +875,19 @@
         "en": "It is critical to utilize \"strong argument\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"strong argument\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌstrɑːŋ ˈɑːrgʌ.ment/",
+      "uk": "/ˌstrɒŋ ˈɑːgʌ.ment/"
+    },
+    "audio": {
+      "us": "/api/tts?text=strong%20argument&accent=US&lang=en-US",
+      "uk": "/api/tts?text=strong%20argument&accent=UK&lang=en-GB"
+    }
   },
   "economy": {
     "word": "economy",
-    "phonetic": "/iːˈkɒn.ə.mi/",
+    "phonetic": "/ˈekɑːnɑːmi/",
     "partOfSpeech": "Noun & Adjective",
     "vi": "tiết kiệm, quản lý kinh tế",
     "definition": "Effective management of a community or system, or especially its resources.",
@@ -799,11 +927,19 @@
         "en": "Economy size.",
         "vi": "Ví dụ: \"Economy size.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈekɑːnɑːmi/",
+      "uk": "/ˈekɒnɒmi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=economy&accent=US&lang=en-US",
+      "uk": "/api/tts?text=economy&accent=UK&lang=en-GB"
+    }
   },
   "economical": {
     "word": "economical",
-    "phonetic": "/ˌɛkəˈnɒmɪkəl/",
+    "phonetic": "/ˈekɑːnɑːmɪk.æl/",
     "partOfSpeech": "Adjective",
     "vi": "tiết kiệm",
     "definition": "Careful with money so as not to spend too much; prudent; thrifty.",
@@ -838,11 +974,19 @@
         "en": "He was an economical person by nature.",
         "vi": "Ví dụ: \"He was an economical person by nature.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈekɑːnɑːmɪk.æl/",
+      "uk": "/ˈekɒnɒmɪk.æl/"
+    },
+    "audio": {
+      "us": "/api/tts?text=economical&accent=US&lang=en-US",
+      "uk": "/api/tts?text=economical&accent=UK&lang=en-GB"
+    }
   },
   "requirement": {
     "word": "requirement",
-    "phonetic": "/ˈrequirement/",
+    "phonetic": "/ˈrekwɜːre.ment/",
     "partOfSpeech": "General Vocabulary",
     "vi": "tối thiểu",
     "definition": "An essential English term in academic and professional communication.",
@@ -872,11 +1016,19 @@
         "en": "Understanding the usage of \"requirement\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"requirement\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈrekwɜːre.ment/",
+      "uk": "/ˈrekwɜːe.ment/"
+    },
+    "audio": {
+      "us": "/api/tts?text=requirement&accent=US&lang=en-US",
+      "uk": "/api/tts?text=requirement&accent=UK&lang=en-GB"
+    }
   },
   "carry out": {
     "word": "carry out",
-    "phonetic": "",
+    "phonetic": "/ˌkæri ˈaʊt/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "tiến hành",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -902,11 +1054,19 @@
         "en": "It is critical to utilize \"carry out\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"carry out\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌkæri ˈaʊt/",
+      "uk": "/ˌkæri ˈaʊt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=carry%20out&accent=US&lang=en-US",
+      "uk": "/api/tts?text=carry%20out&accent=UK&lang=en-GB"
+    }
   },
   "in charge of": {
     "word": "in charge of",
-    "phonetic": "",
+    "phonetic": "/ɪn ˈtʃɑːrdʒ əv/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "phụ trách",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -932,11 +1092,19 @@
         "en": "It is critical to utilize \"in charge of\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"in charge of\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ɪn ˈtʃɑːrdʒ əv/",
+      "uk": "/ɪn ˈtʃɑːdʒ əv/"
+    },
+    "audio": {
+      "us": "/api/tts?text=in%20charge%20of&accent=US&lang=en-US",
+      "uk": "/api/tts?text=in%20charge%20of&accent=UK&lang=en-GB"
+    }
   },
   "look forward to": {
     "word": "look forward to",
-    "phonetic": "",
+    "phonetic": "/ˌlʊk ˈfɔːrwərd tuː/",
     "partOfSpeech": "Cụm từ / Collocation",
     "vi": "Chúng tôi rất mong được",
     "definition": "A fixed lexical collocation widely tested in TOEIC, VSTEP, and business communication.",
@@ -962,11 +1130,19 @@
         "en": "It is critical to utilize \"look forward to\" correctly in official business correspondence.",
         "vi": "Việc sử dụng chuẩn xác cụm từ \"look forward to\" là rất quan trọng trong thư tín thương mại chính thức."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˌlʊk ˈfɔːrwərd tuː/",
+      "uk": "/ˌlʊk ˈfɔːwəd tuː/"
+    },
+    "audio": {
+      "us": "/api/tts?text=look%20forward%20to&accent=US&lang=en-US",
+      "uk": "/api/tts?text=look%20forward%20to&accent=UK&lang=en-GB"
+    }
   },
   "don't": {
     "word": "don't",
-    "phonetic": "/dəʊnt/",
+    "phonetic": "/ˈdɑːnt/",
     "partOfSpeech": "Noun",
     "vi": "Đừng...",
     "definition": "Something that must not be done (usually in the phrase dos and don'ts).",
@@ -1003,11 +1179,19 @@
         "en": "Understanding the usage of \"don't\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"don't\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈdɑːnt/",
+      "uk": "/ˈdɒnt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=don't&accent=US&lang=en-US",
+      "uk": "/api/tts?text=don't&accent=UK&lang=en-GB"
+    }
   },
   "well-known": {
     "word": "well-known",
-    "phonetic": "/ˈwell-known/",
+    "phonetic": "/ˈwellknɑːʊn/",
     "partOfSpeech": "General Vocabulary",
     "vi": "Nổi tiế",
     "definition": "An essential English term in academic and professional communication.",
@@ -1037,11 +1221,19 @@
         "en": "Understanding the usage of \"well-known\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"well-known\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈwellknɑːʊn/",
+      "uk": "/ˈwellknəʊn/"
+    },
+    "audio": {
+      "us": "/api/tts?text=well-known&accent=US&lang=en-US",
+      "uk": "/api/tts?text=well-known&accent=UK&lang=en-GB"
+    }
   },
   "covid-19": {
     "word": "covid-19",
-    "phonetic": "/ˈcovid-19/",
+    "phonetic": "/ˈkɑːvɪd/",
     "partOfSpeech": "General Vocabulary",
     "vi": "Từ vựng tiếng Anh: \"covid-19\"",
     "definition": "An essential English term in academic and professional communication.",
@@ -1071,11 +1263,19 @@
         "en": "Understanding the usage of \"covid-19\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"covid-19\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈkɑːvɪd/",
+      "uk": "/ˈkɒvɪd/"
+    },
+    "audio": {
+      "us": "/api/tts?text=covid-19&accent=US&lang=en-US",
+      "uk": "/api/tts?text=covid-19&accent=UK&lang=en-GB"
+    }
   },
   "a": {
     "word": "a",
-    "phonetic": "/æɪ/",
+    "phonetic": "/ə/",
     "partOfSpeech": "Noun",
     "vi": "Từ vựng tiếng Anh: \"a\"",
     "definition": "The name of the Latin script letter A/a.",
@@ -1110,11 +1310,19 @@
         "en": "Understanding the usage of \"a\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"a\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ə/",
+      "uk": "/ə/"
+    },
+    "audio": {
+      "us": "/api/tts?text=a&accent=US&lang=en-US",
+      "uk": "/api/tts?text=a&accent=UK&lang=en-GB"
+    }
   },
   "invoice": {
     "word": "invoice",
-    "phonetic": "/ˈɪnˌvɔɪs/",
+    "phonetic": "/ˈɪnvɔɪse/",
     "partOfSpeech": "Noun & Verb",
     "vi": "hóa đơn",
     "definition": "A bill; a commercial document issued by a seller to a buyer indicating the products, quantities and agreed prices for products or services that the seller has already provided the buyer with. An invoice indicates that, unless paid in advance, payment is due by the buyer to the seller, according to the agreed terms.",
@@ -1156,11 +1364,19 @@
         "en": "I will invoice my supplier tomorrow.",
         "vi": "Ví dụ: \"I will invoice my supplier tomorrow.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈɪnvɔɪse/",
+      "uk": "/ˈɪnvɔɪse/"
+    },
+    "audio": {
+      "us": "/api/tts?text=invoice&accent=US&lang=en-US",
+      "uk": "/api/tts?text=invoice&accent=UK&lang=en-GB"
+    }
   },
   "schedule": {
     "word": "schedule",
-    "phonetic": "/ˈskɛ.dʒu.əl/",
+    "phonetic": "/ˈskedʒuːl/",
     "partOfSpeech": "Noun & Verb",
     "vi": "Từ vựng tiếng Anh: \"schedule\"",
     "definition": "A slip of paper; a short note.",
@@ -1209,11 +1425,19 @@
         "en": "Understanding the usage of \"schedule\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"schedule\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈskedʒuːl/",
+      "uk": "/ˈʃedjuːl/"
+    },
+    "audio": {
+      "us": "/api/tts?text=schedule&accent=US&lang=en-US",
+      "uk": "/api/tts?text=schedule&accent=UK&lang=en-GB"
+    }
   },
   "postpone": {
     "word": "postpone",
-    "phonetic": "/ˈpostpone/",
+    "phonetic": "/ˈpɑːstpɑːne/",
     "partOfSpeech": "General Vocabulary",
     "vi": "hoãn lại",
     "definition": "An essential English term in academic and professional communication.",
@@ -1243,11 +1467,19 @@
         "en": "Understanding the usage of \"postpone\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"postpone\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈpɑːstpɑːne/",
+      "uk": "/ˈpɒstpɒne/"
+    },
+    "audio": {
+      "us": "/api/tts?text=postpone&accent=US&lang=en-US",
+      "uk": "/api/tts?text=postpone&accent=UK&lang=en-GB"
+    }
   },
   "candidate": {
     "word": "candidate",
-    "phonetic": "/ˈkæn.dɪdət/",
+    "phonetic": "/ˈkændɪdæte/",
     "partOfSpeech": "Noun & Verb",
     "vi": "người ứng cử, thí sinh",
     "definition": "A person who is running in an election.",
@@ -1287,11 +1519,19 @@
         "en": "Understanding the usage of \"candidate\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"candidate\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈkændɪdæte/",
+      "uk": "/ˈkændɪdæte/"
+    },
+    "audio": {
+      "us": "/api/tts?text=candidate&accent=US&lang=en-US",
+      "uk": "/api/tts?text=candidate&accent=UK&lang=en-GB"
+    }
   },
   "confirm": {
     "word": "confirm",
-    "phonetic": "/kənˈfɜːm/",
+    "phonetic": "/ˈkɑːnfɜːrm/",
     "partOfSpeech": "Verb",
     "vi": "xác nhận, chứng thực",
     "definition": "To strengthen; to make firm or resolute.",
@@ -1333,11 +1573,19 @@
         "en": "Understanding the usage of \"confirm\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"confirm\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈkɑːnfɜːrm/",
+      "uk": "/ˈkɒnfɜːm/"
+    },
+    "audio": {
+      "us": "/api/tts?text=confirm&accent=US&lang=en-US",
+      "uk": "/api/tts?text=confirm&accent=UK&lang=en-GB"
+    }
   },
   "deadline": {
     "word": "deadline",
-    "phonetic": "/ˈdɛdˌlaɪn/",
+    "phonetic": "/ˈdɪːdlɪne/",
     "partOfSpeech": "Noun & Verb",
     "vi": "Thời hạn",
     "definition": "A time limit in the form of a date on or before which something must be completed.",
@@ -1377,11 +1625,19 @@
         "en": "I must make this deadline or my boss will kill me!",
         "vi": "Ví dụ: \"I must make this deadline or my boss will kill me!\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈdɪːdlɪne/",
+      "uk": "/ˈdɪːdlɪne/"
+    },
+    "audio": {
+      "us": "/api/tts?text=deadline&accent=US&lang=en-US",
+      "uk": "/api/tts?text=deadline&accent=UK&lang=en-GB"
+    }
   },
   "implement": {
     "word": "implement",
-    "phonetic": "/ˈɪmpləmənt/",
+    "phonetic": "/ˈɪmple.ment/",
     "partOfSpeech": "Noun",
     "vi": "thực hiện",
     "definition": "A tool or instrument for working with.",
@@ -1416,11 +1672,19 @@
         "en": "They carried an assortment of gardening implements in the truck.",
         "vi": "Ví dụ: \"They carried an assortment of gardening implements in the truck.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈɪmple.ment/",
+      "uk": "/ˈɪmple.ment/"
+    },
+    "audio": {
+      "us": "/api/tts?text=implement&accent=US&lang=en-US",
+      "uk": "/api/tts?text=implement&accent=UK&lang=en-GB"
+    }
   },
   "policy": {
     "word": "policy",
-    "phonetic": "/ˈpɒləsi/",
+    "phonetic": "/ˈpɑːləsi/",
     "partOfSpeech": "Noun & Verb",
     "vi": "Khảo sát về các quy định và chính sách đang áp dụng trong Nhà trường",
     "definition": "A principle of behaviour, conduct etc. thought to be desirable or necessary, especially as formally expressed by a government or other authoritative body.",
@@ -1460,11 +1724,19 @@
         "en": "The Communist Party has a policy of returning power to the workers.",
         "vi": "Ví dụ: \"The Communist Party has a policy of returning power to the workers.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈpɑːləsi/",
+      "uk": "/ˈpɒləsi/"
+    },
+    "audio": {
+      "us": "/api/tts?text=policy&accent=US&lang=en-US",
+      "uk": "/api/tts?text=policy&accent=UK&lang=en-GB"
+    }
   },
   "warranty": {
     "word": "warranty",
-    "phonetic": "/ˈwarranty/",
+    "phonetic": "/ˈwɑːrrænti/",
     "partOfSpeech": "General Vocabulary",
     "vi": "đảm bảo",
     "definition": "An essential English term in academic and professional communication.",
@@ -1494,11 +1766,19 @@
         "en": "Understanding the usage of \"warranty\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"warranty\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈwɑːrrænti/",
+      "uk": "/ˈwɑːrænti/"
+    },
+    "audio": {
+      "us": "/api/tts?text=warranty&accent=US&lang=en-US",
+      "uk": "/api/tts?text=warranty&accent=UK&lang=en-GB"
+    }
   },
   "budget": {
     "word": "budget",
-    "phonetic": "/ˈbudget/",
+    "phonetic": "/ˈbʌdget/",
     "partOfSpeech": "General Vocabulary",
     "vi": "ngân sách",
     "definition": "An essential English term in academic and professional communication.",
@@ -1528,11 +1808,19 @@
         "en": "Understanding the usage of \"budget\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"budget\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈbʌdget/",
+      "uk": "/ˈbʌdget/"
+    },
+    "audio": {
+      "us": "/api/tts?text=budget&accent=US&lang=en-US",
+      "uk": "/api/tts?text=budget&accent=UK&lang=en-GB"
+    }
   },
   "announce": {
     "word": "announce",
-    "phonetic": "/əˈnaʊns/",
+    "phonetic": "/ˈænnæʊnse/",
     "partOfSpeech": "Verb",
     "vi": "thông báo",
     "definition": "To give public notice, especially for the first time; to make known",
@@ -1576,11 +1864,19 @@
         "en": "Understanding the usage of \"announce\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"announce\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈænnæʊnse/",
+      "uk": "/ˈænnæʊnse/"
+    },
+    "audio": {
+      "us": "/api/tts?text=announce&accent=US&lang=en-US",
+      "uk": "/api/tts?text=announce&accent=UK&lang=en-GB"
+    }
   },
   "promote": {
     "word": "promote",
-    "phonetic": "/ˈpromote/",
+    "phonetic": "/ˈprɑːmɑːte/",
     "partOfSpeech": "General Vocabulary",
     "vi": "thăng chức, thăng cấp",
     "definition": "An essential English term in academic and professional communication.",
@@ -1610,11 +1906,19 @@
         "en": "Understanding the usage of \"promote\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"promote\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈprɑːmɑːte/",
+      "uk": "/ˈprɒmɒte/"
+    },
+    "audio": {
+      "us": "/api/tts?text=promote&accent=US&lang=en-US",
+      "uk": "/api/tts?text=promote&accent=UK&lang=en-GB"
+    }
   },
   "inspect": {
     "word": "inspect",
-    "phonetic": "/ɪnˈspɛkt/",
+    "phonetic": "/ˈɪnspekt/",
     "partOfSpeech": "Verb",
     "vi": "theo dõi",
     "definition": "To examine critically or carefully; especially, to search out problems or determine condition; to scrutinize.",
@@ -1649,11 +1953,19 @@
         "en": "Inspect the system for leaks.",
         "vi": "Ví dụ: \"Inspect the system for leaks.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈɪnspekt/",
+      "uk": "/ˈɪnspekt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=inspect&accent=US&lang=en-US",
+      "uk": "/api/tts?text=inspect&accent=UK&lang=en-GB"
+    }
   },
   "feedback": {
     "word": "feedback",
-    "phonetic": "/ˈfiːdˌbæk/",
+    "phonetic": "/ˈfɪːdbæk/",
     "partOfSpeech": "Noun & Verb",
     "vi": "phản hồi",
     "definition": "Critical assessment of a process or activity or of their results.",
@@ -1706,11 +2018,19 @@
         "en": "The show ended with a riot of feedbacking guitars.",
         "vi": "Ví dụ: \"The show ended with a riot of feedbacking guitars.\""
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈfɪːdbæk/",
+      "uk": "/ˈfɪːdbæk/"
+    },
+    "audio": {
+      "us": "/api/tts?text=feedback&accent=US&lang=en-US",
+      "uk": "/api/tts?text=feedback&accent=UK&lang=en-GB"
+    }
   },
   "eligible": {
     "word": "eligible",
-    "phonetic": "/ˈeligible/",
+    "phonetic": "/ˈelɪg.ɪble/",
     "partOfSpeech": "General Vocabulary",
     "vi": "đủ điều kiện",
     "definition": "An essential English term in academic and professional communication.",
@@ -1740,7 +2060,15 @@
         "en": "Understanding the usage of \"eligible\" is essential for TOEIC and VSTEP test-takers.",
         "vi": "Hiểu rõ cách dùng của \"eligible\" là điều tối quan trọng cho thí sinh thi TOEIC và VSTEP."
       }
-    ]
+    ],
+    "ipa": {
+      "us": "/ˈelɪg.ɪble/",
+      "uk": "/ˈelɪg.ɪble/"
+    },
+    "audio": {
+      "us": "/api/tts?text=eligible&accent=US&lang=en-US",
+      "uk": "/api/tts?text=eligible&accent=UK&lang=en-GB"
+    }
   },
   "lease": {
     "headword": "lease",
@@ -1819,6 +2147,1192 @@
       "exactMatch": true,
       "machineTranslated": true,
       "incomplete": false
+    },
+    "audio": {
+      "us": "/api/tts?text=lease&accent=US&lang=en-US",
+      "uk": "/api/tts?text=lease&accent=UK&lang=en-GB"
+    }
+  },
+  "headsofstate": {
+    "query": "head of state",
+    "rootForm": "head of state",
+    "ipa": {
+      "us": "/ˌhed əv ˈsteɪt/",
+      "uk": "/ˌhed əv ˈsteɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state&accent=UK&lang=en-GB"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    "definitions": [
+      {
+        "en": "The official leader of a country, who represents it both domestically and internationally.",
+        "vi": "Nhà lãnh đạo chính thức của một quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "exampleEn": "The head of state addressed the nation regarding international cooperation.",
+        "exampleVi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head, state",
+      "verb": "head (lãnh đạo)",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "meeting of heads of state",
+        "en": "meeting of heads of state",
+        "vi": "Cụm diễn đạt: \"meeting of heads of state\""
+      },
+      {
+        "phrase": "council of heads of state",
+        "en": "council of heads of state",
+        "vi": "Cụm diễn đạt: \"council of heads of state\""
+      },
+      {
+        "phrase": "visit of the head of state",
+        "en": "visit of the head of state",
+        "vi": "Cụm diễn đạt: \"visit of the head of state\""
+      }
+    ],
+    "examContext": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "headword": "head of state",
+    "lemma": "head of state",
+    "word": "head of state",
+    "phonetic": "/ˌhed əv ˈsteɪt/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    "definition": "The official leader of a country, who represents it both domestically and internationally.",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "The official leader of a country, who represents it both domestically and internationally.",
+        "meaningVi": "Nhà lãnh đạo chính thức của một quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The head of state addressed the nation regarding international cooperation.",
+            "vi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "The head of state addressed the nation regarding international cooperation.",
+        "vi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    "lists": [
+      "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế"
+    ],
+    "examTag": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "toeicNote": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": true,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state\"",
+    "searchedQuery": "headsofstate",
+    "segmentedWord": "heads of state"
+  },
+  "head of state": {
+    "query": "head of state",
+    "rootForm": "head of state",
+    "ipa": {
+      "us": "/ˌhed əv ˈsteɪt/",
+      "uk": "/ˌhed əv ˈsteɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state&accent=UK&lang=en-GB"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    "definitions": [
+      {
+        "en": "The official leader of a country, who represents it both domestically and internationally.",
+        "vi": "Nhà lãnh đạo chính thức của một quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "exampleEn": "The head of state addressed the nation regarding international cooperation.",
+        "exampleVi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head, state",
+      "verb": "head (lãnh đạo)",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "meeting of heads of state",
+        "en": "meeting of heads of state",
+        "vi": "Cụm diễn đạt: \"meeting of heads of state\""
+      },
+      {
+        "phrase": "council of heads of state",
+        "en": "council of heads of state",
+        "vi": "Cụm diễn đạt: \"council of heads of state\""
+      },
+      {
+        "phrase": "visit of the head of state",
+        "en": "visit of the head of state",
+        "vi": "Cụm diễn đạt: \"visit of the head of state\""
+      }
+    ],
+    "examContext": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "headword": "head of state",
+    "lemma": "head of state",
+    "word": "head of state",
+    "phonetic": "/ˌhed əv ˈsteɪt/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    "definition": "The official leader of a country, who represents it both domestically and internationally.",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "The official leader of a country, who represents it both domestically and internationally.",
+        "meaningVi": "Nhà lãnh đạo chính thức của một quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The head of state addressed the nation regarding international cooperation.",
+            "vi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "The head of state addressed the nation regarding international cooperation.",
+        "vi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    "lists": [
+      "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế"
+    ],
+    "examTag": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "toeicNote": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": true,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state\"",
+    "searchedQuery": "headsofstate",
+    "segmentedWord": "heads of state"
+  },
+  "heads of state": {
+    "query": "heads of state",
+    "rootForm": "head of state",
+    "ipa": {
+      "us": "/ˌhedz əv ˈsteɪt/",
+      "uk": "/ˌhedz əv ˈsteɪt/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "Các nguyên thủ quốc gia, những người đứng đầu nhà nước",
+    "definitions": [
+      {
+        "en": "The official leaders of countries, who represent them both domestically and internationally.",
+        "vi": "Các nhà lãnh đạo chính thức của các quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "exampleEn": "The heads of state met in Geneva to discuss the peace treaty.",
+        "exampleVi": "Các nguyên thủ quốc gia đã gặp nhau tại Geneva để thảo luận về hiệp ước hòa bình."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head, state",
+      "verb": "head (lãnh đạo)",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "meeting of heads of state",
+        "en": "meeting of heads of state",
+        "vi": "Cụm diễn đạt: \"meeting of heads of state\""
+      },
+      {
+        "phrase": "council of heads of state",
+        "en": "council of heads of state",
+        "vi": "Cụm diễn đạt: \"council of heads of state\""
+      },
+      {
+        "phrase": "summit of heads of state",
+        "en": "summit of heads of state",
+        "vi": "Cụm diễn đạt: \"summit of heads of state\""
+      }
+    ],
+    "examContext": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "headword": "head of state",
+    "lemma": "head of state",
+    "word": "head of state",
+    "phonetic": "/ˌhedz əv ˈsteɪt/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "Các nguyên thủ quốc gia, những người đứng đầu nhà nước",
+    "definition": "The official leaders of countries, who represent them both domestically and internationally.",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "The official leaders of countries, who represent them both domestically and internationally.",
+        "meaningVi": "Các nhà lãnh đạo chính thức của các quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The heads of state met in Geneva to discuss the peace treaty.",
+            "vi": "Các nguyên thủ quốc gia đã gặp nhau tại Geneva để thảo luận về hiệp ước hòa bình."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "The heads of state met in Geneva to discuss the peace treaty.",
+        "vi": "Các nguyên thủ quốc gia đã gặp nhau tại Geneva để thảo luận về hiệp ước hòa bình."
+      }
+    ],
+    "lists": [
+      "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế"
+    ],
+    "examTag": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "toeicNote": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state\"",
+    "searchedQuery": "heads of state",
+    "segmentedWord": "heads of state",
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state&accent=UK&lang=en-GB"
+    }
+  },
+  "runoutof": {
+    "query": "run out of",
+    "rootForm": "run out of",
+    "ipa": {
+      "us": "/rʌn aʊt əv/",
+      "uk": "/rʌn aʊt əv/"
+    },
+    "pos": "phrasal verb",
+    "vietnameseMeaning": "Hết, cạn kiệt (thời gian, tiền bạc, tài nguyên, nguyên liệu)",
+    "definitions": [
+      {
+        "en": "To finish, use, or sell all of something, so that there is none left.",
+        "vi": "Dùng hết sạch hoặc cạn kiệt một thứ gì đó, không còn lại gì.",
+        "exampleEn": "We are running out of time to complete the quarterly financial report.",
+        "exampleVi": "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+      }
+    ],
+    "wordFamily": {
+      "noun": "run-out",
+      "verb": "run out of",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "run out of time",
+        "en": "run out of time",
+        "vi": "Cụm diễn đạt: \"run out of time\""
+      },
+      {
+        "phrase": "run out of money",
+        "en": "run out of money",
+        "vi": "Cụm diễn đạt: \"run out of money\""
+      },
+      {
+        "phrase": "run out of stock",
+        "en": "run out of stock",
+        "vi": "Cụm diễn đạt: \"run out of stock\""
+      },
+      {
+        "phrase": "run out of patience",
+        "en": "run out of patience",
+        "vi": "Cụm diễn đạt: \"run out of patience\""
+      }
+    ],
+    "examContext": "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5",
+    "headword": "run out of",
+    "lemma": "run out of",
+    "word": "run out of",
+    "phonetic": "/rʌn aʊt əv/",
+    "partOfSpeech": "phrasal verb",
+    "vi": "Hết, cạn kiệt (thời gian, tiền bạc, tài nguyên, nguyên liệu)",
+    "definition": "To finish, use, or sell all of something, so that there is none left.",
+    "senses": [
+      {
+        "pos": "phrasal verb",
+        "defEn": "To finish, use, or sell all of something, so that there is none left.",
+        "meaningVi": "Dùng hết sạch hoặc cạn kiệt một thứ gì đó, không còn lại gì.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "We are running out of time to complete the quarterly financial report.",
+            "vi": "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "We are running out of time to complete the quarterly financial report.",
+        "vi": "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+      }
+    ],
+    "lists": [
+      "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5"
+    ],
+    "examTag": "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5",
+    "toeicNote": "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": true,
+      "isLemmaRedirect": false,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "runoutof",
+    "segmentedWord": "run out of",
+    "audio": {
+      "us": "/api/tts?text=run%20out%20of&accent=US&lang=en-US",
+      "uk": "/api/tts?text=run%20out%20of&accent=UK&lang=en-GB"
+    }
+  },
+  "run out of": {
+    "query": "run out of",
+    "rootForm": "run out of",
+    "ipa": {
+      "us": "/rʌn aʊt əv/",
+      "uk": "/rʌn aʊt əv/"
+    },
+    "pos": "phrasal verb",
+    "vietnameseMeaning": "Hết, cạn kiệt (thời gian, tiền bạc, tài nguyên, nguyên liệu)",
+    "definitions": [
+      {
+        "en": "To finish, use, or sell all of something, so that there is none left.",
+        "vi": "Dùng hết sạch hoặc cạn kiệt một thứ gì đó, không còn lại gì.",
+        "exampleEn": "We are running out of time to complete the quarterly financial report.",
+        "exampleVi": "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+      }
+    ],
+    "wordFamily": {
+      "noun": "run-out",
+      "verb": "run out of",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "run out of time",
+        "en": "run out of time",
+        "vi": "Cụm diễn đạt: \"run out of time\""
+      },
+      {
+        "phrase": "run out of money",
+        "en": "run out of money",
+        "vi": "Cụm diễn đạt: \"run out of money\""
+      },
+      {
+        "phrase": "run out of stock",
+        "en": "run out of stock",
+        "vi": "Cụm diễn đạt: \"run out of stock\""
+      },
+      {
+        "phrase": "run out of patience",
+        "en": "run out of patience",
+        "vi": "Cụm diễn đạt: \"run out of patience\""
+      }
+    ],
+    "examContext": "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5",
+    "headword": "run out of",
+    "lemma": "run out of",
+    "word": "run out of",
+    "phonetic": "/rʌn aʊt əv/",
+    "partOfSpeech": "phrasal verb",
+    "vi": "Hết, cạn kiệt (thời gian, tiền bạc, tài nguyên, nguyên liệu)",
+    "definition": "To finish, use, or sell all of something, so that there is none left.",
+    "senses": [
+      {
+        "pos": "phrasal verb",
+        "defEn": "To finish, use, or sell all of something, so that there is none left.",
+        "meaningVi": "Dùng hết sạch hoặc cạn kiệt một thứ gì đó, không còn lại gì.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "We are running out of time to complete the quarterly financial report.",
+            "vi": "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "We are running out of time to complete the quarterly financial report.",
+        "vi": "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+      }
+    ],
+    "lists": [
+      "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5"
+    ],
+    "examTag": "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5",
+    "toeicNote": "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": true,
+      "isLemmaRedirect": false,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "runoutof",
+    "segmentedWord": "run out of",
+    "audio": {
+      "us": "/api/tts?text=run%20out%20of&accent=US&lang=en-US",
+      "uk": "/api/tts?text=run%20out%20of&accent=UK&lang=en-GB"
+    }
+  },
+  "running out of": {
+    "query": "running out of",
+    "rootForm": "run out of",
+    "ipa": {
+      "us": "/ˈrʌnɪŋ aʊt əv/",
+      "uk": "/ˈrʌnɪŋ aʊt əv/"
+    },
+    "pos": "phrasal verb",
+    "vietnameseMeaning": "Đang cạn kiệt, đang hết dần (thì tiếp diễn)",
+    "definitions": [
+      {
+        "en": "In the process of exhausting or finishing the available supply of something.",
+        "vi": "Đang trong tình trạng cạn kiệt hoặc sắp hết nguồn cung cấp.",
+        "exampleEn": "The department is running out of budget for new hardware supplies.",
+        "exampleVi": "Bộ phận đang cạn kiệt ngân sách dành cho việc mua sắm trang thiết bị phần cứng mới."
+      }
+    ],
+    "wordFamily": {
+      "noun": "run-out",
+      "verb": "run out of",
+      "adjective": "-"
+    },
+    "collocations": [
+      "running out of time",
+      "running out of budget",
+      "running out of options"
+    ],
+    "examContext": "Dạng tiếp diễn rất hay xuất hiện trong TOEIC Part 3 và Part 5",
+    "headword": "run out of",
+    "lemma": "run out of",
+    "word": "run out of",
+    "phonetic": "/ˈrʌnɪŋ aʊt əv/",
+    "partOfSpeech": "phrasal verb",
+    "vi": "Đang cạn kiệt, đang hết dần (thì tiếp diễn)",
+    "definition": "In the process of exhausting or finishing the available supply of something.",
+    "senses": [
+      {
+        "pos": "phrasal verb",
+        "defEn": "In the process of exhausting or finishing the available supply of something.",
+        "meaningVi": "Đang trong tình trạng cạn kiệt hoặc sắp hết nguồn cung cấp.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The department is running out of budget for new hardware supplies.",
+            "vi": "Bộ phận đang cạn kiệt ngân sách dành cho việc mua sắm trang thiết bị phần cứng mới."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "The department is running out of budget for new hardware supplies.",
+        "vi": "Bộ phận đang cạn kiệt ngân sách dành cho việc mua sắm trang thiết bị phần cứng mới."
+      }
+    ],
+    "lists": [
+      "Dạng tiếp diễn rất hay xuất hiện trong TOEIC Part 3 và Part 5"
+    ],
+    "examTag": "Dạng tiếp diễn rất hay xuất hiện trong TOEIC Part 3 và Part 5",
+    "toeicNote": "Dạng tiếp diễn rất hay xuất hiện trong TOEIC Part 3 và Part 5",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng V-ing của \"run\" trong cụm \"run out of\"",
+    "searchedQuery": "running out of",
+    "segmentedWord": "running out of",
+    "audio": {
+      "us": "/api/tts?text=run%20out%20of&accent=US&lang=en-US",
+      "uk": "/api/tts?text=run%20out%20of&accent=UK&lang=en-GB"
+    }
+  },
+  "matrices": {
+    "query": "matrices",
+    "rootForm": "matrix",
+    "ipa": {
+      "us": "/ˈmatrix/",
+      "uk": "/ˈmatrix/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "ma trận",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"matrix\".",
+        "vi": "ma trận",
+        "exampleEn": "Proper usage of \"matrix\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"matrix\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "matrix",
+      "verb": "-",
+      "adjective": "-"
+    },
+    "collocations": [
+      "common usage of matrix",
+      "standard expression with matrix"
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "matrix",
+    "lemma": "matrix",
+    "word": "matrix",
+    "phonetic": "/ˈmatrix/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "ma trận",
+    "definition": "An essential English phrase or compound expression: \"matrix\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"matrix\".",
+        "meaningVi": "ma trận",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"matrix\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"matrix\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"matrix\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"matrix\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Danh từ số nhiều của \"matrix\"",
+    "searchedQuery": "matrices",
+    "segmentedWord": "matrices",
+    "audio": {
+      "us": "/api/tts?text=matrix&accent=US&lang=en-US",
+      "uk": "/api/tts?text=matrix&accent=UK&lang=en-GB"
+    }
+  },
+  "matrix": {
+    "query": "matrices",
+    "rootForm": "matrix",
+    "ipa": {
+      "us": "/ˈmatrix/",
+      "uk": "/ˈmatrix/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "ma trận",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"matrix\".",
+        "vi": "ma trận",
+        "exampleEn": "Proper usage of \"matrix\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"matrix\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "matrix",
+      "verb": "-",
+      "adjective": "-"
+    },
+    "collocations": [
+      "common usage of matrix",
+      "standard expression with matrix"
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "matrix",
+    "lemma": "matrix",
+    "word": "matrix",
+    "phonetic": "/ˈmatrix/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "ma trận",
+    "definition": "An essential English phrase or compound expression: \"matrix\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"matrix\".",
+        "meaningVi": "ma trận",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"matrix\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"matrix\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"matrix\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"matrix\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Danh từ số nhiều của \"matrix\"",
+    "searchedQuery": "matrices",
+    "segmentedWord": "matrices",
+    "audio": {
+      "us": "/api/tts?text=matrix&accent=US&lang=en-US",
+      "uk": "/api/tts?text=matrix&accent=UK&lang=en-GB"
+    }
+  },
+  "heads of government": {
+    "query": "heads of government",
+    "rootForm": "head of government",
+    "ipa": {
+      "us": "/ˌhed əv ˈɡʌvərnmənt/",
+      "uk": "/ˌhed əv ˈɡʌvənmənt/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "người đứng đầu chính phủ",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"head of government\".",
+        "vi": "người đứng đầu chính phủ",
+        "exampleEn": "Proper usage of \"head of government\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head",
+      "verb": "head",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "common usage of head of government",
+        "en": "common usage of head of government",
+        "vi": "Cụm diễn đạt: \"common usage of head of government\""
+      },
+      {
+        "phrase": "standard expression with head of government",
+        "en": "standard expression with head of government",
+        "vi": "Cụm diễn đạt: \"standard expression with head of government\""
+      }
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "head of government",
+    "lemma": "head of government",
+    "word": "head of government",
+    "phonetic": "/ˌhed əv ˈɡʌvərnmənt/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "người đứng đầu chính phủ",
+    "definition": "An essential English phrase or compound expression: \"head of government\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"head of government\".",
+        "meaningVi": "người đứng đầu chính phủ",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"head of government\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"head of government\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of government\"",
+    "searchedQuery": "heads of government",
+    "segmentedWord": "heads of government",
+    "audio": {
+      "us": "/api/tts?text=head%20of%20government&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20government&accent=UK&lang=en-GB"
+    }
+  },
+  "head of government": {
+    "query": "heads of government",
+    "rootForm": "head of government",
+    "ipa": {
+      "us": "/ˌhed əv ˈɡʌvərnmənt/",
+      "uk": "/ˌhed əv ˈɡʌvənmənt/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "người đứng đầu chính phủ",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"head of government\".",
+        "vi": "người đứng đầu chính phủ",
+        "exampleEn": "Proper usage of \"head of government\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head",
+      "verb": "head",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "common usage of head of government",
+        "en": "common usage of head of government",
+        "vi": "Cụm diễn đạt: \"common usage of head of government\""
+      },
+      {
+        "phrase": "standard expression with head of government",
+        "en": "standard expression with head of government",
+        "vi": "Cụm diễn đạt: \"standard expression with head of government\""
+      }
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "head of government",
+    "lemma": "head of government",
+    "word": "head of government",
+    "phonetic": "/ˌhed əv ˈɡʌvərnmənt/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "người đứng đầu chính phủ",
+    "definition": "An essential English phrase or compound expression: \"head of government\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"head of government\".",
+        "meaningVi": "người đứng đầu chính phủ",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"head of government\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"head of government\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of government\"",
+    "searchedQuery": "heads of government",
+    "segmentedWord": "heads of government",
+    "audio": {
+      "us": "/api/tts?text=head%20of%20government&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20government&accent=UK&lang=en-GB"
+    }
+  },
+  "supreme leaders": {
+    "query": "supreme leaders",
+    "rootForm": "supreme leaders",
+    "ipa": {
+      "us": "/ˌsʌpreme ˈliːdərz/",
+      "uk": "/ˌsʌpreme ˈliːdəz/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "lãnh đạo tối cao",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"supreme leaders\".",
+        "vi": "lãnh đạo tối cao",
+        "exampleEn": "Proper usage of \"supreme leaders\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"supreme leaders\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "supreme",
+      "verb": "supreme",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "common usage of supreme leaders",
+        "en": "common usage of supreme leaders",
+        "vi": "Cụm diễn đạt: \"common usage of supreme leaders\""
+      },
+      {
+        "phrase": "standard expression with supreme leaders",
+        "en": "standard expression with supreme leaders",
+        "vi": "Cụm diễn đạt: \"standard expression with supreme leaders\""
+      }
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "supreme leaders",
+    "lemma": "supreme leaders",
+    "word": "supreme leaders",
+    "phonetic": "/ˌsʌpreme ˈliːdərz/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "lãnh đạo tối cao",
+    "definition": "An essential English phrase or compound expression: \"supreme leaders\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"supreme leaders\".",
+        "meaningVi": "lãnh đạo tối cao",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"supreme leaders\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"supreme leaders\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"supreme leaders\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"supreme leaders\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": false,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "supreme leaders",
+    "segmentedWord": "supreme leaders",
+    "audio": {
+      "us": "/api/tts?text=supreme%20leaders&accent=US&lang=en-US",
+      "uk": "/api/tts?text=supreme%20leaders&accent=UK&lang=en-GB"
+    }
+  },
+  "heads of state meeting": {
+    "query": "heads of state meeting",
+    "rootForm": "head of state meeting",
+    "ipa": {
+      "us": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/",
+      "uk": "/ˌhed əv ˈsteɪt ˈmiː.tɪŋ/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "hội nghị nguyên thủ quốc gia",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"head of state meeting\".",
+        "vi": "hội nghị nguyên thủ quốc gia",
+        "exampleEn": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head",
+      "verb": "head",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "common usage of head of state meeting",
+        "en": "common usage of head of state meeting",
+        "vi": "Cụm diễn đạt: \"common usage of head of state meeting\""
+      },
+      {
+        "phrase": "standard expression with head of state meeting",
+        "en": "standard expression with head of state meeting",
+        "vi": "Cụm diễn đạt: \"standard expression with head of state meeting\""
+      }
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "head of state meeting",
+    "lemma": "head of state meeting",
+    "word": "head of state meeting",
+    "phonetic": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "hội nghị nguyên thủ quốc gia",
+    "definition": "An essential English phrase or compound expression: \"head of state meeting\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"head of state meeting\".",
+        "meaningVi": "hội nghị nguyên thủ quốc gia",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state meeting\"",
+    "searchedQuery": "heads of state meeting",
+    "segmentedWord": "heads of state meeting",
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state%20meeting&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state%20meeting&accent=UK&lang=en-GB"
+    }
+  },
+  "head of state meeting": {
+    "query": "heads of state meeting",
+    "rootForm": "head of state meeting",
+    "ipa": {
+      "us": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/",
+      "uk": "/ˌhed əv ˈsteɪt ˈmiː.tɪŋ/"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "hội nghị nguyên thủ quốc gia",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"head of state meeting\".",
+        "vi": "hội nghị nguyên thủ quốc gia",
+        "exampleEn": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "head",
+      "verb": "head",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "common usage of head of state meeting",
+        "en": "common usage of head of state meeting",
+        "vi": "Cụm diễn đạt: \"common usage of head of state meeting\""
+      },
+      {
+        "phrase": "standard expression with head of state meeting",
+        "en": "standard expression with head of state meeting",
+        "vi": "Cụm diễn đạt: \"standard expression with head of state meeting\""
+      }
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "head of state meeting",
+    "lemma": "head of state meeting",
+    "word": "head of state meeting",
+    "phonetic": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "hội nghị nguyên thủ quốc gia",
+    "definition": "An essential English phrase or compound expression: \"head of state meeting\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"head of state meeting\".",
+        "meaningVi": "hội nghị nguyên thủ quốc gia",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": true,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state meeting\"",
+    "searchedQuery": "heads of state meeting",
+    "segmentedWord": "heads of state meeting",
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state%20meeting&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state%20meeting&accent=UK&lang=en-GB"
     }
   }
 }

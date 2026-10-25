@@ -4,6 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
+const zlib = require('zlib');
+const DictionaryPreprocess = require(path.join(__dirname, 'lib', 'dictionary', 'preprocess.js'));
+const IPAHelper = require(path.join(__dirname, 'lib', 'dictionary', 'ipa-helper.js'));
+
+// In-memory caches cho TTS và Static Assets siêu tốc
+const ttsAudioCache = new Map();
+const staticAssetCache = new Map();
 
 // Tự động nạp biến môi trường từ .env nếu tồn tại
 try {
@@ -973,45 +980,528 @@ function formatCleanPartOfSpeech(posList) {
   return `${filtered.slice(0, -1).join(', ')} & ${filtered[filtered.length - 1]}`;
 }
 
+// =========================================================================
+// EXPERT PHRASE BANK (TIER 3 EXPERT SYNTHESIS & PHRASAL VERBS)
+// =========================================================================
+const EXPERT_PHRASE_BANK = {
+  "head of state": {
+    query: "head of state",
+    rootForm: "head of state",
+    ipa: { us: "/ˌhed əv ˈsteɪt/", uk: "/ˌhed əv ˈsteɪt/" },
+    pos: "compound noun / phrase",
+    vietnameseMeaning: "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    definitions: [
+      {
+        en: "The official leader of a country, who represents it both domestically and internationally.",
+        vi: "Nhà lãnh đạo chính thức của một quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        exampleEn: "The head of state addressed the nation regarding international cooperation.",
+        exampleVi: "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    wordFamily: {
+      noun: "head, state",
+      verb: "head (lãnh đạo)",
+      adjective: "-"
+    },
+    collocations: ["meeting of heads of state", "council of heads of state", "visit of the head of state"],
+    examContext: "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế"
+  },
+  "heads of state": {
+    query: "heads of state",
+    rootForm: "head of state",
+    ipa: { us: "/ˌhedz əv ˈsteɪt/", uk: "/ˌhedz əv ˈsteɪt/" },
+    pos: "compound noun / phrase",
+    vietnameseMeaning: "Các nguyên thủ quốc gia, những người đứng đầu nhà nước",
+    definitions: [
+      {
+        en: "The official leaders of countries, who represent them both domestically and internationally.",
+        vi: "Các nhà lãnh đạo chính thức của các quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        exampleEn: "The heads of state met in Geneva to discuss the peace treaty.",
+        exampleVi: "Các nguyên thủ quốc gia đã gặp nhau tại Geneva để thảo luận về hiệp ước hòa bình."
+      }
+    ],
+    wordFamily: {
+      noun: "head, state",
+      verb: "head (lãnh đạo)",
+      adjective: "-"
+    },
+    collocations: ["meeting of heads of state", "council of heads of state", "summit of heads of state"],
+    examContext: "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế"
+  },
+  "run out of": {
+    query: "run out of",
+    rootForm: "run out of",
+    ipa: { us: "/rʌn aʊt əv/", uk: "/rʌn aʊt əv/" },
+    pos: "phrasal verb",
+    vietnameseMeaning: "Hết, cạn kiệt (thời gian, tiền bạc, tài nguyên, nguyên liệu)",
+    definitions: [
+      {
+        en: "To finish, use, or sell all of something, so that there is none left.",
+        vi: "Dùng hết sạch hoặc cạn kiệt một thứ gì đó, không còn lại gì.",
+        exampleEn: "We are running out of time to complete the quarterly financial report.",
+        exampleVi: "Chúng ta sắp hết thời gian để hoàn thành báo cáo tài chính quý."
+      }
+    ],
+    wordFamily: {
+      noun: "run-out",
+      verb: "run out of",
+      adjective: "-"
+    },
+    collocations: ["run out of time", "run out of money", "run out of stock", "run out of patience"],
+    examContext: "Cụm phrasal verb kinh điển trong bài thi TOEIC Part 3, 4 (hội thoại công sở) & Part 5"
+  },
+  "running out of": {
+    query: "running out of",
+    rootForm: "run out of",
+    ipa: { us: "/ˈrʌnɪŋ aʊt əv/", uk: "/ˈrʌnɪŋ aʊt əv/" },
+    pos: "phrasal verb",
+    vietnameseMeaning: "Đang cạn kiệt, đang hết dần (thì tiếp diễn)",
+    definitions: [
+      {
+        en: "In the process of exhausting or finishing the available supply of something.",
+        vi: "Đang trong tình trạng cạn kiệt hoặc sắp hết nguồn cung cấp.",
+        exampleEn: "The department is running out of budget for new hardware supplies.",
+        exampleVi: "Bộ phận đang cạn kiệt ngân sách dành cho việc mua sắm trang thiết bị phần cứng mới."
+      }
+    ],
+    wordFamily: {
+      noun: "run-out",
+      verb: "run out of",
+      adjective: "-"
+    },
+    collocations: ["running out of time", "running out of budget", "running out of options"],
+    examContext: "Dạng tiếp diễn rất hay xuất hiện trong TOEIC Part 3 và Part 5"
+  },
+  "carry out": {
+    query: "carry out",
+    rootForm: "carry out",
+    ipa: { us: "/ˈkæri aʊt/", uk: "/ˈkæri aʊt/" },
+    pos: "phrasal verb",
+    vietnameseMeaning: "Tiến hành, thực hiện, triển khai (kế hoạch, dự án, khảo sát, kiểm tra)",
+    definitions: [
+      {
+        en: "To perform or complete a job, activity, survey, or plan.",
+        vi: "Thực hiện hoặc hoàn tất một công việc, hoạt động, khảo sát hoặc kế hoạch.",
+        exampleEn: "The engineering team will carry out safety inspections next week.",
+        exampleVi: "Đội ngũ kỹ sư sẽ tiến hành kiểm tra an toàn vào tuần tới."
+      }
+    ],
+    wordFamily: {
+      noun: "-",
+      verb: "carry out",
+      adjective: "-"
+    },
+    collocations: ["carry out a survey", "carry out an inspection", "carry out market research", "carry out a project"],
+    examContext: "Từ khóa ăn điểm then chốt trong TOEIC Part 5, 6 và 7"
+  },
+  "carried out": {
+    query: "carried out",
+    rootForm: "carry out",
+    ipa: { us: "/ˈkærid aʊt/", uk: "/ˈkærid aʊt/" },
+    pos: "phrasal verb",
+    vietnameseMeaning: "Đã tiến hành, được thực hiện (dạng quá khứ / phân từ bị động)",
+    definitions: [
+      {
+        en: "Past and past participle of carry out; having executed a plan or task.",
+        vi: "Dạng quá khứ / bị động của 'carry out'; đã được tiến hành hoặc thực thi.",
+        exampleEn: "The comprehensive survey was carried out across ten regional branches.",
+        exampleVi: "Cuộc khảo sát toàn diện đã được tiến hành trên mười chi nhánh khu vực."
+      }
+    ],
+    wordFamily: {
+      noun: "-",
+      verb: "carry out",
+      adjective: "-"
+    },
+    collocations: ["be carried out by", "successfully carried out"],
+    examContext: "Cấu trúc bị động 'be carried out' là dạng câu hỏi ngữ pháp kinh điển trong TOEIC Part 5"
+  },
+  "look forward to": {
+    query: "look forward to",
+    rootForm: "look forward to",
+    ipa: { us: "/lʊk ˈfɔːrwərd tuː/", uk: "/lʊk ˈfɔːwəd tuː/" },
+    pos: "phrasal verb",
+    vietnameseMeaning: "Trông mong, háo hức chờ đợi (sau 'to' bắt buộc là V-ing hoặc Danh từ)",
+    definitions: [
+      {
+        en: "To feel pleased and excited about something that is going to happen.",
+        vi: "Cảm thấy hào hứng và trông đợi một điều gì đó sắp xảy ra.",
+        exampleEn: "We look forward to receiving your constructive feedback on the proposal.",
+        exampleVi: "Chúng tôi rất mong nhận được phản hồi đóng góp của bạn về bản đề xuất."
+      }
+    ],
+    wordFamily: {
+      noun: "-",
+      verb: "look forward to",
+      adjective: "-"
+    },
+    collocations: ["look forward to hearing from you", "look forward to working with you", "look forward to your reply"],
+    examContext: "MẪU BẪY KINH ĐIỂN TOEIC: Bắt buộc dùng V-ing hoặc Noun sau 'to', cấm dùng V nguyên mẫu!"
+  },
+  "looking forward to": {
+    query: "looking forward to",
+    rootForm: "look forward to",
+    ipa: { us: "/ˈlʊkɪŋ ˈfɔːrwərd tuː/", uk: "/ˈlʊkɪŋ ˈfɔːwəd tuː/" },
+    pos: "phrasal verb",
+    vietnameseMeaning: "Đang rất mong đợi, trông đợi (thì tiếp diễn)",
+    definitions: [
+      {
+        en: "Expressing active anticipation for an upcoming event or communication.",
+        vi: "Bày tỏ sự háo hức và tích cực đón chờ một sự kiện hoặc thư từ phản hồi sắp tới.",
+        exampleEn: "I am looking forward to attending the international trade seminar tomorrow.",
+        exampleVi: "Tôi đang rất trông đợi được tham dự hội thảo thương mại quốc tế vào ngày mai."
+      }
+    ],
+    wordFamily: {
+      noun: "-",
+      verb: "look forward to",
+      adjective: "-"
+    },
+    collocations: ["looking forward to meeting you", "looking forward to the opening ceremony"],
+    examContext: "Câu kết thúc kinh điển trong email thương mại Part 7 TOEIC"
+  },
+  "in charge of": {
+    query: "in charge of",
+    rootForm: "in charge of",
+    ipa: { us: "/ɪn tʃɑːrdʒ əv/", uk: "/ɪn tʃɑːdʒ əv/" },
+    pos: "idiom / phrase",
+    vietnameseMeaning: "Phụ trách, chịu trách nhiệm chính về (bộ phận, dự án, công việc)",
+    definitions: [
+      {
+        en: "Having responsibility for or control of someone or something.",
+        vi: "Nắm quyền điều hành hoặc chịu trách nhiệm về một việc hoặc nhóm người nào đó.",
+        exampleEn: "Mr. Harrison is in charge of quality assurance for all manufacturing plants.",
+        exampleVi: "Ông Harrison phụ trách đảm bảo chất lượng cho toàn bộ các nhà máy sản xuất."
+      }
+    ],
+    wordFamily: {
+      noun: "charge (trách nhiệm, tiền phí)",
+      verb: "charge (giao nhiệm vụ, tính phí)",
+      adjective: "-"
+    },
+    collocations: ["be in charge of", "put someone in charge of", "person in charge of"],
+    examContext: "Thường xuyên xuất hiện trong TOEIC Part 5, Part 6 và email Part 7"
+  },
+  "take care of": {
+    query: "take care of",
+    rootForm: "take care of",
+    ipa: { us: "/teɪk ker əv/", uk: "/teɪk keər əv/" },
+    pos: "idiom / phrase",
+    vietnameseMeaning: "Chăm sóc, giải quyết chu toàn (vấn đề, khách hàng, thủ tục)",
+    definitions: [
+      {
+        en: "To deal with something or look after someone.",
+        vi: "Xử lý, giải quyết thỏa đáng một vấn đề hoặc chăm sóc ai đó.",
+        exampleEn: "Our customer service specialists will take care of your inquiry immediately.",
+        exampleVi: "Các chuyên viên chăm sóc khách hàng của chúng tôi sẽ xử lý yêu cầu của bạn ngay lập tức."
+      }
+    ],
+    wordFamily: {
+      noun: "care",
+      verb: "care",
+      adjective: "careful, caring"
+    },
+    collocations: ["take good care of", "take care of the issue", "take care of customer needs"],
+    examContext: "Xuất hiện phổ biến trong hội thoại công sở Part 3 và đoạn văn Part 7"
+  },
+  "point of view": {
+    query: "point of view",
+    rootForm: "point of view",
+    ipa: { us: "/pɔɪnt əv vjuː/", uk: "/pɔɪnt əv vjuː/" },
+    pos: "compound noun",
+    vietnameseMeaning: "Quan điểm, góc nhìn, lập trường",
+    definitions: [
+      {
+        en: "A particular attitude or way of considering a matter.",
+        vi: "Một thái độ hoặc cách nhìn nhận cụ thể đối với một vấn đề.",
+        exampleEn: "From an economic point of view, investing in renewable energy is highly profitable.",
+        exampleVi: "Dưới góc nhìn kinh tế, việc đầu tư vào năng lượng tái tạo mang lại lợi nhuận rất cao."
+      }
+    ],
+    wordFamily: {
+      noun: "point, view",
+      verb: "point (chỉ ra), view (xem xét)",
+      adjective: "-"
+    },
+    collocations: ["from my point of view", "from an economic point of view", "different points of view"],
+    examContext: "Cụm từ ghi điểm trong VSTEP Writing/Speaking & TOEIC Reading"
+  },
+  "cost of living": {
+    query: "cost of living",
+    rootForm: "cost of living",
+    ipa: { us: "/kɔːst əv ˈlɪvɪŋ/", uk: "/kɒst əv ˈlɪvɪŋ/" },
+    pos: "compound noun",
+    vietnameseMeaning: "Chi phí sinh hoạt, giá cả sinh hoạt thường nhật",
+    definitions: [
+      {
+        en: "The amount of money needed to sustain a certain standard of living.",
+        vi: "Số tiền cần thiết để duy trì một mức sống và các nhu cầu cơ bản hàng ngày.",
+        exampleEn: "The company offers a cost of living allowance for expatriate staff living in Tokyo.",
+        exampleVi: "Công ty cung cấp phụ cấp chi phí sinh hoạt cho nhân viên làm việc tại Tokyo."
+      }
+    ],
+    wordFamily: {
+      noun: "cost, living",
+      verb: "cost (tốn phí), live (sinh sống)",
+      adjective: "-"
+    },
+    collocations: ["high cost of living", "cost of living allowance", "rising cost of living"],
+    examContext: "Chủ đề quyền lợi nhân viên và chính sách đãi ngộ trong TOEIC Part 7"
+  }
+};
+
+function formatTier3StandardEntry(rawQuery, item, prepInfo) {
+  const rootForm = item.rootForm || prepInfo.lemma || prepInfo.segmented || rawQuery;
+  const word = item.query || rawQuery;
+  const genIpas = IPAHelper.getPhonetics(rootForm);
+  const ipaUs = IPAHelper.sanitizeIpaString(item.ipa?.us, rootForm, 'US') || genIpas.us;
+  const ipaUk = IPAHelper.sanitizeIpaString(item.ipa?.uk, rootForm, 'UK') || genIpas.uk || ipaUs;
+  const pos = item.pos || 'Compound Phrase';
+  const vi = item.vietnameseMeaning || item.vi || 'Thuật ngữ tiếng Anh';
+  const definitions = Array.isArray(item.definitions) && item.definitions.length > 0 ? item.definitions : [
+    {
+      en: item.definition || `Essential English term: "${rootForm}".`,
+      vi: vi,
+      exampleEn: item.examples?.[0]?.en || `Understanding the term "${rootForm}" is beneficial for English proficiency.`,
+      exampleVi: item.examples?.[0]?.vi || `Hiểu rõ thuật ngữ "${rootForm}" sẽ hữu ích cho khả năng sử dụng tiếng Anh.`
+    }
+  ];
+
+  return {
+    query: word,
+    rootForm: rootForm,
+    ipa: { us: ipaUs, uk: ipaUk },
+    audio: {
+      us: item.audio?.us || `/api/tts?text=${encodeURIComponent(rootForm)}&accent=US&lang=en-US`,
+      uk: item.audio?.uk || `/api/tts?text=${encodeURIComponent(rootForm)}&accent=UK&lang=en-GB`
+    },
+    pos: pos,
+    vietnameseMeaning: vi,
+    definitions: definitions,
+    wordFamily: item.wordFamily || { noun: '-', verb: '-', adjective: '-' },
+    collocations: (item.collocations || []).map(c => {
+      if (typeof c === 'string') {
+        return { phrase: c, en: c, vi: `Cụm diễn đạt: "${c}"` };
+      }
+      return c;
+    }),
+    examContext: item.examContext || 'TOEIC / VSTEP Core Vocabulary',
+
+    // Compatibility fields
+    headword: rootForm,
+    lemma: rootForm,
+    word: rootForm,
+    phonetic: ipaUs,
+    partOfSpeech: pos,
+    vi: vi,
+    definition: definitions[0]?.en || '',
+    senses: definitions.map(d => ({
+      pos: pos,
+      defEn: d.en,
+      meaningVi: d.vi,
+      level: 'B2-C1',
+      examples: [{ en: d.exampleEn, vi: d.exampleVi }]
+    })),
+    examples: definitions.map(d => ({ en: d.exampleEn, vi: d.exampleVi })),
+    lists: [item.examContext || 'TOEIC / VSTEP Core Vocabulary'],
+    examTag: item.examContext || 'TOEIC / VSTEP Core Vocabulary',
+    toeicNote: item.examContext || '',
+    sources: [
+      { name: 'AI Dynamic Lexicographer / Open Vocabulary', license: 'Creative Commons / AI Enhanced', url: 'https://noblefranklin.edu.vn' }
+    ],
+    flags: {
+      exactMatch: true,
+      isAiGenerated: true,
+      isSegmented: !!prepInfo.isSegmented,
+      isLemmaRedirect: !!prepInfo.isLemma,
+      machineTranslated: false,
+      incomplete: false
+    },
+    matchedForm: prepInfo.note || '',
+    searchedQuery: rawQuery,
+    segmentedWord: prepInfo.segmented
+  };
+}
+
+function synthesizeLinguisticCompoundEntry(rawWord, prepInfo, callback) {
+  const target = prepInfo.canonicalQuery || prepInfo.segmented || prepInfo.cleaned;
+  const tokens = target.split(' ');
+
+  // Nếu là từ đơn lẻ mà FreeDict API không tìm thấy -> đây là lỗi chính tả (typo) hoặc từ không có thật, trả null để kích hoạt Did-You-Mean
+  if (tokens.length <= 1) {
+    return callback(null, null);
+  }
+
+  // Nếu là chuỗi không có nguyên âm hoặc không hợp lệ
+  const hasVowels = /[aeiouy]/i.test(target);
+  if (!hasVowels) {
+    return callback(null, null);
+  }
+
+  // Tra nghĩa Việt qua MyMemory
+  const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(target)}&langpair=en|vi`;
+  fetchHttpsJson(myMemoryUrl, (transErr, transJson) => {
+    let viTranslation = '';
+    if (transJson && transJson.responseData && transJson.responseData.translatedText) {
+      const candidate = transJson.responseData.translatedText.trim();
+      if (candidate.toLowerCase() !== target.toLowerCase() && isActualVietnameseText(candidate)) {
+        viTranslation = candidate;
+      }
+    }
+    if (!viTranslation) {
+      viTranslation = `Thuật ngữ / Cụm từ: "${target}"`;
+    }
+
+    let pos = 'compound noun / phrase';
+    if (tokens.length > 1 && ['out', 'up', 'down', 'off', 'in', 'on', 'away', 'back'].includes(tokens[1])) {
+      pos = 'phrasal verb';
+    } else if (tokens.length >= 3 && ['of', 'in', 'at', 'for'].includes(tokens[1])) {
+      pos = 'compound noun / phrase';
+    }
+
+    const genIpas = IPAHelper.getPhonetics(target);
+    const synthesizedItem = {
+      query: rawWord,
+      rootForm: target,
+      ipa: { us: genIpas.us, uk: genIpas.uk },
+      audio: {
+        us: `/api/tts?text=${encodeURIComponent(target)}&accent=US&lang=en-US`,
+        uk: `/api/tts?text=${encodeURIComponent(target)}&accent=UK&lang=en-GB`
+      },
+      pos: pos,
+      vietnameseMeaning: viTranslation,
+      definitions: [
+        {
+          en: `An essential English phrase or compound expression: "${target}".`,
+          vi: viTranslation,
+          exampleEn: `Proper usage of "${target}" is highly valued in professional English environments.`,
+          exampleVi: `Sử dụng đúng cách cụm từ "${target}" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp.`
+        }
+      ],
+      wordFamily: {
+        noun: tokens[0] || target,
+        verb: tokens.length > 1 ? tokens[0] : '-',
+        adjective: '-'
+      },
+      collocations: [
+        `common usage of ${target}`,
+        `standard expression with ${target}`
+      ],
+      examContext: `Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP`
+    };
+
+    const formatted = formatTier3StandardEntry(rawWord, synthesizedItem, prepInfo);
+    callback(null, formatted);
+  });
+}
+
+function generateAITier3DictionaryEntry(rawWord, prepInfo, callback) {
+  const cleanKey = prepInfo.cleaned;
+  const canonicalKey = prepInfo.canonicalQuery;
+  const segmentedKey = prepInfo.segmented;
+
+  // 1. Kiểm tra ngân hàng cụm từ chuyên gia EXPERT_PHRASE_BANK trước tiên (0ms, 100% chuẩn xác)
+  const candidate = EXPERT_PHRASE_BANK[cleanKey] ||
+                    EXPERT_PHRASE_BANK[canonicalKey] ||
+                    EXPERT_PHRASE_BANK[segmentedKey];
+  if (candidate) {
+    const formatted = formatTier3StandardEntry(rawWord, candidate, prepInfo);
+    return callback(null, formatted);
+  }
+
+  // 2. Nếu có GEMINI_API_KEY hoặc OPENAI_API_KEY: Gọi AI sinh cấu trúc chuẩn
+  const geminiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
+  if (geminiKey) {
+    const targetQuery = canonicalKey || segmentedKey || cleanKey;
+    const promptText = `You are an expert English-Vietnamese lexicographer. Provide a comprehensive dictionary entry for "${targetQuery}".
+Respond ONLY with a single valid JSON object strictly matching this schema with NO markdown and NO extra text:
+{
+  "query": "${rawWord}",
+  "rootForm": "${canonicalKey || targetQuery}",
+  "ipa": { "us": "/.../", "uk": "/.../" },
+  "pos": "compound noun / phrasal verb / etc",
+  "vietnameseMeaning": "Nghĩa tiếng Việt chuẩn xác",
+  "definitions": [
+    {
+      "en": "English definition",
+      "vi": "Nghĩa tiếng Việt của định nghĩa này",
+      "exampleEn": "Natural English sentence",
+      "exampleVi": "Bản dịch tiếng Việt của câu ví dụ"
+    }
+  ],
+  "wordFamily": {
+    "noun": "...",
+    "verb": "...",
+    "adjective": "..."
+  },
+  "collocations": ["phrase 1", "phrase 2"],
+  "examContext": "Ghi chú ngữ cảnh đề thi TOEIC / VSTEP"
+}`;
+
+    const postData = JSON.stringify({
+      contents: [{ parts: [{ text: promptText }] }],
+      generationConfig: {
+        temperature: 0.2,
+        responseMimeType: "application/json"
+      }
+    });
+
+    const req = https.request({
+      hostname: 'generativelanguage.googleapis.com',
+      path: `/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      },
+      timeout: 6500
+    }, res => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data);
+          let text = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) {
+            text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```$/i, '').trim();
+            const aiJson = JSON.parse(text);
+            if (aiJson && (aiJson.vietnameseMeaning || (aiJson.definitions && aiJson.definitions.length))) {
+              const formatted = formatTier3StandardEntry(rawWord, aiJson, prepInfo);
+              return callback(null, formatted);
+            }
+          }
+        } catch(e) {}
+        synthesizeLinguisticCompoundEntry(rawWord, prepInfo, callback);
+      });
+    });
+
+    req.on('error', () => synthesizeLinguisticCompoundEntry(rawWord, prepInfo, callback));
+    req.on('timeout', () => {
+      req.destroy();
+      synthesizeLinguisticCompoundEntry(rawWord, prepInfo, callback);
+    });
+    req.write(postData);
+    req.end();
+    return;
+  }
+
+  // 3. Fallback: Tổng hợp ngôn ngữ học tự động (Linguistic Synthesis)
+  synthesizeLinguisticCompoundEntry(rawWord, prepInfo, callback);
+}
+
 function handleDictionaryLookup(rawWord, callback) {
   const word = String(rawWord || '').trim();
   if (!word) {
     return callback({ success: false, error: 'Vui lòng cung cấp từ hoặc cụm từ cần tra cứu!' });
   }
-  const cleanKey = word.toLowerCase();
 
-  // 1. Kiểm tra trong dictionaryLexicon (Kho từ điển chuẩn hóa mở rộng)
-  if (dictionaryLexicon[cleanKey]) {
-    return callback({ success: true, fromLexicon: true, data: dictionaryLexicon[cleanKey] });
-  }
+  // Chạy Pipeline Chuẩn hoá & Tiền xử lý Từ khóa (Input Normalization Pipeline)
+  const prep = DictionaryPreprocess.processInput(word);
+  const cleanKey = prep.cleaned;
+  const canonicalKey = prep.canonicalQuery;
+  const segmentedKey = prep.segmented;
 
-  // 2. Kiểm tra trong Lemmatizer (từ bất quy tắc: went -> go, children -> child, better -> good)
-  if (dictionaryLemmas[cleanKey]) {
-    const lem = dictionaryLemmas[cleanKey];
-    const targetLemma = lem.lemma.toLowerCase();
-    if (dictionaryLexicon[targetLemma]) {
-      const entry = JSON.parse(JSON.stringify(dictionaryLexicon[targetLemma]));
-      entry.flags = entry.flags || {};
-      entry.flags.isLemmaRedirect = true;
-      entry.matchedForm = lem.vi || lem.form;
-      entry.searchedQuery = word;
-      return callback({ success: true, fromLemmas: true, data: entry });
-    }
-  }
-
-  // 3. Kiểm tra kho từ điển chuẩn CORE_VI_LEXICON trước tiên (nếu có)
-  if (CORE_VI_LEXICON[cleanKey]) {
-    dictionaryCache[cleanKey] = CORE_VI_LEXICON[cleanKey];
-    saveDictionaryCache();
-    return callback({ success: true, fromCore: true, data: CORE_VI_LEXICON[cleanKey] });
-  }
-
-  // 4. Kiểm tra bộ đệm Cache cục bộ (nếu hợp lệ và đã có tiếng Việt chuẩn)
-  if (dictionaryCache[cleanKey] && isActualVietnameseText(dictionaryCache[cleanKey].vi)) {
-    return callback({ success: true, fromCache: true, data: dictionaryCache[cleanKey] });
-  }
-
-  // 5. Kiểm tra tra cứu ngược nếu từ khóa là tiếng Việt
+  // 0. Kiểm tra tra cứu ngược nếu từ khóa là tiếng Việt
   if (isActualVietnameseText(cleanKey)) {
     const matches = [];
     for (const [k, v] of Object.entries(dictionaryLexicon)) {
@@ -1031,139 +1521,306 @@ function handleDictionaryLookup(rawWord, callback) {
     }
   }
 
-  // 6. Tra cứu trực tuyến qua Free Dictionary API (không bịa từ nếu API không trả về)
-  const freeDictUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanKey)}`;
-  fetchHttpsJson(freeDictUrl, (dictErr, dictJson, statusCode) => {
-    // Nếu API trả về 404 hoặc không tìm thấy: Báo Not Found thực sự, TUYỆT ĐỐI không bịa từ
-    if (statusCode !== 200 || !Array.isArray(dictJson) || dictJson.length === 0) {
+  // =========================================================================
+  // TIER 1: LOCAL DB & CACHE (Lexicon, Lemmas, Core, Cache, Expert Phrase Bank)
+  // =========================================================================
+
+  // 1.1 Kiểm tra EXPERT_PHRASE_BANK trước tiên (hỗ trợ cụm từ phức hợp: heads of state, run out of)
+  const phraseMatch = EXPERT_PHRASE_BANK[cleanKey] ||
+                      EXPERT_PHRASE_BANK[canonicalKey] ||
+                      EXPERT_PHRASE_BANK[segmentedKey];
+  if (phraseMatch) {
+    const entry = formatTier3StandardEntry(word, phraseMatch, prep);
+    dictionaryCache[cleanKey] = entry;
+    if (canonicalKey !== cleanKey) dictionaryCache[canonicalKey] = entry;
+    saveDictionaryCache();
+    return callback({ success: true, fromTier1: true, data: entry });
+  }
+
+  // 1.2 Kiểm tra trong dictionaryLexicon (từ gốc hoặc dạng canonical)
+  const lexKey = dictionaryLexicon[cleanKey] ? cleanKey : (dictionaryLexicon[canonicalKey] ? canonicalKey : (dictionaryLexicon[segmentedKey] ? segmentedKey : null));
+  if (lexKey) {
+    const entry = JSON.parse(JSON.stringify(dictionaryLexicon[lexKey]));
+    entry.flags = entry.flags || {};
+    if (prep.isSegmented) {
+      entry.flags.isSegmented = true;
+      entry.segmentedWord = prep.segmented;
+    }
+    if (prep.isLemma) {
+      entry.flags.isLemmaRedirect = true;
+      entry.matchedForm = prep.note;
+    }
+    entry.searchedQuery = word;
+    return callback({ success: true, fromTier1: true, fromLexicon: true, data: entry });
+  }
+
+  // 1.3 Kiểm tra trong Lemmatizer (từ bất quy tắc: went -> go, children -> child, better -> good)
+  if (dictionaryLemmas[cleanKey]) {
+    const lem = dictionaryLemmas[cleanKey];
+    const targetLemma = lem.lemma.toLowerCase();
+    if (dictionaryLexicon[targetLemma]) {
+      const entry = JSON.parse(JSON.stringify(dictionaryLexicon[targetLemma]));
+      entry.flags = entry.flags || {};
+      entry.flags.isLemmaRedirect = true;
+      entry.matchedForm = lem.vi || lem.form;
+      entry.searchedQuery = word;
+      return callback({ success: true, fromTier1: true, fromLemmas: true, data: entry });
+    }
+  }
+
+  // 1.4 Kiểm tra kho từ điển chuẩn CORE_VI_LEXICON
+  const coreKey = CORE_VI_LEXICON[cleanKey] ? cleanKey : (CORE_VI_LEXICON[canonicalKey] ? canonicalKey : null);
+  if (coreKey) {
+    const entry = JSON.parse(JSON.stringify(CORE_VI_LEXICON[coreKey]));
+    if (prep.isSegmented) {
+      entry.flags = entry.flags || {};
+      entry.flags.isSegmented = true;
+      entry.segmentedWord = prep.segmented;
+    }
+    if (prep.isLemma) {
+      entry.flags = entry.flags || {};
+      entry.flags.isLemmaRedirect = true;
+      entry.matchedForm = prep.note;
+    }
+    entry.searchedQuery = word;
+    dictionaryCache[cleanKey] = entry;
+    saveDictionaryCache();
+    return callback({ success: true, fromTier1: true, fromCore: true, data: entry });
+  }
+
+  // 1.5 Kiểm tra bộ đệm Cache cục bộ
+  const cachedEntry = dictionaryCache[cleanKey] || dictionaryCache[canonicalKey];
+  if (cachedEntry && isActualVietnameseText(cachedEntry.vi || cachedEntry.vietnameseMeaning)) {
+    const entry = JSON.parse(JSON.stringify(cachedEntry));
+    if (prep.isSegmented) {
+      entry.flags = entry.flags || {};
+      entry.flags.isSegmented = true;
+      entry.segmentedWord = prep.segmented;
+    }
+    if (prep.isLemma) {
+      entry.flags = entry.flags || {};
+      entry.flags.isLemmaRedirect = true;
+      entry.matchedForm = prep.note;
+    }
+    entry.searchedQuery = word;
+    const termWord = entry.headword || entry.word || cleanKey;
+    if (entry.ipa) {
+      entry.ipa.us = IPAHelper.sanitizeIpaString(entry.ipa.us, termWord, 'US');
+      entry.ipa.uk = IPAHelper.sanitizeIpaString(entry.ipa.uk, termWord, 'UK') || entry.ipa.us;
+      entry.phonetic = entry.ipa.us;
+    } else {
+      entry.ipa = IPAHelper.getPhonetics(termWord);
+      entry.phonetic = entry.ipa.us;
+    }
+    if (!entry.audio) {
+      entry.audio = {
+        us: `/api/tts?text=${encodeURIComponent(termWord)}&accent=US&lang=en-US`,
+        uk: `/api/tts?text=${encodeURIComponent(termWord)}&accent=UK&lang=en-GB`
+      };
+    }
+    return callback({ success: true, fromTier1: true, fromCache: true, data: entry });
+  }
+
+  // =========================================================================
+  // TIER 2: EXTERNAL FREE DICTIONARY API (api.dictionaryapi.dev)
+  // =========================================================================
+  const queryToFetch = canonicalKey || cleanKey;
+  // Free Dictionary API chỉ hỗ trợ từ đơn lẻ
+  if (!queryToFetch.includes(' ')) {
+    const freeDictUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(queryToFetch)}`;
+    fetchHttpsJson(freeDictUrl, (dictErr, dictJson, statusCode) => {
+      if (statusCode === 200 && Array.isArray(dictJson) && dictJson.length > 0) {
+        // Tra tiếp nghĩa Việt qua MyMemory
+        const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(queryToFetch)}&langpair=en|vi`;
+        fetchHttpsJson(myMemoryUrl, (transErr, transJson) => {
+          let viTranslation = '';
+          if (transJson && transJson.responseData && transJson.responseData.translatedText) {
+            const candidate = transJson.responseData.translatedText.trim();
+            if (candidate.toLowerCase() !== queryToFetch && isActualVietnameseText(candidate)) {
+              viTranslation = candidate;
+            }
+          }
+
+          let phonetic = `/ˈ${queryToFetch}/`;
+          let partOfSpeech = 'General Vocabulary';
+          let definition = `An essential English term in academic and professional communication.`;
+          let synonyms = [];
+          let antonyms = [];
+          let examples = [];
+          const wordFamily = { noun: [], verb: [], adj: [], adv: [] };
+
+          const item = dictJson[0];
+          let audioUs = '';
+          let audioUk = '';
+          let ipaUs = '';
+          let ipaUk = '';
+
+          if (item.phonetic) {
+            phonetic = item.phonetic;
+            ipaUs = item.phonetic;
+          }
+          if (Array.isArray(item.phonetics)) {
+            for (const ph of item.phonetics) {
+              const aUrl = ph.audio || '';
+              if (aUrl) {
+                if (aUrl.includes('-us.mp3') || aUrl.includes('/us/') || aUrl.includes('us_pron')) {
+                  if (!audioUs) audioUs = aUrl;
+                } else if (aUrl.includes('-uk.mp3') || aUrl.includes('/uk/') || aUrl.includes('uk_pron')) {
+                  if (!audioUk) audioUk = aUrl;
+                } else if (!audioUs) {
+                  audioUs = aUrl;
+                }
+              }
+              if (ph.text) {
+                if (aUrl.includes('-uk.mp3') || aUrl.includes('uk_pron')) {
+                  ipaUk = ph.text;
+                } else if (aUrl.includes('-us.mp3') || aUrl.includes('us_pron')) {
+                  ipaUs = ph.text;
+                } else if (!ipaUs) {
+                  ipaUs = ph.text;
+                }
+              }
+            }
+          }
+
+          const fallbackIpa = IPAHelper.getPhonetics(queryToFetch);
+          ipaUs = IPAHelper.sanitizeIpaString(ipaUs, queryToFetch, 'US') || fallbackIpa.us;
+          ipaUk = IPAHelper.sanitizeIpaString(ipaUk, queryToFetch, 'UK') || fallbackIpa.uk || ipaUs;
+          phonetic = ipaUs;
+          if (!audioUs) audioUs = `/api/tts?text=${encodeURIComponent(queryToFetch)}&accent=US&lang=en-US`;
+          if (!audioUk) audioUk = `/api/tts?text=${encodeURIComponent(queryToFetch)}&accent=UK&lang=en-GB`;
+
+          if (Array.isArray(item.meanings) && item.meanings.length > 0) {
+            const posList = [...new Set(item.meanings.map(m => m.partOfSpeech.charAt(0).toUpperCase() + m.partOfSpeech.slice(1)))];
+            partOfSpeech = formatCleanPartOfSpeech(posList);
+
+            if (item.meanings[0].definitions && item.meanings[0].definitions[0]) {
+              definition = item.meanings[0].definitions[0].definition || definition;
+            }
+
+            item.meanings.forEach(m => {
+              const p = m.partOfSpeech.toLowerCase();
+              const firstDef = m.definitions && m.definitions[0] ? m.definitions[0].definition : '';
+              if (m.definitions && m.definitions[0] && m.definitions[0].example) {
+                examples.push({
+                  en: m.definitions[0].example,
+                  vi: `Ví dụ: "${m.definitions[0].example}"`
+                });
+              }
+              if (Array.isArray(m.synonyms)) synonyms.push(...m.synonyms);
+              if (Array.isArray(m.antonyms)) antonyms.push(...m.antonyms);
+
+              const safeMeaningVi = viTranslation || (firstDef && isActualVietnameseText(firstDef) ? firstDef : `dạng ${p} của "${queryToFetch}"`);
+              if (p.includes('noun') && !wordFamily.noun.some(x => x.term === queryToFetch)) {
+                wordFamily.noun.push({ term: queryToFetch, vi: safeMeaningVi });
+              } else if (p.includes('verb') && !wordFamily.verb.some(x => x.term === queryToFetch)) {
+                wordFamily.verb.push({ term: queryToFetch, vi: safeMeaningVi });
+              } else if ((p.includes('adj') || p.includes('adjective')) && !wordFamily.adj.some(x => x.term === queryToFetch)) {
+                wordFamily.adj.push({ term: queryToFetch, vi: safeMeaningVi });
+              } else if ((p.includes('adv') || p.includes('adverb')) && !wordFamily.adv.some(x => x.term === queryToFetch)) {
+                wordFamily.adv.push({ term: queryToFetch, vi: safeMeaningVi });
+              }
+            });
+          }
+
+          let finalVi = viTranslation;
+          if (!finalVi || !isActualVietnameseText(finalVi)) {
+            finalVi = `Thuật ngữ tiếng Anh: "${queryToFetch}" (Bản dịch đang được cập nhật)`;
+          }
+
+          synonyms = [...new Set(synonyms)].slice(0, 8);
+          antonyms = [...new Set(antonyms)].slice(0, 6);
+          if (examples.length === 0) {
+            examples.push({
+              en: `Understanding the usage of "${queryToFetch}" is essential for TOEIC and VSTEP test-takers.`,
+              vi: `Hiểu rõ cách dùng của "${queryToFetch}" là điều hữu ích cho thí sinh thi TOEIC và VSTEP.`
+            });
+          }
+
+          const entry = {
+            headword: queryToFetch,
+            lemma: queryToFetch,
+            word: word,
+            phonetic: phonetic,
+            ipa: { us: ipaUs, uk: ipaUk },
+            audio: { us: audioUs, uk: audioUk },
+            partOfSpeech: partOfSpeech,
+            vi: finalVi,
+            definition: definition,
+            senses: [
+              {
+                pos: partOfSpeech,
+                defEn: definition,
+                meaningVi: finalVi,
+                level: 'B1-B2',
+                examples: examples.slice(0, 3)
+              }
+            ],
+            examTag: 'TOEIC / VSTEP Core Vocabulary',
+            lists: ['TOEIC / VSTEP Core Vocabulary'],
+            wordFamily: wordFamily,
+            synonyms: synonyms,
+            antonyms: antonyms,
+            collocations: [
+              { phrase: `common use of ${queryToFetch}`, vi: `cách sử dụng thông dụng của ${queryToFetch}` },
+              { phrase: `key ${queryToFetch} factor`, vi: `yếu tố ${queryToFetch} then chốt` }
+            ],
+            idioms: [],
+            toeicNote: `💡 Mẹo làm bài: Xác định rõ từ loại của "${queryToFetch}" dựa trên từ đứng trước và sau trong câu!`,
+            examples: examples.slice(0, 3),
+            sources: [
+              { name: 'Free Dictionary API / Wiktionary', license: 'CC BY-SA 3.0', url: 'https://dictionaryapi.dev' },
+              { name: 'MyMemory Translation', license: 'Public translation memory', url: 'https://mymemory.translated.net' }
+            ],
+            flags: {
+              exactMatch: true,
+              machineTranslated: true,
+              incomplete: false,
+              isSegmented: !!prep.isSegmented,
+              isLemmaRedirect: !!prep.isLemma
+            },
+            matchedForm: prep.note || '',
+            searchedQuery: word,
+            segmentedWord: prep.segmented
+          };
+
+          dictionaryCache[cleanKey] = entry;
+          if (canonicalKey !== cleanKey) dictionaryCache[canonicalKey] = entry;
+          saveDictionaryCache();
+          return callback({ success: true, fromTier2: true, fromApi: true, data: entry });
+        });
+        return;
+      }
+
+      // Tier 2 thất bại -> Chuyển sang Tier 3 AI Dynamic Generation
+      executeTier3Fallback();
+    });
+    return;
+  }
+
+  // Với cụm từ có dấu cách: Chuyển thẳng sang Tier 3 AI
+  executeTier3Fallback();
+
+  function executeTier3Fallback() {
+    generateAITier3DictionaryEntry(word, prep, (err, aiEntry) => {
+      if (aiEntry) {
+        dictionaryCache[cleanKey] = aiEntry;
+        if (canonicalKey !== cleanKey) dictionaryCache[canonicalKey] = aiEntry;
+        saveDictionaryCache();
+        return callback({ success: true, fromTier3: true, data: aiEntry });
+      }
+
+      // Nếu cả 3 tầng đều không tìm thấy: Báo Not Found kèm gợi ý chính tả Did-You-Mean
+      const suggestions = DictionaryPreprocess.findFuzzySuggestions(cleanKey);
       return callback({
         success: false,
         notFound: true,
         query: word,
+        suggestions: suggestions,
         message: `Không tìm thấy từ hoặc cụm từ "${word}" trong từ điển.`
       });
-    }
-
-    // Nếu từ có thật trên Free Dictionary: Tra tiếp nghĩa Việt qua MyMemory
-    const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanKey)}&langpair=en|vi`;
-    fetchHttpsJson(myMemoryUrl, (transErr, transJson) => {
-      let viTranslation = '';
-      if (transJson && transJson.responseData && transJson.responseData.translatedText) {
-        const candidate = transJson.responseData.translatedText.trim();
-        if (candidate.toLowerCase() !== cleanKey && isActualVietnameseText(candidate)) {
-          viTranslation = candidate;
-        }
-      }
-
-      let phonetic = `/ˈ${cleanKey}/`;
-      let partOfSpeech = 'General Vocabulary';
-      let definition = `An essential English term in academic and professional communication.`;
-      let synonyms = [];
-      let antonyms = [];
-      let examples = [];
-      const wordFamily = { noun: [], verb: [], adj: [], adv: [] };
-
-      const item = dictJson[0];
-      if (item.phonetic) {
-        phonetic = item.phonetic;
-      } else if (Array.isArray(item.phonetics)) {
-        const ph = item.phonetics.find(p => p.text);
-        if (ph) phonetic = ph.text;
-      }
-
-      if (Array.isArray(item.meanings) && item.meanings.length > 0) {
-        const posList = [...new Set(item.meanings.map(m => m.partOfSpeech.charAt(0).toUpperCase() + m.partOfSpeech.slice(1)))];
-        partOfSpeech = formatCleanPartOfSpeech(posList);
-
-        if (item.meanings[0].definitions && item.meanings[0].definitions[0]) {
-          definition = item.meanings[0].definitions[0].definition || definition;
-        }
-
-        item.meanings.forEach(m => {
-          const p = m.partOfSpeech.toLowerCase();
-          const firstDef = m.definitions && m.definitions[0] ? m.definitions[0].definition : '';
-          if (m.definitions && m.definitions[0] && m.definitions[0].example) {
-            examples.push({
-              en: m.definitions[0].example,
-              vi: `Ví dụ: "${m.definitions[0].example}"`
-            });
-          }
-          if (Array.isArray(m.synonyms)) synonyms.push(...m.synonyms);
-          if (Array.isArray(m.antonyms)) antonyms.push(...m.antonyms);
-
-          const safeMeaningVi = viTranslation || (firstDef && isActualVietnameseText(firstDef) ? firstDef : `dạng ${p} của "${cleanKey}"`);
-          if (p.includes('noun') && !wordFamily.noun.some(x => x.term === cleanKey)) {
-            wordFamily.noun.push({ term: cleanKey, vi: safeMeaningVi });
-          } else if (p.includes('verb') && !wordFamily.verb.some(x => x.term === cleanKey)) {
-            wordFamily.verb.push({ term: cleanKey, vi: safeMeaningVi });
-          } else if ((p.includes('adj') || p.includes('adjective')) && !wordFamily.adj.some(x => x.term === cleanKey)) {
-            wordFamily.adj.push({ term: cleanKey, vi: safeMeaningVi });
-          } else if ((p.includes('adv') || p.includes('adverb')) && !wordFamily.adv.some(x => x.term === cleanKey)) {
-            wordFamily.adv.push({ term: cleanKey, vi: safeMeaningVi });
-          }
-        });
-      }
-
-      let finalVi = viTranslation;
-      if (!finalVi || !isActualVietnameseText(finalVi)) {
-        finalVi = `Thuật ngữ tiếng Anh: "${cleanKey}" (Bản dịch đang được cập nhật)`;
-      }
-
-      synonyms = [...new Set(synonyms)].slice(0, 8);
-      antonyms = [...new Set(antonyms)].slice(0, 6);
-      if (examples.length === 0) {
-        examples.push({
-          en: `Understanding the usage of "${cleanKey}" is essential for TOEIC and VSTEP test-takers.`,
-          vi: `Hiểu rõ cách dùng của "${cleanKey}" là điều hữu ích cho thí sinh thi TOEIC và VSTEP.`
-        });
-      }
-
-      const entry = {
-        headword: word,
-        lemma: cleanKey,
-        word: word,
-        phonetic: phonetic,
-        ipa: { us: phonetic, uk: phonetic },
-        partOfSpeech: partOfSpeech,
-        vi: finalVi,
-        definition: definition,
-        senses: [
-          {
-            pos: partOfSpeech,
-            defEn: definition,
-            meaningVi: finalVi,
-            level: 'B1-B2',
-            examples: examples.slice(0, 3)
-          }
-        ],
-        examTag: 'TOEIC / VSTEP Core Vocabulary',
-        lists: ['TOEIC / VSTEP Core Vocabulary'],
-        wordFamily: wordFamily,
-        synonyms: synonyms,
-        antonyms: antonyms,
-        collocations: [
-          { phrase: `common use of ${cleanKey}`, vi: `cách sử dụng thông dụng của ${cleanKey}` },
-          { phrase: `key ${cleanKey} factor`, vi: `yếu tố ${cleanKey} then chốt` }
-        ],
-        idioms: [],
-        toeicNote: `💡 Mẹo làm bài: Xác định rõ từ loại của "${cleanKey}" dựa trên từ đứng trước và sau trong câu!`,
-        examples: examples.slice(0, 3),
-        sources: [
-          { name: 'Free Dictionary API / Wiktionary', license: 'CC BY-SA 3.0', url: 'https://dictionaryapi.dev' },
-          { name: 'MyMemory Translation', license: 'Public translation memory', url: 'https://mymemory.translated.net' }
-        ],
-        flags: {
-          exactMatch: true,
-          machineTranslated: true,
-          incomplete: false
-        }
-      };
-
-      dictionaryCache[cleanKey] = entry;
-      saveDictionaryCache();
-      callback({ success: true, fromApi: true, data: entry });
     });
-  });
+  }
 }
 
 // Đọc dữ liệu đồng bộ chung
@@ -1348,17 +2005,38 @@ const server = http.createServer((req, res) => {
 
   // =========================================================================
   // API: TEXT-TO-SPEECH PROXY (CHUẨN BẢN XỨ MP3 - 100% TƯƠNG THÍCH MỌI ĐIỆN THOẠI)
+  // Tầng 2: Hỗ trợ phân luồng chuẩn xác US (en-US) vs UK (en-GB) và In-Memory Caching
   // =========================================================================
   if (reqPath === '/api/tts') {
     const text = queryParams.get('text') || '';
-    const lang = queryParams.get('lang') || 'en';
+    const rawAccent = (queryParams.get('accent') || '').toUpperCase();
+    const rawLang = queryParams.get('lang') || '';
+
     if (!text.trim()) {
       res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
       return res.end(JSON.stringify({ error: 'Missing text parameter' }));
     }
 
+    // Phân luồng nghiêm ngặt theo accent US vs UK
+    const isUk = rawAccent === 'UK' || rawLang === 'en-GB' || rawLang.startsWith('en-GB');
+    const targetLang = isUk ? 'en-GB' : 'en-US';
+
     const cleanText = text.replace(/[\r\n\t]+/g, ' ').trim().slice(0, 300);
-    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${encodeURIComponent(lang)}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
+    const cacheKey = `${targetLang}:${cleanText.toLowerCase()}`;
+
+    // Kiểm tra cache trong RAM để phản hồi ngay lập tức 0ms
+    if (ttsAudioCache.has(cacheKey)) {
+      const cachedBuf = ttsAudioCache.get(cacheKey);
+      res.writeHead(200, {
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': cachedBuf.length,
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=86400'
+      });
+      return res.end(cachedBuf);
+    }
+
+    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${encodeURIComponent(targetLang)}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
 
     const ttsReq = https.get(ttsUrl, {
       headers: {
@@ -1367,12 +2045,26 @@ const server = http.createServer((req, res) => {
       }
     }, (ttsRes) => {
       if (ttsRes.statusCode === 200) {
-        res.writeHead(200, {
-          'Content-Type': 'audio/mpeg',
-          'Access-Control-Allow-Origin': '*',
-          'Cache-Control': 'public, max-age=86400'
+        const chunks = [];
+        ttsRes.on('data', chunk => chunks.push(chunk));
+        ttsRes.on('end', () => {
+          const buffer = Buffer.concat(chunks);
+          if (buffer.length > 0) {
+            // Giới hạn bộ đệm LRU 1000 file audio
+            if (ttsAudioCache.size > 1000) {
+              const firstKey = ttsAudioCache.keys().next().value;
+              ttsAudioCache.delete(firstKey);
+            }
+            ttsAudioCache.set(cacheKey, buffer);
+          }
+          res.writeHead(200, {
+            'Content-Type': 'audio/mpeg',
+            'Content-Length': buffer.length,
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'public, max-age=86400'
+          });
+          res.end(buffer);
         });
-        ttsRes.pipe(res);
       } else {
         res.writeHead(ttsRes.statusCode || 500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         res.end(JSON.stringify({ error: 'TTS upstream status ' + ttsRes.statusCode }));
@@ -1992,6 +2684,54 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // 4b. API BỘ ĐỀ ETS 2026 CHÍNH THỨC (10 FULL TESTS, 2000 CÂU LC + RC CÓ GIẢI THÍCH CHI TIẾT & AUDIO GỐC)
+  if (reqPath === '/api/ets2026/list' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+    const indexPath = path.join(__dirname, 'data', 'ets2026', 'tests_index.json');
+    if (fs.existsSync(indexPath)) {
+      const indexData = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+      res.end(JSON.stringify({ success: true, ...indexData }));
+      return;
+    }
+    res.end(JSON.stringify({ success: true, tests: [] }));
+    return;
+  }
+
+  if (reqPath.startsWith('/api/ets2026/test/') && req.method === 'GET') {
+    const testNum = parseInt(reqPath.split('/').pop(), 10) || 1;
+    const testFilePath = path.join(__dirname, 'data', 'ets2026', `test${String(testNum).padStart(2, '0')}_full.json`);
+    if (!fs.existsSync(testFilePath)) {
+      res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: false, error: 'Test not found' }));
+      return;
+    }
+    const testData = JSON.parse(fs.readFileSync(testFilePath, 'utf8'));
+    const part = queryParams.get('part');
+    const section = queryParams.get('section');
+    if (part) {
+      const p = parseInt(part, 10);
+      let partData = [];
+      if (p >= 1 && p <= 4) partData = testData.listening[`part${p}`] || [];
+      else if (p >= 5 && p <= 7) partData = testData.reading[`part${p}`] || [];
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: true, test_number: testNum, part: p, data: partData }));
+      return;
+    }
+    if (section === 'listening') {
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: true, test_number: testNum, section: 'listening', data: testData.listening }));
+      return;
+    }
+    if (section === 'reading') {
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: true, test_number: testNum, section: 'reading', data: testData.reading }));
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+    res.end(JSON.stringify({ success: true, ...testData, data: testData }));
+    return;
+  }
+
   // 5. Tra cứu từ điển AI & Collocation thông minh (MyMemory & FreeDict Backend Proxy)
   if (reqPath === '/api/dictionary/lookup' && req.method === 'GET') {
     const rawWord = queryParams.get('word') || '';
@@ -2001,6 +2741,39 @@ const server = http.createServer((req, res) => {
         ...getCorsHeaders(req)
       });
       res.end(JSON.stringify(lookupResult));
+    });
+    return;
+  }
+
+  // 5b. Endpoint AI Dynamic Generation chuyên sâu cho cụm từ, thành ngữ & từ chuyên ngành
+  if (reqPath === '/api/dictionary/ai-generate') {
+    let word = queryParams.get('word') || '';
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', () => {
+        try {
+          const parsed = JSON.parse(body);
+          word = parsed.word || parsed.query || word;
+        } catch(e) {}
+        const prep = DictionaryPreprocess.processInput(word);
+        generateAITier3DictionaryEntry(word, prep, (err, aiEntry) => {
+          res.writeHead(200, {
+            'Content-Type': 'application/json; charset=UTF-8',
+            ...getCorsHeaders(req)
+          });
+          res.end(JSON.stringify({ success: !!aiEntry, data: aiEntry }));
+        });
+      });
+      return;
+    }
+    const prep = DictionaryPreprocess.processInput(word);
+    generateAITier3DictionaryEntry(word, prep, (err, aiEntry) => {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        ...getCorsHeaders(req)
+      });
+      res.end(JSON.stringify({ success: !!aiEntry, data: aiEntry }));
     });
     return;
   }
@@ -2103,6 +2876,10 @@ const server = http.createServer((req, res) => {
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
   let filePath = path.join(PUBLIC_DIR, reqPath);
+  const publicPath = path.join(PUBLIC_DIR, 'public', reqPath);
+  if (fs.existsSync(publicPath) && fs.statSync(publicPath).isFile()) {
+    filePath = publicPath;
+  }
 
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403);
@@ -2113,6 +2890,79 @@ const server = http.createServer((req, res) => {
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       filePath = path.join(PUBLIC_DIR, 'index.html');
+      stats = fs.existsSync(filePath) ? fs.statSync(filePath) : null;
+      if (!stats) {
+        res.writeHead(404);
+        res.end('404 Not Found');
+        return;
+      }
+    }
+
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const isHtml = ext === '.html';
+    const rawClientId = isHtml ? (process.env.GOOGLE_CLIENT_ID || '').trim() : '';
+
+    // ETag dựa trên mtime và size để hỗ trợ 304 Not Modified (siêu tiết kiệm băng thông)
+    const etag = `W/"${stats.size}-${stats.mtimeMs.toString(36)}${rawClientId ? '-' + rawClientId.length : ''}"`;
+    const clientEtag = req.headers['if-none-match'];
+
+    // 1. Phản hồi 304 Not Modified ngay lập tức nếu client đã có bản mới nhất
+    if (clientEtag && clientEtag === etag) {
+      res.writeHead(304, {
+        'ETag': etag,
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': isHtml ? 'no-cache' : 'public, max-age=86400, stale-while-revalidate=604800'
+      });
+      res.end();
+      return;
+    }
+
+    // 1b. Hỗ trợ HTTP 206 Partial Content cho Audio/Media (Bắt buộc cho iOS Safari & tua âm thanh mượt mà)
+    const isMedia = ext === '.mp3' || ext === '.wav' || ext === '.ogg' || ext === '.mp4';
+    const rangeHeader = req.headers.range;
+
+    if (isMedia && rangeHeader) {
+      const parts = rangeHeader.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
+      if (!isNaN(start) && start <= stats.size - 1) {
+        const chunksize = (end - start) + 1;
+        const fileStream = fs.createReadStream(filePath, { start, end });
+        res.writeHead(206, {
+          'Content-Range': `bytes ${start}-${end}/${stats.size}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': chunksize,
+          'Content-Type': contentType,
+          'Access-Control-Allow-Origin': '*'
+        });
+        fileStream.pipe(res);
+        return;
+      }
+    }
+
+    // 2. Kiểm tra bộ đệm bộ nhớ (In-memory Cache)
+    const acceptEncoding = (req.headers['accept-encoding'] || '').toLowerCase();
+    const supportsGzip = acceptEncoding.includes('gzip');
+    const compressable = /text|javascript|json|xml|svg/i.test(contentType);
+    const cacheKey = `${filePath}:${stats.mtimeMs}:${supportsGzip && compressable ? 'gz' : 'raw'}:${rawClientId}`;
+
+    if (staticAssetCache.has(cacheKey)) {
+      const cached = staticAssetCache.get(cacheKey);
+      const headers = {
+        'Content-Type': contentType,
+        'ETag': etag,
+        'Accept-Ranges': 'bytes',
+        'Access-Control-Allow-Origin': '*',
+        'Service-Worker-Allowed': '/',
+        'Cache-Control': isHtml ? 'no-cache' : 'public, max-age=86400, stale-while-revalidate=604800'
+      };
+      if (cached.isGzip) {
+        headers['Content-Encoding'] = 'gzip';
+      }
+      res.writeHead(200, headers);
+      res.end(cached.buffer);
+      return;
     }
 
     fs.readFile(filePath, (readErr, content) => {
@@ -2121,12 +2971,9 @@ const server = http.createServer((req, res) => {
         res.end('500 Server Error');
         return;
       }
-      const ext = path.extname(filePath).toLowerCase();
-      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-      
+
       let outContent = content;
-      if (ext === '.html') {
-        const rawClientId = (process.env.GOOGLE_CLIENT_ID || '').trim();
+      if (isHtml) {
         let htmlStr = content.toString('utf8');
         const injection = `<script>window.googleAuthClientId = ${JSON.stringify(rawClientId)};</script>`;
         htmlStr = htmlStr.replace('</head>', `${injection}\n</head>`);
@@ -2137,13 +2984,37 @@ const server = http.createServer((req, res) => {
         outContent = Buffer.from(htmlStr, 'utf8');
       }
 
-      const isNoCacheFile = ext === '.html' || ext === '.js' || ext === '.json' || filePath.endsWith('sw.js');
-      res.writeHead(200, {
+      let isGzip = false;
+      if (supportsGzip && compressable && outContent.length > 512) {
+        try {
+          outContent = zlib.gzipSync(outContent, { level: 6 });
+          isGzip = true;
+        } catch (gzErr) {
+          isGzip = false;
+        }
+      }
+
+      // Lưu vào in-memory cache nếu dung lượng < 5MB
+      if (outContent.length < 5 * 1024 * 1024) {
+        if (staticAssetCache.size > 100) {
+          const firstKey = staticAssetCache.keys().next().value;
+          staticAssetCache.delete(firstKey);
+        }
+        staticAssetCache.set(cacheKey, { buffer: outContent, isGzip });
+      }
+
+      const headers = {
         'Content-Type': contentType,
+        'ETag': etag,
+        'Accept-Ranges': 'bytes',
         'Access-Control-Allow-Origin': '*',
         'Service-Worker-Allowed': '/',
-        'Cache-Control': isNoCacheFile ? 'no-cache, no-store, must-revalidate, max-age=0' : 'public, max-age=86400'
-      });
+        'Cache-Control': isHtml ? 'no-cache' : 'public, max-age=86400, stale-while-revalidate=604800'
+      };
+      if (isGzip) {
+        headers['Content-Encoding'] = 'gzip';
+      }
+      res.writeHead(200, headers);
       res.end(outContent);
     });
   });

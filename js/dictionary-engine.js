@@ -28,6 +28,7 @@
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
     }
+    window.escapeHtml = escapeHtml;
 
     // 2. NHẬN DIỆN TIẾNG VIỆT (Dùng cho Tra ngược Anh - Việt)
     function isVietnamese(text) {
@@ -228,11 +229,98 @@
         },
 
         normalizeEntry(key, def) {
-            const word = def.word || key;
-            const ipaUs = def.ipa?.us || def.phonetic || `/${word}/`;
-            const ipaUk = def.ipa?.uk || def.ipaUk || ipaUs;
+            const word = def.rootForm || def.headword || def.word || key;
+            let ipaUs = def.ipa?.us || def.phonetic || '';
+            let ipaUk = def.ipa?.uk || def.ipaUk || ipaUs;
+
+            // Sử dụng IPAHelper để làm sạch và khử 100% lỗi chuỗi thô / gạch dưới
+            if (window.IPAHelper) {
+                ipaUs = window.IPAHelper.sanitizeIpaString(ipaUs, word, 'US');
+                ipaUk = window.IPAHelper.sanitizeIpaString(ipaUk, word, 'UK') || ipaUs;
+            } else {
+                if (!ipaUs || ipaUs.includes('_') || ipaUs.startsWith("/'")) ipaUs = `/${word}/`;
+                if (!ipaUk || ipaUk.includes('_') || ipaUk.startsWith("/'")) ipaUk = ipaUs;
+            }
+
+            const audioSources = {
+                us: def.audio?.us || `/api/tts?text=${encodeURIComponent(word)}&accent=US&lang=en-US`,
+                uk: def.audio?.uk || `/api/tts?text=${encodeURIComponent(word)}&accent=UK&lang=en-GB`
+            };
+
+            // Đăng ký nguồn audio cho AudioService
+            if (window.AudioService && typeof window.AudioService.registerAudioSources === 'function') {
+                window.AudioService.registerAudioSources(word, audioSources);
+            }
+
+            const partOfSpeech = def.pos || def.partOfSpeech || 'General Vocabulary';
+            const viMeaning = def.vietnameseMeaning || def.vi || `Nghĩa của từ "${word}"`;
+
+            // Xử lý definitions & senses đa tầng (Tier 3 Schema)
+            let senses = def.senses;
+            let examples = def.examples || [];
+            if (Array.isArray(def.definitions) && def.definitions.length > 0) {
+                senses = def.definitions.map(d => ({
+                    pos: partOfSpeech,
+                    defEn: d.en,
+                    meaningVi: d.vi,
+                    level: 'B2-C1',
+                    examples: d.exampleEn ? [{ en: d.exampleEn, vi: d.exampleVi || '' }] : []
+                }));
+                examples = def.definitions.filter(d => d.exampleEn).map(d => ({ en: d.exampleEn, vi: d.exampleVi || '' }));
+            }
+            if (!senses || !senses.length) {
+                senses = [
+                    {
+                        pos: partOfSpeech,
+                        defEn: def.definition || 'Essential English term.',
+                        meaningVi: viMeaning,
+                        level: def.level || 'B1-B2',
+                        examples: examples
+                    }
+                ];
+            }
+
+            // Xử lý wordFamily: Hỗ trợ cả 2 dạng: Array of objects VÀ Object of strings ({ noun, verb, adjective })
+            let wordFamily = { noun: [], verb: [], adj: [], adv: [] };
+            if (def.wordFamily) {
+                if (Array.isArray(def.wordFamily.noun)) {
+                    wordFamily = def.wordFamily;
+                } else {
+                    const parseWfStr = (val) => {
+                        if (!val || typeof val !== 'string' || val === '-') return [];
+                        return val.split(',').map(s => {
+                            const t = s.trim();
+                            const m = t.match(/^([^(]+)(\((.+)\))?$/);
+                            if (m) {
+                                return { term: m[1].trim(), vi: m[3] ? m[3].trim() : '' };
+                            }
+                            return { term: t, vi: '' };
+                        }).filter(x => x.term);
+                    };
+                    wordFamily.noun = parseWfStr(def.wordFamily.noun);
+                    wordFamily.verb = parseWfStr(def.wordFamily.verb);
+                    wordFamily.adj = parseWfStr(def.wordFamily.adjective || def.wordFamily.adj);
+                    wordFamily.adv = parseWfStr(def.wordFamily.adverb || def.wordFamily.adv);
+                }
+            }
+
+            // Xử lý collocations: Hỗ trợ cả mảng chuỗi VÀ mảng object
+            let collocations = [];
+            if (Array.isArray(def.collocations)) {
+                collocations = def.collocations.map(c => {
+                    if (typeof c === 'string') {
+                        return { phrase: c, en: c, vi: `Cụm thường gặp: ${c}` };
+                    }
+                    return c;
+                });
+            }
+
+            const examTag = def.examContext || def.examTag || (def.lists && def.lists[0]) || 'TOEIC / VSTEP';
+            const toeicNote = def.examContext || def.toeicNote || '';
+
             return {
                 headword: word,
+                rootForm: def.rootForm || word,
                 lemma: def.lemma || word,
                 matchedForm: def.matchedForm || '',
                 ipa: { us: ipaUs, uk: ipaUk },
@@ -240,150 +328,148 @@
                     us: def.audio?.us || `/api/tts?text=${encodeURIComponent(word)}&lang=en-US`,
                     uk: def.audio?.uk || `/api/tts?text=${encodeURIComponent(word)}&lang=en-GB`
                 },
-                partOfSpeech: def.partOfSpeech || 'General Vocabulary',
-                senses: def.senses || [
-                    {
-                        pos: def.partOfSpeech || 'General',
-                        defEn: def.definition || 'Essential English term.',
-                        meaningVi: def.vi || `Nghĩa của từ "${word}"`,
-                        level: def.level || 'B1-B2',
-                        examples: def.examples || []
-                    }
-                ],
-                wordFamily: def.wordFamily || { noun: [], verb: [], adj: [], adv: [] },
+                partOfSpeech: partOfSpeech,
+                vi: viMeaning,
+                vietnameseMeaning: viMeaning,
+                definition: (senses[0] && senses[0].defEn) || def.definition || '',
+                definitions: def.definitions || senses.map(s => ({ en: s.defEn, vi: s.meaningVi, exampleEn: s.examples?.[0]?.en || '', exampleVi: s.examples?.[0]?.vi || '' })),
+                senses: senses,
+                wordFamily: wordFamily,
                 synonyms: def.synonyms || [],
                 antonyms: def.antonyms || [],
-                collocations: def.collocations || [],
+                collocations: collocations,
                 idioms: def.idioms || [],
                 phrasalVerbs: def.phrasalVerbs || [],
-                lists: def.lists || (def.examTag ? [def.examTag] : ['TOEIC / VSTEP']),
-                toeicNote: def.toeicNote || '',
+                lists: def.lists || [examTag],
+                examTag: examTag,
+                examContext: def.examContext || '',
+                toeicNote: toeicNote,
+                examples: examples.length ? examples : (senses[0]?.examples || []),
                 sources: def.sources || [
-                    { name: 'Wiktionary', license: 'CC BY-SA 3.0', url: 'https://en.wiktionary.org' },
-                    { name: 'WordNet 3.0', license: 'WordNet License', url: 'https://wordnet.princeton.edu' }
+                    { name: 'Wiktionary / AI Lexicographer', license: 'CC BY-SA 3.0', url: 'https://noblefranklin.edu.vn' }
                 ],
                 flags: {
                     exactMatch: true,
-                    isLemmaRedirect: false,
+                    isLemmaRedirect: !!def.flags?.isLemmaRedirect,
+                    isSegmented: !!def.flags?.isSegmented,
+                    isAiGenerated: !!def.flags?.isAiGenerated,
                     isVietnameseReverse: false,
                     machineTranslated: false,
                     incomplete: false,
                     ...def.flags
-                }
+                },
+                searchedQuery: def.searchedQuery || def.query || key,
+                originalQuery: def.originalQuery || def.searchedQuery || key,
+                segmentedWord: def.segmentedWord || ''
             };
         },
 
-        // Tra cứu chuẩn hóa một từ hoặc cụm từ
+        // Tra cứu chuẩn hóa một từ hoặc cụm từ theo Kiến trúc 3 Tầng (3-Tier Resolver Architecture)
         async lookupWord(rawQuery, options = {}) {
             await this.init();
             const query = String(rawQuery || '').trim();
             if (!query) return null;
 
-            const cleanKey = query.toLowerCase();
+            // Chạy qua Pipeline Chuẩn hoá & Tiền xử lý Từ khóa (Input Normalization Pipeline)
+            const prep = window.DictionaryPreprocess
+                ? window.DictionaryPreprocess.processInput(query)
+                : { cleaned: query.toLowerCase(), canonicalQuery: query.toLowerCase(), isSegmented: false, segmented: query.toLowerCase(), isLemma: false, lemma: query.toLowerCase(), note: '' };
+
+            const cleanKey = prep.cleaned;
+            const canonicalKey = prep.canonicalQuery;
+            const segmentedKey = prep.segmented;
 
             // A. Kiểm tra Tra ngược Anh - Việt nếu đầu vào là tiếng Việt
             if (isVietnamese(query)) {
                 return this.performReverseLookup(query);
             }
 
-            // B. Kiểm tra Client IndexedDB Cache
+            // =========================================================================
+            // TIER 1: LOCAL DB & CLIENT CACHE (IndexedDB, Local Lexicon, Lemmas)
+            // =========================================================================
             if (!options.bypassCache) {
-                const cached = await DictCacheDB.get(cleanKey);
+                const cached = (await DictCacheDB.get(cleanKey)) || (canonicalKey !== cleanKey ? await DictCacheDB.get(canonicalKey) : null);
                 if (cached) {
+                    if (prep.isSegmented) {
+                        cached.flags = cached.flags || {};
+                        cached.flags.isSegmented = true;
+                        cached.segmentedWord = prep.segmented;
+                        cached.originalQuery = query;
+                    }
+                    if (prep.isLemma) {
+                        cached.flags = cached.flags || {};
+                        cached.flags.isLemmaRedirect = true;
+                        cached.matchedForm = prep.note;
+                    }
                     DictHistoryManager.add(cached.headword || cleanKey);
                     return cached;
                 }
             }
 
-            // C. Kiểm tra Lemmatizer (từ bất quy tắc, số nhiều, quá khứ)
-            let lemmaInfo = this.lemmas[cleanKey] || null;
-            let targetKey = cleanKey;
-            let isLemma = false;
-            let matchedFormText = '';
-
-            if (lemmaInfo) {
-                targetKey = lemmaInfo.lemma.toLowerCase();
-                isLemma = true;
-                matchedFormText = lemmaInfo.vi || lemmaInfo.form;
-            } else {
-                // Thử quy tắc biến thể thông thường: -ies, -es, -s, -ed, -ing
-                if (cleanKey.endsWith('ies') && cleanKey.length > 5) {
-                    const candidate = cleanKey.slice(0, -3) + 'y';
-                    if (this.lexicon[candidate]) {
-                        targetKey = candidate;
-                        isLemma = true;
-                        matchedFormText = `Dạng số nhiều của '${candidate}'`;
-                    }
-                } else if (cleanKey.endsWith('es') && cleanKey.length > 4) {
-                    const candidate = cleanKey.slice(0, -2);
-                    if (this.lexicon[candidate]) {
-                        targetKey = candidate;
-                        isLemma = true;
-                        matchedFormText = `Dạng số nhiều / ngôi thứ 3 của '${candidate}'`;
-                    }
-                } else if (cleanKey.endsWith('s') && cleanKey.length > 3) {
-                    const candidate = cleanKey.slice(0, -1);
-                    if (this.lexicon[candidate]) {
-                        targetKey = candidate;
-                        isLemma = true;
-                        matchedFormText = `Dạng số nhiều / số ít của '${candidate}'`;
-                    }
-                } else if (cleanKey.endsWith('ed') && cleanKey.length > 4) {
-                    const c1 = cleanKey.slice(0, -2);
-                    const c2 = cleanKey.slice(0, -1);
-                    if (this.lexicon[c2]) {
-                        targetKey = c2;
-                        isLemma = true;
-                        matchedFormText = `Dạng quá khứ / phân từ của '${c2}'`;
-                    } else if (this.lexicon[c1]) {
-                        targetKey = c1;
-                        isLemma = true;
-                        matchedFormText = `Dạng quá khứ / phân từ của '${c1}'`;
-                    }
-                } else if (cleanKey.endsWith('ing') && cleanKey.length > 5) {
-                    const c1 = cleanKey.slice(0, -3);
-                    const c2 = cleanKey.slice(0, -3) + 'e';
-                    if (this.lexicon[c2]) {
-                        targetKey = c2;
-                        isLemma = true;
-                        matchedFormText = `Dạng V-ing của '${c2}'`;
-                    } else if (this.lexicon[c1]) {
-                        targetKey = c1;
-                        isLemma = true;
-                        matchedFormText = `Dạng V-ing của '${c1}'`;
-                    }
+            // Kiểm tra trong Lexicon nội bộ (với cleanKey, canonicalKey hoặc segmentedKey)
+            const targetLexKey = this.lexicon[cleanKey] ? cleanKey : (this.lexicon[canonicalKey] ? canonicalKey : (this.lexicon[segmentedKey] ? segmentedKey : null));
+            if (targetLexKey) {
+                const entry = JSON.parse(JSON.stringify(this.lexicon[targetLexKey]));
+                entry.flags = entry.flags || {};
+                if (prep.isSegmented) {
+                    entry.flags.isSegmented = true;
+                    entry.segmentedWord = prep.segmented;
+                    entry.originalQuery = query;
                 }
-            }
-
-            // D. Khớp trong Lexicon nội bộ
-            if (this.lexicon[targetKey]) {
-                const entry = JSON.parse(JSON.stringify(this.lexicon[targetKey]));
-                if (isLemma) {
+                if (prep.isLemma) {
                     entry.flags.isLemmaRedirect = true;
-                    entry.matchedForm = matchedFormText;
-                    entry.searchedQuery = query;
+                    entry.matchedForm = prep.note;
                 }
+                entry.searchedQuery = query;
                 await DictCacheDB.set(cleanKey, entry);
                 DictHistoryManager.add(entry.headword || cleanKey);
                 return entry;
             }
 
-            // E. Gọi API Backend (/api/dictionary/lookup)
+            // Kiểm tra trong Lemmatizer
+            if (this.lemmas[cleanKey]) {
+                const lem = this.lemmas[cleanKey];
+                const targetLemma = lem.lemma.toLowerCase();
+                if (this.lexicon[targetLemma]) {
+                    const entry = JSON.parse(JSON.stringify(this.lexicon[targetLemma]));
+                    entry.flags = entry.flags || {};
+                    entry.flags.isLemmaRedirect = true;
+                    entry.matchedForm = lem.vi || lem.form;
+                    entry.searchedQuery = query;
+                    await DictCacheDB.set(cleanKey, entry);
+                    DictHistoryManager.add(entry.headword || cleanKey);
+                    return entry;
+                }
+            }
+
+            // =========================================================================
+            // TIER 2 & TIER 3: GỌI BACKEND RESOLVER (/api/dictionary/lookup)
+            // Backend tự động chuyển tầng: Tier 1 (Server Cache) ➔ Tier 2 (FreeDict API) ➔ Tier 3 (AI Dynamic Generation)
+            // =========================================================================
             try {
                 const res = await fetch(`/api/dictionary/lookup?word=${encodeURIComponent(cleanKey)}`);
                 if (res.ok) {
                     const json = await res.json();
                     if (json && json.success && json.data) {
                         const entry = this.normalizeEntry(cleanKey, json.data);
+                        if (prep.isSegmented) {
+                            entry.flags.isSegmented = true;
+                            entry.segmentedWord = prep.segmented;
+                            entry.originalQuery = query;
+                        }
+                        if (prep.isLemma) {
+                            entry.flags.isLemmaRedirect = true;
+                            entry.matchedForm = prep.note;
+                        }
+                        entry.searchedQuery = query;
                         await DictCacheDB.set(cleanKey, entry);
                         DictHistoryManager.add(entry.headword || cleanKey);
                         return entry;
                     } else if (json && json.notFound) {
-                        // Backend xác nhận từ không tồn tại hoặc sai chính tả
                         return {
                             notFound: true,
                             query: query,
-                            suggestions: this.findFuzzySuggestions(cleanKey)
+                            suggestions: json.suggestions || this.findFuzzySuggestions(cleanKey)
                         };
                     }
                 }
@@ -391,7 +477,7 @@
                 console.warn('Backend lookup error:', err);
             }
 
-            // F. Nếu không tìm thấy: Tìm gợi ý gõ sai (Did you mean...?)
+            // Nếu thất bại: Trả về Did-you-mean suggestions
             const suggestions = this.findFuzzySuggestions(cleanKey);
             return {
                 notFound: true,
@@ -400,16 +486,17 @@
             };
         },
 
-        // Tìm kiếm các từ gợi ý khi gõ sai
+        // Tìm kiếm các từ gợi ý khi gõ sai (Levenshtein Distance & Did-You-Mean)
         findFuzzySuggestions(cleanQuery) {
             const pool = Object.keys(this.lexicon);
-            // Thêm các từ đích trong lemmas
             for (const [k, v] of Object.entries(this.lemmas)) {
                 if (!pool.includes(k)) pool.push(k);
                 if (v.lemma && !pool.includes(v.lemma)) pool.push(v.lemma);
             }
+            if (window.DictionaryPreprocess) {
+                return window.DictionaryPreprocess.findFuzzySuggestions(cleanQuery, pool);
+            }
 
-            // Các trường hợp lỗi chính tả điển hình tiếng Anh
             const typoFixes = {
                 'recieve': 'receive',
                 'negociate': 'negotiate',
@@ -483,6 +570,19 @@
             if (clean.length < 2) return [];
 
             const list = [];
+
+            // Kiểm tra phân đoạn từ dính liền trước
+            if (window.DictionaryPreprocess) {
+                const prep = window.DictionaryPreprocess.processInput(clean);
+                if (prep.isSegmented && prep.segmented) {
+                    list.push({
+                        word: prep.segmented,
+                        partOfSpeech: 'Compound Phrase',
+                        vi: `💡 Đã tách từ dính liền: "${prep.segmented}"`
+                    });
+                }
+            }
+
             const pool = Object.keys(this.lexicon);
 
             for (const key of pool) {
@@ -493,25 +593,34 @@
                         partOfSpeech: entry.partOfSpeech || 'Word',
                         vi: (entry.senses?.[0]?.meaningVi || entry.vi || '').slice(0, 45)
                     });
-                    if (list.length >= 5) break;
+                    if (list.length >= 6) break;
                 }
             }
             return list;
         },
 
-        // Phát âm giọng chuẩn US / UK với tốc độ tùy chỉnh
+        // Phát âm giọng chuẩn US / UK với kiến trúc 3 tầng chuẩn mực
         speak(text, lang = 'en-US') {
             if (!text) return;
             const speed = this.currentAudioSpeed || 1.0;
-            if (window.UniversalAudioEngine) {
+            const accent = (lang === 'en-GB' || lang === 'UK') ? 'UK' : 'US';
+            const effectiveLang = accent === 'UK' ? 'en-GB' : 'en-US';
+
+            if (window.AudioService && typeof window.AudioService.playWord === 'function') {
+                window.AudioService.playWord(text, accent, {
+                    lang: effectiveLang,
+                    rate: speed
+                });
+            } else if (window.UniversalAudioEngine) {
                 window.UniversalAudioEngine.speak(text, {
-                    lang: lang,
+                    lang: effectiveLang,
+                    accent: accent,
                     rate: speed
                 });
             } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const u = new SpeechSynthesisUtterance(text);
-                u.lang = lang;
+                u.lang = effectiveLang;
                 u.rate = speed;
                 window.speechSynthesis.speak(u);
             }
@@ -522,6 +631,12 @@
                 this.currentAudioSpeed = 0.75;
             } else {
                 this.currentAudioSpeed = 1.0;
+            }
+            if (window.AudioService) {
+                window.AudioService.setSpeed(this.currentAudioSpeed);
+            }
+            if (window.UniversalAudioEngine) {
+                window.UniversalAudioEngine.setSpeed(this.currentAudioSpeed);
             }
             this.updateSpeedUI();
             if (window.showToast) {
