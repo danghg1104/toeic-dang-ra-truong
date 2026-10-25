@@ -1,13 +1,9 @@
-// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V8 ETS 2026 Listening Workstation)
-const CACHE_NAME = 'dang-ra-truong-cache-v8-listening-workstation';
+// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V10 ETS 2026 S-Curve & Diagnostic Workstation)
+const CACHE_NAME = 'dang-ra-truong-cache-v10-scurve-diagnostic-2026';
 const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/icon-192.png',
-  '/icon-512.png',
-  '/js/grammar-theory-data.js',
-  '/js/grammar-quiz-data.js',
-  '/js/vocab-decks-data.js',
-  '/js/dictionary-data.js'
+  '/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -25,6 +21,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('[SW] Deleting stale cache:', key);
             return caches.delete(key);
           }
         })
@@ -39,9 +36,9 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // TUYỆT ĐỐI KHÔNG DÙNG CACHE CHO HTML VÀ API
-  if (event.request.headers.get('accept')?.includes('text/html') || url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.startsWith('/api/')) {
-    event.respondWith(fetch(event.request, { cache: 'no-store' }));
+  // TUYỆT ĐỐI KHÔNG DÙNG CACHE CHO HTML, JS VÀ API (Luôn lấy mã nguồn mới nhất từ server)
+  if (event.request.headers.get('accept')?.includes('text/html') || url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request, { cache: 'no-cache' }));
     return;
   }
 

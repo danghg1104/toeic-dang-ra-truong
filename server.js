@@ -2901,6 +2901,8 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const isHtml = ext === '.html';
+    const isNoCache = isHtml || ext === '.js' || ext === '.json';
+    const cacheControlHeader = isNoCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400, stale-while-revalidate=604800';
     const rawClientId = isHtml ? (process.env.GOOGLE_CLIENT_ID || '').trim() : '';
 
     // ETag dựa trên mtime và size để hỗ trợ 304 Not Modified (siêu tiết kiệm băng thông)
@@ -2912,7 +2914,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(304, {
         'ETag': etag,
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': isHtml ? 'no-cache' : 'public, max-age=86400, stale-while-revalidate=604800'
+        'Cache-Control': cacheControlHeader
       });
       res.end();
       return;
@@ -2955,7 +2957,7 @@ const server = http.createServer((req, res) => {
         'Accept-Ranges': 'bytes',
         'Access-Control-Allow-Origin': '*',
         'Service-Worker-Allowed': '/',
-        'Cache-Control': isHtml ? 'no-cache' : 'public, max-age=86400, stale-while-revalidate=604800'
+        'Cache-Control': cacheControlHeader
       };
       if (cached.isGzip) {
         headers['Content-Encoding'] = 'gzip';
@@ -3009,7 +3011,7 @@ const server = http.createServer((req, res) => {
         'Accept-Ranges': 'bytes',
         'Access-Control-Allow-Origin': '*',
         'Service-Worker-Allowed': '/',
-        'Cache-Control': isHtml ? 'no-cache' : 'public, max-age=86400, stale-while-revalidate=604800'
+        'Cache-Control': cacheControlHeader
       };
       if (isGzip) {
         headers['Content-Encoding'] = 'gzip';

@@ -159,259 +159,141 @@ window.PersonalizedRoadmapEngine = {
         }
     },
 
-    // Danh sách 15 câu hỏi Test chẩn đoán bao quát 6 trụ cột cốt lõi ETS 2026
-    diagnosticQuestions: [
+    selectedNodeId: null,
+
+    // =========================================================================
+    // HỆ THỐNG 6 CHẶNG LỘ TRÌNH DỌC (VERTICAL ROADMAP) & 42 NODE BÀI HỌC
+    // Phân tầng từ 0 -> 990 điểm · Mỗi chặng đi tuần tự từ Part 1 -> Part 7
+    // =========================================================================
+    roadmapStages: [
         {
-            id: 'diag-1',
-            pillarId: 'gap-part12-listening',
-            part: 'Part 1 - Bẫy Being vs Been (Listening)',
-            type: 'listening',
-            context: '🖼️ [Tranh mô tả]: Một hàng xe đạp dựng tựa vào hàng rào bên đường đi bộ. Khu vực tĩnh, hoàn toàn KHÔNG có người nào trong tranh.',
-            audioScript: 'Listen to the 4 statements: (A) A bicycle is being repaired by a mechanic. (B) Some bicycles have been parked against a fence. (C) A cyclist is riding along the street. (D) The sidewalk is being cleaned with water.',
-            question: 'Nghe audio và chọn câu mô tả ĐÚNG NHẤT về bức tranh tĩnh:',
-            options: [
-                { key: 'A', text: '(A) A bicycle is being repaired by a mechanic.' },
-                { key: 'B', text: '(B) Some bicycles have been parked against a fence.' },
-                { key: 'C', text: '(C) A cyclist is riding along the street.' },
-                { key: 'D', text: '(D) The sidewalk is being cleaned with water.' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy kinh điển Part 1: Tranh tĩnh KHÔNG có người thì các phương án chứa "being + V3" (is being repaired, is being cleaned) đều SAI vì diễn tả hành động đang được người thực hiện. (B) "have been parked" là thì hiện tại hoàn thành bị động chỉ trạng thái tĩnh đã hoàn tất -> ĐÚNG.'
+            stageId: 1,
+            title: 'CHẶNG 1: 0 - 300 ĐIỂM',
+            subtitle: 'Foundation · Xây Nền Cấp Tốc',
+            bandMin: 0,
+            bandMax: 300,
+            badge: '🥉 Đồng',
+            color: 'amber',
+            gradient: 'from-amber-500 to-orange-600',
+            description: 'Xây dựng phản xạ nhận diện âm thanh, bối cảnh tranh người và từ loại cơ bản N - V - Adj - Adv.',
+            nodes: [
+                { id: 's1_n1', stageId: 1, part: 1, partNum: 1, title: 'Part 1: Tranh Tĩnh & Thì Tiếp Diễn', objective: 'Nhận diện trạng thái tĩnh vs hành động người, phát âm đuôi -ing', duration: '15 phút', questionsCount: 15, xp: 25, icon: 'fa-solid fa-camera', practiceType: 'listening' },
+                { id: 's1_n2', stageId: 1, part: 2, partNum: 2, title: 'Part 2: Câu Hỏi Wh- Cơ Bản', objective: 'Phản xạ câu hỏi Who, Where, When trực tiếp, tránh bẫy Yes/No', duration: '15 phút', questionsCount: 15, xp: 25, icon: 'fa-solid fa-headphones', practiceType: 'listening' },
+                { id: 's1_n3', stageId: 1, part: 3, partNum: 3, title: 'Part 3: Bắt Keyword Hội Thoại Ngắn', objective: 'Nghe xác định nhân vật, địa điểm xảy ra cuộc gọi và đối tượng chính', duration: '15 phút', questionsCount: 15, xp: 30, icon: 'fa-solid fa-comments', practiceType: 'listening' },
+                { id: 's1_n4', stageId: 1, part: 4, partNum: 4, title: 'Part 4: Thông Báo Nơi Công Cộng', objective: 'Nghe các bài phát thanh sân bay, siêu thị, nhà ga ngắn', duration: '15 phút', questionsCount: 15, xp: 30, icon: 'fa-solid fa-bullhorn', practiceType: 'listening' },
+                { id: 's1_n5', stageId: 1, part: 5, partNum: 5, title: 'Part 5: Từ Loại Cốt Lõi (N, V, Adj, Adv)', objective: 'Xác định vị trí đứng của từ loại trong câu đơn giản', duration: '15 phút', questionsCount: 15, xp: 30, icon: 'fa-solid fa-spell-check', practiceType: 'reading', topic: 'word_form' },
+                { id: 's1_n6', stageId: 1, part: 6, partNum: 6, title: 'Part 6: Điền Từ Thông Báo Ngắn', objective: 'Điền từ vựng và đại từ thay thế trong email/memo nội bộ', duration: '15 phút', questionsCount: 15, xp: 30, icon: 'fa-solid fa-file-pen', practiceType: 'reading' },
+                { id: 's1_n7', stageId: 1, part: 7, partNum: 7, title: 'Part 7: Đọc Hiểu Tin Nhắn & Hóa Đơn', objective: 'Skimming văn bản siêu ngắn: phiếu thu, hóa đơn mua hàng', duration: '20 phút', questionsCount: 15, xp: 35, icon: 'fa-solid fa-receipt', practiceType: 'reading', topic: 'single_passage' }
+            ]
         },
         {
-            id: 'diag-2',
-            pillarId: 'gap-part12-listening',
-            part: 'Part 1 - Bẫy Vật thể vs Hành động (Listening)',
-            type: 'listening',
-            context: '🖼️ [Tranh mô tả]: Văn phòng làm việc sau giờ tan sở. Bàn làm việc có nhiều tài liệu và máy tính để mở, nhưng không có nhân viên.',
-            audioScript: 'Listen to the statements: (A) Papers are being filed into cabinets. (B) A technician is typing on a keyboard. (C) Documents are scattered across the desk surface. (D) Boxes are being unloaded from a cart.',
-            question: 'Chọn câu mô tả chính xác nhất hiện trạng trong phòng:',
-            options: [
-                { key: 'A', text: '(A) Papers are being filed into cabinets.' },
-                { key: 'B', text: '(B) A technician is typing on a keyboard.' },
-                { key: 'C', text: '(C) Documents are scattered across the desk surface.' },
-                { key: 'D', text: '(D) Boxes are being unloaded from a cart.' }
-            ],
-            correct: 'C',
-            explanation: 'Bẫy hành động trong tranh không người. (A) và (D) dùng "being V3" sai. (B) nói về "A technician" không có thật trong tranh. (C) mô tả đúng trạng thái tài liệu nằm rải rác trên bàn.'
+            stageId: 2,
+            title: 'CHẶNG 2: 300 - 450 ĐIỂM',
+            subtitle: 'Basic Competence · Vượt Bẫy Cơ Bản',
+            bandMin: 300,
+            bandMax: 450,
+            badge: '🥈 Bạc',
+            color: 'slate',
+            gradient: 'from-slate-600 to-indigo-700',
+            description: 'Thoát bẫy Being/Been trong tranh, xử lý câu hỏi Yes/No, câu hỏi lựa chọn và thì động từ thường gặp.',
+            nodes: [
+                { id: 's2_n1', stageId: 2, part: 1, partNum: 1, title: 'Part 1: Bẫy Being vs Been Tranh Vật Thể', objective: 'Phân biệt hành động đang diễn ra vs trạng thái vật thể đã hoàn tất', duration: '15 phút', questionsCount: 15, xp: 35, icon: 'fa-solid fa-camera', practiceType: 'listening' },
+                { id: 's2_n2', stageId: 2, part: 2, partNum: 2, title: 'Part 2: Câu Hỏi Yes/No & Câu Hỏi Or', objective: 'Kỹ thuật nghe chọn phương án A or B và câu trả lời gián tiếp nhẹ', duration: '15 phút', questionsCount: 15, xp: 35, icon: 'fa-solid fa-headphones', practiceType: 'listening' },
+                { id: 's2_n3', stageId: 2, part: 3, partNum: 3, title: 'Part 3: Hội Thoại & Dự Đoán Hành Động', objective: 'Nghe xác định hành động người nói sẽ làm tiếp theo (What will they do next?)', duration: '15 phút', questionsCount: 15, xp: 40, icon: 'fa-solid fa-comments', practiceType: 'listening' },
+                { id: 's2_n4', stageId: 2, part: 4, partNum: 4, title: 'Part 4: Bản Tin Thời Tiết & Giao Thông', objective: 'Nắm bắt các từ vựng thời tiết, tắc đường, hoãn hủy chuyến đi', duration: '15 phút', questionsCount: 15, xp: 40, icon: 'fa-solid fa-cloud-sun', practiceType: 'listening' },
+                { id: 's2_n5', stageId: 2, part: 5, partNum: 5, title: 'Part 5: Chia Thì & Dạng Bị Động', objective: 'Phân biệt chủ động vs bị động, dấu hiệu nhận biết các thì TOEIC', duration: '15 phút', questionsCount: 15, xp: 40, icon: 'fa-solid fa-clock-rotate-left', practiceType: 'reading', topic: 'tenses_voice' },
+                { id: 's2_n6', stageId: 2, part: 6, partNum: 6, title: 'Part 6: Liên Từ Nối Câu Cơ Bản', objective: 'Chọn liên từ However, Therefore, Because trong đoạn văn', duration: '15 phút', questionsCount: 15, xp: 40, icon: 'fa-solid fa-link', practiceType: 'reading' },
+                { id: 's2_n7', stageId: 2, part: 7, partNum: 7, title: 'Part 7: Thư Tín Thương Mại & Tuyển Dụng', objective: 'Kỹ năng Scanning tìm thông tin lương, yêu cầu kinh nghiệm, deadline', duration: '20 phút', questionsCount: 15, xp: 45, icon: 'fa-solid fa-envelope-open-text', practiceType: 'reading', topic: 'single_passage' }
+            ]
         },
         {
-            id: 'diag-3',
-            pillarId: 'gap-part12-listening',
-            part: 'Part 2 - Bẫy Trả lời Gián tiếp / Đá bóng trách nhiệm (Listening)',
-            type: 'listening',
-            context: '🎧 Câu hỏi Part 2 thường gặp trong đề ETS 2024 - 2026:',
-            audioScript: 'Where can I find the quarterly financial performance report?',
-            question: 'Where can I find the quarterly financial performance report?',
-            options: [
-                { key: 'A', text: '(A) Yes, at 3:00 PM yesterday.' },
-                { key: 'B', text: '(B) Ms. Davis in accounting handles all of those documents.' },
-                { key: 'C', text: '(C) It was a very quarterly meeting.' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy Part 2 gián tiếp ETS: Câu hỏi "Where" nhưng đáp án không trả lời địa điểm trực tiếp (in the drawer, on the table) mà chỉ sang người phụ trách (Ms. Davis handles...). Đáp án (A) sai vì câu hỏi Wh- không trả lời Yes/No. (C) là bẫy lặp từ (quarterly).'
+            stageId: 3,
+            title: 'CHẶNG 3: 450 - 600 ĐIỂM',
+            subtitle: 'Standard Graduation · Chuẩn Ra Trường Đại Học',
+            bandMin: 450,
+            bandMax: 600,
+            badge: '🥇 Vàng',
+            color: 'emerald',
+            gradient: 'from-emerald-600 to-teal-700',
+            description: 'Chinh phục mốc ra trường an toàn! Xử lý bẫy gián tiếp né tránh, paraphrasing từ đồng nghĩa và chuỗi 2 đoạn văn.',
+            nodes: [
+                { id: 's3_n1', stageId: 3, part: 1, partNum: 1, title: 'Part 1: Tranh Nhiều Người & Trạng Thái Mặc', objective: 'Bẫy wearing (đang mặc) vs putting on (đang xỏ vào/thử đồ)', duration: '15 phút', questionsCount: 15, xp: 45, icon: 'fa-solid fa-people-group', practiceType: 'listening' },
+                { id: 's3_n2', stageId: 3, part: 2, partNum: 2, title: 'Part 2: Bẫy Trả Lời Gián Tiếp Né Tránh', objective: 'Phản xạ các câu đá trách nhiệm (Ask Ms. Davis, I wasn\'t there)', duration: '15 phút', questionsCount: 15, xp: 45, icon: 'fa-solid fa-shuffle', practiceType: 'listening' },
+                { id: 's3_n3', stageId: 3, part: 3, partNum: 3, title: 'Part 3: Paraphrasing Từ Đồng Nghĩa', objective: 'Bắt cặp từ đồng nghĩa chuyển đổi ngữ cảnh giữa câu hỏi và audio', duration: '15 phút', questionsCount: 15, xp: 50, icon: 'fa-solid fa-repeat', practiceType: 'listening' },
+                { id: 's3_n4', stageId: 3, part: 4, partNum: 4, title: 'Part 4: Thuyết Trình & Câu Hỏi Ngụ Ý Người Nói', objective: 'Giải mã "Why does the speaker say...?" trong bài nói hội nghị', duration: '15 phút', questionsCount: 15, xp: 50, icon: 'fa-solid fa-microphone-lines', practiceType: 'listening' },
+                { id: 's3_n5', stageId: 3, part: 5, partNum: 5, title: 'Part 5: Mệnh Đề Rút Gọn V-ing/V-ed & Giới Từ', objective: 'Phân biệt Despite vs Although, rút gọn chủ động V-ing vs bị động V-ed', duration: '15 phút', questionsCount: 15, xp: 50, icon: 'fa-solid fa-code-merge', practiceType: 'reading', topic: 'prep_conj' },
+                { id: 's3_n6', stageId: 3, part: 6, partNum: 6, title: 'Part 6: Điền Câu Theo Mạch Logic Đoạn Văn', objective: 'Kỹ năng đọc trước - sau chỗ trống để chọn câu nối ý hoàn hảo', duration: '15 phút', questionsCount: 15, xp: 50, icon: 'fa-solid fa-puzzle-piece', practiceType: 'reading', topic: 'sentence_insertion' },
+                { id: 's3_n7', stageId: 3, part: 7, partNum: 7, title: 'Part 7: Chuỗi 2 Đoạn Văn (Double Passages)', objective: 'Liên kết thông tin giữa Email khách hàng và Hóa đơn/Lịch trình', duration: '20 phút', questionsCount: 15, xp: 55, icon: 'fa-solid fa-newspaper', practiceType: 'reading', topic: 'double_passage' }
+            ]
         },
         {
-            id: 'diag-4',
-            pillarId: 'gap-part12-listening',
-            part: 'Part 2 - Bẫy Âm thanh tương tự (Listening)',
-            type: 'listening',
-            context: '🎧 Bẫy từ đồng âm / gần âm dễ gây lừa tai:',
-            audioScript: 'Has the new printer been delivered yet?',
-            question: 'Has the new printer been delivered yet?',
-            options: [
-                { key: 'A', text: '(A) I haven\'t seen the delivery truck outside.' },
-                { key: 'B', text: '(B) No, he printed twenty color copies.' },
-                { key: 'C', text: '(C) The blueprint looks quite impressive.' }
-            ],
-            correct: 'A',
-            explanation: 'Bẫy âm thanh Part 2: Người ra đề dùng từ "printed" (B) và "blueprint" (C) để bẫy thí sinh nghe thoáng qua từ "printer". Đáp án (A) trả lời gián tiếp hợp lý: tôi chưa thấy xe giao hàng bên ngoài (ngụ ý là chưa tới).'
+            stageId: 4,
+            title: 'CHẶNG 4: 600 - 750 ĐIỂM',
+            subtitle: 'Upper Intermediate · Bứt Phá Công Sở',
+            bandMin: 600,
+            bandMax: 750,
+            badge: '💎 Bạch Kim',
+            color: 'blue',
+            gradient: 'from-blue-600 to-indigo-800',
+            description: 'Nâng tầm tiếng Anh công sở, câu hỏi biểu đồ, mệnh đề giả định subjunctive và chuỗi 3 đoạn văn.',
+            nodes: [
+                { id: 's4_n1', stageId: 4, part: 1, partNum: 1, title: 'Part 1: Tranh Góc Rộng & Bối Cảnh Phức Tạp', objective: 'Nhận diện chi tiết nền, công trường xây dựng, cầu cảng', duration: '15 phút', questionsCount: 15, xp: 55, icon: 'fa-solid fa-panorama', practiceType: 'listening' },
+                { id: 's4_n2', stageId: 4, part: 2, partNum: 2, title: 'Part 2: Bẫy Hỏi Ngược Lại & Đối Đáp Bất Ngờ', objective: 'Phản xạ câu hỏi tu từ và đối đáp ngoài kịch bản dự kiến', duration: '15 phút', questionsCount: 15, xp: 55, icon: 'fa-solid fa-reply-all', practiceType: 'listening' },
+                { id: 's4_n3', stageId: 4, part: 3, partNum: 3, title: 'Part 3: Hội Thoại 3 Người & Câu Hỏi Kèm Biểu Đồ', objective: 'Phân biệt giọng 3 nhân vật và đối chiếu số liệu bảng biểu', duration: '15 phút', questionsCount: 15, xp: 60, icon: 'fa-solid fa-users-viewfinder', practiceType: 'listening' },
+                { id: 's4_n4', stageId: 4, part: 4, partNum: 4, title: 'Part 4: Đọc Lướt Câu Hỏi Trước Khi Nghe', objective: 'Kỹ năng đọc trước 3 câu hỏi trong 8 giây nghỉ giữa các bài nói', duration: '15 phút', questionsCount: 15, xp: 60, icon: 'fa-solid fa-bolt', practiceType: 'listening' },
+                { id: 's4_n5', stageId: 4, part: 5, partNum: 5, title: 'Part 5: Thể Giả Định Subjunctive & Collocations', objective: 'Cấu trúc recommend that S + V-bare và cụm từ công sở doanh nghiệp', duration: '15 phút', questionsCount: 15, xp: 60, icon: 'fa-solid fa-book-bookmark', practiceType: 'reading', topic: 'collocations' },
+                { id: 's4_n6', stageId: 4, part: 6, partNum: 6, title: 'Part 6: Hợp Đồng Kinh Tế & Thì Hoàn Thành', objective: 'Xử lý các điều khoản hợp đồng mua bán, thuê mướn văn phòng', duration: '15 phút', questionsCount: 15, xp: 60, icon: 'fa-solid fa-file-contract', practiceType: 'reading' },
+                { id: 's4_n7', stageId: 4, part: 7, partNum: 7, title: 'Part 7: Chuỗi 3 Đoạn Văn (Triple Passages)', objective: 'Tổng hợp manh mối từ 3 nguồn: Bài báo, Email phản hồi và Thông báo', duration: '25 phút', questionsCount: 15, xp: 65, icon: 'fa-solid fa-copy', practiceType: 'reading', topic: 'triple_passage' }
+            ]
         },
         {
-            id: 'diag-5',
-            pillarId: 'gap-part12-listening',
-            part: 'Part 2 - Bẫy Hỏi ngược lại (Listening)',
-            type: 'listening',
-            context: '🎧 Bẫy đối đáp bằng một câu hỏi phản hồi:',
-            audioScript: 'Are you attending the international trade seminar tomorrow?',
-            question: 'Are you attending the international trade seminar tomorrow?',
-            options: [
-                { key: 'A', text: '(A) In the main auditorium on the fourth floor.' },
-                { key: 'B', text: '(B) Isn\'t it postponed until next Wednesday?' },
-                { key: 'C', text: '(C) Yes, I traded my old laptop yesterday.' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy hỏi ngược lại: Khi được hỏi có tham dự hội thảo ngày mai không, người nghe hỏi ngược lại "Không phải nó bị hoãn sang thứ Tư tuần sau rồi sao?" (B). (C) là bẫy lặp từ trade/traded.'
+            stageId: 5,
+            title: 'CHẶNG 5: 750 - 900 ĐIỂM',
+            subtitle: 'Advanced · Thành Thạo Phản Xạ Toàn Diện',
+            bandMin: 750,
+            bandMax: 900,
+            badge: '👑 Vương Miện',
+            color: 'purple',
+            gradient: 'from-purple-600 to-pink-700',
+            description: 'Thành thạo tốc độ cao, đa giọng đọc Anh-Úc-Mỹ, câu hỏi suy luận khó và loại trừ bẫy tinh vi.',
+            nodes: [
+                { id: 's5_n1', stageId: 5, part: 1, partNum: 1, title: 'Part 1: Bẫy Tiểu Tiết & Đa Giọng Đọc', objective: 'Xử lý các tiểu tiết cực nhỏ phía xa và đa giọng Anh-Úc-Mỹ', duration: '15 phút', questionsCount: 15, xp: 65, icon: 'fa-solid fa-magnifying-glass-plus', practiceType: 'listening' },
+                { id: 's5_n2', stageId: 5, part: 2, partNum: 2, title: 'Part 2: Ngữ Điệu Hoài Nghi & Câu Tỉnh Lược', objective: 'Nắm bắt thái độ mỉa mai, hoài nghi và câu trả lời rút gọn', duration: '15 phút', questionsCount: 15, xp: 65, icon: 'fa-solid fa-masks-theater', practiceType: 'listening' },
+                { id: 's5_n3', stageId: 5, part: 3, partNum: 3, title: 'Part 3: Đàm Phán Thương Mại & Suy Luận Thái Độ', objective: 'Nghe đối thoại thương thảo hợp đồng, hạ giá và điều khoản phạt', duration: '15 phút', questionsCount: 15, xp: 70, icon: 'fa-solid fa-handshake', practiceType: 'listening' },
+                { id: 's5_n4', stageId: 5, part: 4, partNum: 4, title: 'Part 4: Bản Tin Tài Chính & Phân Tích Số Liệu', objective: 'Phân tích báo cáo doanh thu, cổ phiếu, sáp nhập doanh nghiệp', duration: '15 phút', questionsCount: 15, xp: 70, icon: 'fa-solid fa-chart-line', practiceType: 'listening' },
+                { id: 's5_n5', stageId: 5, part: 5, partNum: 5, title: 'Part 5: Câu Đảo Ngữ & Từ Vựng Nâng Cao C1', objective: 'Đảo ngữ với Not only, Seldom, Hardly và từ đồng nghĩa chuyên sâu', duration: '15 phút', questionsCount: 15, xp: 70, icon: 'fa-solid fa-arrow-down-up-across-line', practiceType: 'reading', topic: 'inference_vocab' },
+                { id: 's5_n6', stageId: 5, part: 6, partNum: 6, title: 'Part 6: Bài Báo Nghiên Cứu Thị Trường', objective: 'Văn phong học thuật báo chí và liên kết mạch đoạn văn phức hợp', duration: '15 phút', questionsCount: 15, xp: 70, icon: 'fa-solid fa-newspaper', practiceType: 'reading' },
+                { id: 's5_n7', stageId: 5, part: 7, partNum: 7, title: 'Part 7: Câu Hỏi Suy Luận & Câu Hỏi NOT/TRUE', objective: 'Kỹ thuật loại trừ phương án nhiễu trong chuỗi văn bản dài', duration: '25 phút', questionsCount: 15, xp: 75, icon: 'fa-solid fa-filter-circle-xmark', practiceType: 'reading', topic: 'triple_passage' }
+            ]
         },
         {
-            id: 'diag-6',
-            pillarId: 'gap-part34-paraphrase',
-            part: 'Part 3 & 4 - Nắm bắt ý đồ & Paraphrasing (Listening)',
-            type: 'listening',
-            context: '🔊 [Trích đoạn thông báo văn phòng]: "Attention all marketing staff: The regional director\'s inbound flight from Singapore was delayed due to severe headwinds. Therefore, our quarterly product briefing will start at 4:30 PM in Conference Room B rather than the originally scheduled 2:30 PM."',
-            audioScript: 'Attention all marketing staff: The regional director\'s inbound flight from Singapore was delayed due to severe headwinds. Therefore, our quarterly product briefing will start at 4:30 PM in Conference Room B rather than the originally scheduled 2:30 PM.',
-            question: 'Why does the speaker mention the regional director\'s flight delay?',
-            options: [
-                { key: 'A', text: '(A) To explain why an event schedule change was necessary.' },
-                { key: 'B', text: '(B) To cancel the annual marketing convention.' },
-                { key: 'C', text: '(C) To request airport pickup volunteers.' },
-                { key: 'D', text: '(D) To complain about international airline services.' }
-            ],
-            correct: 'A',
-            explanation: 'Paraphrase Part 3 & 4: Người nói đề cập việc máy bay bị trễ để giải thích lý do dời giờ họp từ 2:30 PM sang 4:30 PM -> tương đương với "To explain why an event schedule change was necessary" (A).'
-        },
-        {
-            id: 'diag-7',
-            pillarId: 'gap-part34-paraphrase',
-            part: 'Part 3 & 4 - Câu hỏi ngụ ý (Listening)',
-            type: 'listening',
-            context: '🔊 [Trích đoạn đối thoại nhân viên kho]: "I just completed the monthly inventory count, and we only have three crates of printer paper left in the stockroom."',
-            audioScript: 'I just completed the monthly inventory count, and we only have three crates of printer paper left in the stockroom.',
-            question: 'What does the speaker imply when saying "we only have three crates left"?',
-            options: [
-                { key: 'A', text: '(A) The warehouse is out of storage space.' },
-                { key: 'B', text: '(B) An order for more supplies should be placed promptly.' },
-                { key: 'C', text: '(C) The printer paper quality is defective.' },
-                { key: 'D', text: '(D) Employees are wasting excessive amounts of paper.' }
-            ],
-            correct: 'B',
-            explanation: 'Câu hỏi ngụ ý (Implied meaning): "Chỉ còn lại 3 thùng giấy trong kho" ngụ ý cần phải đặt hàng bổ sung gấp (An order for more supplies should be placed promptly).'
-        },
-        {
-            id: 'diag-8',
-            pillarId: 'gap-part5-grammar',
-            part: 'Part 5 - Bẫy Danh từ đuôi -ive & -al (Reading)',
-            type: 'reading',
-            context: '📝 Ngữ pháp Part 5: Từ loại đặc biệt',
-            question: 'A qualified customer service _______ from our regional branch will assist you with the product installation.',
-            options: [
-                { key: 'A', text: '(A) represent' },
-                { key: 'B', text: '(B) representative' },
-                { key: 'C', text: '(C) representing' },
-                { key: 'D', text: '(D) represented' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy từ loại kinh điển: "representative" có đuôi -ive thường là tính từ, nhưng ở đây là DANH TỪ ĐẾM ĐƯỢC chỉ người ("người đại diện"). Cụm danh từ: "A qualified customer service representative".'
-        },
-        {
-            id: 'diag-9',
-            pillarId: 'gap-part5-grammar',
-            part: 'Part 5 - Bẫy Rút gọn Mệnh đề Quan hệ (Reading)',
-            type: 'reading',
-            context: '📝 Ngữ pháp Part 5: Mệnh đề phân từ V-ing vs V-ed',
-            question: 'Passengers _______ flights to Tokyo are requested to proceed immediately to Gate 18 for boarding.',
-            options: [
-                { key: 'A', text: '(A) board' },
-                { key: 'B', text: '(B) boarding' },
-                { key: 'C', text: '(C) boarded' },
-                { key: 'D', text: '(D) are boarding' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy rút gọn mệnh đề quan hệ: Động từ chính của câu đã là "are requested". Mệnh đề bổ nghĩa cho Passengers: "who are boarding flights..." rút gọn thành chủ động "boarding flights" (V-ing).'
-        },
-        {
-            id: 'diag-10',
-            pillarId: 'gap-part5-grammar',
-            part: 'Part 5 - Bẫy Thể Giả định Subjunctive (Reading)',
-            type: 'reading',
-            context: '📝 Ngữ pháp Part 5: Câu giả định sau động từ đề xuất / yêu cầu',
-            question: 'The executive committee strongly recommends that each team leader _______ a safety compliance audit before Friday.',
-            options: [
-                { key: 'A', text: '(A) conducts' },
-                { key: 'B', text: '(B) conduct' },
-                { key: 'C', text: '(C) conducted' },
-                { key: 'D', text: '(D) will conduct' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy thể giả định (Subjunctive Mood): Sau các động từ recommend / suggest / require / insist + that + S + (should) + V-nguyên mẫu không "s/es", bất kể chủ ngữ là số ít hay số nhiều! Do đó "conduct" (B) là đáp án chính xác, không dùng "conducts".'
-        },
-        {
-            id: 'diag-11',
-            pillarId: 'gap-part5-vocab',
-            part: 'Part 5 - Bẫy Liên từ vs Giới từ (Reading)',
-            type: 'reading',
-            context: '📝 Từ vựng & Ngữ pháp: Phân biệt Liên từ (+ Mệnh đề) vs Giới từ (+ Cụm danh từ)',
-            question: '_______ unanticipated delays at customs, the raw materials were delivered to the factory ahead of deadline.',
-            options: [
-                { key: 'A', text: '(A) Although' },
-                { key: 'B', text: '(B) Even though' },
-                { key: 'C', text: '(C) Despite' },
-                { key: 'D', text: '(D) Because' }
-            ],
-            correct: 'C',
-            explanation: 'Phía sau là cụm danh từ "unanticipated delays at customs" (không có động từ chia thì), do đó cần một GIỚI TỪ. "Despite" là giới từ mang nghĩa mặc dù. "Although" và "Even though" là liên từ phải đi kèm một mệnh đề (S + V).'
-        },
-        {
-            id: 'diag-12',
-            pillarId: 'gap-part5-vocab',
-            part: 'Part 5 - Bẫy Collocations & Cụm từ công sở (Reading)',
-            type: 'reading',
-            context: '📝 Từ vựng công sở: Giới từ đi cùng động từ pháp lý',
-            question: 'All employees in the laboratory are obligated to comply strictly _______ corporate safety protocols.',
-            options: [
-                { key: 'A', text: '(A) with' },
-                { key: 'B', text: '(B) to' },
-                { key: 'C', text: '(C) on' },
-                { key: 'D', text: '(D) for' }
-            ],
-            correct: 'A',
-            explanation: 'Collocation kinh điển TOEIC: "comply with" = tuân thủ (đồng nghĩa: adhere to, conform to, abide by). Rất nhiều thí sinh chọn nhầm "to".'
-        },
-        {
-            id: 'diag-13',
-            pillarId: 'gap-part6-insertion',
-            part: 'Part 6 - Bẫy Điền câu theo mạch logic (Reading)',
-            type: 'reading',
-            context: '📄 [Trích thư xác nhận dịch vụ khách hàng]:\n"Dear Valued Client,\nThank you for choosing Horizon Fiber Internet. Your high-speed business line has been activated as of this morning. [  13  ]. If you encounter any connectivity discrepancies, please reach out to our dedicated support desk at 1-800-555-DATA."',
-            question: 'Chọn câu điền vào chỗ trống [ 13 ] liền mạch và hợp lý nhất:',
-            options: [
-                { key: 'A', text: '(A) Your account was unfortunately terminated due to late payment.' },
-                { key: 'B', text: '(B) You can now access your administrative portal using the credentials sent via SMS.' },
-                { key: 'C', text: '(C) Please ship all defective hardware to our return depot within 30 days.' },
-                { key: 'D', text: '(D) We regret to inform you that internet service is unavailable in your zip code.' }
-            ],
-            correct: 'B',
-            explanation: 'Mạch văn bản Part 6: Câu trước thông báo dịch vụ internet đã được kích hoạt thành công (has been activated). Câu tiếp theo hợp lý nhất là hướng dẫn khách hàng bắt đầu truy cập portal quản lý (B). Các câu (A), (C), (D) mâu thuẫn hoàn toàn với ngữ cảnh chào mừng kích hoạt.'
-        },
-        {
-            id: 'diag-14',
-            pillarId: 'gap-part7-multi',
-            part: 'Part 7 - Kỹ năng Scanning & Bẫy thời gian (Reading)',
-            type: 'reading',
-            context: '📧 [Nội bộ công ty]:\n"To: All Department Supervisors\nFrom: Payroll Office\nSubject: Revised Timesheet Deadline for Holiday Week\nDue to the upcoming national holiday on Friday, December 26, the payroll processing system will close early. Please remind your team that all timesheets must be validated and submitted by 3:00 PM on Wednesday, December 24, rather than the regular Friday 5:00 PM cutoff."',
-            question: 'What is the revised deadline for timesheet submission?',
-            options: [
-                { key: 'A', text: '(A) Friday, December 26 at 5:00 PM' },
-                { key: 'B', text: '(B) Wednesday, December 24 at 3:00 PM' },
-                { key: 'C', text: '(C) Friday, December 26 at 3:00 PM' },
-                { key: 'D', text: '(D) Wednesday, December 24 at 5:00 PM' }
-            ],
-            correct: 'B',
-            explanation: 'Bẫy số liệu và thời gian Part 7: Đề thi đưa ra cả Friday 5:00 PM (hạn thông thường cũ) và Friday Dec 26 (ngày nghỉ lễ). Hạn mới sửa đổi (revised deadline) được nêu rõ là: "3:00 PM on Wednesday, December 24" (B).'
-        },
-        {
-            id: 'diag-15',
-            pillarId: 'gap-part7-multi',
-            part: 'Part 7 - Bẫy Câu hỏi NOT / TRUE & Paraphrase (Reading)',
-            type: 'reading',
-            context: '📜 [Quy định đổi trả hội thảo chuyên môn]:\n"Policy Notice: Full tuition refunds will be granted only for cancellations submitted in writing at least 72 hours prior to session commencement. Cancellations received within 72 hours of the event are not eligible for cash refunds; however, registrants will receive a voucher credit valid for any workshop held within the subsequent six months."',
-            question: 'What is TRUE about cancellations made less than 72 hours before a workshop?',
-            options: [
-                { key: 'A', text: '(A) Registrants are entitled to an immediate full refund in cash.' },
-                { key: 'B', text: '(B) The registration fee is completely non-recoverable without any alternatives.' },
-                { key: 'C', text: '(C) Attendees receive a credit voucher usable for six months.' },
-                { key: 'D', text: '(D) The workshop organizer will automatically reschedule the attendee to next week.' }
-            ],
-            correct: 'C',
-            explanation: 'Paraphrase Part 7: Văn bản ghi "registrants will receive a voucher credit valid for any workshop held within the subsequent six months" -> Paraphrase thành "Attendees receive a credit voucher usable for six months" (C).'
+            stageId: 6,
+            title: 'CHẶNG 6: 900 - 990 ĐIỂM',
+            subtitle: 'Mastery · Chinh Phục Điểm Tuyệt Đối',
+            bandMin: 900,
+            bandMax: 990,
+            badge: '⚡ Huyền Thoại',
+            color: 'rose',
+            gradient: 'from-rose-600 via-red-600 to-amber-600',
+            description: 'Tốc độ phản xạ vô điều kiện, làm chủ 75 phút 100 câu đọc hiểu và không mắc bất kỳ bẫy đề thi nào.',
+            nodes: [
+                { id: 's6_n1', stageId: 6, part: 1, partNum: 1, title: 'Part 1: Tranh Trừu Tượng & Góc Máy Lạ', objective: 'Chinh phục 6/6 câu Part 1 với độ chính xác tuyệt đối 100%', duration: '15 phút', questionsCount: 15, xp: 80, icon: 'fa-solid fa-crosshairs', practiceType: 'listening' },
+                { id: 's6_n2', stageId: 6, part: 2, partNum: 2, title: 'Part 2: Phản Xạ Tốc Độ Cao Không Dịch Nghĩa', objective: 'Nghe hiểu trực tiếp bằng phản xạ tự nhiên không cần dịch thầm', duration: '15 phút', questionsCount: 15, xp: 80, icon: 'fa-solid fa-gauge-high', practiceType: 'listening' },
+                { id: 's6_n3', stageId: 6, part: 3, partNum: 3, title: 'Part 3: Xử Lý Thông Tin Nhiễu Đa Chủ Đề', objective: 'Lọc thông tin gây nhiễu và bắt trọn 3 câu hỏi trước khi audio dứt', duration: '15 phút', questionsCount: 15, xp: 85, icon: 'fa-solid fa-ear-listen', practiceType: 'listening' },
+                { id: 's6_n4', stageId: 6, part: 4, partNum: 4, title: 'Part 4: Độc Thoại Chuyên Sâu Tốc Độ Nhanh', objective: 'Luyện nghe giọng đọc địa phương luyến láy tốc độ 1.2x', duration: '15 phút', questionsCount: 15, xp: 85, icon: 'fa-solid fa-tower-broadcast', practiceType: 'listening' },
+                { id: 's6_n5', stageId: 6, part: 5, partNum: 5, title: 'Part 5: Điểm Ngữ Pháp Hiếm Gặp & Thành Ngữ', objective: 'Quét sạch các câu phân hóa 900+ không thể đánh mất điểm', duration: '15 phút', questionsCount: 15, xp: 85, icon: 'fa-solid fa-feather-pointed', practiceType: 'reading', topic: 'inference_vocab' },
+                { id: 's6_n6', stageId: 6, part: 6, partNum: 6, title: 'Part 6: Điều Khoản Nhượng Quyền Phức Tạp', objective: 'Đọc nhanh văn bản pháp chế doanh nghiệp trong dưới 6 phút', duration: '15 phút', questionsCount: 15, xp: 85, icon: 'fa-solid fa-stamp', practiceType: 'reading' },
+                { id: 's6_n7', stageId: 6, part: 7, partNum: 7, title: 'Part 7: Full Reading Speed Challenge', objective: 'Thử thách giải 100 câu Reading trong 70 phút (dư 5 phút soát bài)', duration: '30 phút', questionsCount: 15, xp: 100, icon: 'fa-solid fa-crown', practiceType: 'reading', topic: 'triple_passage' }
+            ]
         }
     ],
 
-    // Mở modal bài Test chẩn đoán năng lực 15 câu
+    // Mở Workstation Test Chẩn Đoán Đầu Vào (Đủ 7 Part chuẩn ETS 2026)
     startDiagnosticTest() {
+        const oldModal = document.getElementById('diagnosticTestModal');
+        if (oldModal) oldModal.remove();
         let user = this.getActiveUser();
         if (!user) {
-            // Tự động cấp phiên Học viên để người dùng bắt đầu làm bài ngay lập tức, không bao giờ bị lỗi hay chặn cửa!
             user = {
                 id: 'acc-student-' + Date.now(),
                 name: 'Học viên',
@@ -429,262 +311,164 @@ window.PersonalizedRoadmapEngine = {
                 applyCurrentAccountToUI();
             }
         }
-        let modal = document.getElementById('diagnosticTestModal');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'diagnosticTestModal';
-            modal.className = 'fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto';
-            document.body.appendChild(modal);
+
+        if (window.ToeicDiagnosticWorkstation && typeof window.ToeicDiagnosticWorkstation.open === 'function') {
+            window.ToeicDiagnosticWorkstation.open();
+        } else {
+            console.error('ToeicDiagnosticWorkstation not loaded. Retrying...');
+            setTimeout(() => {
+                if (window.ToeicDiagnosticWorkstation) window.ToeicDiagnosticWorkstation.open();
+            }, 300);
+        }
+    },
+
+    // =========================================================================
+    // TÍNH TOÁN TRẠNG THÁI MỞ KHÓA & NHẢY CÓC THÔNG MINH (ADAPTIVE UNLOCKING)
+    // =========================================================================
+    calculateNodeStates() {
+        const user = this.getActiveUser();
+        const diag = user?.diagnosticResults;
+        const estScore = diag?.estimatedScore !== undefined ? diag.estimatedScore : 0;
+        const pillarScores = diag?.pillarScores || {};
+
+        // Xác định Chặng đang học (Current Stage):
+        let currentStageId = 1;
+        if (!diag) {
+            currentStageId = 1;
+        } else if (estScore >= 900) {
+            currentStageId = 6;
+        } else if (estScore >= 750) {
+            currentStageId = 5;
+        } else if (estScore >= 600) {
+            currentStageId = 4;
+        } else if (estScore >= 450) {
+            currentStageId = 3;
+        } else if (estScore >= 300) {
+            currentStageId = 2;
+        } else {
+            currentStageId = 1;
         }
 
-        window.currentDiagnosticAnswers = {};
-
-        modal.innerHTML = `
-            <div class="bg-white dark:bg-slate-900 rounded-[28px] max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                <!-- Header -->
-                <div class="p-5 sm:p-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-between shrink-0">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-full bg-white/20 text-xs font-black uppercase tracking-wider">
-                                🚀 TEST CHẨN ĐOÁN NĂNG LỰC
-                            </span>
-                            <span class="text-xs font-semibold text-white/80">Chuẩn ETS 2026</span>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-black">15 Câu Bẫy Đề Thi Khảo Sát Toàn Diện</h3>
-                        <p class="text-xs text-white/90">Hoàn thành bài test để AI phân tích chính xác 6 lỗ hổng và lập lộ trình học cho bạn.</p>
-                    </div>
-                    <button onclick="PersonalizedRoadmapEngine.closeDiagnosticModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                </div>
-
-                <!-- Questions Container -->
-                <div class="p-5 sm:p-6 space-y-6 overflow-y-auto flex-1 divide-y divide-slate-100 dark:divide-slate-800" id="diagnosticQuestionsList">
-                    ${this.diagnosticQuestions.map((q, idx) => `
-                        <div class="pt-5 first:pt-0 space-y-3" id="diag-qbox-${q.id}">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="px-2.5 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-xs font-black">
-                                    Câu ${idx + 1}/15 • ${q.part}
-                                </span>
-                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">${q.type === 'listening' ? '🎧 Listening' : '📖 Reading'}</span>
-                            </div>
-
-                            <!-- Context / Passage -->
-                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 whitespace-pre-line leading-relaxed font-medium">
-                                ${q.context}
-                            </div>
-
-                            <!-- Audio Play Button for Listening -->
-                            ${q.type === 'listening' ? `
-                                <div class="p-3 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 flex flex-wrap items-center justify-between gap-2">
-                                    <div class="flex items-center gap-2 text-xs font-bold text-blue-700 dark:text-blue-300">
-                                        <i class="fa-solid fa-volume-high"></i>
-                                        <span>Ghi âm Audio câu hỏi:</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button type="button" onclick="PersonalizedRoadmapEngine.playAudio('${q.audioScript.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                                            <i class="fa-solid fa-play text-[10px]"></i>
-                                            <span>Nghe Audio</span>
-                                        </button>
-                                        <button type="button" onclick="const sc = document.getElementById('diag-sc-${q.id}'); if (sc) sc.classList.toggle('hidden');" class="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition">
-                                            Xem Script
-                                        </button>
-                                    </div>
-                                </div>
-                                <div id="diag-sc-${q.id}" class="hidden p-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-xs text-slate-700 dark:text-slate-300 italic border border-slate-200 dark:border-slate-700">
-                                    <span class="font-bold not-italic text-slate-900 dark:text-white block mb-0.5">Transcript:</span>
-                                    ${q.audioScript}
-                                </div>
-                            ` : ''}
-
-                            <!-- Question Statement -->
-                            <p class="text-sm font-bold text-slate-900 dark:text-white">
-                                ${q.question}
-                            </p>
-
-                            <!-- Options -->
-                            <div class="grid grid-cols-1 gap-2 pt-1">
-                                ${q.options.map(opt => `
-                                    <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 cursor-pointer transition">
-                                        <input type="radio" name="diag_${q.id}" value="${opt.key}" onchange="PersonalizedRoadmapEngine.recordAnswer('${q.id}', '${opt.key}')" class="mt-0.5 text-indigo-600 focus:ring-indigo-500">
-                                        <span class="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 font-medium">${opt.text}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <!-- Footer with Submit button -->
-                <div class="p-4 sm:p-5 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between gap-3 shrink-0">
-                    <span id="diagnosticCounter" class="text-xs font-bold text-slate-600 dark:text-slate-400">
-                        Đã chọn: <span id="diagAnsweredCount" class="text-indigo-600 dark:text-indigo-400 font-black">0</span>/15 câu
-                    </span>
-                    <div class="flex items-center gap-2">
-                        <button onclick="PersonalizedRoadmapEngine.closeDiagnosticModal()" class="px-4 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold transition">
-                            Hủy
-                        </button>
-                        <button onclick="PersonalizedRoadmapEngine.submitDiagnosticTest()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black shadow-md shadow-indigo-600/30 transition flex items-center gap-2">
-                            <i class="fa-solid fa-paper-plane text-xs"></i>
-                            <span>Nộp bài & Chẩn đoán ngay</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-        modal.classList.remove('hidden');
-    },
-
-    recordAnswer(qid, optKey) {
-        if (!window.currentDiagnosticAnswers) window.currentDiagnosticAnswers = {};
-        window.currentDiagnosticAnswers[qid] = optKey;
-        const count = Object.keys(window.currentDiagnosticAnswers).length;
-        const countEl = document.getElementById('diagAnsweredCount');
-        if (countEl) countEl.textContent = count;
-    },
-
-    closeDiagnosticModal() {
-        const modal = document.getElementById('diagnosticTestModal');
-        if (modal) modal.remove();
-    },
-
-    // Chấm điểm và lưu chẩn đoán vào hồ sơ tài khoản
-    submitDiagnosticTest() {
-        const answers = window.currentDiagnosticAnswers || {};
-        const answeredCount = Object.keys(answers).length;
-
-        if (answeredCount < 15) {
-            const confirmSubmit = confirm(`Bạn mới làm ${answeredCount}/15 câu. Bạn có muốn nộp bài sớm để AI chấm điểm các câu đã làm không?`);
-            if (!confirmSubmit) return;
-        }
-
-        let totalCorrect = 0;
-        const pillarScores = {};
-
-        // Tính điểm cho từng trụ cột
+        // Tìm lỗ hổng yếu nhất của học viên để đặt Node Đang Học (Current) ngay tại vị trí đó
+        let weakestPillarId = 'gap-part12-listening';
+        let minScore = 999;
         this.pillars.forEach(p => {
-            const qs = this.diagnosticQuestions.filter(q => q.pillarId === p.id);
-            if (qs.length === 0) {
-                pillarScores[p.id] = 0;
-                return;
+            const sc = pillarScores[p.id] !== undefined ? pillarScores[p.id] : 0;
+            if (sc < minScore) {
+                minScore = sc;
+                weakestPillarId = p.id;
             }
-            const correctInPillar = qs.filter(q => answers[q.id] === q.correct).length;
-            totalCorrect += correctInPillar;
-            pillarScores[p.id] = Math.round((correctInPillar / qs.length) * 100);
         });
 
-        // Điểm ước tính TOEIC (Thang điểm chuẩn ETS)
-        // 15/15: ~900; 12/15: ~750; 9/15: ~600; 6/15: ~450; 0/15: 250
-        const estimatedScore = Math.min(990, Math.max(250, Math.round(250 + (totalCorrect / 15) * 650)));
+        const nodeStates = {};
+        let currentActiveNodeId = null;
 
-        // Lưu kết quả vào tài khoản hiện tại
-        let user = this.getActiveUser();
-        if (!user) {
-            user = { id: 'acc-student-' + Date.now(), name: 'Học viên', targetScore: '650', examDate: '20/12/2026' };
+        this.roadmapStages.forEach(stage => {
+            if (stage.stageId < currentStageId) {
+                // Các chặng bên dưới điểm test đầu vào -> TỰ ĐỘNG ĐÁNH DẤU HOÀN THÀNH (Completed)
+                stage.nodes.forEach(node => {
+                    nodeStates[node.id] = { status: 'completed', progressPct: 100, note: 'Vượt qua nhờ Test Đầu Vào' };
+                });
+            } else if (stage.stageId === currentStageId) {
+                // Chặng hiện tại tương ứng với trình độ
+                let activeNodeInStage = stage.nodes[0].id;
+                if (diag) {
+                    if (weakestPillarId === 'gap-part12-listening') activeNodeInStage = stage.nodes[1].id;
+                    else if (weakestPillarId === 'gap-part34-paraphrase') activeNodeInStage = stage.nodes[2].id;
+                    else if (weakestPillarId.includes('part5')) activeNodeInStage = stage.nodes[4].id;
+                    else if (weakestPillarId.includes('part6')) activeNodeInStage = stage.nodes[5].id;
+                    else if (weakestPillarId.includes('part7')) activeNodeInStage = stage.nodes[6].id;
+                }
+                currentActiveNodeId = activeNodeInStage;
+
+                let passedActive = false;
+                stage.nodes.forEach(node => {
+                    if (node.id === activeNodeInStage) {
+                        nodeStates[node.id] = { status: 'current', progressPct: 35, note: 'Trọng tâm cần bù đắp' };
+                        passedActive = true;
+                    } else if (!passedActive) {
+                        nodeStates[node.id] = { status: 'completed', progressPct: 100, note: 'Đã hoàn thành' };
+                    } else {
+                        nodeStates[node.id] = { status: 'unlocked', progressPct: 0, note: 'Sẵn sàng học' };
+                    }
+                });
+            } else {
+                // Các chặng ở band điểm cao hơn -> KHÓA (Locked)
+                stage.nodes.forEach(node => {
+                    nodeStates[node.id] = { status: 'locked', progressPct: 0, note: 'Cần vượt qua chặng trước' };
+                });
+            }
+        });
+
+        if (!this.selectedNodeId || !nodeStates[this.selectedNodeId]) {
+            this.selectedNodeId = currentActiveNodeId || 's1_n1';
         }
-        window.currentUserAccount = user;
-        if (typeof currentUserAccount !== 'undefined') currentUserAccount = user;
 
-        user.diagnosticResults = {
-            testedDate: new Date().toLocaleDateString('vi-VN'),
-            totalCorrect: totalCorrect,
-            estimatedScore: estimatedScore,
-            pillarScores: pillarScores
-        };
-
-        // Lưu đồng bộ vào LocalStorage
-        try {
-            localStorage.setItem('cung_dang_session_user', JSON.stringify(user));
-            localStorage.setItem('cung_dang_diagnostic_results', JSON.stringify(user.diagnosticResults));
-        } catch(e) {}
-
-        // Đồng bộ dữ liệu lên máy chủ / cloud
-        if (window.syncCurrentAccountState) {
-            window.syncCurrentAccountState();
-        }
-        if (typeof applyCurrentAccountToUI === 'function') {
-            applyCurrentAccountToUI();
-        }
-
-        // Đóng modal thi
-        this.closeDiagnosticModal();
-
-        // Mở modal kết quả chẩn đoán chi tiết
-        this.showDiagnosticSummaryModal(totalCorrect, estimatedScore, pillarScores);
-
-        // Cập nhật lại giao diện Lộ trình
-        this.renderRoadmapView();
+        return { currentStageId, currentActiveNodeId, nodeStates };
     },
 
-    // Hiển thị bảng tổng kết chẩn đoán AI sau khi thi
-    showDiagnosticSummaryModal(totalCorrect, estimatedScore, pillarScores) {
-        let resModal = document.getElementById('diagResultModal');
-        if (!resModal) {
-            resModal = document.createElement('div');
-            resModal.id = 'diagResultModal';
-            resModal.className = 'fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto';
-            document.body.appendChild(resModal);
+    findNode(nodeId) {
+        for (const stage of this.roadmapStages) {
+            const found = stage.nodes.find(n => n.id === nodeId);
+            if (found) return { ...found, stage };
         }
-
-        const user = this.getActiveUser();
-        const target = parseInt(user?.targetScore || '650', 10);
-        const isPassedTarget = estimatedScore >= target;
-
-        resModal.innerHTML = `
-            <div class="bg-white dark:bg-slate-900 rounded-[28px] max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in-95">
-                <!-- Header Icon & Score -->
-                <div class="text-center space-y-2">
-                    <div class="w-16 h-16 rounded-3xl ${isPassedTarget ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/60'} flex items-center justify-center text-3xl mx-auto shadow-md">
-                        <i class="${isPassedTarget ? 'fa-solid fa-trophy' : 'fa-solid fa-compass'}"></i>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider inline-block">
-                        🎯 Báo Cáo Chẩn Đoán Lỗ Hổng Năng Lực
-                    </span>
-                    <h3 class="text-2xl font-black text-slate-900 dark:text-white">
-                        Ước Tính Điểm: <span class="${isPassedTarget ? 'text-emerald-600' : 'text-amber-600'}">${estimatedScore} / 990</span>
-                    </h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">
-                        Bạn đã trả lời đúng <strong>${totalCorrect}/15 câu hỏi</strong> (${Math.round((totalCorrect/15)*100)}%). Mục tiêu ra trường: <strong>${target}+</strong>.
-                    </p>
-                </div>
-
-                <!-- 6 Trụ Cột Đã Quét Xong -->
-                <div class="space-y-3 pt-2">
-                    <h4 class="text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wide">
-                        Chi tiết 6 trụ cột bẫy đề thi:
-                    </h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        ${this.pillars.map(p => {
-                            const sc = pillarScores[p.id] || 0;
-                            const isWeak = sc < 60;
-                            return `
-                                <div class="p-3 rounded-xl border ${isWeak ? 'border-rose-200 bg-rose-50/40 dark:border-rose-900/60 dark:bg-rose-950/20' : 'border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/40'} flex items-center justify-between gap-2">
-                                    <div class="flex items-center gap-2 overflow-hidden">
-                                        <i class="${p.icon} text-xs ${isWeak ? 'text-rose-500' : 'text-emerald-500'}"></i>
-                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${p.name.split(':')[0]}</span>
-                                    </div>
-                                    <span class="text-xs font-black shrink-0 ${isWeak ? 'text-rose-600' : 'text-emerald-600'}">${sc}%</span>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                </div>
-
-                <!-- Call to action button -->
-                <div class="pt-2 flex flex-col sm:flex-row items-center justify-end gap-3">
-                    <button onclick="document.getElementById('diagResultModal').remove(); PersonalizedRoadmapEngine.startDiagnosticTest();" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-100 transition">
-                        Thi lại bài test
-                    </button>
-                    <button onclick="document.getElementById('diagResultModal').remove(); switchTab('lo-trinh');" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-md shadow-indigo-600/30 flex items-center justify-center gap-1.5">
-                        <span>Xem Lộ Trình Đã Cá Nhân Hóa</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </button>
-                </div>
-            </div>
-        `;
+        return null;
     },
 
-    // Khởi tạo và render toàn bộ giao diện Lộ Trình Cá Nhân
+    selectNode(nodeId) {
+        this.selectedNodeId = nodeId;
+        this.renderFloatingActionCard();
+        document.querySelectorAll('.roadmap-node-circle').forEach(el => {
+            el.classList.remove('ring-4', 'ring-amber-400');
+        });
+        const activeCircle = document.getElementById(`node-circle-${nodeId}`);
+        if (activeCircle) {
+            activeCircle.classList.add('ring-4', 'ring-amber-400');
+        }
+    },
+
+    closeFloatingCard() {
+        const card = document.getElementById('roadmapFloatingActionCard');
+        if (card) card.classList.add('hidden');
+    },
+
+    startLesson(nodeId) {
+        const node = this.findNode(nodeId);
+        if (!node) return;
+
+        const states = this.calculateNodeStates();
+        const st = states.nodeStates[nodeId]?.status;
+
+        if (st === 'locked') {
+            alert('🔒 Bài học này đang bị khóa. Hãy hoàn thành các bài học trước hoặc làm bài Test Đầu Vào để nhảy cóc!');
+            return;
+        }
+
+        if (node.practiceType === 'listening') {
+            if (window.ToeicListeningWorkstation && typeof window.ToeicListeningWorkstation.open === 'function') {
+                window.ToeicListeningWorkstation.open({
+                    part: node.partNum,
+                    title: `${node.title} · ${node.stage.title}`,
+                    count: node.questionsCount
+                });
+            } else {
+                switchTab('luyen-nghe');
+            }
+        } else {
+            if (window.ToeicReadingWorkstation && typeof window.ToeicReadingWorkstation.open === 'function') {
+                window.ToeicReadingWorkstation.open({
+                    part: node.partNum,
+                    topic: node.topic || '',
+                    title: `${node.title} · ${node.stage.title}`,
+                    count: node.questionsCount
+                });
+            } else {
+                switchTab('luyen-doc');
+            }
+        }
+    },
+
+    // Khởi tạo và render toàn bộ giao diện Lộ Trình Cá Nhân (Bản đồ dọc S-Curve Zigzag)
     renderRoadmapView() {
         const container = document.getElementById('view-lo-trinh');
         if (!container) return;
@@ -696,8 +480,11 @@ window.PersonalizedRoadmapEngine = {
         const targetScore = parseInt(user?.targetScore || '650', 10);
         const isUrgent = hasTested && (daysRemaining <= 35 || readiness < (targetScore - 80));
 
-        // Đánh giá mức độ thành thạo của 6 lỗ hổng (0% khi chưa test)
+        // 6 Lỗ hổng kiến thức cốt lõi
         const gapStats = this.calculateGapStats();
+
+        // Tính toán trạng thái các Node bài học (Adaptive Unlocking)
+        const { currentStageId, currentActiveNodeId, nodeStates } = this.calculateNodeStates();
 
         // Cập nhật huy hiệu đôn đốc trên thanh sidebar menu
         const badge = document.getElementById('urgentRushBadge');
@@ -706,12 +493,16 @@ window.PersonalizedRoadmapEngine = {
             else badge.classList.add('hidden');
         }
 
-        // Tính tiến độ tuần 1 thực tế (KHÔNG giả tạo số liệu 80% / 45%)
-        const practiceCount = user?.practiceQuestionsDone || (window.userTrapPracticeHistory ? Object.keys(window.userTrapPracticeHistory).length : 0);
-        const week1Progress = Math.min(100, Math.round((practiceCount / 40) * 100));
+        // Tọa độ sole mềm mại hình chữ S (Percentages):
+        // Node 0: 50% | Node 1: 75% | Node 2: 62% | Node 3: 50% | Node 4: 25% | Node 5: 38% | Node 6: 50%
+        const xOffsets = [50, 75, 62, 50, 25, 38, 50];
+        const yOffsets = [60, 175, 290, 405, 520, 635, 750];
+
+        // Chuỗi SVG Cubic Bezier Curve mượt mà tuyệt đối:
+        const svgPathD = "M 50 60 C 50 117.5, 75 117.5, 75 175 C 75 232.5, 62 232.5, 62 290 C 62 347.5, 50 347.5, 50 405 C 50 462.5, 25 462.5, 25 520 C 25 577.5, 38 577.5, 38 635 C 38 692.5, 50 692.5, 50 750";
 
         container.innerHTML = `
-            <!-- Top Hero Banner: Lộ trình cá nhân -->
+            <!-- TOP HERO BANNER: MỤC TIÊU RA TRƯỜNG -->
             <div class="rounded-[28px] p-6 lg:p-7 relative overflow-hidden text-white shadow-xl ${isUrgent ? 'bg-gradient-to-r from-rose-600 via-amber-600 to-orange-600' : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700'}">
                 <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                     <div class="space-y-2 max-w-xl">
@@ -719,17 +510,17 @@ window.PersonalizedRoadmapEngine = {
                             <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-black tracking-wider uppercase">
                                 🎯 Lộ trình cá nhân hóa
                             </span>
-                            ${!hasTested ? '<span class="px-3 py-1 rounded-full bg-amber-500/90 text-slate-900 text-xs font-black">⚠️ CHƯA LÀM TEST CHẨN ĐOÁN</span>' : isUrgent ? '<span class="px-3 py-1 rounded-full bg-rose-950/80 text-rose-200 text-xs font-black animate-pulse">⚡ CHẾ ĐỘ ĐÔN ĐỐC CẤP TỐC</span>' : '<span class="px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-200 text-xs font-bold">✓ TIẾN ĐỘ VỮNG VÀNG</span>'}
+                            ${!hasTested ? '<span class="px-3 py-1 rounded-full bg-amber-500/90 text-slate-900 text-xs font-black">⚠️ CHƯA LÀM TEST ĐẦU VÀO</span>' : isUrgent ? '<span class="px-3 py-1 rounded-full bg-rose-950/80 text-rose-200 text-xs font-black animate-pulse">⚡ CHẾ ĐỘ ĐÔN ĐỐC CẤP TỐC</span>' : '<span class="px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-200 text-xs font-bold">✓ TIẾN ĐỘ VỮNG VÀNG</span>'}
                         </div>
                         <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
                             Mục tiêu Ra Trường: <span class="underline decoration-wavy decoration-amber-300">${targetScore}+ Điểm</span>
                         </h2>
                         <p class="text-white/90 text-sm leading-relaxed">
-                            ${!hasTested ? 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 15 câu để AI quét chính xác 6 lỗ hổng và thiết kế lộ trình ôn thi phù hợp nhất!' : 'Hệ thống AI tự động phân tích kết quả test chẩn đoán và thời gian còn lại để đôn đốc bạn ôn tập đúng trọng tâm!'}
+                            ${!hasTested ? 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực 7 Part. Hãy làm bài test chuẩn ETS để AI quét 6 lỗ hổng và tự động mở khóa các chặng tương ứng trên bản đồ!' : 'Bản đồ lộ trình đã tự động nhảy cóc và mở khóa theo kết quả bài Test Chẩn Đoán của bạn!'}
                         </p>
                     </div>
 
-                    <!-- Countdown & Metrics Card -->
+                    <!-- Countdown & Readiness Card -->
                     <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20 w-full sm:w-auto flex items-center justify-around sm:justify-start gap-5">
                         <div class="text-center">
                             <span class="block text-[11px] font-bold text-white/80 uppercase">Còn lại</span>
@@ -743,40 +534,39 @@ window.PersonalizedRoadmapEngine = {
                             <span class="block text-[11px] font-semibold text-white/80">/ ${targetScore} ${!hasTested ? '(Chưa test)' : ''}</span>
                         </div>
                         <div class="h-10 w-px bg-white/20"></div>
-                        <button onclick="PersonalizedRoadmapEngine.openEditGoalModal()" class="px-3 py-2 rounded-xl bg-white text-slate-900 text-xs font-extrabold hover:bg-amber-100 transition shadow">
+                        <button onclick="PersonalizedRoadmapEngine.openEditGoalModal()" class="px-3 py-2 rounded-xl bg-white text-slate-900 text-xs font-extrabold hover:bg-amber-100 transition shadow cursor-pointer">
                             <i class="fa-solid fa-sliders mr-1"></i> Đổi ngày
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- NẾU CHƯA TEST: KHỐI KÊU GỌI LÀM BÀI TEST CHẨN ĐOÁN (BẮT BUỘC ĐỂ CÓ SỐ LIỆU) -->
+            <!-- CALL TO ACTION BANNER: TEST ĐẦU VÀO -->
             ${!hasTested ? `
             <div class="glass-panel rounded-[26px] p-5 sm:p-6 border-2 border-indigo-300 dark:border-indigo-800 bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-purple-50/90 dark:from-slate-800 dark:to-slate-900 shadow-md">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div class="space-y-1.5 max-w-2xl">
                         <div class="flex items-center gap-2">
                             <span class="px-2.5 py-0.5 rounded-full bg-indigo-600 text-white text-[11px] font-extrabold uppercase tracking-wide">
-                                🚀 BƯỚC 1 QUAN TRỌNG NHẤT
+                                🚀 BƯỚC 1: TEST ĐẦU VÀO
                             </span>
-                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">15 câu chuẩn ETS 2026 (10-15 phút)</span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">28 câu chuẩn ETS 2026 ĐỦ 7 PART (25 phút)</span>
                         </div>
                         <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
-                            Chưa có dữ liệu chẩn đoán năng lực của bạn!
+                            Làm bài Test Chẩn Đoán để Nhảy Cóc & Mở Khóa Lộ Trình!
                         </h3>
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Tất cả 6 trụ cột bên dưới đang ở mức <strong>0%</strong> vì bạn chưa làm bài kiểm tra. Hãy làm bài test 15 câu để AI đo lường chính xác điểm mạnh - điểm yếu và tạo lộ trình học cá nhân hóa cho bạn.
+                            Khảo sát đầy đủ cả 7 Part (Part 1 - 4 Listening & Part 5 - 7 Reading). Hệ thống sẽ quy đổi điểm sang thang 0 - 990 và tự động đánh dấu hoàn thành các chặng bạn đã vững!
                         </p>
                     </div>
-                    <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 shrink-0 animate-bounce hover:animate-none">
+                    <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 shrink-0 animate-bounce hover:animate-none cursor-pointer">
                         <i class="fa-solid fa-play-circle text-base"></i>
-                        <span>Bắt đầu Test chẩn đoán</span>
+                        <span>Bắt đầu Test 7 Part</span>
                     </button>
                 </div>
             </div>
             ` : `
-            <!-- NẾU ĐÃ TEST: THÔNG TIN KẾT QUẢ ĐÃ ĐƯỢC ĐỒNG BỘ -->
-            <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+            <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
                 <div class="flex items-center gap-3.5">
                     <div class="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-base shadow">
                         <i class="fa-solid fa-check"></i>
@@ -784,86 +574,23 @@ window.PersonalizedRoadmapEngine = {
                     <div>
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-black text-emerald-900 dark:text-emerald-200">
-                                Đã chẩn đoán: Ước tính đạt ~${user.diagnosticResults.estimatedScore} TOEIC (${user.diagnosticResults.totalCorrect}/15 câu đúng)
+                                Đã chẩn đoán: Ước tính ~${user.diagnosticResults.estimatedScore} / 990 TOEIC (LC: ${user.diagnosticResults.listeningScore || 0} · RC: ${user.diagnosticResults.readingScore || 0})
                             </span>
-                            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 text-[10px] font-bold">Chính xác 99%</span>
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 text-[10px] font-bold">Chính xác ETS</span>
                         </div>
                         <span class="text-[11px] text-slate-500 dark:text-slate-400">
-                            Ngày kiểm tra: ${user.diagnosticResults.testedDate || 'Gần đây'} • Dữ liệu đã được lưu vào hồ sơ cá nhân
+                            Ngày kiểm tra: ${user.diagnosticResults.testedDate || 'Gần đây'} • Đã mở khóa nhảy cóc đến Chặng ${currentStageId}
                         </span>
                     </div>
                 </div>
-                <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer">
                     <i class="fa-solid fa-rotate-right text-[11px]"></i>
                     <span>Thi lại bài test</span>
                 </button>
             </div>
             `}
 
-            <!-- CHẾ ĐỘ ĐÔN ĐỐC ÔN THI (CHỈ HIỂN THỊ KHI ĐÃ TEST VÀ ĐIỂM CÒN YẾU HOẶC SÁT NGÀY THI) -->
-            ${isUrgent ? `
-            <div class="glass-panel rounded-[26px] p-5 sm:p-6 border-2 border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/20 shadow-md">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-xl shrink-0 shadow-lg">
-                        <i class="fa-solid fa-triangle-exclamation animate-bounce"></i>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <h3 class="text-lg font-black text-rose-900 dark:text-rose-200">
-                                🚨 CẢNH BÁO ĐÔN ĐỐC: Kỳ thi đã tới gần (${daysRemaining} ngày) và một số phần còn yếu!
-                            </h3>
-                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-200">
-                                Ưu tiên cao nhất
-                            </span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                            Để chắc chắn bứt phá trên <strong>${targetScore}+</strong>, hôm nay hãy hoàn thành ngay các nhiệm vụ cứu điểm sau:
-                        </p>
-                        
-                        <!-- 3 Nhiệm vụ đôn đốc khẩn cấp -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-                            <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-rose-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
-                                <div>
-                                    <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900/60 dark:text-rose-300 text-[10px] font-bold">1. BẪY ĐỌC CẦN VÁ GẤP</span>
-                                    <h4 class="font-bold text-xs sm:text-sm mt-1 text-slate-900 dark:text-white">Bẫy Danh từ đuôi -ive & -al (Part 5)</h4>
-                                    <p class="text-[11px] text-slate-500 mt-1">Đề thi luôn ra representative, initiative. Học 1 lần lấy trọn điểm.</p>
-                                </div>
-                                <button onclick="switchTab('bay-de-thi'); TOEICTrapsEngine.selectTrap('trap-part5-suffix');" class="mt-3 w-full py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-                                    <span>Vá bẫy này ngay</span>
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </button>
-                            </div>
-
-                            <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
-                                <div>
-                                    <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300 text-[10px] font-bold">2. BẪY NGHE CẦN VÁ GẤP</span>
-                                    <h4 class="font-bold text-xs sm:text-sm mt-1 text-slate-900 dark:text-white">Bẫy Trả lời Gián tiếp (Part 2)</h4>
-                                    <p class="text-[11px] text-slate-500 mt-1">Mẹo nhận diện phản xạ đá bóng trách nhiệm và hỏi ngược lại.</p>
-                                </div>
-                                <button onclick="switchTab('bay-de-thi'); TOEICTrapsEngine.selectTrap('trap-part2-evasive');" class="mt-3 w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-                                    <span>Luyện nghe bẫy này</span>
-                                    <i class="fa-solid fa-volume-high text-[10px]"></i>
-                                </button>
-                            </div>
-
-                            <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-blue-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
-                                <div>
-                                    <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 text-[10px] font-bold">3. TỪ VỰNG CỐT LÕI</span>
-                                    <h4 class="font-bold text-xs sm:text-sm mt-1 text-slate-900 dark:text-white">Nạp 20 từ Hợp đồng & Công sở</h4>
-                                    <p class="text-[11px] text-slate-500 mt-1">Tăng vốn từ đọc lướt Part 7 nhanh hơn 20%.</p>
-                                </div>
-                                <button onclick="switchTab('tu-vung')" class="mt-3 w-full py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-                                    <span>Học từ vựng ngay</span>
-                                    <i class="fa-solid fa-spell-check text-[10px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            ` : ''}
-
-            <!-- CHẨN ĐOÁN 6 LỖ HỔNG KIẾN THỨC CỐT LÕI (WEAKNESS RADAR) -->
+            <!-- CHẨN ĐOÁN 6 TRỤ CỘT LỖ HỔNG KIẾN THỨC (WEAKNESS RADAR) -->
             <div class="glass-panel rounded-[26px] p-5 sm:p-6 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-700">
                     <div>
@@ -872,73 +599,56 @@ window.PersonalizedRoadmapEngine = {
                             Chẩn Đoán Lỗ Hổng Kiến Thức (Weakness Radar)
                         </h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                            ${!hasTested ? 'Hiện tại tất cả đang ở mức 0% (chưa có bài test). Làm bài kiểm tra để AI chẩn đoán.' : 'Tỷ lệ chính xác dựa trên bài test thực tế. Các phần màu đỏ là lỗ hổng cần ưu tiên vá!'}
+                            ${!hasTested ? 'Hiện tại tất cả đang ở mức 0% (chưa có bài test). Làm bài kiểm tra để AI quét lỗ hổng.' : 'Tỷ lệ thành thạo 6 kỹ năng cốt lõi. Các phần màu đỏ là lỗ hổng cần ưu tiên ôn luyện ngay!'}
                         </p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow">
+                        <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow cursor-pointer">
                             <i class="fa-solid fa-clipboard-check text-xs"></i>
-                            <span>${!hasTested ? 'Làm bài test chẩn đoán' : 'Làm lại test'}</span>
+                            <span>${!hasTested ? 'Làm test chẩn đoán' : 'Làm lại test'}</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- 6 Khối Lỗ Hổng -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
                     ${gapStats.map(g => {
                         const isTestedPillar = hasTested && g.score > 0;
                         const isWeak = hasTested && g.score < 60;
                         const isFair = hasTested && g.score >= 60 && g.score < 80;
-                        const isStrong = hasTested && g.score >= 80;
 
                         return `
-                        <div class="p-4 rounded-2xl bg-white/70 dark:bg-slate-800/80 border ${!hasTested ? 'border-slate-200 dark:border-slate-700 opacity-90' : isWeak ? 'border-rose-300 dark:border-rose-900/60 bg-rose-50/20' : isFair ? 'border-amber-200 dark:border-amber-900/40' : 'border-emerald-200 dark:border-emerald-900/40'} space-y-3">
+                        <div class="p-4 rounded-2xl bg-white/70 dark:bg-slate-800/80 border ${!hasTested ? 'border-slate-200 dark:border-slate-700 opacity-90' : isWeak ? 'border-rose-300 dark:border-rose-900/60 bg-rose-50/20' : isFair ? 'border-amber-200 dark:border-amber-900/40' : 'border-emerald-200 dark:border-emerald-900/40'} space-y-3 shadow-2xs">
                             <div class="flex items-start justify-between gap-2">
-                                <div class="flex items-center gap-2.5">
+                                <div class="flex items-center gap-2.5 overflow-hidden">
                                     <div class="w-8 h-8 rounded-xl ${!hasTested ? 'bg-slate-100 dark:bg-slate-700 text-slate-500' : isWeak ? 'bg-rose-100 text-rose-600' : isFair ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600'} flex items-center justify-center text-xs font-bold shrink-0">
                                         <i class="${g.icon}"></i>
                                     </div>
-                                    <div>
-                                        <h4 class="font-bold text-xs sm:text-[13px] text-slate-900 dark:text-white leading-snug">${g.name}</h4>
+                                    <div class="truncate">
+                                        <h4 class="font-bold text-xs text-slate-900 dark:text-white truncate">${g.name.split(':')[0]}</h4>
                                         <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">${g.part}</span>
                                     </div>
                                 </div>
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 ${!hasTested ? 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400' : isWeak ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/60 dark:text-rose-300' : isFair ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300'}">
-                                    ${!hasTested ? '⚪ Chưa kiểm tra (0%)' : isWeak ? '⚠️ Yếu (Cần vá gấp)' : isFair ? '⚡ Tạm ổn' : '✅ Vững vàng'}
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 ${!hasTested ? 'bg-slate-100 dark:bg-slate-700 text-slate-500' : isWeak ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/60' : isFair ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/60' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60'}">
+                                    ${!hasTested ? '0%' : `${g.score}%`}
                                 </span>
                             </div>
 
-                            <p class="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed">
-                                ${g.desc}
-                            </p>
-
-                            <!-- Progress Bar (Chính xác 0% nếu chưa test) -->
+                            <!-- Progress Bar -->
                             <div>
-                                <div class="flex justify-between text-[11px] font-bold mb-1">
-                                    <span class="text-slate-500">Mức độ thành thạo</span>
-                                    <span class="${!hasTested ? 'text-slate-400' : isWeak ? 'text-rose-600' : isFair ? 'text-amber-600' : 'text-emerald-600'}">${g.score}%</span>
-                                </div>
                                 <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                                     <div class="h-full rounded-full transition-all duration-500 ${!hasTested ? 'bg-slate-300 dark:bg-slate-600' : isWeak ? 'bg-rose-500' : isFair ? 'bg-amber-500' : 'bg-emerald-500'}" style="width: ${g.score}%"></div>
                                 </div>
                             </div>
 
-                            <!-- Nút Vá Lỗ Hổng Này -->
                             <div class="pt-1 flex items-center justify-between">
-                                ${!hasTested ? `
-                                <button onclick="PersonalizedRoadmapEngine.startDiagnosticTest()" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
-                                    <span>Làm test để chẩn đoán trụ cột này</span>
-                                    <i class="fa-solid fa-play text-[9px]"></i>
-                                </button>
-                                ` : `
-                                <button onclick="PersonalizedRoadmapEngine.fixGap('${g.trapTargetId}')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-                                    <span>Vá lỗ hổng này trong Bẫy Đề Thi</span>
+                                <button onclick="PersonalizedRoadmapEngine.fixGap('${g.trapTargetId}')" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer">
+                                    <span>Vá bẫy này</span>
                                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </button>
-                                `}
-                                <button onclick="openAITutorModal('Giải thích cho tôi cách khắc phục lỗ hổng: ${g.name}')" class="text-[11px] font-semibold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1">
-                                    <i class="fa-solid fa-robot"></i>
-                                    <span>Hỏi AI tư vấn</span>
+                                <button onclick="openAITutorModal('Tư vấn cho tôi lộ trình khắc phục lỗ hổng: ${g.name}')" class="text-[11px] font-semibold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 cursor-pointer">
+                                    <i class="fa-solid fa-robot text-[10px]"></i>
+                                    <span>Gia sư AI</span>
                                 </button>
                             </div>
                         </div>
@@ -947,57 +657,321 @@ window.PersonalizedRoadmapEngine = {
                 </div>
             </div>
 
-            <!-- LỘ TRÌNH 4 TUẦN NƯỚC RÚT RA TRƯỜNG (DỰA TRÊN TIẾN ĐỘ THẬT) -->
-            <div class="glass-panel rounded-[26px] p-5 sm:p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-                        <i class="fa-solid fa-timeline text-indigo-600"></i>
-                        Lộ Trình Từng Tuần (Milestone Ra Trường)
-                    </h3>
-                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Tiến độ thực tế theo nhiệm vụ bạn làm</span>
+            <!-- ========================================================================= -->
+            <!-- BẢN ĐỒ LỘ TRÌNH DỌC S-CURVE ZIGZAG (GAMIFICATION MAP CHUẨN HELLOCHINESE) -->
+            <!-- ========================================================================= -->
+            <div class="glass-panel rounded-[28px] p-5 sm:p-7 space-y-8 relative overflow-hidden" id="roadmapVerticalMapContainer">
+                <!-- Map Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[11px] font-black uppercase tracking-wider">
+                                🗺️ BẢN ĐỒ LỘ TRÌNH DỌC
+                            </span>
+                            <span class="text-xs font-bold text-slate-500">6 Chặng · 42 Bài Học Chuẩn ETS</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                            Hành Trình Chinh Phục Điểm Tuyệt Đối (0 -> 990 Điểm)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                            Các chặng được bố trí dọc theo hình chữ S. Điểm bài Test Đầu Vào sẽ tự động mở khóa các chặng tương ứng cho bạn!
+                        </p>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-300 self-start sm:self-auto bg-slate-100 dark:bg-slate-800/80 p-2 rounded-2xl">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center text-[9px] text-white font-black">✓</span>
+                            <span>Hoàn thành</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3.5 h-3.5 rounded-full bg-indigo-600 ring-2 ring-indigo-300 animate-pulse"></span>
+                            <span>Đang học</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3.5 h-3.5 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-[8px] text-slate-500">🔒</span>
+                            <span>Khóa</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <!-- TUẦN 1 -->
-                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2">
-                        <span class="text-xs font-black text-indigo-600 dark:text-indigo-400">TUẦN 1: QUÉT SẠCH BẪY NGHE</span>
-                        <h4 class="font-bold text-xs text-slate-800 dark:text-slate-100">Bẫy Part 1 & 2 (100 câu)</h4>
-                        <p class="text-[11px] text-slate-500">Phản xạ bẫy being/been và câu trả lời gián tiếp.</p>
-                        ${week1Progress === 0 ? `
-                        <span class="inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold">Chưa bắt đầu (0%)</span>
-                        ` : week1Progress >= 100 ? `
-                        <span class="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Đã hoàn thành (100%)</span>
-                        ` : `
-                        <span class="inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">Đang tiến hành (${week1Progress}%)</span>
-                        `}
+                <!-- MASCOT COMPANION CARD (Hình 1: 3 Chú Totoro Vượt Mốc 990) -->
+                <div class="p-4 sm:p-5 rounded-3xl border border-amber-200/90 dark:border-slate-700 bg-gradient-to-r from-amber-50/90 via-white to-orange-50/80 dark:from-slate-800/90 dark:to-slate-850 shadow-sm flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                    <div class="w-20 sm:w-24 shrink-0 flex items-center justify-center p-2 rounded-2xl bg-[#f9f1dc] dark:bg-slate-750 border border-amber-300/80 shadow-xs">
+                        <img src="assets/mascot/totoro_trio_stacked.png" alt="3 Chú Totoro Vượt Mốc 990" class="max-h-36 sm:max-h-40 object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="space-y-1.5 text-center sm:text-left flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-900 text-[10px] font-black uppercase tracking-wider">Mascot Dẫn Đường</span>
+                            <span class="text-xs font-bold text-amber-800 dark:text-amber-300">3 Tầng Tiến Trình Chinh Phục ETS 990</span>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                            Bộ 3 Totoro Đồng Hành Vượt 6 Chặng Bản Đồ S-Curve
+                        </h4>
+                        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1 leading-relaxed">
+                            <div class="flex items-center gap-1.5 justify-center sm:justify-start">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                                <span><strong>Totoro Trắng (Chặng 1-2):</strong> Nắm vững mô tả tranh Part 1, câu hỏi ngắn Part 2 và từ loại cốt lõi (0 - 300 - 450+).</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 justify-center sm:justify-start">
+                                <span class="w-2 h-2 rounded-full bg-indigo-500 shrink-0"></span>
+                                <span><strong>Totoro Xanh (Chặng 3-4):</strong> Bắt keyword hội thoại Part 3-4, kỹ thuật Paraphrasing và đọc hiểu văn bản đơn Part 7 (600 - 750+).</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 justify-center sm:justify-start">
+                                <span class="w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+                                <span><strong>Totoro Xám Lớn (Chặng 5-6):</strong> Xử lý mượt chuỗi đa đoạn văn Part 7, câu hỏi suy luận khó và chạm đỉnh 990 TOEIC!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 CHẶNG ROADMAP (STAGES 1 -> 6) -->
+                <div class="space-y-12 relative max-w-3xl mx-auto">
+                    ${this.roadmapStages.map((stage, sIdx) => {
+                        const isStageCompleted = stage.stageId < currentStageId;
+                        const isStageActive = stage.stageId === currentStageId;
+                        const isStageLocked = stage.stageId > currentStageId;
+
+                        let stageBadgeBg = 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400';
+                        let stageBadgeText = 'Chưa mở khóa';
+                        if (isStageCompleted) {
+                            stageBadgeBg = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300';
+                            stageBadgeText = '✓ Đã vượt qua (100%)';
+                        } else if (isStageActive) {
+                            stageBadgeBg = 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/80 dark:text-indigo-300 animate-pulse';
+                            stageBadgeText = '⚡ Chặng đang chinh phục';
+                        }
+
+                        return `
+                            <div class="space-y-6 relative" id="roadmap-stage-${stage.stageId}">
+                                <!-- STAGE HEADER BANNER -->
+                                <div class="p-4 sm:p-5 rounded-2xl border ${isStageActive ? 'border-indigo-400 bg-gradient-to-r from-indigo-50/90 to-purple-50/90 dark:from-indigo-950/30 dark:to-purple-950/30 shadow-md ring-2 ring-indigo-500/20' : isStageCompleted ? 'border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/40 dark:bg-emerald-950/20' : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 opacity-70'} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${stage.gradient} text-white flex items-center justify-center text-xl font-black shadow-md shrink-0">
+                                            <span>${stage.stageId}</span>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <h4 class="font-black text-sm sm:text-base text-slate-900 dark:text-white">${stage.title}</h4>
+                                                <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${stageBadgeBg}">${stage.badge}</span>
+                                            </div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${stage.description}</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-xl text-xs font-bold shrink-0 ${stageBadgeBg}">
+                                        ${stageBadgeText}
+                                    </span>
+                                </div>
+
+                                <!-- WINDING S-CURVE ROAD CONTAINER FOR 7 NODES -->
+                                <div class="relative w-full h-[820px] select-none">
+                                    <!-- Background Connecting SVG S-Curve Path -->
+                                    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="${svgPathD}" 
+                                            stroke="${isStageCompleted ? '#10b981' : isStageActive ? '#6366f1' : '#cbd5e1'}" 
+                                            stroke-width="7" 
+                                            fill="none" 
+                                            stroke-linecap="round"
+                                            ${isStageActive ? 'stroke-dasharray="10 8" class="animate-pulse"' : ''}
+                                            vector-effect="non-scaling-stroke"/>
+                                    </svg>
+
+                                    <!-- 7 CIRCULAR LESSON NODES (Part 1 -> Part 7) -->
+                                    ${stage.nodes.map((node, nIdx) => {
+                                        const nodeState = nodeStates[node.id] || { status: 'locked', progressPct: 0 };
+                                        const isCompleted = (nodeState.status === 'completed');
+                                        const isCurrent = (nodeState.status === 'current');
+                                        const isUnlocked = (nodeState.status === 'unlocked');
+                                        const isLocked = (nodeState.status === 'locked');
+                                        const isSelected = (this.selectedNodeId === node.id);
+
+                                        const posX = xOffsets[nIdx];
+                                        const posY = yOffsets[nIdx];
+
+                                        // Progress Ring calculation (Radius = 30, Circumference ~ 188.5)
+                                        const radius = 30;
+                                        const circumference = 2 * Math.PI * radius;
+                                        const strokeOffset = circumference - (nodeState.progressPct / 100) * circumference;
+
+                                        let circleBg = 'bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200';
+                                        let ringColor = '#cbd5e1';
+
+                                        if (isCompleted) {
+                                            circleBg = 'bg-gradient-to-tr from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30 border-2 border-emerald-300';
+                                            ringColor = '#10b981';
+                                        } else if (isCurrent) {
+                                            circleBg = 'bg-gradient-to-tr from-indigo-600 to-blue-600 text-white shadow-xl shadow-indigo-600/40 border-2 border-indigo-200 ring-4 ring-indigo-400/50 animate-pulse';
+                                            ringColor = '#6366f1';
+                                        } else if (isUnlocked) {
+                                            circleBg = 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-300 dark:border-indigo-700 shadow-md hover:scale-105';
+                                            ringColor = '#818cf8';
+                                        } else if (isLocked) {
+                                            circleBg = 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 border border-slate-300 dark:border-slate-700 cursor-not-allowed opacity-80';
+                                            ringColor = '#94a3b8';
+                                        }
+
+                                        return `
+                                            <div class="absolute flex flex-col items-center cursor-pointer transition-transform duration-200 hover:scale-105"
+                                                style="top: ${posY}px; left: ${posX}%; transform: translate(-50%, -50%);"
+                                                onclick="PersonalizedRoadmapEngine.selectNode('${node.id}')">
+
+                                                <!-- MASCOT AVATAR OR ACTIVE INDICATOR BADGE FOR CURRENT NODE -->
+                                                ${isCurrent ? `
+                                                    <div class="absolute -top-8 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[10px] font-black whitespace-nowrap shadow-md shadow-indigo-600/30 animate-bounce flex items-center gap-1 z-20">
+                                                        <span>👉 BẠN ĐANG Ở ĐÂY</span>
+                                                    </div>
+                                                ` : ''}
+
+                                                <!-- CIRCULAR NODE WITH SVG PROGRESS RING -->
+                                                <div id="node-circle-${node.id}" class="roadmap-node-circle relative w-[68px] h-[68px] rounded-full flex items-center justify-center transition-all ${circleBg} ${isSelected ? 'ring-4 ring-amber-400' : ''}">
+                                                    <!-- SVG Progress Ring -->
+                                                    <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 68 68">
+                                                        <circle cx="34" cy="34" r="${radius}" fill="none" stroke="currentColor" stroke-width="3" class="opacity-15"/>
+                                                        <circle cx="34" cy="34" r="${radius}" fill="none" stroke="${ringColor}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${strokeOffset}"/>
+                                                    </svg>
+
+                                                    <!-- Center Icon -->
+                                                    <div class="text-xl relative z-10">
+                                                        ${isLocked ? '<i class="fa-solid fa-lock text-base"></i>' : `<i class="${node.icon}"></i>`}
+                                                    </div>
+
+                                                    <!-- Completed Checkmark Badge -->
+                                                    ${isCompleted ? `
+                                                        <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black border-2 border-white dark:border-slate-900 shadow">
+                                                            <i class="fa-solid fa-check"></i>
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+
+                                                <!-- Node Label Below Circle -->
+                                                <div class="mt-2 text-center max-w-[130px] sm:max-w-[150px]">
+                                                    <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black tracking-wider uppercase ${isCompleted ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : isCurrent ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}">
+                                                        Part ${node.part}
+                                                    </span>
+                                                    <h5 class="text-[11.5px] font-bold text-slate-800 dark:text-slate-200 line-clamp-2 leading-tight mt-0.5">
+                                                        ${node.title.split(':')[1] ? node.title.split(':')[1].trim() : node.title}
+                                                    </h5>
+                                                    <span class="text-[10px] text-slate-400 font-medium">${node.duration} · +${node.xp} XP</span>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+
+                                <!-- INTER-STAGE CHECKPOINT MILESTONE -->
+                                <div class="py-2 flex items-center justify-center">
+                                    <div class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-xs font-black flex items-center gap-2 shadow-2xs">
+                                        <i class="fa-solid fa-flag-checkered text-amber-500"></i>
+                                        <span>Mốc Điểm: ${stage.bandMax} TOEIC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- FLOATING ACTION CARD (Thanh hành động nhanh ở đáy màn hình khi bấm vào Node) -->
+            <!-- ========================================================================= -->
+            <div id="roadmapFloatingActionCard" class="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-6 sm:w-[460px] z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-4 sm:p-5 transition-all animate-in slide-in-from-bottom duration-200">
+                <!-- Rendered dynamically in renderFloatingActionCard() -->
+            </div>
+        `;
+
+        // Render Initial Floating Action Card for the active node
+        this.renderFloatingActionCard();
+    },
+
+    // =========================================================================
+    // RENDER THANH HÀNH ĐỘNG NHANH Ở ĐÁY MÀN HÌNH (FLOATING ACTION CARD)
+    // =========================================================================
+    renderFloatingActionCard() {
+        const card = document.getElementById('roadmapFloatingActionCard');
+        if (!card) return;
+
+        const nodeId = this.selectedNodeId || 's1_n1';
+        const node = this.findNode(nodeId);
+        if (!node) {
+            card.classList.add('hidden');
+            return;
+        }
+
+        const states = this.calculateNodeStates();
+        const st = states.nodeStates[node.id] || { status: 'locked', progressPct: 0 };
+        const isCompleted = (st.status === 'completed');
+        const isCurrent = (st.status === 'current');
+        const isLocked = (st.status === 'locked');
+
+        card.classList.remove('hidden');
+
+        card.innerHTML = `
+            <div class="space-y-3.5">
+                <!-- Card Header -->
+                <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl ${isCompleted ? 'bg-emerald-500' : isCurrent ? 'bg-indigo-600' : isLocked ? 'bg-slate-300 dark:bg-slate-700' : 'bg-blue-600'} text-white flex items-center justify-center text-lg shadow-md shrink-0">
+                            <i class="${node.icon}"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-black uppercase">
+                                    ${node.stage.title.split(':')[0]}
+                                </span>
+                                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">
+                                    Part ${node.part} · ${node.practiceType === 'listening' ? '🎧 Listening' : '📖 Reading'}
+                                </span>
+                            </div>
+                            <h4 class="font-black text-sm text-slate-900 dark:text-white leading-tight mt-0.5">
+                                ${node.title}
+                            </h4>
+                        </div>
+                    </div>
+                    <button type="button" onclick="PersonalizedRoadmapEngine.closeFloatingCard()" class="w-7 h-7 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 flex items-center justify-center transition cursor-pointer">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Objective & Details -->
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                    🎯 <strong>Mục tiêu:</strong> ${node.objective}
+                </p>
+
+                <!-- Stats & Actions -->
+                <div class="flex items-center justify-between gap-3 pt-1">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+                        <span><i class="fa-solid fa-clock text-indigo-500 mr-1"></i>${node.duration}</span>
+                        <span>•</span>
+                        <span><i class="fa-solid fa-bolt text-amber-500 mr-1"></i>+${node.xp} XP</span>
                     </div>
 
-                    <!-- TUẦN 2 -->
-                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2">
-                        <span class="text-xs font-black text-indigo-600 dark:text-indigo-400">TUẦN 2: DIỆT GỌN BẪY ĐỌC</span>
-                        <h4 class="font-bold text-xs text-slate-800 dark:text-slate-100">Bẫy Part 5 & 6 (150 câu)</h4>
-                        <p class="text-[11px] text-slate-500">Từ loại -ive/-al, liên từ vs giới từ, câu đảo ngữ.</p>
-                        <span class="inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold">Chưa mở (0%)</span>
-                    </div>
-
-                    <!-- TUẦN 3 -->
-                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2">
-                        <span class="text-xs font-black text-indigo-600 dark:text-indigo-400">TUẦN 3: TĂNG TỐC MINI-TEST</span>
-                        <h4 class="font-bold text-xs text-slate-800 dark:text-slate-100">Giải đề bẫy 2026 - 2027</h4>
-                        <p class="text-[11px] text-slate-500">Làm các đề thi ngắn 30 câu có bấm giờ để rèn áp lực.</p>
-                        <span class="inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold">Chưa mở (0%)</span>
-                    </div>
-
-                    <!-- TUẦN 4 -->
-                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2">
-                        <span class="text-xs font-black text-indigo-600 dark:text-indigo-400">TUẦN 4: FULL TEST RA TRƯỜNG</span>
-                        <h4 class="font-bold text-xs text-slate-800 dark:text-slate-100">Thi thử 200 câu chuẩn ETS</h4>
-                        <p class="text-[11px] text-slate-500">Tổng duyệt tâm lý phòng thi, chốt điểm trên 650+.</p>
-                        <span class="inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold">Chưa mở (0%)</span>
-                    </div>
+                    ${isLocked ? `
+                        <button type="button" disabled class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-bold text-xs flex items-center gap-1.5 cursor-not-allowed">
+                            <i class="fa-solid fa-lock text-[10px]"></i>
+                            <span>Chưa mở khóa</span>
+                        </button>
+                    ` : isCompleted ? `
+                        <button type="button" onclick="PersonalizedRoadmapEngine.startLesson('${node.id}')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition shadow-md shadow-emerald-600/30 flex items-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-rotate-right text-xs"></i>
+                            <span>Ôn tập lại bài này</span>
+                        </button>
+                    ` : `
+                        <button type="button" onclick="PersonalizedRoadmapEngine.startLesson('${node.id}')" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs transition shadow-md shadow-indigo-600/30 flex items-center gap-2 cursor-pointer animate-pulse hover:animate-none">
+                            <i class="fa-solid fa-play text-xs"></i>
+                            <span>Bắt đầu học ngay</span>
+                        </button>
+                    `}
                 </div>
             </div>
         `;
+    },
+
+    closeDiagnosticModal() {
+        const oldModal = document.getElementById('diagnosticTestModal');
+        if (oldModal) oldModal.remove();
+        if (window.ToeicDiagnosticWorkstation && typeof window.ToeicDiagnosticWorkstation.close === 'function') {
+            window.ToeicDiagnosticWorkstation.close();
+        }
     },
 
     fixGap(trapTargetId) {

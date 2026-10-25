@@ -374,6 +374,25 @@
                     <span class="text-slate-700 dark:text-slate-200">TOEIC Listening</span>
                 </nav>
 
+                <!-- Totoro Moonlight Listening Mascot Card (Ảnh 3: Totoro Ocarina Moonlight) -->
+                <div class="rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/30 shadow-xl flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mb-4 overflow-hidden relative">
+                    <div class="w-20 sm:w-24 aspect-[219/286] shrink-0 rounded-2xl overflow-hidden border border-indigo-400/40 shadow-lg relative bg-slate-800">
+                        <img src="assets/mascot/totoro_listening_card.png" alt="Totoro Thổi Sáo Dưới Trăng (Ảnh 3)" class="w-full h-full object-cover filter brightness-105 hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="space-y-1 text-center sm:text-left flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-300 text-[10px] font-black uppercase tracking-wider border border-indigo-400/30">Góc Luyện Nghe Studio Ghibli</span>
+                            <span class="text-xs text-amber-300 font-bold">🌙 Totoro Thổi Sáo Dưới Ánh Trăng</span>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-black text-white tracking-tight">
+                            Luyện Đôi Tai Tinh Tường — Bắt Trọn Từng Âm Điệu & Nối Âm TOEIC
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Lắng nghe êm dịu, kiên trì chép chính tả mỗi ngày 15 phút cùng Totoro giúp bạn phản xạ tự nhiên với tốc độ nói thực tế của người bản xứ và xóa bỏ hoàn toàn nỗi sợ Part 1-4!
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Top Header & Filter Bar (Chuẩn Ảnh 1 & 3) -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80 dark:border-slate-800">
                     <div>

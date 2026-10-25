@@ -40,7 +40,8 @@
     <script src="js/dictionary-engine.js"></script>
     <script src="js/universal-audio-engine.js"></script>
     <script src="js/toeic-traps-data.js"></script>
-    <script src="js/roadmap-and-traps.js"></script>
+    <script src="js/toeic-diagnostic-workstation.js?v=2026-v3-real-photo-part1"></script>
+    <script src="js/roadmap-and-traps.js?v=2026-v3-real-photo-part1"></script>
     <script src="js/toeic-audio-player.js"></script>
     <script src="js/listening-data-v2.js?v=ets2026-fix5"></script>
     <script src="js/toeic-listening-workstation.js?v=ets2026-v3"></script>
@@ -644,8 +645,8 @@
                 <i class="fa-solid fa-bars text-base"></i>
             </button>
             <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2 min-w-0">
-                <div class="w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden">
-                    <span class="text-base">🐱</span>
+                <div class="w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Totoro Cầm Ô - Cùng Đăng ra trường">
+                    <img src="assets/mascot/totoro_umbrella_logo.png" alt="Totoro Cầm Ô" class="w-full h-full object-cover">
                 </div>
                 <div class="leading-tight truncate">
                     <div class="text-[11px] font-extrabold bg-gradient-to-r from-orange-600 to-indigo-700 bg-clip-text text-transparent">Cùng Đăng</div>
@@ -741,58 +742,9 @@
                     <!-- Header: Brand Logo & Nút 3 gạch thu gọn thanh bên (Desktop) -->
                     <div class="flex items-center justify-between mb-4 px-1 py-1">
                         <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2.5 group min-w-0">
-                        <div class="w-13 h-13 w-[52px] h-[52px] rounded-2xl bg-[#f9f1dc] border-2 border-amber-300/80 flex items-center justify-center shadow-md shadow-orange-500/15 relative overflow-hidden shrink-0 group-hover:scale-105 transition">
-                            <!-- Custom SVG of the Orange Tabby Cat hanging on branch with Blue Bird on head -->
-                            <svg class="w-12 h-12" viewBox="0 0 120 135" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Background warm cream -->
-                                <rect width="120" height="135" rx="16" fill="#F9F1DC"/>
-                                <!-- Hanging Striped Tail -->
-                                <path d="M46 84 C43 102, 42 118, 45 130 C49 133, 56 132, 58 128 C58 114, 57 98, 56 84 Z" fill="#F38B2A"/>
-                                <path d="M45 92 H57 M44 100 H57 M44 108 H58 M44 116 H58 M45 124 H57" stroke="#D9532F" stroke-width="4.5" stroke-linecap="round"/>
-                                <!-- Cat Lower Body hanging under branch -->
-                                <path d="M38 55 L80 54 L76 92 C74 96, 62 96, 56 92 C48 95, 39 94, 36 86 Z" fill="#F59223"/>
-                                <!-- Darker orange watercolor patch on right belly -->
-                                <ellipse cx="66" cy="76" rx="10" ry="14" fill="#E07318" opacity="0.65"/>
-                                <!-- Side Tabby Stripes on Body -->
-                                <path d="M38 63 H45 M37 70 H44" stroke="#D9532F" stroke-width="3.5" stroke-linecap="round"/>
-                                <path d="M71 62 H78 M71 69 H78 M72 76 H77" stroke="#D9532F" stroke-width="3.5" stroke-linecap="round"/>
-                                <!-- White Hind Paws -->
-                                <path d="M36 84 C34 93, 39 98, 44 96 C47 94, 47 89, 46 85 Z" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.8"/>
-                                <path d="M64 89 C66 98, 72 101, 76 97 C79 94, 78 88, 76 85 Z" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.8"/>
-                                <!-- Cat Head & Ears above branch -->
-                                <path d="M42 46 C40 31, 43 22, 43 18 L51 24 C56 22, 63 22, 68 24 L76 18 C77 23, 79 32, 77 46 Z" fill="#F59223"/>
-                                <!-- Inner White Ears -->
-                                <polygon points="44,21 43,27 48,25" fill="#FFFDF9"/>
-                                <polygon points="75,21 76,27 71,25" fill="#FFFDF9"/>
-                                <!-- Forehead Tabby Stripes -->
-                                <path d="M55 23 V28 M60 22 V28 M65 23 V28" stroke="#D9532F" stroke-width="3" stroke-linecap="round"/>
-                                <!-- Big Round Eyes -->
-                                <circle cx="51" cy="34" r="6.8" fill="#FFFDF9"/>
-                                <circle cx="51" cy="34" r="5.2" fill="#0D3166"/>
-                                <circle cx="68" cy="34" r="6.8" fill="#FFFDF9"/>
-                                <circle cx="68" cy="34" r="5.2" fill="#0D3166"/>
-                                <!-- Pink Nose & Cute Pouty Mouth -->
-                                <ellipse cx="59.5" cy="37.5" rx="2.2" ry="1.5" fill="#E11D48"/>
-                                <path d="M57 40.5 L59.5 38.8 L62 40.5" stroke="#0D3166" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <!-- Wooden Branch with Wood Grain -->
-                                <path d="M8 45 H112 L108 55 L12 57 Z" fill="#FAF5E8"/>
-                                <path d="M8 45 H112 M12 57 L108 55 L97 58" stroke="#0D3166" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M16 49 Q30 53 42 48 M68 51 Q82 48 94 52" stroke="#0D3166" stroke-width="1" opacity="0.6" fill="none"/>
-                                <!-- White Front Paws gripping over the branch -->
-                                <ellipse cx="41" cy="46" rx="7.5" ry="5.5" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.6"/>
-                                <path d="M39 49 V51 M42 49 V51" stroke="#0D3166" stroke-width="1.3" stroke-linecap="round"/>
-                                <ellipse cx="79" cy="46" rx="7" ry="5.2" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.6"/>
-                                <path d="M77 49 V51 M80 49 V51" stroke="#0D3166" stroke-width="1.3" stroke-linecap="round"/>
-                                <!-- Tiny Blue Bird perched on top of Cat's head -->
-                                <line x1="59" y1="19" x2="59" y2="23" stroke="#0D3166" stroke-width="1.3"/>
-                                <line x1="62" y1="19" x2="62" y2="23" stroke="#0D3166" stroke-width="1.3"/>
-                                <ellipse cx="60.5" cy="13.5" rx="5.5" ry="6" fill="#0891B2"/>
-                                <circle cx="58.5" cy="11.5" r="1.7" fill="#FFFDF9"/>
-                                <circle cx="58.5" cy="11.5" r="0.9" fill="#0D3166"/>
-                                <circle cx="62.5" cy="11.5" r="1.7" fill="#FFFDF9"/>
-                                <circle cx="62.5" cy="11.5" r="0.9" fill="#0D3166"/>
-                                <polygon points="59.5,13 61.5,13 60.5,15" fill="#F97316"/>
-                            </svg>
+                        <div class="w-13 h-13 w-[52px] h-[52px] rounded-2xl bg-[#f9f1dc] border-2 border-amber-300/80 flex items-center justify-center shadow-md shadow-orange-500/15 relative overflow-hidden shrink-0 group-hover:scale-105 transition" title="Totoro Cầm Ô - Cùng Đăng ra trường">
+                            <!-- Totoro Cầm Ô Dưới Mưa (Logo chính thức) -->
+                            <img src="assets/mascot/totoro_umbrella_logo.png" alt="Totoro Cầm Ô" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         </div>
                         <div class="leading-tight sidebar-text">
                             <div class="text-[15px] font-extrabold bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-700 bg-clip-text text-transparent">Cùng Đăng</div>
@@ -888,24 +840,24 @@
                 </div>
             </div>
 
-            <!-- Bottom Mascot Companion Card (Now featuring the Cute Cat & Blue Bird Mascot!) -->
+            <!-- Bottom Mascot Companion Card (Hình 5: Totoro Mascot) -->
             <div class="glass-panel rounded-[26px] p-3 text-center flex flex-col items-center shadow-sm">
-                <div class="w-full bg-gradient-to-b from-[#f9f1dc] to-[#fdf8ec] dark:from-slate-800 dark:to-slate-900 rounded-2xl p-2 mb-2.5 relative flex items-center justify-center border border-amber-200/70 dark:border-slate-700/60">
+                <div class="w-full bg-gradient-to-b from-[#f9f1dc] to-[#fdf8ec] dark:from-slate-800 dark:to-slate-900 rounded-2xl p-2 mb-2.5 relative flex items-center justify-center border border-amber-200/70 dark:border-slate-700/60 overflow-hidden">
                     <!-- Sparkle badge top right -->
-                    <div class="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 dark:bg-slate-700 border border-amber-200/60 flex items-center justify-center text-amber-500 text-xs shadow-sm">
+                    <div class="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 dark:bg-slate-700 border border-amber-200/60 flex items-center justify-center text-amber-500 text-xs shadow-sm z-10">
                         ✦
                     </div>
-                    <!-- Dynamic SVG Cat + Bird Mascot -->
+                    <!-- Totoro Mascot Companion -->
                     <div id="sidebarOwlContainer" class="w-28 h-28 mascot-float flex items-center justify-center">
-                        <!-- Rendered via JS -->
+                        <img src="assets/mascot/totoro_mascot_ai_tutor.png" alt="Totoro Mascot" class="w-24 h-24 object-contain filter drop-shadow">
                     </div>
                 </div>
                 <p id="sidebarMascotText" class="text-[12px] font-bold text-slate-800 dark:text-slate-200 px-2 mb-2.5 leading-snug">
-                    Cùng Đăng chinh phục tiếng Anh mỗi ngày!
+                    Totoro & Đăng đồng hành chinh phục TOEIC mỗi ngày!
                 </p>
-                <button onclick="switchTab('take-note')" class="w-full py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100/80 dark:bg-slate-800 dark:hover:bg-slate-700 border border-amber-200/80 dark:border-slate-600 text-amber-800 dark:text-amber-300 text-[11.5px] font-semibold flex items-center justify-center gap-1.5 transition">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <span id="sidebarFeedbackBtnText">Mở nhanh Sổ Take Note</span>
+                <button onclick="openAITutorModal()" class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white text-[11.5px] font-bold flex items-center justify-center gap-1.5 shadow-sm shadow-purple-500/20 active:scale-95 transition">
+                    <i class="fa-solid fa-robot text-amber-300 text-xs"></i>
+                    <span id="sidebarFeedbackBtnText">Gia Sư AI Đăng TOEIC</span>
                 </button>
             </div>
         </aside>
@@ -1181,10 +1133,10 @@
                             </div>
                         </div>
 
-                        <!-- Chú mèo cam ôm cành cây (Ảnh 4) + Nút Gia Sư AI Đăng TOEIC (Chuẩn Ảnh 5) -->
+                        <!-- Totoro Mascot (Chuẩn Hình 5) + Nút Gia Sư AI Đăng TOEIC -->
                         <div class="relative flex flex-col items-center justify-center py-2">
                             <div id="dashboardCatMascotContainer" class="w-32 h-32 mascot-float flex items-center justify-center drop-shadow-md">
-                                <!-- Rendered dynamically with getOwlSVG('wave') -->
+                                <img src="assets/mascot/totoro_mascot_ai_tutor.png" alt="Totoro Gia Sư AI" class="w-28 h-28 object-contain">
                             </div>
                             <div id="dashboardBigOwl" class="hidden"></div>
                             <!-- Purple Pill Button: Gia Sư AI Đăng TOEIC -->
@@ -1843,7 +1795,10 @@
                         </div>
                     </div>
 
-                    <div id="listeningHeroOwl" class="w-32 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float"></div>
+                    <!-- Mascot Phần Nghe: Totoro Thổi Sáo Dưới Trăng (Ảnh 3) -->
+                    <div id="listeningHeroOwl" class="w-32 h-36 shrink-0 hidden md:flex items-center justify-center mascot-float">
+                        <img src="assets/mascot/totoro_listening_card.png" alt="Totoro Thổi Sáo Ocarina (Phần Nghe)" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+                    </div>
                 </div>
 
                 <!-- PHASE 4 PRIORITY DASHBOARD: Tiếp tục học & Gợi ý hôm nay -->
@@ -2574,7 +2529,10 @@
                         </div>
                     </div>
 
-                    <div id="readingHeroOwl" class="w-32 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float"></div>
+                    <!-- Mascot Phần Đọc: Totoro Studio Ghibli (Ảnh 4) -->
+                    <div id="readingHeroOwl" class="w-36 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float">
+                        <img src="assets/mascot/totoro_reading_card.png" alt="Totoro Studio Ghibli (Phần Đọc)" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+                    </div>
                 </div>
 
                 <!-- Beginner News in Levels Banner + PassToeic Story Reading Banner -->
@@ -2980,7 +2938,10 @@
                         </div>
                     </div>
 
-                    <div id="mockHeroOwl" class="w-32 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float"></div>
+                    <!-- Mascot Phần Thi Thử: Totoro Chibi Cầm Lá (Ảnh 5) -->
+                    <div id="mockHeroOwl" class="w-32 h-36 shrink-0 hidden md:flex items-center justify-center mascot-float">
+                        <img src="assets/mascot/totoro_mock_test_card.png" alt="Totoro Chibi Cầm Lá (Phần Thi Thử)" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+                    </div>
                 </div>
 
                 <!-- History Banner -->
@@ -5543,80 +5504,32 @@
             sidebarCollapsed: false
         };
 
-        // Cute Orange Tabby Cat hanging on a wooden branch with a Blue Bird on its head (matching Image 2)
+        // Totoro Mascot Engine (Đồng bộ từng chuyên mục theo yêu cầu học viên)
         function getOwlSVG(variant = 'wave') {
-            let badgeLabel = '';
-            if (variant === 'grammar') badgeLabel = 'GRAMMAR';
-            else if (variant === 'listening') badgeLabel = 'LISTEN';
-            else if (variant === 'reading') badgeLabel = 'READING';
-            else if (variant === 'mock') badgeLabel = 'MOCK 600+';
+            if (variant === 'listening') {
+                return `
+                <div class="relative w-full h-full flex flex-col items-center justify-center select-none group">
+                    <img src="assets/mascot/totoro_listening_card.png" alt="Totoro Luyện Nghe (Ảnh 3)" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    <span class="absolute -bottom-1 px-2.5 py-0.5 rounded-full bg-teal-900/90 text-teal-200 text-[9px] font-black tracking-wider uppercase shadow-xs ring-1 ring-teal-400/40">LISTENING</span>
+                </div>`;
+            } else if (variant === 'reading') {
+                return `
+                <div class="relative w-full h-full flex flex-col items-center justify-center select-none group">
+                    <img src="assets/mascot/totoro_reading_card.png" alt="Totoro Luyện Đọc (Ảnh 4)" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    <span class="absolute -bottom-1 px-2.5 py-0.5 rounded-full bg-sky-900/90 text-sky-200 text-[9px] font-black tracking-wider uppercase shadow-xs ring-1 ring-sky-400/40">READING</span>
+                </div>`;
+            } else if (variant === 'mock') {
+                return `
+                <div class="relative w-full h-full flex flex-col items-center justify-center select-none group">
+                    <img src="assets/mascot/totoro_mock_test_card.png" alt="Totoro Thi Thử (Ảnh 5)" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    <span class="absolute -bottom-1 px-2.5 py-0.5 rounded-full bg-lime-950/90 text-lime-300 text-[9px] font-black tracking-wider uppercase shadow-xs ring-1 ring-lime-400/40">MOCK ETS 2026</span>
+                </div>`;
+            }
 
             return `
-            <svg viewBox="0 0 140 150" class="w-full h-full overflow-visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Soft Circular Warm Halo -->
-                <circle cx="70" cy="74" r="56" fill="#F9F1DC" opacity="0.85"/>
-                <!-- Long Hanging Striped Tail -->
-                <path d="M55 92 C52 112, 51 130, 54 143 C59 146, 67 145, 69 140 C69 124, 68 106, 67 92 Z" fill="#F38B2A"/>
-                <path d="M54 100 H68 M53 109 H68 M53 118 H69 M53 127 H69 M54 136 H68" stroke="#D9532F" stroke-width="5" stroke-linecap="round"/>
-
-                <!-- Chubby Orange Cat Body Hanging Below Branch -->
-                <path d="M45 60 L93 59 L88 101 C86 106, 73 106, 66 101 C57 105, 46 103, 43 95 Z" fill="#F59223"/>
-                <!-- Darker Watercolor Belly Patch -->
-                <ellipse cx="77" cy="84" rx="11" ry="16" fill="#E07318" opacity="0.65"/>
-
-                <!-- Side Tabby Stripes -->
-                <path d="M45 69 H53 M44 77 H52" stroke="#D9532F" stroke-width="4" stroke-linecap="round"/>
-                <path d="M83 68 H91 M83 76 H91 M84 84 H90" stroke="#D9532F" stroke-width="4" stroke-linecap="round"/>
-
-                <!-- White Dangling Hind Paws -->
-                <path d="M43 92 C41 102, 46 108, 52 106 C56 104, 56 98, 54 93 Z" fill="#FFFDF9" stroke="#0D3166" stroke-width="2"/>
-                <path d="M75 98 C77 108, 84 111, 89 107 C92 103, 91 97, 89 93 Z" fill="#FFFDF9" stroke="#0D3166" stroke-width="2"/>
-
-                <!-- Cat Head Peeking Over Branch -->
-                <path d="M49 50 C47 34, 50 24, 50 19 L59 26 C65 24, 73 24, 79 26 L88 19 C89 25, 92 35, 89 50 Z" fill="#F59223"/>
-                <!-- Inner White Ears -->
-                <polygon points="51,22 50,29 56,27" fill="#FFFDF9"/>
-                <polygon points="87,22 88,29 82,27" fill="#FFFDF9"/>
-
-                <!-- Forehead Tabby Stripes -->
-                <path d="M64 25 V31 M69.5 24 V31 M75 25 V31" stroke="#D9532F" stroke-width="3.2" stroke-linecap="round"/>
-
-                <!-- Big Expressive Dark-Navy Eyes with White Rim -->
-                <circle cx="59.5" cy="37.5" r="7.5" fill="#FFFDF9"/>
-                <circle cx="59.5" cy="37.5" r="5.8" fill="#0D3166"/>
-                <circle cx="79" cy="37.5" r="7.5" fill="#FFFDF9"/>
-                <circle cx="79" cy="37.5" r="5.8" fill="#0D3166"/>
-
-                <!-- Tiny Pink Nose & Pouty Mouth -->
-                <ellipse cx="69.2" cy="41.2" rx="2.5" ry="1.7" fill="#E11D48"/>
-                <path d="M66.2 44.5 L69.2 42.6 L72.2 44.5" stroke="#0D3166" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-
-                <!-- Horizontal White Wooden Branch with Sketch Wood Grain -->
-                <path d="M8 49 H132 L127 60 L13 62 Z" fill="#FAF5E8"/>
-                <path d="M8 49 H132 M13 62 L127 60 L114 64" stroke="#0D3166" stroke-width="2.2" stroke-linecap="round"/>
-                <path d="M18 54 Q35 58 49 53 M78 56 Q95 52 112 57" stroke="#0D3166" stroke-width="1.2" opacity="0.65" fill="none"/>
-
-                <!-- White Front Paws Gripping Branch -->
-                <ellipse cx="48" cy="50" rx="8.5" ry="6" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.8"/>
-                <path d="M46 53.5 V55.5 M49.5 53.5 V55.5" stroke="#0D3166" stroke-width="1.4" stroke-linecap="round"/>
-                <ellipse cx="91" cy="50" rx="8" ry="5.8" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.8"/>
-                <path d="M89 53.5 V55.5 M92.5 53.5 V55.5" stroke="#0D3166" stroke-width="1.4" stroke-linecap="round"/>
-
-                <!-- Tiny Blue Bird Perched on Top of Cat's Head -->
-                <line x1="68.5" y1="20" x2="68.5" y2="25" stroke="#0D3166" stroke-width="1.5"/>
-                <line x1="72" y1="20" x2="72" y2="25" stroke="#0D3166" stroke-width="1.5"/>
-                <ellipse cx="70.2" cy="14" rx="6.2" ry="6.8" fill="#0891B2"/>
-                <circle cx="68" cy="12" r="2" fill="#FFFDF9"/>
-                <circle cx="68" cy="12" r="1" fill="#0D3166"/>
-                <circle cx="72.5" cy="12" r="2" fill="#FFFDF9"/>
-                <circle cx="72.5" cy="12" r="1" fill="#0D3166"/>
-                <polygon points="69,13.8 71.5,13.8 70.2,16" fill="#F97316"/>
-
-                ${badgeLabel ? `
-                <rect x="44" y="72" width="50" height="15" rx="7.5" fill="#FFFDF9" stroke="#0D3166" stroke-width="1.5"/>
-                <text x="69" y="82" text-anchor="middle" fill="#0D3166" font-size="7.5" font-weight="800">${badgeLabel}</text>
-                ` : ''}
-            </svg>`;
+            <div class="relative w-full h-full flex flex-col items-center justify-center select-none pointer-events-none group">
+                <img src="assets/mascot/totoro_mascot_ai_tutor.png" alt="Totoro Mascot" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+            </div>`;
         }
 
         // Initialize Mascots on Load (Null-safe for all views)
