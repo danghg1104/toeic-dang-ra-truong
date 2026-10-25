@@ -1,0 +1,5667 @@
+/**
+ * DAILYDICTATION TOEIC LISTENING COMPREHENSIVE DATABASE
+ * Nguồn chính thức: https://dailydictation.com/exercises/toeic
+ * Bản quyền audio: BestMyTest & ETS
+ * Bao gồm 30 Practice Tests (600 Bài học Conversation & Short Talk)
+ * Đa giọng chuẩn bản xứ: Mỹ (US), Anh (UK), Úc (AU), Canada (CA).
+ */
+(function(window) {
+    'use strict';
+
+    const TOEIC_DICTATION_SUMMARY = [
+  {
+    "testNum": 1,
+    "title": "Practice Test 1",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1481,
+        "slug": "conversation-1.1481",
+        "name": "Conversation 1",
+        "topic": "Office Copier Breakdown",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-1-2024-08-18-22-00-59/0-conversation-1.mp3"
+      },
+      {
+        "lessonId": 1037,
+        "slug": "conversation-2.1037",
+        "name": "Conversation 2",
+        "topic": "Production Manager Transition Plans",
+        "vocabLevel": "B2",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-2-2023-09-10-16-00-06/0-conversation-2.mp3"
+      },
+      {
+        "lessonId": 1482,
+        "slug": "conversation-3.1482",
+        "name": "Conversation 3",
+        "topic": "Dropping Off Documents",
+        "vocabLevel": "A2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-3-2024-08-18-22-20-31/0-conversation-3.mp3"
+      },
+      {
+        "lessonId": 1483,
+        "slug": "conversation-4.1483",
+        "name": "Conversation 4",
+        "topic": "Dental Claim Status Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-4-2024-08-18-22-32-03/0-conversation-4.mp3"
+      },
+      {
+        "lessonId": 1043,
+        "slug": "conversation-5.1043",
+        "name": "Conversation 5",
+        "topic": "Delayed Computer Delivery Call",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-5-2023-09-10-16-02-43/0-conversation-5.mp3"
+      },
+      {
+        "lessonId": 1484,
+        "slug": "conversation-6.1484",
+        "name": "Conversation 6",
+        "topic": "Airport Check-in Frustrations",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-6-2024-08-18-22-42-01/0-conversation-6.mp3"
+      },
+      {
+        "lessonId": 1047,
+        "slug": "conversation-7.1047",
+        "name": "Conversation 7",
+        "topic": "Minimalist Design Workshop Invitation",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-7-2023-09-10-18-11-45/0-conversation-7.mp3"
+      },
+      {
+        "lessonId": 1485,
+        "slug": "conversation-8.1485",
+        "name": "Conversation 8",
+        "topic": "Request for Earlier Appointment",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-8-2024-08-18-22-55-23/0-conversation-8.mp3"
+      },
+      {
+        "lessonId": 1486,
+        "slug": "conversation-9.1486",
+        "name": "Conversation 9",
+        "topic": "Returning Tight Shoes",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-9-2024-08-18-23-15-42/0-conversation-9.mp3"
+      },
+      {
+        "lessonId": 1052,
+        "slug": "conversation-10.1052",
+        "name": "Conversation 10",
+        "topic": "Rental Car Damage Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-10-2023-09-10-18-15-30/0-conversation-10.mp3"
+      },
+      {
+        "lessonId": 1036,
+        "slug": "short-talk-1.1036",
+        "name": "Short Talk 1",
+        "topic": "Snowstorm Traffic Update",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-1-2023-09-10-15-59-45/0-short-talk-1.mp3"
+      },
+      {
+        "lessonId": 1487,
+        "slug": "short-talk-2.1487",
+        "name": "Short Talk 2",
+        "topic": "Country Fair Raffle Event",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-2-2024-08-18-23-41-46/0-short-talk-2.mp3"
+      },
+      {
+        "lessonId": 1491,
+        "slug": "short-talk-3.1491",
+        "name": "Short Talk 3",
+        "topic": "Introducing the L-Shaped Sofa",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-3-2024-08-19-16-25-33/0-short-talk-3.mp3"
+      },
+      {
+        "lessonId": 1042,
+        "slug": "short-talk-4.1042",
+        "name": "Short Talk 4",
+        "topic": "Dentist Appointment Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-4-2023-09-10-16-02-11/0-short-talk-4.mp3"
+      },
+      {
+        "lessonId": 1044,
+        "slug": "short-talk-5.1044",
+        "name": "Short Talk 5",
+        "topic": "Fitness Expo Agenda Update",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-5-2023-09-10-16-03-09/0-short-talk-5.mp3"
+      },
+      {
+        "lessonId": 1046,
+        "slug": "short-talk-6.1046",
+        "name": "Short Talk 6",
+        "topic": "User Experience Conference Opening",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-6-2023-09-10-16-03-46/0-short-talk-6.mp3"
+      },
+      {
+        "lessonId": 1048,
+        "slug": "short-talk-7.1048",
+        "name": "Short Talk 7",
+        "topic": "National Portrait Gallery Tour",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-7-2023-09-10-18-12-07/0-short-talk-7.mp3"
+      },
+      {
+        "lessonId": 1050,
+        "slug": "short-talk-8.1050",
+        "name": "Short Talk 8",
+        "topic": "Plumbing Issues Discovered",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-8-2023-09-10-18-12-47/0-short-talk-8.mp3"
+      },
+      {
+        "lessonId": 1492,
+        "slug": "short-talk-9.1492",
+        "name": "Short Talk 9",
+        "topic": "Family Marketing Success at Cheshire",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-9-2024-08-19-16-26-57/0-short-talk-9.mp3"
+      },
+      {
+        "lessonId": 1054,
+        "slug": "short-talk-10.1054",
+        "name": "Short Talk 10",
+        "topic": "Missing Receipt Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-10-2023-09-10-18-14-26/0-short-talk-10.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 2,
+    "title": "Practice Test 2",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1055,
+        "slug": "conversation-11.1055",
+        "name": "Conversation 11",
+        "topic": "Restaurant Reservation Call",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-11-2023-09-11-16-36-43/0-conversation-11.mp3"
+      },
+      {
+        "lessonId": 1493,
+        "slug": "conversation-12.1493",
+        "name": "Conversation 12",
+        "topic": "Paul Woodward Book Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-12-2024-08-19-16-28-02/0-conversation-12.mp3"
+      },
+      {
+        "lessonId": 1057,
+        "slug": "conversation-13.1057",
+        "name": "Conversation 13",
+        "topic": "Store Sales Improvement Suggestions",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-13-2023-09-11-16-37-19/0-conversation-13.mp3"
+      },
+      {
+        "lessonId": 1058,
+        "slug": "conversation-14.1058",
+        "name": "Conversation 14",
+        "topic": "Copywriter Interview Invitation",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-14-2023-09-11-16-37-36/0-conversation-14.mp3"
+      },
+      {
+        "lessonId": 1059,
+        "slug": "conversation-15.1059",
+        "name": "Conversation 15",
+        "topic": "WiFi Connection Troubles",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-15-2023-09-11-16-37-56/0-conversation-15.mp3"
+      },
+      {
+        "lessonId": 1060,
+        "slug": "conversation-16.1060",
+        "name": "Conversation 16",
+        "topic": "Office Expansion Progress",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-16-2023-09-11-16-38-09/0-conversation-16.mp3"
+      },
+      {
+        "lessonId": 1061,
+        "slug": "conversation-17.1061",
+        "name": "Conversation 17",
+        "topic": "Albert Park Condo Presale",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-17-2023-09-11-16-38-24/0-conversation-17.mp3"
+      },
+      {
+        "lessonId": 1062,
+        "slug": "conversation-18.1062",
+        "name": "Conversation 18",
+        "topic": "SuperPad 4 Battery Issue",
+        "vocabLevel": "B2",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-18-2023-09-11-16-38-46/0-conversation-18.mp3"
+      },
+      {
+        "lessonId": 1063,
+        "slug": "conversation-19.1063",
+        "name": "Conversation 19",
+        "topic": "Mascara Labeling Concerns",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-19-2023-09-11-16-39-03/0-conversation-19.mp3"
+      },
+      {
+        "lessonId": 1064,
+        "slug": "conversation-20.1064",
+        "name": "Conversation 20",
+        "topic": "Year-End Sale Discount Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-20-2023-09-11-16-39-27/0-conversation-20.mp3"
+      },
+      {
+        "lessonId": 1065,
+        "slug": "short-talk-11.1065",
+        "name": "Short Talk 11",
+        "topic": "Fruit Bouquet Delivery Confirmation",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-11-2023-09-11-16-39-49/0-short-talk-11.mp3"
+      },
+      {
+        "lessonId": 1066,
+        "slug": "short-talk-12.1066",
+        "name": "Short Talk 12",
+        "topic": "Winter Tour Job Opportunity",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-12-2023-09-11-16-40-06/0-short-talk-12.mp3"
+      },
+      {
+        "lessonId": 1067,
+        "slug": "short-talk-13.1067",
+        "name": "Short Talk 13",
+        "topic": "Flight Announcement to Singapore",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-13-2023-09-11-16-40-24/0-short-talk-13.mp3"
+      },
+      {
+        "lessonId": 1068,
+        "slug": "short-talk-14.1068",
+        "name": "Short Talk 14",
+        "topic": "Communications Technology Conference",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-14-2023-09-11-16-40-43/0-short-talk-14.mp3"
+      },
+      {
+        "lessonId": 1069,
+        "slug": "short-talk-15.1069",
+        "name": "Short Talk 15",
+        "topic": "Weather and Local Updates",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-15-2023-09-11-16-40-57/0-short-talk-15.mp3"
+      },
+      {
+        "lessonId": 1070,
+        "slug": "short-talk-16.1070",
+        "name": "Short Talk 16",
+        "topic": "Out of Office Notice",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-16-2023-09-11-16-41-12/0-short-talk-16.mp3"
+      },
+      {
+        "lessonId": 1071,
+        "slug": "short-talk-17.1071",
+        "name": "Short Talk 17",
+        "topic": "Conference Schedule Updates",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-17-2023-09-11-16-41-26/0-short-talk-17.mp3"
+      },
+      {
+        "lessonId": 1072,
+        "slug": "short-talk-18.1072",
+        "name": "Short Talk 18",
+        "topic": "Managing University Application Stress",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-18-2023-09-11-16-41-43/0-short-talk-18.mp3"
+      },
+      {
+        "lessonId": 1073,
+        "slug": "short-talk-19.1073",
+        "name": "Short Talk 19",
+        "topic": "Chicago Marathon Road Closures",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-19-2023-09-11-16-41-57/0-short-talk-19.mp3"
+      },
+      {
+        "lessonId": 1074,
+        "slug": "short-talk-20.1074",
+        "name": "Short Talk 20",
+        "topic": "Sales and Social Media Update",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-20-2023-09-11-16-42-12/0-short-talk-20.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 3,
+    "title": "Practice Test 3",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1075,
+        "slug": "conversation-21.1075",
+        "name": "Conversation 21",
+        "topic": "Ordering Specialty Pizza Request",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-21-2023-09-12-17-16-22/0-conversation-21.mp3"
+      },
+      {
+        "lessonId": 1076,
+        "slug": "conversation-22.1076",
+        "name": "Conversation 22",
+        "topic": "Missing Expense Reports",
+        "vocabLevel": "B1",
+        "partsCount": 21,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-22-2023-09-12-17-16-41/0-conversation-22.mp3"
+      },
+      {
+        "lessonId": 1077,
+        "slug": "conversation-23.1077",
+        "name": "Conversation 23",
+        "topic": "Job Offer and Start Date",
+        "vocabLevel": "B2",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-23-2023-09-12-17-16-57/0-conversation-23.mp3"
+      },
+      {
+        "lessonId": 1078,
+        "slug": "conversation-24.1078",
+        "name": "Conversation 24",
+        "topic": "Jeans Line PR Agency Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-24-2023-09-12-17-17-15/0-conversation-24.mp3"
+      },
+      {
+        "lessonId": 1079,
+        "slug": "conversation-25.1079",
+        "name": "Conversation 25",
+        "topic": "Ordering a Budget Office Chair",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-25-2023-09-12-17-17-46/0-conversation-25.mp3"
+      },
+      {
+        "lessonId": 1080,
+        "slug": "conversation-26.1080",
+        "name": "Conversation 26",
+        "topic": "Booking Musical Tickets",
+        "vocabLevel": "B1",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-26-2023-09-12-17-18-05/0-conversation-26.mp3"
+      },
+      {
+        "lessonId": 1081,
+        "slug": "conversation-27.1081",
+        "name": "Conversation 27",
+        "topic": "Student Receptionist Job Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-27-2023-09-12-17-18-28/0-conversation-27.mp3"
+      },
+      {
+        "lessonId": 1082,
+        "slug": "conversation-28.1082",
+        "name": "Conversation 28",
+        "topic": "Marketing Conference Attendance Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-28-2023-09-12-17-18-50/0-conversation-28.mp3"
+      },
+      {
+        "lessonId": 1083,
+        "slug": "conversation-29.1083",
+        "name": "Conversation 29",
+        "topic": "Projector Issue on Third Floor",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-29-2023-09-12-17-19-05/0-conversation-29.mp3"
+      },
+      {
+        "lessonId": 1084,
+        "slug": "conversation-30.1084",
+        "name": "Conversation 30",
+        "topic": "Arranging a Home Mortgage",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-30-2023-09-12-17-19-22/0-conversation-30.mp3"
+      },
+      {
+        "lessonId": 1086,
+        "slug": "short-talk-22.1086",
+        "name": "Short Talk 22",
+        "topic": "Dishwasher Error and Service Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-22-2023-09-12-17-39-30/0-short-talk-22.mp3"
+      },
+      {
+        "lessonId": 1087,
+        "slug": "short-talk-23.1087",
+        "name": "Short Talk 23",
+        "topic": "Welcome to Your Internship",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-23-2023-09-12-17-39-47/0-short-talk-23.mp3"
+      },
+      {
+        "lessonId": 1088,
+        "slug": "short-talk-24.1088",
+        "name": "Short Talk 24",
+        "topic": "New Soccer Fields Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-24-2023-09-12-17-40-03/0-short-talk-24.mp3"
+      },
+      {
+        "lessonId": 1089,
+        "slug": "short-talk-25.1089",
+        "name": "Short Talk 25",
+        "topic": "Manchester Rail Construction Notice",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-25-2023-09-12-17-40-19/0-short-talk-25.mp3"
+      },
+      {
+        "lessonId": 1090,
+        "slug": "short-talk-26.1090",
+        "name": "Short Talk 26",
+        "topic": "Package Delivery Issue",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-26-2023-09-12-17-40-36/0-short-talk-26.mp3"
+      },
+      {
+        "lessonId": 1091,
+        "slug": "short-talk-27.1091",
+        "name": "Short Talk 27",
+        "topic": "Cool Drops Eye Relief",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-27-2023-09-12-17-40-48/0-short-talk-27.mp3"
+      },
+      {
+        "lessonId": 1092,
+        "slug": "short-talk-28.1092",
+        "name": "Short Talk 28",
+        "topic": "Juniper Hall Open House",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-28-2023-09-12-17-41-01/0-short-talk-28.mp3"
+      },
+      {
+        "lessonId": 1093,
+        "slug": "short-talk-29.1093",
+        "name": "Short Talk 29",
+        "topic": "Customer Service Hiring Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-29-2023-09-12-17-41-14/0-short-talk-29.mp3"
+      },
+      {
+        "lessonId": 1094,
+        "slug": "short-talk-30.1094",
+        "name": "Short Talk 30",
+        "topic": "Top Hotel Award Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-30-2023-09-12-17-41-27/0-short-talk-30.mp3"
+      },
+      {
+        "lessonId": 1085,
+        "slug": "short-talk-21.1085",
+        "name": "Short Talk 21",
+        "topic": "Company Holiday Retreat Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-21-2023-09-12-17-39-12/0-short-talk-21.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 4,
+    "title": "Practice Test 4",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1098,
+        "slug": "conversation-31.1098",
+        "name": "Conversation 31",
+        "topic": "Declining Sales Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-31-2023-09-14-16-24-14/0-conversation-31.mp3"
+      },
+      {
+        "lessonId": 1099,
+        "slug": "conversation-32.1099",
+        "name": "Conversation 32",
+        "topic": "Reservation Change Request",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-32-2023-09-14-16-24-35/0-conversation-32.mp3"
+      },
+      {
+        "lessonId": 1100,
+        "slug": "conversation-33.1100",
+        "name": "Conversation 33",
+        "topic": "Doctor Appointment Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-33-2023-09-14-16-24-51/0-conversation-33.mp3"
+      },
+      {
+        "lessonId": 1101,
+        "slug": "conversation-34.1101",
+        "name": "Conversation 34",
+        "topic": "Stuck in Traffic Before Ceremony",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-34-2023-09-14-16-25-05/0-conversation-34.mp3"
+      },
+      {
+        "lessonId": 1102,
+        "slug": "conversation-35.1102",
+        "name": "Conversation 35",
+        "topic": "Refrigerator Delivery Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-35-2023-09-14-16-25-22/0-conversation-35.mp3"
+      },
+      {
+        "lessonId": 1103,
+        "slug": "conversation-36.1103",
+        "name": "Conversation 36",
+        "topic": "Opening a Business Bank Account",
+        "vocabLevel": "B1",
+        "partsCount": 23,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-36-2023-09-14-16-25-37/0-conversation-36.mp3"
+      },
+      {
+        "lessonId": 1104,
+        "slug": "conversation-37.1104",
+        "name": "Conversation 37",
+        "topic": "Company Acquisition Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-37-2023-09-14-16-25-55/0-conversation-37.mp3"
+      },
+      {
+        "lessonId": 1105,
+        "slug": "conversation-38.1105",
+        "name": "Conversation 38",
+        "topic": "Coffee Order Mix-Up",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-38-2023-09-14-16-26-13/0-conversation-38.mp3"
+      },
+      {
+        "lessonId": 1106,
+        "slug": "conversation-39.1106",
+        "name": "Conversation 39",
+        "topic": "Oil Change and Maintenance Request",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-39-2023-09-14-16-26-29/0-conversation-39.mp3"
+      },
+      {
+        "lessonId": 1107,
+        "slug": "conversation-40.1107",
+        "name": "Conversation 40",
+        "topic": "Message for Account Manager",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-40-2023-09-14-16-26-45/0-conversation-40.mp3"
+      },
+      {
+        "lessonId": 1108,
+        "slug": "short-talk-31.1108",
+        "name": "Short Talk 31",
+        "topic": "Slow Intranet Performance Complaint",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-31-2023-09-14-20-03-45/0-short-talk-31.mp3"
+      },
+      {
+        "lessonId": 1109,
+        "slug": "short-talk-32.1109",
+        "name": "Short Talk 32",
+        "topic": "New Director Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-32-2023-09-14-20-04-03/0-short-talk-32.mp3"
+      },
+      {
+        "lessonId": 1110,
+        "slug": "short-talk-33.1110",
+        "name": "Short Talk 33",
+        "topic": "Biannual Performance Review Summary",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-33-2023-09-14-20-04-23/0-short-talk-33.mp3"
+      },
+      {
+        "lessonId": 1111,
+        "slug": "short-talk-34.1111",
+        "name": "Short Talk 34",
+        "topic": "Interview with Billy Hays",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-34-2023-09-14-20-04-40/0-short-talk-34.mp3"
+      },
+      {
+        "lessonId": 1112,
+        "slug": "short-talk-35.1112",
+        "name": "Short Talk 35",
+        "topic": "Part-Time Job Offer",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-35-2023-09-14-20-04-56/0-short-talk-35.mp3"
+      },
+      {
+        "lessonId": 1113,
+        "slug": "short-talk-36.1113",
+        "name": "Short Talk 36",
+        "topic": "Tornado Drill Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-36-2023-09-14-20-05-11/0-short-talk-36.mp3"
+      },
+      {
+        "lessonId": 1114,
+        "slug": "short-talk-37.1114",
+        "name": "Short Talk 37",
+        "topic": "BankingBiz Annual Celebration",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-37-2023-09-14-20-05-26/0-short-talk-37.mp3"
+      },
+      {
+        "lessonId": 1115,
+        "slug": "short-talk-38.1115",
+        "name": "Short Talk 38",
+        "topic": "Carrie&#039;s Computer Repair Services",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-38-2023-09-14-20-05-42/0-short-talk-38.mp3"
+      },
+      {
+        "lessonId": 1116,
+        "slug": "short-talk-39.1116",
+        "name": "Short Talk 39",
+        "topic": "Quarterly Sales Meeting Summary",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-39-2023-09-14-20-06-03/0-short-talk-39.mp3"
+      },
+      {
+        "lessonId": 1117,
+        "slug": "short-talk-40.1117",
+        "name": "Short Talk 40",
+        "topic": "Campus Tour Orientation",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-40-2023-09-14-20-06-24/0-short-talk-40.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 5,
+    "title": "Practice Test 5",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1118,
+        "slug": "conversation-41.1118",
+        "name": "Conversation 41",
+        "topic": "Hospital Referral Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-41-2023-09-15-20-37-06/0-conversation-41.mp3"
+      },
+      {
+        "lessonId": 1119,
+        "slug": "conversation-42.1119",
+        "name": "Conversation 42",
+        "topic": "Web Camera Audio Sync Issue",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-42-2023-09-15-20-37-19/0-conversation-42.mp3"
+      },
+      {
+        "lessonId": 1120,
+        "slug": "conversation-43.1120",
+        "name": "Conversation 43",
+        "topic": "Athens Living Cost Estimates",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-43-2023-09-15-20-37-30/0-conversation-43.mp3"
+      },
+      {
+        "lessonId": 1122,
+        "slug": "conversation-44.1122",
+        "name": "Conversation 44",
+        "topic": "Camera Shopping Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-44-2023-09-15-20-38-19/0-conversation-44.mp3"
+      },
+      {
+        "lessonId": 1123,
+        "slug": "conversation-45.1123",
+        "name": "Conversation 45",
+        "topic": "Cable Installation Frustration",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-45-2023-09-15-20-38-32/0-conversation-45.mp3"
+      },
+      {
+        "lessonId": 1124,
+        "slug": "conversation-46.1124",
+        "name": "Conversation 46",
+        "topic": "Dish Pod Marketing Advice",
+        "vocabLevel": "B2",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-46-2023-09-15-20-38-50/0-conversation-46.mp3"
+      },
+      {
+        "lessonId": 1125,
+        "slug": "conversation-47.1125",
+        "name": "Conversation 47",
+        "topic": "Air Purifier Troubleshooting Call",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-47-2023-09-15-20-39-18/0-conversation-47.mp3"
+      },
+      {
+        "lessonId": 1126,
+        "slug": "conversation-48.1126",
+        "name": "Conversation 48",
+        "topic": "Office Phone Line Issue",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-48-2023-09-15-20-39-34/0-conversation-48.mp3"
+      },
+      {
+        "lessonId": 1127,
+        "slug": "conversation-49.1127",
+        "name": "Conversation 49",
+        "topic": "Rock Rose Concert Plans",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-49-2023-09-15-20-39-52/0-conversation-49.mp3"
+      },
+      {
+        "lessonId": 1128,
+        "slug": "conversation-50.1128",
+        "name": "Conversation 50",
+        "topic": "Finding a Conference Speaker",
+        "vocabLevel": "B2",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-50-2023-09-15-20-40-09/0-conversation-50.mp3"
+      },
+      {
+        "lessonId": 1129,
+        "slug": "short-talk-41.1129",
+        "name": "Short Talk 41",
+        "topic": "Museum Visit Guidelines",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-41-2023-09-16-20-27-55/0-short-talk-41.mp3"
+      },
+      {
+        "lessonId": 1130,
+        "slug": "short-talk-42.1130",
+        "name": "Short Talk 42",
+        "topic": "California Office Relocation Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-42-2023-09-16-20-28-11/0-short-talk-42.mp3"
+      },
+      {
+        "lessonId": 1131,
+        "slug": "short-talk-43.1131",
+        "name": "Short Talk 43",
+        "topic": "Desk Order Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-43-2023-09-16-20-28-24/0-short-talk-43.mp3"
+      },
+      {
+        "lessonId": 1132,
+        "slug": "short-talk-44.1132",
+        "name": "Short Talk 44",
+        "topic": "Olly Russells Radio Interview",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-44-2023-09-16-20-28-46/0-short-talk-44.mp3"
+      },
+      {
+        "lessonId": 1133,
+        "slug": "short-talk-45.1133",
+        "name": "Short Talk 45",
+        "topic": "Jack Anders Retirement Tribute",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-45-2023-09-16-20-29-01/0-short-talk-45.mp3"
+      },
+      {
+        "lessonId": 1134,
+        "slug": "short-talk-46.1134",
+        "name": "Short Talk 46",
+        "topic": "Voicemail Training Session",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-46-2023-09-16-20-29-17/0-short-talk-46.mp3"
+      },
+      {
+        "lessonId": 1135,
+        "slug": "short-talk-47.1135",
+        "name": "Short Talk 47",
+        "topic": "Thank You and Invitation",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-47-2023-09-16-20-31-23/0-short-talk-47.mp3"
+      },
+      {
+        "lessonId": 1136,
+        "slug": "short-talk-48.1136",
+        "name": "Short Talk 48",
+        "topic": "Bus 208 Departure Notice",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-48-2023-09-16-20-31-38/0-short-talk-48.mp3"
+      },
+      {
+        "lessonId": 1137,
+        "slug": "short-talk-49.1137",
+        "name": "Short Talk 49",
+        "topic": "Dentist Appointment Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-49-2023-09-16-20-31-55/0-short-talk-49.mp3"
+      },
+      {
+        "lessonId": 1138,
+        "slug": "short-talk-50.1138",
+        "name": "Short Talk 50",
+        "topic": "Giant Deals Autumn Sale",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-50-2023-09-16-20-32-10/0-short-talk-50.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 6,
+    "title": "Practice Test 6",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1139,
+        "slug": "conversation-51.1139",
+        "name": "Conversation 51",
+        "topic": "Group Interview Scheduling Conversation",
+        "vocabLevel": "B1",
+        "partsCount": 24,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-51-2023-09-19-17-09-03/0-conversation-51.mp3"
+      },
+      {
+        "lessonId": 1140,
+        "slug": "conversation-52.1140",
+        "name": "Conversation 52",
+        "topic": "Airport Route Dilemma",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-52-2023-09-19-17-11-01/0-conversation-52.mp3"
+      },
+      {
+        "lessonId": 1141,
+        "slug": "conversation-53.1141",
+        "name": "Conversation 53",
+        "topic": "NYC Weekend Sightseeing Plans",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-53-2023-09-19-17-11-18/0-conversation-53.mp3"
+      },
+      {
+        "lessonId": 1142,
+        "slug": "conversation-54.1142",
+        "name": "Conversation 54",
+        "topic": "Shipping Quote to Rome",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-54-2023-09-19-17-11-32/0-conversation-54.mp3"
+      },
+      {
+        "lessonId": 1143,
+        "slug": "conversation-55.1143",
+        "name": "Conversation 55",
+        "topic": "Employee Evaluation Assistance",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-55-2023-09-19-17-11-48/0-conversation-55.mp3"
+      },
+      {
+        "lessonId": 1144,
+        "slug": "conversation-56.1144",
+        "name": "Conversation 56",
+        "topic": "Grape Price Impact Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-56-2023-09-19-17-12-00/0-conversation-56.mp3"
+      },
+      {
+        "lessonId": 1145,
+        "slug": "conversation-57.1145",
+        "name": "Conversation 57",
+        "topic": "Considering Solar Panels",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-57-2023-09-19-17-12-20/0-conversation-57.mp3"
+      },
+      {
+        "lessonId": 1146,
+        "slug": "conversation-58.1146",
+        "name": "Conversation 58",
+        "topic": "Book Exchange Policy",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-58-2023-09-19-17-12-35/0-conversation-58.mp3"
+      },
+      {
+        "lessonId": 1147,
+        "slug": "conversation-59.1147",
+        "name": "Conversation 59",
+        "topic": "Conference Schedule Change",
+        "vocabLevel": "B2",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-59-2023-09-19-17-12-50/0-conversation-59.mp3"
+      },
+      {
+        "lessonId": 1148,
+        "slug": "conversation-60.1148",
+        "name": "Conversation 60",
+        "topic": "Looking for a Lateral Filing Cabinet",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-60-2023-09-19-17-13-05/0-conversation-60.mp3"
+      },
+      {
+        "lessonId": 1149,
+        "slug": "short-talk-51.1149",
+        "name": "Short Talk 51",
+        "topic": "Wilton Clinic Therapy Services",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-51-2023-09-19-20-53-55/0-short-talk-51.mp3"
+      },
+      {
+        "lessonId": 1150,
+        "slug": "short-talk-52.1150",
+        "name": "Short Talk 52",
+        "topic": "Interview Coordination Request",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-52-2023-09-19-20-54-08/0-short-talk-52.mp3"
+      },
+      {
+        "lessonId": 1151,
+        "slug": "short-talk-53.1151",
+        "name": "Short Talk 53",
+        "topic": "Lake District Train Delay",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-53-2023-09-19-20-54-44/0-short-talk-53.mp3"
+      },
+      {
+        "lessonId": 1152,
+        "slug": "short-talk-54.1152",
+        "name": "Short Talk 54",
+        "topic": "Team Success and Rewards",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-54-2023-09-19-20-54-57/0-short-talk-54.mp3"
+      },
+      {
+        "lessonId": 1153,
+        "slug": "short-talk-55.1153",
+        "name": "Short Talk 55",
+        "topic": "Major Tech Merger Announced",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-55-2023-09-19-20-55-15/0-short-talk-55.mp3"
+      },
+      {
+        "lessonId": 1154,
+        "slug": "short-talk-56.1154",
+        "name": "Short Talk 56",
+        "topic": "Sponsor Appreciation Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-56-2023-09-19-20-55-27/0-short-talk-56.mp3"
+      },
+      {
+        "lessonId": 1155,
+        "slug": "short-talk-57.1155",
+        "name": "Short Talk 57",
+        "topic": "Ebook Editing Request",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-57-2023-09-19-20-55-43/0-short-talk-57.mp3"
+      },
+      {
+        "lessonId": 1156,
+        "slug": "short-talk-58.1156",
+        "name": "Short Talk 58",
+        "topic": "Office Software Training Session",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-58-2023-09-19-20-56-00/0-short-talk-58.mp3"
+      },
+      {
+        "lessonId": 1157,
+        "slug": "short-talk-59.1157",
+        "name": "Short Talk 59",
+        "topic": "Semester Class Selection Guidelines",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-59-2023-09-19-20-56-15/0-short-talk-59.mp3"
+      },
+      {
+        "lessonId": 1158,
+        "slug": "short-talk-60.1158",
+        "name": "Short Talk 60",
+        "topic": "Credit Card Approval Notification",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-60-2023-09-19-20-56-36/0-short-talk-60.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 7,
+    "title": "Practice Test 7",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1159,
+        "slug": "conversation-61.1159",
+        "name": "Conversation 61",
+        "topic": "Duplicate Charge Refund Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-61-2023-09-23-21-38-52/0-conversation-61.mp3"
+      },
+      {
+        "lessonId": 1160,
+        "slug": "conversation-62.1160",
+        "name": "Conversation 62",
+        "topic": "Blender Return Request",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-62-2023-09-23-21-39-08/0-conversation-62.mp3"
+      },
+      {
+        "lessonId": 1161,
+        "slug": "conversation-63.1161",
+        "name": "Conversation 63",
+        "topic": "Sydney Office Manager Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 24,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-63-2023-09-23-21-39-19/0-conversation-63.mp3"
+      },
+      {
+        "lessonId": 1162,
+        "slug": "conversation-64.1162",
+        "name": "Conversation 64",
+        "topic": "Expense Report Meeting Request",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-64-2023-09-23-21-39-30/0-conversation-64.mp3"
+      },
+      {
+        "lessonId": 1163,
+        "slug": "conversation-65.1163",
+        "name": "Conversation 65",
+        "topic": "Car Repair Pickup Call",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-65-2023-09-23-21-39-42/0-conversation-65.mp3"
+      },
+      {
+        "lessonId": 1164,
+        "slug": "conversation-66.1164",
+        "name": "Conversation 66",
+        "topic": "Detroit Factory Inspection Trip",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-66-2023-09-23-21-39-55/0-conversation-66.mp3"
+      },
+      {
+        "lessonId": 1165,
+        "slug": "conversation-67.1165",
+        "name": "Conversation 67",
+        "topic": "Home Search in Birmingham",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-67-2023-09-23-21-40-14/0-conversation-67.mp3"
+      },
+      {
+        "lessonId": 1166,
+        "slug": "conversation-68.1166",
+        "name": "Conversation 68",
+        "topic": "Jill Johnson’s Retirement Party",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-68-2023-09-23-21-40-26/0-conversation-68.mp3"
+      },
+      {
+        "lessonId": 1167,
+        "slug": "conversation-69.1167",
+        "name": "Conversation 69",
+        "topic": "Fantasy Novel Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-69-2023-09-23-21-40-40/0-conversation-69.mp3"
+      },
+      {
+        "lessonId": 1168,
+        "slug": "conversation-70.1168",
+        "name": "Conversation 70",
+        "topic": "Office Dress Code Complaint",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-70-2023-09-23-21-40-51/0-conversation-70.mp3"
+      },
+      {
+        "lessonId": 1169,
+        "slug": "short-talk-61.1169",
+        "name": "Short Talk 61",
+        "topic": "Shipment Arrival Notification",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-61-2023-09-24-19-27-29/0-short-talk-61.mp3"
+      },
+      {
+        "lessonId": 1170,
+        "slug": "short-talk-62.1170",
+        "name": "Short Talk 62",
+        "topic": "Latin American Exhibit Opening",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-62-2023-09-24-19-27-43/0-short-talk-62.mp3"
+      },
+      {
+        "lessonId": 1171,
+        "slug": "short-talk-63.1171",
+        "name": "Short Talk 63",
+        "topic": "TravelBox Travel Agency Offers",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-63-2023-09-24-19-27-56/0-short-talk-63.mp3"
+      },
+      {
+        "lessonId": 1172,
+        "slug": "short-talk-64.1172",
+        "name": "Short Talk 64",
+        "topic": "Wilton Plans New Bus Lanes",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-64-2023-09-24-19-28-09/0-short-talk-64.mp3"
+      },
+      {
+        "lessonId": 1173,
+        "slug": "short-talk-65.1173",
+        "name": "Short Talk 65",
+        "topic": "Senior Center Volunteer Request",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-65-2023-09-24-19-28-20/0-short-talk-65.mp3"
+      },
+      {
+        "lessonId": 1174,
+        "slug": "short-talk-66.1174",
+        "name": "Short Talk 66",
+        "topic": "Warning About Packaging Issues",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-66-2023-09-24-19-28-32/0-short-talk-66.mp3"
+      },
+      {
+        "lessonId": 1175,
+        "slug": "short-talk-67.1175",
+        "name": "Short Talk 67",
+        "topic": "Change of Moving Date",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-67-2023-09-24-19-28-45/0-short-talk-67.mp3"
+      },
+      {
+        "lessonId": 1176,
+        "slug": "short-talk-68.1176",
+        "name": "Short Talk 68",
+        "topic": "Board Meeting Attendance Confirmation",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-68-2023-09-24-19-28-58/0-short-talk-68.mp3"
+      },
+      {
+        "lessonId": 1177,
+        "slug": "short-talk-69.1177",
+        "name": "Short Talk 69",
+        "topic": "Performer Instructions Overview",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-69-2023-09-24-19-29-09/0-short-talk-69.mp3"
+      },
+      {
+        "lessonId": 1178,
+        "slug": "short-talk-70.1178",
+        "name": "Short Talk 70",
+        "topic": "Flight Delay Due to Storm",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-70-2023-09-24-19-30-28/0-short-talk-70.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 8,
+    "title": "Practice Test 8",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1180,
+        "slug": "conversation-71.1180",
+        "name": "Conversation 71",
+        "topic": "Dry Cleaning Urgent Request",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-71-2023-09-28-17-59-46/0-conversation-71.mp3"
+      },
+      {
+        "lessonId": 1181,
+        "slug": "conversation-72.1181",
+        "name": "Conversation 72",
+        "topic": "Router Upgrade Appointment Mix-up",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-72-2023-09-28-18-00-06/0-conversation-72.mp3"
+      },
+      {
+        "lessonId": 1182,
+        "slug": "conversation-73.1182",
+        "name": "Conversation 73",
+        "topic": "Conference Room Computer Issue",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-73-2023-09-28-18-00-21/0-conversation-73.mp3"
+      },
+      {
+        "lessonId": 1183,
+        "slug": "conversation-74.1183",
+        "name": "Conversation 74",
+        "topic": "Coffee Machine Warranty Issue",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-74-2023-09-28-18-00-40/0-conversation-74.mp3"
+      },
+      {
+        "lessonId": 1184,
+        "slug": "conversation-75.1184",
+        "name": "Conversation 75",
+        "topic": "Discussing New Suppliers",
+        "vocabLevel": "B2",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-75-2023-09-28-18-00-55/0-conversation-75.mp3"
+      },
+      {
+        "lessonId": 1185,
+        "slug": "conversation-76.1185",
+        "name": "Conversation 76",
+        "topic": "First-Class Travel Reimbursement",
+        "vocabLevel": "B2",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-76-2023-09-28-18-01-07/0-conversation-76.mp3"
+      },
+      {
+        "lessonId": 1186,
+        "slug": "conversation-77.1186",
+        "name": "Conversation 77",
+        "topic": "Selecting the MVP",
+        "vocabLevel": "B2",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-77-2023-09-28-18-01-24/0-conversation-77.mp3"
+      },
+      {
+        "lessonId": 1187,
+        "slug": "conversation-78.1187",
+        "name": "Conversation 78",
+        "topic": "Important Company Meeting Tomorrow",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-78-2023-09-28-18-01-36/0-conversation-78.mp3"
+      },
+      {
+        "lessonId": 1188,
+        "slug": "conversation-79.1188",
+        "name": "Conversation 79",
+        "topic": "Finding Replacement Event Speaker",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-79-2023-09-28-18-01-49/0-conversation-79.mp3"
+      },
+      {
+        "lessonId": 1189,
+        "slug": "conversation-80.1189",
+        "name": "Conversation 80",
+        "topic": "Accounting to Sales Request",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-80-2023-09-28-18-02-06/0-conversation-80.mp3"
+      },
+      {
+        "lessonId": 1190,
+        "slug": "short-talk-71.1190",
+        "name": "Short Talk 71",
+        "topic": "Recycle Your Old Electronics",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-71-2023-09-29-21-25-25/0-short-talk-71.mp3"
+      },
+      {
+        "lessonId": 1191,
+        "slug": "short-talk-72.1191",
+        "name": "Short Talk 72",
+        "topic": "Lawler and Co Office Hours",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-72-2023-09-29-21-25-41/0-short-talk-72.mp3"
+      },
+      {
+        "lessonId": 1192,
+        "slug": "short-talk-73.1192",
+        "name": "Short Talk 73",
+        "topic": "WestJet Flight Delay Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-73-2023-09-29-21-25-54/0-short-talk-73.mp3"
+      },
+      {
+        "lessonId": 1193,
+        "slug": "short-talk-74.1193",
+        "name": "Short Talk 74",
+        "topic": "Rainier Mountain Welcome Speech",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-74-2023-09-29-21-26-05/0-short-talk-74.mp3"
+      },
+      {
+        "lessonId": 1194,
+        "slug": "short-talk-75.1194",
+        "name": "Short Talk 75",
+        "topic": "Tax Owed and Filing Advice",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-75-2023-09-29-21-26-15/0-short-talk-75.mp3"
+      },
+      {
+        "lessonId": 1195,
+        "slug": "short-talk-76.1195",
+        "name": "Short Talk 76",
+        "topic": "The Bamboo Orchestra Performance",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-76-2023-09-29-21-26-26/0-short-talk-76.mp3"
+      },
+      {
+        "lessonId": 1196,
+        "slug": "short-talk-77.1196",
+        "name": "Short Talk 77",
+        "topic": "Office Relocation Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-77-2023-09-29-21-26-37/0-short-talk-77.mp3"
+      },
+      {
+        "lessonId": 1197,
+        "slug": "short-talk-78.1197",
+        "name": "Short Talk 78",
+        "topic": "Sustainable Fashion Initiatives",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-78-2023-09-29-21-26-48/0-short-talk-78.mp3"
+      },
+      {
+        "lessonId": 1198,
+        "slug": "short-talk-79.1198",
+        "name": "Short Talk 79",
+        "topic": "Home Renovation Show Casting",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-79-2023-09-29-21-26-57/0-short-talk-79.mp3"
+      },
+      {
+        "lessonId": 1199,
+        "slug": "short-talk-80.1199",
+        "name": "Short Talk 80",
+        "topic": "Customer Survey Results Summary",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-80-2023-09-29-21-27-09/0-short-talk-80.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 9,
+    "title": "Practice Test 9",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1200,
+        "slug": "conversation-81.1200",
+        "name": "Conversation 81",
+        "topic": "Medical Records Transfer Delay",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-81-2023-09-30-22-32-36/0-conversation-81.mp3"
+      },
+      {
+        "lessonId": 1201,
+        "slug": "conversation-82.1201",
+        "name": "Conversation 82",
+        "topic": "Hotel Parking Assistance Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-82-2023-09-30-22-32-46/0-conversation-82.mp3"
+      },
+      {
+        "lessonId": 1202,
+        "slug": "conversation-83.1202",
+        "name": "Conversation 83",
+        "topic": "Anticipating Lauren Riggs&#039; Speech",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-83-2023-09-30-22-33-11/0-conversation-83.mp3"
+      },
+      {
+        "lessonId": 1203,
+        "slug": "conversation-84.1203",
+        "name": "Conversation 84",
+        "topic": "Ordering Branded Vacuum Flasks",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-84-2023-09-30-22-36-47/0-conversation-84.mp3"
+      },
+      {
+        "lessonId": 1204,
+        "slug": "conversation-85.1204",
+        "name": "Conversation 85",
+        "topic": "Production Deadline Concern",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-85-2023-09-30-22-43-35/0-conversation-85.mp3"
+      },
+      {
+        "lessonId": 1205,
+        "slug": "conversation-86.1205",
+        "name": "Conversation 86",
+        "topic": "Parcel Collection Request",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-86-2023-09-30-22-44-43/0-conversation-86.mp3"
+      },
+      {
+        "lessonId": 1206,
+        "slug": "conversation-87.1206",
+        "name": "Conversation 87",
+        "topic": "Choosing Stocks for Investment",
+        "vocabLevel": "B2",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-87-2023-09-30-22-45-05/0-conversation-87.mp3"
+      },
+      {
+        "lessonId": 1207,
+        "slug": "conversation-88.1207",
+        "name": "Conversation 88",
+        "topic": "DSLR Camera Launch Meeting",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-88-2023-09-30-22-45-35/0-conversation-88.mp3"
+      },
+      {
+        "lessonId": 1208,
+        "slug": "conversation-89.1208",
+        "name": "Conversation 89",
+        "topic": "Grocery Store Checkout Conversation",
+        "vocabLevel": "A2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-89-2023-09-30-22-47-04/0-conversation-89.mp3"
+      },
+      {
+        "lessonId": 1209,
+        "slug": "conversation-90.1209",
+        "name": "Conversation 90",
+        "topic": "Company Meditation Event Announced",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-90-2023-09-30-22-54-12/0-conversation-90.mp3"
+      },
+      {
+        "lessonId": 1210,
+        "slug": "short-talk-81.1210",
+        "name": "Short Talk 81",
+        "topic": "Missing Trip Receipts",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-90-2023-10-01-12-14-49/0-short-talk-90.mp3"
+      },
+      {
+        "lessonId": 1211,
+        "slug": "short-talk-82.1211",
+        "name": "Short Talk 82",
+        "topic": "Olympic Mountain Tour Guide",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-82-2023-10-01-12-15-30/0-short-talk-82.mp3"
+      },
+      {
+        "lessonId": 1212,
+        "slug": "short-talk-83.1212",
+        "name": "Short Talk 83",
+        "topic": "Truck Repair Notification",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-83-2023-10-01-12-15-58/0-short-talk-83.mp3"
+      },
+      {
+        "lessonId": 1213,
+        "slug": "short-talk-84.1213",
+        "name": "Short Talk 84",
+        "topic": "Farming Equipment Trade Show",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-84-2023-10-01-12-16-13/0-short-talk-84.mp3"
+      },
+      {
+        "lessonId": 1214,
+        "slug": "short-talk-85.1214",
+        "name": "Short Talk 85",
+        "topic": "Beyond Meat Product Launch",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-85-2023-10-01-12-16-25/0-short-talk-85.mp3"
+      },
+      {
+        "lessonId": 1215,
+        "slug": "short-talk-86.1215",
+        "name": "Short Talk 86",
+        "topic": "Memorial Day Golf Tournament",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-86-2023-10-01-12-16-43/0-short-talk-86.mp3"
+      },
+      {
+        "lessonId": 1216,
+        "slug": "short-talk-87.1216",
+        "name": "Short Talk 87",
+        "topic": "Marketing Agency Award Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-87-2023-10-01-12-17-00/0-short-talk-87.mp3"
+      },
+      {
+        "lessonId": 1217,
+        "slug": "short-talk-88.1217",
+        "name": "Short Talk 88",
+        "topic": "Birthday Party Venue Offer",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-88-2023-10-01-12-18-48/0-short-talk-88.mp3"
+      },
+      {
+        "lessonId": 1218,
+        "slug": "short-talk-89.1218",
+        "name": "Short Talk 89",
+        "topic": "Customer Survey Meeting Summary",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-89-2023-10-01-12-19-16/0-short-talk-89.mp3"
+      },
+      {
+        "lessonId": 1609,
+        "slug": "short-talk-90-2.1609",
+        "name": "Short Talk 90",
+        "topic": "Apex Electronics Ad Project",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-90-2-2024-09-24-08-37-12/0-short-talk-90-2.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 10,
+    "title": "Practice Test 10",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1220,
+        "slug": "conversation-91.1220",
+        "name": "Conversation 91",
+        "topic": "Internet Access Issue",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-91-2023-10-01-16-05-36/0-conversation-91.mp3"
+      },
+      {
+        "lessonId": 1221,
+        "slug": "conversation-92.1221",
+        "name": "Conversation 92",
+        "topic": "Grocery Store Feedback Survey",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-92-2023-10-01-16-05-49/0-conversation-92.mp3"
+      },
+      {
+        "lessonId": 1222,
+        "slug": "conversation-93.1222",
+        "name": "Conversation 93",
+        "topic": "New Employee Training Workshop",
+        "vocabLevel": "B2",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-93-2023-10-01-16-06-04/0-conversation-93.mp3"
+      },
+      {
+        "lessonId": 1223,
+        "slug": "conversation-94.1223",
+        "name": "Conversation 94",
+        "topic": "Espresso Machine Recommendations",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-94-2023-10-01-16-06-15/0-conversation-94.mp3"
+      },
+      {
+        "lessonId": 1224,
+        "slug": "conversation-95.1224",
+        "name": "Conversation 95",
+        "topic": "Sweatshirt Size Inquiry",
+        "vocabLevel": "A2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-95-2023-10-01-16-06-42/0-conversation-95.mp3"
+      },
+      {
+        "lessonId": 1225,
+        "slug": "conversation-96.1225",
+        "name": "Conversation 96",
+        "topic": "Viral Restaurant Review Praised",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-96-2023-10-01-16-06-53/0-conversation-96.mp3"
+      },
+      {
+        "lessonId": 1226,
+        "slug": "conversation-97.1226",
+        "name": "Conversation 97",
+        "topic": "Office Shredder Troubles",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-97-2023-10-01-16-07-10/0-conversation-97.mp3"
+      },
+      {
+        "lessonId": 1227,
+        "slug": "conversation-98.1227",
+        "name": "Conversation 98",
+        "topic": "Architecture Firm Acquisition",
+        "vocabLevel": "B2",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-98-2023-10-01-16-07-24/0-conversation-98.mp3"
+      },
+      {
+        "lessonId": 1228,
+        "slug": "conversation-99.1228",
+        "name": "Conversation 99",
+        "topic": "Order Change Fee Waiver",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-99-2023-10-01-16-07-40/0-conversation-99.mp3"
+      },
+      {
+        "lessonId": 1229,
+        "slug": "conversation-100.1229",
+        "name": "Conversation 100",
+        "topic": "Expedited Shipping Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-100-2023-10-01-16-07-52/0-conversation-100.mp3"
+      },
+      {
+        "lessonId": 1230,
+        "slug": "short-talk-91.1230",
+        "name": "Short Talk 91",
+        "topic": "Blystone Manor Tour Introduction",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-91-2023-10-02-19-33-37/0-short-talk-91.mp3"
+      },
+      {
+        "lessonId": 1231,
+        "slug": "short-talk-92.1231",
+        "name": "Short Talk 92",
+        "topic": "Apology for Missing Delivery",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-92-2023-10-02-19-33-49/0-short-talk-92.mp3"
+      },
+      {
+        "lessonId": 1232,
+        "slug": "short-talk-93.1232",
+        "name": "Short Talk 93",
+        "topic": "New Bartender Introduction",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-93-2023-10-02-19-34-00/0-short-talk-93.mp3"
+      },
+      {
+        "lessonId": 1233,
+        "slug": "short-talk-94.1233",
+        "name": "Short Talk 94",
+        "topic": "Conference Venue Options",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-94-2023-10-02-19-34-10/0-short-talk-94.mp3"
+      },
+      {
+        "lessonId": 1234,
+        "slug": "short-talk-95.1234",
+        "name": "Short Talk 95",
+        "topic": "Oven Feedback and Improvements",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-95-2023-10-02-19-34-21/0-short-talk-95.mp3"
+      },
+      {
+        "lessonId": 1235,
+        "slug": "short-talk-96.1235",
+        "name": "Short Talk 96",
+        "topic": "Sam Clark Interview",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-96-2023-10-02-19-34-31/0-short-talk-96.mp3"
+      },
+      {
+        "lessonId": 1236,
+        "slug": "short-talk-97.1236",
+        "name": "Short Talk 97",
+        "topic": "Community Meal Kit Fundraising",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-97-2023-10-02-19-34-41/0-short-talk-97.mp3"
+      },
+      {
+        "lessonId": 1237,
+        "slug": "short-talk-98.1237",
+        "name": "Short Talk 98",
+        "topic": "Yellowtown Food Festival",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-98-2023-10-02-19-34-57/0-short-talk-98.mp3"
+      },
+      {
+        "lessonId": 1238,
+        "slug": "short-talk-99.1238",
+        "name": "Short Talk 99",
+        "topic": "Weekly Lemon Order Update",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-99-2023-10-02-19-35-41/0-short-talk-99.mp3"
+      },
+      {
+        "lessonId": 1239,
+        "slug": "short-talk-100.1239",
+        "name": "Short Talk 100",
+        "topic": "Employee Review Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-100-2023-10-02-19-35-57/0-short-talk-100.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 11,
+    "title": "Practice Test 11",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1240,
+        "slug": "conversation-101.1240",
+        "name": "Conversation 101",
+        "topic": "Copywriter Interview Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-101-2023-10-03-11-35-48/0-conversation-101.mp3"
+      },
+      {
+        "lessonId": 1241,
+        "slug": "conversation-102.1241",
+        "name": "Conversation 102",
+        "topic": "Menu Photos Coordination",
+        "vocabLevel": "B1",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-102-2023-10-03-11-36-13/0-conversation-102.mp3"
+      },
+      {
+        "lessonId": 1242,
+        "slug": "conversation-103.1242",
+        "name": "Conversation 103",
+        "topic": "Hotel Booking Confirmation Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-103-2023-10-03-11-36-26/0-conversation-103.mp3"
+      },
+      {
+        "lessonId": 1243,
+        "slug": "conversation-104.1243",
+        "name": "Conversation 104",
+        "topic": "New Policy on Parties",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-104-2023-10-03-11-36-38/0-conversation-104.mp3"
+      },
+      {
+        "lessonId": 1244,
+        "slug": "conversation-105.1244",
+        "name": "Conversation 105",
+        "topic": "Laura Whitley Job Interview",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-105-2023-10-03-11-36-51/0-conversation-105.mp3"
+      },
+      {
+        "lessonId": 1245,
+        "slug": "conversation-106.1245",
+        "name": "Conversation 106",
+        "topic": "Booking a Switzerland Flight",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-106-2023-10-03-11-37-02/0-conversation-106.mp3"
+      },
+      {
+        "lessonId": 1246,
+        "slug": "conversation-107.1246",
+        "name": "Conversation 107",
+        "topic": "Christmas Party Details",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-107-2023-10-03-11-37-17/0-conversation-107.mp3"
+      },
+      {
+        "lessonId": 1610,
+        "slug": "conversation-108-2.1610",
+        "name": "Conversation 108",
+        "topic": "Team Retreat and Cake Recipe",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-108-2-2024-09-24-08-42-38/0-conversation-108-2.mp3"
+      },
+      {
+        "lessonId": 1248,
+        "slug": "conversation-109.1248",
+        "name": "Conversation 109",
+        "topic": "Choosing an Office Designer",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-109-2023-10-03-11-37-40/0-conversation-109.mp3"
+      },
+      {
+        "lessonId": 1249,
+        "slug": "conversation-110.1249",
+        "name": "Conversation 110",
+        "topic": "Report and Agenda Coordination",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-110-2023-10-03-11-37-58/0-conversation-110.mp3"
+      },
+      {
+        "lessonId": 1250,
+        "slug": "short-talk-101.1250",
+        "name": "Short Talk 101",
+        "topic": "Arianna Gold Joins Campaign",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-101-2023-10-03-18-17-32/0-short-talk-101.mp3"
+      },
+      {
+        "lessonId": 1251,
+        "slug": "short-talk-102.1251",
+        "name": "Short Talk 102",
+        "topic": "Teleconferencing Training Session",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-102-2023-10-03-18-18-03/0-short-talk-102.mp3"
+      },
+      {
+        "lessonId": 1252,
+        "slug": "short-talk-103.1252",
+        "name": "Short Talk 103",
+        "topic": "National Insurance Call Notice",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-103-2023-10-03-18-18-32/0-short-talk-103.mp3"
+      },
+      {
+        "lessonId": 1253,
+        "slug": "short-talk-104.1253",
+        "name": "Short Talk 104",
+        "topic": "Driver&#039;s Course 50% Off",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-104-2023-10-03-18-18-47/0-short-talk-104.mp3"
+      },
+      {
+        "lessonId": 1254,
+        "slug": "short-talk-105.1254",
+        "name": "Short Talk 105",
+        "topic": "Microwave Product Meeting Summary",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-105-2023-10-03-18-19-00/0-short-talk-105.mp3"
+      },
+      {
+        "lessonId": 1255,
+        "slug": "short-talk-106.1255",
+        "name": "Short Talk 106",
+        "topic": "Jolly Candy Shop Opening",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-106-2023-10-03-18-28-35/0-short-talk-106.mp3"
+      },
+      {
+        "lessonId": 1256,
+        "slug": "short-talk-107.1256",
+        "name": "Short Talk 107",
+        "topic": "Second Floor Bathroom Closure",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-107-2023-10-03-18-28-51/0-short-talk-107.mp3"
+      },
+      {
+        "lessonId": 1257,
+        "slug": "short-talk-108.1257",
+        "name": "Short Talk 108",
+        "topic": "Art in the Park Launch",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-108-2023-10-03-18-29-23/0-short-talk-108.mp3"
+      },
+      {
+        "lessonId": 1258,
+        "slug": "short-talk-109.1258",
+        "name": "Short Talk 109",
+        "topic": "Order Confirmation Needed",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-109-2023-10-03-18-30-06/0-short-talk-109.mp3"
+      },
+      {
+        "lessonId": 1259,
+        "slug": "short-talk-110.1259",
+        "name": "Short Talk 110",
+        "topic": "Recycled Art Exhibit Tour",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-110-2023-10-03-18-30-29/0-short-talk-110.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 12,
+    "title": "Practice Test 12",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1261,
+        "slug": "conversation-111.1261",
+        "name": "Conversation 111",
+        "topic": "Photograph Order Issue",
+        "vocabLevel": "B2",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-111-2023-10-05-11-14-00/0-conversation-111.mp3"
+      },
+      {
+        "lessonId": 1262,
+        "slug": "conversation-112.1262",
+        "name": "Conversation 112",
+        "topic": "Gallery Tour Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-112-2023-10-05-11-14-12/0-conversation-112.mp3"
+      },
+      {
+        "lessonId": 1263,
+        "slug": "conversation-113.1263",
+        "name": "Conversation 113",
+        "topic": "Pharmacy Prescription Consultation",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-113-2023-10-05-11-14-26/0-conversation-113.mp3"
+      },
+      {
+        "lessonId": 1264,
+        "slug": "conversation-114.1264",
+        "name": "Conversation 114",
+        "topic": "Job Interview Motivation Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-114-2023-10-05-11-14-37/0-conversation-114.mp3"
+      },
+      {
+        "lessonId": 1265,
+        "slug": "conversation-115.1265",
+        "name": "Conversation 115",
+        "topic": "Choosing Festival Performers",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-115-2023-10-05-11-14-55/0-conversation-115.mp3"
+      },
+      {
+        "lessonId": 1266,
+        "slug": "conversation-116.1266",
+        "name": "Conversation 116",
+        "topic": "Inviting Amanda to Bowl",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-116-2023-10-05-11-15-06/0-conversation-116.mp3"
+      },
+      {
+        "lessonId": 1267,
+        "slug": "conversation-117.1267",
+        "name": "Conversation 117",
+        "topic": "Software Installation Appointment Rescheduling",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-117-2023-10-05-11-15-17/0-conversation-117.mp3"
+      },
+      {
+        "lessonId": 1268,
+        "slug": "conversation-118.1268",
+        "name": "Conversation 118",
+        "topic": "Meeting Request with Lawyer",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-118-2023-10-05-12-04-52/0-conversation-118.mp3"
+      },
+      {
+        "lessonId": 1269,
+        "slug": "conversation-119.1269",
+        "name": "Conversation 119",
+        "topic": "Company Retreat Venue &amp; Catering",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-119-2023-10-05-12-05-12/0-conversation-119.mp3"
+      },
+      {
+        "lessonId": 1270,
+        "slug": "conversation-120.1270",
+        "name": "Conversation 120",
+        "topic": "Camera Warranty Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-120-2023-10-05-12-05-25/0-conversation-120.mp3"
+      },
+      {
+        "lessonId": 1271,
+        "slug": "short-talk-111.1271",
+        "name": "Short Talk 111",
+        "topic": "Homeopathic Solutions Follow-up",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-111-2023-10-05-17-35-47/0-short-talk-111.mp3"
+      },
+      {
+        "lessonId": 1272,
+        "slug": "short-talk-112.1272",
+        "name": "Short Talk 112",
+        "topic": "Marketing Conference Update",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-112-2023-10-05-17-35-59/0-short-talk-112.mp3"
+      },
+      {
+        "lessonId": 1273,
+        "slug": "short-talk-113.1273",
+        "name": "Short Talk 113",
+        "topic": "Hillside Manor Renovation Update",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-113-2023-10-05-17-36-18/0-short-talk-113.mp3"
+      },
+      {
+        "lessonId": 1274,
+        "slug": "short-talk-114.1274",
+        "name": "Short Talk 114",
+        "topic": "Zoodle Science Association Overview",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-114-2023-10-05-17-36-33/0-short-talk-114.mp3"
+      },
+      {
+        "lessonId": 1275,
+        "slug": "short-talk-115.1275",
+        "name": "Short Talk 115",
+        "topic": "Love Homes UK Interview",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-115-2023-10-05-17-36-46/0-short-talk-115.mp3"
+      },
+      {
+        "lessonId": 1276,
+        "slug": "short-talk-116.1276",
+        "name": "Short Talk 116",
+        "topic": "Temporary Store Closure Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-116-2023-10-05-17-36-59/0-short-talk-116.mp3"
+      },
+      {
+        "lessonId": 1277,
+        "slug": "short-talk-117.1277",
+        "name": "Short Talk 117",
+        "topic": "Hiring Remote Editing Team",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-117-2023-10-05-17-41-56/0-short-talk-117.mp3"
+      },
+      {
+        "lessonId": 1278,
+        "slug": "short-talk-118.1278",
+        "name": "Short Talk 118",
+        "topic": "Sales Decline and Strategy",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-118-2023-10-05-17-42-11/0-short-talk-118.mp3"
+      },
+      {
+        "lessonId": 1279,
+        "slug": "short-talk-119.1279",
+        "name": "Short Talk 119",
+        "topic": "Peach Order Issue",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-119-2023-10-05-17-42-23/0-short-talk-119.mp3"
+      },
+      {
+        "lessonId": 1280,
+        "slug": "short-talk-120.1280",
+        "name": "Short Talk 120",
+        "topic": "Seattle Rainstorm Weather Alert",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-120-2023-10-05-17-42-38/0-short-talk-120.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 13,
+    "title": "Practice Test 13",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1503,
+        "slug": "conversation-121.1503",
+        "name": "Conversation 121",
+        "topic": "Cash Register Update Issues",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-121-2024-09-14-18-04-36/0-conversation-121.mp3"
+      },
+      {
+        "lessonId": 1504,
+        "slug": "conversation-122.1504",
+        "name": "Conversation 122",
+        "topic": "Inventory Completion Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-122-2024-09-14-18-04-58/0-conversation-122.mp3"
+      },
+      {
+        "lessonId": 1505,
+        "slug": "conversation-123.1505",
+        "name": "Conversation 123",
+        "topic": "Blog Workload and Quality Concerns",
+        "vocabLevel": "B2",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-123-2024-09-14-18-05-15/0-conversation-123.mp3"
+      },
+      {
+        "lessonId": 1506,
+        "slug": "conversation-124.1506",
+        "name": "Conversation 124",
+        "topic": "Choosing Drum Lesson Options",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-124-2024-09-14-18-05-42/0-conversation-124.mp3"
+      },
+      {
+        "lessonId": 1507,
+        "slug": "conversation-125.1507",
+        "name": "Conversation 125",
+        "topic": "Edward&#039;s Promotion and Farewell",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-125-2024-09-14-18-06-09/0-conversation-125.mp3"
+      },
+      {
+        "lessonId": 1508,
+        "slug": "conversation-126.1508",
+        "name": "Conversation 126",
+        "topic": "Mandatory Chinese Language Classes",
+        "vocabLevel": "B1",
+        "partsCount": 26,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-126-2024-09-14-18-06-30/0-conversation-126.mp3"
+      },
+      {
+        "lessonId": 1509,
+        "slug": "conversation-127.1509",
+        "name": "Conversation 127",
+        "topic": "Office Supply Reimbursement Guide",
+        "vocabLevel": "B2",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-127-2024-09-14-18-06-47/0-conversation-127.mp3"
+      },
+      {
+        "lessonId": 1510,
+        "slug": "conversation-128.1510",
+        "name": "Conversation 128",
+        "topic": "Flight Delay at Check-In",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-128-2024-09-14-18-07-08/0-conversation-128.mp3"
+      },
+      {
+        "lessonId": 1511,
+        "slug": "conversation-129.1511",
+        "name": "Conversation 129",
+        "topic": "Seat Mix-up Conversation",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-129-2024-09-14-18-07-23/0-conversation-129.mp3"
+      },
+      {
+        "lessonId": 1512,
+        "slug": "conversation-130.1512",
+        "name": "Conversation 130",
+        "topic": "Office Flooring Selection Call",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-130-2024-09-14-18-07-42/0-conversation-130.mp3"
+      },
+      {
+        "lessonId": 1577,
+        "slug": "short-talk-121.1577",
+        "name": "Short Talk 121",
+        "topic": "New Sewing Machine Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-121-2024-09-14-18-41-49/0-short-talk-121.mp3"
+      },
+      {
+        "lessonId": 1578,
+        "slug": "short-talk-122.1578",
+        "name": "Short Talk 122",
+        "topic": "Speed Demon Mountain Ride",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-122-2024-09-14-18-42-05/0-short-talk-122.mp3"
+      },
+      {
+        "lessonId": 1579,
+        "slug": "short-talk-123.1579",
+        "name": "Short Talk 123",
+        "topic": "Marketing Strategy Meeting",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-123-2024-09-14-18-42-21/0-short-talk-123.mp3"
+      },
+      {
+        "lessonId": 1580,
+        "slug": "short-talk-124.1580",
+        "name": "Short Talk 124",
+        "topic": "Clubhouse Booking Unavailable",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-124-2024-09-14-18-42-35/0-short-talk-124.mp3"
+      },
+      {
+        "lessonId": 1581,
+        "slug": "short-talk-125.1581",
+        "name": "Short Talk 125",
+        "topic": "Personal Training Promotion Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-125-2024-09-14-18-42-48/0-short-talk-125.mp3"
+      },
+      {
+        "lessonId": 1582,
+        "slug": "short-talk-126.1582",
+        "name": "Short Talk 126",
+        "topic": "Baseball Card Trade Event",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-126-2024-09-14-18-43-00/0-short-talk-126.mp3"
+      },
+      {
+        "lessonId": 1583,
+        "slug": "short-talk-127.1583",
+        "name": "Short Talk 127",
+        "topic": "Hotel Booking Update",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-127-2024-09-14-18-43-18/0-short-talk-127.mp3"
+      },
+      {
+        "lessonId": 1584,
+        "slug": "short-talk-128.1584",
+        "name": "Short Talk 128",
+        "topic": "Trip Confirmation for Julia Stone",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-128-2024-09-14-18-43-30/0-short-talk-128.mp3"
+      },
+      {
+        "lessonId": 1585,
+        "slug": "short-talk-129.1585",
+        "name": "Short Talk 129",
+        "topic": "Weekend Employee Conferences Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-129-2024-09-14-18-43-44/0-short-talk-129.mp3"
+      },
+      {
+        "lessonId": 1586,
+        "slug": "short-talk-130.1586",
+        "name": "Short Talk 130",
+        "topic": "Westpac Airlines Call Options",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-130-2024-09-14-18-43-56/0-short-talk-130.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 14,
+    "title": "Practice Test 14",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1513,
+        "slug": "conversation-131.1513",
+        "name": "Conversation 131",
+        "topic": "Product Launch Contest Announcement",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-131-2024-09-14-18-07-57/0-conversation-131.mp3"
+      },
+      {
+        "lessonId": 1514,
+        "slug": "conversation-132.1514",
+        "name": "Conversation 132",
+        "topic": "Courier Service Suggestion",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-132-2024-09-14-18-08-15/0-conversation-132.mp3"
+      },
+      {
+        "lessonId": 1515,
+        "slug": "conversation-133.1515",
+        "name": "Conversation 133",
+        "topic": "Projector Troubles in Conference Room",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-133-2024-09-14-18-08-49/0-conversation-133.mp3"
+      },
+      {
+        "lessonId": 1516,
+        "slug": "conversation-134.1516",
+        "name": "Conversation 134",
+        "topic": "Fewer Trade Shows Attended",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-134-2024-09-14-18-16-59/0-conversation-134.mp3"
+      },
+      {
+        "lessonId": 1517,
+        "slug": "conversation-135.1517",
+        "name": "Conversation 135",
+        "topic": "Express Mail to Paris",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-135-2024-09-14-18-17-11/0-conversation-135.mp3"
+      },
+      {
+        "lessonId": 1518,
+        "slug": "conversation-136.1518",
+        "name": "Conversation 136",
+        "topic": "Scarf Exchange Request",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-136-2024-09-14-18-17-26/0-conversation-136.mp3"
+      },
+      {
+        "lessonId": 1519,
+        "slug": "conversation-137.1519",
+        "name": "Conversation 137",
+        "topic": "Trouble with New Website",
+        "vocabLevel": "B1",
+        "partsCount": 21,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-137-2024-09-14-18-17-42/0-conversation-137.mp3"
+      },
+      {
+        "lessonId": 1520,
+        "slug": "conversation-138.1520",
+        "name": "Conversation 138",
+        "topic": "Lipstick Distribution Meeting",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-138-2024-09-14-18-18-02/0-conversation-138.mp3"
+      },
+      {
+        "lessonId": 1617,
+        "slug": "conversation-139.1617",
+        "name": "Conversation 139",
+        "topic": "Electricians&#039; Schedule Change",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-139-2024-09-29-11-12-09/0-conversation-139.mp3"
+      },
+      {
+        "lessonId": 1522,
+        "slug": "conversation-140.1522",
+        "name": "Conversation 140",
+        "topic": "Checking a Purchase Requisition",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-140-2024-09-14-18-18-30/0-conversation-140.mp3"
+      },
+      {
+        "lessonId": 1587,
+        "slug": "short-talk-131.1587",
+        "name": "Short Talk 131",
+        "topic": "Production Overtime Announcement",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-131-2024-09-14-18-44-38/0-short-talk-131.mp3"
+      },
+      {
+        "lessonId": 1588,
+        "slug": "short-talk-132.1588",
+        "name": "Short Talk 132",
+        "topic": "Skate Park Renovation Announced",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-132-2024-09-14-18-45-09/0-short-talk-132.mp3"
+      },
+      {
+        "lessonId": 1589,
+        "slug": "short-talk-133.1589",
+        "name": "Short Talk 133",
+        "topic": "Interview with Georgia Southbank",
+        "vocabLevel": "C1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-133-2024-09-14-18-45-52/0-short-talk-133.mp3"
+      },
+      {
+        "lessonId": 1590,
+        "slug": "short-talk-134.1590",
+        "name": "Short Talk 134",
+        "topic": "Free Third Class Promotion",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-134-2024-09-14-18-46-06/0-short-talk-134.mp3"
+      },
+      {
+        "lessonId": 1591,
+        "slug": "short-talk-135.1591",
+        "name": "Short Talk 135",
+        "topic": "Magazine Modernization Plans",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-135-2024-09-14-18-46-19/0-short-talk-135.mp3"
+      },
+      {
+        "lessonId": 1592,
+        "slug": "short-talk-136.1592",
+        "name": "Short Talk 136",
+        "topic": "Santorini and Sons Catering",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-136-2024-09-14-18-46-32/0-short-talk-136.mp3"
+      },
+      {
+        "lessonId": 1593,
+        "slug": "short-talk-137.1593",
+        "name": "Short Talk 137",
+        "topic": "Tonight’s Wine Specials",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-137-2024-09-14-18-46-44/0-short-talk-137.mp3"
+      },
+      {
+        "lessonId": 1594,
+        "slug": "short-talk-138.1594",
+        "name": "Short Talk 138",
+        "topic": "Sports Day Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-138-2024-09-14-18-46-54/0-short-talk-138.mp3"
+      },
+      {
+        "lessonId": 1595,
+        "slug": "short-talk-139.1595",
+        "name": "Short Talk 139",
+        "topic": "Quarterly Client Growth Review",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-139-2024-09-14-18-47-07/0-short-talk-139.mp3"
+      },
+      {
+        "lessonId": 1596,
+        "slug": "short-talk-140.1596",
+        "name": "Short Talk 140",
+        "topic": "Brown Developers Win Dallas Bid",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-140-2024-09-14-18-47-20/0-short-talk-140.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 15,
+    "title": "Practice Test 15",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1523,
+        "slug": "conversation-141.1523",
+        "name": "Conversation 141",
+        "topic": "M&amp;A Report Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-141-2024-09-14-18-19-39/0-conversation-141.mp3"
+      },
+      {
+        "lessonId": 1524,
+        "slug": "conversation-142.1524",
+        "name": "Conversation 142",
+        "topic": "Rainy Day Museum Plans",
+        "vocabLevel": "B1",
+        "partsCount": 23,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-142-2024-09-14-18-19-53/0-conversation-142.mp3"
+      },
+      {
+        "lessonId": 1525,
+        "slug": "conversation-143.1525",
+        "name": "Conversation 143",
+        "topic": "Considering Joanna&#039;s Replacement",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-143-2024-09-14-18-20-08/0-conversation-143.mp3"
+      },
+      {
+        "lessonId": 1526,
+        "slug": "conversation-144.1526",
+        "name": "Conversation 144",
+        "topic": "Chiropractor Recommendation and Workshop",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-144-2024-09-14-18-20-23/0-conversation-144.mp3"
+      },
+      {
+        "lessonId": 1527,
+        "slug": "conversation-145.1527",
+        "name": "Conversation 145",
+        "topic": "Noisy Construction Complaints",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-145-2024-09-14-18-20-38/0-conversation-145.mp3"
+      },
+      {
+        "lessonId": 1528,
+        "slug": "conversation-146.1528",
+        "name": "Conversation 146",
+        "topic": "Choosing a Restaurant for Clients",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-146-2024-09-14-18-20-56/0-conversation-146.mp3"
+      },
+      {
+        "lessonId": 1529,
+        "slug": "conversation-147.1529",
+        "name": "Conversation 147",
+        "topic": "Early Lease Termination Notice",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-147-2024-09-14-18-21-14/0-conversation-147.mp3"
+      },
+      {
+        "lessonId": 1530,
+        "slug": "conversation-148.1530",
+        "name": "Conversation 148",
+        "topic": "Buying a Beginner Ukulele",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-148-2024-09-14-18-21-32/0-conversation-148.mp3"
+      },
+      {
+        "lessonId": 1531,
+        "slug": "conversation-149.1531",
+        "name": "Conversation 149",
+        "topic": "Monthly Stock Report Collaboration",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-149-2024-09-14-18-21-48/0-conversation-149.mp3"
+      },
+      {
+        "lessonId": 1532,
+        "slug": "conversation-150.1532",
+        "name": "Conversation 150",
+        "topic": "Performance Review and Bonus",
+        "vocabLevel": "B2",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-150-2024-09-14-18-22-06/0-conversation-150.mp3"
+      },
+      {
+        "lessonId": 1598,
+        "slug": "short-talk-141.1598",
+        "name": "Short Talk 141",
+        "topic": "Request for Nurse Appointment",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-141-2024-09-14-19-00-03/0-short-talk-141.mp3"
+      },
+      {
+        "lessonId": 1599,
+        "slug": "short-talk-142.1599",
+        "name": "Short Talk 142",
+        "topic": "New Work Hours Policy",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-142-2024-09-14-19-00-17/0-short-talk-142.mp3"
+      },
+      {
+        "lessonId": 1600,
+        "slug": "short-talk-143.1600",
+        "name": "Short Talk 143",
+        "topic": "Introducing Tyson Brandt",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-143-2024-09-14-19-00-28/0-short-talk-143.mp3"
+      },
+      {
+        "lessonId": 1601,
+        "slug": "short-talk-144.1601",
+        "name": "Short Talk 144",
+        "topic": "Office Construction Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-144-2024-09-14-19-00-47/0-short-talk-144.mp3"
+      },
+      {
+        "lessonId": 1602,
+        "slug": "short-talk-145.1602",
+        "name": "Short Talk 145",
+        "topic": "William Geard Promotion Ceremony",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-145-2024-09-14-19-01-01/0-short-talk-145.mp3"
+      },
+      {
+        "lessonId": 1603,
+        "slug": "short-talk-146.1603",
+        "name": "Short Talk 146",
+        "topic": "Fitness Firm Opening",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-146-2024-09-14-19-01-12/0-short-talk-146.mp3"
+      },
+      {
+        "lessonId": 1604,
+        "slug": "short-talk-147.1604",
+        "name": "Short Talk 147",
+        "topic": "Blender Timer Issue Update",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-147-2024-09-14-19-01-25/0-short-talk-147.mp3"
+      },
+      {
+        "lessonId": 1605,
+        "slug": "short-talk-148.1605",
+        "name": "Short Talk 148",
+        "topic": "Farmers Face Uneven Profits",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-148-2024-09-14-19-01-39/0-short-talk-148.mp3"
+      },
+      {
+        "lessonId": 1606,
+        "slug": "short-talk-149.1606",
+        "name": "Short Talk 149",
+        "topic": "Point Drive Warehouse Opportunity",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-149-2024-09-14-19-01-53/0-short-talk-149.mp3"
+      },
+      {
+        "lessonId": 1611,
+        "slug": "short-talk-150.1611",
+        "name": "Short Talk 150",
+        "topic": "Parking Lot Repaving Notice",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-150-2024-09-24-08-52-02/0-short-talk-150.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 16,
+    "title": "Practice Test 16",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1533,
+        "slug": "conversation-151.1533",
+        "name": "Conversation 151",
+        "topic": "Wallpaper Order Delay",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-151-2024-09-14-18-22-21/0-conversation-151.mp3"
+      },
+      {
+        "lessonId": 1534,
+        "slug": "conversation-152.1534",
+        "name": "Conversation 152",
+        "topic": "Therapist Visit and Parking",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-152-2024-09-14-18-22-36/0-conversation-152.mp3"
+      },
+      {
+        "lessonId": 1535,
+        "slug": "conversation-153.1535",
+        "name": "Conversation 153",
+        "topic": "Carpet Order Price Negotiation",
+        "vocabLevel": "B1",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-153-2024-09-14-18-22-50/0-conversation-153.mp3"
+      },
+      {
+        "lessonId": 1536,
+        "slug": "conversation-154.1536",
+        "name": "Conversation 154",
+        "topic": "Internal Communication Training Planning",
+        "vocabLevel": "B1",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-154-2024-09-14-18-23-05/0-conversation-154.mp3"
+      },
+      {
+        "lessonId": 1537,
+        "slug": "conversation-155.1537",
+        "name": "Conversation 155",
+        "topic": "Family Room Reservation Request",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-155-2024-09-14-18-23-18/0-conversation-155.mp3"
+      },
+      {
+        "lessonId": 1538,
+        "slug": "conversation-156.1538",
+        "name": "Conversation 156",
+        "topic": "Front-Desk Supervisor Opening",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-156-2024-09-14-18-23-34/0-conversation-156.mp3"
+      },
+      {
+        "lessonId": 1539,
+        "slug": "conversation-157.1539",
+        "name": "Conversation 157",
+        "topic": "Quarterly Meeting Schedule Coordination",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-157-2024-09-14-18-23-47/0-conversation-157.mp3"
+      },
+      {
+        "lessonId": 1540,
+        "slug": "conversation-158.1540",
+        "name": "Conversation 158",
+        "topic": "Movie Night Invitation",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-158-2024-09-14-18-24-02/0-conversation-158.mp3"
+      },
+      {
+        "lessonId": 1541,
+        "slug": "conversation-159.1541",
+        "name": "Conversation 159",
+        "topic": "In-House vs Outsourced Repairs",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-159-2024-09-14-18-28-26/0-conversation-159.mp3"
+      },
+      {
+        "lessonId": 1542,
+        "slug": "conversation-160.1542",
+        "name": "Conversation 160",
+        "topic": "International Jewelry Shipping Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-160-2024-09-14-18-28-56/0-conversation-160.mp3"
+      },
+      {
+        "lessonId": 1631,
+        "slug": "short-talk-151.1631",
+        "name": "Short Talk 151",
+        "topic": "Basic Roof Maintenance Tips",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-151-2024-10-03-11-28-48/0-short-talk-151.mp3"
+      },
+      {
+        "lessonId": 1632,
+        "slug": "short-talk-152.1632",
+        "name": "Short Talk 152",
+        "topic": "Brookfield Benefit Concert Appeal",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-152-2024-10-03-11-29-07/0-short-talk-152.mp3"
+      },
+      {
+        "lessonId": 1633,
+        "slug": "short-talk-153.1633",
+        "name": "Short Talk 153",
+        "topic": "Business Productivity Workshop",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-153-2024-10-03-11-29-27/0-short-talk-153.mp3"
+      },
+      {
+        "lessonId": 1634,
+        "slug": "short-talk-154.1634",
+        "name": "Short Talk 154",
+        "topic": "Vegetable Gardening Seminar Tips",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-154-2024-10-03-12-21-26/0-short-talk-154.mp3"
+      },
+      {
+        "lessonId": 1635,
+        "slug": "short-talk-155.1635",
+        "name": "Short Talk 155",
+        "topic": "Lakeville Park Reopening",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-155-2024-10-03-12-33-39/0-short-talk-155.mp3"
+      },
+      {
+        "lessonId": 1637,
+        "slug": "short-talk-156.1637",
+        "name": "Short Talk 156",
+        "topic": "Jewelry Order and Gift",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-156-2024-10-04-15-48-36/0-short-talk-156.mp3"
+      },
+      {
+        "lessonId": 1638,
+        "slug": "short-talk-157.1638",
+        "name": "Short Talk 157",
+        "topic": "Engaging Residents Through Games",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-157-2024-10-04-15-48-54/0-short-talk-157.mp3"
+      },
+      {
+        "lessonId": 1639,
+        "slug": "short-talk-158.1639",
+        "name": "Short Talk 158",
+        "topic": "Truck Driver Job Opportunity",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-158-2024-10-04-15-49-11/0-short-talk-158.mp3"
+      },
+      {
+        "lessonId": 1640,
+        "slug": "short-talk-159.1640",
+        "name": "Short Talk 159",
+        "topic": "TV Feature: Restaurant Prep",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-159-2024-10-04-15-49-26/0-short-talk-159.mp3"
+      },
+      {
+        "lessonId": 1641,
+        "slug": "short-talk-160.1641",
+        "name": "Short Talk 160",
+        "topic": "Shelbourne Renewable Facility Announced",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-160-2024-10-04-15-49-42/0-short-talk-160.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 17,
+    "title": "Practice Test 17",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1543,
+        "slug": "conversation-161.1543",
+        "name": "Conversation 161",
+        "topic": "Forgotten Toolkit Recovery",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-161-2024-09-14-18-29-14/0-conversation-161.mp3"
+      },
+      {
+        "lessonId": 1544,
+        "slug": "conversation-162.1544",
+        "name": "Conversation 162",
+        "topic": "Planning a Bakery Visit",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-162-2024-09-14-18-29-55/0-conversation-162.mp3"
+      },
+      {
+        "lessonId": 1545,
+        "slug": "conversation-163.1545",
+        "name": "Conversation 163",
+        "topic": "New Work Hours Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-163-2024-09-14-18-30-11/0-conversation-163.mp3"
+      },
+      {
+        "lessonId": 1546,
+        "slug": "conversation-164.1546",
+        "name": "Conversation 164",
+        "topic": "Lost Luggage Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-164-2024-09-14-18-31-23/0-conversation-164.mp3"
+      },
+      {
+        "lessonId": 1547,
+        "slug": "conversation-165.1547",
+        "name": "Conversation 165",
+        "topic": "Prescription Renewal Appointment",
+        "vocabLevel": "B1",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-165-2024-09-14-18-31-37/0-conversation-165.mp3"
+      },
+      {
+        "lessonId": 1548,
+        "slug": "conversation-166.1548",
+        "name": "Conversation 166",
+        "topic": "Property Purchase Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-166-2024-09-14-18-31-50/0-conversation-166.mp3"
+      },
+      {
+        "lessonId": 1549,
+        "slug": "conversation-167.1549",
+        "name": "Conversation 167",
+        "topic": "Planning Angela&#039;s Birthday",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-167-2024-09-14-18-32-06/0-conversation-167.mp3"
+      },
+      {
+        "lessonId": 1550,
+        "slug": "conversation-168.1550",
+        "name": "Conversation 168",
+        "topic": "Equipment Distribution Request",
+        "vocabLevel": "B1",
+        "partsCount": 20,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-168-2024-09-14-18-32-19/0-conversation-168.mp3"
+      },
+      {
+        "lessonId": 1551,
+        "slug": "conversation-169.1551",
+        "name": "Conversation 169",
+        "topic": "Project Deadline Extension Request",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-169-2024-09-14-18-32-42/0-conversation-169.mp3"
+      },
+      {
+        "lessonId": 1552,
+        "slug": "conversation-170.1552",
+        "name": "Conversation 170",
+        "topic": "Musical Theater Reactions",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-170-2024-09-14-18-32-59/0-conversation-170.mp3"
+      },
+      {
+        "lessonId": 1642,
+        "slug": "short-talk-161.1642",
+        "name": "Short Talk 161",
+        "topic": "Cake Order Confirmation",
+        "vocabLevel": "A2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-161-2024-10-05-12-19-09/0-short-talk-161.mp3"
+      },
+      {
+        "lessonId": 1643,
+        "slug": "short-talk-162.1643",
+        "name": "Short Talk 162",
+        "topic": "Vegetables and Health Benefits",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-162-2024-10-05-12-19-25/0-short-talk-162.mp3"
+      },
+      {
+        "lessonId": 1644,
+        "slug": "short-talk-163.1644",
+        "name": "Short Talk 163",
+        "topic": "Pickup Location Change Request",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-163-2024-10-05-12-19-36/0-short-talk-163.mp3"
+      },
+      {
+        "lessonId": 1645,
+        "slug": "short-talk-164.1645",
+        "name": "Short Talk 164",
+        "topic": "SUV Acceleration Issue Follow-up",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-164-2024-10-05-12-19-52/0-short-talk-164.mp3"
+      },
+      {
+        "lessonId": 1646,
+        "slug": "short-talk-165.1646",
+        "name": "Short Talk 165",
+        "topic": "Showroom Update and Announcements",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-165-2024-10-05-12-21-26/0-short-talk-165.mp3"
+      },
+      {
+        "lessonId": 1647,
+        "slug": "short-talk-166.1647",
+        "name": "Short Talk 166",
+        "topic": "Oakwood Road Project Update",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-166-2024-10-05-12-22-08/0-short-talk-166.mp3"
+      },
+      {
+        "lessonId": 1648,
+        "slug": "short-talk-167.1648",
+        "name": "Short Talk 167",
+        "topic": "Old Mill To Be Renovated",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-167-2024-10-05-12-22-31/0-short-talk-167.mp3"
+      },
+      {
+        "lessonId": 1649,
+        "slug": "short-talk-168.1649",
+        "name": "Short Talk 168",
+        "topic": "Social Media Marketing Insights",
+        "vocabLevel": "B2",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-168-2024-10-05-12-22-49/0-short-talk-168.mp3"
+      },
+      {
+        "lessonId": 1650,
+        "slug": "short-talk-169.1650",
+        "name": "Short Talk 169",
+        "topic": "Carson Automotive Achievement",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-169-2024-10-05-12-23-01/0-short-talk-169.mp3"
+      },
+      {
+        "lessonId": 1651,
+        "slug": "short-talk-170.1651",
+        "name": "Short Talk 170",
+        "topic": "Office Plant Delivery Announcement",
+        "vocabLevel": "B2",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-170-2024-10-05-12-23-15/0-short-talk-170.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 18,
+    "title": "Practice Test 18",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1553,
+        "slug": "conversation-171.1553",
+        "name": "Conversation 171",
+        "topic": "Access Card Issue",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-171-2024-09-14-18-33-14/0-conversation-171.mp3"
+      },
+      {
+        "lessonId": 1554,
+        "slug": "conversation-172.1554",
+        "name": "Conversation 172",
+        "topic": "Table Lamp Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-172-2024-09-14-18-33-33/0-conversation-172.mp3"
+      },
+      {
+        "lessonId": 1555,
+        "slug": "conversation-173.1555",
+        "name": "Conversation 173",
+        "topic": "Meeting Preparation Planning",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-173-2024-09-14-18-33-46/0-conversation-173.mp3"
+      },
+      {
+        "lessonId": 1556,
+        "slug": "conversation-174.1556",
+        "name": "Conversation 174",
+        "topic": "Private Room Rental Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 21,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-174-2024-09-14-18-34-00/0-conversation-174.mp3"
+      },
+      {
+        "lessonId": 1557,
+        "slug": "conversation-175.1557",
+        "name": "Conversation 175",
+        "topic": "Moving Date Confusion",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-175-2024-09-14-18-34-12/0-conversation-175.mp3"
+      },
+      {
+        "lessonId": 1558,
+        "slug": "conversation-176.1558",
+        "name": "Conversation 176",
+        "topic": "Click and Collect Assistance",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-176-2024-09-14-18-34-26/0-conversation-176.mp3"
+      },
+      {
+        "lessonId": 1559,
+        "slug": "conversation-177.1559",
+        "name": "Conversation 177",
+        "topic": "Buying Paintbrushes at Store",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-177-2024-09-14-18-34-50/0-conversation-177.mp3"
+      },
+      {
+        "lessonId": 1560,
+        "slug": "conversation-178.1560",
+        "name": "Conversation 178",
+        "topic": "Offered Permanent Position",
+        "vocabLevel": "B1",
+        "partsCount": 24,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-178-2024-09-14-18-35-01/0-conversation-178.mp3"
+      },
+      {
+        "lessonId": 1561,
+        "slug": "conversation-179.1561",
+        "name": "Conversation 179",
+        "topic": "Request for Medical Records",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-179-2024-09-14-18-35-16/0-conversation-179.mp3"
+      },
+      {
+        "lessonId": 1562,
+        "slug": "conversation-180.1562",
+        "name": "Conversation 180",
+        "topic": "Receptionist Job Offer",
+        "vocabLevel": "B1",
+        "partsCount": 19,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-180-2024-09-14-18-35-30/0-conversation-180.mp3"
+      },
+      {
+        "lessonId": 1652,
+        "slug": "short-talk-171.1652",
+        "name": "Short Talk 171",
+        "topic": "Atlantic Energy Service Notice",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-171-2024-10-05-20-41-36/0-short-talk-171.mp3"
+      },
+      {
+        "lessonId": 1653,
+        "slug": "short-talk-172.1653",
+        "name": "Short Talk 172",
+        "topic": "Network Upgrade Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-172-2024-10-05-20-41-47/0-short-talk-172.mp3"
+      },
+      {
+        "lessonId": 1654,
+        "slug": "short-talk-173.1654",
+        "name": "Short Talk 173",
+        "topic": "Main Entrance Closure Notice",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-173-2024-10-05-20-42-01/0-short-talk-173.mp3"
+      },
+      {
+        "lessonId": 1655,
+        "slug": "short-talk-174.1655",
+        "name": "Short Talk 174",
+        "topic": "Hotel Booking Update",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-174-2024-10-05-20-42-14/0-short-talk-174.mp3"
+      },
+      {
+        "lessonId": 1656,
+        "slug": "short-talk-175.1656",
+        "name": "Short Talk 175",
+        "topic": "Real-Time Package Tracking Launch",
+        "vocabLevel": "B2",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-175-2024-10-05-20-42-26/0-short-talk-175.mp3"
+      },
+      {
+        "lessonId": 1657,
+        "slug": "short-talk-176.1657",
+        "name": "Short Talk 176",
+        "topic": "Newsroom Event and Updates",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-176-2024-10-05-20-42-39/0-short-talk-176.mp3"
+      },
+      {
+        "lessonId": 1658,
+        "slug": "short-talk-177.1658",
+        "name": "Short Talk 177",
+        "topic": "Sales Team Celebration Invitation",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-177-2024-10-05-20-42-55/0-short-talk-177.mp3"
+      },
+      {
+        "lessonId": 1659,
+        "slug": "short-talk-178.1659",
+        "name": "Short Talk 178",
+        "topic": "New Rivertown Food Tour",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-178-2024-10-05-20-43-11/0-short-talk-178.mp3"
+      },
+      {
+        "lessonId": 1660,
+        "slug": "short-talk-179.1660",
+        "name": "Short Talk 179",
+        "topic": "Maplewood Bus Terminal Project",
+        "vocabLevel": "C1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-179-2024-10-05-20-43-26/0-short-talk-179.mp3"
+      },
+      {
+        "lessonId": 1661,
+        "slug": "short-talk-180.1661",
+        "name": "Short Talk 180",
+        "topic": "Riverside Cultural Center Launch",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-180-2024-10-05-20-43-41/0-short-talk-180.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 19,
+    "title": "Practice Test 19",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1563,
+        "slug": "conversation-181.1563",
+        "name": "Conversation 181",
+        "topic": "Looking for Disinfecting Wipes",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-181-2024-09-14-18-35-43/0-conversation-181.mp3"
+      },
+      {
+        "lessonId": 1564,
+        "slug": "conversation-182.1564",
+        "name": "Conversation 182",
+        "topic": "Tuesday Afternoon Call Favor",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-182-2024-09-14-18-35-57/0-conversation-182.mp3"
+      },
+      {
+        "lessonId": 1565,
+        "slug": "conversation-183.1565",
+        "name": "Conversation 183",
+        "topic": "Booking Theater Tickets Request",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-183-2024-09-14-18-36-10/0-conversation-183.mp3"
+      },
+      {
+        "lessonId": 1566,
+        "slug": "conversation-184.1566",
+        "name": "Conversation 184",
+        "topic": "Special Baking Order Request",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-184-2024-09-14-18-36-22/0-conversation-184.mp3"
+      },
+      {
+        "lessonId": 1567,
+        "slug": "conversation-185.1567",
+        "name": "Conversation 185",
+        "topic": "Party Supplies Delegation",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-185-2024-09-14-18-36-34/0-conversation-185.mp3"
+      },
+      {
+        "lessonId": 1568,
+        "slug": "conversation-186.1568",
+        "name": "Conversation 186",
+        "topic": "Trade Show Rescheduled",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-186-2024-09-14-18-36-47/0-conversation-186.mp3"
+      },
+      {
+        "lessonId": 1569,
+        "slug": "conversation-187.1569",
+        "name": "Conversation 187",
+        "topic": "Warehouse Space Solutions",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-187-2024-09-14-18-37-03/0-conversation-187.mp3"
+      },
+      {
+        "lessonId": 1570,
+        "slug": "conversation-188.1570",
+        "name": "Conversation 188",
+        "topic": "New Parking Procedures",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-188-2024-09-14-18-37-20/0-conversation-188.mp3"
+      },
+      {
+        "lessonId": 1571,
+        "slug": "conversation-189.1571",
+        "name": "Conversation 189",
+        "topic": "Buying a Laptop Decision",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-189-2024-09-14-18-37-31/0-conversation-189.mp3"
+      },
+      {
+        "lessonId": 1572,
+        "slug": "conversation-190.1572",
+        "name": "Conversation 190",
+        "topic": "Insurance Plan Options Overview",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-190-2024-09-14-18-37-47/0-conversation-190.mp3"
+      },
+      {
+        "lessonId": 1662,
+        "slug": "short-talk-181.1662",
+        "name": "Short Talk 181",
+        "topic": "Green Lanterns Backorder Notice",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-181-2024-10-07-19-18-19/0-short-talk-181.mp3"
+      },
+      {
+        "lessonId": 1663,
+        "slug": "short-talk-182.1663",
+        "name": "Short Talk 182",
+        "topic": "Seaview Heights Property Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-182-2024-10-07-19-18-41/0-short-talk-182.mp3"
+      },
+      {
+        "lessonId": 1664,
+        "slug": "short-talk-183.1664",
+        "name": "Short Talk 183",
+        "topic": "Request for Contact Number",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-183-2024-10-07-19-19-03/0-short-talk-183.mp3"
+      },
+      {
+        "lessonId": 1665,
+        "slug": "short-talk-184.1665",
+        "name": "Short Talk 184",
+        "topic": "Flu Shot Clinic Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-184-2024-10-07-19-19-17/0-short-talk-184.mp3"
+      },
+      {
+        "lessonId": 1666,
+        "slug": "short-talk-185.1666",
+        "name": "Short Talk 185",
+        "topic": "Routine Car Maintenance Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-185-2024-10-07-19-19-36/0-short-talk-185.mp3"
+      },
+      {
+        "lessonId": 1667,
+        "slug": "short-talk-186.1667",
+        "name": "Short Talk 186",
+        "topic": "Package Pickup Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-186-2024-10-07-19-20-00/0-short-talk-186.mp3"
+      },
+      {
+        "lessonId": 1668,
+        "slug": "short-talk-187.1668",
+        "name": "Short Talk 187",
+        "topic": "Sustainable Water Project Launch",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-187-2024-10-07-19-20-17/0-short-talk-187.mp3"
+      },
+      {
+        "lessonId": 1669,
+        "slug": "short-talk-188.1669",
+        "name": "Short Talk 188",
+        "topic": "Storage Container Delivery Notice",
+        "vocabLevel": "A2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-188-2024-10-07-19-20-31/0-short-talk-188.mp3"
+      },
+      {
+        "lessonId": 1670,
+        "slug": "short-talk-189.1670",
+        "name": "Short Talk 189",
+        "topic": "Cleaning Supply Cabinet Overview",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-189-2024-10-07-19-20-56/0-short-talk-189.mp3"
+      },
+      {
+        "lessonId": 1671,
+        "slug": "short-talk-190.1671",
+        "name": "Short Talk 190",
+        "topic": "Photography Basics Introduction",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-190-2024-10-07-19-21-12/0-short-talk-190.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 20,
+    "title": "Practice Test 20",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1573,
+        "slug": "conversation-191.1573",
+        "name": "Conversation 191",
+        "topic": "Office Email Outage",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-191-2024-09-14-18-37-58/0-conversation-191.mp3"
+      },
+      {
+        "lessonId": 1574,
+        "slug": "conversation-192.1574",
+        "name": "Conversation 192",
+        "topic": "Fun Run Fundraising Challenges",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-192-2024-09-14-18-38-09/0-conversation-192.mp3"
+      },
+      {
+        "lessonId": 1575,
+        "slug": "conversation-193.1575",
+        "name": "Conversation 193",
+        "topic": "Booking a Round-Trip Flight",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-193-2024-09-14-18-38-22/0-conversation-193.mp3"
+      },
+      {
+        "lessonId": 1576,
+        "slug": "conversation-194.1576",
+        "name": "Conversation 194",
+        "topic": "Rainy Day Museum Plans",
+        "vocabLevel": "B1",
+        "partsCount": 22,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-194-2024-09-14-18-38-34/0-conversation-194.mp3"
+      },
+      {
+        "lessonId": 1620,
+        "slug": "conversation-195.1620",
+        "name": "Conversation 195",
+        "topic": "Restaurant Lunch Reservation",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-restaurant-reservation-2024-09-30-22-58-45/0-conversation-restaurant-reservation.mp3"
+      },
+      {
+        "lessonId": 1621,
+        "slug": "conversation-196.1621",
+        "name": "Conversation 196",
+        "topic": "Expense Report Review",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-196-2024-09-30-23-01-03/0-conversation-196.mp3"
+      },
+      {
+        "lessonId": 1622,
+        "slug": "conversation-197.1622",
+        "name": "Conversation 197",
+        "topic": "Conference Attendance Decision",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-197-2024-09-30-23-01-42/0-conversation-197.mp3"
+      },
+      {
+        "lessonId": 1623,
+        "slug": "conversation-198.1623",
+        "name": "Conversation 198",
+        "topic": "Project Results and Leadership",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-198-2024-09-30-23-03-00/0-conversation-198.mp3"
+      },
+      {
+        "lessonId": 1624,
+        "slug": "conversation-199.1624",
+        "name": "Conversation 199",
+        "topic": "Greenfield Books Presentation Approach",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-199-2024-09-30-23-03-20/0-conversation-199.mp3"
+      },
+      {
+        "lessonId": 1625,
+        "slug": "conversation-200.1625",
+        "name": "Conversation 200",
+        "topic": "Employee Picnic Gift Ideas",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-200-2024-09-30-23-03-42/0-conversation-200.mp3"
+      },
+      {
+        "lessonId": 1672,
+        "slug": "short-talk-191.1672",
+        "name": "Short Talk 191",
+        "topic": "Oak Street Property Update",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-191-2024-10-08-13-03-22/0-short-talk-191.mp3"
+      },
+      {
+        "lessonId": 1673,
+        "slug": "short-talk-192.1673",
+        "name": "Short Talk 192",
+        "topic": "Engine Noise Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-192-2024-10-08-13-03-42/0-short-talk-192.mp3"
+      },
+      {
+        "lessonId": 1674,
+        "slug": "short-talk-193.1674",
+        "name": "Short Talk 193",
+        "topic": "Project Proposal Deadline Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-193-2024-10-08-13-03-56/0-short-talk-193.mp3"
+      },
+      {
+        "lessonId": 1675,
+        "slug": "short-talk-194.1675",
+        "name": "Short Talk 194",
+        "topic": "Flight 652 Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-194-2024-10-08-13-04-11/0-short-talk-194.mp3"
+      },
+      {
+        "lessonId": 1676,
+        "slug": "short-talk-195.1676",
+        "name": "Short Talk 195",
+        "topic": "Meadowbrook Community Barbecue",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-195-2024-10-08-13-04-26/0-short-talk-195.mp3"
+      },
+      {
+        "lessonId": 1677,
+        "slug": "short-talk-196.1677",
+        "name": "Short Talk 196",
+        "topic": "Workplace Stress Management Seminar",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-196-2024-10-08-13-04-42/0-short-talk-196.mp3"
+      },
+      {
+        "lessonId": 1678,
+        "slug": "short-talk-197.1678",
+        "name": "Short Talk 197",
+        "topic": "Weekly Weather Forecast",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-197-2024-10-08-13-04-55/0-short-talk-197.mp3"
+      },
+      {
+        "lessonId": 1679,
+        "slug": "short-talk-198.1679",
+        "name": "Short Talk 198",
+        "topic": "Financial Planning Webinar",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-198-2024-10-08-13-05-10/0-short-talk-198.mp3"
+      },
+      {
+        "lessonId": 1680,
+        "slug": "short-talk-199.1680",
+        "name": "Short Talk 199",
+        "topic": "New Remote Work Policy",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-199-2024-10-08-13-05-26/0-short-talk-199.mp3"
+      },
+      {
+        "lessonId": 1681,
+        "slug": "short-talk-200.1681",
+        "name": "Short Talk 200",
+        "topic": "Elevator Maintenance Notice",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-200-2024-10-08-13-05-43/0-short-talk-200.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 21,
+    "title": "Practice Test 21",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1699,
+        "slug": "conversation-201.1699",
+        "name": "Conversation 201",
+        "topic": "Marketing Team Restructuring Plans",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-201-2024-10-18-20-18-19/0-conversation-201.mp3"
+      },
+      {
+        "lessonId": 1627,
+        "slug": "conversation-202.1627",
+        "name": "Conversation 202",
+        "topic": "Plant-Based Snack Strategy",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-202-2024-09-30-23-04-54/0-conversation-202.mp3"
+      },
+      {
+        "lessonId": 1628,
+        "slug": "conversation-203.1628",
+        "name": "Conversation 203",
+        "topic": "Marketing Project Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-203-2024-09-30-23-05-21/0-conversation-203.mp3"
+      },
+      {
+        "lessonId": 1630,
+        "slug": "conversation-204.1630",
+        "name": "Conversation 204",
+        "topic": "Drawing Removed from Exhibit",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-204-2024-10-03-11-26-36/0-conversation-204.mp3"
+      },
+      {
+        "lessonId": 1682,
+        "slug": "conversation-205.1682",
+        "name": "Conversation 205",
+        "topic": "Seminar Room Audio Issues",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-205-2024-10-09-12-35-27/0-conversation-205.mp3"
+      },
+      {
+        "lessonId": 1683,
+        "slug": "conversation-206.1683",
+        "name": "Conversation 206",
+        "topic": "Panelist Registration Exchange",
+        "vocabLevel": "A2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-206-2024-10-09-12-35-41/0-conversation-206.mp3"
+      },
+      {
+        "lessonId": 1684,
+        "slug": "conversation-207.1684",
+        "name": "Conversation 207",
+        "topic": "Buying a Photography Gift Card",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-207-2024-10-09-12-35-54/0-conversation-207.mp3"
+      },
+      {
+        "lessonId": 1685,
+        "slug": "conversation-208.1685",
+        "name": "Conversation 208",
+        "topic": "Inventory Management Software Meeting",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-208-2024-10-09-12-36-08/0-conversation-208.mp3"
+      },
+      {
+        "lessonId": 1686,
+        "slug": "conversation-209.1686",
+        "name": "Conversation 209",
+        "topic": "Trip to Grand Cinema",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-209-2024-10-09-12-36-21/0-conversation-209.mp3"
+      },
+      {
+        "lessonId": 1687,
+        "slug": "conversation-210.1687",
+        "name": "Conversation 210",
+        "topic": "Modern King Bed Frame Options",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-210-2024-10-09-12-36-35/0-conversation-210.mp3"
+      },
+      {
+        "lessonId": 1689,
+        "slug": "short-talk-201.1689",
+        "name": "Short Talk 201",
+        "topic": "Paris Trip Confirmation",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-201-2024-10-14-13-56-49/0-short-talk-201.mp3"
+      },
+      {
+        "lessonId": 1690,
+        "slug": "short-talk-202.1690",
+        "name": "Short Talk 202",
+        "topic": "Library Book Return Reminder",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-202-2024-10-14-13-58-04/0-short-talk-202.mp3"
+      },
+      {
+        "lessonId": 1695,
+        "slug": "short-talk-203.1695",
+        "name": "Short Talk 203",
+        "topic": "Chesterton Playhouse Reopens",
+        "vocabLevel": "B2",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-207-2024-10-14-13-59-38/0-short-talk-207.mp3"
+      },
+      {
+        "lessonId": 1692,
+        "slug": "short-talk-204.1692",
+        "name": "Short Talk 204",
+        "topic": "Scenic Coastal Cruise Tour",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-204-2024-10-14-13-58-33/0-short-talk-204.mp3"
+      },
+      {
+        "lessonId": 1696,
+        "slug": "short-talk-205.1696",
+        "name": "Short Talk 205",
+        "topic": "Wireless Earbuds Feedback Summary",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-208-2024-10-14-13-59-57/0-short-talk-208.mp3"
+      },
+      {
+        "lessonId": 1694,
+        "slug": "short-talk-206.1694",
+        "name": "Short Talk 206",
+        "topic": "Solar Panel Consultation Follow-up",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-206-2024-10-14-13-59-25/0-short-talk-206.mp3"
+      },
+      {
+        "lessonId": 1691,
+        "slug": "short-talk-207.1691",
+        "name": "Short Talk 207",
+        "topic": "Backyard Project Update",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-203-2024-10-14-13-58-19/0-short-talk-203.mp3"
+      },
+      {
+        "lessonId": 1693,
+        "slug": "short-talk-208.1693",
+        "name": "Short Talk 208",
+        "topic": "Max&#039;s Bloodwork Results",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-205-2024-10-14-13-59-11/0-short-talk-205.mp3"
+      },
+      {
+        "lessonId": 1697,
+        "slug": "short-talk-209.1697",
+        "name": "Short Talk 209",
+        "topic": "Boost Your Brand Visibility",
+        "vocabLevel": "B1",
+        "partsCount": 7,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-209-2024-10-14-14-00-12/0-short-talk-209.mp3"
+      },
+      {
+        "lessonId": 1698,
+        "slug": "short-talk-210.1698",
+        "name": "Short Talk 210",
+        "topic": "Vehicle Service Issues Found",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-210-2024-10-14-14-00-39/0-short-talk-210.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 22,
+    "title": "Practice Test 22",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1723,
+        "slug": "conversation-211.1723",
+        "name": "Conversation 211",
+        "topic": "Ad Timing Error Complaint",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-211-2024-10-22-18-27-24/0-conversation-211.mp3"
+      },
+      {
+        "lessonId": 1703,
+        "slug": "conversation-212.1703",
+        "name": "Conversation 212",
+        "topic": "Missing Dessert Portions",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-212-2024-10-22-12-55-16/0-conversation-212.mp3"
+      },
+      {
+        "lessonId": 1704,
+        "slug": "conversation-213.1704",
+        "name": "Conversation 213",
+        "topic": "Office Hiking Group Invite",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-213-2024-10-22-12-55-27/0-conversation-213.mp3"
+      },
+      {
+        "lessonId": 1705,
+        "slug": "conversation-214.1705",
+        "name": "Conversation 214",
+        "topic": "Employee List Correction",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-214-2024-10-22-12-55-41/0-conversation-214.mp3"
+      },
+      {
+        "lessonId": 1706,
+        "slug": "conversation-215.1706",
+        "name": "Conversation 215",
+        "topic": "EcoSmart Backpack Sales Review",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-215-2024-10-22-12-55-53/0-conversation-215.mp3"
+      },
+      {
+        "lessonId": 1707,
+        "slug": "conversation-216.1707",
+        "name": "Conversation 216",
+        "topic": "Charity Event Flyer Printing",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-216-2024-10-22-12-56-05/0-conversation-216.mp3"
+      },
+      {
+        "lessonId": 1708,
+        "slug": "conversation-217.1708",
+        "name": "Conversation 217",
+        "topic": "Morning Yoga Class Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-217-2024-10-22-12-56-18/0-conversation-217.mp3"
+      },
+      {
+        "lessonId": 1709,
+        "slug": "conversation-218.1709",
+        "name": "Conversation 218",
+        "topic": "Missed Flight to New York",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-218-2024-10-22-12-56-36/0-conversation-218.mp3"
+      },
+      {
+        "lessonId": 1710,
+        "slug": "conversation-219.1710",
+        "name": "Conversation 219",
+        "topic": "Conference Travel Reschedule",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-219-2024-10-22-12-56-55/0-conversation-219.mp3"
+      },
+      {
+        "lessonId": 1711,
+        "slug": "conversation-220.1711",
+        "name": "Conversation 220",
+        "topic": "Startup Workshop Speaker Invitation",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-220-2024-10-22-12-57-10/0-conversation-220.mp3"
+      },
+      {
+        "lessonId": 1712,
+        "slug": "short-talk-211.1712",
+        "name": "Short Talk 211",
+        "topic": "Home Insurance Inquiry Follow-up",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-211-2024-10-22-12-57-34/0-short-talk-211.mp3"
+      },
+      {
+        "lessonId": 1713,
+        "slug": "short-talk-212.1713",
+        "name": "Short Talk 212",
+        "topic": "Zenith Technologies Hub Announcement",
+        "vocabLevel": "C1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-212-2024-10-22-12-57-51/0-short-talk-212.mp3"
+      },
+      {
+        "lessonId": 1714,
+        "slug": "short-talk-213.1714",
+        "name": "Short Talk 213",
+        "topic": "Lakeside Bistro Hours Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-213-2024-10-22-12-58-07/0-short-talk-213.mp3"
+      },
+      {
+        "lessonId": 1715,
+        "slug": "short-talk-214.1715",
+        "name": "Short Talk 214",
+        "topic": "Mobile Intranet Access Launch",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-214-2024-10-22-12-58-23/0-short-talk-214.mp3"
+      },
+      {
+        "lessonId": 1716,
+        "slug": "short-talk-215.1716",
+        "name": "Short Talk 215",
+        "topic": "Innovative Leadership Workshop Agenda",
+        "vocabLevel": "C1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-215-2024-10-22-13-00-42/0-short-talk-215.mp3"
+      },
+      {
+        "lessonId": 1718,
+        "slug": "short-talk-216.1718",
+        "name": "Short Talk 216",
+        "topic": "Apex COO Retirement Announced",
+        "vocabLevel": "C1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-216-2024-10-22-13-04-30/0-short-talk-216.mp3"
+      },
+      {
+        "lessonId": 1719,
+        "slug": "short-talk-217.1719",
+        "name": "Short Talk 217",
+        "topic": "Leaf Removal Service Promotion",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-217-2024-10-22-13-05-08/0-short-talk-217.mp3"
+      },
+      {
+        "lessonId": 1720,
+        "slug": "short-talk-218.1720",
+        "name": "Short Talk 218",
+        "topic": "Financial Forum: Tech Innovations Interview",
+        "vocabLevel": "C1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-218-2024-10-22-13-05-28/0-short-talk-218.mp3"
+      },
+      {
+        "lessonId": 1721,
+        "slug": "short-talk-219.1721",
+        "name": "Short Talk 219",
+        "topic": "Riverview Art Museum Tour",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-219-2024-10-22-13-05-45/0-short-talk-219.mp3"
+      },
+      {
+        "lessonId": 1722,
+        "slug": "short-talk-220.1722",
+        "name": "Short Talk 220",
+        "topic": "Request to Miss Seminar Session",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-220-2024-10-22-13-06-04/0-short-talk-220.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 23,
+    "title": "Practice Test 23",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1724,
+        "slug": "conversation-221.1724",
+        "name": "Conversation 221",
+        "topic": "Tech Innovators Conference Welcome",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-221-2024-10-24-00-19-09/0-conversation-221.mp3"
+      },
+      {
+        "lessonId": 1725,
+        "slug": "conversation-222.1725",
+        "name": "Conversation 222",
+        "topic": "Office Chair Upgrade Request",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-222-2024-10-24-00-19-28/0-conversation-222.mp3"
+      },
+      {
+        "lessonId": 1726,
+        "slug": "conversation-223.1726",
+        "name": "Conversation 223",
+        "topic": "Missing Hiking Gear Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-223-2024-10-24-00-19-42/0-conversation-223.mp3"
+      },
+      {
+        "lessonId": 1727,
+        "slug": "conversation-224.1727",
+        "name": "Conversation 224",
+        "topic": "Greenwood Solutions Project Meeting",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-224-2024-10-24-00-19-56/0-conversation-224.mp3"
+      },
+      {
+        "lessonId": 1728,
+        "slug": "conversation-225.1728",
+        "name": "Conversation 225",
+        "topic": "New Phone System Feedback",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-225-2024-10-24-00-20-12/0-conversation-225.mp3"
+      },
+      {
+        "lessonId": 1729,
+        "slug": "conversation-226.1729",
+        "name": "Conversation 226",
+        "topic": "Photography Workshop Enrollment",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-226-2024-10-24-00-20-32/0-conversation-226.mp3"
+      },
+      {
+        "lessonId": 1730,
+        "slug": "conversation-227.1730",
+        "name": "Conversation 227",
+        "topic": "Considering a Restaurant App",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-227-2024-10-24-00-20-48/0-conversation-227.mp3"
+      },
+      {
+        "lessonId": 1731,
+        "slug": "conversation-228.1731",
+        "name": "Conversation 228",
+        "topic": "Book Club Outing Invitation",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-228-2024-10-24-00-21-03/0-conversation-228.mp3"
+      },
+      {
+        "lessonId": 1732,
+        "slug": "conversation-229.1732",
+        "name": "Conversation 229",
+        "topic": "Delayed Lab Reagents Shipment",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-229-2024-10-24-00-21-17/0-conversation-229.mp3"
+      },
+      {
+        "lessonId": 1733,
+        "slug": "conversation-230.1733",
+        "name": "Conversation 230",
+        "topic": "Finding a Caterer",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-230-2024-10-24-00-21-35/0-conversation-230.mp3"
+      },
+      {
+        "lessonId": 1734,
+        "slug": "short-talk-221.1734",
+        "name": "Short Talk 221",
+        "topic": "Meeting Rescheduling Notice",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-221-2024-10-24-00-22-03/0-short-talk-221.mp3"
+      },
+      {
+        "lessonId": 1735,
+        "slug": "short-talk-222.1735",
+        "name": "Short Talk 222",
+        "topic": "Air Purifier Recommendation",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-222-2024-10-24-00-22-32/0-short-talk-222.mp3"
+      },
+      {
+        "lessonId": 1736,
+        "slug": "short-talk-223.1736",
+        "name": "Short Talk 223",
+        "topic": "BoostAid Fitness Promotion",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-223-2024-10-24-00-22-51/0-short-talk-223.mp3"
+      },
+      {
+        "lessonId": 1737,
+        "slug": "short-talk-224.1737",
+        "name": "Short Talk 224",
+        "topic": "Arts and Crafts Fair Coverage",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-224-2024-10-24-00-23-05/0-short-talk-224.mp3"
+      },
+      {
+        "lessonId": 1738,
+        "slug": "short-talk-225.1738",
+        "name": "Short Talk 225",
+        "topic": "Sourdough Bread Workshop Introduction",
+        "vocabLevel": "A2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-225-2024-10-24-00-23-22/0-short-talk-225.mp3"
+      },
+      {
+        "lessonId": 1739,
+        "slug": "short-talk-226.1739",
+        "name": "Short Talk 226",
+        "topic": "Urban Canvas Exhibition Invitation",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-226-2024-10-24-00-23-39/0-short-talk-226.mp3"
+      },
+      {
+        "lessonId": 1740,
+        "slug": "short-talk-227.1740",
+        "name": "Short Talk 227",
+        "topic": "Federal Compliance Visit Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-227-2024-10-24-00-23-53/0-short-talk-227.mp3"
+      },
+      {
+        "lessonId": 1741,
+        "slug": "short-talk-228.1741",
+        "name": "Short Talk 228",
+        "topic": "Weston-Brentford Merger Announcement",
+        "vocabLevel": "C1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-228-2024-10-24-00-24-14/0-short-talk-228.mp3"
+      },
+      {
+        "lessonId": 1742,
+        "slug": "short-talk-229.1742",
+        "name": "Short Talk 229",
+        "topic": "Kitchen Renovation Schedule Update",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-229-2024-10-24-00-24-31/0-short-talk-229.mp3"
+      },
+      {
+        "lessonId": 1743,
+        "slug": "short-talk-230.1743",
+        "name": "Short Talk 230",
+        "topic": "Process Optimization Initiative",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-230-2024-10-24-00-24-48/0-short-talk-230.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 24,
+    "title": "Practice Test 24",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1744,
+        "slug": "conversation-231.1744",
+        "name": "Conversation 231",
+        "topic": "Suit Alteration Pickup Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-231-2024-10-25-13-55-38/0-conversation-231.mp3"
+      },
+      {
+        "lessonId": 1745,
+        "slug": "conversation-232.1745",
+        "name": "Conversation 232",
+        "topic": "Lightweight Laptop Recommendation",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-232-2024-10-25-13-55-52/0-conversation-232.mp3"
+      },
+      {
+        "lessonId": 1746,
+        "slug": "conversation-233.1746",
+        "name": "Conversation 233",
+        "topic": "Product Launch Campaign Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-233-2024-10-25-13-56-04/0-conversation-233.mp3"
+      },
+      {
+        "lessonId": 1747,
+        "slug": "conversation-234.1747",
+        "name": "Conversation 234",
+        "topic": "Environmental Policy Update Request",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-234-2024-10-25-13-56-15/0-conversation-234.mp3"
+      },
+      {
+        "lessonId": 1748,
+        "slug": "conversation-235.1748",
+        "name": "Conversation 235",
+        "topic": "Equipment Order Call",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-235-2024-10-25-13-56-28/0-conversation-235.mp3"
+      },
+      {
+        "lessonId": 1749,
+        "slug": "conversation-236.1749",
+        "name": "Conversation 236",
+        "topic": "Unit 305 Maintenance Update",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-236-2024-10-25-13-56-42/0-conversation-236.mp3"
+      },
+      {
+        "lessonId": 1750,
+        "slug": "conversation-237.1750",
+        "name": "Conversation 237",
+        "topic": "Proposing New Menu Ideas",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-237-2024-10-25-13-56-53/0-conversation-237.mp3"
+      },
+      {
+        "lessonId": 1751,
+        "slug": "conversation-238.1751",
+        "name": "Conversation 238",
+        "topic": "Café Flyer Reorder Request",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-238-2024-10-25-13-57-04/0-conversation-238.mp3"
+      },
+      {
+        "lessonId": 1752,
+        "slug": "conversation-239.1752",
+        "name": "Conversation 239",
+        "topic": "Project Report Issue",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-239-2024-10-25-13-57-21/0-conversation-239.mp3"
+      },
+      {
+        "lessonId": 1753,
+        "slug": "conversation-240.1753",
+        "name": "Conversation 240",
+        "topic": "Grandview Theater Briefing Meeting",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-240-2024-10-25-13-57-42/0-conversation-240.mp3"
+      },
+      {
+        "lessonId": 1754,
+        "slug": "short-talk-231.1754",
+        "name": "Short Talk 231",
+        "topic": "Morning Traffic Delays Update",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-231-2024-10-25-13-58-03/0-short-talk-231.mp3"
+      },
+      {
+        "lessonId": 1755,
+        "slug": "short-talk-232.1755",
+        "name": "Short Talk 232",
+        "topic": "Graphic Design Course Orientation",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-232-2024-10-25-13-58-17/0-short-talk-232.mp3"
+      },
+      {
+        "lessonId": 1756,
+        "slug": "short-talk-233.1756",
+        "name": "Short Talk 233",
+        "topic": "Missing Real Estate Information",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-233-2024-10-25-13-58-32/0-short-talk-233.mp3"
+      },
+      {
+        "lessonId": 1757,
+        "slug": "short-talk-234.1757",
+        "name": "Short Talk 234",
+        "topic": "Travel Reimbursement Clarification",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-234-2024-10-25-13-58-46/0-short-talk-234.mp3"
+      },
+      {
+        "lessonId": 1758,
+        "slug": "short-talk-235.1758",
+        "name": "Short Talk 235",
+        "topic": "Green Harvest Market Produce",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-235-2024-10-25-13-59-00/0-short-talk-235.mp3"
+      },
+      {
+        "lessonId": 1759,
+        "slug": "short-talk-236.1759",
+        "name": "Short Talk 236",
+        "topic": "Oakwood Hills Cleanup Event",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-236-2024-10-25-13-59-17/0-short-talk-236.mp3"
+      },
+      {
+        "lessonId": 1760,
+        "slug": "short-talk-237.1760",
+        "name": "Short Talk 237",
+        "topic": "SilverTech and Quantum Merger",
+        "vocabLevel": "C1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-237-2024-10-25-13-59-29/0-short-talk-237.mp3"
+      },
+      {
+        "lessonId": 1761,
+        "slug": "short-talk-238.1761",
+        "name": "Short Talk 238",
+        "topic": "Alice Mendel Concert Series",
+        "vocabLevel": "C1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-238-2024-10-25-13-59-45/0-short-talk-238.mp3"
+      },
+      {
+        "lessonId": 1762,
+        "slug": "short-talk-239.1762",
+        "name": "Short Talk 239",
+        "topic": "Room Reservation Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-239-2024-10-25-13-59-58/0-short-talk-239.mp3"
+      },
+      {
+        "lessonId": 1763,
+        "slug": "short-talk-240.1763",
+        "name": "Short Talk 240",
+        "topic": "Marketing Strategies for New Appliances",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-240-2024-10-25-14-00-13/0-short-talk-240.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 25,
+    "title": "Practice Test 25",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1768,
+        "slug": "conversation-241.1768",
+        "name": "Conversation 241",
+        "topic": "Projector Offer for Meeting",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-241-2024-10-29-23-05-48/0-conversation-241.mp3"
+      },
+      {
+        "lessonId": 1769,
+        "slug": "conversation-242.1769",
+        "name": "Conversation 242",
+        "topic": "Modern Expressions Exhibit Sales",
+        "vocabLevel": "B2",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-242-2024-10-29-23-06-04/0-conversation-242.mp3"
+      },
+      {
+        "lessonId": 1770,
+        "slug": "conversation-243.1770",
+        "name": "Conversation 243",
+        "topic": "Sold Out Tickets Disappointment",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-243-2024-10-29-23-06-17/0-conversation-243.mp3"
+      },
+      {
+        "lessonId": 1771,
+        "slug": "conversation-244.1771",
+        "name": "Conversation 244",
+        "topic": "Passport Renewal Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-244-2024-10-29-23-06-31/0-conversation-244.mp3"
+      },
+      {
+        "lessonId": 1772,
+        "slug": "conversation-245.1772",
+        "name": "Conversation 245",
+        "topic": "Tech Expo Travel Plans",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-245-2024-10-29-23-06-43/0-conversation-245.mp3"
+      },
+      {
+        "lessonId": 1773,
+        "slug": "conversation-246.1773",
+        "name": "Conversation 246",
+        "topic": "Office Supplies Restocking",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-246-2024-10-29-23-06-55/0-conversation-246.mp3"
+      },
+      {
+        "lessonId": 1774,
+        "slug": "conversation-247.1774",
+        "name": "Conversation 247",
+        "topic": "Richmond Tech Merger Briefing",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-247-2024-10-29-23-07-08/0-conversation-247.mp3"
+      },
+      {
+        "lessonId": 1775,
+        "slug": "conversation-248.1775",
+        "name": "Conversation 248",
+        "topic": "Marketing Slides Delay",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-248-2024-10-29-23-07-24/0-conversation-248.mp3"
+      },
+      {
+        "lessonId": 1776,
+        "slug": "conversation-249.1776",
+        "name": "Conversation 249",
+        "topic": "Heating System Breakdown",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-249-2024-10-29-23-08-25/0-conversation-249.mp3"
+      },
+      {
+        "lessonId": 1777,
+        "slug": "conversation-250.1777",
+        "name": "Conversation 250",
+        "topic": "Retirement Dinner Venue Change",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-250-2024-10-29-23-08-47/0-conversation-250.mp3"
+      },
+      {
+        "lessonId": 1778,
+        "slug": "short-talk-241.1778",
+        "name": "Short Talk 241",
+        "topic": "Marquis Inns Business Offerings",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-241-2024-10-29-23-09-04/0-short-talk-241.mp3"
+      },
+      {
+        "lessonId": 1779,
+        "slug": "short-talk-242.1779",
+        "name": "Short Talk 242",
+        "topic": "Home Insurance Coverage Update",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-242-2024-10-29-23-09-18/0-short-talk-242.mp3"
+      },
+      {
+        "lessonId": 1780,
+        "slug": "short-talk-243.1780",
+        "name": "Short Talk 243",
+        "topic": "Marketing Strategy Progress Update",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-243-2024-10-29-23-09-33/0-short-talk-243.mp3"
+      },
+      {
+        "lessonId": 1781,
+        "slug": "short-talk-244.1781",
+        "name": "Short Talk 244",
+        "topic": "Smart Thermostat Offer",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-244-2024-10-29-23-09-46/0-short-talk-244.mp3"
+      },
+      {
+        "lessonId": 1782,
+        "slug": "short-talk-245.1782",
+        "name": "Short Talk 245",
+        "topic": "Emerging Infectious Diseases",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-245-2024-10-29-23-09-59/0-short-talk-245.mp3"
+      },
+      {
+        "lessonId": 1783,
+        "slug": "short-talk-246.1783",
+        "name": "Short Talk 246",
+        "topic": "New Managerial Benefits Overview",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-246-2024-10-29-23-10-14/0-short-talk-246.mp3"
+      },
+      {
+        "lessonId": 1784,
+        "slug": "short-talk-247.1784",
+        "name": "Short Talk 247",
+        "topic": "Restaurant Menu and Decor Updates",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-247-2024-10-29-23-10-26/0-short-talk-247.mp3"
+      },
+      {
+        "lessonId": 1785,
+        "slug": "short-talk-248.1785",
+        "name": "Short Talk 248",
+        "topic": "Community Book Drive Announcement",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-248-2024-10-29-23-10-38/0-short-talk-248.mp3"
+      },
+      {
+        "lessonId": 1786,
+        "slug": "short-talk-249.1786",
+        "name": "Short Talk 249",
+        "topic": "Store Closure and Coffee Bar",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-249-2024-10-29-23-10-50/0-short-talk-249.mp3"
+      },
+      {
+        "lessonId": 1787,
+        "slug": "short-talk-250.1787",
+        "name": "Short Talk 250",
+        "topic": "Meeting Rescheduled Notification",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-250-2024-10-29-23-11-05/0-short-talk-250.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 26,
+    "title": "Practice Test 26",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1792,
+        "slug": "conversation-251.1792",
+        "name": "Conversation 251",
+        "topic": "Hotel Check-In Dialogue",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-251-2024-11-03-20-03-37/0-conversation-251.mp3"
+      },
+      {
+        "lessonId": 1793,
+        "slug": "conversation-252.1793",
+        "name": "Conversation 252",
+        "topic": "Apartment Cleaning Quote Request",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-252-2024-11-03-20-03-57/0-conversation-252.mp3"
+      },
+      {
+        "lessonId": 1794,
+        "slug": "conversation-253.1794",
+        "name": "Conversation 253",
+        "topic": "Leather Bag Business Plans",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-253-2024-11-03-20-04-14/0-conversation-253.mp3"
+      },
+      {
+        "lessonId": 1795,
+        "slug": "conversation-254.1795",
+        "name": "Conversation 254",
+        "topic": "Brochure Event Location Error",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-254-2024-11-03-20-05-09/0-conversation-254.mp3"
+      },
+      {
+        "lessonId": 1796,
+        "slug": "conversation-255.1796",
+        "name": "Conversation 255",
+        "topic": "Preparing for Magazine Release",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-255-2024-11-03-20-05-25/0-conversation-255.mp3"
+      },
+      {
+        "lessonId": 1797,
+        "slug": "conversation-256.1797",
+        "name": "Conversation 256",
+        "topic": "Café Holiday Staffing Plan",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-256-2024-11-03-20-05-40/0-conversation-256.mp3"
+      },
+      {
+        "lessonId": 1798,
+        "slug": "conversation-257.1798",
+        "name": "Conversation 257",
+        "topic": "Historical Tour Ticket Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-257-2024-11-03-20-05-55/0-conversation-257.mp3"
+      },
+      {
+        "lessonId": 1799,
+        "slug": "conversation-258.1799",
+        "name": "Conversation 258",
+        "topic": "Café Interior Design Plans",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-258-2024-11-03-20-06-11/0-conversation-258.mp3"
+      },
+      {
+        "lessonId": 1800,
+        "slug": "conversation-259.1800",
+        "name": "Conversation 259",
+        "topic": "Camping Trip Packing Issues",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-259-2024-11-03-20-06-26/0-conversation-259.mp3"
+      },
+      {
+        "lessonId": 1801,
+        "slug": "conversation-260.1801",
+        "name": "Conversation 260",
+        "topic": "Urgent Printing Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-260-2024-11-03-20-06-41/0-conversation-260.mp3"
+      },
+      {
+        "lessonId": 1803,
+        "slug": "short-talk-251.1803",
+        "name": "Short Talk 251",
+        "topic": "Elena Novikov Piano Concert",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-251-2024-11-03-20-07-10/0-short-talk-251.mp3"
+      },
+      {
+        "lessonId": 1804,
+        "slug": "short-talk-252.1804",
+        "name": "Short Talk 252",
+        "topic": "Sustainable Home Gardening Seminar",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-252-2024-11-03-20-07-26/0-short-talk-252.mp3"
+      },
+      {
+        "lessonId": 1805,
+        "slug": "short-talk-253.1805",
+        "name": "Short Talk 253",
+        "topic": "Stellaris Observatory Reopening",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-253-2024-11-03-20-07-44/0-short-talk-253.mp3"
+      },
+      {
+        "lessonId": 1806,
+        "slug": "short-talk-254.1806",
+        "name": "Short Talk 254",
+        "topic": "Office Printer Replacement Update",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-254-2024-11-03-20-07-57/0-short-talk-254.mp3"
+      },
+      {
+        "lessonId": 1807,
+        "slug": "short-talk-255.1807",
+        "name": "Short Talk 255",
+        "topic": "Harmony Hall Booking Unavailable",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-255-2024-11-03-20-08-16/0-short-talk-255.mp3"
+      },
+      {
+        "lessonId": 1808,
+        "slug": "short-talk-256.1808",
+        "name": "Short Talk 256",
+        "topic": "City Improvements and Election Update",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-256-2024-11-03-20-08-28/0-short-talk-256.mp3"
+      },
+      {
+        "lessonId": 1809,
+        "slug": "short-talk-257.1809",
+        "name": "Short Talk 257",
+        "topic": "Custom Mug Order Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 6,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-257-2024-11-03-20-08-42/0-short-talk-257.mp3"
+      },
+      {
+        "lessonId": 1810,
+        "slug": "short-talk-258.1810",
+        "name": "Short Talk 258",
+        "topic": "Team Retreat Venue Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-258-2024-11-03-20-09-00/0-short-talk-258.mp3"
+      },
+      {
+        "lessonId": 1811,
+        "slug": "short-talk-259.1811",
+        "name": "Short Talk 259",
+        "topic": "Chicago Book Fair Highlights",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-259-2024-11-03-20-09-14/0-short-talk-259.mp3"
+      },
+      {
+        "lessonId": 1812,
+        "slug": "short-talk-260.1812",
+        "name": "Short Talk 260",
+        "topic": "Fall Festival Venue Change",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-260-2024-11-03-20-09-27/0-short-talk-260.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 27,
+    "title": "Practice Test 27",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1815,
+        "slug": "conversation-261.1815",
+        "name": "Conversation 261",
+        "topic": "Tree Trimming Rescheduling",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-261-2024-11-07-15-27-38/0-conversation-261.mp3"
+      },
+      {
+        "lessonId": 1816,
+        "slug": "conversation-262.1816",
+        "name": "Conversation 262",
+        "topic": "Coffee Maker Not Working",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-262-2024-11-07-15-27-51/0-conversation-262.mp3"
+      },
+      {
+        "lessonId": 1817,
+        "slug": "conversation-263.1817",
+        "name": "Conversation 263",
+        "topic": "Missing Reservation Issue",
+        "vocabLevel": "B1",
+        "partsCount": 18,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-263-2024-11-07-15-28-07/0-conversation-263.mp3"
+      },
+      {
+        "lessonId": 1818,
+        "slug": "conversation-264.1818",
+        "name": "Conversation 264",
+        "topic": "Global Tech Market Analysis",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-264-2024-11-07-15-28-19/0-conversation-264.mp3"
+      },
+      {
+        "lessonId": 1819,
+        "slug": "conversation-265.1819",
+        "name": "Conversation 265",
+        "topic": "Graphic Designer Application Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-265-2024-11-07-15-28-34/0-conversation-265.mp3"
+      },
+      {
+        "lessonId": 1820,
+        "slug": "conversation-266.1820",
+        "name": "Conversation 266",
+        "topic": "Phone Case Exchange Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-266-2024-11-07-15-28-50/0-conversation-266.mp3"
+      },
+      {
+        "lessonId": 1821,
+        "slug": "conversation-267.1821",
+        "name": "Conversation 267",
+        "topic": "Briefing Priority for Delegation",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-267-2024-11-07-15-29-06/0-conversation-267.mp3"
+      },
+      {
+        "lessonId": 1822,
+        "slug": "conversation-268.1822",
+        "name": "Conversation 268",
+        "topic": "Pants Alteration Discussion",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-268-2024-11-07-15-29-23/0-conversation-268.mp3"
+      },
+      {
+        "lessonId": 1823,
+        "slug": "conversation-269.1823",
+        "name": "Conversation 269",
+        "topic": "Floral Design Meeting Request",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-269-2024-11-07-15-29-37/0-conversation-269.mp3"
+      },
+      {
+        "lessonId": 1824,
+        "slug": "conversation-270.1824",
+        "name": "Conversation 270",
+        "topic": "Refrigerator Purchase Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-270-2024-11-07-15-29-51/0-conversation-270.mp3"
+      },
+      {
+        "lessonId": 1825,
+        "slug": "short-talk-261.1825",
+        "name": "Short Talk 261",
+        "topic": "Riverstone Museum Visitor Guide",
+        "vocabLevel": "B1",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-261-2024-11-07-15-30-11/0-short-talk-261.mp3"
+      },
+      {
+        "lessonId": 1826,
+        "slug": "short-talk-262.1826",
+        "name": "Short Talk 262",
+        "topic": "Marketing Campaign Launch Update",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-262-2024-11-07-15-30-23/0-short-talk-262.mp3"
+      },
+      {
+        "lessonId": 1827,
+        "slug": "short-talk-263.1827",
+        "name": "Short Talk 263",
+        "topic": "Entry Garden Redesign Proposal",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-263-2024-11-07-15-30-41/0-short-talk-263.mp3"
+      },
+      {
+        "lessonId": 1828,
+        "slug": "short-talk-264.1828",
+        "name": "Short Talk 264",
+        "topic": "Green Valley Environmental Conference",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-264-2024-11-07-15-30-57/0-short-talk-264.mp3"
+      },
+      {
+        "lessonId": 1829,
+        "slug": "short-talk-265.1829",
+        "name": "Short Talk 265",
+        "topic": "Safety Updates and Reminders",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-265-2024-11-07-15-31-10/0-short-talk-265.mp3"
+      },
+      {
+        "lessonId": 1830,
+        "slug": "short-talk-266.1830",
+        "name": "Short Talk 266",
+        "topic": "Galaxy Note X Feedback",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-266-2024-11-07-15-31-23/0-short-talk-266.mp3"
+      },
+      {
+        "lessonId": 1831,
+        "slug": "short-talk-267.1831",
+        "name": "Short Talk 267",
+        "topic": "Better Deals Warehouse Offers",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-267-2024-11-07-15-31-38/0-short-talk-267.mp3"
+      },
+      {
+        "lessonId": 1832,
+        "slug": "short-talk-268.1832",
+        "name": "Short Talk 268",
+        "topic": "Queensland Tourism Campaign Planning",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-268-2024-11-07-15-31-52/0-short-talk-268.mp3"
+      },
+      {
+        "lessonId": 1833,
+        "slug": "short-talk-269.1833",
+        "name": "Short Talk 269",
+        "topic": "TaskMaster Pro Beta Launch",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-269-2024-11-07-15-32-04/0-short-talk-269.mp3"
+      },
+      {
+        "lessonId": 1834,
+        "slug": "short-talk-270.1834",
+        "name": "Short Talk 270",
+        "topic": "Order Amendment Request",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-270-2024-11-07-15-32-17/0-short-talk-270.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 28,
+    "title": "Practice Test 28",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1837,
+        "slug": "conversation-271.1837",
+        "name": "Conversation 271",
+        "topic": "Rental Car Return Process",
+        "vocabLevel": "B1",
+        "partsCount": 17,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-271-2024-11-10-11-18-26/0-conversation-271.mp3"
+      },
+      {
+        "lessonId": 1838,
+        "slug": "conversation-272.1838",
+        "name": "Conversation 272",
+        "topic": "Art Exhibition Review",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-272-2024-11-10-11-18-43/0-conversation-272.mp3"
+      },
+      {
+        "lessonId": 1839,
+        "slug": "conversation-273.1839",
+        "name": "Conversation 273",
+        "topic": "Knee Pain from Work",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-273-2024-11-10-11-19-03/0-conversation-273.mp3"
+      },
+      {
+        "lessonId": 1840,
+        "slug": "conversation-274.1840",
+        "name": "Conversation 274",
+        "topic": "Art Gallery Feature Success",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-274-2024-11-10-11-19-53/0-conversation-274.mp3"
+      },
+      {
+        "lessonId": 1841,
+        "slug": "conversation-275.1841",
+        "name": "Conversation 275",
+        "topic": "Considering Office Relocation",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-275-2024-11-10-11-20-49/0-conversation-275.mp3"
+      },
+      {
+        "lessonId": 1842,
+        "slug": "conversation-276.1842",
+        "name": "Conversation 276",
+        "topic": "Signing Up for Coding Workshop",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-276-2024-11-10-11-21-09/0-conversation-276.mp3"
+      },
+      {
+        "lessonId": 1843,
+        "slug": "conversation-277.1843",
+        "name": "Conversation 277",
+        "topic": "Website Promotion Placement Discussion",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-277-2024-11-10-11-21-24/0-conversation-277.mp3"
+      },
+      {
+        "lessonId": 1844,
+        "slug": "conversation-278.1844",
+        "name": "Conversation 278",
+        "topic": "Order Address Correction Call",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-278-2024-11-10-11-21-40/0-conversation-278.mp3"
+      },
+      {
+        "lessonId": 1845,
+        "slug": "conversation-279.1845",
+        "name": "Conversation 279",
+        "topic": "Theater Entry Conversation",
+        "vocabLevel": "A2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-279-2024-11-10-11-21-57/0-conversation-279.mp3"
+      },
+      {
+        "lessonId": 1846,
+        "slug": "conversation-280.1846",
+        "name": "Conversation 280",
+        "topic": "Designer Role Recruitment Struggles",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-280-2024-11-10-11-22-25/0-conversation-280.mp3"
+      },
+      {
+        "lessonId": 1847,
+        "slug": "short-talk-271.1847",
+        "name": "Short Talk 271",
+        "topic": "Presentation Feedback and Schedule Request",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-271-2024-11-10-11-22-46/0-short-talk-271.mp3"
+      },
+      {
+        "lessonId": 1848,
+        "slug": "short-talk-272.1848",
+        "name": "Short Talk 272",
+        "topic": "HomeGuard Elite Presentation",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-272-2024-11-10-11-23-03/0-short-talk-272.mp3"
+      },
+      {
+        "lessonId": 1849,
+        "slug": "short-talk-273.1849",
+        "name": "Short Talk 273",
+        "topic": "Crystal Lake Lots for Sale",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-273-2024-11-10-11-23-16/0-short-talk-273.mp3"
+      },
+      {
+        "lessonId": 1850,
+        "slug": "short-talk-274.1850",
+        "name": "Short Talk 274",
+        "topic": "Volunteer Welcome Orientation",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-274-2024-11-10-11-23-36/0-short-talk-274.mp3"
+      },
+      {
+        "lessonId": 1851,
+        "slug": "short-talk-275.1851",
+        "name": "Short Talk 275",
+        "topic": "Leave Restrictions Next Wednesday",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-275-2024-11-10-11-23-51/0-short-talk-275.mp3"
+      },
+      {
+        "lessonId": 1852,
+        "slug": "short-talk-276.1852",
+        "name": "Short Talk 276",
+        "topic": "Mentorship Program for Management",
+        "vocabLevel": "B2",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-276-2024-11-10-11-24-04/0-short-talk-276.mp3"
+      },
+      {
+        "lessonId": 1853,
+        "slug": "short-talk-277.1853",
+        "name": "Short Talk 277",
+        "topic": "Interview with Dr. James Franklin",
+        "vocabLevel": "C1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-277-2024-11-10-11-24-18/0-short-talk-277.mp3"
+      },
+      {
+        "lessonId": 1854,
+        "slug": "short-talk-278.1854",
+        "name": "Short Talk 278",
+        "topic": "Airport Boarding and Delay Announcement",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-278-2024-11-10-11-24-43/0-short-talk-278.mp3"
+      },
+      {
+        "lessonId": 1855,
+        "slug": "short-talk-279.1855",
+        "name": "Short Talk 279",
+        "topic": "Nashville Road Closures Planned",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-279-2024-11-10-11-25-01/0-short-talk-279.mp3"
+      },
+      {
+        "lessonId": 1856,
+        "slug": "short-talk-280.1856",
+        "name": "Short Talk 280",
+        "topic": "Volleyball Event Scheduling Suggestion",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-280-2024-11-10-11-25-13/0-short-talk-280.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 29,
+    "title": "Practice Test 29",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1857,
+        "slug": "conversation-281.1857",
+        "name": "Conversation 281",
+        "topic": "Poster Design Contact Inquiry",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-281-2024-11-14-11-55-50/0-conversation-281.mp3"
+      },
+      {
+        "lessonId": 1858,
+        "slug": "conversation-282.1858",
+        "name": "Conversation 282",
+        "topic": "Glassware Set Exchange Request",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-282-2024-11-14-11-56-08/0-conversation-282.mp3"
+      },
+      {
+        "lessonId": 1859,
+        "slug": "conversation-283.1859",
+        "name": "Conversation 283",
+        "topic": "Delayed Appetizers Conversation",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-283-2024-11-14-11-56-25/0-conversation-283.mp3"
+      },
+      {
+        "lessonId": 1860,
+        "slug": "conversation-284.1860",
+        "name": "Conversation 284",
+        "topic": "Screenplay Acceptance Call",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-284-2024-11-14-11-56-43/0-conversation-284.mp3"
+      },
+      {
+        "lessonId": 1861,
+        "slug": "conversation-285.1861",
+        "name": "Conversation 285",
+        "topic": "Concert Invitation Change",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-285-2024-11-14-11-56-59/0-conversation-285.mp3"
+      },
+      {
+        "lessonId": 1862,
+        "slug": "conversation-286.1862",
+        "name": "Conversation 286",
+        "topic": "Request to Reschedule Day Off",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-286-2024-11-14-11-57-17/0-conversation-286.mp3"
+      },
+      {
+        "lessonId": 1863,
+        "slug": "conversation-287.1863",
+        "name": "Conversation 287",
+        "topic": "Finding Storage for Shipment",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-287-2024-11-14-11-57-35/0-conversation-287.mp3"
+      },
+      {
+        "lessonId": 1864,
+        "slug": "conversation-288.1864",
+        "name": "Conversation 288",
+        "topic": "Debit Card Replacement Request",
+        "vocabLevel": "B1",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-288-2024-11-14-11-57-49/0-conversation-288.mp3"
+      },
+      {
+        "lessonId": 1865,
+        "slug": "conversation-289.1865",
+        "name": "Conversation 289",
+        "topic": "Campaign Feedback and Suggestions",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-289-2024-11-14-11-58-08/0-conversation-289.mp3"
+      },
+      {
+        "lessonId": 1866,
+        "slug": "conversation-290.1866",
+        "name": "Conversation 290",
+        "topic": "Conference Preparation Updates",
+        "vocabLevel": "B2",
+        "partsCount": 14,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-290-2024-11-14-11-58-24/0-conversation-290.mp3"
+      },
+      {
+        "lessonId": 1867,
+        "slug": "short-talk-281.1867",
+        "name": "Short Talk 281",
+        "topic": "Author&#039;s Reading and Q&amp;A",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-281-2024-11-14-11-58-47/0-short-talk-281.mp3"
+      },
+      {
+        "lessonId": 1868,
+        "slug": "short-talk-282.1868",
+        "name": "Short Talk 282",
+        "topic": "Flower Shop Promotion",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-282-2024-11-14-11-58-59/0-short-talk-282.mp3"
+      },
+      {
+        "lessonId": 1869,
+        "slug": "short-talk-283.1869",
+        "name": "Short Talk 283",
+        "topic": "Art Fair Stall Acceptance",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-283-2024-11-14-11-59-10/0-short-talk-283.mp3"
+      },
+      {
+        "lessonId": 1870,
+        "slug": "short-talk-284.1870",
+        "name": "Short Talk 284",
+        "topic": "Seattle Pauses Bike Lane Project",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-284-2024-11-14-11-59-25/0-short-talk-284.mp3"
+      },
+      {
+        "lessonId": 1871,
+        "slug": "short-talk-285.1871",
+        "name": "Short Talk 285",
+        "topic": "IT Staffing Solutions",
+        "vocabLevel": "C1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-285-2024-11-14-11-59-43/0-short-talk-285.mp3"
+      },
+      {
+        "lessonId": 1872,
+        "slug": "short-talk-286.1872",
+        "name": "Short Talk 286",
+        "topic": "NovaTech Solutions Brand Launch",
+        "vocabLevel": "B2",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-286-2024-11-14-11-59-55/0-short-talk-286.mp3"
+      },
+      {
+        "lessonId": 1873,
+        "slug": "short-talk-287.1873",
+        "name": "Short Talk 287",
+        "topic": "Sakura Pavilion Overview",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-287-2024-11-14-12-00-07/0-short-talk-287.mp3"
+      },
+      {
+        "lessonId": 1874,
+        "slug": "short-talk-288.1874",
+        "name": "Short Talk 288",
+        "topic": "Science Fiction Casting Offer",
+        "vocabLevel": "B2",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-288-2024-11-14-12-00-26/0-short-talk-288.mp3"
+      },
+      {
+        "lessonId": 1875,
+        "slug": "short-talk-289.1875",
+        "name": "Short Talk 289",
+        "topic": "Community Health Expo Update",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-289-2024-11-14-12-00-39/0-short-talk-289.mp3"
+      },
+      {
+        "lessonId": 1876,
+        "slug": "short-talk-290.1876",
+        "name": "Short Talk 290",
+        "topic": "Incorrect Restaurant Charge Inquiry",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-290-2024-11-14-12-00-52/0-short-talk-290.mp3"
+      }
+    ]
+  },
+  {
+    "testNum": 30,
+    "title": "Practice Test 30",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "lessonId": 1878,
+        "slug": "conversation-291.1878",
+        "name": "Conversation 291",
+        "topic": "Violin Rental Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-291-2024-11-20-22-15-52/0-conversation-291.mp3"
+      },
+      {
+        "lessonId": 1879,
+        "slug": "conversation-292.1879",
+        "name": "Conversation 292",
+        "topic": "Successful Fitness Tracker Launch",
+        "vocabLevel": "B2",
+        "partsCount": 8,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-292-2024-11-20-22-16-05/0-conversation-292.mp3"
+      },
+      {
+        "lessonId": 1880,
+        "slug": "conversation-293.1880",
+        "name": "Conversation 293",
+        "topic": "Fitness Guide Printing Issue",
+        "vocabLevel": "B2",
+        "partsCount": 15,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-293-2024-11-20-22-16-17/0-conversation-293.mp3"
+      },
+      {
+        "lessonId": 1881,
+        "slug": "conversation-294.1881",
+        "name": "Conversation 294",
+        "topic": "Charity Gala Venue Change",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-294-2024-11-20-22-16-28/0-conversation-294.mp3"
+      },
+      {
+        "lessonId": 1882,
+        "slug": "conversation-295.1882",
+        "name": "Conversation 295",
+        "topic": "Commuting Troubles and Solutions",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-295-2024-11-20-22-16-41/0-conversation-295.mp3"
+      },
+      {
+        "lessonId": 1883,
+        "slug": "conversation-296.1883",
+        "name": "Conversation 296",
+        "topic": "Mountain Gear Fest Inquiry",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-296-2024-11-20-22-16-54/0-conversation-296.mp3"
+      },
+      {
+        "lessonId": 1884,
+        "slug": "conversation-297.1884",
+        "name": "Conversation 297",
+        "topic": "Tokyo Trip Disappointments",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-297-2024-11-20-22-17-07/0-conversation-297.mp3"
+      },
+      {
+        "lessonId": 1885,
+        "slug": "conversation-298.1885",
+        "name": "Conversation 298",
+        "topic": "Dr. Elliott Session Recording",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-298-2024-11-20-22-17-23/0-conversation-298.mp3"
+      },
+      {
+        "lessonId": 1886,
+        "slug": "conversation-299.1886",
+        "name": "Conversation 299",
+        "topic": "Preparing for Koala Arrival",
+        "vocabLevel": "B1",
+        "partsCount": 12,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-299-2024-11-20-22-17-36/0-conversation-299.mp3"
+      },
+      {
+        "lessonId": 1887,
+        "slug": "conversation-300.1887",
+        "name": "Conversation 300",
+        "topic": "Scheduling a Cleaning Estimate",
+        "vocabLevel": "B1",
+        "partsCount": 16,
+        "audioSrc": "https://dailydictation.com/upload/toeic/conversation-300-2024-11-20-22-17-54/0-conversation-300.mp3"
+      },
+      {
+        "lessonId": 1888,
+        "slug": "short-talk-291.1888",
+        "name": "Short Talk 291",
+        "topic": "Greenfield Arts Festival",
+        "vocabLevel": "B1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-291-2024-11-20-22-52-16/0-short-talk-291.mp3"
+      },
+      {
+        "lessonId": 1889,
+        "slug": "short-talk-292.1889",
+        "name": "Short Talk 292",
+        "topic": "Enfield Festival News Update",
+        "vocabLevel": "B2",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-292-2024-11-20-22-52-47/0-short-talk-292.mp3"
+      },
+      {
+        "lessonId": 1890,
+        "slug": "short-talk-293.1890",
+        "name": "Short Talk 293",
+        "topic": "Pacific Conservation Reserve Tour",
+        "vocabLevel": "B1",
+        "partsCount": 13,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-293-2024-11-20-22-53-03/0-short-talk-293.mp3"
+      },
+      {
+        "lessonId": 1891,
+        "slug": "short-talk-294.1891",
+        "name": "Short Talk 294",
+        "topic": "Rooftop Garden Grand Opening",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-294-2024-11-20-22-53-18/0-short-talk-294.mp3"
+      },
+      {
+        "lessonId": 1892,
+        "slug": "short-talk-295.1892",
+        "name": "Short Talk 295",
+        "topic": "Conference Attendance Approval",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-295-2024-11-20-22-53-35/0-short-talk-295.mp3"
+      },
+      {
+        "lessonId": 1893,
+        "slug": "short-talk-296.1893",
+        "name": "Short Talk 296",
+        "topic": "Hawthorne Innovation Forum Opening",
+        "vocabLevel": "C1",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-296-2024-11-20-22-53-54/0-short-talk-296.mp3"
+      },
+      {
+        "lessonId": 1894,
+        "slug": "short-talk-297.1894",
+        "name": "Short Talk 297",
+        "topic": "Last-Minute London Flight Options",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-297-2024-11-20-22-54-06/0-short-talk-297.mp3"
+      },
+      {
+        "lessonId": 1895,
+        "slug": "short-talk-298.1895",
+        "name": "Short Talk 298",
+        "topic": "Los Angeles Tree Planting Event",
+        "vocabLevel": "B1",
+        "partsCount": 11,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-298-2024-11-20-22-54-22/0-short-talk-298.mp3"
+      },
+      {
+        "lessonId": 1896,
+        "slug": "short-talk-299.1896",
+        "name": "Short Talk 299",
+        "topic": "Aero Smartwatch Sales Success",
+        "vocabLevel": "B2",
+        "partsCount": 9,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-299-2024-11-20-22-54-34/0-short-talk-299.mp3"
+      },
+      {
+        "lessonId": 1897,
+        "slug": "short-talk-300.1897",
+        "name": "Short Talk 300",
+        "topic": "Oakwood Weather and Sports",
+        "vocabLevel": "B1",
+        "partsCount": 10,
+        "audioSrc": "https://dailydictation.com/upload/toeic/short-talk-300-2024-11-20-22-54-48/0-short-talk-300.mp3"
+      }
+    ]
+  }
+];
+    
+    // Cache bài học chi tiết theo testNum: { [testNum]: testData }
+    const testDetailsCache = {};
+
+    window.DailyDictationDatabase = {
+        summary: TOEIC_DICTATION_SUMMARY,
+        testsCache: testDetailsCache,
+
+        getSummary() {
+            return TOEIC_DICTATION_SUMMARY;
+        },
+
+        getTestSummary(testNum) {
+            return TOEIC_DICTATION_SUMMARY.find(t => t.testNum === testNum);
+        },
+
+        async loadTest(testNum) {
+            const num = parseInt(testNum, 10);
+            if (testDetailsCache[num]) {
+                return testDetailsCache[num];
+            }
+            try {
+                const padNum = String(num).padStart(2, '0');
+                const resp = await fetch('data/dailydictation/test_' + padNum + '.json?v=' + Date.now());
+                if (!resp.ok) throw new Error('Failed to fetch test ' + padNum);
+                const data = await resp.json();
+                testDetailsCache[num] = data;
+                return data;
+            } catch (err) {
+                console.error('DailyDictationDatabase.loadTest error:', err);
+                return null;
+            }
+        },
+
+        async getLesson(testNum, lessonIndexOrSlug) {
+            const test = await this.loadTest(testNum);
+            if (!test || !test.lessons) return null;
+            if (typeof lessonIndexOrSlug === 'number' && lessonIndexOrSlug < test.lessons.length) {
+                return test.lessons[lessonIndexOrSlug];
+            }
+            return test.lessons.find(l => l.slug === lessonIndexOrSlug || l.lessonId === lessonIndexOrSlug) || test.lessons[0];
+        }
+    };
+
+})(typeof window !== 'undefined' ? window : global);

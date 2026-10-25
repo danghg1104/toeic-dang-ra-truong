@@ -1,0 +1,5012 @@
+[
+  {
+    "testNum": 1,
+    "title": "Practice Test 1",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-1.1481/listen-and-type",
+        "slug": "conversation-1.1481",
+        "name": "Conversation 1",
+        "topic": "Office Copier Breakdown",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-2.1037/listen-and-type",
+        "slug": "conversation-2.1037",
+        "name": "Conversation 2",
+        "topic": "Production Manager Transition Plans",
+        "parts": 19,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-3.1482/listen-and-type",
+        "slug": "conversation-3.1482",
+        "name": "Conversation 3",
+        "topic": "Dropping Off Documents",
+        "parts": 13,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-4.1483/listen-and-type",
+        "slug": "conversation-4.1483",
+        "name": "Conversation 4",
+        "topic": "Dental Claim Status Inquiry",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-5.1043/listen-and-type",
+        "slug": "conversation-5.1043",
+        "name": "Conversation 5",
+        "topic": "Delayed Computer Delivery Call",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-6.1484/listen-and-type",
+        "slug": "conversation-6.1484",
+        "name": "Conversation 6",
+        "topic": "Airport Check-in Frustrations",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-7.1047/listen-and-type",
+        "slug": "conversation-7.1047",
+        "name": "Conversation 7",
+        "topic": "Minimalist Design Workshop Invitation",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-8.1485/listen-and-type",
+        "slug": "conversation-8.1485",
+        "name": "Conversation 8",
+        "topic": "Request for Earlier Appointment",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-9.1486/listen-and-type",
+        "slug": "conversation-9.1486",
+        "name": "Conversation 9",
+        "topic": "Returning Tight Shoes",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-10.1052/listen-and-type",
+        "slug": "conversation-10.1052",
+        "name": "Conversation 10",
+        "topic": "Rental Car Damage Inquiry",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-1.1036/listen-and-type",
+        "slug": "short-talk-1.1036",
+        "name": "Short Talk 1",
+        "topic": "Snowstorm Traffic Update",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-2.1487/listen-and-type",
+        "slug": "short-talk-2.1487",
+        "name": "Short Talk 2",
+        "topic": "Country Fair Raffle Event",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-3.1491/listen-and-type",
+        "slug": "short-talk-3.1491",
+        "name": "Short Talk 3",
+        "topic": "Introducing the L-Shaped Sofa",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-4.1042/listen-and-type",
+        "slug": "short-talk-4.1042",
+        "name": "Short Talk 4",
+        "topic": "Dentist Appointment Reminder",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-5.1044/listen-and-type",
+        "slug": "short-talk-5.1044",
+        "name": "Short Talk 5",
+        "topic": "Fitness Expo Agenda Update",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-6.1046/listen-and-type",
+        "slug": "short-talk-6.1046",
+        "name": "Short Talk 6",
+        "topic": "User Experience Conference Opening",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-7.1048/listen-and-type",
+        "slug": "short-talk-7.1048",
+        "name": "Short Talk 7",
+        "topic": "National Portrait Gallery Tour",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-8.1050/listen-and-type",
+        "slug": "short-talk-8.1050",
+        "name": "Short Talk 8",
+        "topic": "Plumbing Issues Discovered",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-9.1492/listen-and-type",
+        "slug": "short-talk-9.1492",
+        "name": "Short Talk 9",
+        "topic": "Family Marketing Success at Cheshire",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-10.1054/listen-and-type",
+        "slug": "short-talk-10.1054",
+        "name": "Short Talk 10",
+        "topic": "Missing Receipt Reminder",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 2,
+    "title": "Practice Test 2",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-11.1055/listen-and-type",
+        "slug": "conversation-11.1055",
+        "name": "Conversation 11",
+        "topic": "Restaurant Reservation Call",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-12.1493/listen-and-type",
+        "slug": "conversation-12.1493",
+        "name": "Conversation 12",
+        "topic": "Paul Woodward Book Inquiry",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-13.1057/listen-and-type",
+        "slug": "conversation-13.1057",
+        "name": "Conversation 13",
+        "topic": "Store Sales Improvement Suggestions",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-14.1058/listen-and-type",
+        "slug": "conversation-14.1058",
+        "name": "Conversation 14",
+        "topic": "Copywriter Interview Invitation",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-15.1059/listen-and-type",
+        "slug": "conversation-15.1059",
+        "name": "Conversation 15",
+        "topic": "WiFi Connection Troubles",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-16.1060/listen-and-type",
+        "slug": "conversation-16.1060",
+        "name": "Conversation 16",
+        "topic": "Office Expansion Progress",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-17.1061/listen-and-type",
+        "slug": "conversation-17.1061",
+        "name": "Conversation 17",
+        "topic": "Albert Park Condo Presale",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-18.1062/listen-and-type",
+        "slug": "conversation-18.1062",
+        "name": "Conversation 18",
+        "topic": "SuperPad 4 Battery Issue",
+        "parts": 16,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-19.1063/listen-and-type",
+        "slug": "conversation-19.1063",
+        "name": "Conversation 19",
+        "topic": "Mascara Labeling Concerns",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-20.1064/listen-and-type",
+        "slug": "conversation-20.1064",
+        "name": "Conversation 20",
+        "topic": "Year-End Sale Discount Inquiry",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-11.1065/listen-and-type",
+        "slug": "short-talk-11.1065",
+        "name": "Short Talk 11",
+        "topic": "Fruit Bouquet Delivery Confirmation",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-12.1066/listen-and-type",
+        "slug": "short-talk-12.1066",
+        "name": "Short Talk 12",
+        "topic": "Winter Tour Job Opportunity",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-13.1067/listen-and-type",
+        "slug": "short-talk-13.1067",
+        "name": "Short Talk 13",
+        "topic": "Flight Announcement to Singapore",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-14.1068/listen-and-type",
+        "slug": "short-talk-14.1068",
+        "name": "Short Talk 14",
+        "topic": "Communications Technology Conference",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-15.1069/listen-and-type",
+        "slug": "short-talk-15.1069",
+        "name": "Short Talk 15",
+        "topic": "Weather and Local Updates",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-16.1070/listen-and-type",
+        "slug": "short-talk-16.1070",
+        "name": "Short Talk 16",
+        "topic": "Out of Office Notice",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-17.1071/listen-and-type",
+        "slug": "short-talk-17.1071",
+        "name": "Short Talk 17",
+        "topic": "Conference Schedule Updates",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-18.1072/listen-and-type",
+        "slug": "short-talk-18.1072",
+        "name": "Short Talk 18",
+        "topic": "Managing University Application Stress",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-19.1073/listen-and-type",
+        "slug": "short-talk-19.1073",
+        "name": "Short Talk 19",
+        "topic": "Chicago Marathon Road Closures",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-20.1074/listen-and-type",
+        "slug": "short-talk-20.1074",
+        "name": "Short Talk 20",
+        "topic": "Sales and Social Media Update",
+        "parts": 13,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 3,
+    "title": "Practice Test 3",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-21.1075/listen-and-type",
+        "slug": "conversation-21.1075",
+        "name": "Conversation 21",
+        "topic": "Ordering Specialty Pizza Request",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-22.1076/listen-and-type",
+        "slug": "conversation-22.1076",
+        "name": "Conversation 22",
+        "topic": "Missing Expense Reports",
+        "parts": 21,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-23.1077/listen-and-type",
+        "slug": "conversation-23.1077",
+        "name": "Conversation 23",
+        "topic": "Job Offer and Start Date",
+        "parts": 22,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-24.1078/listen-and-type",
+        "slug": "conversation-24.1078",
+        "name": "Conversation 24",
+        "topic": "Jeans Line PR Agency Discussion",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-25.1079/listen-and-type",
+        "slug": "conversation-25.1079",
+        "name": "Conversation 25",
+        "topic": "Ordering a Budget Office Chair",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-26.1080/listen-and-type",
+        "slug": "conversation-26.1080",
+        "name": "Conversation 26",
+        "topic": "Booking Musical Tickets",
+        "parts": 22,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-27.1081/listen-and-type",
+        "slug": "conversation-27.1081",
+        "name": "Conversation 27",
+        "topic": "Student Receptionist Job Inquiry",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-28.1082/listen-and-type",
+        "slug": "conversation-28.1082",
+        "name": "Conversation 28",
+        "topic": "Marketing Conference Attendance Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-29.1083/listen-and-type",
+        "slug": "conversation-29.1083",
+        "name": "Conversation 29",
+        "topic": "Projector Issue on Third Floor",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-30.1084/listen-and-type",
+        "slug": "conversation-30.1084",
+        "name": "Conversation 30",
+        "topic": "Arranging a Home Mortgage",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-21.1085/listen-and-type",
+        "slug": "short-talk-21.1085",
+        "name": "Short Talk 21",
+        "topic": "Company Holiday Retreat Announcement",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-22.1086/listen-and-type",
+        "slug": "short-talk-22.1086",
+        "name": "Short Talk 22",
+        "topic": "Dishwasher Error and Service Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-23.1087/listen-and-type",
+        "slug": "short-talk-23.1087",
+        "name": "Short Talk 23",
+        "topic": "Welcome to Your Internship",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-24.1088/listen-and-type",
+        "slug": "short-talk-24.1088",
+        "name": "Short Talk 24",
+        "topic": "New Soccer Fields Announcement",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-25.1089/listen-and-type",
+        "slug": "short-talk-25.1089",
+        "name": "Short Talk 25",
+        "topic": "Manchester Rail Construction Notice",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-26.1090/listen-and-type",
+        "slug": "short-talk-26.1090",
+        "name": "Short Talk 26",
+        "topic": "Package Delivery Issue",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-27.1091/listen-and-type",
+        "slug": "short-talk-27.1091",
+        "name": "Short Talk 27",
+        "topic": "Cool Drops Eye Relief",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-28.1092/listen-and-type",
+        "slug": "short-talk-28.1092",
+        "name": "Short Talk 28",
+        "topic": "Juniper Hall Open House",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-29.1093/listen-and-type",
+        "slug": "short-talk-29.1093",
+        "name": "Short Talk 29",
+        "topic": "Customer Service Hiring Discussion",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-30.1094/listen-and-type",
+        "slug": "short-talk-30.1094",
+        "name": "Short Talk 30",
+        "topic": "Top Hotel Award Announcement",
+        "parts": 9,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 4,
+    "title": "Practice Test 4",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-31.1098/listen-and-type",
+        "slug": "conversation-31.1098",
+        "name": "Conversation 31",
+        "topic": "Declining Sales Discussion",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-32.1099/listen-and-type",
+        "slug": "conversation-32.1099",
+        "name": "Conversation 32",
+        "topic": "Reservation Change Request",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-33.1100/listen-and-type",
+        "slug": "conversation-33.1100",
+        "name": "Conversation 33",
+        "topic": "Doctor Appointment Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-34.1101/listen-and-type",
+        "slug": "conversation-34.1101",
+        "name": "Conversation 34",
+        "topic": "Stuck in Traffic Before Ceremony",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-35.1102/listen-and-type",
+        "slug": "conversation-35.1102",
+        "name": "Conversation 35",
+        "topic": "Refrigerator Delivery Inquiry",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-36.1103/listen-and-type",
+        "slug": "conversation-36.1103",
+        "name": "Conversation 36",
+        "topic": "Opening a Business Bank Account",
+        "parts": 23,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-37.1104/listen-and-type",
+        "slug": "conversation-37.1104",
+        "name": "Conversation 37",
+        "topic": "Company Acquisition Announcement",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-38.1105/listen-and-type",
+        "slug": "conversation-38.1105",
+        "name": "Conversation 38",
+        "topic": "Coffee Order Mix-Up",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-39.1106/listen-and-type",
+        "slug": "conversation-39.1106",
+        "name": "Conversation 39",
+        "topic": "Oil Change and Maintenance Request",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-40.1107/listen-and-type",
+        "slug": "conversation-40.1107",
+        "name": "Conversation 40",
+        "topic": "Message for Account Manager",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-31.1108/listen-and-type",
+        "slug": "short-talk-31.1108",
+        "name": "Short Talk 31",
+        "topic": "Slow Intranet Performance Complaint",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-32.1109/listen-and-type",
+        "slug": "short-talk-32.1109",
+        "name": "Short Talk 32",
+        "topic": "New Director Announcement",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-33.1110/listen-and-type",
+        "slug": "short-talk-33.1110",
+        "name": "Short Talk 33",
+        "topic": "Biannual Performance Review Summary",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-34.1111/listen-and-type",
+        "slug": "short-talk-34.1111",
+        "name": "Short Talk 34",
+        "topic": "Interview with Billy Hays",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-35.1112/listen-and-type",
+        "slug": "short-talk-35.1112",
+        "name": "Short Talk 35",
+        "topic": "Part-Time Job Offer",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-36.1113/listen-and-type",
+        "slug": "short-talk-36.1113",
+        "name": "Short Talk 36",
+        "topic": "Tornado Drill Announcement",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-37.1114/listen-and-type",
+        "slug": "short-talk-37.1114",
+        "name": "Short Talk 37",
+        "topic": "BankingBiz Annual Celebration",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-38.1115/listen-and-type",
+        "slug": "short-talk-38.1115",
+        "name": "Short Talk 38",
+        "topic": "Carrie&#039;s Computer Repair Services",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-39.1116/listen-and-type",
+        "slug": "short-talk-39.1116",
+        "name": "Short Talk 39",
+        "topic": "Quarterly Sales Meeting Summary",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-40.1117/listen-and-type",
+        "slug": "short-talk-40.1117",
+        "name": "Short Talk 40",
+        "topic": "Campus Tour Orientation",
+        "parts": 12,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 5,
+    "title": "Practice Test 5",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-41.1118/listen-and-type",
+        "slug": "conversation-41.1118",
+        "name": "Conversation 41",
+        "topic": "Hospital Referral Discussion",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-42.1119/listen-and-type",
+        "slug": "conversation-42.1119",
+        "name": "Conversation 42",
+        "topic": "Web Camera Audio Sync Issue",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-43.1120/listen-and-type",
+        "slug": "conversation-43.1120",
+        "name": "Conversation 43",
+        "topic": "Athens Living Cost Estimates",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-44.1122/listen-and-type",
+        "slug": "conversation-44.1122",
+        "name": "Conversation 44",
+        "topic": "Camera Shopping Discussion",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-45.1123/listen-and-type",
+        "slug": "conversation-45.1123",
+        "name": "Conversation 45",
+        "topic": "Cable Installation Frustration",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-46.1124/listen-and-type",
+        "slug": "conversation-46.1124",
+        "name": "Conversation 46",
+        "topic": "Dish Pod Marketing Advice",
+        "parts": 18,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-47.1125/listen-and-type",
+        "slug": "conversation-47.1125",
+        "name": "Conversation 47",
+        "topic": "Air Purifier Troubleshooting Call",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-48.1126/listen-and-type",
+        "slug": "conversation-48.1126",
+        "name": "Conversation 48",
+        "topic": "Office Phone Line Issue",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-49.1127/listen-and-type",
+        "slug": "conversation-49.1127",
+        "name": "Conversation 49",
+        "topic": "Rock Rose Concert Plans",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-50.1128/listen-and-type",
+        "slug": "conversation-50.1128",
+        "name": "Conversation 50",
+        "topic": "Finding a Conference Speaker",
+        "parts": 19,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-41.1129/listen-and-type",
+        "slug": "short-talk-41.1129",
+        "name": "Short Talk 41",
+        "topic": "Museum Visit Guidelines",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-42.1130/listen-and-type",
+        "slug": "short-talk-42.1130",
+        "name": "Short Talk 42",
+        "topic": "California Office Relocation Announcement",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-43.1131/listen-and-type",
+        "slug": "short-talk-43.1131",
+        "name": "Short Talk 43",
+        "topic": "Desk Order Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-44.1132/listen-and-type",
+        "slug": "short-talk-44.1132",
+        "name": "Short Talk 44",
+        "topic": "Olly Russells Radio Interview",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-45.1133/listen-and-type",
+        "slug": "short-talk-45.1133",
+        "name": "Short Talk 45",
+        "topic": "Jack Anders Retirement Tribute",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-46.1134/listen-and-type",
+        "slug": "short-talk-46.1134",
+        "name": "Short Talk 46",
+        "topic": "Voicemail Training Session",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-47.1135/listen-and-type",
+        "slug": "short-talk-47.1135",
+        "name": "Short Talk 47",
+        "topic": "Thank You and Invitation",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-48.1136/listen-and-type",
+        "slug": "short-talk-48.1136",
+        "name": "Short Talk 48",
+        "topic": "Bus 208 Departure Notice",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-49.1137/listen-and-type",
+        "slug": "short-talk-49.1137",
+        "name": "Short Talk 49",
+        "topic": "Dentist Appointment Reminder",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-50.1138/listen-and-type",
+        "slug": "short-talk-50.1138",
+        "name": "Short Talk 50",
+        "topic": "Giant Deals Autumn Sale",
+        "parts": 12,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 6,
+    "title": "Practice Test 6",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-51.1139/listen-and-type",
+        "slug": "conversation-51.1139",
+        "name": "Conversation 51",
+        "topic": "Group Interview Scheduling Conversation",
+        "parts": 24,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-52.1140/listen-and-type",
+        "slug": "conversation-52.1140",
+        "name": "Conversation 52",
+        "topic": "Airport Route Dilemma",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-53.1141/listen-and-type",
+        "slug": "conversation-53.1141",
+        "name": "Conversation 53",
+        "topic": "NYC Weekend Sightseeing Plans",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-54.1142/listen-and-type",
+        "slug": "conversation-54.1142",
+        "name": "Conversation 54",
+        "topic": "Shipping Quote to Rome",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-55.1143/listen-and-type",
+        "slug": "conversation-55.1143",
+        "name": "Conversation 55",
+        "topic": "Employee Evaluation Assistance",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-56.1144/listen-and-type",
+        "slug": "conversation-56.1144",
+        "name": "Conversation 56",
+        "topic": "Grape Price Impact Discussion",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-57.1145/listen-and-type",
+        "slug": "conversation-57.1145",
+        "name": "Conversation 57",
+        "topic": "Considering Solar Panels",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-58.1146/listen-and-type",
+        "slug": "conversation-58.1146",
+        "name": "Conversation 58",
+        "topic": "Book Exchange Policy",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-59.1147/listen-and-type",
+        "slug": "conversation-59.1147",
+        "name": "Conversation 59",
+        "topic": "Conference Schedule Change",
+        "parts": 17,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-60.1148/listen-and-type",
+        "slug": "conversation-60.1148",
+        "name": "Conversation 60",
+        "topic": "Looking for a Lateral Filing Cabinet",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-51.1149/listen-and-type",
+        "slug": "short-talk-51.1149",
+        "name": "Short Talk 51",
+        "topic": "Wilton Clinic Therapy Services",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-52.1150/listen-and-type",
+        "slug": "short-talk-52.1150",
+        "name": "Short Talk 52",
+        "topic": "Interview Coordination Request",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-53.1151/listen-and-type",
+        "slug": "short-talk-53.1151",
+        "name": "Short Talk 53",
+        "topic": "Lake District Train Delay",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-54.1152/listen-and-type",
+        "slug": "short-talk-54.1152",
+        "name": "Short Talk 54",
+        "topic": "Team Success and Rewards",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-55.1153/listen-and-type",
+        "slug": "short-talk-55.1153",
+        "name": "Short Talk 55",
+        "topic": "Major Tech Merger Announced",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-56.1154/listen-and-type",
+        "slug": "short-talk-56.1154",
+        "name": "Short Talk 56",
+        "topic": "Sponsor Appreciation Announcement",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-57.1155/listen-and-type",
+        "slug": "short-talk-57.1155",
+        "name": "Short Talk 57",
+        "topic": "Ebook Editing Request",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-58.1156/listen-and-type",
+        "slug": "short-talk-58.1156",
+        "name": "Short Talk 58",
+        "topic": "Office Software Training Session",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-59.1157/listen-and-type",
+        "slug": "short-talk-59.1157",
+        "name": "Short Talk 59",
+        "topic": "Semester Class Selection Guidelines",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-60.1158/listen-and-type",
+        "slug": "short-talk-60.1158",
+        "name": "Short Talk 60",
+        "topic": "Credit Card Approval Notification",
+        "parts": 8,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 7,
+    "title": "Practice Test 7",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-61.1159/listen-and-type",
+        "slug": "conversation-61.1159",
+        "name": "Conversation 61",
+        "topic": "Duplicate Charge Refund Inquiry",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-62.1160/listen-and-type",
+        "slug": "conversation-62.1160",
+        "name": "Conversation 62",
+        "topic": "Blender Return Request",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-63.1161/listen-and-type",
+        "slug": "conversation-63.1161",
+        "name": "Conversation 63",
+        "topic": "Sydney Office Manager Discussion",
+        "parts": 24,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-64.1162/listen-and-type",
+        "slug": "conversation-64.1162",
+        "name": "Conversation 64",
+        "topic": "Expense Report Meeting Request",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-65.1163/listen-and-type",
+        "slug": "conversation-65.1163",
+        "name": "Conversation 65",
+        "topic": "Car Repair Pickup Call",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-66.1164/listen-and-type",
+        "slug": "conversation-66.1164",
+        "name": "Conversation 66",
+        "topic": "Detroit Factory Inspection Trip",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-67.1165/listen-and-type",
+        "slug": "conversation-67.1165",
+        "name": "Conversation 67",
+        "topic": "Home Search in Birmingham",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-68.1166/listen-and-type",
+        "slug": "conversation-68.1166",
+        "name": "Conversation 68",
+        "topic": "Jill Johnson’s Retirement Party",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-69.1167/listen-and-type",
+        "slug": "conversation-69.1167",
+        "name": "Conversation 69",
+        "topic": "Fantasy Novel Inquiry",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-70.1168/listen-and-type",
+        "slug": "conversation-70.1168",
+        "name": "Conversation 70",
+        "topic": "Office Dress Code Complaint",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-61.1169/listen-and-type",
+        "slug": "short-talk-61.1169",
+        "name": "Short Talk 61",
+        "topic": "Shipment Arrival Notification",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-62.1170/listen-and-type",
+        "slug": "short-talk-62.1170",
+        "name": "Short Talk 62",
+        "topic": "Latin American Exhibit Opening",
+        "parts": 6,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-63.1171/listen-and-type",
+        "slug": "short-talk-63.1171",
+        "name": "Short Talk 63",
+        "topic": "TravelBox Travel Agency Offers",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-64.1172/listen-and-type",
+        "slug": "short-talk-64.1172",
+        "name": "Short Talk 64",
+        "topic": "Wilton Plans New Bus Lanes",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-65.1173/listen-and-type",
+        "slug": "short-talk-65.1173",
+        "name": "Short Talk 65",
+        "topic": "Senior Center Volunteer Request",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-66.1174/listen-and-type",
+        "slug": "short-talk-66.1174",
+        "name": "Short Talk 66",
+        "topic": "Warning About Packaging Issues",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-67.1175/listen-and-type",
+        "slug": "short-talk-67.1175",
+        "name": "Short Talk 67",
+        "topic": "Change of Moving Date",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-68.1176/listen-and-type",
+        "slug": "short-talk-68.1176",
+        "name": "Short Talk 68",
+        "topic": "Board Meeting Attendance Confirmation",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-69.1177/listen-and-type",
+        "slug": "short-talk-69.1177",
+        "name": "Short Talk 69",
+        "topic": "Performer Instructions Overview",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-70.1178/listen-and-type",
+        "slug": "short-talk-70.1178",
+        "name": "Short Talk 70",
+        "topic": "Flight Delay Due to Storm",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 8,
+    "title": "Practice Test 8",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-71.1180/listen-and-type",
+        "slug": "conversation-71.1180",
+        "name": "Conversation 71",
+        "topic": "Dry Cleaning Urgent Request",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-72.1181/listen-and-type",
+        "slug": "conversation-72.1181",
+        "name": "Conversation 72",
+        "topic": "Router Upgrade Appointment Mix-up",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-73.1182/listen-and-type",
+        "slug": "conversation-73.1182",
+        "name": "Conversation 73",
+        "topic": "Conference Room Computer Issue",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-74.1183/listen-and-type",
+        "slug": "conversation-74.1183",
+        "name": "Conversation 74",
+        "topic": "Coffee Machine Warranty Issue",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-75.1184/listen-and-type",
+        "slug": "conversation-75.1184",
+        "name": "Conversation 75",
+        "topic": "Discussing New Suppliers",
+        "parts": 19,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-76.1185/listen-and-type",
+        "slug": "conversation-76.1185",
+        "name": "Conversation 76",
+        "topic": "First-Class Travel Reimbursement",
+        "parts": 17,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-77.1186/listen-and-type",
+        "slug": "conversation-77.1186",
+        "name": "Conversation 77",
+        "topic": "Selecting the MVP",
+        "parts": 20,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-78.1187/listen-and-type",
+        "slug": "conversation-78.1187",
+        "name": "Conversation 78",
+        "topic": "Important Company Meeting Tomorrow",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-79.1188/listen-and-type",
+        "slug": "conversation-79.1188",
+        "name": "Conversation 79",
+        "topic": "Finding Replacement Event Speaker",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-80.1189/listen-and-type",
+        "slug": "conversation-80.1189",
+        "name": "Conversation 80",
+        "topic": "Accounting to Sales Request",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-71.1190/listen-and-type",
+        "slug": "short-talk-71.1190",
+        "name": "Short Talk 71",
+        "topic": "Recycle Your Old Electronics",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-72.1191/listen-and-type",
+        "slug": "short-talk-72.1191",
+        "name": "Short Talk 72",
+        "topic": "Lawler and Co Office Hours",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-73.1192/listen-and-type",
+        "slug": "short-talk-73.1192",
+        "name": "Short Talk 73",
+        "topic": "WestJet Flight Delay Announcement",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-74.1193/listen-and-type",
+        "slug": "short-talk-74.1193",
+        "name": "Short Talk 74",
+        "topic": "Rainier Mountain Welcome Speech",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-75.1194/listen-and-type",
+        "slug": "short-talk-75.1194",
+        "name": "Short Talk 75",
+        "topic": "Tax Owed and Filing Advice",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-76.1195/listen-and-type",
+        "slug": "short-talk-76.1195",
+        "name": "Short Talk 76",
+        "topic": "The Bamboo Orchestra Performance",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-77.1196/listen-and-type",
+        "slug": "short-talk-77.1196",
+        "name": "Short Talk 77",
+        "topic": "Office Relocation Announcement",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-78.1197/listen-and-type",
+        "slug": "short-talk-78.1197",
+        "name": "Short Talk 78",
+        "topic": "Sustainable Fashion Initiatives",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-79.1198/listen-and-type",
+        "slug": "short-talk-79.1198",
+        "name": "Short Talk 79",
+        "topic": "Home Renovation Show Casting",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-80.1199/listen-and-type",
+        "slug": "short-talk-80.1199",
+        "name": "Short Talk 80",
+        "topic": "Customer Survey Results Summary",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 9,
+    "title": "Practice Test 9",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-81.1200/listen-and-type",
+        "slug": "conversation-81.1200",
+        "name": "Conversation 81",
+        "topic": "Medical Records Transfer Delay",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-82.1201/listen-and-type",
+        "slug": "conversation-82.1201",
+        "name": "Conversation 82",
+        "topic": "Hotel Parking Assistance Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-83.1202/listen-and-type",
+        "slug": "conversation-83.1202",
+        "name": "Conversation 83",
+        "topic": "Anticipating Lauren Riggs&#039; Speech",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-84.1203/listen-and-type",
+        "slug": "conversation-84.1203",
+        "name": "Conversation 84",
+        "topic": "Ordering Branded Vacuum Flasks",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-85.1204/listen-and-type",
+        "slug": "conversation-85.1204",
+        "name": "Conversation 85",
+        "topic": "Production Deadline Concern",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-86.1205/listen-and-type",
+        "slug": "conversation-86.1205",
+        "name": "Conversation 86",
+        "topic": "Parcel Collection Request",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-87.1206/listen-and-type",
+        "slug": "conversation-87.1206",
+        "name": "Conversation 87",
+        "topic": "Choosing Stocks for Investment",
+        "parts": 20,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-88.1207/listen-and-type",
+        "slug": "conversation-88.1207",
+        "name": "Conversation 88",
+        "topic": "DSLR Camera Launch Meeting",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-89.1208/listen-and-type",
+        "slug": "conversation-89.1208",
+        "name": "Conversation 89",
+        "topic": "Grocery Store Checkout Conversation",
+        "parts": 14,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-90.1209/listen-and-type",
+        "slug": "conversation-90.1209",
+        "name": "Conversation 90",
+        "topic": "Company Meditation Event Announced",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-81.1210/listen-and-type",
+        "slug": "short-talk-81.1210",
+        "name": "Short Talk 81",
+        "topic": "Missing Trip Receipts",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-82.1211/listen-and-type",
+        "slug": "short-talk-82.1211",
+        "name": "Short Talk 82",
+        "topic": "Olympic Mountain Tour Guide",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-83.1212/listen-and-type",
+        "slug": "short-talk-83.1212",
+        "name": "Short Talk 83",
+        "topic": "Truck Repair Notification",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-84.1213/listen-and-type",
+        "slug": "short-talk-84.1213",
+        "name": "Short Talk 84",
+        "topic": "Farming Equipment Trade Show",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-85.1214/listen-and-type",
+        "slug": "short-talk-85.1214",
+        "name": "Short Talk 85",
+        "topic": "Beyond Meat Product Launch",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-86.1215/listen-and-type",
+        "slug": "short-talk-86.1215",
+        "name": "Short Talk 86",
+        "topic": "Memorial Day Golf Tournament",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-87.1216/listen-and-type",
+        "slug": "short-talk-87.1216",
+        "name": "Short Talk 87",
+        "topic": "Marketing Agency Award Announcement",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-88.1217/listen-and-type",
+        "slug": "short-talk-88.1217",
+        "name": "Short Talk 88",
+        "topic": "Birthday Party Venue Offer",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-89.1218/listen-and-type",
+        "slug": "short-talk-89.1218",
+        "name": "Short Talk 89",
+        "topic": "Customer Survey Meeting Summary",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-90-2.1609/listen-and-type",
+        "slug": "short-talk-90-2.1609",
+        "name": "Short Talk 90",
+        "topic": "Apex Electronics Ad Project",
+        "parts": 10,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 10,
+    "title": "Practice Test 10",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-91.1220/listen-and-type",
+        "slug": "conversation-91.1220",
+        "name": "Conversation 91",
+        "topic": "Internet Access Issue",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-92.1221/listen-and-type",
+        "slug": "conversation-92.1221",
+        "name": "Conversation 92",
+        "topic": "Grocery Store Feedback Survey",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-93.1222/listen-and-type",
+        "slug": "conversation-93.1222",
+        "name": "Conversation 93",
+        "topic": "New Employee Training Workshop",
+        "parts": 17,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-94.1223/listen-and-type",
+        "slug": "conversation-94.1223",
+        "name": "Conversation 94",
+        "topic": "Espresso Machine Recommendations",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-95.1224/listen-and-type",
+        "slug": "conversation-95.1224",
+        "name": "Conversation 95",
+        "topic": "Sweatshirt Size Inquiry",
+        "parts": 12,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-96.1225/listen-and-type",
+        "slug": "conversation-96.1225",
+        "name": "Conversation 96",
+        "topic": "Viral Restaurant Review Praised",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-97.1226/listen-and-type",
+        "slug": "conversation-97.1226",
+        "name": "Conversation 97",
+        "topic": "Office Shredder Troubles",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-98.1227/listen-and-type",
+        "slug": "conversation-98.1227",
+        "name": "Conversation 98",
+        "topic": "Architecture Firm Acquisition",
+        "parts": 16,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-99.1228/listen-and-type",
+        "slug": "conversation-99.1228",
+        "name": "Conversation 99",
+        "topic": "Order Change Fee Waiver",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-100.1229/listen-and-type",
+        "slug": "conversation-100.1229",
+        "name": "Conversation 100",
+        "topic": "Expedited Shipping Inquiry",
+        "parts": 20,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-91.1230/listen-and-type",
+        "slug": "short-talk-91.1230",
+        "name": "Short Talk 91",
+        "topic": "Blystone Manor Tour Introduction",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-92.1231/listen-and-type",
+        "slug": "short-talk-92.1231",
+        "name": "Short Talk 92",
+        "topic": "Apology for Missing Delivery",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-93.1232/listen-and-type",
+        "slug": "short-talk-93.1232",
+        "name": "Short Talk 93",
+        "topic": "New Bartender Introduction",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-94.1233/listen-and-type",
+        "slug": "short-talk-94.1233",
+        "name": "Short Talk 94",
+        "topic": "Conference Venue Options",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-95.1234/listen-and-type",
+        "slug": "short-talk-95.1234",
+        "name": "Short Talk 95",
+        "topic": "Oven Feedback and Improvements",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-96.1235/listen-and-type",
+        "slug": "short-talk-96.1235",
+        "name": "Short Talk 96",
+        "topic": "Sam Clark Interview",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-97.1236/listen-and-type",
+        "slug": "short-talk-97.1236",
+        "name": "Short Talk 97",
+        "topic": "Community Meal Kit Fundraising",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-98.1237/listen-and-type",
+        "slug": "short-talk-98.1237",
+        "name": "Short Talk 98",
+        "topic": "Yellowtown Food Festival",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-99.1238/listen-and-type",
+        "slug": "short-talk-99.1238",
+        "name": "Short Talk 99",
+        "topic": "Weekly Lemon Order Update",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-100.1239/listen-and-type",
+        "slug": "short-talk-100.1239",
+        "name": "Short Talk 100",
+        "topic": "Employee Review Announcement",
+        "parts": 11,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 11,
+    "title": "Practice Test 11",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-101.1240/listen-and-type",
+        "slug": "conversation-101.1240",
+        "name": "Conversation 101",
+        "topic": "Copywriter Interview Discussion",
+        "parts": 22,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-102.1241/listen-and-type",
+        "slug": "conversation-102.1241",
+        "name": "Conversation 102",
+        "topic": "Menu Photos Coordination",
+        "parts": 20,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-103.1242/listen-and-type",
+        "slug": "conversation-103.1242",
+        "name": "Conversation 103",
+        "topic": "Hotel Booking Confirmation Inquiry",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-104.1243/listen-and-type",
+        "slug": "conversation-104.1243",
+        "name": "Conversation 104",
+        "topic": "New Policy on Parties",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-105.1244/listen-and-type",
+        "slug": "conversation-105.1244",
+        "name": "Conversation 105",
+        "topic": "Laura Whitley Job Interview",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-106.1245/listen-and-type",
+        "slug": "conversation-106.1245",
+        "name": "Conversation 106",
+        "topic": "Booking a Switzerland Flight",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-107.1246/listen-and-type",
+        "slug": "conversation-107.1246",
+        "name": "Conversation 107",
+        "topic": "Christmas Party Details",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-108-2.1610/listen-and-type",
+        "slug": "conversation-108-2.1610",
+        "name": "Conversation 108",
+        "topic": "Team Retreat and Cake Recipe",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-109.1248/listen-and-type",
+        "slug": "conversation-109.1248",
+        "name": "Conversation 109",
+        "topic": "Choosing an Office Designer",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-110.1249/listen-and-type",
+        "slug": "conversation-110.1249",
+        "name": "Conversation 110",
+        "topic": "Report and Agenda Coordination",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-101.1250/listen-and-type",
+        "slug": "short-talk-101.1250",
+        "name": "Short Talk 101",
+        "topic": "Arianna Gold Joins Campaign",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-102.1251/listen-and-type",
+        "slug": "short-talk-102.1251",
+        "name": "Short Talk 102",
+        "topic": "Teleconferencing Training Session",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-103.1252/listen-and-type",
+        "slug": "short-talk-103.1252",
+        "name": "Short Talk 103",
+        "topic": "National Insurance Call Notice",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-104.1253/listen-and-type",
+        "slug": "short-talk-104.1253",
+        "name": "Short Talk 104",
+        "topic": "Driver&#039;s Course 50% Off",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-105.1254/listen-and-type",
+        "slug": "short-talk-105.1254",
+        "name": "Short Talk 105",
+        "topic": "Microwave Product Meeting Summary",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-106.1255/listen-and-type",
+        "slug": "short-talk-106.1255",
+        "name": "Short Talk 106",
+        "topic": "Jolly Candy Shop Opening",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-107.1256/listen-and-type",
+        "slug": "short-talk-107.1256",
+        "name": "Short Talk 107",
+        "topic": "Second Floor Bathroom Closure",
+        "parts": 6,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-108.1257/listen-and-type",
+        "slug": "short-talk-108.1257",
+        "name": "Short Talk 108",
+        "topic": "Art in the Park Launch",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-109.1258/listen-and-type",
+        "slug": "short-talk-109.1258",
+        "name": "Short Talk 109",
+        "topic": "Order Confirmation Needed",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-110.1259/listen-and-type",
+        "slug": "short-talk-110.1259",
+        "name": "Short Talk 110",
+        "topic": "Recycled Art Exhibit Tour",
+        "parts": 12,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 12,
+    "title": "Practice Test 12",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-111.1261/listen-and-type",
+        "slug": "conversation-111.1261",
+        "name": "Conversation 111",
+        "topic": "Photograph Order Issue",
+        "parts": 18,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-112.1262/listen-and-type",
+        "slug": "conversation-112.1262",
+        "name": "Conversation 112",
+        "topic": "Gallery Tour Inquiry",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-113.1263/listen-and-type",
+        "slug": "conversation-113.1263",
+        "name": "Conversation 113",
+        "topic": "Pharmacy Prescription Consultation",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-114.1264/listen-and-type",
+        "slug": "conversation-114.1264",
+        "name": "Conversation 114",
+        "topic": "Job Interview Motivation Discussion",
+        "parts": 22,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-115.1265/listen-and-type",
+        "slug": "conversation-115.1265",
+        "name": "Conversation 115",
+        "topic": "Choosing Festival Performers",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-116.1266/listen-and-type",
+        "slug": "conversation-116.1266",
+        "name": "Conversation 116",
+        "topic": "Inviting Amanda to Bowl",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-117.1267/listen-and-type",
+        "slug": "conversation-117.1267",
+        "name": "Conversation 117",
+        "topic": "Software Installation Appointment Rescheduling",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-118.1268/listen-and-type",
+        "slug": "conversation-118.1268",
+        "name": "Conversation 118",
+        "topic": "Meeting Request with Lawyer",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-119.1269/listen-and-type",
+        "slug": "conversation-119.1269",
+        "name": "Conversation 119",
+        "topic": "Company Retreat Venue &amp; Catering",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-120.1270/listen-and-type",
+        "slug": "conversation-120.1270",
+        "name": "Conversation 120",
+        "topic": "Camera Warranty Inquiry",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-111.1271/listen-and-type",
+        "slug": "short-talk-111.1271",
+        "name": "Short Talk 111",
+        "topic": "Homeopathic Solutions Follow-up",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-112.1272/listen-and-type",
+        "slug": "short-talk-112.1272",
+        "name": "Short Talk 112",
+        "topic": "Marketing Conference Update",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-113.1273/listen-and-type",
+        "slug": "short-talk-113.1273",
+        "name": "Short Talk 113",
+        "topic": "Hillside Manor Renovation Update",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-114.1274/listen-and-type",
+        "slug": "short-talk-114.1274",
+        "name": "Short Talk 114",
+        "topic": "Zoodle Science Association Overview",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-115.1275/listen-and-type",
+        "slug": "short-talk-115.1275",
+        "name": "Short Talk 115",
+        "topic": "Love Homes UK Interview",
+        "parts": 6,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-116.1276/listen-and-type",
+        "slug": "short-talk-116.1276",
+        "name": "Short Talk 116",
+        "topic": "Temporary Store Closure Announcement",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-117.1277/listen-and-type",
+        "slug": "short-talk-117.1277",
+        "name": "Short Talk 117",
+        "topic": "Hiring Remote Editing Team",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-118.1278/listen-and-type",
+        "slug": "short-talk-118.1278",
+        "name": "Short Talk 118",
+        "topic": "Sales Decline and Strategy",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-119.1279/listen-and-type",
+        "slug": "short-talk-119.1279",
+        "name": "Short Talk 119",
+        "topic": "Peach Order Issue",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-120.1280/listen-and-type",
+        "slug": "short-talk-120.1280",
+        "name": "Short Talk 120",
+        "topic": "Seattle Rainstorm Weather Alert",
+        "parts": 11,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 13,
+    "title": "Practice Test 13",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-121.1503/listen-and-type",
+        "slug": "conversation-121.1503",
+        "name": "Conversation 121",
+        "topic": "Cash Register Update Issues",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-122.1504/listen-and-type",
+        "slug": "conversation-122.1504",
+        "name": "Conversation 122",
+        "topic": "Inventory Completion Discussion",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-123.1505/listen-and-type",
+        "slug": "conversation-123.1505",
+        "name": "Conversation 123",
+        "topic": "Blog Workload and Quality Concerns",
+        "parts": 18,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-124.1506/listen-and-type",
+        "slug": "conversation-124.1506",
+        "name": "Conversation 124",
+        "topic": "Choosing Drum Lesson Options",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-125.1507/listen-and-type",
+        "slug": "conversation-125.1507",
+        "name": "Conversation 125",
+        "topic": "Edward&#039;s Promotion and Farewell",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-126.1508/listen-and-type",
+        "slug": "conversation-126.1508",
+        "name": "Conversation 126",
+        "topic": "Mandatory Chinese Language Classes",
+        "parts": 26,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-127.1509/listen-and-type",
+        "slug": "conversation-127.1509",
+        "name": "Conversation 127",
+        "topic": "Office Supply Reimbursement Guide",
+        "parts": 22,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-128.1510/listen-and-type",
+        "slug": "conversation-128.1510",
+        "name": "Conversation 128",
+        "topic": "Flight Delay at Check-In",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-129.1511/listen-and-type",
+        "slug": "conversation-129.1511",
+        "name": "Conversation 129",
+        "topic": "Seat Mix-up Conversation",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-130.1512/listen-and-type",
+        "slug": "conversation-130.1512",
+        "name": "Conversation 130",
+        "topic": "Office Flooring Selection Call",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-121.1577/listen-and-type",
+        "slug": "short-talk-121.1577",
+        "name": "Short Talk 121",
+        "topic": "New Sewing Machine Announcement",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-122.1578/listen-and-type",
+        "slug": "short-talk-122.1578",
+        "name": "Short Talk 122",
+        "topic": "Speed Demon Mountain Ride",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-123.1579/listen-and-type",
+        "slug": "short-talk-123.1579",
+        "name": "Short Talk 123",
+        "topic": "Marketing Strategy Meeting",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-124.1580/listen-and-type",
+        "slug": "short-talk-124.1580",
+        "name": "Short Talk 124",
+        "topic": "Clubhouse Booking Unavailable",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-125.1581/listen-and-type",
+        "slug": "short-talk-125.1581",
+        "name": "Short Talk 125",
+        "topic": "Personal Training Promotion Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-126.1582/listen-and-type",
+        "slug": "short-talk-126.1582",
+        "name": "Short Talk 126",
+        "topic": "Baseball Card Trade Event",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-127.1583/listen-and-type",
+        "slug": "short-talk-127.1583",
+        "name": "Short Talk 127",
+        "topic": "Hotel Booking Update",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-128.1584/listen-and-type",
+        "slug": "short-talk-128.1584",
+        "name": "Short Talk 128",
+        "topic": "Trip Confirmation for Julia Stone",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-129.1585/listen-and-type",
+        "slug": "short-talk-129.1585",
+        "name": "Short Talk 129",
+        "topic": "Weekend Employee Conferences Announcement",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-130.1586/listen-and-type",
+        "slug": "short-talk-130.1586",
+        "name": "Short Talk 130",
+        "topic": "Westpac Airlines Call Options",
+        "parts": 9,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 14,
+    "title": "Practice Test 14",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-131.1513/listen-and-type",
+        "slug": "conversation-131.1513",
+        "name": "Conversation 131",
+        "topic": "Product Launch Contest Announcement",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-132.1514/listen-and-type",
+        "slug": "conversation-132.1514",
+        "name": "Conversation 132",
+        "topic": "Courier Service Suggestion",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-133.1515/listen-and-type",
+        "slug": "conversation-133.1515",
+        "name": "Conversation 133",
+        "topic": "Projector Troubles in Conference Room",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-134.1516/listen-and-type",
+        "slug": "conversation-134.1516",
+        "name": "Conversation 134",
+        "topic": "Fewer Trade Shows Attended",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-135.1517/listen-and-type",
+        "slug": "conversation-135.1517",
+        "name": "Conversation 135",
+        "topic": "Express Mail to Paris",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-136.1518/listen-and-type",
+        "slug": "conversation-136.1518",
+        "name": "Conversation 136",
+        "topic": "Scarf Exchange Request",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-137.1519/listen-and-type",
+        "slug": "conversation-137.1519",
+        "name": "Conversation 137",
+        "topic": "Trouble with New Website",
+        "parts": 21,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-138.1520/listen-and-type",
+        "slug": "conversation-138.1520",
+        "name": "Conversation 138",
+        "topic": "Lipstick Distribution Meeting",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-139.1617/listen-and-type",
+        "slug": "conversation-139.1617",
+        "name": "Conversation 139",
+        "topic": "Electricians&#039; Schedule Change",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-140.1522/listen-and-type",
+        "slug": "conversation-140.1522",
+        "name": "Conversation 140",
+        "topic": "Checking a Purchase Requisition",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-131.1587/listen-and-type",
+        "slug": "short-talk-131.1587",
+        "name": "Short Talk 131",
+        "topic": "Production Overtime Announcement",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-132.1588/listen-and-type",
+        "slug": "short-talk-132.1588",
+        "name": "Short Talk 132",
+        "topic": "Skate Park Renovation Announced",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-133.1589/listen-and-type",
+        "slug": "short-talk-133.1589",
+        "name": "Short Talk 133",
+        "topic": "Interview with Georgia Southbank",
+        "parts": 12,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-134.1590/listen-and-type",
+        "slug": "short-talk-134.1590",
+        "name": "Short Talk 134",
+        "topic": "Free Third Class Promotion",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-135.1591/listen-and-type",
+        "slug": "short-talk-135.1591",
+        "name": "Short Talk 135",
+        "topic": "Magazine Modernization Plans",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-136.1592/listen-and-type",
+        "slug": "short-talk-136.1592",
+        "name": "Short Talk 136",
+        "topic": "Santorini and Sons Catering",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-137.1593/listen-and-type",
+        "slug": "short-talk-137.1593",
+        "name": "Short Talk 137",
+        "topic": "Tonight’s Wine Specials",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-138.1594/listen-and-type",
+        "slug": "short-talk-138.1594",
+        "name": "Short Talk 138",
+        "topic": "Sports Day Announcement",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-139.1595/listen-and-type",
+        "slug": "short-talk-139.1595",
+        "name": "Short Talk 139",
+        "topic": "Quarterly Client Growth Review",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-140.1596/listen-and-type",
+        "slug": "short-talk-140.1596",
+        "name": "Short Talk 140",
+        "topic": "Brown Developers Win Dallas Bid",
+        "parts": 9,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 15,
+    "title": "Practice Test 15",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-141.1523/listen-and-type",
+        "slug": "conversation-141.1523",
+        "name": "Conversation 141",
+        "topic": "M&amp;A Report Discussion",
+        "parts": 17,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-142.1524/listen-and-type",
+        "slug": "conversation-142.1524",
+        "name": "Conversation 142",
+        "topic": "Rainy Day Museum Plans",
+        "parts": 23,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-143.1525/listen-and-type",
+        "slug": "conversation-143.1525",
+        "name": "Conversation 143",
+        "topic": "Considering Joanna&#039;s Replacement",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-144.1526/listen-and-type",
+        "slug": "conversation-144.1526",
+        "name": "Conversation 144",
+        "topic": "Chiropractor Recommendation and Workshop",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-145.1527/listen-and-type",
+        "slug": "conversation-145.1527",
+        "name": "Conversation 145",
+        "topic": "Noisy Construction Complaints",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-146.1528/listen-and-type",
+        "slug": "conversation-146.1528",
+        "name": "Conversation 146",
+        "topic": "Choosing a Restaurant for Clients",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-147.1529/listen-and-type",
+        "slug": "conversation-147.1529",
+        "name": "Conversation 147",
+        "topic": "Early Lease Termination Notice",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-148.1530/listen-and-type",
+        "slug": "conversation-148.1530",
+        "name": "Conversation 148",
+        "topic": "Buying a Beginner Ukulele",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-149.1531/listen-and-type",
+        "slug": "conversation-149.1531",
+        "name": "Conversation 149",
+        "topic": "Monthly Stock Report Collaboration",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-150.1532/listen-and-type",
+        "slug": "conversation-150.1532",
+        "name": "Conversation 150",
+        "topic": "Performance Review and Bonus",
+        "parts": 20,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-141.1598/listen-and-type",
+        "slug": "short-talk-141.1598",
+        "name": "Short Talk 141",
+        "topic": "Request for Nurse Appointment",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-142.1599/listen-and-type",
+        "slug": "short-talk-142.1599",
+        "name": "Short Talk 142",
+        "topic": "New Work Hours Policy",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-143.1600/listen-and-type",
+        "slug": "short-talk-143.1600",
+        "name": "Short Talk 143",
+        "topic": "Introducing Tyson Brandt",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-144.1601/listen-and-type",
+        "slug": "short-talk-144.1601",
+        "name": "Short Talk 144",
+        "topic": "Office Construction Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-145.1602/listen-and-type",
+        "slug": "short-talk-145.1602",
+        "name": "Short Talk 145",
+        "topic": "William Geard Promotion Ceremony",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-146.1603/listen-and-type",
+        "slug": "short-talk-146.1603",
+        "name": "Short Talk 146",
+        "topic": "Fitness Firm Opening",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-147.1604/listen-and-type",
+        "slug": "short-talk-147.1604",
+        "name": "Short Talk 147",
+        "topic": "Blender Timer Issue Update",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-148.1605/listen-and-type",
+        "slug": "short-talk-148.1605",
+        "name": "Short Talk 148",
+        "topic": "Farmers Face Uneven Profits",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-149.1606/listen-and-type",
+        "slug": "short-talk-149.1606",
+        "name": "Short Talk 149",
+        "topic": "Point Drive Warehouse Opportunity",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-150.1611/listen-and-type",
+        "slug": "short-talk-150.1611",
+        "name": "Short Talk 150",
+        "topic": "Parking Lot Repaving Notice",
+        "parts": 6,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 16,
+    "title": "Practice Test 16",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-151.1533/listen-and-type",
+        "slug": "conversation-151.1533",
+        "name": "Conversation 151",
+        "topic": "Wallpaper Order Delay",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-152.1534/listen-and-type",
+        "slug": "conversation-152.1534",
+        "name": "Conversation 152",
+        "topic": "Therapist Visit and Parking",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-153.1535/listen-and-type",
+        "slug": "conversation-153.1535",
+        "name": "Conversation 153",
+        "topic": "Carpet Order Price Negotiation",
+        "parts": 20,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-154.1536/listen-and-type",
+        "slug": "conversation-154.1536",
+        "name": "Conversation 154",
+        "topic": "Internal Communication Training Planning",
+        "parts": 22,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-155.1537/listen-and-type",
+        "slug": "conversation-155.1537",
+        "name": "Conversation 155",
+        "topic": "Family Room Reservation Request",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-156.1538/listen-and-type",
+        "slug": "conversation-156.1538",
+        "name": "Conversation 156",
+        "topic": "Front-Desk Supervisor Opening",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-157.1539/listen-and-type",
+        "slug": "conversation-157.1539",
+        "name": "Conversation 157",
+        "topic": "Quarterly Meeting Schedule Coordination",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-158.1540/listen-and-type",
+        "slug": "conversation-158.1540",
+        "name": "Conversation 158",
+        "topic": "Movie Night Invitation",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-159.1541/listen-and-type",
+        "slug": "conversation-159.1541",
+        "name": "Conversation 159",
+        "topic": "In-House vs Outsourced Repairs",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-160.1542/listen-and-type",
+        "slug": "conversation-160.1542",
+        "name": "Conversation 160",
+        "topic": "International Jewelry Shipping Inquiry",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-151.1631/listen-and-type",
+        "slug": "short-talk-151.1631",
+        "name": "Short Talk 151",
+        "topic": "Basic Roof Maintenance Tips",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-152.1632/listen-and-type",
+        "slug": "short-talk-152.1632",
+        "name": "Short Talk 152",
+        "topic": "Brookfield Benefit Concert Appeal",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-153.1633/listen-and-type",
+        "slug": "short-talk-153.1633",
+        "name": "Short Talk 153",
+        "topic": "Business Productivity Workshop",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-154.1634/listen-and-type",
+        "slug": "short-talk-154.1634",
+        "name": "Short Talk 154",
+        "topic": "Vegetable Gardening Seminar Tips",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-155.1635/listen-and-type",
+        "slug": "short-talk-155.1635",
+        "name": "Short Talk 155",
+        "topic": "Lakeville Park Reopening",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-156.1637/listen-and-type",
+        "slug": "short-talk-156.1637",
+        "name": "Short Talk 156",
+        "topic": "Jewelry Order and Gift",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-157.1638/listen-and-type",
+        "slug": "short-talk-157.1638",
+        "name": "Short Talk 157",
+        "topic": "Engaging Residents Through Games",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-158.1639/listen-and-type",
+        "slug": "short-talk-158.1639",
+        "name": "Short Talk 158",
+        "topic": "Truck Driver Job Opportunity",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-159.1640/listen-and-type",
+        "slug": "short-talk-159.1640",
+        "name": "Short Talk 159",
+        "topic": "TV Feature: Restaurant Prep",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-160.1641/listen-and-type",
+        "slug": "short-talk-160.1641",
+        "name": "Short Talk 160",
+        "topic": "Shelbourne Renewable Facility Announced",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 17,
+    "title": "Practice Test 17",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-161.1543/listen-and-type",
+        "slug": "conversation-161.1543",
+        "name": "Conversation 161",
+        "topic": "Forgotten Toolkit Recovery",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-162.1544/listen-and-type",
+        "slug": "conversation-162.1544",
+        "name": "Conversation 162",
+        "topic": "Planning a Bakery Visit",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-163.1545/listen-and-type",
+        "slug": "conversation-163.1545",
+        "name": "Conversation 163",
+        "topic": "New Work Hours Announcement",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-164.1546/listen-and-type",
+        "slug": "conversation-164.1546",
+        "name": "Conversation 164",
+        "topic": "Lost Luggage Inquiry",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-165.1547/listen-and-type",
+        "slug": "conversation-165.1547",
+        "name": "Conversation 165",
+        "topic": "Prescription Renewal Appointment",
+        "parts": 22,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-166.1548/listen-and-type",
+        "slug": "conversation-166.1548",
+        "name": "Conversation 166",
+        "topic": "Property Purchase Discussion",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-167.1549/listen-and-type",
+        "slug": "conversation-167.1549",
+        "name": "Conversation 167",
+        "topic": "Planning Angela&#039;s Birthday",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-168.1550/listen-and-type",
+        "slug": "conversation-168.1550",
+        "name": "Conversation 168",
+        "topic": "Equipment Distribution Request",
+        "parts": 20,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-169.1551/listen-and-type",
+        "slug": "conversation-169.1551",
+        "name": "Conversation 169",
+        "topic": "Project Deadline Extension Request",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-170.1552/listen-and-type",
+        "slug": "conversation-170.1552",
+        "name": "Conversation 170",
+        "topic": "Musical Theater Reactions",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-161.1642/listen-and-type",
+        "slug": "short-talk-161.1642",
+        "name": "Short Talk 161",
+        "topic": "Cake Order Confirmation",
+        "parts": 8,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-162.1643/listen-and-type",
+        "slug": "short-talk-162.1643",
+        "name": "Short Talk 162",
+        "topic": "Vegetables and Health Benefits",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-163.1644/listen-and-type",
+        "slug": "short-talk-163.1644",
+        "name": "Short Talk 163",
+        "topic": "Pickup Location Change Request",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-164.1645/listen-and-type",
+        "slug": "short-talk-164.1645",
+        "name": "Short Talk 164",
+        "topic": "SUV Acceleration Issue Follow-up",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-165.1646/listen-and-type",
+        "slug": "short-talk-165.1646",
+        "name": "Short Talk 165",
+        "topic": "Showroom Update and Announcements",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-166.1647/listen-and-type",
+        "slug": "short-talk-166.1647",
+        "name": "Short Talk 166",
+        "topic": "Oakwood Road Project Update",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-167.1648/listen-and-type",
+        "slug": "short-talk-167.1648",
+        "name": "Short Talk 167",
+        "topic": "Old Mill To Be Renovated",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-168.1649/listen-and-type",
+        "slug": "short-talk-168.1649",
+        "name": "Short Talk 168",
+        "topic": "Social Media Marketing Insights",
+        "parts": 7,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-169.1650/listen-and-type",
+        "slug": "short-talk-169.1650",
+        "name": "Short Talk 169",
+        "topic": "Carson Automotive Achievement",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-170.1651/listen-and-type",
+        "slug": "short-talk-170.1651",
+        "name": "Short Talk 170",
+        "topic": "Office Plant Delivery Announcement",
+        "parts": 7,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 18,
+    "title": "Practice Test 18",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-171.1553/listen-and-type",
+        "slug": "conversation-171.1553",
+        "name": "Conversation 171",
+        "topic": "Access Card Issue",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-172.1554/listen-and-type",
+        "slug": "conversation-172.1554",
+        "name": "Conversation 172",
+        "topic": "Table Lamp Inquiry",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-173.1555/listen-and-type",
+        "slug": "conversation-173.1555",
+        "name": "Conversation 173",
+        "topic": "Meeting Preparation Planning",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-174.1556/listen-and-type",
+        "slug": "conversation-174.1556",
+        "name": "Conversation 174",
+        "topic": "Private Room Rental Inquiry",
+        "parts": 21,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-175.1557/listen-and-type",
+        "slug": "conversation-175.1557",
+        "name": "Conversation 175",
+        "topic": "Moving Date Confusion",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-176.1558/listen-and-type",
+        "slug": "conversation-176.1558",
+        "name": "Conversation 176",
+        "topic": "Click and Collect Assistance",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-177.1559/listen-and-type",
+        "slug": "conversation-177.1559",
+        "name": "Conversation 177",
+        "topic": "Buying Paintbrushes at Store",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-178.1560/listen-and-type",
+        "slug": "conversation-178.1560",
+        "name": "Conversation 178",
+        "topic": "Offered Permanent Position",
+        "parts": 24,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-179.1561/listen-and-type",
+        "slug": "conversation-179.1561",
+        "name": "Conversation 179",
+        "topic": "Request for Medical Records",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-180.1562/listen-and-type",
+        "slug": "conversation-180.1562",
+        "name": "Conversation 180",
+        "topic": "Receptionist Job Offer",
+        "parts": 19,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-171.1652/listen-and-type",
+        "slug": "short-talk-171.1652",
+        "name": "Short Talk 171",
+        "topic": "Atlantic Energy Service Notice",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-172.1653/listen-and-type",
+        "slug": "short-talk-172.1653",
+        "name": "Short Talk 172",
+        "topic": "Network Upgrade Announcement",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-173.1654/listen-and-type",
+        "slug": "short-talk-173.1654",
+        "name": "Short Talk 173",
+        "topic": "Main Entrance Closure Notice",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-174.1655/listen-and-type",
+        "slug": "short-talk-174.1655",
+        "name": "Short Talk 174",
+        "topic": "Hotel Booking Update",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-175.1656/listen-and-type",
+        "slug": "short-talk-175.1656",
+        "name": "Short Talk 175",
+        "topic": "Real-Time Package Tracking Launch",
+        "parts": 7,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-176.1657/listen-and-type",
+        "slug": "short-talk-176.1657",
+        "name": "Short Talk 176",
+        "topic": "Newsroom Event and Updates",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-177.1658/listen-and-type",
+        "slug": "short-talk-177.1658",
+        "name": "Short Talk 177",
+        "topic": "Sales Team Celebration Invitation",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-178.1659/listen-and-type",
+        "slug": "short-talk-178.1659",
+        "name": "Short Talk 178",
+        "topic": "New Rivertown Food Tour",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-179.1660/listen-and-type",
+        "slug": "short-talk-179.1660",
+        "name": "Short Talk 179",
+        "topic": "Maplewood Bus Terminal Project",
+        "parts": 8,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-180.1661/listen-and-type",
+        "slug": "short-talk-180.1661",
+        "name": "Short Talk 180",
+        "topic": "Riverside Cultural Center Launch",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 19,
+    "title": "Practice Test 19",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-181.1563/listen-and-type",
+        "slug": "conversation-181.1563",
+        "name": "Conversation 181",
+        "topic": "Looking for Disinfecting Wipes",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-182.1564/listen-and-type",
+        "slug": "conversation-182.1564",
+        "name": "Conversation 182",
+        "topic": "Tuesday Afternoon Call Favor",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-183.1565/listen-and-type",
+        "slug": "conversation-183.1565",
+        "name": "Conversation 183",
+        "topic": "Booking Theater Tickets Request",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-184.1566/listen-and-type",
+        "slug": "conversation-184.1566",
+        "name": "Conversation 184",
+        "topic": "Special Baking Order Request",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-185.1567/listen-and-type",
+        "slug": "conversation-185.1567",
+        "name": "Conversation 185",
+        "topic": "Party Supplies Delegation",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-186.1568/listen-and-type",
+        "slug": "conversation-186.1568",
+        "name": "Conversation 186",
+        "topic": "Trade Show Rescheduled",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-187.1569/listen-and-type",
+        "slug": "conversation-187.1569",
+        "name": "Conversation 187",
+        "topic": "Warehouse Space Solutions",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-188.1570/listen-and-type",
+        "slug": "conversation-188.1570",
+        "name": "Conversation 188",
+        "topic": "New Parking Procedures",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-189.1571/listen-and-type",
+        "slug": "conversation-189.1571",
+        "name": "Conversation 189",
+        "topic": "Buying a Laptop Decision",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-190.1572/listen-and-type",
+        "slug": "conversation-190.1572",
+        "name": "Conversation 190",
+        "topic": "Insurance Plan Options Overview",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-181.1662/listen-and-type",
+        "slug": "short-talk-181.1662",
+        "name": "Short Talk 181",
+        "topic": "Green Lanterns Backorder Notice",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-182.1663/listen-and-type",
+        "slug": "short-talk-182.1663",
+        "name": "Short Talk 182",
+        "topic": "Seaview Heights Property Inquiry",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-183.1664/listen-and-type",
+        "slug": "short-talk-183.1664",
+        "name": "Short Talk 183",
+        "topic": "Request for Contact Number",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-184.1665/listen-and-type",
+        "slug": "short-talk-184.1665",
+        "name": "Short Talk 184",
+        "topic": "Flu Shot Clinic Announcement",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-185.1666/listen-and-type",
+        "slug": "short-talk-185.1666",
+        "name": "Short Talk 185",
+        "topic": "Routine Car Maintenance Reminder",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-186.1667/listen-and-type",
+        "slug": "short-talk-186.1667",
+        "name": "Short Talk 186",
+        "topic": "Package Pickup Reminder",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-187.1668/listen-and-type",
+        "slug": "short-talk-187.1668",
+        "name": "Short Talk 187",
+        "topic": "Sustainable Water Project Launch",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-188.1669/listen-and-type",
+        "slug": "short-talk-188.1669",
+        "name": "Short Talk 188",
+        "topic": "Storage Container Delivery Notice",
+        "parts": 9,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-189.1670/listen-and-type",
+        "slug": "short-talk-189.1670",
+        "name": "Short Talk 189",
+        "topic": "Cleaning Supply Cabinet Overview",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-190.1671/listen-and-type",
+        "slug": "short-talk-190.1671",
+        "name": "Short Talk 190",
+        "topic": "Photography Basics Introduction",
+        "parts": 9,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 20,
+    "title": "Practice Test 20",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-191.1573/listen-and-type",
+        "slug": "conversation-191.1573",
+        "name": "Conversation 191",
+        "topic": "Office Email Outage",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-192.1574/listen-and-type",
+        "slug": "conversation-192.1574",
+        "name": "Conversation 192",
+        "topic": "Fun Run Fundraising Challenges",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-193.1575/listen-and-type",
+        "slug": "conversation-193.1575",
+        "name": "Conversation 193",
+        "topic": "Booking a Round-Trip Flight",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-194.1576/listen-and-type",
+        "slug": "conversation-194.1576",
+        "name": "Conversation 194",
+        "topic": "Rainy Day Museum Plans",
+        "parts": 22,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-195.1620/listen-and-type",
+        "slug": "conversation-195.1620",
+        "name": "Conversation 195",
+        "topic": "Restaurant Lunch Reservation",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-196.1621/listen-and-type",
+        "slug": "conversation-196.1621",
+        "name": "Conversation 196",
+        "topic": "Expense Report Review",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-197.1622/listen-and-type",
+        "slug": "conversation-197.1622",
+        "name": "Conversation 197",
+        "topic": "Conference Attendance Decision",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-198.1623/listen-and-type",
+        "slug": "conversation-198.1623",
+        "name": "Conversation 198",
+        "topic": "Project Results and Leadership",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-199.1624/listen-and-type",
+        "slug": "conversation-199.1624",
+        "name": "Conversation 199",
+        "topic": "Greenfield Books Presentation Approach",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-200.1625/listen-and-type",
+        "slug": "conversation-200.1625",
+        "name": "Conversation 200",
+        "topic": "Employee Picnic Gift Ideas",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-191.1672/listen-and-type",
+        "slug": "short-talk-191.1672",
+        "name": "Short Talk 191",
+        "topic": "Oak Street Property Update",
+        "parts": 6,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-192.1673/listen-and-type",
+        "slug": "short-talk-192.1673",
+        "name": "Short Talk 192",
+        "topic": "Engine Noise Inquiry",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-193.1674/listen-and-type",
+        "slug": "short-talk-193.1674",
+        "name": "Short Talk 193",
+        "topic": "Project Proposal Deadline Reminder",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-194.1675/listen-and-type",
+        "slug": "short-talk-194.1675",
+        "name": "Short Talk 194",
+        "topic": "Flight 652 Announcement",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-195.1676/listen-and-type",
+        "slug": "short-talk-195.1676",
+        "name": "Short Talk 195",
+        "topic": "Meadowbrook Community Barbecue",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-196.1677/listen-and-type",
+        "slug": "short-talk-196.1677",
+        "name": "Short Talk 196",
+        "topic": "Workplace Stress Management Seminar",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-197.1678/listen-and-type",
+        "slug": "short-talk-197.1678",
+        "name": "Short Talk 197",
+        "topic": "Weekly Weather Forecast",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-198.1679/listen-and-type",
+        "slug": "short-talk-198.1679",
+        "name": "Short Talk 198",
+        "topic": "Financial Planning Webinar",
+        "parts": 6,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-199.1680/listen-and-type",
+        "slug": "short-talk-199.1680",
+        "name": "Short Talk 199",
+        "topic": "New Remote Work Policy",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-200.1681/listen-and-type",
+        "slug": "short-talk-200.1681",
+        "name": "Short Talk 200",
+        "topic": "Elevator Maintenance Notice",
+        "parts": 7,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 21,
+    "title": "Practice Test 21",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-201.1699/listen-and-type",
+        "slug": "conversation-201.1699",
+        "name": "Conversation 201",
+        "topic": "Marketing Team Restructuring Plans",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-202.1627/listen-and-type",
+        "slug": "conversation-202.1627",
+        "name": "Conversation 202",
+        "topic": "Plant-Based Snack Strategy",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-203.1628/listen-and-type",
+        "slug": "conversation-203.1628",
+        "name": "Conversation 203",
+        "topic": "Marketing Project Inquiry",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-204.1630/listen-and-type",
+        "slug": "conversation-204.1630",
+        "name": "Conversation 204",
+        "topic": "Drawing Removed from Exhibit",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-205.1682/listen-and-type",
+        "slug": "conversation-205.1682",
+        "name": "Conversation 205",
+        "topic": "Seminar Room Audio Issues",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-206.1683/listen-and-type",
+        "slug": "conversation-206.1683",
+        "name": "Conversation 206",
+        "topic": "Panelist Registration Exchange",
+        "parts": 12,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-207.1684/listen-and-type",
+        "slug": "conversation-207.1684",
+        "name": "Conversation 207",
+        "topic": "Buying a Photography Gift Card",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-208.1685/listen-and-type",
+        "slug": "conversation-208.1685",
+        "name": "Conversation 208",
+        "topic": "Inventory Management Software Meeting",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-209.1686/listen-and-type",
+        "slug": "conversation-209.1686",
+        "name": "Conversation 209",
+        "topic": "Trip to Grand Cinema",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-210.1687/listen-and-type",
+        "slug": "conversation-210.1687",
+        "name": "Conversation 210",
+        "topic": "Modern King Bed Frame Options",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-201.1689/listen-and-type",
+        "slug": "short-talk-201.1689",
+        "name": "Short Talk 201",
+        "topic": "Paris Trip Confirmation",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-202.1690/listen-and-type",
+        "slug": "short-talk-202.1690",
+        "name": "Short Talk 202",
+        "topic": "Library Book Return Reminder",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-203.1695/listen-and-type",
+        "slug": "short-talk-203.1695",
+        "name": "Short Talk 203",
+        "topic": "Chesterton Playhouse Reopens",
+        "parts": 7,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-204.1692/listen-and-type",
+        "slug": "short-talk-204.1692",
+        "name": "Short Talk 204",
+        "topic": "Scenic Coastal Cruise Tour",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-205.1696/listen-and-type",
+        "slug": "short-talk-205.1696",
+        "name": "Short Talk 205",
+        "topic": "Wireless Earbuds Feedback Summary",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-206.1694/listen-and-type",
+        "slug": "short-talk-206.1694",
+        "name": "Short Talk 206",
+        "topic": "Solar Panel Consultation Follow-up",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-207.1691/listen-and-type",
+        "slug": "short-talk-207.1691",
+        "name": "Short Talk 207",
+        "topic": "Backyard Project Update",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-208.1693/listen-and-type",
+        "slug": "short-talk-208.1693",
+        "name": "Short Talk 208",
+        "topic": "Max&#039;s Bloodwork Results",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-209.1697/listen-and-type",
+        "slug": "short-talk-209.1697",
+        "name": "Short Talk 209",
+        "topic": "Boost Your Brand Visibility",
+        "parts": 7,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-210.1698/listen-and-type",
+        "slug": "short-talk-210.1698",
+        "name": "Short Talk 210",
+        "topic": "Vehicle Service Issues Found",
+        "parts": 6,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 22,
+    "title": "Practice Test 22",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-211.1723/listen-and-type",
+        "slug": "conversation-211.1723",
+        "name": "Conversation 211",
+        "topic": "Ad Timing Error Complaint",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-212.1703/listen-and-type",
+        "slug": "conversation-212.1703",
+        "name": "Conversation 212",
+        "topic": "Missing Dessert Portions",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-213.1704/listen-and-type",
+        "slug": "conversation-213.1704",
+        "name": "Conversation 213",
+        "topic": "Office Hiking Group Invite",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-214.1705/listen-and-type",
+        "slug": "conversation-214.1705",
+        "name": "Conversation 214",
+        "topic": "Employee List Correction",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-215.1706/listen-and-type",
+        "slug": "conversation-215.1706",
+        "name": "Conversation 215",
+        "topic": "EcoSmart Backpack Sales Review",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-216.1707/listen-and-type",
+        "slug": "conversation-216.1707",
+        "name": "Conversation 216",
+        "topic": "Charity Event Flyer Printing",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-217.1708/listen-and-type",
+        "slug": "conversation-217.1708",
+        "name": "Conversation 217",
+        "topic": "Morning Yoga Class Inquiry",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-218.1709/listen-and-type",
+        "slug": "conversation-218.1709",
+        "name": "Conversation 218",
+        "topic": "Missed Flight to New York",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-219.1710/listen-and-type",
+        "slug": "conversation-219.1710",
+        "name": "Conversation 219",
+        "topic": "Conference Travel Reschedule",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-220.1711/listen-and-type",
+        "slug": "conversation-220.1711",
+        "name": "Conversation 220",
+        "topic": "Startup Workshop Speaker Invitation",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-211.1712/listen-and-type",
+        "slug": "short-talk-211.1712",
+        "name": "Short Talk 211",
+        "topic": "Home Insurance Inquiry Follow-up",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-212.1713/listen-and-type",
+        "slug": "short-talk-212.1713",
+        "name": "Short Talk 212",
+        "topic": "Zenith Technologies Hub Announcement",
+        "parts": 9,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-213.1714/listen-and-type",
+        "slug": "short-talk-213.1714",
+        "name": "Short Talk 213",
+        "topic": "Lakeside Bistro Hours Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-214.1715/listen-and-type",
+        "slug": "short-talk-214.1715",
+        "name": "Short Talk 214",
+        "topic": "Mobile Intranet Access Launch",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-215.1716/listen-and-type",
+        "slug": "short-talk-215.1716",
+        "name": "Short Talk 215",
+        "topic": "Innovative Leadership Workshop Agenda",
+        "parts": 11,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-216.1718/listen-and-type",
+        "slug": "short-talk-216.1718",
+        "name": "Short Talk 216",
+        "topic": "Apex COO Retirement Announced",
+        "parts": 11,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-217.1719/listen-and-type",
+        "slug": "short-talk-217.1719",
+        "name": "Short Talk 217",
+        "topic": "Leaf Removal Service Promotion",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-218.1720/listen-and-type",
+        "slug": "short-talk-218.1720",
+        "name": "Short Talk 218",
+        "topic": "Financial Forum: Tech Innovations Interview",
+        "parts": 9,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-219.1721/listen-and-type",
+        "slug": "short-talk-219.1721",
+        "name": "Short Talk 219",
+        "topic": "Riverview Art Museum Tour",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-220.1722/listen-and-type",
+        "slug": "short-talk-220.1722",
+        "name": "Short Talk 220",
+        "topic": "Request to Miss Seminar Session",
+        "parts": 9,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 23,
+    "title": "Practice Test 23",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-221.1724/listen-and-type",
+        "slug": "conversation-221.1724",
+        "name": "Conversation 221",
+        "topic": "Tech Innovators Conference Welcome",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-222.1725/listen-and-type",
+        "slug": "conversation-222.1725",
+        "name": "Conversation 222",
+        "topic": "Office Chair Upgrade Request",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-223.1726/listen-and-type",
+        "slug": "conversation-223.1726",
+        "name": "Conversation 223",
+        "topic": "Missing Hiking Gear Discussion",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-224.1727/listen-and-type",
+        "slug": "conversation-224.1727",
+        "name": "Conversation 224",
+        "topic": "Greenwood Solutions Project Meeting",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-225.1728/listen-and-type",
+        "slug": "conversation-225.1728",
+        "name": "Conversation 225",
+        "topic": "New Phone System Feedback",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-226.1729/listen-and-type",
+        "slug": "conversation-226.1729",
+        "name": "Conversation 226",
+        "topic": "Photography Workshop Enrollment",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-227.1730/listen-and-type",
+        "slug": "conversation-227.1730",
+        "name": "Conversation 227",
+        "topic": "Considering a Restaurant App",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-228.1731/listen-and-type",
+        "slug": "conversation-228.1731",
+        "name": "Conversation 228",
+        "topic": "Book Club Outing Invitation",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-229.1732/listen-and-type",
+        "slug": "conversation-229.1732",
+        "name": "Conversation 229",
+        "topic": "Delayed Lab Reagents Shipment",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-230.1733/listen-and-type",
+        "slug": "conversation-230.1733",
+        "name": "Conversation 230",
+        "topic": "Finding a Caterer",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-221.1734/listen-and-type",
+        "slug": "short-talk-221.1734",
+        "name": "Short Talk 221",
+        "topic": "Meeting Rescheduling Notice",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-222.1735/listen-and-type",
+        "slug": "short-talk-222.1735",
+        "name": "Short Talk 222",
+        "topic": "Air Purifier Recommendation",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-223.1736/listen-and-type",
+        "slug": "short-talk-223.1736",
+        "name": "Short Talk 223",
+        "topic": "BoostAid Fitness Promotion",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-224.1737/listen-and-type",
+        "slug": "short-talk-224.1737",
+        "name": "Short Talk 224",
+        "topic": "Arts and Crafts Fair Coverage",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-225.1738/listen-and-type",
+        "slug": "short-talk-225.1738",
+        "name": "Short Talk 225",
+        "topic": "Sourdough Bread Workshop Introduction",
+        "parts": 10,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-226.1739/listen-and-type",
+        "slug": "short-talk-226.1739",
+        "name": "Short Talk 226",
+        "topic": "Urban Canvas Exhibition Invitation",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-227.1740/listen-and-type",
+        "slug": "short-talk-227.1740",
+        "name": "Short Talk 227",
+        "topic": "Federal Compliance Visit Announcement",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-228.1741/listen-and-type",
+        "slug": "short-talk-228.1741",
+        "name": "Short Talk 228",
+        "topic": "Weston-Brentford Merger Announcement",
+        "parts": 9,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-229.1742/listen-and-type",
+        "slug": "short-talk-229.1742",
+        "name": "Short Talk 229",
+        "topic": "Kitchen Renovation Schedule Update",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-230.1743/listen-and-type",
+        "slug": "short-talk-230.1743",
+        "name": "Short Talk 230",
+        "topic": "Process Optimization Initiative",
+        "parts": 9,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 24,
+    "title": "Practice Test 24",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-231.1744/listen-and-type",
+        "slug": "conversation-231.1744",
+        "name": "Conversation 231",
+        "topic": "Suit Alteration Pickup Inquiry",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-232.1745/listen-and-type",
+        "slug": "conversation-232.1745",
+        "name": "Conversation 232",
+        "topic": "Lightweight Laptop Recommendation",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-233.1746/listen-and-type",
+        "slug": "conversation-233.1746",
+        "name": "Conversation 233",
+        "topic": "Product Launch Campaign Discussion",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-234.1747/listen-and-type",
+        "slug": "conversation-234.1747",
+        "name": "Conversation 234",
+        "topic": "Environmental Policy Update Request",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-235.1748/listen-and-type",
+        "slug": "conversation-235.1748",
+        "name": "Conversation 235",
+        "topic": "Equipment Order Call",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-236.1749/listen-and-type",
+        "slug": "conversation-236.1749",
+        "name": "Conversation 236",
+        "topic": "Unit 305 Maintenance Update",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-237.1750/listen-and-type",
+        "slug": "conversation-237.1750",
+        "name": "Conversation 237",
+        "topic": "Proposing New Menu Ideas",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-238.1751/listen-and-type",
+        "slug": "conversation-238.1751",
+        "name": "Conversation 238",
+        "topic": "Café Flyer Reorder Request",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-239.1752/listen-and-type",
+        "slug": "conversation-239.1752",
+        "name": "Conversation 239",
+        "topic": "Project Report Issue",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-240.1753/listen-and-type",
+        "slug": "conversation-240.1753",
+        "name": "Conversation 240",
+        "topic": "Grandview Theater Briefing Meeting",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-231.1754/listen-and-type",
+        "slug": "short-talk-231.1754",
+        "name": "Short Talk 231",
+        "topic": "Morning Traffic Delays Update",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-232.1755/listen-and-type",
+        "slug": "short-talk-232.1755",
+        "name": "Short Talk 232",
+        "topic": "Graphic Design Course Orientation",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-233.1756/listen-and-type",
+        "slug": "short-talk-233.1756",
+        "name": "Short Talk 233",
+        "topic": "Missing Real Estate Information",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-234.1757/listen-and-type",
+        "slug": "short-talk-234.1757",
+        "name": "Short Talk 234",
+        "topic": "Travel Reimbursement Clarification",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-235.1758/listen-and-type",
+        "slug": "short-talk-235.1758",
+        "name": "Short Talk 235",
+        "topic": "Green Harvest Market Produce",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-236.1759/listen-and-type",
+        "slug": "short-talk-236.1759",
+        "name": "Short Talk 236",
+        "topic": "Oakwood Hills Cleanup Event",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-237.1760/listen-and-type",
+        "slug": "short-talk-237.1760",
+        "name": "Short Talk 237",
+        "topic": "SilverTech and Quantum Merger",
+        "parts": 11,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-238.1761/listen-and-type",
+        "slug": "short-talk-238.1761",
+        "name": "Short Talk 238",
+        "topic": "Alice Mendel Concert Series",
+        "parts": 14,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-239.1762/listen-and-type",
+        "slug": "short-talk-239.1762",
+        "name": "Short Talk 239",
+        "topic": "Room Reservation Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-240.1763/listen-and-type",
+        "slug": "short-talk-240.1763",
+        "name": "Short Talk 240",
+        "topic": "Marketing Strategies for New Appliances",
+        "parts": 11,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 25,
+    "title": "Practice Test 25",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-241.1768/listen-and-type",
+        "slug": "conversation-241.1768",
+        "name": "Conversation 241",
+        "topic": "Projector Offer for Meeting",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-242.1769/listen-and-type",
+        "slug": "conversation-242.1769",
+        "name": "Conversation 242",
+        "topic": "Modern Expressions Exhibit Sales",
+        "parts": 6,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-243.1770/listen-and-type",
+        "slug": "conversation-243.1770",
+        "name": "Conversation 243",
+        "topic": "Sold Out Tickets Disappointment",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-244.1771/listen-and-type",
+        "slug": "conversation-244.1771",
+        "name": "Conversation 244",
+        "topic": "Passport Renewal Inquiry",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-245.1772/listen-and-type",
+        "slug": "conversation-245.1772",
+        "name": "Conversation 245",
+        "topic": "Tech Expo Travel Plans",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-246.1773/listen-and-type",
+        "slug": "conversation-246.1773",
+        "name": "Conversation 246",
+        "topic": "Office Supplies Restocking",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-247.1774/listen-and-type",
+        "slug": "conversation-247.1774",
+        "name": "Conversation 247",
+        "topic": "Richmond Tech Merger Briefing",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-248.1775/listen-and-type",
+        "slug": "conversation-248.1775",
+        "name": "Conversation 248",
+        "topic": "Marketing Slides Delay",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-249.1776/listen-and-type",
+        "slug": "conversation-249.1776",
+        "name": "Conversation 249",
+        "topic": "Heating System Breakdown",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-250.1777/listen-and-type",
+        "slug": "conversation-250.1777",
+        "name": "Conversation 250",
+        "topic": "Retirement Dinner Venue Change",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-241.1778/listen-and-type",
+        "slug": "short-talk-241.1778",
+        "name": "Short Talk 241",
+        "topic": "Marquis Inns Business Offerings",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-242.1779/listen-and-type",
+        "slug": "short-talk-242.1779",
+        "name": "Short Talk 242",
+        "topic": "Home Insurance Coverage Update",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-243.1780/listen-and-type",
+        "slug": "short-talk-243.1780",
+        "name": "Short Talk 243",
+        "topic": "Marketing Strategy Progress Update",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-244.1781/listen-and-type",
+        "slug": "short-talk-244.1781",
+        "name": "Short Talk 244",
+        "topic": "Smart Thermostat Offer",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-245.1782/listen-and-type",
+        "slug": "short-talk-245.1782",
+        "name": "Short Talk 245",
+        "topic": "Emerging Infectious Diseases",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-246.1783/listen-and-type",
+        "slug": "short-talk-246.1783",
+        "name": "Short Talk 246",
+        "topic": "New Managerial Benefits Overview",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-247.1784/listen-and-type",
+        "slug": "short-talk-247.1784",
+        "name": "Short Talk 247",
+        "topic": "Restaurant Menu and Decor Updates",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-248.1785/listen-and-type",
+        "slug": "short-talk-248.1785",
+        "name": "Short Talk 248",
+        "topic": "Community Book Drive Announcement",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-249.1786/listen-and-type",
+        "slug": "short-talk-249.1786",
+        "name": "Short Talk 249",
+        "topic": "Store Closure and Coffee Bar",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-250.1787/listen-and-type",
+        "slug": "short-talk-250.1787",
+        "name": "Short Talk 250",
+        "topic": "Meeting Rescheduled Notification",
+        "parts": 11,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 26,
+    "title": "Practice Test 26",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-251.1792/listen-and-type",
+        "slug": "conversation-251.1792",
+        "name": "Conversation 251",
+        "topic": "Hotel Check-In Dialogue",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-252.1793/listen-and-type",
+        "slug": "conversation-252.1793",
+        "name": "Conversation 252",
+        "topic": "Apartment Cleaning Quote Request",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-253.1794/listen-and-type",
+        "slug": "conversation-253.1794",
+        "name": "Conversation 253",
+        "topic": "Leather Bag Business Plans",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-254.1795/listen-and-type",
+        "slug": "conversation-254.1795",
+        "name": "Conversation 254",
+        "topic": "Brochure Event Location Error",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-255.1796/listen-and-type",
+        "slug": "conversation-255.1796",
+        "name": "Conversation 255",
+        "topic": "Preparing for Magazine Release",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-256.1797/listen-and-type",
+        "slug": "conversation-256.1797",
+        "name": "Conversation 256",
+        "topic": "Café Holiday Staffing Plan",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-257.1798/listen-and-type",
+        "slug": "conversation-257.1798",
+        "name": "Conversation 257",
+        "topic": "Historical Tour Ticket Inquiry",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-258.1799/listen-and-type",
+        "slug": "conversation-258.1799",
+        "name": "Conversation 258",
+        "topic": "Café Interior Design Plans",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-259.1800/listen-and-type",
+        "slug": "conversation-259.1800",
+        "name": "Conversation 259",
+        "topic": "Camping Trip Packing Issues",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-260.1801/listen-and-type",
+        "slug": "conversation-260.1801",
+        "name": "Conversation 260",
+        "topic": "Urgent Printing Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-251.1803/listen-and-type",
+        "slug": "short-talk-251.1803",
+        "name": "Short Talk 251",
+        "topic": "Elena Novikov Piano Concert",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-252.1804/listen-and-type",
+        "slug": "short-talk-252.1804",
+        "name": "Short Talk 252",
+        "topic": "Sustainable Home Gardening Seminar",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-253.1805/listen-and-type",
+        "slug": "short-talk-253.1805",
+        "name": "Short Talk 253",
+        "topic": "Stellaris Observatory Reopening",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-254.1806/listen-and-type",
+        "slug": "short-talk-254.1806",
+        "name": "Short Talk 254",
+        "topic": "Office Printer Replacement Update",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-255.1807/listen-and-type",
+        "slug": "short-talk-255.1807",
+        "name": "Short Talk 255",
+        "topic": "Harmony Hall Booking Unavailable",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-256.1808/listen-and-type",
+        "slug": "short-talk-256.1808",
+        "name": "Short Talk 256",
+        "topic": "City Improvements and Election Update",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-257.1809/listen-and-type",
+        "slug": "short-talk-257.1809",
+        "name": "Short Talk 257",
+        "topic": "Custom Mug Order Inquiry",
+        "parts": 6,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-258.1810/listen-and-type",
+        "slug": "short-talk-258.1810",
+        "name": "Short Talk 258",
+        "topic": "Team Retreat Venue Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-259.1811/listen-and-type",
+        "slug": "short-talk-259.1811",
+        "name": "Short Talk 259",
+        "topic": "Chicago Book Fair Highlights",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-260.1812/listen-and-type",
+        "slug": "short-talk-260.1812",
+        "name": "Short Talk 260",
+        "topic": "Fall Festival Venue Change",
+        "parts": 8,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 27,
+    "title": "Practice Test 27",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-261.1815/listen-and-type",
+        "slug": "conversation-261.1815",
+        "name": "Conversation 261",
+        "topic": "Tree Trimming Rescheduling",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-262.1816/listen-and-type",
+        "slug": "conversation-262.1816",
+        "name": "Conversation 262",
+        "topic": "Coffee Maker Not Working",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-263.1817/listen-and-type",
+        "slug": "conversation-263.1817",
+        "name": "Conversation 263",
+        "topic": "Missing Reservation Issue",
+        "parts": 18,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-264.1818/listen-and-type",
+        "slug": "conversation-264.1818",
+        "name": "Conversation 264",
+        "topic": "Global Tech Market Analysis",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-265.1819/listen-and-type",
+        "slug": "conversation-265.1819",
+        "name": "Conversation 265",
+        "topic": "Graphic Designer Application Inquiry",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-266.1820/listen-and-type",
+        "slug": "conversation-266.1820",
+        "name": "Conversation 266",
+        "topic": "Phone Case Exchange Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-267.1821/listen-and-type",
+        "slug": "conversation-267.1821",
+        "name": "Conversation 267",
+        "topic": "Briefing Priority for Delegation",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-268.1822/listen-and-type",
+        "slug": "conversation-268.1822",
+        "name": "Conversation 268",
+        "topic": "Pants Alteration Discussion",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-269.1823/listen-and-type",
+        "slug": "conversation-269.1823",
+        "name": "Conversation 269",
+        "topic": "Floral Design Meeting Request",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-270.1824/listen-and-type",
+        "slug": "conversation-270.1824",
+        "name": "Conversation 270",
+        "topic": "Refrigerator Purchase Inquiry",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-261.1825/listen-and-type",
+        "slug": "short-talk-261.1825",
+        "name": "Short Talk 261",
+        "topic": "Riverstone Museum Visitor Guide",
+        "parts": 8,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-262.1826/listen-and-type",
+        "slug": "short-talk-262.1826",
+        "name": "Short Talk 262",
+        "topic": "Marketing Campaign Launch Update",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-263.1827/listen-and-type",
+        "slug": "short-talk-263.1827",
+        "name": "Short Talk 263",
+        "topic": "Entry Garden Redesign Proposal",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-264.1828/listen-and-type",
+        "slug": "short-talk-264.1828",
+        "name": "Short Talk 264",
+        "topic": "Green Valley Environmental Conference",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-265.1829/listen-and-type",
+        "slug": "short-talk-265.1829",
+        "name": "Short Talk 265",
+        "topic": "Safety Updates and Reminders",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-266.1830/listen-and-type",
+        "slug": "short-talk-266.1830",
+        "name": "Short Talk 266",
+        "topic": "Galaxy Note X Feedback",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-267.1831/listen-and-type",
+        "slug": "short-talk-267.1831",
+        "name": "Short Talk 267",
+        "topic": "Better Deals Warehouse Offers",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-268.1832/listen-and-type",
+        "slug": "short-talk-268.1832",
+        "name": "Short Talk 268",
+        "topic": "Queensland Tourism Campaign Planning",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-269.1833/listen-and-type",
+        "slug": "short-talk-269.1833",
+        "name": "Short Talk 269",
+        "topic": "TaskMaster Pro Beta Launch",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-270.1834/listen-and-type",
+        "slug": "short-talk-270.1834",
+        "name": "Short Talk 270",
+        "topic": "Order Amendment Request",
+        "parts": 13,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 28,
+    "title": "Practice Test 28",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-271.1837/listen-and-type",
+        "slug": "conversation-271.1837",
+        "name": "Conversation 271",
+        "topic": "Rental Car Return Process",
+        "parts": 17,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-272.1838/listen-and-type",
+        "slug": "conversation-272.1838",
+        "name": "Conversation 272",
+        "topic": "Art Exhibition Review",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-273.1839/listen-and-type",
+        "slug": "conversation-273.1839",
+        "name": "Conversation 273",
+        "topic": "Knee Pain from Work",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-274.1840/listen-and-type",
+        "slug": "conversation-274.1840",
+        "name": "Conversation 274",
+        "topic": "Art Gallery Feature Success",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-275.1841/listen-and-type",
+        "slug": "conversation-275.1841",
+        "name": "Conversation 275",
+        "topic": "Considering Office Relocation",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-276.1842/listen-and-type",
+        "slug": "conversation-276.1842",
+        "name": "Conversation 276",
+        "topic": "Signing Up for Coding Workshop",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-277.1843/listen-and-type",
+        "slug": "conversation-277.1843",
+        "name": "Conversation 277",
+        "topic": "Website Promotion Placement Discussion",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-278.1844/listen-and-type",
+        "slug": "conversation-278.1844",
+        "name": "Conversation 278",
+        "topic": "Order Address Correction Call",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-279.1845/listen-and-type",
+        "slug": "conversation-279.1845",
+        "name": "Conversation 279",
+        "topic": "Theater Entry Conversation",
+        "parts": 12,
+        "vocabLevel": "A2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-280.1846/listen-and-type",
+        "slug": "conversation-280.1846",
+        "name": "Conversation 280",
+        "topic": "Designer Role Recruitment Struggles",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-271.1847/listen-and-type",
+        "slug": "short-talk-271.1847",
+        "name": "Short Talk 271",
+        "topic": "Presentation Feedback and Schedule Request",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-272.1848/listen-and-type",
+        "slug": "short-talk-272.1848",
+        "name": "Short Talk 272",
+        "topic": "HomeGuard Elite Presentation",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-273.1849/listen-and-type",
+        "slug": "short-talk-273.1849",
+        "name": "Short Talk 273",
+        "topic": "Crystal Lake Lots for Sale",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-274.1850/listen-and-type",
+        "slug": "short-talk-274.1850",
+        "name": "Short Talk 274",
+        "topic": "Volunteer Welcome Orientation",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-275.1851/listen-and-type",
+        "slug": "short-talk-275.1851",
+        "name": "Short Talk 275",
+        "topic": "Leave Restrictions Next Wednesday",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-276.1852/listen-and-type",
+        "slug": "short-talk-276.1852",
+        "name": "Short Talk 276",
+        "topic": "Mentorship Program for Management",
+        "parts": 10,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-277.1853/listen-and-type",
+        "slug": "short-talk-277.1853",
+        "name": "Short Talk 277",
+        "topic": "Interview with Dr. James Franklin",
+        "parts": 12,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-278.1854/listen-and-type",
+        "slug": "short-talk-278.1854",
+        "name": "Short Talk 278",
+        "topic": "Airport Boarding and Delay Announcement",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-279.1855/listen-and-type",
+        "slug": "short-talk-279.1855",
+        "name": "Short Talk 279",
+        "topic": "Nashville Road Closures Planned",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-280.1856/listen-and-type",
+        "slug": "short-talk-280.1856",
+        "name": "Short Talk 280",
+        "topic": "Volleyball Event Scheduling Suggestion",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  },
+  {
+    "testNum": 29,
+    "title": "Practice Test 29",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-281.1857/listen-and-type",
+        "slug": "conversation-281.1857",
+        "name": "Conversation 281",
+        "topic": "Poster Design Contact Inquiry",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-282.1858/listen-and-type",
+        "slug": "conversation-282.1858",
+        "name": "Conversation 282",
+        "topic": "Glassware Set Exchange Request",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-283.1859/listen-and-type",
+        "slug": "conversation-283.1859",
+        "name": "Conversation 283",
+        "topic": "Delayed Appetizers Conversation",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-284.1860/listen-and-type",
+        "slug": "conversation-284.1860",
+        "name": "Conversation 284",
+        "topic": "Screenplay Acceptance Call",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-285.1861/listen-and-type",
+        "slug": "conversation-285.1861",
+        "name": "Conversation 285",
+        "topic": "Concert Invitation Change",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-286.1862/listen-and-type",
+        "slug": "conversation-286.1862",
+        "name": "Conversation 286",
+        "topic": "Request to Reschedule Day Off",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-287.1863/listen-and-type",
+        "slug": "conversation-287.1863",
+        "name": "Conversation 287",
+        "topic": "Finding Storage for Shipment",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-288.1864/listen-and-type",
+        "slug": "conversation-288.1864",
+        "name": "Conversation 288",
+        "topic": "Debit Card Replacement Request",
+        "parts": 14,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-289.1865/listen-and-type",
+        "slug": "conversation-289.1865",
+        "name": "Conversation 289",
+        "topic": "Campaign Feedback and Suggestions",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-290.1866/listen-and-type",
+        "slug": "conversation-290.1866",
+        "name": "Conversation 290",
+        "topic": "Conference Preparation Updates",
+        "parts": 14,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-281.1867/listen-and-type",
+        "slug": "short-talk-281.1867",
+        "name": "Short Talk 281",
+        "topic": "Author&#039;s Reading and Q&amp;A",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-282.1868/listen-and-type",
+        "slug": "short-talk-282.1868",
+        "name": "Short Talk 282",
+        "topic": "Flower Shop Promotion",
+        "parts": 10,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-283.1869/listen-and-type",
+        "slug": "short-talk-283.1869",
+        "name": "Short Talk 283",
+        "topic": "Art Fair Stall Acceptance",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-284.1870/listen-and-type",
+        "slug": "short-talk-284.1870",
+        "name": "Short Talk 284",
+        "topic": "Seattle Pauses Bike Lane Project",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-285.1871/listen-and-type",
+        "slug": "short-talk-285.1871",
+        "name": "Short Talk 285",
+        "topic": "IT Staffing Solutions",
+        "parts": 12,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-286.1872/listen-and-type",
+        "slug": "short-talk-286.1872",
+        "name": "Short Talk 286",
+        "topic": "NovaTech Solutions Brand Launch",
+        "parts": 11,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-287.1873/listen-and-type",
+        "slug": "short-talk-287.1873",
+        "name": "Short Talk 287",
+        "topic": "Sakura Pavilion Overview",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-288.1874/listen-and-type",
+        "slug": "short-talk-288.1874",
+        "name": "Short Talk 288",
+        "topic": "Science Fiction Casting Offer",
+        "parts": 12,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-289.1875/listen-and-type",
+        "slug": "short-talk-289.1875",
+        "name": "Short Talk 289",
+        "topic": "Community Health Expo Update",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-290.1876/listen-and-type",
+        "slug": "short-talk-290.1876",
+        "name": "Short Talk 290",
+        "topic": "Incorrect Restaurant Charge Inquiry",
+        "parts": 13,
+        "vocabLevel": "B2"
+      }
+    ]
+  },
+  {
+    "testNum": 30,
+    "title": "Practice Test 30",
+    "lessonCount": 20,
+    "lessons": [
+      {
+        "url": "/exercises/toeic/conversation-291.1878/listen-and-type",
+        "slug": "conversation-291.1878",
+        "name": "Conversation 291",
+        "topic": "Violin Rental Inquiry",
+        "parts": 15,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-292.1879/listen-and-type",
+        "slug": "conversation-292.1879",
+        "name": "Conversation 292",
+        "topic": "Successful Fitness Tracker Launch",
+        "parts": 8,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-293.1880/listen-and-type",
+        "slug": "conversation-293.1880",
+        "name": "Conversation 293",
+        "topic": "Fitness Guide Printing Issue",
+        "parts": 15,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-294.1881/listen-and-type",
+        "slug": "conversation-294.1881",
+        "name": "Conversation 294",
+        "topic": "Charity Gala Venue Change",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-295.1882/listen-and-type",
+        "slug": "conversation-295.1882",
+        "name": "Conversation 295",
+        "topic": "Commuting Troubles and Solutions",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-296.1883/listen-and-type",
+        "slug": "conversation-296.1883",
+        "name": "Conversation 296",
+        "topic": "Mountain Gear Fest Inquiry",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-297.1884/listen-and-type",
+        "slug": "conversation-297.1884",
+        "name": "Conversation 297",
+        "topic": "Tokyo Trip Disappointments",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-298.1885/listen-and-type",
+        "slug": "conversation-298.1885",
+        "name": "Conversation 298",
+        "topic": "Dr. Elliott Session Recording",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/conversation-299.1886/listen-and-type",
+        "slug": "conversation-299.1886",
+        "name": "Conversation 299",
+        "topic": "Preparing for Koala Arrival",
+        "parts": 12,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/conversation-300.1887/listen-and-type",
+        "slug": "conversation-300.1887",
+        "name": "Conversation 300",
+        "topic": "Scheduling a Cleaning Estimate",
+        "parts": 16,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-291.1888/listen-and-type",
+        "slug": "short-talk-291.1888",
+        "name": "Short Talk 291",
+        "topic": "Greenfield Arts Festival",
+        "parts": 9,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-292.1889/listen-and-type",
+        "slug": "short-talk-292.1889",
+        "name": "Short Talk 292",
+        "topic": "Enfield Festival News Update",
+        "parts": 13,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-293.1890/listen-and-type",
+        "slug": "short-talk-293.1890",
+        "name": "Short Talk 293",
+        "topic": "Pacific Conservation Reserve Tour",
+        "parts": 13,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-294.1891/listen-and-type",
+        "slug": "short-talk-294.1891",
+        "name": "Short Talk 294",
+        "topic": "Rooftop Garden Grand Opening",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-295.1892/listen-and-type",
+        "slug": "short-talk-295.1892",
+        "name": "Short Talk 295",
+        "topic": "Conference Attendance Approval",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-296.1893/listen-and-type",
+        "slug": "short-talk-296.1893",
+        "name": "Short Talk 296",
+        "topic": "Hawthorne Innovation Forum Opening",
+        "parts": 9,
+        "vocabLevel": "C1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-297.1894/listen-and-type",
+        "slug": "short-talk-297.1894",
+        "name": "Short Talk 297",
+        "topic": "Last-Minute London Flight Options",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-298.1895/listen-and-type",
+        "slug": "short-talk-298.1895",
+        "name": "Short Talk 298",
+        "topic": "Los Angeles Tree Planting Event",
+        "parts": 11,
+        "vocabLevel": "B1"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-299.1896/listen-and-type",
+        "slug": "short-talk-299.1896",
+        "name": "Short Talk 299",
+        "topic": "Aero Smartwatch Sales Success",
+        "parts": 9,
+        "vocabLevel": "B2"
+      },
+      {
+        "url": "/exercises/toeic/short-talk-300.1897/listen-and-type",
+        "slug": "short-talk-300.1897",
+        "name": "Short Talk 300",
+        "topic": "Oakwood Weather and Sports",
+        "parts": 10,
+        "vocabLevel": "B1"
+      }
+    ]
+  }
+]

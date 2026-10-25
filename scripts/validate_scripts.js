@@ -1,16 +1,25 @@
 const fs = require('fs');
+const vm = require('vm');
+
 const html = fs.readFileSync('index.html', 'utf8');
-const scripts = html.match(/<script[\s\S]*?<\/script>/gi) || [];
-let okCount = 0;
-scripts.forEach((s, idx) => {
-  if (s.includes('src=') || s.includes('type="module"')) return;
-  const code = s.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
-  try {
-    new Function(code);
-    okCount++;
-    console.log(`Script tag ${idx}: OK`);
-  } catch(e) {
-    console.error(`Script tag ${idx} ERROR:`, e.message);
-  }
+
+// Extract all <script>...</script> blocks
+const scripts = [...html.matchAll(/<script(?![^>]*src=)[^>]*>([\s\S]*?)<\/script>/gi)].map(m => m[1]);
+
+console.log('Inline script tags count:', scripts.length);
+
+scripts.forEach((code, idx) => {
+    if (code.includes('function switchTab')) {
+        console.log(`Script ${idx} contains switchTab! Code length: ${code.length}`);
+        try {
+            new vm.Script(code);
+            console.log(`Script ${idx} syntax is VALID!`);
+        } catch (e) {
+            console.error(`Script ${idx} syntax error:`, e.message);
+            // Print error line
+            if (e.stack) {
+                console.error(e.stack.split('\n').slice(0, 5).join('\n'));
+            }
+        }
+    }
 });
-console.log(`Successfully verified ${okCount} inline scripts in index.html!`);
