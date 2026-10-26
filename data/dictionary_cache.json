@@ -3590,5 +3590,277 @@
     "matchedForm": "",
     "searchedQuery": "supreme leader",
     "segmentedWord": "supreme leader"
+  },
+  "imminent": {
+    "headword": "imminent",
+    "lemma": "imminent",
+    "word": "imminent",
+    "phonetic": "/ˈɪmɪnənt/",
+    "ipa": {
+      "us": "/ˈɪmɪnənt/",
+      "uk": "/ˈɪmɪnənt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=imminent&accent=US&lang=en-US",
+      "uk": "https://api.dictionaryapi.dev/media/pronunciations/en/imminent-uk.mp3"
+    },
+    "partOfSpeech": "Adjective",
+    "vi": "sắp xảy ra",
+    "definition": "About to happen, occur, or take place very soon, especially of something which won't last long.",
+    "senses": [
+      {
+        "pos": "Adjective",
+        "defEn": "About to happen, occur, or take place very soon, especially of something which won't last long.",
+        "meaningVi": "sắp xảy ra",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Understanding the usage of \"imminent\" is essential for TOEIC and VSTEP test-takers.",
+            "vi": "Hiểu rõ cách dùng của \"imminent\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+          }
+        ]
+      }
+    ],
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "lists": [
+      "TOEIC / VSTEP Core Vocabulary"
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [
+        {
+          "term": "imminent",
+          "vi": "sắp xảy ra"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "immediate",
+      "impending",
+      "inevitable"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "phrase": "common use of imminent",
+        "vi": "cách sử dụng thông dụng của imminent"
+      },
+      {
+        "phrase": "key imminent factor",
+        "vi": "yếu tố imminent then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Xác định rõ từ loại của \"imminent\" dựa trên từ đứng trước và sau trong câu!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"imminent\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"imminent\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Free Dictionary API / Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://dictionaryapi.dev"
+      },
+      {
+        "name": "MyMemory Translation",
+        "license": "Public translation memory",
+        "url": "https://mymemory.translated.net"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "machineTranslated": true,
+      "incomplete": false,
+      "isSegmented": false,
+      "isLemmaRedirect": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "imminent",
+    "segmentedWord": "imminent"
+  },
+  "eager": {
+    "headword": "eager",
+    "lemma": "eager",
+    "word": "eager",
+    "phonetic": "/ˈiɡɚ/",
+    "ipa": {
+      "us": "/ˈiɡɚ/",
+      "uk": "/ˈɪːgɜː/"
+    },
+    "audio": {
+      "us": "https://api.dictionaryapi.dev/media/pronunciations/en/eager-us.mp3",
+      "uk": "/api/tts?text=eager&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Adjective",
+    "vi": "háo hức",
+    "definition": "Sharp; sour; acid.",
+    "senses": [
+      {
+        "pos": "Adjective",
+        "defEn": "Sharp; sour; acid.",
+        "meaningVi": "háo hức",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Understanding the usage of \"eager\" is essential for TOEIC and VSTEP test-takers.",
+            "vi": "Hiểu rõ cách dùng của \"eager\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+          }
+        ]
+      }
+    ],
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "lists": [
+      "TOEIC / VSTEP Core Vocabulary"
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [
+        {
+          "term": "eager",
+          "vi": "háo hức"
+        }
+      ],
+      "adv": []
+    },
+    "synonyms": [
+      "raring"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "phrase": "common use of eager",
+        "vi": "cách sử dụng thông dụng của eager"
+      },
+      {
+        "phrase": "key eager factor",
+        "vi": "yếu tố eager then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Xác định rõ từ loại của \"eager\" dựa trên từ đứng trước và sau trong câu!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"eager\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"eager\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Free Dictionary API / Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://dictionaryapi.dev"
+      },
+      {
+        "name": "MyMemory Translation",
+        "license": "Public translation memory",
+        "url": "https://mymemory.translated.net"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "machineTranslated": true,
+      "incomplete": false,
+      "isSegmented": false,
+      "isLemmaRedirect": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "eager",
+    "segmentedWord": "eager"
+  },
+  "happy new year": {
+    "query": "happy new year",
+    "rootForm": "happy new year",
+    "ipa": {
+      "us": "/ˌhæppi ˈnew ˈjɪr/",
+      "uk": "/ˌhæppi ˈnew ˈjɪə/"
+    },
+    "audio": {
+      "us": "/api/tts?text=happy%20new%20year&accent=US&lang=en-US",
+      "uk": "/api/tts?text=happy%20new%20year&accent=UK&lang=en-GB"
+    },
+    "pos": "compound noun / phrase",
+    "vietnameseMeaning": "Thuật ngữ / Cụm từ: \"happy new year\"",
+    "definitions": [
+      {
+        "en": "An essential English phrase or compound expression: \"happy new year\".",
+        "vi": "Thuật ngữ / Cụm từ: \"happy new year\"",
+        "exampleEn": "Proper usage of \"happy new year\" is highly valued in professional English environments.",
+        "exampleVi": "Sử dụng đúng cách cụm từ \"happy new year\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "wordFamily": {
+      "noun": "happy",
+      "verb": "happy",
+      "adjective": "-"
+    },
+    "collocations": [
+      {
+        "phrase": "common usage of happy new year",
+        "en": "common usage of happy new year",
+        "vi": "Cụm diễn đạt: \"common usage of happy new year\""
+      },
+      {
+        "phrase": "standard expression with happy new year",
+        "en": "standard expression with happy new year",
+        "vi": "Cụm diễn đạt: \"standard expression with happy new year\""
+      }
+    ],
+    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "headword": "happy new year",
+    "lemma": "happy new year",
+    "word": "happy new year",
+    "phonetic": "/ˌhæppi ˈnew ˈjɪr/",
+    "partOfSpeech": "compound noun / phrase",
+    "vi": "Thuật ngữ / Cụm từ: \"happy new year\"",
+    "definition": "An essential English phrase or compound expression: \"happy new year\".",
+    "senses": [
+      {
+        "pos": "compound noun / phrase",
+        "defEn": "An essential English phrase or compound expression: \"happy new year\".",
+        "meaningVi": "Thuật ngữ / Cụm từ: \"happy new year\"",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Proper usage of \"happy new year\" is highly valued in professional English environments.",
+            "vi": "Sử dụng đúng cách cụm từ \"happy new year\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "Proper usage of \"happy new year\" is highly valued in professional English environments.",
+        "vi": "Sử dụng đúng cách cụm từ \"happy new year\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+      }
+    ],
+    "lists": [
+      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+    ],
+    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": false,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "happy new year",
+    "segmentedWord": "happy new year"
   }
 }

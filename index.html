@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/take-note-hybrid.css">
+    <link rel="stylesheet" href="css/take-note-hybrid.css?v=20261026_07">
     <!-- Google Identity Services (Chính thức) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="if(typeof initGoogleIdentityServices==='function') initGoogleIdentityServices();"></script>
     <!-- Mammoth.js for Word (.docx) to editable HTML conversion -->
@@ -37,7 +37,7 @@
     <script src="js/dictionary-preprocess.js"></script>
     <script src="js/ipa-helper.js"></script>
     <script src="js/audio-service.js"></script>
-    <script src="js/dictionary-engine.js"></script>
+    <script src="js/dictionary-engine.js?v=20261026_07"></script>
     <script src="js/universal-audio-engine.js"></script>
     <script src="js/toeic-traps-data.js"></script>
     <script src="js/toeic-diagnostic-workstation.js?v=2026-v3-real-photo-part1"></script>
@@ -62,6 +62,7 @@
     <script src="js/vocabulary-module.js"></script>
     <script src="js/pdf-studio-module.js"></script>
     <script src="js/take-note-hybrid-editor.js"></script>
+    <script src="js/floating-take-note.js?v=20261026_07"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -1741,7 +1742,7 @@
                         </div>
 
                         <!-- Pronunciation Speed Toggle (1.0x vs 0.75x) -->
-                        <button id="dictSpeedToggleBtn" onclick="DictionaryEngine?.toggleAudioSpeed ? DictionaryEngine.toggleAudioSpeed() : null" class="px-3.5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-bold text-xs flex items-center gap-1.5 transition" title="Chuyển đổi tốc độ đọc: Chuẩn 1.0x / Chậm 0.75x">
+                        <button id="dictSpeedToggleBtn" onclick="toggleDictSpeed()" class="px-3.5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-bold text-xs flex items-center gap-1.5 transition" title="Chuyển đổi tốc độ đọc: Chuẩn 1.0x / Chậm 0.75x / Rất chậm 0.5x">
                             <i class="fa-solid fa-gauge-high"></i>
                             <span>Chuẩn 1.0x</span>
                         </button>
@@ -5424,11 +5425,11 @@
 
 
 
-    <!-- FLOATING AI TUTOR LAUNCHER (Gia Sư AI Đăng TOEIC) - Compact modern circular FAB with hover expansion to prevent card overlapping -->
-    <button onclick="openAITutorModal()" class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-40 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white h-12 w-12 hover:w-auto hover:px-4 rounded-full shadow-2xl flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all text-xs font-black border-2 border-white/40 backdrop-blur-md cursor-pointer group overflow-hidden ai-tutor-fab" title="Hỏi Gia Sư AI TOEIC">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-        <i class="fa-solid fa-robot text-base text-amber-300 shrink-0"></i>
-        <span class="hidden group-hover:inline transition-all whitespace-nowrap font-bold">Gia Sư AI Đăng TOEIC</span>
+    <!-- FLOATING TAKE NOTE LAUNCHER (Sổ Take Note Nhanh - Vòng tròn nhỏ mở mọi lúc khi giải đề, Part 5,...) -->
+    <button id="floatingTakeNoteFab" onclick="FloatingTakeNote.toggle()" class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-40 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 h-12 w-12 hover:w-auto hover:px-4 rounded-full shadow-2xl flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all text-xs font-black border-2 border-amber-200/80 backdrop-blur-md cursor-pointer group overflow-hidden floating-take-note-fab" title="Mở Sổ Take Note Nhanh (Ghi chú Part 5, Từ vựng, Ngữ pháp)">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 ring-2 ring-emerald-300/60 animate-pulse"></span>
+        <i class="fa-solid fa-book-bookmark text-base text-amber-950 shrink-0"></i>
+        <span class="hidden group-hover:inline transition-all whitespace-nowrap font-black text-slate-950">Sổ Take Note 📝</span>
     </button>
 
     <!-- AI TUTOR MODAL (GIA SƯ AI THÔNG MINH GIẢI ĐÁP ĐỀ THI) -->
@@ -8095,6 +8096,9 @@
         let activeNoteId = 'note-1';
         let currentNoteTagFilter = 'ALL';
 
+        window.takeNotesList = takeNotesList;
+        window.activeNoteId = activeNoteId;
+
         function initTakeNotes() {
             try {
                 const raw = localStorage.getItem('cung_dang_take_notes_v1');
@@ -8115,6 +8119,11 @@
 
         function persistTakeNotes() {
             try {
+                if (window.takeNotesList && Array.isArray(window.takeNotesList) && window.takeNotesList !== takeNotesList) {
+                    takeNotesList = window.takeNotesList;
+                }
+                window.takeNotesList = takeNotesList;
+                window.activeNoteId = activeNoteId;
                 localStorage.setItem('cung_dang_take_notes_v1', JSON.stringify(takeNotesList));
             } catch (e) {}
         }
@@ -12976,25 +12985,29 @@
                     </div>
                     <div>
                         <h3 class="text-base font-extrabold text-slate-800 dark:text-white">Đang tra cứu từ điển toàn diện...</h3>
-                        <p class="text-xs text-slate-500 mt-1">Đang phân tích từ/cụm từ <strong>"${escapeHtml(raw)}"</strong>, đối chiếu IPA chuẩn US/UK, từ loại và ma trận họ từ.</p>
+                        <p class="text-xs text-slate-500 mt-1">Đang tra cứu từ/cụm từ <strong>"${escapeHtml(raw)}"</strong> chuẩn TFLAT + Cambridge (song song Google GTX, FreeDict & Datamuse)...</p>
                     </div>
                 </div>
             `;
 
             let entry = null;
-            if (window.DictionaryEngine) {
-                entry = await DictionaryEngine.lookupWord(raw);
-            } else if (window.lookupWordOnlineAsync) {
-                entry = await window.lookupWordOnlineAsync(raw);
+            try {
+                if (window.DictionaryEngine) {
+                    entry = await DictionaryEngine.lookupWord(raw);
+                } else if (window.lookupWordOnlineAsync) {
+                    entry = await window.lookupWordOnlineAsync(raw);
+                }
+            } catch (err) {
+                console.warn('Lookup error in renderDictionaryResult:', err);
             }
 
             // Cập nhật lại thanh lịch sử
             renderDictHistoryChips();
 
-            // 1. Trường hợp: Không tìm thấy từ (Not Found) & Gợi ý gõ sai
+            // 1. Trường hợp: Không tìm thấy từ (Chỉ xảy ra khi người dùng gõ chuỗi vô nghĩa như "asdfghjkl123")
             if (!entry || entry.notFound) {
                 const queryStr = escapeHtml(entry?.query || raw);
-                const suggestions = entry?.suggestions || [];
+                const suggestions = Array.isArray(entry?.suggestions) ? entry.suggestions : [];
                 const suggestHtml = suggestions.length > 0 ? `
                     <div class="p-4 rounded-2xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 max-w-md mx-auto space-y-2 text-left">
                         <div class="text-xs font-black text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
@@ -13002,7 +13015,7 @@
                         </div>
                         <div class="flex flex-wrap gap-2">
                             ${suggestions.map(s => `
-                                <button onclick="quickLookupDictWord('${escapeHtml(s)}')" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 hover:bg-amber-100 text-amber-900 dark:text-amber-200 font-extrabold text-xs border border-amber-300 shadow-sm transition flex items-center gap-1.5">
+                                <button onclick="quickLookupDictWord('${escapeHtml(s)}')" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 hover:bg-amber-100 text-amber-900 dark:text-amber-200 font-extrabold text-xs border border-amber-300 shadow-sm transition flex items-center gap-1.5 cursor-pointer">
                                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                     <span>${escapeHtml(s)}</span>
                                 </button>
@@ -13018,7 +13031,7 @@
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-extrabold text-slate-800 dark:text-white">Không tìm thấy từ hoặc cụm từ "${queryStr}"</h4>
-                            <p class="text-xs text-slate-500 max-w-lg mx-auto">Vui lòng kiểm tra lại chính tả hoặc thử các từ quen thuộc như: <em>economic, require, contract, produce, negotiate, strategy...</em></p>
+                            <p class="text-xs text-slate-500 max-w-lg mx-auto">Vui lòng kiểm tra lại chính tả hoặc thử các từ quen thuộc như: <em>imminent, eager, economic, head of state, happy new year...</em></p>
                         </div>
                         ${suggestHtml}
                     </div>
@@ -13026,268 +13039,205 @@
                 return;
             }
 
-            // 2. Trường hợp: Tra ngược tiếng Việt sang tiếng Anh (Reverse Lookup)
-            if (entry.isReverseLookup) {
-                const results = entry.results || [];
-                const queryStr = escapeHtml(entry.query);
-
-                if (results.length === 0) {
-                    container.innerHTML = `
-                        <div class="glass-panel rounded-[26px] p-8 text-center space-y-3 border-2 border-sky-200">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center mx-auto text-xl">
-                                <i class="fa-solid fa-language"></i>
-                            </div>
-                            <h4 class="text-base font-extrabold text-slate-800 dark:text-white">Không tìm thấy từ tiếng Anh tương ứng cho "${queryStr}"</h4>
-                            <p class="text-xs text-slate-500">Hãy thử nhập từ khóa ngắn gọn hơn (VD: "hợp đồng", "kinh tế", "yêu cầu", "kết quả"...)</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = `
-                    <div class="glass-panel rounded-[26px] p-6 space-y-4 border-2 border-sky-200">
-                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-8 h-8 rounded-xl bg-sky-600 text-white flex items-center justify-center text-sm font-bold">🇻🇳 ➔ 🇬🇧</span>
-                                <div>
-                                    <h3 class="text-base font-extrabold text-slate-900 dark:text-white">Kết quả tra ngược tiếng Việt cho: "${queryStr}"</h3>
-                                    <p class="text-[11px] text-slate-500">Tìm thấy ${results.length} từ vựng tiếng Anh tương ứng trong từ điển</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            ${results.map(r => `
-                                <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-sky-300 shadow-sm space-y-2 transition flex flex-col justify-between">
-                                    <div>
-                                        <div class="flex items-center justify-between gap-2">
-                                            <div class="flex items-center gap-2">
-                                                <span class="text-lg font-black text-slate-900 dark:text-white">${escapeHtml(r.headword || r.word)}</span>
-                                                <span class="px-2 py-0.5 rounded-md bg-sky-100 text-sky-800 text-[10px] font-extrabold">${escapeHtml(r.partOfSpeech)}</span>
-                                            </div>
-                                            <button onclick="DictionaryEngine.speak('${escapeHtml(r.headword || r.word)}', 'en-US')" class="text-sky-600 hover:text-sky-800 text-xs" title="Nghe phát âm">
-                                                <i class="fa-solid fa-volume-high"></i>
-                                            </button>
-                                        </div>
-                                        <div class="text-xs text-sky-700 dark:text-sky-400 font-semibold mt-0.5">
-                                            IPA: ${escapeHtml(r.ipa?.us || r.phonetic || '')}
-                                        </div>
-                                        <div class="text-xs text-slate-700 dark:text-slate-300 font-medium mt-1.5 leading-snug">
-                                            🇻🇳 ${(r.senses?.[0]?.meaningVi || r.vi || '').slice(0, 90)}
-                                        </div>
-                                    </div>
-                                    <div class="pt-2 border-t border-slate-100 dark:border-slate-700 flex justify-end">
-                                        <button onclick="quickLookupDictWord('${escapeHtml(r.headword || r.word)}')" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm">
-                                            <span>Tra chi tiết họ từ</span>
-                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-
-            // 3. Trường hợp: Hiển thị mục từ chuẩn hóa (WordEntry)
             if (window.DictionaryEngine) {
                 DictionaryEngine.currentEntry = entry;
             }
 
-            const headword = escapeHtml(entry.headword || entry.word);
-            currentDictLookupWord = entry.headword || entry.word;
-            const pos = escapeHtml(entry.partOfSpeech || 'General Vocabulary');
+            const displayWord = entry.isReverseLookup ? (entry.englishTargetWord || entry.headword) : entry.headword;
+            const displayEnglishWord = entry.englishTargetWord || entry.headword;
+            currentDictLookupWord = displayEnglishWord;
 
-            // Khử sạch lỗi hiển thị IPA thô bằng IPAHelper (chuẩn hóa ngữ âm học chuẩn quốc tế)
+            const pos = escapeHtml(entry.partOfSpeech || 'Từ vựng tiếng Anh');
+            const examTag = escapeHtml(entry.examTag || 'TOEIC · Cambridge');
+
+            // IPA chuẩn hóa
             let rawIpaUs = entry.ipa?.us || entry.phonetic || '';
             let rawIpaUk = entry.ipa?.uk || entry.ipaUk || rawIpaUs;
             if (window.IPAHelper) {
-                rawIpaUs = window.IPAHelper.sanitizeIpaString(rawIpaUs, entry.headword || entry.word, 'US');
-                rawIpaUk = window.IPAHelper.sanitizeIpaString(rawIpaUk, entry.headword || entry.word, 'UK') || rawIpaUs;
+                rawIpaUs = window.IPAHelper.sanitizeIpaString(rawIpaUs, displayEnglishWord, 'US');
+                rawIpaUk = window.IPAHelper.sanitizeIpaString(rawIpaUk, displayEnglishWord, 'UK') || rawIpaUs;
             }
             const ipaUs = escapeHtml(rawIpaUs);
             const ipaUk = escapeHtml(rawIpaUk);
 
-            // Đăng ký URL audio gốc cho AudioService nếu có
-            if (window.AudioService && entry.audio) {
-                window.AudioService.registerAudioSources(entry.headword || entry.word, entry.audio);
-            }
-            const coreVi = escapeHtml(entry.senses?.[0]?.meaningVi || entry.vi || '');
-            const coreDef = escapeHtml(entry.senses?.[0]?.defEn || entry.definition || '');
-            const examTag = escapeHtml(entry.lists?.[0] || entry.examTag || 'TOEIC / VSTEP');
-
-            // Banner nhận diện từ dính liền (Auto-segmentation banner: vd "headsofstate" -> "heads of state")
-            let segmentBanner = '';
-            if (entry.flags?.isSegmented || (entry.segmentedWord && entry.segmentedWord.toLowerCase() !== raw.toLowerCase())) {
-                const segWord = escapeHtml(entry.segmentedWord || entry.headword);
-                segmentBanner = `
-                    <div class="p-3.5 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:bg-slate-800 border-l-4 border-indigo-600 border border-indigo-200 text-xs flex items-center justify-between gap-3 shadow-sm mb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            </span>
-                            <div>
-                                <span class="text-slate-600 dark:text-slate-300 font-medium">Đã tự động nhận diện từ dính liền:</span>
-                                <strong class="text-indigo-900 dark:text-indigo-300 text-sm ml-1">"${escapeHtml(entry.originalQuery || raw)}"</strong>
-                                <span class="text-slate-500 mx-1.5 font-bold">➔</span>
-                                <strong class="text-indigo-700 dark:text-indigo-200 text-sm">"${segWord}"</strong>
-                            </div>
+            // Bóc tách POS Blocks (Danh từ, Động từ, Tính từ, Trạng từ, Cụm từ...)
+            let dictBlocksHtml = '';
+            const dictBlocks = Array.isArray(entry.dictBlocks) ? entry.dictBlocks : [];
+            if (dictBlocks.length > 0) {
+                dictBlocksHtml = `
+                    <div class="space-y-3 pt-2">
+                        <div class="text-xs font-black uppercase text-slate-800 dark:text-white tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-layer-group text-sky-600"></i> Từ loại & Chi tiết các nghĩa (TFLAT Standard):
                         </div>
-                        <span class="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-900 text-[10px] font-black uppercase tracking-wider shrink-0">Auto-Segmented</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            ${dictBlocks.map(block => {
+                                const pLower = (block.pos || '').toLowerCase();
+                                let badgeColor = 'bg-sky-100 text-sky-800 border-sky-300 dark:bg-sky-950 dark:text-sky-300';
+                                if (pLower.includes('danh')) badgeColor = 'bg-purple-100 text-purple-900 border-purple-300 dark:bg-purple-950 dark:text-purple-300';
+                                else if (pLower.includes('động')) badgeColor = 'bg-teal-100 text-teal-900 border-teal-300 dark:bg-teal-950 dark:text-teal-300';
+                                else if (pLower.includes('tính')) badgeColor = 'bg-rose-100 text-rose-900 border-rose-300 dark:bg-rose-950 dark:text-rose-300';
+                                else if (pLower.includes('trạng')) badgeColor = 'bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950 dark:text-amber-300';
+
+                                const blockTerms = Array.isArray(block.terms) ? block.terms : [];
+                                const termsHtml = blockTerms.map(t => {
+                                    if (entry.isReverseLookup) {
+                                        return `<button onclick="quickLookupDictWord('${escapeHtml(t)}')" class="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-700 hover:bg-sky-100 text-sky-800 dark:text-sky-200 font-extrabold text-xs border border-slate-200 dark:border-slate-600 shadow-2xs transition cursor-pointer flex items-center gap-1"><span>${escapeHtml(t)}</span><i class="fa-solid fa-arrow-right text-[9px] text-sky-500"></i></button>`;
+                                    }
+                                    return `<span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-200 dark:border-slate-600">${escapeHtml(t)}</span>`;
+                                }).join('');
+
+                                const blockEntries = Array.isArray(block.entries) ? block.entries : [];
+                                const entriesHtml = blockEntries.slice(0, 4).map(e => `
+                                    <div class="text-xs space-y-1 pt-1.5 border-t border-slate-100 dark:border-slate-700/60">
+                                        <div class="font-extrabold text-slate-900 dark:text-white">• ${escapeHtml(e.meaning || '')}</div>
+                                        ${Array.isArray(e.synonyms) && e.synonyms.length > 0 ? `
+                                            <div class="flex flex-wrap items-center gap-1 text-[11px]">
+                                                <span class="text-slate-400 font-medium">Đồng nghĩa:</span>
+                                                ${e.synonyms.slice(0, 5).map(s => `
+                                                    <button onclick="quickLookupDictWord('${escapeHtml(s)}')" class="text-sky-600 dark:text-sky-400 hover:underline font-semibold cursor-pointer">
+                                                        ${escapeHtml(s)}
+                                                    </button>
+                                                `).join('<span class="text-slate-300">,</span> ')}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `).join('');
+
+                                return `
+                                    <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs space-y-2.5">
+                                        <div class="flex items-center justify-between">
+                                            <span class="px-2.5 py-0.5 rounded-full text-xs font-black uppercase border ${badgeColor}">
+                                                ${escapeHtml(block.pos)}
+                                            </span>
+                                            ${block.baseForm ? `<span class="text-[11px] text-slate-400">Gốc: ${escapeHtml(block.baseForm)}</span>` : ''}
+                                        </div>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            ${termsHtml}
+                                        </div>
+                                        ${entriesHtml}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
                     </div>
                 `;
             }
 
-            // Banner chuyển hướng Lemma nếu có (e.g. went -> go, heads of state -> head of state)
-            let lemmaBanner = '';
-            if (entry.flags?.isLemmaRedirect) {
-                const searchQ = escapeHtml(entry.searchedQuery || raw);
-                const matchedNote = escapeHtml(entry.matchedForm || 'Biến thể ngữ pháp');
-                lemmaBanner = `
-                    <div class="p-3.5 rounded-2xl bg-sky-50 dark:bg-slate-800 border-l-4 border-sky-600 border border-sky-200 text-xs flex items-center justify-between gap-3 shadow-sm mb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center text-xs font-black shrink-0">
-                                <i class="fa-solid fa-code-branch"></i>
-                            </span>
-                            <div>
-                                <span class="text-slate-600 dark:text-slate-300 font-medium">Đang hiển thị cho từ gốc:</span>
-                                <strong class="text-sky-700 dark:text-sky-300 text-sm ml-1">${headword}</strong>
-                                <span class="text-slate-500 dark:text-slate-400 italic ml-1">(${matchedNote})</span>
-                            </div>
+            // Word Family Matrix
+            const wf = entry.wordFamily || {};
+            const safeNoun = Array.isArray(wf.noun) ? wf.noun : [];
+            const safeVerb = Array.isArray(wf.verb) ? wf.verb : [];
+            const safeAdj = Array.isArray(wf.adj) ? wf.adj : [];
+            const safeAdv = Array.isArray(wf.adv) ? wf.adv : [];
+
+            const nounList = (safeNoun.length > 0)
+                ? safeNoun.map(n => `<div class="p-2 rounded-xl bg-purple-50 dark:bg-slate-800 border border-purple-200"><button onclick="quickLookupDictWord('${escapeHtml(n.term || n)}')" class="font-extrabold text-purple-700 dark:text-purple-300 hover:underline text-left cursor-pointer">${escapeHtml(n.term || n)}</button><div class="text-[11px] text-slate-500">${escapeHtml(n.vi || n.term || n)}</div></div>`).join('')
+                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
+            const verbList = (safeVerb.length > 0)
+                ? safeVerb.map(v => `<div class="p-2 rounded-xl bg-teal-50 dark:bg-slate-800 border border-teal-200"><button onclick="quickLookupDictWord('${escapeHtml(v.term || v)}')" class="font-extrabold text-teal-700 dark:text-teal-300 hover:underline text-left cursor-pointer">${escapeHtml(v.term || v)}</button><div class="text-[11px] text-slate-500">${escapeHtml(v.vi || v.term || v)}</div></div>`).join('')
+                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
+            const adjList = (safeAdj.length > 0)
+                ? safeAdj.map(a => `<div class="p-2 rounded-xl bg-rose-50 dark:bg-slate-800 border border-rose-200"><button onclick="quickLookupDictWord('${escapeHtml(a.term || a)}')" class="font-extrabold text-rose-700 dark:text-rose-300 hover:underline text-left cursor-pointer">${escapeHtml(a.term || a)}</button><div class="text-[11px] text-slate-500">${escapeHtml(a.vi || a.term || a)}</div></div>`).join('')
+                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
+            const advList = (safeAdv.length > 0)
+                ? safeAdv.map(ad => `<div class="p-2 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200"><button onclick="quickLookupDictWord('${escapeHtml(ad.term || ad)}')" class="font-extrabold text-amber-800 dark:text-amber-300 hover:underline text-left cursor-pointer">${escapeHtml(ad.term || ad)}</button><div class="text-[11px] text-slate-500">${escapeHtml(ad.vi || ad.term || ad)}</div></div>`).join('')
+                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
+
+            const hasWordFamily = safeNoun.length > 0 || safeVerb.length > 0 || safeAdj.length > 0 || safeAdv.length > 0;
+
+            // Real-life Context Examples
+            const examples = Array.isArray(entry.examples) ? entry.examples : [];
+            const exHtml = (examples.length > 0)
+                ? `
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <div class="text-xs font-black text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-regular fa-comment-dots text-sky-600"></i> Ví dụ ngữ cảnh công sở & đề thi:
                         </div>
-                        <span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-bold shrink-0">Lemmatized: "${searchQ}"</span>
+                        <div class="space-y-2">
+                            ${examples.map(ex => `
+                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <div class="text-xs font-extrabold text-slate-900 dark:text-white flex items-center justify-between">
+                                        <span>🇬🇧 "${escapeHtml(ex.en || '')}"</span>
+                                        <button onclick="DictionaryEngine.speak('${escapeHtml(String(ex.en || '').replace(/'/g, "\\'"))}', 'en-US')" class="text-sky-600 hover:text-sky-800 text-xs cursor-pointer" title="Nghe câu ví dụ">
+                                            <i class="fa-solid fa-volume-high"></i>
+                                        </button>
+                                    </div>
+                                    <div class="text-[11.5px] text-slate-500 italic">🇻🇳 ${escapeHtml(ex.vi || '')}</div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
-                `;
-            }
-
-            // Word Family Matrix: Chuẩn hóa hỗ trợ cả Array of objects VÀ Object of strings ({ noun: "...", verb: "..." })
-            const rawWf = entry.wordFamily || {};
-            const parseWfCol = (col) => {
-                if (!col) return [];
-                if (Array.isArray(col)) return col;
-                if (typeof col === 'string') {
-                    if (col.trim() === '-' || !col.trim()) return [];
-                    return col.split(',').map(s => {
-                        const t = s.trim();
-                        const m = t.match(/^([^(]+)(\((.+)\))?$/);
-                        if (m) {
-                            return { term: m[1].trim(), vi: m[3] ? m[3].trim() : '' };
-                        }
-                        return { term: t, vi: '' };
-                    }).filter(x => x.term);
-                }
-                return [];
-            };
-
-            const wf = {
-                noun: parseWfCol(rawWf.noun),
-                verb: parseWfCol(rawWf.verb),
-                adj: parseWfCol(rawWf.adj || rawWf.adjective),
-                adv: parseWfCol(rawWf.adv || rawWf.adverb)
-            };
-            const nounList = (wf.noun && wf.noun.length > 0)
-                ? wf.noun.map(n => `<div class="p-2 rounded-xl bg-purple-50 dark:bg-slate-800 border border-purple-200"><button onclick="quickLookupDictWord('${escapeHtml(n.term)}')" class="font-extrabold text-purple-700 dark:text-purple-300 hover:underline text-left">${escapeHtml(n.term)}</button><div class="text-[11px] text-slate-500">${escapeHtml(n.vi || n.term)}</div></div>`).join('')
-                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
-
-            const verbList = (wf.verb && wf.verb.length > 0)
-                ? wf.verb.map(v => `<div class="p-2 rounded-xl bg-teal-50 dark:bg-slate-800 border border-teal-200"><button onclick="quickLookupDictWord('${escapeHtml(v.term)}')" class="font-extrabold text-teal-700 dark:text-teal-300 hover:underline text-left">${escapeHtml(v.term)}</button><div class="text-[11px] text-slate-500">${escapeHtml(v.vi || v.term)}</div></div>`).join('')
-                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
-
-            const adjList = (wf.adj && wf.adj.length > 0)
-                ? wf.adj.map(a => `<div class="p-2 rounded-xl bg-rose-50 dark:bg-slate-800 border border-rose-200"><button onclick="quickLookupDictWord('${escapeHtml(a.term)}')" class="font-extrabold text-rose-700 dark:text-rose-300 hover:underline text-left">${escapeHtml(a.term)}</button><div class="text-[11px] text-slate-500">${escapeHtml(a.vi || a.term)}</div></div>`).join('')
-                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
-
-            const advList = (wf.adv && wf.adv.length > 0)
-                ? wf.adv.map(ad => `<div class="p-2 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200"><button onclick="quickLookupDictWord('${escapeHtml(ad.term)}')" class="font-extrabold text-amber-800 dark:text-amber-300 hover:underline text-left">${escapeHtml(ad.term)}</button><div class="text-[11px] text-slate-500">${escapeHtml(ad.vi || ad.term)}</div></div>`).join('')
-                : `<div class="text-xs text-slate-400 italic">Không có dạng thông dụng</div>`;
-
-            // Synonyms & Antonyms
-            const synHtml = (entry.synonyms && entry.synonyms.length > 0)
-                ? entry.synonyms.map(s => `<button onclick="quickLookupDictWord('${escapeHtml(s)}')" class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold hover:bg-emerald-100 transition">${escapeHtml(s)}</button>`).join('')
-                : `<span class="text-xs text-slate-400">Đang cập nhật</span>`;
-
-            const antHtml = (entry.antonyms && entry.antonyms.length > 0)
-                ? entry.antonyms.map(a => `<button onclick="quickLookupDictWord('${escapeHtml(a)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 text-xs font-bold hover:bg-rose-100 transition">${escapeHtml(a)}</button>`).join('')
-                : `<span class="text-xs text-slate-400">Đang cập nhật</span>`;
-
-            // Collocations & Idioms (Hỗ trợ cả mảng chuỗi VÀ mảng object)
-            const collHtml = (entry.collocations && entry.collocations.length > 0)
-                ? entry.collocations.map(c => {
-                    const phraseText = typeof c === 'string' ? c : (c.en || c.phrase || '');
-                    const viText = typeof c === 'string' ? `Cụm từ với "${headword}"` : (c.vi || '');
-                    return `
-                    <li class="flex items-start gap-2 text-xs">
-                        <span class="text-sky-600 font-extrabold shrink-0">•</span>
-                        <div>
-                            <strong class="text-slate-900 dark:text-white">${escapeHtml(phraseText)}</strong>${viText ? `: <span class="text-slate-600 dark:text-slate-300 italic">${escapeHtml(viText)}</span>` : ''}
-                        </div>
-                    </li>
-                    `;
-                }).join('')
-                : `<li class="text-xs text-slate-400">Chưa có dữ liệu collocation</li>`;
-
-            const idiomHtml = (entry.idioms && entry.idioms.length > 0)
-                ? entry.idioms.map(idm => {
-                    const phraseText = typeof idm === 'string' ? idm : (idm.en || idm.phrase || '');
-                    const viText = typeof idm === 'string' ? `Thành ngữ với "${headword}"` : (idm.vi || '');
-                    return `
-                    <li class="flex items-start gap-2 text-xs">
-                        <span class="text-amber-600 font-extrabold shrink-0">★</span>
-                        <div>
-                            <strong class="text-amber-900 dark:text-amber-300">${escapeHtml(phraseText)}</strong>${viText ? `: <span class="text-slate-600 dark:text-slate-300 italic">${escapeHtml(viText)}</span>` : ''}
-                        </div>
-                    </li>
-                    `;
-                }).join('')
-                : `<li class="text-xs text-slate-400">Không có thành ngữ đặc biệt</li>`;
-
-            // Context Examples
-            const examples = entry.senses?.[0]?.examples || entry.examples || [];
-            const exHtml = (examples && examples.length > 0)
-                ? examples.map(ex => `
-                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-1">
-                        <div class="text-xs font-extrabold text-slate-900 dark:text-white flex items-center justify-between">
-                            <span>🇬🇧 "${escapeHtml(ex.en)}"</span>
-                            <button onclick="DictionaryEngine.speak('${escapeHtml(ex.en.replace(/'/g, "\\'"))}', 'en-US')" class="text-sky-600 hover:text-sky-800 text-xs" title="Nghe câu ví dụ">
-                                <i class="fa-solid fa-volume-high"></i>
-                            </button>
-                        </div>
-                        <div class="text-[11.5px] text-slate-500 italic">🇻🇳 ${escapeHtml(ex.vi)}</div>
-                    </div>
-                `).join('')
+                `
                 : '';
 
-            // Mini-Quiz Component
+            // Synonyms pills
+            const synonyms = Array.isArray(entry.synonyms) ? entry.synonyms : [];
+            const synHtml = (synonyms.length > 0)
+                ? synonyms.slice(0, 10).map(s => `<button onclick="quickLookupDictWord('${escapeHtml(s)}')" class="px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold hover:bg-emerald-100 transition cursor-pointer">${escapeHtml(s)}</button>`).join('')
+                : '';
+
+            // Collocations & Idioms
+            const collocations = Array.isArray(entry.collocations) ? entry.collocations : [];
+            const collHtml = (collocations.length > 0)
+                ? collocations.map(c => {
+                    const phraseText = typeof c === 'string' ? c : (c.en || c.phrase || '');
+                    const viText = typeof c === 'string' ? '' : (c.vi || '');
+                    return `<li class="flex items-start gap-2 text-xs"><span class="text-sky-600 font-extrabold shrink-0">•</span><div><strong class="text-slate-900 dark:text-white cursor-pointer hover:underline" onclick="quickLookupDictWord('${escapeHtml(phraseText)}')">${escapeHtml(phraseText)}</strong>${viText ? `: <span class="text-slate-600 dark:text-slate-300 italic">${escapeHtml(viText)}</span>` : ''}</div></li>`;
+                }).join('')
+                : '';
+
             const quizHtml = window.DictionaryEngine ? DictionaryEngine.generateMiniQuiz(entry) : '';
 
-            // Render Full Card
-            container.innerHTML = `
-                ${segmentBanner}
-                ${lemmaBanner}
+            // RENDER TOÀN BỘ THẺ KẾT QUẢ ĐỒNG BỘ 10/10
+            const alternatives = Array.isArray(entry.alternatives) ? entry.alternatives : [];
 
-                <!-- Main Header Card -->
-                <div class="glass-panel rounded-[26px] p-6 space-y-5 border-2 border-sky-200 shadow-sm">
+            container.innerHTML = `
+                <div class="glass-panel rounded-[26px] p-6 space-y-5 border-2 border-sky-200 dark:border-slate-700 shadow-sm">
+                    
+                    <!-- Header Row: Title, Badges, Audio, Action Buttons -->
                     <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
                         <div>
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <h2 class="text-[30px] font-black text-slate-900 dark:text-white tracking-tight">${headword}</h2>
-                                <span class="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-xs font-extrabold">${pos}</span>
-                                <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">${examTag}</span>
-                                ${entry.flags?.isAiGenerated ? `<span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-purple-100 to-indigo-100 text-indigo-900 text-xs font-black border border-indigo-200 shadow-xs flex items-center gap-1"><i class="fa-solid fa-brain text-purple-600 text-[11px]"></i><span>AI Enhanced Entry</span></span>` : ''}
+                            <!-- Direction Badge -->
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                ${entry.isReverseLookup ? `
+                                    <span class="px-3 py-1 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-950 dark:to-teal-950 text-emerald-900 dark:text-emerald-300 font-black text-xs flex items-center gap-1.5 shadow-2xs border border-emerald-300/80">
+                                        <i class="fa-solid fa-arrow-right-arrow-left"></i> Việt ➔ Anh (TFLAT + Cambridge)
+                                    </span>
+                                ` : `
+                                    <span class="px-3 py-1 rounded-full bg-gradient-to-r from-sky-100 to-indigo-100 dark:from-sky-950 dark:to-indigo-950 text-sky-900 dark:text-sky-300 font-black text-xs flex items-center gap-1.5 shadow-2xs border border-sky-300/80">
+                                        <i class="fa-solid fa-book-open"></i> Anh ➔ Việt (Cambridge + TFLAT)
+                                    </span>
+                                `}
+                                <span class="px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-slate-800 text-sky-800 dark:text-sky-300 text-xs font-extrabold">${pos}</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 text-xs font-bold">${examTag}</span>
+                                ${entry.isInflected ? `
+                                    <span class="px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-300 text-xs font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-code-branch"></i> Từ gốc: <strong class="cursor-pointer hover:underline" onclick="quickLookupDictWord('${escapeHtml(entry.baseForm)}')">${escapeHtml(entry.baseForm)}</strong>
+                                    </span>
+                                ` : ''}
                             </div>
-                            
+
+                            <!-- Big Word Title -->
+                            <div class="flex flex-wrap items-baseline gap-3">
+                                <h2 class="text-[32px] font-black text-slate-900 dark:text-white tracking-tight leading-none">${escapeHtml(displayWord)}</h2>
+                                ${entry.isReverseLookup ? `
+                                    <span class="text-xs font-bold text-slate-500">
+                                        (Từ khóa tiếng Việt: <strong class="text-emerald-600 dark:text-emerald-400">"${escapeHtml(entry.query)}"</strong>)
+                                    </span>
+                                ` : ''}
+                            </div>
+
                             <!-- US & UK Pronunciation Row -->
-                            <div class="flex flex-wrap items-center gap-4 text-xs font-semibold mt-2">
+                            <div class="flex flex-wrap items-center gap-3 text-xs font-semibold mt-3">
                                 <div class="flex items-center gap-1.5 text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-sky-200 dark:border-slate-700">
                                     <span>🇺🇸 US: <strong>${ipaUs}</strong></span>
-                                    <button onclick="DictionaryEngine.speak('${headword}', 'en-US')" class="w-6 h-6 rounded-full bg-sky-600 hover:bg-sky-700 text-white flex items-center justify-center transition ml-1" title="Nghe giọng Mỹ">
+                                    <button onclick="DictionaryEngine.speak('${escapeHtml(displayEnglishWord)}', 'en-US')" class="w-6 h-6 rounded-full bg-sky-600 hover:bg-sky-700 text-white flex items-center justify-center transition ml-1 cursor-pointer" title="Nghe phát âm chuẩn US">
                                         <i class="fa-solid fa-volume-high text-[10px]"></i>
                                     </button>
                                 </div>
                                 <div class="flex items-center gap-1.5 text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-slate-700">
                                     <span>🇬🇧 UK: <strong>${ipaUk}</strong></span>
-                                    <button onclick="DictionaryEngine.speak('${headword}', 'en-GB')" class="w-6 h-6 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition ml-1" title="Nghe giọng Anh">
+                                    <button onclick="DictionaryEngine.speak('${escapeHtml(displayEnglishWord)}', 'en-GB')" class="w-6 h-6 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition ml-1 cursor-pointer" title="Nghe phát âm chuẩn UK">
                                         <i class="fa-solid fa-volume-high text-[10px]"></i>
                                     </button>
                                 </div>
@@ -13296,39 +13246,33 @@
 
                         <!-- Action Buttons -->
                         <div class="flex flex-wrap items-center gap-2">
-                            <button onclick="openWordCopyingInTakeNote('${headword}')" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-extrabold shadow-sm transition flex items-center gap-1.5">
-                                <i class="fa-solid fa-feather-pointed"></i> Luyện chép từ này 10-30 lần trong Take Note
+                            <button onclick="saveDictWordToVocab('${escapeHtml(displayEnglishWord)}')" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs font-extrabold shadow-sm transition flex items-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Thêm vào thẻ từ vựng</span>
                             </button>
-                            <button onclick="saveDictWordToVocab('${headword}')" class="px-3.5 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200 text-xs font-bold transition flex items-center gap-1">
-                                <i class="fa-regular fa-bookmark"></i> Lưu từ vào Sổ
-                            </button>
-                            <button onclick="reportDictIssue('${headword}')" class="px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold transition" title="Báo lỗi hoặc đề xuất cải tiến nghĩa">
-                                <i class="fa-regular fa-flag"></i> Góp ý
+                            <button onclick="openWordCopyingInTakeNote('${escapeHtml(displayEnglishWord)}')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black shadow-sm transition flex items-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-feather-pointed"></i>
+                                <span>Luyện chép 10-30 lần</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Meaning -->
-                    <div class="space-y-1.5">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Nghĩa tiếng Việt cốt lõi:</div>
-                        <div class="text-[18px] font-extrabold text-slate-900 dark:text-white leading-snug">
-                            🇻🇳 ${coreVi}
+                    <!-- Highlighted Core Meaning Card -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-50 via-blue-50/60 to-indigo-50/50 dark:from-slate-800/80 dark:to-slate-800/40 border-2 border-sky-300 dark:border-slate-700 space-y-2">
+                        <div class="text-[11px] font-black uppercase text-sky-700 dark:text-sky-300 tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-star text-amber-500"></i> Nghĩa chính cốt lõi:
                         </div>
-                        <div class="text-xs text-slate-500 italic">
-                            🇬🇧 ${coreDef}
+                        <div class="text-[22px] font-black text-slate-900 dark:text-white leading-snug">
+                            ${entry.isReverseLookup ? '🇬🇧 ' + escapeHtml(entry.englishTargetWord) : '🇻🇳 ' + escapeHtml(entry.mainMeaning)}
                         </div>
-                        ${(entry.definitions && entry.definitions.length > 1) ? `
-                            <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
-                                <div class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Các định nghĩa & ngữ cảnh mở rộng:</div>
-                                <div class="space-y-2">
-                                    ${entry.definitions.slice(1).map(d => `
-                                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs space-y-1">
-                                            <div class="font-bold text-slate-800 dark:text-white">🇻🇳 ${escapeHtml(d.vi)}</div>
-                                            <div class="text-slate-500 italic text-[11px]">🇬🇧 ${escapeHtml(d.en)}</div>
-                                            ${d.exampleEn ? `<div class="text-[11px] text-sky-700 dark:text-sky-300 font-medium">VD: "${escapeHtml(d.exampleEn)}"</div>` : ''}
-                                        </div>
-                                    `).join('')}
-                                </div>
+                        ${alternatives.length > 0 ? `
+                            <div class="pt-2 border-t border-sky-200/60 dark:border-slate-700 flex flex-wrap items-center gap-1.5">
+                                <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Các cách dịch thay thế / ngữ cảnh:</span>
+                                ${alternatives.map(a => `
+                                    <button onclick="quickLookupDictWord('${escapeHtml(a)}')" class="px-2.5 py-0.5 rounded-lg bg-white dark:bg-slate-700 text-sky-800 dark:text-sky-200 text-xs font-bold border border-sky-200 dark:border-slate-600 hover:border-sky-400 transition cursor-pointer">
+                                        ${escapeHtml(a)}
+                                    </button>
+                                `).join('')}
                             </div>
                         ` : ''}
                     </div>
@@ -13343,86 +13287,58 @@
                         </div>
                     ` : ''}
 
-                    <!-- 4 Word Family Columns (Họ từ Noun - Verb - Adj - Adv) -->
-                    <div class="space-y-2 pt-2">
-                        <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
-                            <i class="fa-solid fa-sitemap text-sky-600"></i> Bảng Họ từ toàn diện (Word Family Matrix):
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                            <!-- Noun -->
-                            <div class="glass-panel rounded-2xl p-3 space-y-2 border border-purple-200">
-                                <div class="text-xs font-black text-purple-700 flex items-center justify-between">
-                                    <span>🏷️ DANH TỪ (Noun)</span>
-                                </div>
-                                <div class="space-y-1.5">${nounList}</div>
-                            </div>
-                            <!-- Verb -->
-                            <div class="glass-panel rounded-2xl p-3 space-y-2 border border-teal-200">
-                                <div class="text-xs font-black text-teal-700 flex items-center justify-between">
-                                    <span>⚡ ĐỘNG TỪ (Verb)</span>
-                                </div>
-                                <div class="space-y-1.5">${verbList}</div>
-                            </div>
-                            <!-- Adj -->
-                            <div class="glass-panel rounded-2xl p-3 space-y-2 border border-rose-200">
-                                <div class="text-xs font-black text-rose-700 flex items-center justify-between">
-                                    <span>🎨 TÍNH TỪ (Adj)</span>
-                                </div>
-                                <div class="space-y-1.5">${adjList}</div>
-                            </div>
-                            <!-- Adv -->
-                            <div class="glass-panel rounded-2xl p-3 space-y-2 border border-amber-200">
-                                <div class="text-xs font-black text-amber-800 flex items-center justify-between">
-                                    <span>🚀 TRẠNG TỪ (Adv)</span>
-                                </div>
-                                <div class="space-y-1.5">${advList}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Detailed POS Blocks (Danh từ, Động từ, Tính từ...) -->
+                    ${dictBlocksHtml}
 
-                    <!-- Synonyms & Antonyms -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                    <!-- Synonyms Chips -->
+                    ${synHtml ? `
                         <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2">
                             <div class="text-xs font-extrabold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
                                 <i class="fa-solid fa-equals text-emerald-600"></i> Từ đồng nghĩa (Synonyms):
                             </div>
                             <div class="flex flex-wrap gap-1.5">${synHtml}</div>
                         </div>
+                    ` : ''}
 
-                        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2">
-                            <div class="text-xs font-extrabold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
-                                <i class="fa-solid fa-not-equal text-rose-600"></i> Từ trái nghĩa (Antonyms):
+                    <!-- Word Family Matrix (Họ từ Noun - Verb - Adj - Adv) -->
+                    ${hasWordFamily ? `
+                        <div class="space-y-2 pt-2">
+                            <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-sitemap text-sky-600"></i> Bảng Họ từ toàn diện (Word Family Matrix):
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                <div class="glass-panel rounded-2xl p-3 space-y-2 border border-purple-200">
+                                    <div class="text-xs font-black text-purple-700">🏷️ DANH TỪ (Noun)</div>
+                                    <div class="space-y-1.5">${nounList}</div>
+                                </div>
+                                <div class="glass-panel rounded-2xl p-3 space-y-2 border border-teal-200">
+                                    <div class="text-xs font-black text-teal-700">⚡ ĐỘNG TỪ (Verb)</div>
+                                    <div class="space-y-1.5">${verbList}</div>
+                                </div>
+                                <div class="glass-panel rounded-2xl p-3 space-y-2 border border-rose-200">
+                                    <div class="text-xs font-black text-rose-700">🎨 TÍNH TỪ (Adj)</div>
+                                    <div class="space-y-1.5">${adjList}</div>
+                                </div>
+                                <div class="glass-panel rounded-2xl p-3 space-y-2 border border-amber-200">
+                                    <div class="text-xs font-black text-amber-800">🚀 TRẠNG TỪ (Adv)</div>
+                                    <div class="space-y-1.5">${advList}</div>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap gap-1.5">${antHtml}</div>
                         </div>
-                    </div>
+                    ` : ''}
 
-                    <!-- Collocations & Idioms -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                    <!-- Collocations & Idioms if available -->
+                    ${collHtml ? `
                         <div class="p-4 rounded-2xl bg-sky-50/60 dark:bg-slate-800 border border-sky-200 dark:border-slate-700 space-y-2.5">
                             <div class="text-xs font-extrabold text-sky-900 dark:text-sky-300 flex items-center gap-1.5">
                                 <i class="fa-solid fa-link text-sky-600"></i> Cụm từ Collocations hay gặp trong bài thi:
                             </div>
                             <ul class="space-y-2">${collHtml}</ul>
                         </div>
-
-                        <div class="p-4 rounded-2xl bg-amber-50/60 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 space-y-2.5">
-                            <div class="text-xs font-extrabold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
-                                <i class="fa-solid fa-lightbulb text-amber-600"></i> Thành ngữ Idioms & Cụm diễn đạt:
-                            </div>
-                            <ul class="space-y-2">${idiomHtml}</ul>
-                        </div>
-                    </div>
+                    ` : ''}
 
                     <!-- Real-life Context Examples -->
-                    ${exHtml ? `
-                        <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-                            <div class="text-xs font-black text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
-                                <i class="fa-regular fa-comment-dots text-sky-600"></i> Ví dụ ngữ cảnh công sở & đề thi:
-                            </div>
-                            <div class="space-y-2">${exHtml}</div>
-                        </div>
-                    ` : ''}
+                    ${exHtml}
 
                     <!-- Mini-Quiz Quick Check -->
                     ${quizHtml ? `
@@ -13431,14 +13347,14 @@
                         </div>
                     ` : ''}
 
-                    <!-- Open Source Attribution Footer -->
+                    <!-- Footer Attribution -->
                     <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
                         <div class="flex items-center gap-1.5">
                             <i class="fa-solid fa-shield-halved text-sky-500"></i>
-                            <span>Dữ liệu mở: Wiktionary (CC BY-SA 3.0), WordNet 3.0 (Princeton), Tatoeba Project (CC BY 2.0 FR).</span>
+                            <span>Dữ liệu mở: Google Translate GTX, Free Dictionary API (Cambridge/Oxford), Datamuse & Wiktionary.</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="reportDictIssue('${headword}')" class="hover:text-sky-600 transition">Báo lỗi / Góp ý dữ liệu</button>
+                            <button onclick="reportDictIssue('${escapeHtml(displayEnglishWord)}')" class="hover:text-sky-600 transition cursor-pointer">Báo lỗi / Góp ý dữ liệu</button>
                         </div>
                     </div>
                 </div>
@@ -13462,6 +13378,12 @@
             renderDictionaryResult(word);
         }
 
+        function toggleDictSpeed() {
+            if (window.DictionaryEngine && typeof window.DictionaryEngine.toggleAudioSpeed === 'function') {
+                window.DictionaryEngine.toggleAudioSpeed();
+            }
+        }
+
         function speakDictWord(lang = 'en-US') {
             if (window.DictionaryEngine) {
                 DictionaryEngine.speak(currentDictLookupWord, lang);
@@ -13473,8 +13395,8 @@
         function saveDictWordToVocab(word) {
             const w = word || currentDictLookupWord;
             const entry = window.DictionaryEngine?.currentEntry || null;
-            const term = entry?.headword || w;
-            const vi = entry?.senses?.[0]?.meaningVi || entry?.vi || 'Từ vựng đã lưu';
+            const term = entry?.englishTargetWord || entry?.headword || w;
+            const vi = entry?.mainMeaning || entry?.senses?.[0]?.meaningVi || entry?.vi || 'Từ vựng đã lưu';
             const ipa = entry?.ipa?.us || entry?.phonetic || '';
 
             if (!state.savedWords) state.savedWords = [];

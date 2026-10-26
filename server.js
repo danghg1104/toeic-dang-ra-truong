@@ -2998,7 +2998,7 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const isHtml = ext === '.html';
-    const isNoCache = isHtml || ext === '.js' || ext === '.json';
+    const isNoCache = isHtml || ext === '.js' || ext === '.json' || ext === '.css';
     const cacheControlHeader = isNoCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400, stale-while-revalidate=604800';
     const rawClientId = isHtml ? (process.env.GOOGLE_CLIENT_ID || '').trim() : '';
 

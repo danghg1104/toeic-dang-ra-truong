@@ -1,5 +1,5 @@
-// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V10 ETS 2026 S-Curve & Diagnostic Workstation)
-const CACHE_NAME = 'dang-ra-truong-cache-v10-scurve-diagnostic-2026';
+// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V11 ETS 2026 S-Curve & Diagnostic Workstation)
+const CACHE_NAME = 'dang-ra-truong-cache-v11-take-note-handles-2026';
 const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/icon-192.png',
@@ -36,8 +36,8 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // TUYỆT ĐỐI KHÔNG DÙNG CACHE CHO HTML, JS VÀ API (Luôn lấy mã nguồn mới nhất từ server)
-  if (event.request.headers.get('accept')?.includes('text/html') || url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname.startsWith('/api/')) {
+  // TUYỆT ĐỐI KHÔNG DÙNG CACHE CHO HTML, JS, CSS VÀ API (Luôn lấy mã nguồn mới nhất từ server)
+  if (event.request.headers.get('accept')?.includes('text/html') || url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname.endsWith('.css') || url.pathname.startsWith('/api/')) {
     event.respondWith(fetch(event.request, { cache: 'no-cache' }));
     return;
   }
