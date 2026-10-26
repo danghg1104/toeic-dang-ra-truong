@@ -1319,3 +1319,1319 @@ window.lookupWordOnlineAsync = async function(inputWord) {
 
 console.log("Dictionary and Word Family database initialized successfully.");
 
+
+// EXTENDED BILINGUAL LEXICON (OXFORD PICTURE DICTIONARY + CAMBRIDGE + WIKTIONARY)
+window.dictionaryData = window.dictionaryData || {};
+Object.assign(window.dictionaryData, {
+  "curio": {
+    "headword": "curio",
+    "lemma": "curio",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈkjʊr.i.oʊ/",
+      "uk": "/ˈkjʊə.ri.əʊ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=curio&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curio&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "đồ cổ hiếm, vật hiếm có lạ mắt, cổ vật kỳ thú (thường dùng trang trí)",
+    "vietnameseMeaning": "đồ cổ hiếm, vật hiếm có lạ mắt, cổ vật kỳ thú (thường dùng trang trí)",
+    "definition": "An unusual, interesting, or rare object, especially one valued as a collector's item.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "An unusual, interesting, or rare object, especially one valued as a collector's item.",
+        "meaningVi": "đồ cổ hiếm, vật hiếm có lạ mắt, cổ vật kỳ thú (thường dùng trang trí)",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "The living room was crowded with curios and antiques from their travels in Asia.",
+            "vi": "Phòng khách chật ních những món đồ cổ kỳ thú và cổ vật từ chuyến du lịch châu Á của họ."
+          },
+          {
+            "en": "He keeps a collection of rare curios in a glass cabinet.",
+            "vi": "Anh ấy cất giữ một bộ sưu tập đồ cổ quý hiếm trong tủ kính."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curio",
+          "vi": "đồ cổ hiếm, vật lạ mắt"
+        },
+        {
+          "term": "curiosity",
+          "vi": "sự tò mò, tính hiếu kỳ; vật kỳ lạ"
+        }
+      ],
+      "adj": [
+        {
+          "term": "curious",
+          "vi": "tò mò, hiếu kỳ; kỳ lạ, lạ lùng"
+        }
+      ],
+      "adv": [
+        {
+          "term": "curiously",
+          "vi": "một cách tò mò; kỳ lạ thay"
+        }
+      ]
+    },
+    "synonyms": [
+      "novelty",
+      "oddity",
+      "rarity",
+      "collector's item",
+      "antique",
+      "knick-knack"
+    ],
+    "antonyms": [
+      "commonplace",
+      "ordinary item"
+    ],
+    "collocations": [
+      {
+        "en": "a collection of curios",
+        "vi": "bộ sưu tập đồ cổ hiếm lạ"
+      },
+      {
+        "en": "curio shop",
+        "vi": "cửa hàng bán đồ cổ kỷ niệm lạ mắt"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Ghi chú: 'curio' là danh từ đếm được, số nhiều là 'curios' (thêm -s bình thường). Rất hay gặp trong ngữ cảnh bài đọc về sở thích sưu tầm, đấu giá nghệ thuật.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "curios": {
+    "headword": "curios",
+    "lemma": "curio",
+    "matchedForm": "Dạng số nhiều (Plural) của danh từ 'curio'",
+    "ipa": {
+      "us": "/ˈkjʊr.i.oʊz/",
+      "uk": "/ˈkjʊə.ri.əʊz/"
+    },
+    "audio": {
+      "us": "/api/tts?text=curios&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curios&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "những món đồ cổ hiếm, đồ vật lạ mắt kỳ thú (dạng số nhiều của 'curio')",
+    "vietnameseMeaning": "những món đồ cổ hiếm, đồ vật lạ mắt kỳ thú (dạng số nhiều của 'curio')",
+    "definition": "Plural form of curio: rare, unusual, or interesting objects valued by collectors.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "Plural form of curio: rare, unusual, or interesting objects valued by collectors.",
+        "meaningVi": "những món đồ cổ hiếm, đồ vật lạ mắt kỳ thú (dạng số nhiều của 'curio')",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "Her shelves were lined with curios from all over the world.",
+            "vi": "Những chiếc kệ của cô ấy xếp đầy những món đồ cổ lạ mắt từ khắp nơi trên thế giới."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curio",
+          "vi": "đồ cổ hiếm"
+        },
+        {
+          "term": "curiosity",
+          "vi": "sự tò mò"
+        }
+      ],
+      "adj": [
+        {
+          "term": "curious",
+          "vi": "tò mò, hiếu kỳ"
+        }
+      ],
+      "adv": [
+        {
+          "term": "curiously",
+          "vi": "một cách tò mò"
+        }
+      ]
+    },
+    "synonyms": [
+      "rarities",
+      "antiques",
+      "novelties",
+      "knick-knacks"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "rare curios",
+        "vi": "những món đồ cổ hiếm quý"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"curios\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "curious": {
+    "headword": "curious",
+    "lemma": "curious",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈkjʊr.i.əs/",
+      "uk": "/ˈkjʊə.ri.əs/"
+    },
+    "audio": {
+      "us": "/api/tts?text=curious&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curious&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Adjective",
+    "vi": "tò mò, hiếu kỳ, muốn tìm hiểu; kỳ lạ, khác thường",
+    "vietnameseMeaning": "tò mò, hiếu kỳ, muốn tìm hiểu; kỳ lạ, khác thường",
+    "definition": "Eager to know or learn something; strange, unusual, or unexpected.",
+    "senses": [
+      {
+        "pos": "Adjective",
+        "defEn": "Eager to know or learn something; strange, unusual, or unexpected.",
+        "meaningVi": "tò mò, hiếu kỳ, muốn tìm hiểu; kỳ lạ, khác thường",
+        "level": "B1",
+        "examples": [
+          {
+            "en": "Children are naturally curious about the world around them.",
+            "vi": "Trẻ em bẩm sinh luôn tò mò về thế giới xung quanh chúng."
+          },
+          {
+            "en": "There was a curious expression on his face that I couldn't interpret.",
+            "vi": "Có một biểu cảm kỳ lạ trên gương mặt anh ấy mà tôi không hiểu nổi."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curiosity",
+          "vi": "sự tò mò, lòng hiếu kỳ"
+        },
+        {
+          "term": "curio",
+          "vi": "vật kỳ thú, đồ cổ lạ"
+        }
+      ],
+      "adj": [
+        {
+          "term": "curious",
+          "vi": "tò mò, kỳ lạ"
+        }
+      ],
+      "adv": [
+        {
+          "term": "curiously",
+          "vi": "một cách tò mò, kỳ lạ thay"
+        }
+      ]
+    },
+    "synonyms": [
+      "inquisitive",
+      "intrigued",
+      "interested",
+      "peculiar",
+      "strange",
+      "odd"
+    ],
+    "antonyms": [
+      "indifferent",
+      "uninterested",
+      "ordinary",
+      "normal"
+    ],
+    "collocations": [
+      {
+        "en": "curious about something",
+        "vi": "tò mò về điều gì đó"
+      },
+      {
+        "en": "stay curious",
+        "vi": "luôn giữ tinh thần ham học hỏi, hiếu kỳ"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Phân biệt cấu trúc: 'be curious about + Noun/V-ing' (tò mò về...). Điểm thi TOEIC Part 5 thường kiểm tra giới từ 'about' đi sau curious!",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "curiosity": {
+    "headword": "curiosity",
+    "lemma": "curiosity",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌkjʊr.iˈɑː.sə.ti/",
+      "uk": "/ˌkjʊə.riˈɒs.ə.ti/"
+    },
+    "audio": {
+      "us": "/api/tts?text=curiosity&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curiosity&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "sự tò mò, lòng hiếu kỳ; điều kỳ lạ, vật hiếm có",
+    "vietnameseMeaning": "sự tò mò, lòng hiếu kỳ; điều kỳ lạ, vật hiếm có",
+    "definition": "A strong desire to know or learn something; an unusual or interesting object or fact.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A strong desire to know or learn something; an unusual or interesting object or fact.",
+        "meaningVi": "sự tò mò, lòng hiếu kỳ; điều kỳ lạ, vật hiếm có",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "Intellectual curiosity is the driving force behind scientific discoveries.",
+            "vi": "Sự tò mò trí tuệ là động lực đằng sau các phát kiến khoa học."
+          },
+          {
+            "en": "Curiosity killed the cat, but satisfaction brought it back.",
+            "vi": "Tò mò hại thân, nhưng thỏa mãn hiếu kỳ lại hồi sinh (thành ngữ tiếng Anh)."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curiosity",
+          "vi": "sự tò mò"
+        },
+        {
+          "term": "curio",
+          "vi": "đồ cổ kỳ thú"
+        }
+      ],
+      "adj": [
+        {
+          "term": "curious",
+          "vi": "tò mò"
+        }
+      ],
+      "adv": [
+        {
+          "term": "curiously",
+          "vi": "một cách tò mò"
+        }
+      ]
+    },
+    "synonyms": [
+      "inquisitiveness",
+      "interest",
+      "wonder",
+      "oddity"
+    ],
+    "antonyms": [
+      "apathy",
+      "indifference"
+    ],
+    "collocations": [
+      {
+        "en": "satisfy one's curiosity",
+        "vi": "thỏa mãn trí tò mò của ai đó"
+      },
+      {
+        "en": "arouse / pique curiosity",
+        "vi": "khơi gợi sự tò mò"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "curiosity killed the cat",
+        "vi": "tò mò quá có ngày rước họa vào thân"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"curiosity\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "curiously": {
+    "headword": "curiously",
+    "lemma": "curiously",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈkjʊr.i.əs.li/",
+      "uk": "/ˈkjʊə.ri.əs.li/"
+    },
+    "audio": {
+      "us": "/api/tts?text=curiously&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curiously&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Adverb",
+    "vi": "một cách tò mò, hiếu kỳ; kỳ lạ thay, điều đáng ngạc nhiên là",
+    "vietnameseMeaning": "một cách tò mò, hiếu kỳ; kỳ lạ thay, điều đáng ngạc nhiên là",
+    "definition": "In a way that shows eagerness to know or learn; in a strange and unusual way.",
+    "senses": [
+      {
+        "pos": "Adverb",
+        "defEn": "In a way that shows eagerness to know or learn; in a strange and unusual way.",
+        "meaningVi": "một cách tò mò, hiếu kỳ; kỳ lạ thay, điều đáng ngạc nhiên là",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "The little girl looked at the stranger curiously.",
+            "vi": "Bé gái nhìn người lạ một cách đầy tò mò."
+          },
+          {
+            "en": "Curiously enough, none of the witnesses remembered seeing the vehicle.",
+            "vi": "Kỳ lạ thay, không ai trong số các nhân chứng nhớ đã nhìn thấy chiếc xe."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curiosity",
+          "vi": "sự tò mò"
+        }
+      ],
+      "adj": [
+        {
+          "term": "curious",
+          "vi": "tò mò"
+        }
+      ],
+      "adv": [
+        {
+          "term": "curiously",
+          "vi": "một cách tò mò"
+        }
+      ]
+    },
+    "synonyms": [
+      "inquisitively",
+      "strangely",
+      "oddly",
+      "peculiarly"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "curiously enough",
+        "vi": "kỳ lạ thay, điều thú vị là"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"curiously\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "supreme leader": {
+    "headword": "supreme leader",
+    "lemma": "supreme leader",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/suːˈpriːm ˈliː.dər/",
+      "uk": "/suːˈpriːm ˈliː.dər/"
+    },
+    "audio": {
+      "us": "/api/tts?text=supreme%20leader&accent=US&lang=en-US",
+      "uk": "/api/tts?text=supreme%20leader&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "nhà lãnh đạo tối cao, nguyên thủ tối cao",
+    "vietnameseMeaning": "nhà lãnh đạo tối cao, nguyên thủ tối cao",
+    "definition": "The highest ranking leader holding ultimate authority in a state, political, or religious organization.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The highest ranking leader holding ultimate authority in a state, political, or religious organization.",
+        "meaningVi": "nhà lãnh đạo tối cao, nguyên thủ tối cao",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The supreme leader delivered an address to the nation on state television.",
+            "vi": "Nhà lãnh đạo tối cao đã phát biểu trước toàn dân trên đài truyền hình quốc gia."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "leader",
+          "vi": "nhà lãnh đạo"
+        },
+        {
+          "term": "leadership",
+          "vi": "năng lực lãnh đạo"
+        }
+      ],
+      "verb": [
+        {
+          "term": "lead",
+          "vi": "dẫn dắt, chỉ huy"
+        }
+      ],
+      "adj": [
+        {
+          "term": "supreme",
+          "vi": "tối cao, cao nhất"
+        }
+      ]
+    },
+    "synonyms": [
+      "head of state",
+      "paramount leader",
+      "ruler",
+      "sovereign",
+      "commander-in-chief"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "the supreme leader's decree",
+        "vi": "sắc lệnh của nhà lãnh đạo tối cao"
+      },
+      {
+        "en": "meeting with the supreme leader",
+        "vi": "cuộc hội đàm với nhà lãnh đạo tối cao"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "IELTS / VSTEP Academic & Political English"
+    ],
+    "examTag": "IELTS / VSTEP Academic & Political English",
+    "toeicNote": "💡 Lưu ý: \"supreme leader\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "supreme leaders": {
+    "headword": "supreme leaders",
+    "lemma": "supreme leader",
+    "matchedForm": "Dạng số nhiều (Plural) của cụm từ 'supreme leader'",
+    "ipa": {
+      "us": "/suːˈpriːm ˈliː.dərz/",
+      "uk": "/suːˈpriːm ˈliː.dərz/"
+    },
+    "audio": {
+      "us": "/api/tts?text=supreme%20leaders&accent=US&lang=en-US",
+      "uk": "/api/tts?text=supreme%20leaders&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "các nhà lãnh đạo tối cao (dạng số nhiều của 'supreme leader')",
+    "vietnameseMeaning": "các nhà lãnh đạo tối cao (dạng số nhiều của 'supreme leader')",
+    "definition": "Plural form of supreme leader: highest-ranking state or political leaders.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "Plural form of supreme leader: highest-ranking state or political leaders.",
+        "meaningVi": "các nhà lãnh đạo tối cao (dạng số nhiều của 'supreme leader')",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "Supreme leaders from across the region convened for the international summit.",
+            "vi": "Các nhà lãnh đạo tối cao từ khắp khu vực đã tề tựu tham dự hội nghị thượng đỉnh quốc tế."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"supreme leaders\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "head of state": {
+    "headword": "head of state",
+    "rootForm": "head of state",
+    "lemma": "head of state",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌhed əv ˈsteɪt/",
+      "uk": "/ˌhed əv ˈsteɪt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state&lang=en-GB"
+    },
+    "partOfSpeech": "Compound Noun / Phrase",
+    "pos": "compound noun / phrase",
+    "vi": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    "vietnameseMeaning": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+    "definition": "The official leader of a country, who represents it both domestically and internationally.",
+    "definitions": [
+      {
+        "en": "The official leader of a country, who represents it both domestically and internationally.",
+        "vi": "Nhà lãnh đạo chính thức của một quốc gia, đại diện cho quốc gia cả trong và ngoài nước.",
+        "exampleEn": "The head of state addressed the nation regarding international cooperation.",
+        "exampleVi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    "senses": [
+      {
+        "pos": "Compound Noun",
+        "defEn": "The official leader of a country, who represents it both domestically and internationally.",
+        "meaningVi": "Người đứng đầu nhà nước, nguyên thủ quốc gia",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The head of state addressed the nation regarding international cooperation.",
+            "vi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "head",
+          "vi": "người đứng đầu, thủ lĩnh"
+        },
+        {
+          "term": "state",
+          "vi": "nhà nước, quốc gia"
+        }
+      ],
+      "verb": [
+        {
+          "term": "head",
+          "vi": "chỉ huy, lãnh đạo"
+        }
+      ],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "leader",
+      "president",
+      "monarch",
+      "sovereign",
+      "ruler"
+    ],
+    "antonyms": [
+      "subordinate",
+      "citizen"
+    ],
+    "collocations": [
+      {
+        "phrase": "meeting of heads of state",
+        "vi": "cuộc gặp của các nguyên thủ quốc gia"
+      },
+      {
+        "phrase": "council of heads of state",
+        "vi": "hội đồng các nguyên thủ quốc gia"
+      },
+      {
+        "phrase": "visit of the head of state",
+        "vi": "chuyến thăm của nguyên thủ quốc gia"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "TOEIC / VSTEP Advanced Vocabulary"
+    ],
+    "examTag": "TOEIC / VSTEP Advanced Vocabulary",
+    "examContext": "Thường gặp trong TOEIC Part 7 / VSTEP Reading chủ đề Chính trị - Hợp tác quốc tế",
+    "toeicNote": "💡 Ngữ cảnh TOEIC: Thường gặp trong các bài đọc báo chí hoặc tin tức kinh tế - chính trị quốc tế (Part 7).",
+    "examples": [
+      {
+        "en": "The head of state addressed the nation regarding international cooperation.",
+        "vi": "Nguyên thủ quốc gia đã phát biểu trước toàn dân về hợp tác quốc tế."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionary / AI Lexicographer",
+        "license": "CC BY-SA 3.0",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isLemmaRedirect": false,
+      "isSegmented": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "head of state meeting": {
+    "headword": "head of state meeting",
+    "lemma": "head of state meeting",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌhed əv ˈsteɪt ˈmiː.tɪŋ/",
+      "uk": "/ˌhed əv ˈsteɪt ˈmiː.tɪŋ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state%20meeting&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state%20meeting&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "cuộc họp thượng đỉnh nguyên thủ quốc gia, hội nghị cấp cao nguyên thủ",
+    "vietnameseMeaning": "cuộc họp thượng đỉnh nguyên thủ quốc gia, hội nghị cấp cao nguyên thủ",
+    "definition": "A high-level summit or formal conference attended by national leaders and heads of state.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A high-level summit or formal conference attended by national leaders and heads of state.",
+        "meaningVi": "cuộc họp thượng đỉnh nguyên thủ quốc gia, hội nghị cấp cao nguyên thủ",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The upcoming head of state meeting will focus on climate accords and regional security.",
+            "vi": "Cuộc họp nguyên thủ quốc gia sắp tới sẽ tập trung vào các hiệp định khí hậu và an ninh khu vực."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "summit",
+      "high-level summit",
+      "presidential summit",
+      "international conference"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "convene a head of state meeting",
+        "vi": "triệu tập cuộc họp nguyên thủ quốc gia"
+      },
+      {
+        "en": "attend the annual head of state meeting",
+        "vi": "tham dự cuộc họp nguyên thủ quốc gia thường niên"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"head of state meeting\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "head of government": {
+    "headword": "head of government",
+    "lemma": "head of government",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˌhed əv ˈɡʌv.ən.mənt/",
+      "uk": "/ˌhed əv ˈɡʌv.n.mənt/"
+    },
+    "audio": {
+      "us": "/api/tts?text=head%20of%20government&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20government&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "người đứng đầu chính phủ, thủ tướng (lãnh đạo nhánh hành pháp)",
+    "vietnameseMeaning": "người đứng đầu chính phủ, thủ tướng (lãnh đạo nhánh hành pháp)",
+    "definition": "The chief officer of the executive branch of a government, often bearing the title of prime minister or premier.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The chief officer of the executive branch of a government, often bearing the title of prime minister or premier.",
+        "meaningVi": "người đứng đầu chính phủ, thủ tướng (lãnh đạo nhánh hành pháp)",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "The head of government presided over the cabinet session to finalize the national budget.",
+            "vi": "Người đứng đầu chính phủ đã chủ trì phiên họp nội các để chốt dự toán ngân sách quốc gia."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "prime minister",
+      "premier",
+      "chancellor"
+    ],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "executive powers of the head of government",
+        "vi": "quyền hành pháp của người đứng đầu chính phủ"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"head of government\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "lease": {
+    "headword": "lease",
+    "lemma": "lease",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/liːs/",
+      "uk": "/liːs/"
+    },
+    "audio": {
+      "us": "/api/tts?text=lease&accent=US&lang=en-US",
+      "uk": "/api/tts?text=lease&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun / Verb",
+    "vi": "hợp đồng thuê tài sản; cho thuê hoặc đi thuê theo hợp đồng dài hạn (nhà đất, xe cộ, thiết bị)",
+    "vietnameseMeaning": "hợp đồng thuê tài sản; cho thuê hoặc đi thuê theo hợp đồng dài hạn (nhà đất, xe cộ, thiết bị)",
+    "definition": "(Noun) A legal agreement that allows you to use a building, piece of land, or vehicle for a period of time in exchange for payment. (Verb) To grant or take use of property under a lease.",
+    "senses": [
+      {
+        "pos": "Noun / Verb",
+        "defEn": "(Noun) A legal agreement that allows you to use a building, piece of land, or vehicle for a period of time in exchange for payment. (Verb) To grant or take use of property under a lease.",
+        "meaningVi": "hợp đồng thuê tài sản; cho thuê hoặc đi thuê theo hợp đồng dài hạn (nhà đất, xe cộ, thiết bị)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "The company signed a ten-year lease on new office space downtown.",
+            "vi": "Công ty đã ký hợp đồng thuê 10 năm cho mặt bằng văn phòng mới ở trung tâm thành phố."
+          },
+          {
+            "en": "They decided to lease the equipment rather than buying it outright.",
+            "vi": "Họ quyết định thuê dài hạn thiết bị thay vì mua đứt bằng tiền mặt."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "lease",
+          "vi": "hợp đồng thuê"
+        },
+        {
+          "term": "leasing",
+          "vi": "nghiệp vụ cho thuê tài chính"
+        },
+        {
+          "term": "lessor",
+          "vi": "bên cho thuê"
+        },
+        {
+          "term": "lessee",
+          "vi": "bên đi thuê"
+        }
+      ],
+      "verb": [
+        {
+          "term": "lease",
+          "vi": "cho thuê / thuê theo hợp đồng"
+        }
+      ]
+    },
+    "synonyms": [
+      "rental agreement",
+      "tenancy",
+      "charter",
+      "hire",
+      "rent out"
+    ],
+    "antonyms": [
+      "purchase",
+      "outright sale"
+    ],
+    "collocations": [
+      {
+        "en": "sign / terminate a lease",
+        "vi": "ký kết / chấm dứt hợp đồng thuê"
+      },
+      {
+        "en": "lease expiration",
+        "vi": "sự hết hạn hợp đồng thuê"
+      },
+      {
+        "en": "commercial lease",
+        "vi": "hợp đồng thuê mặt bằng thương mại"
+      },
+      {
+        "en": "financial leasing",
+        "vi": "cho thuê tài chính"
+      }
+    ],
+    "idioms": [
+      {
+        "en": "a new lease of / on life",
+        "vi": "nguồn năng lượng mới, cơ hội hồi sinh sức sống mới"
+      }
+    ],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "⚠️ TỪ KHÓA BẮT BUỘC ĐỀ THI TOEIC: 'lease' xuất hiện liên tục trong Part 5, 6, 7 về thuê mặt bằng văn phòng, thuê máy photo (office equipment lease), gia hạn hợp đồng (renew a lease) và hết hạn (lease expires).",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "leasing": {
+    "headword": "leasing",
+    "lemma": "leasing",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈliː.sɪŋ/",
+      "uk": "/ˈliː.sɪŋ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=leasing&accent=US&lang=en-US",
+      "uk": "/api/tts?text=leasing&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "hoạt động cho thuê tài chính, nghiệp vụ cho thuê tài sản dài hạn",
+    "vietnameseMeaning": "hoạt động cho thuê tài chính, nghiệp vụ cho thuê tài sản dài hạn",
+    "definition": "The activity or business of renting assets (equipment, cars, property) to customers under a lease agreement.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "The activity or business of renting assets (equipment, cars, property) to customers under a lease agreement.",
+        "meaningVi": "hoạt động cho thuê tài chính, nghiệp vụ cho thuê tài sản dài hạn",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "Equipment leasing allows startup businesses to conserve critical working capital.",
+            "vi": "Thuê tài chính thiết bị giúp các doanh nghiệp khởi nghiệp bảo toàn vốn lưu động quan trọng."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "lease",
+          "vi": "hợp đồng thuê"
+        },
+        {
+          "term": "leasing",
+          "vi": "việc thuê tài chính"
+        },
+        {
+          "term": "lessor",
+          "vi": "bên cho thuê"
+        },
+        {
+          "term": "lessee",
+          "vi": "bên thuê"
+        }
+      ],
+      "verb": [
+        {
+          "term": "lease",
+          "vi": "thuê"
+        }
+      ]
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "en": "leasing company",
+        "vi": "công ty cho thuê tài chính"
+      },
+      {
+        "en": "car leasing options",
+        "vi": "các phương án thuê xe dài hạn"
+      }
+    ],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"leasing\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "lessor": {
+    "headword": "lessor",
+    "lemma": "lessor",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/ˈles.ɔːr/",
+      "uk": "/ˈles.ɔːr/"
+    },
+    "audio": {
+      "us": "/api/tts?text=lessor&accent=US&lang=en-US",
+      "uk": "/api/tts?text=lessor&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "bên cho thuê tài sản (chủ sở hữu tài sản trong hợp đồng thuê)",
+    "vietnameseMeaning": "bên cho thuê tài sản (chủ sở hữu tài sản trong hợp đồng thuê)",
+    "definition": "A person or company that allows someone to use their property, land, or equipment under a lease agreement.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A person or company that allows someone to use their property, land, or equipment under a lease agreement.",
+        "meaningVi": "bên cho thuê tài sản (chủ sở hữu tài sản trong hợp đồng thuê)",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "The lessor is obligated to maintain the building's structural integrity.",
+            "vi": "Bên cho thuê có nghĩa vụ duy trì tính toàn vẹn kết cấu của tòa nhà."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "landlord",
+      "owner",
+      "proprietor"
+    ],
+    "antonyms": [
+      "lessee",
+      "tenant"
+    ],
+    "collocations": [],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"lessor\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  },
+  "lessee": {
+    "headword": "lessee",
+    "lemma": "lessee",
+    "matchedForm": "",
+    "ipa": {
+      "us": "/leˈsiː/",
+      "uk": "/leˈsiː/"
+    },
+    "audio": {
+      "us": "/api/tts?text=lessee&accent=US&lang=en-US",
+      "uk": "/api/tts?text=lessee&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "bên đi thuê tài sản (người sử dụng tài sản theo hợp đồng)",
+    "vietnameseMeaning": "bên đi thuê tài sản (người sử dụng tài sản theo hợp đồng)",
+    "definition": "A person or company that has the right to use something under a lease agreement.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A person or company that has the right to use something under a lease agreement.",
+        "meaningVi": "bên đi thuê tài sản (người sử dụng tài sản theo hợp đồng)",
+        "level": "B2",
+        "examples": [
+          {
+            "en": "The lessee must pay all utilities and monthly rent on time.",
+            "vi": "Bên đi thuê phải thanh toán đầy đủ tiền điện nước và tiền thuê hàng tháng đúng hạn."
+          }
+        ]
+      }
+    ],
+    "wordFamily": {
+      "noun": [],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [
+      "tenant",
+      "renter",
+      "leaseholder"
+    ],
+    "antonyms": [
+      "lessor",
+      "landlord"
+    ],
+    "collocations": [],
+    "idioms": [],
+    "phrasalVerbs": [],
+    "lists": [
+      "Oxford / Cambridge Core"
+    ],
+    "examTag": "Oxford / Cambridge Core",
+    "toeicNote": "💡 Lưu ý: \"lessee\" là từ vựng quan trọng thường xuất hiện trong giao tiếp và đề thi TOEIC / VSTEP.",
+    "sources": [
+      {
+        "name": "Oxford Picture Dictionary & Cambridge",
+        "license": "Educational Reference",
+        "url": "https://dictionary.cambridge.org"
+      },
+      {
+        "name": "Wiktionary & DOL English",
+        "license": "CC BY-SA 3.0",
+        "url": "https://vi.wiktionary.org"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isLemmaRedirect": false,
+      "isVietnameseReverse": false,
+      "machineTranslated": false,
+      "incomplete": false
+    }
+  }
+});

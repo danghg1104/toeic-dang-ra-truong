@@ -1,0 +1,183 @@
+const fs = require('fs');
+const path = require('path');
+
+console.log('🚀 Đang chuẩn bị gói nâng cấp Thượng Thừa cho tính năng Quét File CEFR...');
+
+// 1. Kho từ mẫu sẵn có phong phú (Presets)
+const presetsData = {
+  oxford3000: [
+    // A1
+    { word: "family", phonetic: "/ˈfæm.əl.i/", meaning: "gia đình thân thương", level: "A1" },
+    { word: "friend", phonetic: "/frend/", meaning: "bạn bè thân thiết", level: "A1" },
+    { word: "house", phonetic: "/haʊs/", meaning: "ngôi nhà ấm cúng", level: "A1" },
+    { word: "water", phonetic: "/ˈwɑː.t̬ɚ/", meaning: "nước uống tinh khiết", level: "A1" },
+    { word: "happy", phonetic: "/ˈhæp.i/", meaning: "vui vẻ, hạnh phúc", level: "A1" },
+    { word: "school", phonetic: "/skuːl/", meaning: "trường học", level: "A1" },
+    { word: "book", phonetic: "/bʊk/", meaning: "sách vở ghi chép", level: "A1" },
+    { word: "money", phonetic: "/ˈmʌn.i/", meaning: "tiền bạc", level: "A1" },
+    { word: "morning", phonetic: "/ˈmɔːr.nɪŋ/", meaning: "buổi sáng bình minh", level: "A1" },
+    { word: "music", phonetic: "/ˈmjuː.zɪk/", meaning: "âm nhạc êm dịu", level: "A1" },
+    { word: "coffee", phonetic: "/ˈkɑː.fi/", meaning: "cà phê buổi sáng", level: "A1" },
+    { word: "bread", phonetic: "/bred/", meaning: "bánh mì thơm giòn", level: "A1" },
+    { word: "city", phonetic: "/ˈsɪt.i/", meaning: "thành phố nhộn nhịp", level: "A1" },
+    { word: "street", phonetic: "/striːt/", meaning: "đường phố tấp nập", level: "A1" },
+    { word: "world", phonetic: "/wɝːld/", meaning: "thế giới rộng lớn", level: "A1" },
+
+    // A2
+    { word: "travel", phonetic: "/ˈtræv.əl/", meaning: "đi du lịch khám phá", level: "A2" },
+    { word: "flight", phonetic: "/flaɪt/", meaning: "chuyến bay hàng không", level: "A2" },
+    { word: "ticket", phonetic: "/ˈtɪk.ɪt/", meaning: "vé tàu xe máy bay", level: "A2" },
+    { word: "hotel", phonetic: "/hoʊˈtel/", meaning: "khách sạn nghỉ ngơi", level: "A2" },
+    { word: "airport", phonetic: "/ˈer.pɔːrt/", meaning: "sân bay quốc tế", level: "A2" },
+    { word: "vacation", phonetic: "/veɪˈkeɪ.ʃən/", meaning: "kỳ nghỉ lễ dài ngày", level: "A2" },
+    { word: "advice", phonetic: "/ədˈvaɪs/", meaning: "lời khuyên chân tình", level: "A2" },
+    { word: "invitation", phonetic: "/ˌɪn.vəˈteɪ.ʃən/", meaning: "lời mời dự tiệc", level: "A2" },
+    { word: "message", phonetic: "/ˈmes.ɪdʒ/", meaning: "tin nhắn thông báo", level: "A2" },
+    { word: "appointment", phonetic: "/əˈpɔɪnt.mənt/", meaning: "cuộc hẹn gặp mặt", level: "A2" },
+    { word: "neighbor", phonetic: "/ˈneɪ.bɚ/", meaning: "người hàng xóm thân thiện", level: "A2" },
+    { word: "holiday", phonetic: "/ˈhɑː.lə.deɪ/", meaning: "ngày nghỉ lễ quốc gia", level: "A2" },
+    { word: "weather", phonetic: "/ˈweð.ɚ/", meaning: "thời tiết ngoài trời", level: "A2" },
+    { word: "luggage", phonetic: "/ˈlʌɡ.ɪdʒ/", meaning: "hành lý tư trang", level: "A2" },
+    { word: "passport", phonetic: "/ˈpæs.pɔːrt/", meaning: "hộ chiếu xuất nhập cảnh", level: "A2" },
+
+    // B1
+    { word: "schedule", phonetic: "/ˈskedʒ.uːl/", meaning: "lịch trình kế hoạch", level: "B1" },
+    { word: "colleague", phonetic: "/ˈkɑː.liːɡ/", meaning: "đồng nghiệp cùng phòng", level: "B1" },
+    { word: "delivery", phonetic: "/dɪˈlɪv.ɚ.i/", meaning: "sự giao hàng tận nơi", level: "B1" },
+    { word: "discount", phonetic: "/ˈdɪs.kaʊnt/", meaning: "mức chiết khấu giảm giá", level: "B1" },
+    { word: "employee", phonetic: "/ɪmˈplɔɪ.iː/", meaning: "nhân viên chính thức", level: "B1" },
+    { word: "equipment", phonetic: "/ɪˈkwɪp.mənt/", meaning: "trang thiết bị máy móc", level: "B1" },
+    { word: "feedback", phonetic: "/ˈfiːd.bæk/", meaning: "ý kiến đóng góp phản hồi", level: "B1" },
+    { word: "interview", phonetic: "/ˈɪn.t̬ɚ.vjuː/", meaning: "buổi phỏng vấn xin việc", level: "B1" },
+    { word: "manager", phonetic: "/ˈmæn.ə.dʒɚ/", meaning: "người quản lý điều hành", level: "B1" },
+    { word: "promotion", phonetic: "/prəˈmoʊ.ʃən/", meaning: "sự thăng chức, quảng bá", level: "B1" },
+    { word: "contract", phonetic: "/ˈkɑːn.trækt/", meaning: "bản hợp đồng giao kết", level: "B1" },
+    { word: "budget", phonetic: "/ˈbʌdʒ.ɪt/", meaning: "ngân sách chi tiêu", level: "B1" },
+    { word: "convenient", phonetic: "/kənˈviː.ni.ənt/", meaning: "tiện lợi, thuận tiện", level: "B1" },
+    { word: "experience", phonetic: "/ɪkˈspɪr.i.əns/", meaning: "kinh nghiệm tích lũy", level: "B1" },
+    { word: "facility", phonetic: "/fəˈsɪl.ə.t̬i/", meaning: "cơ sở vật chất tiện nghi", level: "B1" },
+
+    // B2
+    { word: "negotiate", phonetic: "/nəˈɡoʊ.ʃi.eɪt/", meaning: "đàm phán thương lượng", level: "B2" },
+    { word: "collaborate", phonetic: "/kəˈlæb.ə.reɪt/", meaning: "hợp tác, cộng tác đa ngành", level: "B2" },
+    { word: "innovative", phonetic: "/ˈɪn.ə.veɪ.t̬ɪv/", meaning: "sáng tạo, đổi mới đột phá", level: "B2" },
+    { word: "sustainable", phonetic: "/səˈsteɪ.nə.bəl/", meaning: "phát triển bền vững lâu dài", level: "B2" },
+    { word: "efficiency", phonetic: "/ɪˈfɪʃ.ən.si/", meaning: "tính hiệu quả, năng suất cao", level: "B2" },
+    { word: "implement", phonetic: "/ˈɪm.plə.ment/", meaning: "triển khai thực thi dự án", level: "B2" },
+    { word: "perspective", phonetic: "/pɚˈspek.tɪv/", meaning: "góc nhìn, quan điểm thấu đáo", level: "B2" },
+    { word: "potential", phonetic: "/poʊˈten.ʃəl/", meaning: "tiềm năng phát triển lớn", level: "B2" },
+    { word: "strategy", phonetic: "/ˈstræt̬.ə.dʒi/", meaning: "chiến lược hành động then chốt", level: "B2" },
+    { word: "significant", phonetic: "/sɪɡˈnɪf.ə.kənt/", meaning: "có ý nghĩa quan trọng, đáng kể", level: "B2" },
+    { word: "allocate", phonetic: "/ˈæl.ə.keɪt/", meaning: "phân bổ nguồn lực ngân sách", level: "B2" },
+    { word: "compliance", phonetic: "/kəmˈplaɪ.əns/", meaning: "sự tuân thủ pháp lý nội quy", level: "B2" },
+    { word: "comprehensive", phonetic: "/ˌkɑːm.prəˈhen.sɪv/", meaning: "toàn diện, bao quát mọi mặt", level: "B2" },
+    { word: "facilitate", phonetic: "/fəˈsɪl.ə.teɪt/", meaning: "tạo điều kiện thuận lợi", level: "B2" },
+    { word: "reputation", phonetic: "/ˌrep.jəˈteɪ.ʃən/", meaning: "uy tín thương hiệu danh tiếng", level: "B2" },
+
+    // C1
+    { word: "meticulous", phonetic: "/məˈtɪk.jə.ləs/", meaning: "tỉ mỉ, cẩn trọng từng chi tiết", level: "C1" },
+    { word: "prerequisite", phonetic: "/ˌpriːˈrek.wə.zɪt/", meaning: "điều kiện tiên quyết bắt buộc", level: "C1" },
+    { word: "ambiguous", phonetic: "/æmˈbɪɡ.ju.əs/", meaning: "mơ hồ, đa nghĩa khó đoán", level: "C1" },
+    { word: "profound", phonetic: "/prəˈfaʊnd/", meaning: "sâu sắc, uyên thâm, thâm thúy", level: "C1" },
+    { word: "coherent", phonetic: "/koʊˈhɪr.ənt/", meaning: "mạch lạc, chặt chẽ, logic", level: "C1" },
+    { word: "inevitable", phonetic: "/ɪnˈev.ə.t̬ə.bəl/", meaning: "tất yếu, không thể tránh khỏi", level: "C1" },
+    { word: "intricate", phonetic: "/ˈɪn.trə.kət/", meaning: "tinh xảo, phức tạp tinh vi", level: "C1" },
+    { word: "paramount", phonetic: "/ˈper.ə.maʊnt/", meaning: "tối quan trọng, có tầm quan trọng tối thượng", level: "C1" },
+    { word: "plausible", phonetic: "/ˈplɑː.zə.bəl/", meaning: "hợp lý, đáng tin cậy, khả thi", level: "C1" },
+    { word: "scrutinize", phonetic: "/ˈskruː.t̬ən.aɪz/", meaning: "xem xét kỹ lưỡng, soi xét cẩn trọng", level: "C1" },
+    { word: "substantiate", phonetic: "/səbˈstæn.ʃi.eɪt/", meaning: "chứng minh có căn cứ xác thực", level: "C1" },
+    { word: "unprecedented", phonetic: "/ʌnˈpres.ə.den.t̬ɪd/", meaning: "chưa từng có tiền lệ trong lịch sử", level: "C1" },
+
+    // C2
+    { word: "serendipity", phonetic: "/ˌser.ənˈdɪp.ə.t̬i/", meaning: "sự tình cờ may mắn kỳ diệu", level: "C2" },
+    { word: "quintessential", phonetic: "/ˌkwɪn.təˈsen.ʃəl/", meaning: "tinh hoa cốt lõi, tinh túy nhất", level: "C2" },
+    { word: "ubiquitous", phonetic: "/juːˈbɪk.wə.t̬əs/", meaning: "phổ biến khắp nơi, đâu đâu cũng thấy", level: "C2" },
+    { word: "ephemeral", phonetic: "/ɪˈfem.ɚ.əl/", meaning: "phù du, sớm nở tối tàn, thoảng qua", level: "C2" },
+    { word: "equanimity", phonetic: "/ˌek.wəˈnɪm.ə.t̬i/", meaning: "sự bình thản, điềm tĩnh trước sóng gió", level: "C2" },
+    { word: "fastidious", phonetic: "/fæsˈtɪd.i.əs/", meaning: "kỹ tính, cầu toàn, khó tính tỉ mỉ", level: "C2" },
+    { word: "juxtaposition", phonetic: "/ˌdʒʌk.stə.pəˈzɪʃ.ən/", meaning: "sự đặt cạnh nhau để tương phản", level: "C2" },
+    { word: "magnanimous", phonetic: "/mæɡˈnæn.ə.məs/", meaning: "rộng lượng, hào hiệp, vị tha", level: "C2" },
+    { word: "panacea", phonetic: "/ˌpæn.əˈsiː.ə/", meaning: "phương thuốc vạn năng, liều thuốc tiên", level: "C2" },
+    { word: "zeitgeist", phonetic: "/ˈtsaɪt.ɡaɪst/", meaning: "tinh thần thời đại, xu thế của thời kỳ", level: "C2" }
+  ],
+
+  toeic1000: [
+    { word: "abide by", phonetic: "/əˈbaɪd baɪ/", meaning: "tuân theo hợp đồng thỏa thuận", level: "B1" },
+    { word: "agreement", phonetic: "/əˈɡriː.mənt/", meaning: "hợp đồng ký kết, sự đồng thuận", level: "A2" },
+    { word: "assurance", phonetic: "/əˈʃʊr.əns/", meaning: "sự cam đoan đảm bảo chắc chắn", level: "B1" },
+    { word: "cancellation", phonetic: "/ˌsæn.səˈleɪ.ʃən/", meaning: "sự hủy bỏ đơn hàng hợp đồng", level: "B1" },
+    { word: "determine", phonetic: "/dɪˈtɝː.mɪn/", meaning: "xác định, quyết định dứt khoát", level: "B1" },
+    { word: "engage", phonetic: "/ɪnˈɡeɪdʒ/", meaning: "tham gia, cam kết, ký hợp đồng", level: "B2" },
+    { word: "establish", phonetic: "/ɪˈstæb.lɪʃ/", meaning: "thành lập, thiết lập quan hệ", level: "B2" },
+    { word: "obligate", phonetic: "/ˈɑːb.lə.ɡeɪt/", meaning: "bắt buộc theo nghĩa vụ pháp lý", level: "B2" },
+    { word: "provision", phonetic: "/prəˈvɪʒ.ən/", meaning: "điều khoản quy định trong hợp đồng", level: "C1" },
+    { word: "resolve", phonetic: "/rɪˈzɑːlv/", meaning: "giải quyết tranh chấp triệt để", level: "B2" },
+    { word: "specific", phonetic: "/spəˈsɪf.ɪk/", meaning: "cụ thể, chi tiết, đặc thù", level: "B1" },
+    { word: "attract", phonetic: "/əˈtrækt/", meaning: "thu hút khách hàng tiềm năng", level: "B1" },
+    { word: "compare", phonetic: "/kəmˈper/", meaning: "so sánh giá cả và chất lượng", level: "A2" },
+    { word: "competition", phonetic: "/ˌkɑːm.pəˈtɪʃ.ən/", meaning: "sự cạnh tranh trên thị trường", level: "B1" },
+    { word: "consume", phonetic: "/kənˈsuːm/", meaning: "tiêu thụ hàng hóa năng lượng", level: "B1" },
+    { word: "convince", phonetic: "/kənˈvɪns/", meaning: "thuyết phục đối tác ký kết", level: "B1" },
+    { word: "currently", phonetic: "/ˈkɝː.ənt.li/", meaning: "hiện tại, vào thời điểm này", level: "B1" },
+    { word: "fad", phonetic: "/fæd/", meaning: "mốt nhất thời, xu hướng chóng tàn", level: "C1" },
+    { word: "inspiration", phonetic: "/ˌɪn.spəˈreɪ.ʃən/", meaning: "nguồn cảm hứng sáng tạo", level: "B2" },
+    { word: "market", phonetic: "/ˈmɑːr.kɪt/", meaning: "thị trường tiêu thụ hàng hóa", level: "A2" },
+    { word: "persuasion", phonetic: "/pɚˈsweɪ.ʒən/", meaning: "nghệ thuật thuyết phục khách hàng", level: "B2" },
+    { word: "productive", phonetic: "/prəˈdʌk.tɪv/", meaning: "mang lại năng suất sinh lời cao", level: "B2" },
+    { word: "satisfaction", phonetic: "/ˌsæt̬.ɪsˈfæk.ʃən/", meaning: "sự hài lòng của khách hàng", level: "B1" },
+    { word: "characteristic", phonetic: "/ˌker.ək.təˈrɪs.tɪk/", meaning: "đặc tính nổi bật của sản phẩm", level: "B2" },
+    { word: "consequence", phonetic: "/ˈkɑːn.sə.kwəns/", meaning: "hậu quả, hệ quả tất yếu", level: "B2" },
+    { word: "consider", phonetic: "/kənˈsɪd.ɚ/", meaning: "cân nhắc kỹ lưỡng trước khi mua", level: "A2" },
+    { word: "cover", phonetic: "/ˈkʌv.ɚ/", meaning: "chi trả, bảo hiểm bao quát chi phí", level: "B1" },
+    { word: "expiration", phonetic: "/ˌek.spəˈreɪ.ʃən/", meaning: "hạn chót, sự hết hạn bảo hành", level: "B2" },
+    { word: "frequently", phonetic: "/ˈfriː.kwənt.li/", meaning: "thường xuyên xảy ra", level: "B1" },
+    { word: "imply", phonetic: "/ɪmˈplaɪ/", meaning: "ngụ ý, hàm chỉ điều gì", level: "B2" },
+    { word: "promise", phonetic: "/ˈprɑː.mɪs/", meaning: "lời cam kết chất lượng dịch vụ", level: "A2" },
+    { word: "protect", phonetic: "/prəˈtekt/", meaning: "bảo vệ quyền lợi người tiêu dùng", level: "B1" },
+    { word: "reputation", phonetic: "/ˌrep.jəˈteɪ.ʃən/", meaning: "danh tiếng thương hiệu uy tín", level: "B2" },
+    { word: "require", phonetic: "/rɪˈkwaɪr/", meaning: "yêu cầu điều kiện bắt buộc", level: "B1" },
+    { word: "variety", phonetic: "/vəˈraɪ.ə.t̬i/", meaning: "sự đa dạng nhiều chủng loại", level: "B1" }
+  ],
+
+  vstepAcademic: [
+    { word: "academic", phonetic: "/ˌæk.əˈdem.ɪk/", meaning: "mang tính học thuật nghiên cứu", level: "B2" },
+    { word: "analyze", phonetic: "/ˈæn.əl.aɪz/", meaning: "phân tích số liệu và hiện tượng", level: "B1" },
+    { word: "concept", phonetic: "/ˈkɑːn.sept/", meaning: "khái niệm, ý niệm nền tảng", level: "B2" },
+    { word: "constitute", phonetic: "/ˈkɑːn.stə.tuːt/", meaning: "cấu thành, tạo nên hệ thống", level: "C1" },
+    { word: "context", phonetic: "/ˈkɑːn.tekst/", meaning: "bối cảnh văn hóa xã hội", level: "B2" },
+    { word: "criteria", phonetic: "/kraɪˈtɪr.i.ə/", meaning: "tiêu chí đánh giá chuẩn mực", level: "B2" },
+    { word: "deduce", phonetic: "/dɪˈduːs/", meaning: "suy luận logic từ dữ kiện", level: "C1" },
+    { word: "demonstrate", phonetic: "/ˈdem.ən.streɪt/", meaning: "chứng minh, minh họa rõ ràng", level: "B2" },
+    { word: "derive", phonetic: "/dɪˈraɪv/", meaning: "bắt nguồn, bắt rễ từ nguồn gốc", level: "B2" },
+    { word: "evident", phonetic: "/ˈev.ə.dənt/", meaning: "hiển nhiên, bằng chứng rõ rệt", level: "B2" },
+    { word: "factor", phonetic: "/ˈfæk.tɚ/", meaning: "yếu tố, nhân tố tác động", level: "B1" },
+    { word: "formulate", phonetic: "/ˈfɔːr.mjə.leɪt/", meaning: "xây dựng công thức, hình thành thuyết", level: "C1" },
+    { word: "hypothesis", phonetic: "/haɪˈpɑː.θə.sɪs/", meaning: "giả thuyết khoa học cần chứng minh", level: "C1" },
+    { word: "indicate", phonetic: "/ˈɪn.də.keɪt/", meaning: "chỉ ra, biểu thị dấu hiệu", level: "B2" },
+    { word: "interpret", phonetic: "/ɪnˈtɝː.prət/", meaning: "diễn giải, cắt nghĩa thông tin", level: "B2" },
+    { word: "methodology", phonetic: "/ˌmeθ.əˈdɑː.lə.dʒi/", meaning: "phương pháp luận nghiên cứu", level: "C1" },
+    { word: "phenomenon", phonetic: "/fəˈnɑː.mə.nɑːn/", meaning: "hiện tượng tự nhiên xã hội", level: "B2" },
+    { word: "principle", phonetic: "/ˈprɪn.sə.pəl/", meaning: "nguyên lý, nguyên tắc nền tảng", level: "B2" },
+    { word: "significant", phonetic: "/sɪɡˈnɪf.ə.kənt/", meaning: "có ý nghĩa thống kê quan trọng", level: "B2" },
+    { word: "theory", phonetic: "/ˈθɪr.i/", meaning: "học thuyết lý luận khoa học", level: "B1" }
+  ]
+};
+
+// 2. Danh sách stopwords tiếng Anh mở rộng (lọc sạch khi scan tài liệu dài/PDF)
+const stopwords = [
+  "a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't", "as", "at",
+  "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "can't", "cannot", "could",
+  "couldn't", "did", "didn't", "do", "does", "doesn't", "doing", "don't", "down", "during", "each", "few", "for",
+  "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't", "having", "he", "he'd", "he'll", "he's",
+  "her", "here", "here's", "hers", "herself", "him", "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm",
+  "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", "me", "more", "most", "mustn't",
+  "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other", "ought", "our", "ours",
+  "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", "she's", "should", "shouldn't", "so",
+  "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", "themselves", "then", "there", "there's",
+  "these", "they", "they'd", "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until",
+  "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when",
+  "when's", "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "won't", "would",
+  "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves"
+];
+
+console.log('✅ Đã tạo cấu trúc Presets & Stopwords!');

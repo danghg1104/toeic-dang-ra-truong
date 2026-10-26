@@ -2334,14 +2334,14 @@
     "flags": {
       "exactMatch": true,
       "isAiGenerated": true,
-      "isSegmented": true,
-      "isLemmaRedirect": true,
+      "isSegmented": false,
+      "isLemmaRedirect": false,
       "machineTranslated": false,
       "incomplete": false
     },
-    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state\"",
-    "searchedQuery": "headsofstate",
-    "segmentedWord": "heads of state"
+    "matchedForm": "",
+    "searchedQuery": "head of state",
+    "segmentedWord": "head of state"
   },
   "heads of state": {
     "query": "heads of state",
@@ -2976,72 +2976,71 @@
     }
   },
   "head of government": {
-    "query": "heads of government",
+    "query": "head of government",
     "rootForm": "head of government",
     "ipa": {
       "us": "/ˌhed əv ˈɡʌvərnmənt/",
-      "uk": "/ˌhed əv ˈɡʌvənmənt/"
+      "uk": "/ˌhed əv ˈɡʌvnmənt/"
     },
-    "pos": "compound noun / phrase",
-    "vietnameseMeaning": "người đứng đầu chính phủ",
+    "audio": {
+      "us": "/api/tts?text=head%20of%20government&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20government&accent=UK&lang=en-GB"
+    },
+    "pos": "compound noun",
+    "vietnameseMeaning": "Người đứng đầu chính phủ, thủ tướng (lãnh đạo nhánh hành pháp)",
     "definitions": [
       {
-        "en": "An essential English phrase or compound expression: \"head of government\".",
-        "vi": "người đứng đầu chính phủ",
-        "exampleEn": "Proper usage of \"head of government\" is highly valued in professional English environments.",
-        "exampleVi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+        "en": "The chief officer of the executive branch of a government, often bearing the title of prime minister.",
+        "vi": "Người đứng đầu nhánh hành pháp của chính phủ, thường giữ chức vụ thủ tướng.",
+        "exampleEn": "The head of government presided over the weekly cabinet meeting.",
+        "exampleVi": "Người đứng đầu chính phủ đã chủ trì phiên họp nội các hàng tuần."
       }
     ],
     "wordFamily": {
-      "noun": "head",
-      "verb": "head",
-      "adjective": "-"
+      "noun": "government",
+      "verb": "govern",
+      "adjective": "governmental"
     },
     "collocations": [
       {
-        "phrase": "common usage of head of government",
-        "en": "common usage of head of government",
-        "vi": "Cụm diễn đạt: \"common usage of head of government\""
-      },
-      {
-        "phrase": "standard expression with head of government",
-        "en": "standard expression with head of government",
-        "vi": "Cụm diễn đạt: \"standard expression with head of government\""
+        "phrase": "powers of the head of government",
+        "en": "powers of the head of government",
+        "vi": "Cụm diễn đạt: \"powers of the head of government\""
       }
     ],
-    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "examContext": "Phân biệt với 'head of state' (nguyên thủ quốc gia)",
     "headword": "head of government",
     "lemma": "head of government",
     "word": "head of government",
     "phonetic": "/ˌhed əv ˈɡʌvərnmənt/",
-    "partOfSpeech": "compound noun / phrase",
-    "vi": "người đứng đầu chính phủ",
-    "definition": "An essential English phrase or compound expression: \"head of government\".",
+    "partOfSpeech": "compound noun",
+    "vi": "Người đứng đầu chính phủ, thủ tướng (lãnh đạo nhánh hành pháp)",
+    "definition": "The chief officer of the executive branch of a government, often bearing the title of prime minister.",
     "senses": [
       {
-        "pos": "compound noun / phrase",
-        "defEn": "An essential English phrase or compound expression: \"head of government\".",
-        "meaningVi": "người đứng đầu chính phủ",
+        "pos": "compound noun",
+        "defEn": "The chief officer of the executive branch of a government, often bearing the title of prime minister.",
+        "meaningVi": "Người đứng đầu nhánh hành pháp của chính phủ, thường giữ chức vụ thủ tướng.",
         "level": "B2-C1",
         "examples": [
           {
-            "en": "Proper usage of \"head of government\" is highly valued in professional English environments.",
-            "vi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+            "en": "The head of government presided over the weekly cabinet meeting.",
+            "vi": "Người đứng đầu chính phủ đã chủ trì phiên họp nội các hàng tuần."
           }
         ]
       }
     ],
     "examples": [
       {
-        "en": "Proper usage of \"head of government\" is highly valued in professional English environments.",
-        "vi": "Sử dụng đúng cách cụm từ \"head of government\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+        "en": "The head of government presided over the weekly cabinet meeting.",
+        "vi": "Người đứng đầu chính phủ đã chủ trì phiên họp nội các hàng tuần."
       }
     ],
     "lists": [
-      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+      "Phân biệt với 'head of state' (nguyên thủ quốc gia)"
     ],
-    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
-    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "examTag": "Phân biệt với 'head of state' (nguyên thủ quốc gia)",
+    "toeicNote": "Phân biệt với 'head of state' (nguyên thủ quốc gia)",
     "sources": [
       {
         "name": "AI Dynamic Lexicographer / Open Vocabulary",
@@ -3053,85 +3052,80 @@
       "exactMatch": true,
       "isAiGenerated": true,
       "isSegmented": false,
-      "isLemmaRedirect": true,
+      "isLemmaRedirect": false,
       "machineTranslated": false,
       "incomplete": false
     },
-    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of government\"",
-    "searchedQuery": "heads of government",
-    "segmentedWord": "heads of government",
-    "audio": {
-      "us": "/api/tts?text=head%20of%20government&accent=US&lang=en-US",
-      "uk": "/api/tts?text=head%20of%20government&accent=UK&lang=en-GB"
-    }
+    "matchedForm": "",
+    "searchedQuery": "head of government",
+    "segmentedWord": "head of government"
   },
   "supreme leaders": {
     "query": "supreme leaders",
-    "rootForm": "supreme leaders",
+    "rootForm": "supreme leader",
     "ipa": {
-      "us": "/ˌsʌpreme ˈliːdərz/",
-      "uk": "/ˌsʌpreme ˈliːdəz/"
+      "us": "/suːˈpriːm ˈliːdərz/",
+      "uk": "/suːˈpriːm ˈliːdərz/"
     },
-    "pos": "compound noun / phrase",
-    "vietnameseMeaning": "lãnh đạo tối cao",
+    "audio": {
+      "us": "/api/tts?text=supreme%20leader&accent=US&lang=en-US",
+      "uk": "/api/tts?text=supreme%20leader&accent=UK&lang=en-GB"
+    },
+    "pos": "compound noun",
+    "vietnameseMeaning": "Các nhà lãnh đạo tối cao (dạng số nhiều)",
     "definitions": [
       {
-        "en": "An essential English phrase or compound expression: \"supreme leaders\".",
-        "vi": "lãnh đạo tối cao",
-        "exampleEn": "Proper usage of \"supreme leaders\" is highly valued in professional English environments.",
-        "exampleVi": "Sử dụng đúng cách cụm từ \"supreme leaders\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+        "en": "Plural form of supreme leader: highest-ranking state or political leaders.",
+        "vi": "Dạng số nhiều của supreme leader: những người nắm quyền lãnh đạo cao nhất.",
+        "exampleEn": "Supreme leaders from across the region convened for the international summit.",
+        "exampleVi": "Các nhà lãnh đạo tối cao từ khắp khu vực đã tề tựu tham dự hội nghị thượng đỉnh quốc tế."
       }
     ],
     "wordFamily": {
-      "noun": "supreme",
-      "verb": "supreme",
-      "adjective": "-"
+      "noun": "leader, leadership",
+      "verb": "lead",
+      "adjective": "supreme"
     },
     "collocations": [
       {
-        "phrase": "common usage of supreme leaders",
-        "en": "common usage of supreme leaders",
-        "vi": "Cụm diễn đạt: \"common usage of supreme leaders\""
-      },
-      {
-        "phrase": "standard expression with supreme leaders",
-        "en": "standard expression with supreme leaders",
-        "vi": "Cụm diễn đạt: \"standard expression with supreme leaders\""
+        "phrase": "summit of supreme leaders",
+        "en": "summit of supreme leaders",
+        "vi": "Cụm diễn đạt: \"summit of supreme leaders\""
       }
     ],
-    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
-    "headword": "supreme leaders",
-    "lemma": "supreme leaders",
-    "word": "supreme leaders",
-    "phonetic": "/ˌsʌpreme ˈliːdərz/",
-    "partOfSpeech": "compound noun / phrase",
-    "vi": "lãnh đạo tối cao",
-    "definition": "An essential English phrase or compound expression: \"supreme leaders\".",
+    "examContext": "IELTS / VSTEP Academic English",
+    "headword": "supreme leader",
+    "lemma": "supreme leader",
+    "word": "supreme leader",
+    "phonetic": "/suːˈpriːm ˈliːdərz/",
+    "partOfSpeech": "compound noun",
+    "vi": "Các nhà lãnh đạo tối cao (dạng số nhiều)",
+    "definition": "Plural form of supreme leader: highest-ranking state or political leaders.",
     "senses": [
       {
-        "pos": "compound noun / phrase",
-        "defEn": "An essential English phrase or compound expression: \"supreme leaders\".",
-        "meaningVi": "lãnh đạo tối cao",
+        "pos": "compound noun",
+        "defEn": "Plural form of supreme leader: highest-ranking state or political leaders.",
+        "meaningVi": "Dạng số nhiều của supreme leader: những người nắm quyền lãnh đạo cao nhất.",
         "level": "B2-C1",
         "examples": [
           {
-            "en": "Proper usage of \"supreme leaders\" is highly valued in professional English environments.",
-            "vi": "Sử dụng đúng cách cụm từ \"supreme leaders\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+            "en": "Supreme leaders from across the region convened for the international summit.",
+            "vi": "Các nhà lãnh đạo tối cao từ khắp khu vực đã tề tựu tham dự hội nghị thượng đỉnh quốc tế."
           }
         ]
       }
     ],
     "examples": [
       {
-        "en": "Proper usage of \"supreme leaders\" is highly valued in professional English environments.",
-        "vi": "Sử dụng đúng cách cụm từ \"supreme leaders\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+        "en": "Supreme leaders from across the region convened for the international summit.",
+        "vi": "Các nhà lãnh đạo tối cao từ khắp khu vực đã tề tựu tham dự hội nghị thượng đỉnh quốc tế."
       }
     ],
     "lists": [
-      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+      "IELTS / VSTEP Academic English"
     ],
-    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
-    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "examTag": "IELTS / VSTEP Academic English",
+    "toeicNote": "IELTS / VSTEP Academic English",
     "sources": [
       {
         "name": "AI Dynamic Lexicographer / Open Vocabulary",
@@ -3149,11 +3143,7 @@
     },
     "matchedForm": "",
     "searchedQuery": "supreme leaders",
-    "segmentedWord": "supreme leaders",
-    "audio": {
-      "us": "/api/tts?text=supreme%20leaders&accent=US&lang=en-US",
-      "uk": "/api/tts?text=supreme%20leaders&accent=UK&lang=en-GB"
-    }
+    "segmentedWord": "supreme leaders"
   },
   "heads of state meeting": {
     "query": "heads of state meeting",
@@ -3246,72 +3236,76 @@
     }
   },
   "head of state meeting": {
-    "query": "heads of state meeting",
+    "query": "head of state meeting",
     "rootForm": "head of state meeting",
     "ipa": {
       "us": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/",
-      "uk": "/ˌhed əv ˈsteɪt ˈmiː.tɪŋ/"
+      "uk": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=head%20of%20state%20meeting&accent=US&lang=en-US",
+      "uk": "/api/tts?text=head%20of%20state%20meeting&accent=UK&lang=en-GB"
     },
     "pos": "compound noun / phrase",
-    "vietnameseMeaning": "hội nghị nguyên thủ quốc gia",
+    "vietnameseMeaning": "Cuộc họp thượng đỉnh nguyên thủ quốc gia, hội nghị cấp cao nguyên thủ",
     "definitions": [
       {
-        "en": "An essential English phrase or compound expression: \"head of state meeting\".",
-        "vi": "hội nghị nguyên thủ quốc gia",
-        "exampleEn": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
-        "exampleVi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+        "en": "A high-level summit or formal conference attended by national leaders and heads of state.",
+        "vi": "Hội nghị thượng đỉnh cấp cao có sự tham dự của các nhà lãnh đạo và nguyên thủ quốc gia.",
+        "exampleEn": "The upcoming head of state meeting will focus on regional security and economic cooperation.",
+        "exampleVi": "Cuộc họp nguyên thủ quốc gia sắp tới sẽ tập trung vào an ninh khu vực và hợp tác kinh tế."
       }
     ],
     "wordFamily": {
-      "noun": "head",
-      "verb": "head",
+      "noun": "head, state, meeting",
+      "verb": "meet",
       "adjective": "-"
     },
     "collocations": [
       {
-        "phrase": "common usage of head of state meeting",
-        "en": "common usage of head of state meeting",
-        "vi": "Cụm diễn đạt: \"common usage of head of state meeting\""
+        "phrase": "convene a head of state meeting",
+        "en": "convene a head of state meeting",
+        "vi": "Cụm diễn đạt: \"convene a head of state meeting\""
       },
       {
-        "phrase": "standard expression with head of state meeting",
-        "en": "standard expression with head of state meeting",
-        "vi": "Cụm diễn đạt: \"standard expression with head of state meeting\""
+        "phrase": "annual head of state meeting",
+        "en": "annual head of state meeting",
+        "vi": "Cụm diễn đạt: \"annual head of state meeting\""
       }
     ],
-    "examContext": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "examContext": "Chủ đề Ngoại giao - Quan hệ quốc tế trong đề thi TOEIC / VSTEP",
     "headword": "head of state meeting",
     "lemma": "head of state meeting",
     "word": "head of state meeting",
     "phonetic": "/ˌhed əv ˈsteɪt ˈmiːtɪŋ/",
     "partOfSpeech": "compound noun / phrase",
-    "vi": "hội nghị nguyên thủ quốc gia",
-    "definition": "An essential English phrase or compound expression: \"head of state meeting\".",
+    "vi": "Cuộc họp thượng đỉnh nguyên thủ quốc gia, hội nghị cấp cao nguyên thủ",
+    "definition": "A high-level summit or formal conference attended by national leaders and heads of state.",
     "senses": [
       {
         "pos": "compound noun / phrase",
-        "defEn": "An essential English phrase or compound expression: \"head of state meeting\".",
-        "meaningVi": "hội nghị nguyên thủ quốc gia",
+        "defEn": "A high-level summit or formal conference attended by national leaders and heads of state.",
+        "meaningVi": "Hội nghị thượng đỉnh cấp cao có sự tham dự của các nhà lãnh đạo và nguyên thủ quốc gia.",
         "level": "B2-C1",
         "examples": [
           {
-            "en": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
-            "vi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+            "en": "The upcoming head of state meeting will focus on regional security and economic cooperation.",
+            "vi": "Cuộc họp nguyên thủ quốc gia sắp tới sẽ tập trung vào an ninh khu vực và hợp tác kinh tế."
           }
         ]
       }
     ],
     "examples": [
       {
-        "en": "Proper usage of \"head of state meeting\" is highly valued in professional English environments.",
-        "vi": "Sử dụng đúng cách cụm từ \"head of state meeting\" được đánh giá cao trong môi trường làm việc tiếng Anh chuyên nghiệp."
+        "en": "The upcoming head of state meeting will focus on regional security and economic cooperation.",
+        "vi": "Cuộc họp nguyên thủ quốc gia sắp tới sẽ tập trung vào an ninh khu vực và hợp tác kinh tế."
       }
     ],
     "lists": [
-      "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP"
+      "Chủ đề Ngoại giao - Quan hệ quốc tế trong đề thi TOEIC / VSTEP"
     ],
-    "examTag": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
-    "toeicNote": "Cụm từ thông dụng trong các phần đọc hiểu và giao tiếp bài thi TOEIC / VSTEP",
+    "examTag": "Chủ đề Ngoại giao - Quan hệ quốc tế trong đề thi TOEIC / VSTEP",
+    "toeicNote": "Chủ đề Ngoại giao - Quan hệ quốc tế trong đề thi TOEIC / VSTEP",
     "sources": [
       {
         "name": "AI Dynamic Lexicographer / Open Vocabulary",
@@ -3323,16 +3317,278 @@
       "exactMatch": true,
       "isAiGenerated": true,
       "isSegmented": false,
-      "isLemmaRedirect": true,
+      "isLemmaRedirect": false,
       "machineTranslated": false,
       "incomplete": false
     },
-    "matchedForm": "Dạng số nhiều của cụm danh từ \"head of state meeting\"",
-    "searchedQuery": "heads of state meeting",
-    "segmentedWord": "heads of state meeting",
+    "matchedForm": "",
+    "searchedQuery": "head of state meeting",
+    "segmentedWord": "head of state meeting"
+  },
+  "curios": {
+    "headword": "curio",
+    "lemma": "curio",
+    "word": "curios",
+    "phonetic": "/ˈkjɔːɹiˌəʊ̯/",
+    "ipa": {
+      "us": "/ˈkjɔːɹiˌəʊ̯/",
+      "uk": "/ˈkɜːɪɒ/"
+    },
     "audio": {
-      "us": "/api/tts?text=head%20of%20state%20meeting&accent=US&lang=en-US",
-      "uk": "/api/tts?text=head%20of%20state%20meeting&accent=UK&lang=en-GB"
-    }
+      "us": "/api/tts?text=curio&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curio&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "Thuật ngữ tiếng Anh: \"curio\" (Bản dịch đang được cập nhật)",
+    "definition": "A strange and interesting object; something that evokes curiosity.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A strange and interesting object; something that evokes curiosity.",
+        "meaningVi": "Thuật ngữ tiếng Anh: \"curio\" (Bản dịch đang được cập nhật)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Understanding the usage of \"curio\" is essential for TOEIC and VSTEP test-takers.",
+            "vi": "Hiểu rõ cách dùng của \"curio\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+          }
+        ]
+      }
+    ],
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "lists": [
+      "TOEIC / VSTEP Core Vocabulary"
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curio",
+          "vi": "dạng noun của \"curio\""
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "phrase": "common use of curio",
+        "vi": "cách sử dụng thông dụng của curio"
+      },
+      {
+        "phrase": "key curio factor",
+        "vi": "yếu tố curio then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Xác định rõ từ loại của \"curio\" dựa trên từ đứng trước và sau trong câu!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"curio\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"curio\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Free Dictionary API / Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://dictionaryapi.dev"
+      },
+      {
+        "name": "MyMemory Translation",
+        "license": "Public translation memory",
+        "url": "https://mymemory.translated.net"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "machineTranslated": true,
+      "incomplete": false,
+      "isSegmented": false,
+      "isLemmaRedirect": true
+    },
+    "matchedForm": "Dạng số nhiều / số ít của \"curio\"",
+    "searchedQuery": "curios",
+    "segmentedWord": "curios"
+  },
+  "curio": {
+    "headword": "curio",
+    "lemma": "curio",
+    "word": "curios",
+    "phonetic": "/ˈkjɔːɹiˌəʊ̯/",
+    "ipa": {
+      "us": "/ˈkjɔːɹiˌəʊ̯/",
+      "uk": "/ˈkɜːɪɒ/"
+    },
+    "audio": {
+      "us": "/api/tts?text=curio&accent=US&lang=en-US",
+      "uk": "/api/tts?text=curio&accent=UK&lang=en-GB"
+    },
+    "partOfSpeech": "Noun",
+    "vi": "Thuật ngữ tiếng Anh: \"curio\" (Bản dịch đang được cập nhật)",
+    "definition": "A strange and interesting object; something that evokes curiosity.",
+    "senses": [
+      {
+        "pos": "Noun",
+        "defEn": "A strange and interesting object; something that evokes curiosity.",
+        "meaningVi": "Thuật ngữ tiếng Anh: \"curio\" (Bản dịch đang được cập nhật)",
+        "level": "B1-B2",
+        "examples": [
+          {
+            "en": "Understanding the usage of \"curio\" is essential for TOEIC and VSTEP test-takers.",
+            "vi": "Hiểu rõ cách dùng của \"curio\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+          }
+        ]
+      }
+    ],
+    "examTag": "TOEIC / VSTEP Core Vocabulary",
+    "lists": [
+      "TOEIC / VSTEP Core Vocabulary"
+    ],
+    "wordFamily": {
+      "noun": [
+        {
+          "term": "curio",
+          "vi": "dạng noun của \"curio\""
+        }
+      ],
+      "verb": [],
+      "adj": [],
+      "adv": []
+    },
+    "synonyms": [],
+    "antonyms": [],
+    "collocations": [
+      {
+        "phrase": "common use of curio",
+        "vi": "cách sử dụng thông dụng của curio"
+      },
+      {
+        "phrase": "key curio factor",
+        "vi": "yếu tố curio then chốt"
+      }
+    ],
+    "idioms": [],
+    "toeicNote": "💡 Mẹo làm bài: Xác định rõ từ loại của \"curio\" dựa trên từ đứng trước và sau trong câu!",
+    "examples": [
+      {
+        "en": "Understanding the usage of \"curio\" is essential for TOEIC and VSTEP test-takers.",
+        "vi": "Hiểu rõ cách dùng của \"curio\" là điều hữu ích cho thí sinh thi TOEIC và VSTEP."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Free Dictionary API / Wiktionary",
+        "license": "CC BY-SA 3.0",
+        "url": "https://dictionaryapi.dev"
+      },
+      {
+        "name": "MyMemory Translation",
+        "license": "Public translation memory",
+        "url": "https://mymemory.translated.net"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "machineTranslated": true,
+      "incomplete": false,
+      "isSegmented": false,
+      "isLemmaRedirect": true
+    },
+    "matchedForm": "Dạng số nhiều / số ít của \"curio\"",
+    "searchedQuery": "curios",
+    "segmentedWord": "curios"
+  },
+  "supreme leader": {
+    "query": "supreme leader",
+    "rootForm": "supreme leader",
+    "ipa": {
+      "us": "/suːˈpriːm ˈliːdər/",
+      "uk": "/suːˈpriːm ˈliːdər/"
+    },
+    "audio": {
+      "us": "/api/tts?text=supreme%20leader&accent=US&lang=en-US",
+      "uk": "/api/tts?text=supreme%20leader&accent=UK&lang=en-GB"
+    },
+    "pos": "compound noun",
+    "vietnameseMeaning": "Nhà lãnh đạo tối cao, nguyên thủ tối cao",
+    "definitions": [
+      {
+        "en": "The highest ranking leader holding ultimate authority in a state or political body.",
+        "vi": "Nhà lãnh đạo có thứ bậc cao nhất, nắm giữ quyền lực tối cao trong một quốc gia hoặc tổ chức chính trị.",
+        "exampleEn": "The supreme leader delivered an address to the nation on state television.",
+        "exampleVi": "Nhà lãnh đạo tối cao đã phát biểu trước toàn dân trên đài truyền hình quốc gia."
+      }
+    ],
+    "wordFamily": {
+      "noun": "leader, leadership",
+      "verb": "lead",
+      "adjective": "supreme"
+    },
+    "collocations": [
+      {
+        "phrase": "the supreme leader's decree",
+        "en": "the supreme leader's decree",
+        "vi": "Cụm diễn đạt: \"the supreme leader's decree\""
+      },
+      {
+        "phrase": "meeting with the supreme leader",
+        "en": "meeting with the supreme leader",
+        "vi": "Cụm diễn đạt: \"meeting with the supreme leader\""
+      }
+    ],
+    "examContext": "IELTS / VSTEP Academic & Political English",
+    "headword": "supreme leader",
+    "lemma": "supreme leader",
+    "word": "supreme leader",
+    "phonetic": "/suːˈpriːm ˈliːdər/",
+    "partOfSpeech": "compound noun",
+    "vi": "Nhà lãnh đạo tối cao, nguyên thủ tối cao",
+    "definition": "The highest ranking leader holding ultimate authority in a state or political body.",
+    "senses": [
+      {
+        "pos": "compound noun",
+        "defEn": "The highest ranking leader holding ultimate authority in a state or political body.",
+        "meaningVi": "Nhà lãnh đạo có thứ bậc cao nhất, nắm giữ quyền lực tối cao trong một quốc gia hoặc tổ chức chính trị.",
+        "level": "B2-C1",
+        "examples": [
+          {
+            "en": "The supreme leader delivered an address to the nation on state television.",
+            "vi": "Nhà lãnh đạo tối cao đã phát biểu trước toàn dân trên đài truyền hình quốc gia."
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "en": "The supreme leader delivered an address to the nation on state television.",
+        "vi": "Nhà lãnh đạo tối cao đã phát biểu trước toàn dân trên đài truyền hình quốc gia."
+      }
+    ],
+    "lists": [
+      "IELTS / VSTEP Academic & Political English"
+    ],
+    "examTag": "IELTS / VSTEP Academic & Political English",
+    "toeicNote": "IELTS / VSTEP Academic & Political English",
+    "sources": [
+      {
+        "name": "AI Dynamic Lexicographer / Open Vocabulary",
+        "license": "Creative Commons / AI Enhanced",
+        "url": "https://noblefranklin.edu.vn"
+      }
+    ],
+    "flags": {
+      "exactMatch": true,
+      "isAiGenerated": true,
+      "isSegmented": false,
+      "isLemmaRedirect": false,
+      "machineTranslated": false,
+      "incomplete": false
+    },
+    "matchedForm": "",
+    "searchedQuery": "supreme leader",
+    "segmentedWord": "supreme leader"
   }
 }

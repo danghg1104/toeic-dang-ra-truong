@@ -50,6 +50,9 @@
     <script src="js/toeic-reading-workstation.js?v=2026-v1"></script>
     <script src="js/dailydictation-toeic-data.js?v=2026-v1"></script>
     <script src="js/dailydictation-workstation.js?v=2026-v1"></script>
+    <script src="js/curated-vocab-bank.js"></script>
+    <script src="js/textbook-curriculum-database.js"></script>
+    <script src="js/vocab-game-workstation.js?v=2026-v1"></script>
     <script src="js/full-part-practice.js"></script>
     <script src="js/listening-dashboard.js"></script>
     <script src="js/listening-smart-review.js"></script>
@@ -439,6 +442,29 @@
             background: #dc2626;
             border-radius: 0 4px 4px 0;
         }
+        .nav-active-vocab-game {
+            background: linear-gradient(90deg, #d1fae5 0%, rgba(255,255,255,0.5) 100%);
+            font-weight: 700;
+        }
+        .nav-active-vocab-game::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 4px;
+            background: #059669;
+            border-radius: 0 4px 4px 0;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: shake 0.35s ease-in-out;
+        }
 
         /* Notebook Paper Styles for Take Note */
         .paper-lined {
@@ -774,6 +800,12 @@
                             <i class="fa-solid fa-map-location-dot text-[15px] w-5 text-center text-emerald-600 dark:text-emerald-400"></i>
                             <span class="sidebar-text">Lộ trình cá nhân</span>
                             <span id="urgentRushBadge" class="hidden ml-auto px-1.5 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-extrabold animate-pulse">GẤP</span>
+                        </button>
+
+                        <!-- Học từ vựng (AI & Mini-game Totoro - Đặt ngay dưới Lộ trình cá nhân) -->
+                        <button onclick="switchTab('hoc-tu-vung')" id="nav-hoc-tu-vung" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-[13.5px] font-semibold text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50/70 dark:hover:bg-slate-800 transition">
+                            <i class="fa-solid fa-gamepad text-[15px] w-5 text-center text-emerald-600 dark:text-emerald-400 shrink-0"></i>
+                            <span class="sidebar-text whitespace-nowrap">Học từ vựng</span>
                         </button>
 
                         <button onclick="switchTab('ngu-phap')" id="nav-ngu-phap" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-[13.5px] font-semibold text-purple-800 dark:text-purple-300 hover:bg-purple-50/70 dark:hover:bg-slate-800">
@@ -3510,6 +3542,13 @@
             </section>
 
             <!-- ========================================== -->
+            <!-- VIEW HỌC TỪ VỰNG (AI & MINI-GAME TOTORO)    -->
+            <!-- ========================================== -->
+            <section id="view-hoc-tu-vung" class="hidden space-y-4 min-h-[700px]">
+                <!-- Populated via window.VocabGameWorkstation.renderInto('view-hoc-tu-vung') -->
+            </section>
+
+            <!-- ========================================== -->
             <!-- VIEW 7: LUYỆN NGHE CHÍNH TẢ (DAILYDICTATION)-->
             <!-- ========================================== -->
             <section id="view-nghe-chinh-ta" class="hidden space-y-4 min-h-[700px]">
@@ -5642,6 +5681,12 @@
                 feedbackText: 'Ghi chú bẫy hay sai',
                 owlVariant: 'mock'
             },
+            'hoc-tu-vung': {
+                activeClass: 'nav-active-vocab-game',
+                mascotText: 'Luyện gõ từ vựng & nghe phát âm cùng Totoro!',
+                feedbackText: 'Mở Sổ Take Note',
+                owlVariant: 'book'
+            },
             'nghe-chinh-ta': {
                 activeClass: 'nav-active-dictation',
                 mascotText: 'Nghe chép chính tả DailyDictation siêu nhạy!',
@@ -5722,6 +5767,7 @@
                         'nav-active-mock',
                         'nav-active-traps',
                         'nav-active-dictation',
+                        'nav-active-vocab-game',
                         'nav-active-youglish',
                         'nav-active-note'
                     );
@@ -5768,6 +5814,9 @@
             }
             if (tabId === 'bay-de-thi' && window.TOEICTrapsEngine) {
                 TOEICTrapsEngine.init();
+            }
+            if (tabId === 'hoc-tu-vung' && window.VocabGameWorkstation) {
+                window.VocabGameWorkstation.renderInto('view-hoc-tu-vung');
             }
             if (tabId === 'nghe' && window.ListeningDashboard) {
                 ListeningDashboard.renderStats();
@@ -10172,7 +10221,31 @@
         let currentDeckName = 'Contracts';
         let fcIndex = 0;
         let learnedVocabItems = [];
-        let savedVocabItems = [];
+        window.savedVocabItems = window.savedVocabItems || [];
+        let savedVocabItems = window.savedVocabItems;
+
+        window.addWordToSavedVocab = function(item) {
+            if (!item || !item.word) return;
+            const w = item.word.trim();
+            if (!savedVocabItems.find(x => (x.word || '').toLowerCase() === w.toLowerCase())) {
+                savedVocabItems.push({
+                    word: w,
+                    meaning: item.meaning || '',
+                    phonetic: item.phonetic || '',
+                    level: item.level || 'B1',
+                    dateAdded: item.dateAdded || new Date().toLocaleDateString('vi-VN'),
+                    sourceFile: item.sourceFile || 'Sổ tay cá nhân'
+                });
+                window.savedVocabItems = savedVocabItems;
+                const badge = document.getElementById('savedWordsBadge');
+                if (badge) badge.textContent = savedVocabItems.length;
+                const sub = document.getElementById('savedVocabSub');
+                if (sub) sub.textContent = `Đã lưu ${savedVocabItems.length} từ vựng`;
+                if (typeof renderSavedVocabList === 'function') renderSavedVocabList();
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : (currentUserAccount && currentUserAccount.uid ? currentUserAccount.uid : 'guest');
+                localStorage.setItem(`cung_dang_${uid}_saved_vocab_v1`, JSON.stringify(savedVocabItems));
+            }
+        };
 
         function openVocabFlashcardModal(deckName) {
             if (!currentUserAccount) {
@@ -10335,25 +10408,146 @@
         function renderSavedVocabList() {
             const el = document.getElementById('savedWordsListContainer');
             if (!el) return;
-            if (savedVocabItems.length === 0) {
-                el.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-xs">Sổ tay hiện đang trống. Bạn có thể bấm "Lưu từ" khi học Flashcard hoặc thêm từ mới ở trên.</div>`;
+            if (!savedVocabItems || savedVocabItems.length === 0) {
+                el.innerHTML = `<div class="col-span-1 md:col-span-2 text-center py-10 px-4 rounded-3xl bg-amber-50/40 dark:bg-slate-800/40 border border-dashed border-amber-200 dark:border-slate-700 text-slate-400 text-xs space-y-2">
+                    <div class="text-3xl">📖</div>
+                    <div class="font-bold text-slate-700 dark:text-slate-300">Sổ tay từ vựng hiện đang trống</div>
+                    <p class="text-[11px] max-w-sm mx-auto">Bạn có thể quét tài liệu/sách ở mục "Học từ vựng", tích chọn các từ cần học hoặc bấm "Lưu từ" để hệ thống tự động ghi nhật ký ngày học!</p>
+                </div>`;
                 return;
             }
-            el.innerHTML = savedVocabItems.map(w => `
-                <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 flex items-start justify-between gap-3">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-extrabold text-sm text-amber-900">${escapeHtml(w.word)}</span>
-                            <button onclick="speakText('${escapeHtml(w.word.replace(/'/g, "\\'"))}', 'en-US')" class="w-6 h-6 rounded-full bg-amber-200 hover:bg-amber-300 text-amber-900 flex items-center justify-center transition" title="Nghe phát âm chuẩn">
-                                <i class="fa-solid fa-volume-high text-[10px]"></i>
-                            </button>
+
+            // Nhóm từ theo Ngày học (dateAdded) và Nguồn tài liệu (sourceFile)
+            const groups = {};
+            savedVocabItems.forEach((w, origIdx) => {
+                const date = w.dateAdded || 'Gần đây';
+                const source = w.sourceFile || 'Sổ tay cá nhân';
+                const groupKey = `${date}___${source}`;
+                if (!groups[groupKey]) {
+                    groups[groupKey] = {
+                        date: date,
+                        source: source,
+                        groupKey: groupKey,
+                        items: []
+                    };
+                }
+                groups[groupKey].items.push({ ...w, origIdx: origIdx });
+            });
+
+            const groupKeys = Object.keys(groups);
+
+            el.innerHTML = groupKeys.map(k => {
+                const grp = groups[k];
+                const count = grp.items.length;
+                return `
+                    <div class="col-span-1 md:col-span-2 bg-white dark:bg-slate-800/90 rounded-3xl p-5 border border-slate-200/90 dark:border-slate-700 shadow-2xs space-y-4">
+                        <!-- Header nhóm ngày học & nguồn tài liệu -->
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700/60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center text-lg font-black shrink-0">
+                                    📅
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                                            Học ngày: ${grp.date}
+                                        </span>
+                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-cyan-300 border border-blue-200 dark:border-blue-800">
+                                            📁 ${grp.source}
+                                        </span>
+                                    </div>
+                                    <div class="text-[11px] text-slate-400 font-bold mt-0.5">
+                                        Đã ghi lại ${count} từ vựng
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2 NÚT HỌC TRỰC TIẾP: 1 LÀ FLASHCARD, 2 LÀ BẮN SÚNG GUNDAM -->
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <button type="button" onclick="startSavedVocabStudy('${grp.groupKey}', 'flashcard')"
+                                    class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95">
+                                    <i class="fa-solid fa-clone text-[11px]"></i>
+                                    <span>🃏 Học Flashcard (${count})</span>
+                                </button>
+
+                                <button type="button" onclick="startSavedVocabStudy('${grp.groupKey}', 'arena')"
+                                    class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:opacity-95 text-slate-950 font-black text-xs transition flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95">
+                                    <i class="fa-solid fa-gamepad text-[11px]"></i>
+                                    <span>🚀 Bắn súng Gundam (${count})</span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="text-xs font-semibold text-slate-700 mt-1">${escapeHtml(w.meaning)}</div>
+
+                        <!-- Danh sách từ trong nhóm -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            ${grp.items.map(w => `
+                                <div class="p-3.5 rounded-2xl bg-amber-50/60 dark:bg-slate-900/60 border border-amber-200/80 dark:border-slate-700 flex flex-col justify-between gap-2">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-black text-sm text-amber-950 dark:text-amber-200">${escapeHtml(w.word)}</span>
+                                                <button onclick="speakText('${escapeHtml(w.word.replace(/'/g, "\\'"))}', 'en-US')" class="w-6 h-6 rounded-lg bg-amber-200/80 hover:bg-amber-300 dark:bg-slate-700 text-amber-900 dark:text-amber-300 flex items-center justify-center transition cursor-pointer" title="Nghe phát âm">
+                                                    <i class="fa-solid fa-volume-high text-[10px]"></i>
+                                                </button>
+                                            </div>
+                                            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">${escapeHtml(w.phonetic || '/' + w.word + '/')}</div>
+                                        </div>
+                                        <div class="flex items-center gap-1">
+                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-white dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-slate-700">
+                                                ${escapeHtml(w.level || 'B1')}
+                                            </span>
+                                            <button onclick="removeSavedVocabItem(${w.origIdx})" class="w-6 h-6 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-center text-xs transition cursor-pointer" title="Xóa từ khỏi sổ">
+                                                <i class="fa-regular fa-trash-can text-[10px]"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white/70 dark:bg-slate-800/60 p-2 rounded-xl">
+                                        ${escapeHtml(w.meaning || 'Từ vựng học tập')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
-                    <span class="text-amber-600 text-xs shrink-0">🔖</span>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
+
+        window.startSavedVocabStudy = function(groupKey, mode) {
+            if (!Array.isArray(savedVocabItems)) return;
+            const items = savedVocabItems.filter(item => {
+                const date = item.dateAdded || 'Gần đây';
+                const source = item.sourceFile || 'Sổ tay cá nhân';
+                return `${date}___${source}` === groupKey;
+            });
+            if (items.length === 0) {
+                showToast('Nhóm từ này hiện không có từ vựng nào!');
+                return;
+            }
+
+            if (mode === 'flashcard') {
+                if (window.VocabGameWorkstation && typeof window.VocabGameWorkstation.openFlashcardModal === 'function') {
+                    window.VocabGameWorkstation.openFlashcardModal(items, `Sổ từ: ${items[0].dateAdded || 'Ngày học'}`);
+                }
+            } else if (mode === 'arena') {
+                if (window.VocabGameWorkstation && typeof window.VocabGameWorkstation.launchArenaWithWords === 'function') {
+                    window.VocabGameWorkstation.launchArenaWithWords(items, `Sổ từ: ${items[0].dateAdded || 'Ngày học'}`);
+                }
+            }
+        };
+
+        window.removeSavedVocabItem = function(idx) {
+            if (!Array.isArray(savedVocabItems) || idx < 0 || idx >= savedVocabItems.length) return;
+            const removed = savedVocabItems.splice(idx, 1);
+            const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : (currentUserAccount && currentUserAccount.uid ? currentUserAccount.uid : 'guest');
+            localStorage.setItem(`cung_dang_${uid}_saved_vocab_v1`, JSON.stringify(savedVocabItems));
+            
+            const badge = document.getElementById('savedWordsBadge');
+            if (badge) badge.textContent = savedVocabItems.length;
+            const sub = document.getElementById('savedVocabSub');
+            if (sub) sub.textContent = `Đã lưu ${savedVocabItems.length} từ vựng`;
+            renderSavedVocabList();
+            showToast(`🗑️ Đã xóa "${removed[0]?.word}" khỏi Sổ tay từ vựng!`);
+        };
 
         function addCustomSavedWord() {
             const w = document.getElementById('customWordInput').value.trim();
