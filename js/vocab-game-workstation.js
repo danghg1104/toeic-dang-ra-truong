@@ -578,19 +578,30 @@
         // =========================================================================
         // PHÁT ÂM TIẾNG ANH CHUẨN (Web Speech API / Server TTS)
         // =========================================================================
-        speakWord(word) {
+        speakWord(word, lang = 'en-US') {
             if (!word) return;
             const clean = word.trim();
+            const accent = (lang === 'en-GB' || lang === 'UK') ? 'UK' : 'US';
+            const effLang = accent === 'UK' ? 'en-GB' : 'en-US';
+
+            // Ưu tiên 1: AudioService nếu có nguồn phát âm chuẩn
+            if (window.AudioService && typeof window.AudioService.speakWord === 'function') {
+                window.AudioService.speakWord(clean, accent);
+                return;
+            }
+
+            // Ưu tiên 2: Web Speech API chuẩn giọng US / UK
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utter = new SpeechSynthesisUtterance(clean);
-                utter.lang = 'en-US';
+                utter.lang = effLang;
                 utter.rate = 0.9;
                 utter.pitch = 1.0;
                 window.speechSynthesis.speak(utter);
                 return;
             }
-            const audio = new Audio(`/api/tts?text=${encodeURIComponent(clean)}&accent=US&lang=en-US`);
+
+            const audio = new Audio(`/api/tts?text=${encodeURIComponent(clean)}&accent=${accent}&lang=${effLang}`);
             audio.play().catch(() => {});
         }
 
@@ -737,6 +748,23 @@
                 target = this.savedScannedFiles[0];
             }
             if (target && target.words && target.words.length > 0) {
+                // Tự động phát hiện và làm sạch file bị dính rác nhị phân cũ (nuuw, ovh, cug, vus...)
+                const hasCorrupted = target.words.some(w => (w.word || '').toLowerCase() === 'nuuw' || (w.word || '').toLowerCase() === 'ovh' || (w.word || '').toLowerCase() === 'cug');
+                if (hasCorrupted) {
+                    target.words = target.words.filter(w => !this.isGarbageTokenStatic(w.word));
+                    target.totalWords = target.words.length;
+                    if (target.stats) target.stats.total = target.words.length;
+                    this.saveSavedScannedFiles();
+                }
+
+                // Tự động dịch và làm giàu nếu từ bị dính nhãn 'từ vựng học tập' cũ
+                const hasFakeMeanings = target.words.some(w => (w.meaning || '').toLowerCase() === 'từ vựng học tập');
+                if (hasFakeMeanings) {
+                    this.enrichUploadedWordsIfNeeded(target.words).then(() => {
+                        this.saveSavedScannedFiles();
+                        if (this.currentIntakeMode === 'file') this.renderInto();
+                    }).catch(() => {});
+                }
                 this.activeScannedFileId = target.id;
                 this.uploadedFileWords = JSON.parse(JSON.stringify(target.words));
                 this.scannedStats = target.stats || { total: target.words.length, A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 };
@@ -888,7 +916,7 @@
                 if (!exists) {
                     window.savedVocabItems.push({
                         word: cleanW,
-                        meaning: item.meaning || 'từ vựng học tập',
+                        meaning: item.meaning || (item.level ? 'Từ vựng cấp độ ' + item.level : 'Từ vựng tiếng Anh'),
                         phonetic: item.phonetic || (cefrEngine ? cefrEngine.lookupIPA(cleanW) : `/${cleanW}/`),
                         level: item.level || (cefrEngine ? cefrEngine.classify(cleanW) : 'B1'),
                         dateAdded: todayStr,
@@ -1008,7 +1036,7 @@
             }
             this.wordList = wordsList.map(w => ({
                 word: w.word,
-                meaning: w.meaning || 'từ vựng học tập',
+                meaning: w.meaning || (w.level ? 'Từ vựng cấp độ ' + w.level : 'Từ vựng tiếng Anh'),
                 phonetic: w.phonetic || (cefrEngine ? cefrEngine.lookupIPA(w.word) : `/${w.word}/`),
                 level: w.level || (cefrEngine ? cefrEngine.classify(w.word) : 'B1')
             }));
@@ -1162,7 +1190,7 @@
                                         </button>
                                     </div>
                                     <div class="my-auto space-y-2">
-                                        <div class="text-xl sm:text-2xl font-black text-amber-950 dark:text-amber-300 leading-snug">${item.meaning || 'Từ vựng học tập'}</div>
+                                        <div class="text-xl sm:text-2xl font-black text-amber-950 dark:text-amber-300 leading-snug">${item.meaning || (item.level ? 'Từ vựng cấp độ ' + item.level : 'Từ vựng tiếng Anh')}</div>
                                         <div class="text-xs font-semibold text-slate-500 dark:text-slate-400">/${item.word}/ • ${item.level || 'B1'}</div>
                                     </div>
                                     <div class="text-[11px] font-bold text-slate-400 flex items-center gap-1.5">
@@ -2041,7 +2069,7 @@
                                             </div>
 
                                             <div class="text-xs font-semibold text-slate-700 dark:text-slate-300 line-clamp-2 leading-relaxed bg-slate-50/80 dark:bg-slate-900/50 p-2 rounded-xl">
-                                                ${item.meaning || 'Từ vựng học tập'}
+                                                ${item.meaning || (item.level ? 'Từ vựng cấp độ ' + item.level : 'Từ vựng tiếng Anh')}
                                             </div>
                                         </div>
                                     `;
@@ -2278,7 +2306,7 @@
                         </div>
 
                         <div class="text-xs font-semibold text-slate-700 dark:text-slate-300 line-clamp-2 leading-relaxed bg-slate-50/80 dark:bg-slate-900/50 p-2 rounded-xl">
-                            ${item.meaning || 'Từ vựng học tập'}
+                            ${item.meaning || (item.level ? 'Từ vựng cấp độ ' + item.level : 'Từ vựng tiếng Anh')}
                         </div>
                     </div>
                 `;
@@ -2427,6 +2455,120 @@
         }
 
         // =========================================================================
+        isGarbageTokenStatic(str) {
+            if (!str || typeof str !== 'string') return true;
+            const s = str.trim();
+            if (s.length < 2 || s.length > 35) return true;
+            if (!/[a-zA-Z]/.test(s)) return true;
+            if (/[0-9_#$@%^&*+=~><{}\[\]\\]/.test(s)) return true;
+
+            // Loại bỏ casing dị tật do rác nhị phân / stream PDF (như KUe, CUg, DNroa, VUs, jAn, jQu, nuuw...)
+            if (!/^(?:[a-z]{2,30}|[A-Z][a-z]{1,29}|[A-Z]{2,6}|[a-zA-Z]{2,15}-[a-zA-Z]{2,15})$/.test(s)) {
+                return true;
+            }
+
+            // Từ ngắn <= 6 ký tự nhưng không có nguyên âm nào
+            if (s.length <= 6 && !/[aeiouyAEIOUY]/.test(s)) {
+                const validAbbr = new Set(['tv', 'cd', 'dvd', 'id', 'mr', 'ms', 'dr', 'ok', 'by', 'my']);
+                if (!validAbbr.has(s.toLowerCase())) return true;
+            }
+
+            // Metadata PDF, HTML, website watermarks & column headers
+            const junkSet = new Set([
+                'obj', 'endobj', 'stream', 'endstream', 'xref', 'trailer', 'startxref', 
+                'title', 'producer', 'skia', 'renderer', 'docs', 'google', 'flatedecode', 
+                'length', 'filter', 'linearized', 'columns', 'predictor', 'encrypt', 'index',
+                'info', 'prev', 'root', 'size', 'type', 'catalog', 'pages', 'marked', 'count',
+                'kids', 'parent', 'resources', 'xobject', 'contents', 'rotate', 'subtype',
+                'image', 'width', 'height', 'word', 'words', 'pronounce', 'meaning', 'meanings',
+                'stt', 'unit', 'lesson', 'project', 'review', 'skills', 'activity', 'exercise',
+                'workbook', 'textbook', 'glossary', 'oxford', 'effortlessenglishclub',
+                'sachhoc', 'sachhoccom', 'thuvienhoclieu', 'thuvienhoclieucom', 'vndoc', 'vietjack',
+                'loigiaihay', 'tailieu', 'tailieuvn', 'dethithpt', 'sachmem', 'hocmai', 'doc24',
+                'zalo', 'facebook', 'youtube', 'http', 'https', 'www', 'com', 'net', 'org', 'vn',
+                'edu', 'gov', 'html', 'pdf', 'docx', 'scan', 'download', 'copyright', 'watermark'
+            ]);
+            const lowerStr = s.toLowerCase();
+            if (junkSet.has(lowerStr)) return true;
+            if (lowerStr.includes('sachhoc') || lowerStr.includes('thuvienhoclieu') || lowerStr.includes('vietjack') || lowerStr.includes('vndoc') || lowerStr.includes('loigiaihay')) return true;
+
+            return false;
+        }
+
+        async enrichUploadedWordsIfNeeded(words) {
+            if (!Array.isArray(words) || words.length === 0) return;
+
+            const missingMeaningWords = [];
+            for (const item of words) {
+                if (!item || !item.word) continue;
+                const w = item.word.trim();
+                const lw = w.toLowerCase();
+
+                // 1. Chuẩn hóa phiên âm IPA thật (loại bỏ hoàn toàn dạng /word/)
+                if (!item.phonetic || item.phonetic === `/${w}/` || item.phonetic === `/${lw}/`) {
+                    if (window.IPAHelper && typeof window.IPAHelper.transcribePhrase === 'function') {
+                        item.phonetic = window.IPAHelper.transcribePhrase(w, 'US');
+                    } else if (this.cefrEngine && typeof this.cefrEngine.lookupIPA === 'function') {
+                        item.phonetic = this.cefrEngine.lookupIPA(w);
+                    }
+                }
+
+                // 2. Kiểm tra nghĩa tiếng Việt thực tế
+                let m = (item.meaning || '').trim();
+                if (!m || m.toLowerCase() === 'từ vựng học tập' || m.toLowerCase() === 'từ vựng của bạn') {
+                    m = '';
+                    if (window.DictionaryEngine && window.DictionaryEngine.lexicon && window.DictionaryEngine.lexicon[lw] && window.DictionaryEngine.lexicon[lw].vietnameseMeaning) {
+                        m = window.DictionaryEngine.lexicon[lw].vietnameseMeaning;
+                    } else if (this.cefrEngine && typeof this.cefrEngine.lookupMeaning === 'function') {
+                        const cm = this.cefrEngine.lookupMeaning(w);
+                        if (cm && cm.toLowerCase() !== 'từ vựng học tập') m = cm;
+                    } else if (window.dictionaryData && window.dictionaryData[lw] && window.dictionaryData[lw].vi) {
+                        m = window.dictionaryData[lw].vi;
+                    }
+
+                    if (m) {
+                        item.meaning = m;
+                    } else {
+                        missingMeaningWords.push(item);
+                    }
+                }
+            }
+
+            // 3. Batch dịch các từ còn thiếu nghĩa qua Google GTX API (25 từ/lần)
+            if (missingMeaningWords.length > 0) {
+                const CHUNK_SIZE = 25;
+                for (let i = 0; i < missingMeaningWords.length; i += CHUNK_SIZE) {
+                    const chunk = missingMeaningWords.slice(i, i + CHUNK_SIZE);
+                    const text = chunk.map(x => x.word).join('\n');
+                    try {
+                        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=vi&dt=t&q=${encodeURIComponent(text)}`;
+                        const r = await fetch(url);
+                        if (r.ok) {
+                            const data = await r.json();
+                            if (Array.isArray(data && data[0])) {
+                                const translated = data[0].map(x => x[0]).join('').split('\n');
+                                chunk.forEach((item, idx) => {
+                                    const trans = (translated[idx] || '').trim();
+                                    if (trans && trans.toLowerCase() !== item.word.toLowerCase()) {
+                                        item.meaning = trans;
+                                    } else {
+                                        item.meaning = `Thuộc cấp độ ${item.level || 'tiếng Anh'}`;
+                                    }
+                                });
+                            }
+                        }
+                    } catch(e) {
+                        console.warn('Enrich uploaded words translation fallback:', e);
+                        chunk.forEach(item => {
+                            if (!item.meaning || item.meaning === 'từ vựng học tập') {
+                                item.meaning = `Thuộc cấp độ ${item.level || 'tiếng Anh'}`;
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
         // BỘ ĐỌC ĐA ĐỊNH DẠNG (TXT, CSV, JSON, PDF, DOCX) & TOKENIZER THƯỢNG THỪA
         // =========================================================================
         async handleFileUpload(event) {
@@ -2447,7 +2589,7 @@
             try {
                 let extractedText = '';
 
-                // 1. Nếu là file .JSON
+                // 1. File .JSON
                 if (lowerName.endsWith('.json')) {
                     const text = await file.text();
                     try {
@@ -2459,27 +2601,28 @@
                                     const w = item.trim();
                                     return { 
                                         word: w, 
-                                        meaning: cefrEngine.lookupMeaning(w) || 'từ vựng học tập', 
-                                        phonetic: `/${w}/`, 
+                                        meaning: '', 
+                                        phonetic: '', 
                                         level: cefrEngine.classify(w) 
                                     };
                                 }
                                 const w = (item.word || item.term || item.vocab || '').trim();
                                 return {
                                     word: w,
-                                    meaning: item.meaning || item.vi || item.def || cefrEngine.lookupMeaning(w) || 'từ vựng học tập',
-                                    phonetic: item.phonetic || item.ipa || `/${w}/`,
+                                    meaning: item.meaning || item.vi || item.def || '',
+                                    phonetic: item.phonetic || item.ipa || '',
                                     level: item.level || cefrEngine.classify(w)
                                 };
                             }).filter(x => x.word);
                         } else if (typeof parsed === 'object') {
                             extractedWords = Object.entries(parsed).map(([w, m]) => ({
                                 word: w.trim(),
-                                meaning: typeof m === 'string' ? m.trim() : (m.meaning || m.vi || cefrEngine.lookupMeaning(w.trim()) || 'từ vựng học tập'),
-                                phonetic: (typeof m === 'object' && m.phonetic) || `/${w.trim()}/`,
+                                meaning: typeof m === 'string' ? m.trim() : (m.meaning || m.vi || ''),
+                                phonetic: (typeof m === 'object' && m.phonetic) || '',
                                 level: (typeof m === 'object' && m.level) || cefrEngine.classify(w.trim())
                             })).filter(x => x.word);
                         }
+                        await this.enrichUploadedWordsIfNeeded(extractedWords);
                         this.finalizeScannedWords(extractedWords, fileName, startTime, 0);
                         return;
                     } catch(e) {
@@ -2487,7 +2630,7 @@
                     }
                 }
 
-                // 2. Nếu là file .PDF (Dùng PDF.js trích xuất nguyên bản dòng chữ thực, loại bỏ sạch binary stream)
+                // 2. File .PDF (Trích xuất văn bản thực qua PDF.js, tuyệt đối không fallback sang file.text() nhị phân)
                 else if (lowerName.endsWith('.pdf')) {
                     const buffer = await file.arrayBuffer();
                     if (window.pdfjsLib) {
@@ -2555,28 +2698,12 @@
                             }
                         }
                     } else {
-                        extractedText = await file.text();
+                        throw new Error('Thư viện PDF.js chưa sẵn sàng.');
                     }
                 }
 
-                // Nếu là file SGK bất kỳ
-                if (tbMatch && tbMatch.matched && tbMatch.book && (!extractedText || extractedText.trim().split(/\s+/).length < 25)) {
-                    const book = tbMatch.book;
-                    const words = JSON.parse(JSON.stringify(book.words || []));
-                    this.finalizeScannedWords(words, book.title, startTime, 0, {
-                        isTextbook: true,
-                        bookTitle: book.title,
-                        badge: book.badge,
-                        units: book.units
-                    });
-                    if (typeof window.showToast === 'function') {
-                        window.showToast(`📘 Đã nhận diện Sách Giáo Khoa: "${book.title}"! Đã nạp ${words.length} từ vựng chuẩn.`);
-                    }
-                    return;
-                }
-
-                // 3. Nếu là file .DOCX (Dùng Mammoth trích xuất văn bản sạch)
-                else if (lowerName.endsWith('.docx')) {
+                // 3. File .DOCX / .DOC
+                else if (lowerName.endsWith('.docx') || lowerName.endsWith('.doc')) {
                     const buffer = await file.arrayBuffer();
                     if (window.mammoth) {
                         const res = await window.mammoth.extractRawText({ arrayBuffer: buffer });
@@ -2586,7 +2713,7 @@
                     }
                 }
 
-                // 4. Nếu là file .XLSX hoặc .XLS (Dùng SheetJS)
+                // 4. File .XLSX / .XLS
                 else if (lowerName.endsWith('.xlsx') || lowerName.endsWith('.xls')) {
                     const buffer = await file.arrayBuffer();
                     if (window.XLSX) {
@@ -2606,21 +2733,32 @@
                     extractedText = await file.text();
                 }
 
-                this.processUploadedFileText(extractedText, fileName, startTime);
+                // Kiểm tra nếu là file SGK bất kỳ
+                if (tbMatch && tbMatch.matched && tbMatch.book && (!extractedText || extractedText.trim().split(/\s+/).length < 25)) {
+                    const book = tbMatch.book;
+                    const words = JSON.parse(JSON.stringify(book.words || []));
+                    this.finalizeScannedWords(words, book.title, startTime, 0, {
+                        isTextbook: true,
+                        bookTitle: book.title,
+                        badge: book.badge,
+                        units: book.units
+                    });
+                    if (typeof window.showToast === 'function') {
+                        window.showToast(`📘 Đã nhận diện Sách Giáo Khoa: "${book.title}"! Đã nạp ${words.length} từ vựng chuẩn.`);
+                    }
+                    return;
+                }
+
+                await this.processUploadedFileText(extractedText, fileName, startTime);
             } catch(err) {
                 console.error('Lỗi khi đọc file:', err);
-                try {
-                    const fallbackText = await file.text();
-                    this.processUploadedFileText(fallbackText, fileName, startTime);
-                } catch(e) {
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('❌ Không thể trích xuất nội dung file này.');
-                    }
+                if (typeof window.showToast === 'function') {
+                    window.showToast('❌ Không thể trích xuất nội dung file này: ' + err.message);
                 }
             }
         }
 
-        processUploadedFileText(rawText, fileName = 'Tài liệu', startTime = null) {
+        async processUploadedFileText(rawText, fileName = 'Tài liệu', startTime = null) {
             if (!rawText) return;
             if (!startTime) startTime = performance.now();
 
@@ -2629,54 +2767,19 @@
             let rawTokenCount = 0;
             let stopwordsFiltered = 0;
 
-            // Bộ lọc loại bỏ triệt để rác nhị phân, token stream PDF, metadata và ký tự rác
-            const isGarbageToken = (str) => {
-                if (!str || str.length < 2 || str.length > 35) return true;
-                if (!/[a-zA-Z]/.test(str)) return true;
-                if (/[0-9_#$@%^&*+=~`<>{}\[\]\\]/.test(str)) return true;
-
-                // Từ ngắn <= 6 ký tự nhưng không có nguyên âm nào
-                if (str.length <= 6 && !/[aeiouyAEIOUY]/.test(str)) {
-                    const validAbbr = new Set(['tv', 'cd', 'dvd', 'id', 'mr', 'ms', 'dr', 'ok', 'by', 'my']);
-                    if (!validAbbr.has(str.toLowerCase())) return true;
-                }
-
-                // Chữ hoa lộn xộn ở giữa (như uLl, ptpM, xGL, woP, RnH, gCY, fVQ, HcD, VVq, hAUS, DRc)
-                if (/[a-z][A-Z]/.test(str) && !/^[A-Z]+$/.test(str)) return true;
-
-                // Từ khóa metadata PDF & Watermark các trang web tài liệu
-                const pdfJunk = new Set([
-                    'obj', 'endobj', 'stream', 'endstream', 'xref', 'trailer', 'startxref', 
-                    'title', 'producer', 'skia', 'renderer', 'docs', 'google', 'flatedecode', 
-                    'length', 'filter',
-                    // Watermarks & domains
-                    'sachhoc', 'sachhoccom', 'thuvienhoclieu', 'thuvienhoclieucom', 'vndoc', 'vietjack',
-                    'loigiaihay', 'tailieu', 'tailieuvn', 'dethithpt', 'sachmem', 'hocmai', 'doc24',
-                    'zalo', 'facebook', 'youtube', 'http', 'https', 'www', 'com', 'net', 'org', 'vn',
-                    'edu', 'gov', 'html', 'pdf', 'docx', 'scan', 'download', 'copyright', 'watermark'
-                ]);
-                const lowerStr = str.toLowerCase();
-                if (pdfJunk.has(lowerStr)) return true;
-                if (lowerStr.includes('sachhoc') || lowerStr.includes('thuvienhoclieu') || lowerStr.includes('vietjack') || lowerStr.includes('vndoc') || lowerStr.includes('loigiaihay')) return true;
-
-                // Tiêu đề sách, bài học sách giáo khoa Lớp 1 - 12
-                const headerJunk = new Set(['stt', 'từ vựng', 'tu vung', 'danh sách', 'danh sach', 'page', 'trang', 'nghĩa', 'nghia', 'phiên âm', 'phien am', 'unit', 'lesson', 'project', 'review', 'skills', 'activity', 'exercise', 'workbook', 'textbook', 'glossary']);
-                if (headerJunk.has(str.toLowerCase())) return true;
-
-                return false;
-            };
+            const isGarbage = (str) => this.isGarbageTokenStatic(str);
 
             for (let line of lines) {
                 let trimmed = line.trim();
                 if (!trimmed) continue;
-                if (/^(stt|từ vựng|danh sách 3000|page \d+|trang \d+|unit \d+|lesson \d+|review \d+)/i.test(trimmed)) continue;
+                if (/^(no\b|word\b|type\b|pronounce\b|meaning\b|stt|từ vựng|danh sách|page \d+|trang \d+|unit \d+|lesson \d+|review \d+|oxford|http)/i.test(trimmed)) continue;
 
-                // Loại bỏ tên người đối thoại trong sách giáo khoa (VD: 'Mai:', 'Nam:', 'Tom:', 'Teacher:')
+                // Loại bỏ tên người đối thoại trong sách giáo khoa
                 trimmed = trimmed.replace(/^(?:[A-Z][a-zA-Z\s]{1,15}|Teacher|Student|Tom|Peter|Mary|Linda|Tony|Mai|Nam|Phong|Lan|Hoa)\s*:\s*/i, '');
 
                 // TH1: Dòng từ điển chuẩn hóa (Word + POS + Phonetic + Meaning)
                 const parsed = this.parseVocabLine(trimmed);
-                if (parsed && parsed.word && !isGarbageToken(parsed.word)) {
+                if (parsed && parsed.word && !isGarbage(parsed.word)) {
                     const cleanW = parsed.word.toLowerCase();
                     rawTokenCount++;
                     if (typeof STOPWORDS_SET !== 'undefined' && STOPWORDS_SET.has(cleanW) && cleanW.length <= 3 && !parsed.meaning) {
@@ -2686,11 +2789,11 @@
                     if (!wordsMap.has(cleanW)) {
                         wordsMap.set(cleanW, {
                             word: parsed.word,
-                            meaning: parsed.meaning || cefrEngine.lookupMeaning(parsed.word) || 'từ vựng học tập',
-                            phonetic: parsed.phonetic || (cefrEngine && typeof cefrEngine.lookupIPA === 'function' ? cefrEngine.lookupIPA(parsed.word) : '/' + parsed.word + '/'),
+                            meaning: parsed.meaning || '',
+                            phonetic: parsed.phonetic || '',
                             level: cefrEngine.classify(parsed.word)
                         });
-                    } else if (parsed.meaning && wordsMap.get(cleanW).meaning === 'từ vựng học tập') {
+                    } else if (parsed.meaning && (!wordsMap.get(cleanW).meaning || wordsMap.get(cleanW).meaning === 'từ vựng học tập')) {
                         wordsMap.get(cleanW).meaning = parsed.meaning;
                         if (parsed.phonetic) wordsMap.get(cleanW).phonetic = parsed.phonetic;
                     }
@@ -2702,7 +2805,7 @@
                 if (tokens) {
                     for (const rawToken of tokens) {
                         const token = rawToken.replace(/^['"]+|['"]+$/g, '').trim();
-                        if (isGarbageToken(token)) continue;
+                        if (isGarbage(token)) continue;
                         rawTokenCount++;
                         const cleanW = token.toLowerCase();
                         if (typeof STOPWORDS_SET !== 'undefined' && STOPWORDS_SET.has(cleanW)) {
@@ -2714,8 +2817,8 @@
                         if (!wordsMap.has(cleanW)) {
                             wordsMap.set(cleanW, {
                                 word: token,
-                                meaning: cefrEngine.lookupMeaning(token) || 'từ vựng học tập',
-                                phonetic: (cefrEngine && typeof cefrEngine.lookupIPA === 'function' ? cefrEngine.lookupIPA(token) : '/' + token + '/'),
+                                meaning: '',
+                                phonetic: '',
                                 level: cefrEngine.classify(token)
                             });
                         }
@@ -2724,6 +2827,8 @@
             }
 
             const extractedWords = Array.from(wordsMap.values());
+            // Làm giàu toàn diện nghĩa tiếng Việt & IPA thật, tuyệt đối không để "từ vựng học tập"
+            await this.enrichUploadedWordsIfNeeded(extractedWords);
             this.finalizeScannedWords(extractedWords, fileName, startTime, stopwordsFiltered);
         }
 
@@ -2821,7 +2926,7 @@
             if (!clean) return null;
 
             // Bỏ qua tiêu đề bảng hoặc chú thích
-            if (/^(stt|từ vựng|tu vung|danh sách|danh sach|bảng|page \d+|trang \d+)/i.test(clean)) return null;
+            if (/^(no\b|word\b|type\b|pronounce\b|meaning\b|stt\b|từ vựng|tu vung|danh sách|danh sach|bảng|page \d+|trang \d+|oxford|http)/i.test(clean)) return null;
 
             // 1. Loại bỏ số thứ tự ở đầu dòng nếu có (VD: '1 ', '1. ', '1) ')
             clean = clean.replace(/^\d+[\.\)]?\s+/, '');
@@ -2834,34 +2939,58 @@
                 let ipa = clean.slice(slash1, slash2 + 1).trim();
                 let right = clean.slice(slash2 + 1).trim();
 
-                // Tách word và part-of-speech từ left
                 const posRegex = /\s+(?:(?:adj|adv|prep|conj|pron|det|modal(?:s+v)?|auxiliary(?:s+v)?|n|v)\.?\s*(?:,\s*)?|exclamation|prefix|suffix)+$/i;
                 left = left.replace(/\(also[^)]*\)/i, '').replace(posRegex, '').trim();
                 if (left.includes(',')) left = left.split(',')[0].trim();
                 if (left.includes('(')) left = left.split('(')[0].trim();
 
                 let meaning = right.replace(/^[,;\s\-\:]+/, '').trim();
-                if (left && /^[a-zA-Z\s\-']{2,40}$/.test(left)) {
+                if (left && /^[a-zA-Z\s'-]{1,40}$/.test(left)) {
                     return { word: left, phonetic: ipa, meaning };
                 }
             }
 
-            // 3. Phân tách theo dấu gạch ngang '-' hoặc hai chấm ':' hoặc tab '\t'
-            const sepMatch = clean.match(/^([a-zA-Z\s\-']{2,35})\s*[-:\t]\s*(.+)$/);
+            // 3. Tabular format không có dấu gạch chéo / (như Oxford 3000: 'abandon v ə'bændən bỏ, từ bỏ')
+            const POS_WORDS = new Set(['n', 'v', 'adj', 'adv', 'prep', 'pron', 'det', 'conj', 'modal', 'auxiliary', 'exclamation', 'prefix', 'suffix']);
+            const tokens = clean.split(/\s+/);
+            if (tokens.length >= 3) {
+                const word = tokens[0];
+                let idx = 1;
+                while (idx < tokens.length && POS_WORDS.has(tokens[idx].replace(/[,.]/g, '').toLowerCase())) {
+                    idx++;
+                }
+                if (idx > 1 && idx < tokens.length) {
+                    const candidatePhonetic = tokens[idx];
+                    let phonetic = '';
+                    let meaningStart = idx;
+                    const hasViAccent = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(candidatePhonetic);
+                    if (!hasViAccent && (/[\/'əæʌɔɑɪʊ:,]/.test(candidatePhonetic) || (idx + 1 < tokens.length && !POS_WORDS.has(candidatePhonetic.toLowerCase())))) {
+                        phonetic = candidatePhonetic.startsWith('/') ? candidatePhonetic : '/' + candidatePhonetic + '/';
+                        meaningStart = idx + 1;
+                    }
+                    const meaning = tokens.slice(meaningStart).join(' ').trim();
+                    if (word && meaning && /^[a-zA-Z\s'-]{1,35}$/.test(word)) {
+                        return { word, phonetic, meaning };
+                    }
+                }
+            }
+
+            // 4. Phân tách theo dấu gạch ngang '-' hoặc hai chấm ':' hoặc tab '\t'
+            const sepMatch = clean.match(/^([a-zA-Z\s'-]{1,35})\s*[-:\t]\s*(.+)$/);
             if (sepMatch) {
                 return {
                     word: sepMatch[1].trim(),
-                    phonetic: '/' + sepMatch[1].trim() + '/',
+                    phonetic: '',
                     meaning: sepMatch[2].trim()
                 };
             }
 
-            // 4. Nếu là dòng tiếng Anh có tiếng Việt theo sau (không có dấu ngăn)
-            const wordThenVi = clean.match(/^([a-zA-Z\s\-']{2,35})\s+([à-ỹÀ-Ỹ].+)$/);
+            // 5. Nếu là dòng tiếng Anh có tiếng Việt theo sau (không có dấu ngăn)
+            const wordThenVi = clean.match(/^([a-zA-Z\s'-]{1,35})\s+([à-ỹÀ-Ỹ].+)$/);
             if (wordThenVi) {
                 return {
                     word: wordThenVi[1].trim(),
-                    phonetic: '/' + wordThenVi[1].trim() + '/',
+                    phonetic: '',
                     meaning: wordThenVi[2].trim()
                 };
             }
@@ -3086,17 +3215,43 @@ resilience - khả năng phục hồi`;
                 this.selectedTopic = topicInput.value.trim();
             }
 
+            // Nếu người dùng chọn "Chơi nhanh với bộ từ mẫu có sẵn" (useAI = false)
+            if (!useAI) {
+                this.loadSampleVocab();
+                this.activeView = 'preview';
+                this.renderInto();
+                return;
+            }
+
             const btn = document.getElementById('vgGenerateBtn');
             const originalHTML = btn ? btn.innerHTML : '';
             if (btn) {
                 btn.disabled = true;
                 btn.innerHTML = `
                     <span class="inline-block animate-spin mr-2"><i class="fa-solid fa-spinner"></i></span>
-                    <span>Totoro đang gieo mầm từ vựng...</span>
+                    <span>Đang tạo bộ từ vựng ${escapeHtml(this.selectedTopic)} (A1-C2)...</span>
                 `;
             }
 
             try {
+                // ƯU TIÊN 1: DYNAMIC TOPIC VOCAB ENGINE (Datamuse 250 từ + Phân loại CEFR + Google GTX + FreeDict IPA)
+                if (window.DynamicTopicVocabEngine && typeof window.DynamicTopicVocabEngine.generateDynamicVocab === 'function') {
+                    const dynamicWords = await window.DynamicTopicVocabEngine.generateDynamicVocab(
+                        this.selectedTopic,
+                        this.selectedLevel,
+                        this.selectedCount
+                    );
+
+                    if (Array.isArray(dynamicWords) && dynamicWords.length > 0) {
+                        this.wordList = dynamicWords;
+                        this.wordList.forEach(item => this.sessionUsedWords.add(item.word.toLowerCase()));
+                        this.activeView = 'preview';
+                        this.renderInto();
+                        return;
+                    }
+                }
+
+                // ƯU TIÊN 2: AI BACKEND API NẾU CÓ
                 const response = await fetch('/api/ai/generate-vocab', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -3108,27 +3263,22 @@ resilience - khả năng phục hồi`;
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error(`Server returned HTTP ${response.status}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const returnedWords = (data && (data.words || data.vocabList)) || [];
+                    if (Array.isArray(returnedWords) && returnedWords.length > 0) {
+                        const needed = Math.min(Math.max(parseInt(this.selectedCount, 10) || 10, 1), 50);
+                        const freshList = returnedWords.filter(item => !this.sessionUsedWords.has(item.word.toLowerCase()));
+                        const pool = freshList.length >= needed ? freshList : returnedWords;
+                        this.wordList = pool.slice(0, needed);
+                        this.wordList.forEach(item => this.sessionUsedWords.add(item.word.toLowerCase()));
+                        this.activeView = 'preview';
+                        this.renderInto();
+                        return;
+                    }
                 }
 
-                const data = await response.json();
-                const returnedWords = (data && (data.words || data.vocabList)) || [];
-                if (data && data.success && Array.isArray(returnedWords) && returnedWords.length > 0) {
-                    const needed = Math.min(Math.max(parseInt(this.selectedCount, 10) || 10, 1), 50);
-                    // Lọc để đảm bảo TỪ MỚI 100% trong phiên học
-                    const freshList = returnedWords.filter(item => !this.sessionUsedWords.has(item.word.toLowerCase()));
-                    const pool = freshList.length >= needed ? freshList : (freshList.length > 0 ? freshList.concat(returnedWords.filter(w => !freshList.includes(w))) : returnedWords);
-                    this.wordList = pool.slice(0, needed);
-                    
-                    // Ghi nhận vào session
-                    this.wordList.forEach(item => this.sessionUsedWords.add(item.word.toLowerCase()));
-
-                    this.activeView = 'preview';
-                    this.renderInto();
-                } else {
-                    throw new Error('Invalid vocab response');
-                }
+                throw new Error('Fallback to curated topic bank');
             } catch (err) {
                 console.warn('⚡ Using instant curated fallback vocabulary pool:', err.message);
                 this.loadSampleVocab();
@@ -3150,14 +3300,14 @@ resilience - khả năng phục hồi`;
         // =========================================================================
         // NÚT RESET BỘ TỪ MỚI (MỖI LẦN HỌC LÀ 1 LẦN TỪ MỚI)
         // =========================================================================
-        resetSessionWords() {
+        async resetSessionWords() {
             const wasPlaying = (this.activeView === 'playing');
             if (this.currentIntakeMode === 'file' && this.uploadedFileWords.length > 0) {
                 this.loadScannedIntoGame();
             } else if (this.currentIntakeMode === 'custom' && this.uploadedFileWords.length > 0) {
                 this.handleCustomVocabSubmit();
             } else {
-                this.generateVocab(true);
+                await this.generateVocab(true);
             }
             if (wasPlaying) {
                 setTimeout(() => {

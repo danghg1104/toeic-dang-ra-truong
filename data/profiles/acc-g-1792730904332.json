@@ -1,9 +1,9 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793024497746,
+  "lastUpdated": 1793075346710,
   "state": {
     "xp": 10,
-    "streak": 4,
+    "streak": 5,
     "vocabLearned": 0,
     "dictationDone": 0,
     "grammarDone": 0,
@@ -15,7 +15,8 @@
     "2026-10-23",
     "2026-10-24",
     "2026-10-25",
-    "2026-10-26"
+    "2026-10-26",
+    "2026-10-27"
   ],
   "learnedVocabItems": [],
   "savedVocabItems": [],
@@ -37,21 +38,21 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 4,
+    "streak": 5,
     "todayStudied": true,
     "yesterdayStudied": true,
     "weekDays": [
       {
         "label": "T2",
         "dateStr": "2026-10-26",
-        "isToday": true,
+        "isToday": false,
         "active": true
       },
       {
         "label": "T3",
         "dateStr": "2026-10-27",
-        "isToday": false,
-        "active": false
+        "isToday": true,
+        "active": true
       },
       {
         "label": "T4",
@@ -84,7 +85,7 @@
         "active": false
       }
     ],
-    "lastActivityDate": "2026-10-26"
+    "lastActivityDate": "2026-10-27"
   },
   "targetScore": "600",
   "examDate": "20/12/2026",
