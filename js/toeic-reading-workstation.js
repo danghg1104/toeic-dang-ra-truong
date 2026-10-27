@@ -689,9 +689,40 @@
             const isCorrect = targetItem && optIdx === targetItem.ans;
             this.answeredState[qId] = { checked: true, isCorrect, selectedIndex: optIdx };
 
-            // Ghi nhận tích lũy vào Daily Tasks nếu đúng
-            if (isCorrect && window.DailyTaskTracker) {
-                window.DailyTaskTracker.recordProgress('reading', 1);
+            // Ghi nhận tích lũy vào State chung & Daily Tasks & AuthSyncManager
+            if (window.state) {
+                window.state.totalAnswers = (window.state.totalAnswers || 0) + 1;
+                if (this.part === 5) {
+                    window.state.grammarDone = (window.state.grammarDone || 0) + 1;
+                    window.state.grammarTotalAnswers = (window.state.grammarTotalAnswers || 0) + 1;
+                    if (isCorrect) {
+                        window.state.grammarCorrectAnswers = (window.state.grammarCorrectAnswers || 0) + 1;
+                    }
+                    if (window.DailyTaskManager) {
+                        window.DailyTaskManager.recordProgress('grammar', 1);
+                    }
+                } else {
+                    window.state.readDone = (window.state.readDone || 0) + 1;
+                    window.state.readTotalAnswers = (window.state.readTotalAnswers || 0) + 1;
+                    if (isCorrect) {
+                        window.state.readCorrectAnswers = (window.state.readCorrectAnswers || 0) + 1;
+                    }
+                    if (window.DailyTaskManager) {
+                        window.DailyTaskManager.recordProgress('reading', 1);
+                    }
+                }
+
+                if (isCorrect) {
+                    window.state.correctAnswers = (window.state.correctAnswers || 0) + 1;
+                    window.state.xp = (window.state.xp || 0) + 5;
+                }
+
+                if (typeof updateDashboardMetrics === 'function') updateDashboardMetrics();
+                if (window.AuthSyncManager) {
+                    window.AuthSyncManager.saveUserData();
+                } else if (typeof saveCurrentUserProgressToServer === 'function') {
+                    saveCurrentUserProgressToServer();
+                }
             }
 
             // Render lại để hiển thị highlight
@@ -900,7 +931,19 @@
             if (!this.dom.noteModal) return;
 
             const key = `trw_note_p${this.part}_${this.currentIndex}`;
-            const saved = localStorage.getItem(key) || '';
+            let saved = localStorage.getItem(key) || '';
+
+            // Nếu chưa có trong local key, tìm thử trong window.takeNotesList
+            if (!saved && window.takeNotesList && Array.isArray(window.takeNotesList)) {
+                const curItem = this.items ? this.items[this.currentIndex] : null;
+                const qNum = curItem ? (curItem.qNum || (100 + this.currentIndex + 1)) : (this.currentIndex + 1);
+                const matchNote = window.takeNotesList.find(n => n.title && n.title.includes(`Câu ${qNum}`) && n.title.includes(`Part ${this.part}`));
+                if (matchNote && matchNote.content) {
+                    const m = matchNote.content.match(/✍️\s*([\s\S]+?)<\/div>/);
+                    if (m) saved = m[1].replace(/<[^>]+>/g, '').trim();
+                }
+            }
+
             if (this.dom.noteText) this.dom.noteText.value = saved;
             this.dom.noteModal.classList.remove('hidden');
         }
@@ -908,9 +951,141 @@
         saveTakeNote() {
             if (this.dom.noteText) {
                 const key = `trw_note_p${this.part}_${this.currentIndex}`;
-                localStorage.setItem(key, this.dom.noteText.value);
-                showToast('📝 Đã lưu ghi chú vào sổ tay thành công!');
+                const noteContent = this.dom.noteText.value.trim();
+                localStorage.setItem(key, noteContent);
+
+                if (noteContent) {
+                    const curItem = this.items ? this.items[this.currentIndex] : null;
+                    let qNum = '';
+                    let qText = '';
+                    const testName = this.testTitle || (this.testNum ? `ETS ${this.testNum}` : 'ETS TOEIC');
+
+                    if (curItem) {
+                        if (this.part === 5) {
+                            qNum = curItem.qNum || (100 + this.currentIndex + 1);
+                            qText = curItem.q || '';
+                        } else if (curItem.questions && curItem.questions[0]) {
+                            qNum = curItem.questions.map(q => q.qNum).join(', ');
+                            qText = curItem.passage ? (curItem.passage.replace(/<[^>]+>/g, ' ').slice(0, 160) + '...') : (curItem.questions[0].q || '');
+                        } else {
+                            qNum = `${this.currentIndex + 1}`;
+                        }
+                    } else {
+                        qNum = `${this.currentIndex + 1}`;
+                    }
+
+                    let category = 'Part 5 Bẫy';
+                    if (this.part === 6) category = 'Part 6 Đọc';
+                    else if (this.part === 7) category = 'Đọc hiểu';
+
+                    const noteTitle = `📝 Ghi chú Part ${this.part} - Câu ${qNum} (${testName})`;
+
+                    const escapeHtml = (str) => {
+                        if (!str) return '';
+                        return String(str)
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;');
+                    };
+
+                    const noteHtml = `
+                        <div class="toeic-note-box my-3 p-4 rounded-2xl bg-amber-50/90 dark:bg-amber-950/40 border-l-4 border-amber-500 text-slate-800 dark:text-slate-100 shadow-xs">
+                            <div class="flex items-center gap-2 mb-1.5 text-amber-900 dark:text-amber-300 font-extrabold text-xs">
+                                <span>📌 Ghi chú câu ${qNum} (Part ${this.part} · ${escapeHtml(testName)})</span>
+                            </div>
+                            ${qText ? `<div class="text-xs italic text-slate-600 dark:text-slate-300 mb-2.5 p-2 rounded-lg bg-white/70 dark:bg-slate-800/70 border border-amber-200/50 dark:border-slate-700">"${escapeHtml(qText)}"</div>` : ''}
+                            <div class="text-sm font-extrabold text-slate-900 dark:text-white bg-amber-100/90 dark:bg-amber-900/50 p-3 rounded-xl border border-amber-300/60 dark:border-amber-700/60 whitespace-pre-wrap">✍️ ${escapeHtml(noteContent)}</div>
+                        </div>
+                    `.trim();
+
+                    if (typeof window.takeNotesList === 'undefined' || !Array.isArray(window.takeNotesList)) {
+                        try {
+                            const raw = localStorage.getItem('cung_dang_take_notes_v1');
+                            window.takeNotesList = raw ? JSON.parse(raw) : [];
+                        } catch (e) {
+                            window.takeNotesList = [];
+                        }
+                    }
+
+                    const existingNote = window.takeNotesList.find(n => n.title === noteTitle || (n.title && n.title.includes(`Câu ${qNum}`) && n.title.includes(`Part ${this.part}`)));
+
+                    if (existingNote) {
+                        existingNote.title = noteTitle;
+                        existingNote.content = noteHtml;
+                        existingNote.updatedAt = 'Vừa xong';
+                        existingNote.updatedAtMs = Date.now();
+                        window.activeNoteId = existingNote.id;
+                    } else {
+                        const newNote = {
+                            id: 'note_' + Date.now(),
+                            title: noteTitle,
+                            category: category,
+                            paper: 'paper-lined',
+                            updatedAt: 'Vừa xong',
+                            updatedAtMs: Date.now(),
+                            content: noteHtml
+                        };
+                        window.takeNotesList.unshift(newNote);
+                        window.activeNoteId = newNote.id;
+                    }
+
+                    try {
+                        if (typeof window.persistTakeNotes === 'function') {
+                            window.persistTakeNotes();
+                        } else {
+                            localStorage.setItem('cung_dang_take_notes_v1', JSON.stringify(window.takeNotesList));
+                        }
+                    } catch (err) {}
+
+                    if (window.FloatingTakeNote) {
+                        window.FloatingTakeNote.syncWithGlobalNotes();
+                        window.FloatingTakeNote.updateSelectorDropdown();
+                        window.FloatingTakeNote.loadActiveNote();
+                    }
+
+                    if (typeof window.renderTakeNoteSidebarList === 'function') {
+                        window.renderTakeNoteSidebarList();
+                    }
+                    if (typeof window.loadActiveTakeNoteIntoEditor === 'function') {
+                        window.loadActiveTakeNoteIntoEditor();
+                    }
+
+                    if (typeof showToast === 'function') {
+                        showToast('🎉 Đã lưu & đồng bộ vào Sổ Take Note thành công!');
+                    }
+                } else {
+                    if (typeof showToast === 'function') {
+                        showToast('📝 Đã xóa nội dung ghi chú câu hỏi này.');
+                    }
+                }
+
                 this.closeTakeNote();
+            }
+        }
+
+        openFloatingTakeNote() {
+            this.closeTakeNote();
+            if (window.FloatingTakeNote && typeof window.FloatingTakeNote.open === 'function') {
+                const curItem = this.items ? this.items[this.currentIndex] : null;
+                let qNum = '';
+                let qText = '';
+                if (curItem) {
+                    if (this.part === 5) {
+                        qNum = curItem.qNum || (100 + this.currentIndex + 1);
+                        qText = curItem.q || '';
+                    } else if (curItem.questions && curItem.questions[0]) {
+                        qNum = curItem.questions.map(q => q.qNum).join(', ');
+                        qText = curItem.passage ? (curItem.passage.replace(/<[^>]+>/g, ' ').slice(0, 160) + '...') : (curItem.questions[0].q || '');
+                    } else {
+                        qNum = `${this.currentIndex + 1}`;
+                    }
+                } else {
+                    qNum = `${this.currentIndex + 1}`;
+                }
+                const testName = this.testTitle || (this.testNum ? `ETS ${this.testNum}` : 'ETS TOEIC');
+                const snippet = `<strong>[Ghi chú Part ${this.part} - Câu ${qNum} · ${testName}]:</strong><br>${qText ? `<em>"${qText.replace(/"/g, '&quot;')}"</em><br>` : ''}`;
+                window.FloatingTakeNote.open({ snippet });
             }
         }
 

@@ -198,5 +198,10 @@
     "userId": "acc-g-1792730904332",
     "createdAt": "2026-10-24T12:29:04.831Z",
     "expiresAt": 1824380944834
+  },
+  "session-huynh-dang-test-token": {
+    "userId": "acc-g-1792730904332",
+    "createdAt": "2026-10-27T07:47:40.205Z",
+    "expiresAt": 1795679260212
   }
 }

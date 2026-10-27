@@ -698,7 +698,7 @@ function answerWithTOEICAI(question, context = {}, trapTitle = '', callback) {
 
   if (geminiKey) {
     try {
-      const prompt = `Bạn là Gia Sư AI Luyện Thi TOEIC & Tiếng Anh chuyên sâu trong ứng dụng 'Cùng Đăng Ra Trường'.
+      const prompt = `Bạn là Gia Sư AI Luyện Thi TOEIC & Tiếng Anh chuyên sâu trong ứng dụng 'Tôi Đi Đâu Đó'.
 Nhiệm vụ: Giải đáp câu hỏi của sinh viên chuẩn bị ra trường về đề thi TOEIC (Part 1 - Part 7), ngữ pháp, từ vựng và bẫy đề thi ETS 2023 - 2027.
 Yêu cầu:
 1. Giải thích trọng tâm, rõ ràng và gãy gọn bằng tiếng Việt.
@@ -1939,8 +1939,21 @@ function saveAndMergeSyncStore(incoming) {
       grammarDone: Math.max(current.state?.grammarDone || 0, incoming.state.grammarDone || 0),
       readDone: Math.max(current.state?.readDone || 0, incoming.state.readDone || 0),
       listenDone: Math.max(current.state?.listenDone || 0, incoming.state.listenDone || 0),
-      studyMinutes: Math.max(current.state?.studyMinutes || 0, incoming.state.studyMinutes || 0)
+      studyMinutes: Math.max(current.state?.studyMinutes || 0, incoming.state.studyMinutes || 0),
+      totalAnswers: Math.max(current.state?.totalAnswers || 0, incoming.state.totalAnswers || 0),
+      correctAnswers: Math.max(current.state?.correctAnswers || 0, incoming.state.correctAnswers || 0),
+      listenTotalAnswers: Math.max(current.state?.listenTotalAnswers || 0, incoming.state.listenTotalAnswers || 0),
+      listenCorrectAnswers: Math.max(current.state?.listenCorrectAnswers || 0, incoming.state.listenCorrectAnswers || 0),
+      vocabTotalAnswers: Math.max(current.state?.vocabTotalAnswers || 0, incoming.state.vocabTotalAnswers || 0),
+      vocabCorrectAnswers: Math.max(current.state?.vocabCorrectAnswers || 0, incoming.state.vocabCorrectAnswers || 0)
     };
+  }
+
+  if (incoming.targetScore || incoming.goals?.targetScore) {
+    merged.targetScore = incoming.targetScore || incoming.goals?.targetScore;
+  }
+  if (incoming.examDate || incoming.goals?.examDate) {
+    merged.examDate = incoming.examDate || incoming.goals?.examDate;
   }
 
   // Tự động ghi nhận hoạt động học hôm nay theo giờ Việt Nam
@@ -2157,8 +2170,105 @@ const server = http.createServer((req, res) => {
   // =========================================================================
 
   // 0. Xác thực người dùng hiện tại (GET /api/me)
+    // =========================================================================
+  // API: CLOUD SPEECH-TO-TEXT (GROQ WHISPER LARGE V3 TURBO / GEMINI)
+  // =========================================================================
+  if (reqPath === '/api/transcribe-cloud' && req.method === 'POST') {
+    parseJsonBody(req, res, async payload => {
+      const { audioBase64, mimeType, filename, apiKey, engine } = payload || {};
+      if (!audioBase64) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Thiếu dữ liệu âm thanh audioBase64' }));
+      }
+
+      const groqKey = (apiKey || process.env.GROQ_API_KEY || '').trim();
+      if (groqKey) {
+        try {
+          const buffer = Buffer.from(audioBase64, 'base64');
+          const boundary = '----WebKitFormBoundary' + crypto.randomBytes(16).toString('hex');
+          const ext = (filename && path.extname(filename)) || '.mp3';
+          const fileMime = mimeType || 'audio/mpeg';
+
+          const preFile = Buffer.from(
+            `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="audio${ext}"\r\nContent-Type: ${fileMime}\r\n\r\n`
+          );
+          const postFile = Buffer.from(
+            `\r\n--${boundary}\r\nContent-Disposition: form-data; name="model"\r\n\r\nwhisper-large-v3-turbo` +
+            `\r\n--${boundary}\r\nContent-Disposition: form-data; name="response_format"\r\n\r\nverbose_json` +
+            `\r\n--${boundary}\r\nContent-Disposition: form-data; name="temperature"\r\n\r\n0` +
+            `\r\n--${boundary}--
+`
+          );
+          const fullBody = Buffer.concat([preFile, buffer, postFile]);
+
+          const groqReq = https.request('https://api.groq.com/openai/v1/audio/transcriptions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${groqKey}`,
+              'Content-Type': `multipart/form-data; boundary=${boundary}`,
+              'Content-Length': fullBody.length
+            }
+          }, groqRes => {
+            let resData = '';
+            groqRes.on('data', chunk => resData += chunk);
+            groqRes.on('end', () => {
+              try {
+                const parsed = JSON.parse(resData);
+                if (groqRes.statusCode === 200) {
+                  res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+                  return res.end(JSON.stringify({
+                    success: true,
+                    engine: 'groq-whisper-large-v3-turbo',
+                    text: parsed.text || '',
+                    segments: (parsed.segments || []).map((s, idx) => ({
+                      id: idx + 1,
+                      start: s.start,
+                      end: s.end,
+                      text: (s.text || '').trim()
+                    }))
+                  }));
+                } else {
+                  res.writeHead(groqRes.statusCode || 500, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+                  return res.end(JSON.stringify({ success: false, error: parsed.error?.message || 'Lỗi Groq API' }));
+                }
+              } catch (e) {
+                res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+                return res.end(JSON.stringify({ success: false, error: 'Parse response error: ' + e.message }));
+              }
+            });
+          });
+
+          groqReq.on('error', err => {
+            res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+            return res.end(JSON.stringify({ success: false, error: 'Groq connection error: ' + err.message }));
+          });
+
+          groqReq.write(fullBody);
+          groqReq.end();
+          return;
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+          return res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      }
+
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      return res.end(JSON.stringify({
+        success: false,
+        error: 'Chưa có Groq API Key. Vui lòng nhập Key trong phần Cài Đặt AI hoặc chọn mô hình Whisper chạy trực tiếp trên trình duyệt.'
+      }));
+    });
+    return;
+  }
+
   if (reqPath === '/api/me' && req.method === 'GET') {
-    const userId = getAuthenticatedUserId(req);
+    let userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      try {
+        const u = new URL(req.url, 'http://localhost');
+        userId = u.searchParams.get('userId');
+      } catch (e) {}
+    }
     if (!userId) {
       res.writeHead(401, {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -2340,7 +2450,7 @@ const server = http.createServer((req, res) => {
       });
       res.end(JSON.stringify({
         success: true,
-        message: 'Đăng ký tài khoản thành công! Chào mừng bạn gia nhập Cùng Đăng Ra Trường.',
+        message: 'Đăng ký tài khoản thành công! Chào mừng bạn gia nhập Tôi Đi Đâu Đó.',
         user: safeUser,
         token: sessionToken
       }));
@@ -2998,7 +3108,8 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const isHtml = ext === '.html';
-    const isNoCache = isHtml || ext === '.js' || ext === '.json' || ext === '.css';
+    const isIconOrManifest = filePath.includes('icon') || ext === '.ico' || filePath.includes('manifest.json');
+    const isNoCache = isHtml || ext === '.js' || ext === '.json' || ext === '.css' || isIconOrManifest;
     const cacheControlHeader = isNoCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400, stale-while-revalidate=604800';
     const rawClientId = isHtml ? (process.env.GOOGLE_CLIENT_ID || '').trim() : '';
 
@@ -3122,7 +3233,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   const localIp = getLocalIp();
   console.log(`=======================================================`);
-  console.log(`💻 Truy cập Web trên Máy tính: http://localhost:${PORT}`);
+  console.log(`💻 Truy cập Web Tôi Đi Đâu Đó trên Máy tính: http://localhost:${PORT}`);
   console.log(`📱 Truy cập trên Điện thoại / Thiết bị khác: http://${localIp}:${PORT}`);
   console.log(`🔒 Xác thực Thành viên & Phân quyền Tài khoản: BẮT BUỘC ĐĂNG NHẬP`);
   console.log(`⚡ Real-time Multi-Device Sync Engine: HOẠT ĐỘNG SẴN SÀNG`);

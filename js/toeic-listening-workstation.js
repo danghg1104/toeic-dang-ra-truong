@@ -715,8 +715,11 @@
             // Ghi nhận điểm số & XP vào state chung
             if (window.state) {
                 window.state.totalAnswers = (window.state.totalAnswers || 0) + 1;
+                window.state.listenDone = (window.state.listenDone || 0) + 1;
+                window.state.listenTotalAnswers = (window.state.listenTotalAnswers || 0) + 1;
                 if (isCorrect) {
                     window.state.correctAnswers = (window.state.correctAnswers || 0) + 1;
+                    window.state.listenCorrectAnswers = (window.state.listenCorrectAnswers || 0) + 1;
                     window.state.xp = (window.state.xp || 0) + 10;
                 }
                 if (window.DailyTaskManager) {
@@ -724,6 +727,12 @@
                 }
                 if (window.ToeicListeningSRS && !isCorrect) {
                     window.ToeicListeningSRS.addQuestion(qItem);
+                }
+                if (typeof updateDashboardMetrics === 'function') updateDashboardMetrics();
+                if (window.AuthSyncManager) {
+                    window.AuthSyncManager.saveUserData();
+                } else if (typeof saveCurrentUserProgressToServer === 'function') {
+                    saveCurrentUserProgressToServer();
                 }
             }
 
@@ -1080,7 +1089,16 @@
         }
 
         openTakeNote() {
-            if (typeof openTakeNoteDrawer === 'function') {
+            if (window.FloatingTakeNote && typeof window.FloatingTakeNote.open === 'function') {
+                const curItem = this.items ? this.items[this.currentIndex] : null;
+                let qNum = '';
+                if (curItem) {
+                    qNum = curItem.qNum || (curItem.part === 2 ? 7 + this.currentIndex : this.currentIndex + 1);
+                }
+                const testName = this.testTitle || (this.testNum ? `ETS ${this.testNum}` : 'ETS TOEIC');
+                const snippet = qNum ? `<strong>[Ghi chú Listening Part ${this.part} - Câu ${qNum} · ${testName}]:</strong><br>` : '';
+                window.FloatingTakeNote.open({ snippet });
+            } else if (typeof openTakeNoteDrawer === 'function') {
                 openTakeNoteDrawer();
             } else if (typeof switchTab === 'function') {
                 switchTab('take-note');

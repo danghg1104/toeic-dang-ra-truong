@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Đăng Ra Trường">
+    <meta name="apple-mobile-web-app-title" content="Tôi Đi Đâu Đó">
     <meta name="theme-color" content="#fffbeb">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon-192.png">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <title>Cùng Đăng ra trường — Luyện thi TOEIC & VSTEP online miễn phí</title>
+    <link rel="manifest" href="manifest.json?v=toididaudo_v13">
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=totoro_v12">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-totoro-192.png?v=totoro_v12">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-totoro-512.png?v=totoro_v12">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-totoro-192.png?v=totoro_v12">
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-totoro-512.png?v=totoro_v12">
+    <title>Tôi đi đâu đó — Luyện thi TOEIC & VSTEP online miễn phí</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,6 +53,7 @@
     <script src="js/toeic-reading-workstation.js?v=2026-v1"></script>
     <script src="js/dailydictation-toeic-data.js?v=2026-v1"></script>
     <script src="js/dailydictation-workstation.js?v=2026-v1"></script>
+    <script src="js/toeic-boc-bang-station.js?v=2026-v1"></script>
     <script src="js/curated-vocab-bank.js"></script>
     <script src="js/textbook-curriculum-database.js"></script>
     <script src="js/dynamic-topic-vocab-engine.js?v=20261026_01"></script>
@@ -64,6 +68,7 @@
     <script src="js/pdf-studio-module.js"></script>
     <script src="js/take-note-hybrid-editor.js"></script>
     <script src="js/floating-take-note.js?v=20261026_07"></script>
+    <script src="js/auth-sync-manager.js?v=20261027_01"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -673,12 +678,12 @@
                 <i class="fa-solid fa-bars text-base"></i>
             </button>
             <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2 min-w-0">
-                <div class="w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Totoro Cầm Ô - Cùng Đăng ra trường">
+                <div class="w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Totoro Cầm Ô - Tôi đi đâu đó">
                     <img src="assets/mascot/totoro_umbrella_logo.png" alt="Totoro Cầm Ô" class="w-full h-full object-cover">
                 </div>
                 <div class="leading-tight truncate">
-                    <div class="text-[11px] font-extrabold bg-gradient-to-r from-orange-600 to-indigo-700 bg-clip-text text-transparent">Cùng Đăng</div>
-                    <div class="text-[13.5px] font-extrabold text-slate-900 dark:text-white tracking-tight truncate">ra trường</div>
+                    <div class="text-[11px] font-extrabold bg-gradient-to-r from-orange-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
+                    <div class="text-[13.5px] font-extrabold text-slate-900 dark:text-white tracking-tight truncate">đâu đó</div>
                 </div>
             </a>
         </div>
@@ -775,8 +780,8 @@
                             <img src="assets/mascot/totoro_umbrella_logo.png" alt="Totoro Cầm Ô" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         </div>
                         <div class="leading-tight sidebar-text">
-                            <div class="text-[15px] font-extrabold bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-700 bg-clip-text text-transparent">Cùng Đăng</div>
-                            <div class="text-[17px] font-extrabold text-slate-900 dark:text-white tracking-tight">ra trường</div>
+                            <div class="text-[15px] font-extrabold bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
+                            <div class="text-[17px] font-extrabold text-slate-900 dark:text-white tracking-tight">đâu đó</div>
                         </div>
                     </a>
 
@@ -846,6 +851,12 @@
                         </button>
 
                         <!-- Replaced Bảng xếp hạng with Luyện nghe chính tả (DailyDictation) -->
+                        <!-- Trạm Bóc Băng File Nghe TOEIC (Audio to Transcript & Answer Key) -->
+                        <button onclick="switchTab('boc-bang-audio')" id="nav-boc-bang-audio" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-[13.5px] font-semibold text-teal-700 dark:text-teal-300 hover:bg-teal-50/70 dark:hover:bg-slate-800 transition">
+                            <i class="fa-solid fa-file-audio text-[15px] w-5 text-center text-teal-600 dark:text-teal-400 shrink-0"></i>
+                            <span class="sidebar-text whitespace-nowrap">Bóc băng file nghe</span>
+                        </button>
+
                         <button onclick="switchTab('nghe-chinh-ta')" id="nav-nghe-chinh-ta" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-[13.5px] font-semibold text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50/70 dark:hover:bg-slate-800">
                             <i class="fa-solid fa-keyboard text-[15px] w-5 text-center text-indigo-600 dark:text-indigo-400"></i>
                             <span class="sidebar-text">Luyện nghe chính tả</span>
@@ -934,18 +945,6 @@
                         <!-- Notification Bell -->
                         <button onclick="showToast('🔔 Bạn không có thông báo bài tập mới nào!')" class="w-8 h-8 rounded-xl bg-amber-50/70 hover:bg-amber-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-amber-200/70 dark:border-slate-700 flex items-center justify-center transition" title="Thông báo">
                             <i class="fa-regular fa-bell text-xs"></i>
-                        </button>
-
-                        <!-- Mobile Connect Button (Blue) -->
-                        <button onclick="openMobileConnectModal()" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
-                            <i class="fa-solid fa-mobile-screen text-xs"></i>
-                            <span>Mở trên ĐT</span>
-                        </button>
-
-                        <!-- Realtime Sync Button (Green border) -->
-                        <button onclick="window.StudySync && window.StudySync.forcePullLatest()" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 text-teal-700 dark:text-teal-300 border border-teal-400/80 dark:border-teal-700 text-xs font-bold flex items-center gap-1.5 hover:bg-teal-50 transition">
-                            <i class="fa-solid fa-rotate text-xs animate-spin-hover text-teal-600"></i>
-                            <span>Đồng bộ Realtime</span>
                         </button>
 
                         <!-- User Profile Pill & Dropdown (Hiện khi đã đăng nhập) -->
@@ -1836,6 +1835,26 @@
                 </div>
 
                 <!-- PHASE 4 PRIORITY DASHBOARD: Tiếp tục học & Gợi ý hôm nay -->
+                <!-- BANNER: TRẠM BÓC BĂNG FILE NGHE TOEIC (AUDIO TO TRANSCRIPT & ANSWER KEY) -->
+                <div class="rounded-[26px] p-5 bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-teal-400/30">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur text-white flex items-center justify-center text-2xl shadow-inner shrink-0">
+                            🎧
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-900 text-[10px] font-black uppercase tracking-wide">TÍNH NĂNG ĐỘT PHÁ</span>
+                                <span class="text-xs font-bold text-teal-100">Audio to Transcript & Answer Key</span>
+                            </div>
+                            <h3 class="text-lg font-black text-white mt-0.5">Trạm Bóc Băng File Nghe TOEIC Tự Động</h3>
+                            <p class="text-xs text-teal-50 max-w-xl leading-relaxed">Giáo viên gửi file nghe không có đáp án / transcript? Kéo thả file (.mp3, .wav) để AI chuyển giọng nói thành văn bản 100%, dịch song ngữ, bóc tách đáp án & nghe chép chính tả!</p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('boc-bang-audio')" class="px-5 py-3 rounded-2xl bg-white text-teal-800 font-extrabold text-xs shadow-md hover:bg-teal-50 hover:scale-[1.02] active:scale-95 transition flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> Mở Trạm Bóc Băng ➔
+                    </button>
+                </div>
+
                 <div id="listeningPriorityDashboard" class="space-y-3">
                     <!-- Populated dynamically via ListeningDashboard.renderStats() -->
                 </div>
@@ -3554,12 +3573,33 @@
             <!-- VIEW 7: LUYỆN NGHE CHÍNH TẢ (DAILYDICTATION)-->
             <!-- ========================================== -->
             <section id="view-nghe-chinh-ta" class="hidden space-y-4 min-h-[700px]">
+                <div class="rounded-2xl p-4 bg-gradient-to-r from-indigo-600 via-teal-600 to-emerald-600 text-white shadow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-lg shrink-0">
+                            🎧
+                        </div>
+                        <div>
+                            <span class="font-extrabold text-sm block">Bạn có file nghe riêng của giáo viên?</span>
+                            <p class="text-xs text-white/90">Kéo thả file bất kỳ vào Trạm Bóc Băng để tự động tạo bài nghe chép chính tả thông minh kèm A-B Loop & Chấm điểm!</p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('boc-bang-audio')" class="px-4 py-2 rounded-xl bg-white text-indigo-700 font-extrabold text-xs shadow hover:bg-indigo-50 shrink-0 flex items-center gap-1.5">
+                        <i class="fa-solid fa-cloud-arrow-up text-teal-600"></i> Bóc Băng File Riêng ➔
+                    </button>
+                </div>
                 <div id="dailyDictationContainer"></div>
             </section>
 
             <!-- ========================================== -->
             <!-- VIEW 8: TỪ VỰNG TRONG PHIM (YOUGLISH.COM)  -->
             <!-- ========================================== -->
+            <!-- ========================================== -->
+            <!-- VIEW: TRẠM BÓC BĂNG FILE NGHE TOEIC        -->
+            <!-- ========================================== -->
+            <section id="view-boc-bang-audio" class="hidden space-y-5 pb-32">
+                <!-- Dynamically rendered via ToeicBocBangStation.instance.renderInto('view-boc-bang-audio') -->
+            </section>
+
             <section id="view-tu-vung-phim" class="hidden space-y-4">
                 <!-- Hero Banner -->
                 <div class="rounded-[26px] p-5 bg-gradient-to-r from-rose-100 via-pink-50 to-amber-100 dark:from-slate-800 dark:to-slate-900 border border-rose-200 dark:border-slate-700 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
@@ -4355,11 +4395,47 @@
                 <div class="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-100 dark:border-slate-800 max-w-5xl space-y-2">
                     <div class="flex items-center gap-2 text-[15px] font-extrabold text-slate-900 dark:text-white">
                         <i class="fa-solid fa-download text-slate-700 dark:text-slate-300 text-xs"></i>
-                        <h2>Cài đặt ứng dụng Cùng Đăng Ra Trường</h2>
+                        <h2>Cài đặt ứng dụng Tôi Đi Đâu Đó</h2>
                     </div>
                     <div class="text-[13px] font-semibold text-emerald-600 flex items-center gap-1.5">
                         <i class="fa-solid fa-check text-xs"></i>
                         <span>Đã cài ứng dụng trên thiết bị này</span>
+                    </div>
+                </div>
+
+                <!-- Card 5: Cài đặt AI Bóc Băng File Nghe (Speech-to-Text) -->
+                <div class="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-100 dark:border-slate-800 max-w-5xl space-y-4">
+                    <div class="flex items-center gap-2.5 text-[15px] font-extrabold text-slate-900 dark:text-white">
+                        <div class="w-8 h-8 rounded-xl bg-teal-50 dark:bg-teal-900/40 text-teal-600 dark:text-teal-400 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h2>Công nghệ AI Bóc Băng File Nghe (Speech-to-Text)</h2>
+                    </div>
+                    <p class="text-[13px] text-slate-600 dark:text-slate-400">
+                        Cấu hình công nghệ nhận diện giọng nói cho Trạm Bóc Băng TOEIC / IELTS. Mặc định chạy ngầm trên trình duyệt qua Web Worker (miễn phí 100%, không giật lag).
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[12.5px] font-bold text-slate-800 dark:text-slate-200 mb-2">Nguồn nhận diện giọng nói (STT Engine)</label>
+                            <select id="settingsSttEngineSelect" onchange="saveBocBangSettingsFromGlobal()" class="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-teal-500">
+                                <option value="browser_transformers">⚡ Trình duyệt: Web Worker Whisper Tiny (Miễn phí 100%, Không giật lag)</option>
+                                <option value="cloud_ai">🚀 Cloud AI Siêu Tốc: Groq Whisper Large V3 Turbo (2s/file)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[12.5px] font-bold text-slate-800 dark:text-slate-200 mb-2">Groq API Key (Nếu dùng Cloud AI)</label>
+                            <input id="settingsGroqApiKeyInput" type="password" placeholder="gsk_..." onchange="saveBocBangSettingsFromGlobal()" class="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono focus:outline-none focus:border-teal-500">
+                            <span class="text-[11px] text-slate-500 mt-1 block">Nhận API Key miễn phí tại <a href="https://console.groq.com/keys" target="_blank" class="text-teal-600 underline font-semibold">console.groq.com</a> (14,400 lượt/ngày không cần thẻ tín dụng).</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-1">
+                        <button onclick="saveBocBangSettingsFromGlobal()" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-[13px] font-bold flex items-center gap-2 shadow-sm transition">
+                            <i class="fa-regular fa-floppy-disk"></i>
+                            <span>Lưu cấu hình AI</span>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -4807,7 +4883,7 @@
         </div>
 
         <!-- 6. Take Note Modal -->
-        <div id="trwNoteModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden items-center justify-center p-3">
+        <div id="trwNoteModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[9990] hidden items-center justify-center p-3">
             <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-5 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 animate-scaleUp">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                     <div class="font-extrabold text-sm text-slate-900 dark:text-white flex items-center gap-2">
@@ -4819,11 +4895,20 @@
                     </button>
                 </div>
                 <div>
-                    <textarea id="trwNoteText" rows="4" placeholder="Nhập ghi chú hoặc mẹo nhớ cho câu hỏi này..." class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-xs leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <textarea id="trwNoteText" rows="4" placeholder="Nhập ghi chú hoặc mẹo nhớ cho câu hỏi này..." class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-xs leading-relaxed focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
                 </div>
-                <div class="flex justify-end gap-2">
-                    <button type="button" onclick="ToeicReadingWorkstation.closeTakeNote()" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition">Đóng</button>
-                    <button type="button" onclick="ToeicReadingWorkstation.saveTakeNote()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition">Lưu ghi chú</button>
+                <div class="flex items-center justify-between gap-2 pt-1">
+                    <button type="button" onclick="ToeicReadingWorkstation.openFloatingTakeNote()" class="px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 dark:bg-amber-950/70 dark:hover:bg-amber-900 text-amber-900 dark:text-amber-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer" title="Mở Sổ Take Note Nổi để xem toàn bộ hoặc viết tự do">
+                        <i class="fa-solid fa-book-bookmark text-amber-600"></i>
+                        <span>Mở Sổ Take Note</span>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="ToeicReadingWorkstation.closeTakeNote()" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">Đóng</button>
+                        <button type="button" onclick="ToeicReadingWorkstation.saveTakeNote()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs font-black shadow-md transition cursor-pointer flex items-center gap-1.5">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Lưu ghi chú</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5426,11 +5511,10 @@
 
 
 
-    <!-- FLOATING TAKE NOTE LAUNCHER (Sổ Take Note Nhanh - Vòng tròn nhỏ mở mọi lúc khi giải đề, Part 5,...) -->
-    <button id="floatingTakeNoteFab" onclick="FloatingTakeNote.toggle()" class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-40 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 h-12 w-12 hover:w-auto hover:px-4 rounded-full shadow-2xl flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all text-xs font-black border-2 border-amber-200/80 backdrop-blur-md cursor-pointer group overflow-hidden floating-take-note-fab" title="Mở Sổ Take Note Nhanh (Ghi chú Part 5, Từ vựng, Ngữ pháp)">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 ring-2 ring-emerald-300/60 animate-pulse"></span>
-        <i class="fa-solid fa-book-bookmark text-base text-amber-950 shrink-0"></i>
-        <span class="hidden group-hover:inline transition-all whitespace-nowrap font-black text-slate-950">Sổ Take Note 📝</span>
+    <!-- FLOATING TAKE NOTE LAUNCHER (Sổ Take Note Nhanh - Vòng tròn nhỏ cố định mở mọi lúc khi giải đề, Part 5,...) -->
+    <button id="floatingTakeNoteFab" onclick="FloatingTakeNote.toggle()" class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-[9990] bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 h-12 w-12 rounded-full shadow-2xl flex items-center justify-center gap-1.5 transition-transform text-xs font-black border-2 border-amber-200/80 backdrop-blur-md overflow-hidden floating-take-note-fab touch-none select-none cursor-grab active:cursor-grabbing" title="Mở Sổ Take Note Nhanh (Ghi chú Part 5, Từ vựng, Ngữ pháp) - Kéo để di chuyển khắp màn hình">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 ring-2 ring-emerald-300/60 animate-pulse pointer-events-none"></span>
+        <i class="fa-solid fa-book-bookmark text-base text-amber-950 shrink-0 pointer-events-none"></i>
     </button>
 
     <!-- AI TUTOR MODAL (GIA SƯ AI THÔNG MINH GIẢI ĐÁP ĐỀ THI) -->
@@ -5544,6 +5628,7 @@
             totalAnswers: 0,
             sidebarCollapsed: false
         };
+        window.state = state;
 
         // Totoro Mascot Engine (Đồng bộ từng chuyên mục theo yêu cầu học viên)
         function getOwlSVG(variant = 'wave') {
@@ -5603,7 +5688,7 @@
         const tabConfig = {
             'hom-nay': {
                 activeClass: 'nav-active-home',
-                mascotText: 'Cùng Đăng chinh phục tiếng Anh mỗi ngày!',
+                mascotText: 'Tôi Đi Đâu Đó chinh phục tiếng Anh mỗi ngày!',
                 feedbackText: 'Mở nhanh Sổ Take Note',
                 owlVariant: 'wave'
             },
@@ -5615,7 +5700,7 @@
             },
             'ngu-phap': {
                 activeClass: 'nav-active-grammar',
-                mascotText: 'Cùng Đăng chinh phục ngữ pháp & PassToeic!',
+                mascotText: 'Tôi Đi Đâu Đó chinh phục ngữ pháp & PassToeic!',
                 feedbackText: 'Ghi chú công thức ngay',
                 owlVariant: 'grammar'
             },
@@ -5635,7 +5720,7 @@
             },
             'tu-vung': {
                 activeClass: 'nav-active-vocab',
-                mascotText: 'Cùng Đăng học từ mới mỗi ngày nhé!',
+                mascotText: 'Tôi Đi Đâu Đó học từ mới mỗi ngày nhé!',
                 feedbackText: 'Lưu từ vào Sổ Take Note',
                 owlVariant: 'book'
             },
@@ -5661,19 +5746,19 @@
             },
             'nghe': {
                 activeClass: 'nav-active-listen',
-                mascotText: 'Cùng Đăng luyện nghe đều mỗi ngày!',
+                mascotText: 'Tôi Đi Đâu Đó luyện nghe đều mỗi ngày!',
                 feedbackText: 'Ghi chú mẹo nghe',
                 owlVariant: 'listening'
             },
             'doc': {
                 activeClass: 'nav-active-read',
-                mascotText: 'Cùng Đăng đọc hiểu tốt hơn mỗi ngày!',
+                mascotText: 'Tôi Đi Đâu Đó đọc hiểu tốt hơn mỗi ngày!',
                 feedbackText: 'Ghi chú từ vựng bài đọc',
                 owlVariant: 'reading'
             },
             'thi-thu': {
                 activeClass: 'nav-active-mock',
-                mascotText: 'Cùng Đăng giữ phong độ trước ngày thi!',
+                mascotText: 'Tôi Đi Đâu Đó giữ phong độ trước ngày thi!',
                 feedbackText: 'Ghi chú lỗi sai đề thi',
                 owlVariant: 'mock'
             },
@@ -5688,6 +5773,12 @@
                 mascotText: 'Luyện gõ từ vựng & nghe phát âm cùng Totoro!',
                 feedbackText: 'Mở Sổ Take Note',
                 owlVariant: 'book'
+            },
+            'boc-bang-audio': {
+                activeClass: 'nav-active-listen',
+                mascotText: 'Bóc băng file nghe tự động, dịch song ngữ & phân tích đáp án TOEIC!',
+                feedbackText: 'Mở Sổ Take Note',
+                owlVariant: 'listening'
             },
             'nghe-chinh-ta': {
                 activeClass: 'nav-active-dictation',
@@ -5823,6 +5914,11 @@
             if (tabId === 'nghe' && window.ListeningDashboard) {
                 ListeningDashboard.renderStats();
             }
+            if (tabId === 'boc-bang-audio') {
+                if (window.ToeicBocBangStation && window.ToeicBocBangStation.instance) {
+                    window.ToeicBocBangStation.instance.renderInto('view-boc-bang-audio');
+                }
+            }
             if (tabId === 'nghe-chinh-ta' || tabId === 'luyen-nghe-chinh-ta') {
                 if (window.DailyDictationWorkstation) {
                     window.DailyDictationWorkstation.renderInto('view-nghe-chinh-ta');
@@ -5838,6 +5934,9 @@
             }
             if (tabId === 'tu-dien') {
                 if (typeof initDictionaryView === 'function') initDictionaryView();
+            }
+            if (tabId === 'cai-dat') {
+                if (typeof initBocBangSettingsGlobalUI === 'function') initBocBangSettingsGlobalUI();
             }
 
             // Đồng bộ trạng thái sáng đèn trên Thanh điều hướng đáy Điện thoại (Mobile Bottom Nav)
@@ -8113,15 +8212,20 @@
             }
             if (takeNotesList.length > 0) {
                 activeNoteId = takeNotesList[0].id;
+                window.activeNoteId = activeNoteId;
             }
+            window.takeNotesList = takeNotesList;
             renderTakeNoteSidebarList();
             loadActiveTakeNoteIntoEditor();
         }
 
         function persistTakeNotes() {
             try {
-                if (window.takeNotesList && Array.isArray(window.takeNotesList) && window.takeNotesList !== takeNotesList) {
+                if (window.takeNotesList && Array.isArray(window.takeNotesList)) {
                     takeNotesList = window.takeNotesList;
+                }
+                if (window.activeNoteId) {
+                    activeNoteId = window.activeNoteId;
                 }
                 window.takeNotesList = takeNotesList;
                 window.activeNoteId = activeNoteId;
@@ -8173,6 +8277,7 @@
 
         function selectTakeNotePage(id) {
             activeNoteId = id;
+            window.activeNoteId = id;
             renderTakeNoteSidebarList();
             loadActiveTakeNoteIntoEditor();
         }
@@ -9223,14 +9328,14 @@
                 const docDefinition = {
                     info: {
                         title: note.title || 'Ghi chú học tập',
-                        author: 'Cùng Đăng ra trường',
+                        author: 'Tôi đi đâu đó',
                         subject: 'Tài liệu & Ghi chú ôn thi TOEIC'
                     },
                     pageSize: 'A4',
                     pageMargins: [40, 48, 40, 48],
                     header: function(currentPage, pageCount) {
                         return {
-                            text: `${note.title || 'Ghi chú'} — Cùng Đăng ra trường`,
+                            text: `${note.title || 'Ghi chú'} — Tôi đi đâu đó`,
                             alignment: 'right',
                             fontSize: 8,
                             color: '#94a3b8',
@@ -10231,6 +10336,7 @@
         let currentDeckName = 'Contracts';
         let fcIndex = 0;
         let learnedVocabItems = [];
+        window.learnedVocabItems = learnedVocabItems;
         window.savedVocabItems = window.savedVocabItems || [];
         let savedVocabItems = window.savedVocabItems;
 
@@ -10959,6 +11065,9 @@
             },
 
             getStorageKey() {
+                if (window.AuthSyncManager && typeof window.AuthSyncManager.getStorageKey === 'function') {
+                    return `${window.AuthSyncManager.getStorageKey()}_daily_tasks`;
+                }
                 const uid = (currentUserAccount?.id || 'guest').replace(/[^a-zA-Z0-9_-]/g, '_');
                 return `cung_dang_daily_tasks_${uid}`;
             },
@@ -11710,7 +11819,29 @@
                 return;
             }
             updateSettingsThemeButtonsUI();
+            initBocBangSettingsGlobalUI();
             switchTab('cai-dat');
+        }
+
+        function saveBocBangSettingsFromGlobal() {
+            const engine = document.getElementById('settingsSttEngineSelect')?.value || 'browser_transformers';
+            const key = (document.getElementById('settingsGroqApiKeyInput')?.value || '').trim();
+            localStorage.setItem('cd_stt_engine', engine);
+            localStorage.setItem('cd_groq_api_key', key);
+            if (window.ToeicBocBangStation && window.ToeicBocBangStation.instance) {
+                window.ToeicBocBangStation.instance.activeEngine = engine;
+                window.ToeicBocBangStation.instance.groqApiKey = key;
+            }
+            if (typeof showToast === 'function') showToast('✅ Đã lưu cấu hình AI Bóc Băng!');
+        }
+
+        function initBocBangSettingsGlobalUI() {
+            const engine = localStorage.getItem('cd_stt_engine') || 'browser_transformers';
+            const key = localStorage.getItem('cd_groq_api_key') || '';
+            const sel = document.getElementById('settingsSttEngineSelect');
+            const inp = document.getElementById('settingsGroqApiKeyInput');
+            if (sel) sel.value = engine;
+            if (inp) inp.value = key;
         }
 
         function populateAccountProfileForm() {
@@ -11994,9 +12125,13 @@
                             if (res.streakInfo) {
                                 renderStreakWeekDays(res.streakInfo);
                             }
-                            this.loadUserProgress();
-                            if (window.StudySync) {
-                                window.StudySync.connectStream();
+                            if (window.AuthSyncManager) {
+                                window.AuthSyncManager.onAccountChange(res.user);
+                            } else {
+                                this.loadUserProgress();
+                                if (window.StudySync) {
+                                    window.StudySync.connectStream();
+                                }
                             }
                             if (typeof updateSanhAndSidebarVisibility === 'function') {
                                 updateSanhAndSidebarVisibility(true);
@@ -12080,6 +12215,10 @@
                                 state.readDone = p.state.readDone || 0;
                                 state.listenDone = p.state.listenDone || 0;
                                 state.studyMinutes = p.state.studyMinutes || 0;
+                                state.totalAnswers = p.state.totalAnswers || 0;
+                                state.correctAnswers = p.state.correctAnswers || 0;
+                                state.listenTotalAnswers = p.state.listenTotalAnswers || 0;
+                                state.listenCorrectAnswers = p.state.listenCorrectAnswers || 0;
                             }
                             if (currentUserAccount) {
                                 if (p.targetScore) currentUserAccount.targetScore = p.targetScore;
@@ -12146,7 +12285,11 @@
                             grammarDone: state.grammarDone || 0,
                             readDone: state.readDone || 0,
                             listenDone: state.listenDone || 0,
-                            studyMinutes: state.studyMinutes || 0
+                            studyMinutes: state.studyMinutes || 0,
+                            totalAnswers: state.totalAnswers || 0,
+                            correctAnswers: state.correctAnswers || 0,
+                            listenTotalAnswers: state.listenTotalAnswers || 0,
+                            listenCorrectAnswers: state.listenCorrectAnswers || 0
                         },
                         learnedVocabItems: learnedVocabItems,
                         savedVocabItems: savedVocabItems,
@@ -12332,8 +12475,12 @@
                 }
                 UserAuthEngine.dismissGatekeeper();
                 applyCurrentAccountToUI();
-                UserAuthEngine.loadUserProgress();
-                if (window.StudySync) window.StudySync.connectStream();
+                if (window.AuthSyncManager) {
+                    window.AuthSyncManager.onAccountChange(res.user);
+                } else {
+                    UserAuthEngine.loadUserProgress();
+                    if (window.StudySync) window.StudySync.connectStream();
+                }
                 if (typeof updateSanhAndSidebarVisibility === 'function') updateSanhAndSidebarVisibility(true);
                 closeAuthModal();
                 showToast(`👋 Chào mừng ${currentUserAccount.name} đã đăng nhập!`);
@@ -12573,8 +12720,12 @@
                     }
                     UserAuthEngine.dismissGatekeeper();
                     applyCurrentAccountToUI();
-                    UserAuthEngine.loadUserProgress();
-                    if (window.StudySync) window.StudySync.connectStream();
+                    if (window.AuthSyncManager) {
+                        window.AuthSyncManager.onAccountChange(data.user);
+                    } else {
+                        UserAuthEngine.loadUserProgress();
+                        if (window.StudySync) window.StudySync.connectStream();
+                    }
                     if (typeof updateSanhAndSidebarVisibility === 'function') updateSanhAndSidebarVisibility(true);
                     closeAuthModal();
                     showToast(`🎉 Đăng nhập Google thành công! Xin chào ${data.user.name}.`);
@@ -12638,7 +12789,11 @@
             currentUserAccount = target;
             localStorage.setItem('cung_dang_session_user', JSON.stringify(target));
             applyCurrentAccountToUI();
-            UserAuthEngine.loadUserProgress();
+            if (window.AuthSyncManager) {
+                window.AuthSyncManager.onAccountChange(target);
+            } else {
+                UserAuthEngine.loadUserProgress();
+            }
             closeAuthModal();
             showToast(`🔄 Đã chuyển sang tài khoản: ${currentUserAccount.name}`);
         }
@@ -12669,7 +12824,10 @@
                 authBroadcastChannel.postMessage({ type: 'AUTH_LOGOUT' });
             }
 
-            // 6. Xóa session lưu trữ client
+            // 6. Xóa session lưu trữ client & reset namespace qua AuthSyncManager
+            if (window.AuthSyncManager) {
+                window.AuthSyncManager.onLogout();
+            }
             localStorage.removeItem('cung_dang_session_user');
             currentUserAccount = null;
             window.currentUserAccount = null;
@@ -13845,9 +14003,21 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch((err) => {
+                navigator.serviceWorker.register('/sw.js?v=toididaudo_v13').then(reg => {
+                    reg.update();
+                }).catch((err) => {
                     console.log('SW registration note:', err.message);
                 });
+                if ('caches' in window) {
+                    caches.keys().then(keys => {
+                        keys.forEach(k => {
+                            if (!k.includes('v12-totoro')) {
+                                console.log('[Client] Purging old cache:', k);
+                                caches.delete(k);
+                            }
+                        });
+                    });
+                }
             });
         }
 

@@ -1,9 +1,13 @@
-// Service Worker cho ứng dụng "Cùng Đăng Ra Trường" (V11 ETS 2026 S-Curve & Diagnostic Workstation)
-const CACHE_NAME = 'dang-ra-truong-cache-v11-take-note-handles-2026';
+// Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (V13 Totoro - Tôi Đi Đâu Đó 2026)
+const CACHE_NAME = 'toi-di-dau-do-cache-v13-2026';
 const ASSETS_TO_CACHE = [
-  '/manifest.json',
+  '/manifest.json?v=toididaudo_v13',
+  '/icon-totoro-192.png',
+  '/icon-totoro-512.png',
   '/icon-192.png',
-  '/icon-512.png'
+  '/icon-512.png',
+  '/favicon.ico',
+  '/app.ico'
 ];
 
 self.addEventListener('install', (event) => {
@@ -36,8 +40,18 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // TUYỆT ĐỐI KHÔNG DÙNG CACHE CHO HTML, JS, CSS VÀ API (Luôn lấy mã nguồn mới nhất từ server)
-  if (event.request.headers.get('accept')?.includes('text/html') || url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname.endsWith('.css') || url.pathname.startsWith('/api/')) {
+  // TUYỆT ĐỐI KHÔNG DÙNG CACHE CHO HTML, JS, CSS, MANIFEST, ICONS VÀ API (Luôn lấy mã nguồn mới nhất từ server)
+  if (
+    event.request.headers.get('accept')?.includes('text/html') ||
+    url.pathname === '/' ||
+    url.pathname.endsWith('.html') ||
+    url.pathname.endsWith('.js') ||
+    url.pathname.endsWith('.css') ||
+    url.pathname.startsWith('/api/') ||
+    url.pathname.includes('manifest.json') ||
+    url.pathname.includes('icon') ||
+    url.pathname.endsWith('.ico')
+  ) {
     event.respondWith(fetch(event.request, { cache: 'no-cache' }));
     return;
   }

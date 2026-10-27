@@ -1,15 +1,23 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793075346710,
+  "lastUpdated": 1793105182865,
+  "targetScore": "600",
+  "examDate": "20/12/2026",
   "state": {
-    "xp": 10,
-    "streak": 5,
+    "xp": 15,
     "vocabLearned": 0,
     "dictationDone": 0,
-    "grammarDone": 0,
+    "grammarDone": 2,
     "readDone": 0,
     "listenDone": 6,
-    "studyMinutes": 5
+    "studyMinutes": 12,
+    "totalAnswers": 8,
+    "correctAnswers": 7,
+    "listenTotalAnswers": 6,
+    "listenCorrectAnswers": 6,
+    "vocabTotalAnswers": 0,
+    "vocabCorrectAnswers": 0,
+    "streak": 5
   },
   "activityDates": [
     "2026-10-23",
@@ -19,15 +27,121 @@
     "2026-10-27"
   ],
   "learnedVocabItems": [],
-  "savedVocabItems": [],
+  "savedVocabItems": [
+    {
+      "word": "search",
+      "meaning": "tìm kiếm thông tin",
+      "phonetic": "/sɝːtʃ/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "download",
+      "meaning": "tải dữ liệu về máy",
+      "phonetic": "/ˈdaʊn.loʊd/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "folder",
+      "meaning": "thư mục lưu trữ tập tin",
+      "phonetic": "/ˈfoʊl.dɚ/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "password",
+      "meaning": "mật khẩu bảo mật",
+      "phonetic": "/ˈpæs.wɝːd/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "delete",
+      "meaning": "xóa tập tin",
+      "phonetic": "/dɪˈliːt/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "memory",
+      "meaning": "bộ nhớ lưu trữ",
+      "phonetic": "/ˈmem.ər.i/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "software",
+      "meaning": "phần mềm ứng dụng",
+      "phonetic": "/ˈsɑːft.wer/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "message",
+      "meaning": "tin nhắn thông báo",
+      "phonetic": "/ˈmes.ɪdʒ/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "battery",
+      "meaning": "pin lưu trữ điện",
+      "phonetic": "/ˈbæt̬.ɚ.i/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "digital",
+      "meaning": "kỹ thuật số điện tử",
+      "phonetic": "/ˈdɪdʒ.ə.t̬əl/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "laptop",
+      "meaning": "máy tính xách tay",
+      "phonetic": "/ˈlæp.tɑːp/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "website",
+      "meaning": "trang mạng thông tin",
+      "phonetic": "/ˈweb.saɪt/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "upload",
+      "meaning": "tải tập tin lên mạng",
+      "phonetic": "/ˈʌp.loʊd/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "online",
+      "meaning": "trực tuyến trên mạng",
+      "phonetic": "/ˈɑːn.laɪn/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    },
+    {
+      "word": "router",
+      "meaning": "bộ định tuyến internet",
+      "phonetic": "/ˈruː.t̬ɚ/",
+      "level": "A2",
+      "dateAdded": "26/10/2026"
+    }
+  ],
   "takeNotesList": [
     {
       "id": "note-1792802063421",
       "title": "📒 Sổ tay của Huynh Dang",
       "category": "Ngữ pháp",
       "paper": "paper-lined",
-      "updatedAt": "14:39",
-      "updatedAtMs": 1793000367959,
+      "updatedAt": "17:45",
+      "updatedAtMs": 1793097940478,
       "content": "file nghe toeic ra text&nbsp;",
       "previewText": "file nghe toeic ra text"
     }
@@ -87,9 +201,7 @@
     ],
     "lastActivityDate": "2026-10-27"
   },
-  "targetScore": "600",
-  "examDate": "20/12/2026",
-  "lastSourceDevice": "Laptop",
-  "lastDeviceId": "dev-68onjid-1792225315585",
+  "lastSourceDevice": "Thiết bị",
+  "lastDeviceId": "unknown",
   "lastUserId": "acc-g-1792730904332"
 }

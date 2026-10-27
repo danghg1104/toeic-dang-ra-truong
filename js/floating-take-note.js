@@ -37,6 +37,7 @@
             this.loadSavedGeometry();
             this.injectModalMarkup();
             this.bindResizeAndDragEvents();
+            this.bindFabDragEvents();
             this.syncWithGlobalNotes();
 
             // Lắng nghe sự kiện phím tắt (Alt + N để bật/tắt Take Note nhanh)
@@ -76,8 +77,8 @@
             }
 
             const modalHTML = `
-            <div id="floatingTakeNoteModal" class="ftn-window fixed z-50 hidden flex-col select-none transition-[opacity,transform] duration-150"
-                style="width: 580px; height: 520px; right: 24px; bottom: 84px; overflow: visible !important;">
+            <div id="floatingTakeNoteModal" class="ftn-window fixed z-[9995] hidden flex-col select-none transition-[opacity,transform] duration-150"
+                style="width: 580px; height: 520px; right: 24px; bottom: 84px; overflow: visible !important; z-index: 9995 !important;">
                 
                 <!-- 4 CORNER RESIZERS (GÓC THU TO THU NHỎ - BÌNH THƯỜNG ẨN, RÊ CHUỘT VÀO MỚI HIỆN) -->
                 <div class="ftn-handle ftn-handle-nw" data-handle="nw" title="Kéo góc trên-trái để thu to / thu nhỏ khung"
@@ -599,6 +600,138 @@
             });
         },
 
+        bindFabDragEvents() {
+            const setup = () => {
+                const fab = document.getElementById('floatingTakeNoteFab');
+                if (!fab || fab._hasFabDragBound) return;
+                fab._hasFabDragBound = true;
+
+                // 1. Khôi phục vị trí đã lưu nếu có
+                try {
+                    const raw = localStorage.getItem('cung_dang_ftn_fab_pos_v2');
+                    if (raw) {
+                        const pos = JSON.parse(raw);
+                        if (typeof pos.left === 'number' && typeof pos.top === 'number') {
+                            const fabW = 48;
+                            const fabH = 48;
+                            const maxL = Math.max(0, window.innerWidth - fabW - 2);
+                            const maxT = Math.max(0, window.innerHeight - fabH - 2);
+                            const left = Math.min(maxL, Math.max(2, pos.left));
+                            const top = Math.min(maxT, Math.max(2, pos.top));
+                            fab.style.left = `${left}px`;
+                            fab.style.top = `${top}px`;
+                            fab.style.right = 'auto';
+                            fab.style.bottom = 'auto';
+                        }
+                    }
+                } catch (e) {}
+
+                let isDragging = false;
+                let hasMoved = false;
+                let startX = 0;
+                let startY = 0;
+                let origLeft = 0;
+                let origTop = 0;
+
+                fab.addEventListener('pointerdown', (e) => {
+                    if (e.button !== 0) return; // Chỉ nhận chuột trái hoặc cảm ứng
+                    isDragging = true;
+                    hasMoved = false;
+                    startX = e.clientX;
+                    startY = e.clientY;
+
+                    const rect = fab.getBoundingClientRect();
+                    origLeft = rect.left;
+                    origTop = rect.top;
+
+                    try {
+                        fab.setPointerCapture(e.pointerId);
+                    } catch (err) {}
+                    fab.style.transition = 'none';
+                });
+
+                fab.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+
+                    if (!hasMoved && Math.hypot(dx, dy) > 5) {
+                        hasMoved = true;
+                        fab.classList.add('is-dragging-fab');
+                    }
+
+                    if (hasMoved) {
+                        const fabW = 48;
+                        const fabH = 48;
+                        const maxL = Math.max(0, window.innerWidth - fabW - 2);
+                        const maxT = Math.max(0, window.innerHeight - fabH - 2);
+
+                        const newLeft = Math.min(maxL, Math.max(2, origLeft + dx));
+                        const newTop = Math.min(maxT, Math.max(2, origTop + dy));
+
+                        fab.style.left = `${newLeft}px`;
+                        fab.style.top = `${newTop}px`;
+                        fab.style.right = 'auto';
+                        fab.style.bottom = 'auto';
+                    }
+                });
+
+                const onPointerEnd = (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    fab.style.transition = '';
+                    fab.classList.remove('is-dragging-fab');
+
+                    try {
+                        fab.releasePointerCapture(e.pointerId);
+                    } catch (err) {}
+
+                    if (hasMoved) {
+                        const rect = fab.getBoundingClientRect();
+                        try {
+                            localStorage.setItem('cung_dang_ftn_fab_pos_v2', JSON.stringify({
+                                left: Math.round(rect.left),
+                                top: Math.round(rect.top)
+                            }));
+                        } catch (err) {}
+                    }
+                };
+
+                fab.addEventListener('pointerup', onPointerEnd);
+                fab.addEventListener('pointercancel', onPointerEnd);
+
+                // Nuốt click nếu người dùng vừa kéo di chuyển (để không tự ý bật modal)
+                fab.addEventListener('click', (e) => {
+                    if (hasMoved) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        hasMoved = false;
+                    }
+                }, true);
+
+                // Giữ vị trí trong màn hình khi thay đổi kích thước cửa sổ
+                window.addEventListener('resize', () => {
+                    if (fab.style.left && fab.style.left !== 'auto') {
+                        const rect = fab.getBoundingClientRect();
+                        const fabW = 48;
+                        const fabH = 48;
+                        const maxL = Math.max(0, window.innerWidth - fabW - 2);
+                        const maxT = Math.max(0, window.innerHeight - fabH - 2);
+                        const clampedL = Math.min(maxL, Math.max(2, rect.left));
+                        const clampedT = Math.min(maxT, Math.max(2, rect.top));
+                        fab.style.left = `${clampedL}px`;
+                        fab.style.top = `${clampedT}px`;
+                    }
+                });
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setup);
+            } else {
+                setup();
+            }
+        },
+
         toggle() {
             if (this.isOpen) {
                 this.close();
@@ -703,20 +836,22 @@
         },
 
         syncWithGlobalNotes() {
+            try {
+                const raw = localStorage.getItem('cung_dang_take_notes_v1');
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        window.takeNotesList = parsed;
+                    }
+                }
+            } catch (e) {}
+
             if (typeof window.takeNotesList === 'undefined' || !Array.isArray(window.takeNotesList) || window.takeNotesList.length === 0) {
                 if (typeof window.initTakeNotes === 'function') {
                     window.initTakeNotes();
                 } else if (typeof initTakeNotes === 'function') {
                     initTakeNotes();
                 }
-            }
-            if (typeof window.takeNotesList === 'undefined' || !Array.isArray(window.takeNotesList) || window.takeNotesList.length === 0) {
-                try {
-                    const raw = localStorage.getItem('cung_dang_take_notes_v1');
-                    if (raw) {
-                        window.takeNotesList = JSON.parse(raw);
-                    }
-                } catch(e) {}
             }
             if (!Array.isArray(window.takeNotesList) || window.takeNotesList.length === 0) {
                 window.takeNotesList = [{
@@ -773,9 +908,13 @@
 
             sel.innerHTML = list.map(n => {
                 const isSel = n.id === window.activeNoteId ? 'selected' : '';
-                const preview = (n.title || 'Trang không tên').slice(0, 32);
+                const preview = (n.title || 'Trang không tên').slice(0, 36);
                 return `<option value="${n.id}" ${isSel}>📄 [${n.category || 'Note'}] ${preview}</option>`;
             }).join('');
+
+            if (window.activeNoteId) {
+                sel.value = window.activeNoteId;
+            }
         },
 
         handleSelectNote(id) {

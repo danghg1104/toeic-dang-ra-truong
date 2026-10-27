@@ -842,10 +842,31 @@ html.dark .ftn-pill-handle-v {
     cursor: grabbing !important;
 }
 
-/* FLOATING CIRCULAR FAB (VÒNG TRÒN NHỎ TAKE NOTE MỞ MỌI LÚC) */
+/* FLOATING CIRCULAR FAB (VÒNG TRÒN NHỎ TAKE NOTE MỞ MỌI LÚC - DRAGGABLE & ALWAYS ON TOP) */
 .floating-take-note-fab {
-    box-shadow: 0 10px 25px -3px rgba(2, 132, 199, 0.45), 0 4px 6px -2px rgba(2, 132, 199, 0.2);
+    z-index: 9990 !important;
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    cursor: grab;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    border-radius: 9999px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px -3px rgba(217, 119, 6, 0.45), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 .floating-take-note-fab:hover {
-    box-shadow: 0 14px 30px -3px rgba(2, 132, 199, 0.6), 0 6px 10px -2px rgba(2, 132, 199, 0.3);
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    box-shadow: 0 14px 30px -3px rgba(217, 119, 6, 0.65), 0 6px 10px -2px rgba(0, 0, 0, 0.3);
+}
+.floating-take-note-fab:active,
+.floating-take-note-fab.is-dragging-fab {
+    cursor: grabbing !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 18px 35px -3px rgba(217, 119, 6, 0.75), 0 8px 14px -2px rgba(0, 0, 0, 0.35) !important;
 }
