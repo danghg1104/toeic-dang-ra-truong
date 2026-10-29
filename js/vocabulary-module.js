@@ -1107,6 +1107,10 @@
                         <!-- Utility Switches & Controls -->
                         <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
                             <!-- Switch Tự phát âm -->
+                            <button type="button" onclick="StudyFocusEngine.toggle('Từ vựng: ' + (VocabularyEngine.currentTopic ? VocabularyEngine.currentTopic.name : 'Vocabulary'))" class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1.5 transition shadow-2xs cursor-pointer" title="Bật/Tắt Chế độ tập trung học sâu (Alt+Z)">
+                                    <i class="fa-solid fa-eye text-[11px] text-amber-600 dark:text-amber-400"></i>
+                                    <span>Tập trung</span>
+                                </button>
                             <button onclick="VocabularyEngine.toggleAutoPronounce()" class="px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${this.autoPronounce ? 'bg-purple-600 text-white border-purple-600 shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'}">
                                 <i class="fa-solid fa-volume-high text-[11px]"></i>
                                 <span class="hidden sm:inline">Tự phát âm</span>
@@ -1444,14 +1448,14 @@
                         </p>
                     </div>
 
-                    <!-- 6. 💡 MẸO NHỚ SIÊU TỐC (MNEMONIC HOOK) & CTA -->
+                    <!-- 6. 💡 MẸO GHI NHỚ LIÊN TƯỞNG (MNEMONIC HOOK) & CTA -->
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-3xl bg-purple-50/80 dark:bg-slate-800 border border-purple-200/80 dark:border-slate-700">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-lg">
                                 💡
                             </div>
                             <div>
-                                <h4 class="text-xs font-black text-purple-900 dark:text-purple-200 uppercase">Mẹo nhớ siêu tốc</h4>
+                                <h4 class="text-xs font-black text-purple-900 dark:text-purple-200 uppercase">Mẹo ghi nhớ liên tưởng (Mnemonic Hook)</h4>
                                 <p class="text-xs text-slate-700 dark:text-slate-300 font-medium">${w.memoryHook}</p>
                             </div>
                         </div>

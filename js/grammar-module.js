@@ -836,6 +836,10 @@
 
                             <!-- Utility Buttons Toolbar -->
                             <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                                <button type="button" onclick="StudyFocusEngine.toggle('Ngữ pháp: ' + (GrammarEngine.topic ? GrammarEngine.topic.title : 'Part 5'))" class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1.5 transition shadow-2xs cursor-pointer" title="Bật/Tắt Chế độ tập trung học sâu (Alt+Z)">
+                                    <i class="fa-solid fa-eye text-[11px] text-amber-600 dark:text-amber-400"></i>
+                                    <span>Tập trung</span>
+                                </button>
                                 <button onclick="GrammarEngine.toggleTheoryDrawer(true)" class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-slate-700 text-xs font-bold hover:bg-purple-100 flex items-center gap-1.5 transition">
                                     <i class="fa-solid fa-book-open text-[11px]"></i>
                                     <span>Lý thuyết</span>

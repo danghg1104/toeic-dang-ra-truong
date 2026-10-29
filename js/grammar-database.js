@@ -31,7 +31,7 @@
       "We, They, danh từ số nhiều ➔ V nguyên mẫu",
       "currently, right now, at present ➔ Ưu tiên chọn Hiện tại tiếp diễn"
     ],
-    "mascotTip": "Cú Đăng nhắc nhỏ: Gặp trạng từ \"routinely\" hoặc \"regularly\" thì 100% chọn Hiện tại đơn nhé!",
+    "mascotTip": "Sói Mây lưu ý: Gặp trạng từ \"routinely\" hoặc \"regularly\" thì 100% chọn Hiện tại đơn nhé!",
     "mentalModel": {
       "flowSteps": [
         {
@@ -5283,7 +5283,7 @@
       "Have / Get + Vật + V3/ed (Have something DONE)",
       "Let / Make + Người/Vật + V-inf (Make someone DO - không có to)"
     ],
-    "mascotTip": "Thần chú siêu tốc: Cứ thấy HAVE hoặc GET mà tân ngữ là ĐỒ VẬT (the machine, the report, the car) ➔ 100% khoanh V3/ed (repaired, printed, inspected)!",
+    "mascotTip": "Công thức phản xạ: Cứ thấy HAVE hoặc GET mà tân ngữ là ĐỒ VẬT (the machine, the report, the car) ➔ 100% khoanh V3/ed (repaired, printed, inspected)!",
     "mentalModel": {
       "flowSteps": [
         {

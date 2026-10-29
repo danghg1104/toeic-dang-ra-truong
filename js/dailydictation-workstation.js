@@ -759,7 +759,8 @@
                 </div>
 
                 <!-- Tabs (Dictation | Full transcript) (Ảnh 4) -->
-                <div class="flex items-center border-b border-slate-200 dark:border-slate-800 mb-0">
+                <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 mb-0">
+                    <div class="flex items-center">
                     <button onclick="DailyDictationWorkstation.switchTab('dictation')" 
                         class="px-5 py-2.5 text-sm font-bold border-b-2 transition ${this.activeTab === 'dictation' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-slate-900 rounded-t-xl border-t border-x border-slate-200 dark:border-slate-800 mb-[-1px]' : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}">
                         Dictation
@@ -767,6 +768,13 @@
                     <button onclick="DailyDictationWorkstation.switchTab('transcript')" 
                         class="px-5 py-2.5 text-sm font-bold border-b-2 transition ${this.activeTab === 'transcript' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-slate-900 rounded-t-xl border-t border-x border-slate-200 dark:border-slate-800 mb-[-1px]' : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}">
                         Full transcript
+                    </button>
+                    </div>
+                    <button onclick="window.StudyFocusEngine && StudyFocusEngine.toggle('Chép chính tả: ' + (DailyDictationWorkstation.activeLesson ? DailyDictationWorkstation.activeLesson.name : 'Listening'))" 
+                        class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1.5 transition shadow-2xs mb-1 cursor-pointer"
+                        title="Bật/Tắt Chế độ tập trung học sâu (Alt+Z)">
+                        <i class="fa-solid fa-eye text-amber-600 dark:text-amber-400 text-xs"></i>
+                        <span class="hidden sm:inline">Tập trung</span>
                     </button>
                 </div>
 

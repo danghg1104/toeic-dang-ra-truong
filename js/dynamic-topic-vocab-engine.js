@@ -2,7 +2,7 @@
  * =========================================================================
  * DYNAMIC TOPIC VOCAB ENGINE (CEFR A1 - C2 & INFINITE VOCABULARY GENERATOR)
  * =========================================================================
- * Giải quyết triệt để tình trạng ít chủ đề và lặp lại từ vựng trong Đấu trường Gundam:
+ * Giải quyết triệt để tình trạng ít chủ đề và lặp lại từ vựng trong Phòng Luyện Phản Xạ Từ Vựng Cốt Lõi:
  * - Bước 1: Tự động dịch chủ đề tiếng Việt sang từ khóa tiếng Anh chuẩn qua Google GTX.
  * - Bước 2: Gọi Datamuse API (ml=${topic}&md=fpd&max=250) lấy 250 từ vựng chuyên sâu kèm tần suất xuất hiện f:.
  * - Bước 3: Phân loại chính xác 250 từ vào 6 khung trình độ CEFR (A1 - C2) theo chuẩn tần suất và độ dài.
@@ -239,7 +239,7 @@
             };
 
             const cleanTopicSlug = this.toTopicSlug(topicKey);
-            const sessionKey = `gundam_topic_history_${cleanTopicSlug}_${validLevel}`;
+            const sessionKey = `reflex_topic_history_${cleanTopicSlug}_${validLevel}`;
             
             let usedWords = [];
             try {

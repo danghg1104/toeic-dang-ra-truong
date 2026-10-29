@@ -69,6 +69,7 @@
     <script src="js/take-note-hybrid-editor.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="js/floating-take-note.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="js/auth-sync-manager.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="js/study-focus-engine.js?v=studystudio_20261029_step3_zen"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -1177,7 +1178,7 @@
                             <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
                                 <div>
                                     <h3 class="text-base font-bold text-slate-900 dark:text-white">Cân bằng 4 kỹ năng</h3>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400">Tỷ lệ chính xác & Đánh giá năng lực theo chuẩn ETS</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Tỷ lệ chính xác bài tập đã giải & Đánh giá năng lực ETS</p>
                                 </div>
                                 <button onclick="switchTab('lo-trinh')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">Chi tiết</button>
                             </div>
@@ -4555,6 +4556,10 @@
                     <i class="fa-regular fa-lightbulb text-xs text-amber-400"></i>
                     <span>Dẫn chứng</span>
                 </button>
+                <button type="button" onclick="StudyFocusEngine.toggle('Phòng Luyện Nghe: ' + (document.getElementById('tlwTitle')?.textContent || 'Listening'))" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 text-cyan-300 text-xs sm:text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Bật/Tắt Chế độ tập trung học sâu (Alt+Z)">
+                    <i class="fa-solid fa-eye text-xs text-cyan-400"></i>
+                    <span class="hidden sm:inline">Tập trung</span>
+                </button>
                 <button type="button" id="tlwBtnExplanation" onclick="ToeicListeningWorkstation.toggleExplanation()" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-300 text-xs sm:text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Bật/Tắt Khung giải thích chi tiết & Mẹo thi">
                     <i class="fa-solid fa-lightbulb text-xs text-amber-400"></i>
                     <span>Giải thích</span>
@@ -4838,6 +4843,10 @@
                 <button type="button" id="trwBtnEvidence" onclick="ToeicReadingWorkstation.toggleEvidence()" class="px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Highlight câu dẫn chứng">
                     <i class="fa-regular fa-lightbulb text-xs text-amber-400"></i>
                     <span class="hidden sm:inline">Dẫn chứng</span>
+                </button>
+                <button type="button" onclick="StudyFocusEngine.toggle('Phòng Luyện Đọc: ' + (document.getElementById('trwTitle')?.textContent || 'Reading'))" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 text-cyan-300 text-xs sm:text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Bật/Tắt Chế độ tập trung học sâu (Alt+Z)">
+                    <i class="fa-solid fa-eye text-xs text-cyan-400"></i>
+                    <span class="hidden sm:inline">Tập trung</span>
                 </button>
                 <button type="button" id="trwBtnExplanation" onclick="ToeicReadingWorkstation.toggleExplanation()" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-300 text-xs sm:text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Bật/Tắt Khung giải thích chi tiết & Mẹo thi">
                     <i class="fa-solid fa-lightbulb text-xs text-amber-400"></i>
@@ -11664,7 +11673,7 @@
             const vAnswered = state.vocabTotalAnswers || (vLearned > 0 ? vLearned : 0);
             const vCorrect = state.vocabCorrectAnswers || vLearned;
 
-            // Update 4 Horizontal Progress Bars for Skill Balance (Logic chuẩn Senior Tech Lead)
+            // Update 4 Horizontal Progress Bars for Skill Balance (Logic chuẩn Senior Tech Lead & Product Designer)
             const diag = (currentUserAccount && currentUserAccount.diagnosticResults) ? currentUserAccount.diagnosticResults : null;
 
             // 1. Luyện Nghe (Listening)
@@ -11672,20 +11681,20 @@
             const lPct = document.getElementById('skillAccuracyListenPct');
             const lCount = document.getElementById('skillAccuracyListenCount');
             let listenPct = 0;
-            if (diag && diag.listening) {
-                listenPct = Math.min(100, Math.max(0, Math.round((diag.listening / 495) * 100)));
-                if (lPct) lPct.textContent = `${listenPct}%`;
-                if (lCount) lCount.textContent = `${diag.listening}/495 điểm ETS`;
-            } else if (state.listenTotalAnswers && state.listenTotalAnswers > 0) {
+            if (state.listenTotalAnswers && state.listenTotalAnswers > 0) {
                 const correct = state.listenCorrectAnswers || 0;
                 const total = state.listenTotalAnswers;
                 listenPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
                 if (lPct) lPct.textContent = `${listenPct}%`;
                 if (lCount) lCount.textContent = `${correct}/${total} câu đúng`;
+            } else if (diag && diag.listening) {
+                listenPct = Math.min(100, Math.max(0, Math.round((diag.listening / 495) * 100)));
+                if (lPct) lPct.textContent = `${listenPct}%`;
+                if (lCount) lCount.textContent = `${diag.listening}/495 điểm ETS`;
             } else if (lDone > 0) {
-                listenPct = 100;
-                if (lPct) lPct.textContent = '100%';
-                if (lCount) lCount.textContent = `${lDone}/${lDone} câu đúng`;
+                listenPct = Math.min(100, Math.max(0, Math.round((lDone / 200) * 100)));
+                if (lPct) lPct.textContent = `${listenPct}%`;
+                if (lCount) lCount.textContent = `Đã luyện ${lDone} câu`;
             } else {
                 if (lPct) lPct.textContent = '--%';
                 if (lCount) lCount.textContent = 'Chưa làm bài';
@@ -11698,20 +11707,20 @@
             const rPct = document.getElementById('skillAccuracyReadPct');
             const rCount = document.getElementById('skillAccuracyReadCount');
             let readPct = 0;
-            if (diag && diag.reading) {
-                readPct = Math.min(100, Math.max(0, Math.round((diag.reading / 495) * 100)));
-                if (rPct) rPct.textContent = `${readPct}%`;
-                if (rCount) rCount.textContent = `${diag.reading}/495 điểm ETS`;
-            } else if (state.readTotalAnswers && state.readTotalAnswers > 0) {
+            if (state.readTotalAnswers && state.readTotalAnswers > 0) {
                 const correct = state.readCorrectAnswers || 0;
                 const total = state.readTotalAnswers;
                 readPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
                 if (rPct) rPct.textContent = `${readPct}%`;
                 if (rCount) rCount.textContent = `${correct}/${total} câu đúng`;
+            } else if (diag && diag.reading) {
+                readPct = Math.min(100, Math.max(0, Math.round((diag.reading / 495) * 100)));
+                if (rPct) rPct.textContent = `${readPct}%`;
+                if (rCount) rCount.textContent = `${diag.reading}/495 điểm ETS`;
             } else if (rDone > 0) {
-                readPct = 100;
-                if (rPct) rPct.textContent = '100%';
-                if (rCount) rCount.textContent = `${rDone}/${rDone} câu đúng`;
+                readPct = Math.min(100, Math.max(0, Math.round((rDone / 200) * 100)));
+                if (rPct) rPct.textContent = `${readPct}%`;
+                if (rCount) rCount.textContent = `Đã luyện ${rDone} câu`;
             } else {
                 if (rPct) rPct.textContent = '--%';
                 if (rCount) rCount.textContent = 'Chưa làm bài';
@@ -11753,14 +11762,14 @@
             } else if (vLearned > 0) {
                 vocabPct = Math.min(100, Math.max(0, Math.round((vLearned / 50) * 100)));
                 if (vPct) vPct.textContent = `${vocabPct}%`;
-                if (vCount) vCount.textContent = `${vLearned} từ đã thuộc`;
+                if (vCount) vCount.textContent = `${vLearned} từ đã học`;
             } else if (diag && diag.totalScore) {
                 vocabPct = Math.min(100, Math.max(0, Math.round((diag.totalScore / 990) * 100)));
                 if (vPct) vPct.textContent = `${vocabPct}%`;
                 if (vCount) vCount.textContent = 'Chuẩn B1 (CEFR)';
             } else {
                 if (vPct) vPct.textContent = '--%';
-                if (vCount) vCount.textContent = 'Chưa học từ nào';
+                if (vCount) vCount.textContent = 'Chưa làm bài';
                 vocabPct = 0;
             }
             if (vProg) vProg.style.width = `${vocabPct}%`;

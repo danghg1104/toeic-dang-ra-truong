@@ -207,7 +207,7 @@
     window.CEFRClassifier = cefrEngine;
 
     // =========================================================================
-    // 2. GUNDAM WORKSTATION CONTROLLER
+    // 2. REFLEX VOCAB WORKSTATION CONTROLLER
     // =========================================================================
     
     // =========================================================================
@@ -457,9 +457,9 @@
             this.swaySeed = 0;
             this.swayAmplitude = 20;
 
-            // Gundam Aiming Angle & Recoil State
-            this.gundamAngle = 0;
-            this.isGundamRecoil = false;
+            // Reflex Study Aiming Angle & Recoil State
+            this.reflexAngle = 0;
+            this.isReflexRecoil = false;
 
             // Particle Canvas & Visuals
             this.particles = [];
@@ -488,7 +488,7 @@
         }
 
         // =========================================================================
-        // KHỞI TẠO ÂM THANH GUNDAM BEAM LASER (Web Audio API)
+        // KHỞI TẠO ÂM THANH XUNG PHẢN XẠ (Web Audio API) (Web Audio API)
         // =========================================================================
         initAudio() {
             if (!this.audioCtx && typeof window.AudioContext !== 'undefined') {
@@ -3277,6 +3277,12 @@ resilience - khả năng phục hồi`;
                 <div class="w-full max-w-6xl 2xl:max-w-7xl mx-auto pb-8">
                     <!-- Top Game Bar -->
                     <div class="flex items-center justify-between mb-3 px-1">
+                        <button onclick="window.StudyFocusEngine && StudyFocusEngine.toggle('Vocabulary Studio: ' + (VocabGameWorkstation.selectedTopic || 'Reflex'))" 
+                            class="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer mr-2"
+                            title="Bật/Tắt Chế độ tập trung học sâu (Alt+Z)">
+                            <i class="fa-solid fa-eye text-cyan-400 text-xs"></i>
+                            <span class="hidden sm:inline">Tập trung</span>
+                        </button>
                         <button onclick="VocabGameWorkstation.exitToConfig()" 
                             class="px-3.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-rose-600 transition flex items-center gap-1.5 shadow-2xs cursor-pointer">
                             <i class="fa-solid fa-arrow-left"></i> Thoát
@@ -3371,8 +3377,8 @@ resilience - khả năng phục hồi`;
                         <div class="absolute bottom-3 left-0 right-0 flex flex-col items-center justify-center z-20 pointer-events-none">
                             
                             <!-- Studio Companion Platform (Cử động xoay theo vị trí chữ rơi & thở nhẹ) -->
-                            <div id="vgGundamWrapper" class="relative flex flex-col items-center justify-center pointer-events-none mb-2">
-                                <div id="vgGundamLauncher" 
+                            <div id="vgReflexWrapper" class="relative flex flex-col items-center justify-center pointer-events-none mb-2">
+                                <div id="vgReflexLauncher" 
                                     class="relative flex flex-col items-center justify-center pointer-events-none transition-transform duration-150"
                                     style="width: 130px; height: 130px; transform-origin: 50% 85%; will-change: transform;">
                                     
@@ -3435,7 +3441,7 @@ resilience - khả năng phục hồi`;
             this.cardBaseX = 50;
             this.swaySeed = 0;
             this.swayAmplitude = 18;
-            this.gundamAngle = 0;
+            this.reflexAngle = 0;
             this.particles = [];
             this.projectiles = [];
 
@@ -3516,32 +3522,32 @@ resilience - khả năng phục hồi`;
         // =========================================================================
         updateGunTracking() {
             const card = document.getElementById('vgFallingCard');
-            const gundam = document.getElementById('vgGundamLauncher');
-            if (!card || !gundam) return;
+            const reflexLauncher = document.getElementById('vgReflexLauncher');
+            if (!card || !reflexLauncher) return;
 
             const cardRect = card.getBoundingClientRect();
-            const gundamRect = gundam.getBoundingClientRect();
+            const reflexRect = reflexLauncher.getBoundingClientRect();
 
             const cardCenterX = cardRect.left + (cardRect.width / 2);
             const cardCenterY = cardRect.top + (cardRect.height / 2);
 
-            const gundamCenterX = gundamRect.left + (gundamRect.width / 2);
-            const gundamCenterY = gundamRect.top + (gundamRect.height * 0.85);
+            const reflexCenterX = reflexRect.left + (reflexRect.width / 2);
+            const reflexCenterY = reflexRect.top + (reflexRect.height * 0.85);
 
-            const dx = cardCenterX - gundamCenterX;
-            const dy = gundamCenterY - cardCenterY;
+            const dx = cardCenterX - reflexCenterX;
+            const dy = reflexCenterY - cardCenterY;
 
             let targetAngleDeg = Math.atan2(dx, dy) * (180 / Math.PI);
             // Giới hạn góc ngắm tự nhiên (-48deg đến +48deg)
             targetAngleDeg = Math.max(-48, Math.min(48, targetAngleDeg));
 
-            if (typeof this.gundamAngle !== 'number') this.gundamAngle = 0;
+            if (typeof this.reflexAngle !== 'number') this.reflexAngle = 0;
             // Easing mượt mà
-            this.gundamAngle += (targetAngleDeg - this.gundamAngle) * 0.16;
+            this.reflexAngle += (targetAngleDeg - this.reflexAngle) * 0.16;
 
-            const recoilScale = this.isGundamRecoil ? 0.92 : 1;
-            const recoilY = this.isGundamRecoil ? 5 : 0;
-            gundam.style.transform = `rotate(${this.gundamAngle.toFixed(2)}deg) scale(${recoilScale}) translateY(${recoilY}px)`;
+            const recoilScale = this.isReflexRecoil ? 0.92 : 1;
+            const recoilY = this.isReflexRecoil ? 5 : 0;
+            reflexLauncher.style.transform = `rotate(${this.reflexAngle.toFixed(2)}deg) scale(${recoilScale}) translateY(${recoilY}px)`;
         }
 
         // =========================================================================
@@ -3706,7 +3712,7 @@ resilience - khả năng phục hồi`;
             // BẤT KỂ GÕ ĐÚNG HAY SAI: ĐỀU BẮN VIÊN ĐẠN XANH BAY VÀO Ô CHỮ!
             // =========================================================================
             this.playShootSound();
-            this.triggerGundamRecoil();
+            this.triggerReflexRecoil();
             this.spawnShootProjectile();
 
             if (pressedChar === expectedChar) {
@@ -3759,15 +3765,15 @@ resilience - khả năng phục hồi`;
             }
         }
 
-        triggerGundamRecoil() {
-            this.isGundamRecoil = true;
+        triggerReflexRecoil() {
+            this.isReflexRecoil = true;
             setTimeout(() => {
-                this.isGundamRecoil = false;
+                this.isReflexRecoil = false;
             }, 90);
         }
 
         // =========================================================================
-        // GUNDAM BEAM LASER PROJECTILE & ENERGY FLARE
+        // REFLEX ACOUSTIC PULSE PROJECTILE & ENERGY FLARE
         // =========================================================================
         spawnShootProjectile() {
             const canvas = document.getElementById('vgParticleCanvas');
@@ -3783,7 +3789,7 @@ resilience - khả năng phục hồi`;
             const rect = canvas.getBoundingClientRect();
             const cardRect = card.getBoundingClientRect();
 
-            const angleRad = (this.gundamAngle || 0) * (Math.PI / 180);
+            const angleRad = (this.reflexAngle || 0) * (Math.PI / 180);
             const barrelLen = 50; // Khoảng cách từ Sói Mây
             const startX = (rect.width / 2) + Math.sin(angleRad) * barrelLen;
             const startY = (rect.height - 75) - Math.cos(angleRad) * barrelLen;
@@ -3791,7 +3797,7 @@ resilience - khả năng phục hồi`;
             const targetX = cardRect.left - rect.left + (cardRect.width / 2);
             const targetY = cardRect.top - rect.top + (cardRect.height / 2);
 
-            this.triggerGundamRecoil();
+            this.triggerReflexRecoil();
 
             // Chớp sáng hạt năng lượng tri thức
             for (let m = 0; m < 8; m++) {
@@ -3951,7 +3957,7 @@ resilience - khả năng phục hồi`;
         }
 
         // =========================================================================
-        // PARTICLE CANVAS ANIMATION (GUNDAM BEAM LASER & SPARKS)
+        // PARTICLE CANVAS ANIMATION (REFLEX PULSE & SPARKS)
         // =========================================================================
         renderParticles() {
             const canvas = document.getElementById('vgParticleCanvas');
