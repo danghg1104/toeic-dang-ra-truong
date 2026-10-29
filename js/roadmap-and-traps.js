@@ -695,10 +695,10 @@ window.PersonalizedRoadmapEngine = {
                     </div>
                 </div>
 
-                <!-- MASCOT COMPANION CARD (Hình 1: 3 Chú Totoro Vượt Mốc 990) -->
+                <!-- MASCOT COMPANION CARD (Hình 1: Sói Mây Thám Hiểm Lộ Trình 990) -->
                 <div class="p-4 sm:p-5 rounded-3xl border border-amber-200/90 dark:border-slate-700 bg-gradient-to-r from-amber-50/90 via-white to-orange-50/80 dark:from-slate-800/90 dark:to-slate-850 shadow-sm flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                     <div class="w-20 sm:w-24 shrink-0 flex items-center justify-center p-2 rounded-2xl bg-[#f9f1dc] dark:bg-slate-750 border border-amber-300/80 shadow-xs">
-                        <img src="assets/mascot/totoro_trio_stacked.png" alt="3 Chú Totoro Vượt Mốc 990" class="max-h-36 sm:max-h-40 object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                        <img src="assets/mascot/may_explorer.png" alt="Sói Mây Thám Hiểm Lộ Trình 990" class="max-h-36 sm:max-h-40 object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1.5 text-center sm:text-left flex-1 min-w-0">
                         <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
@@ -706,20 +706,20 @@ window.PersonalizedRoadmapEngine = {
                             <span class="text-xs font-bold text-amber-800 dark:text-amber-300">3 Tầng Tiến Trình Chinh Phục ETS 990</span>
                         </div>
                         <h4 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
-                            Bộ 3 Totoro Đồng Hành Vượt 6 Chặng Bản Đồ S-Curve
+                            Hành Trình Sói Mây Vượt 6 Chặng Chinh Phục 990 TOEIC
                         </h4>
                         <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1 leading-relaxed">
                             <div class="flex items-center gap-1.5 justify-center sm:justify-start">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
-                                <span><strong>Totoro Trắng (Chặng 1-2):</strong> Nắm vững mô tả tranh Part 1, câu hỏi ngắn Part 2 và từ loại cốt lõi (0 - 300 - 450+).</span>
+                                <span><strong>Chặng Khởi Động (Chặng 1-2):</strong> Nắm vững mô tả tranh Part 1, câu hỏi ngắn Part 2 và từ loại cốt lõi (0 - 300 - 450+).</span>
                             </div>
                             <div class="flex items-center gap-1.5 justify-center sm:justify-start">
                                 <span class="w-2 h-2 rounded-full bg-indigo-500 shrink-0"></span>
-                                <span><strong>Totoro Xanh (Chặng 3-4):</strong> Bắt keyword hội thoại Part 3-4, kỹ thuật Paraphrasing và đọc hiểu văn bản đơn Part 7 (600 - 750+).</span>
+                                <span><strong>Chặng Tăng Tốc (Chặng 3-4):</strong> Bắt keyword hội thoại Part 3-4, kỹ thuật Paraphrasing và đọc hiểu văn bản đơn Part 7 (600 - 750+).</span>
                             </div>
                             <div class="flex items-center gap-1.5 justify-center sm:justify-start">
                                 <span class="w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
-                                <span><strong>Totoro Xám Lớn (Chặng 5-6):</strong> Xử lý mượt chuỗi đa đoạn văn Part 7, câu hỏi suy luận khó và chạm đỉnh 990 TOEIC!</span>
+                                <span><strong>Chặng Bứt Phá (Chặng 5-6):</strong> Xử lý mượt chuỗi đa đoạn văn Part 7, câu hỏi suy luận khó và chạm đỉnh 990 TOEIC!</span>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 /**
  * =========================================================================
- * FLOATING TAKE NOTE SYSTEM (SỔ GHI CHÚ NỔI TOÀN NĂNG - TOTORO THEME)
+ * FLOATING TAKE NOTE SYSTEM (SỔ GHI CHÚ NỔI TOÀN NĂNG - STUDY STUDIO THEME)
  * =========================================================================
  * - Mở nhanh mọi lúc mọi nơi trên toàn website (khi đang giải Part 5, Part 1, Part 7, Từ vựng,...)
  * - Thay thế nút Gia sư AI bằng nút tròn Sổ Take Note thanh lịch, đa năng

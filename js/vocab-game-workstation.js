@@ -1498,7 +1498,7 @@
                             }).join('')}
                         </div>
                     ` : `
-                        <!-- Trạng thái trống (Totoro Style) -->
+                        <!-- Trạng thái trống (Study Studio Style) -->
                         <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-dashed border-slate-300 dark:border-slate-700 text-center space-y-2">
                             <div class="text-2xl">📚</div>
                             <div class="text-xs font-bold text-slate-700 dark:text-slate-200">
@@ -1571,7 +1571,7 @@
                 { id: 'Công nghệ', icon: '💻', label: 'Công nghệ (Technology)' },
                 { id: 'Du lịch', icon: '✈️', label: 'Du lịch (Travel)' },
                 { id: 'Kinh tế & Doanh nghiệp', icon: '📈', label: 'Kinh tế (Business)' },
-                { id: 'Phim hoạt hình Ghibli', icon: '🌳', label: 'Thế giới Totoro & Ghibli' },
+                { id: 'Thám hiểm & Du lịch', icon: '🧭', label: 'Thám hiểm & Du lịch (Travel & Adventure)' },
                 { id: 'Phỏng vấn xin việc', icon: '💼', label: 'Phỏng vấn (Job Interview)' },
                 { id: 'Giao tiếp đời sống', icon: '☕', label: 'Giao tiếp (Daily Life)' },
                 { id: 'Ẩm thực & Nhà hàng', icon: '🍕', label: 'Ẩm thực (Food & Dining)' },
@@ -1601,7 +1601,7 @@
                     <!-- Gundam Sci-Fi Header Banner -->
                     <div class="rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 text-white border border-cyan-500/30 shadow-2xl flex flex-col sm:flex-row items-center gap-5 relative overflow-hidden">
                         <div class="w-20 sm:w-24 aspect-[219/286] shrink-0 rounded-2xl overflow-hidden border border-cyan-400/40 shadow-lg relative bg-slate-900 flex items-center justify-center">
-                            <img src="assets/mascot/totoro_listening_card.png" alt="Gundam Arena Mascot" class="w-full h-full object-cover filter brightness-105 hover:scale-105 transition-transform duration-300">
+                            <img src="assets/mascot/may_reading.png" alt="Gundam Arena Mascot" class="w-full h-full object-cover filter brightness-105 hover:scale-105 transition-transform duration-300">
                         </div>
                         <div class="space-y-1.5 text-center sm:text-left flex-1 min-w-0">
                             <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">

@@ -2964,7 +2964,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 5c. Endpoint AI Sinh Bộ Từ Vựng Theo Chủ Đề & Mức Độ CEFR (Học Từ Vựng Totoro)
+  // 5c. Endpoint AI Sinh Bộ Từ Vựng Theo Chủ Đề & Mức Độ CEFR (Đấu Trường Từ Vựng Sói Mây)
   if (reqPath === '/api/ai/generate-vocab' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);

@@ -1,9 +1,9 @@
-// Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (V13 Totoro - Tôi Đi Đâu Đó 2026)
-const CACHE_NAME = 'toi-di-dau-do-cache-v13-2026';
+// Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (Study Studio 2026)
+const CACHE_NAME = 'study-studio-cache-v1-2026';
 const ASSETS_TO_CACHE = [
   '/manifest.json?v=toididaudo_v13',
-  '/icon-totoro-192.png',
-  '/icon-totoro-512.png',
+  
+  
   '/icon-192.png',
   '/icon-512.png',
   '/favicon.ico',

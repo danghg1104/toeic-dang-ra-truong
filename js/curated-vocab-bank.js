@@ -1919,13 +1919,13 @@ window.CURATED_FRONTEND_TOPIC_BANK = {
       ]
     }
   },
-  "ghibli": {
-    "name": "Thế giới Totoro & Ghibli (Fantasy & Magic)",
+  "du lịch": {
+    "name": "Thám hiểm & Đời sống (Travel & Lifestyle)",
     "aliases": [
-      "thế giới totoro & ghibli",
-      "the gioi totoro & ghibli",
-      "totoro",
-      "ghibli",
+      "tham hiem & doi song",
+      "tham hiem & doi song",
+      "khám phá",
+      "du lịch",
       "hoạt hình",
       "hoat hinh",
       "anime",
@@ -2119,7 +2119,7 @@ window.CURATED_FRONTEND_TOPIC_BANK = {
         },
         {
           "word": "soft",
-          "meaning": "mềm mại êm ái như bụng Totoro",
+          "meaning": "mềm mại êm ái như bộ lông sói tuyết",
           "phonetic": "/sɑːft/",
           "level": "A1"
         }
@@ -2127,7 +2127,7 @@ window.CURATED_FRONTEND_TOPIC_BANK = {
       "A2": [
         {
           "word": "umbrella",
-          "meaning": "chiếc ô che mưa của Totoro",
+          "meaning": "chiếc khăn quàng ấm áp của Sói Mây",
           "phonetic": "/ʌmˈbrel.ə/",
           "level": "A2"
         },
@@ -2139,7 +2139,7 @@ window.CURATED_FRONTEND_TOPIC_BANK = {
         },
         {
           "word": "acorn",
-          "meaning": "quả sồi thơm nức Totoro thích",
+          "meaning": "bình nước tiếp sức của Sói Mây",
           "phonetic": "/ˈeɪ.kɔːrn/",
           "level": "A2"
         },

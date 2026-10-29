@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bản Xem Trước Bước 1 — Phong Cách Quiet Confidence (Study Studio) | Tôi Đi Đâu Đó</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================================
+       BẢNG MÀU CHUẨN 80 - 15 - 5 & THIẾT LẬP QUIET CONFIDENCE
+       ======================================================== */
+    :root {
+      /* 80% Không gian làm việc trung tính (Neutral Workspace) */
+      --bg-base: #F7F8F5;          /* Xám ấm ngả giấy thi */
+      --surface-card: #FFFFFF;     /* Mặt card trắng tinh khiết */
+      --surface-sub: #F1F3F5;      /* Nền khu vực phụ */
+      --border-light: #E3E7EC;     /* Viền siêu mảnh, trang nhã */
+      --text-primary: #172033;     /* Chữ Slate sâu (WCAG AAA) */
+      --text-secondary: #667085;   /* Chữ phụ giải thích rõ ràng */
+      --text-muted: #98A2B3;       /* Metadata, ngày tháng */
+
+      /* 15% Màu thương hiệu học thuật (Academic Blue) */
+      --brand-blue: #3157D5;       /* Xanh dương tri thức điềm tĩnh */
+      --brand-hover: #2547B8;
+      --brand-tint: #EEF2FF;       /* Highlight nhẹ, badge active */
+
+      /* 5% Điểm nhấn hy vọng & Thành tích (Amber Accent) */
+      --accent-amber: #F2B84B;     /* Điểm nhấn Streak ngọn lửa, XP */
+      --accent-amber-subtle: #FFF6DE;
+
+      /* Màu kỹ năng (Chỉ xuất hiện khi vào đúng trang của kỹ năng đó) */
+      --skill-grammar: #7759C2;
+      --skill-vocab: #D97A40;
+      --skill-listening: #248A8A;
+      --skill-reading: #3E8B62;
+
+      /* Bo góc & Đổ bóng có kiểm soát (Không lạm dụng bóng đổ gắt) */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow-subtle: 0 1px 3px rgba(16, 24, 40, 0.05), 0 1px 2px rgba(16, 24, 40, 0.03);
+      --shadow-card: 0 4px 6px -1px rgba(16, 24, 40, 0.05), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+      --shadow-hover: 0 10px 15px -3px rgba(16, 24, 40, 0.07), 0 4px 6px -4px rgba(16, 24, 40, 0.04);
+    }
+
+    /* Reset chuẩn & TẤT CẢ VĂN BẢN CHO PHÉP BÔI ĐEN TRA TỪ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.55;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-user-select: text;
+      user-select: text; /* ĐÃ SỬA: Cho phép bôi đen toàn trang */
+    }
+
+    /* Chỉ cấm bôi đen trên nút bấm & thanh điều hướng */
+    button, .nav-item, .no-select, .badge {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout Container */
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Desktop Tinh Gọn (4 Nhóm) */
+    .sidebar {
+      width: 260px;
+      background: var(--surface-card);
+      border-right: 1px solid var(--border-light);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      flex-shrink: 0;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px;
+    }
+
+    .brand-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--brand-tint);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .nav-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0 12px;
+      margin-bottom: 6px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.18s ease;
+    }
+
+    .nav-link:hover {
+      background: var(--surface-sub);
+      color: var(--text-primary);
+    }
+
+    .nav-link.active {
+      background: var(--brand-tint);
+      color: var(--brand-blue);
+      font-weight: 600;
+    }
+
+    .nav-icon {
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      padding: 32px 40px;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Top Bar Status */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .top-bar-greeting h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .top-bar-greeting p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .stats-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .stat-pill.streak {
+      background: var(--accent-amber-subtle);
+      border-color: rgba(242, 184, 75, 0.4);
+      color: #9A6700;
+    }
+
+    .stat-pill.xp {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+      color: #166534;
+    }
+
+    /* ========================================================
+       KHỐI 1: HERO CARD - DUY NHẤT 1 CTA CHÍNH (STUDY STUDIO)
+       ======================================================== */
+    .hero-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--brand-tint);
+      color: var(--brand-blue);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 26px;
+      background: var(--brand-blue);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(49, 87, 213, 0.25);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-cta-btn:hover {
+      background: var(--brand-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(49, 87, 213, 0.35);
+    }
+
+    .hero-cta-btn:active {
+      transform: translateY(0);
+    }
+
+    .hero-mascot-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, #F0F4FF 0%, rgba(240, 244, 255, 0.1) 100%);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      height: 200px;
+      position: relative;
+    }
+
+    .hero-mascot-img {
+      max-height: 180px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 16px rgba(16, 24, 40, 0.08));
+    }
+
+    .hero-mascot-tag {
+      position: absolute;
+      bottom: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border-light);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand-blue);
+    }
+
+    /* ========================================================
+       KHỐI 2: TIẾN ĐỘ HÔM NAY (1 HÀNG NGANG PHẲNG)
+       ======================================================== */
+    .today-progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-subtle);
+      font-size: 13px;
+    }
+
+    .progress-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-item-val {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .progress-item-label {
+      color: var(--text-secondary);
+    }
+
+    .progress-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border-light);
+    }
+
+    /* ========================================================
+       KHỐI 3: ĐỀ XUẤT CÁ NHÂN HÓA TỪ MÂY AI
+       ======================================================== */
+    .ai-smart-card {
+      background: #FAFAFC;
+      border: 1px solid #E5E7EB;
+      border-left: 4px solid var(--brand-blue);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .ai-smart-text {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .ai-smart-text strong {
+      color: var(--brand-blue);
+    }
+
+    .ai-smart-btn {
+      padding: 8px 16px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      color: var(--brand-blue);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .ai-smart-btn:hover {
+      background: var(--brand-tint);
+      border-color: var(--brand-blue);
+    }
+
+    /* ========================================================
+       KHỐI 4: CÁC TRẠM HỌC TẬP CHUẨN SINH VIÊN (4 TƯ THẾ MÂY)
+       ======================================================== */
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .station-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .station-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-subtle);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .station-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: #CBD5E1;
+    }
+
+    .station-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .station-img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      background: var(--surface-sub);
+      padding: 4px;
+    }
+
+    .station-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .station-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .station-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .station-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-light);
+      padding-top: 12px;
+    }
+
+    /* ========================================================
+       KHỐI 5: THỬ NGHIỆM BÔI ĐEN VĂN BẢN ĐỂ TRA TỪ ĐIỂN
+       ======================================================== */
+    .reading-lab {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 32px;
+    }
+
+    .reading-lab-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .reading-lab-header h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .reading-lab-instruction {
+      font-size: 12px;
+      color: var(--brand-blue);
+      background: var(--brand-tint);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-weight: 500;
+    }
+
+    .reading-passage {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #2D3748;
+      background: #FDFDFE;
+      border: 1px dashed var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+      cursor: text;
+    }
+
+    .reading-passage::selection {
+      background-color: #BFDBFE;
+      color: #1E3A8A;
+    }
+
+    .tooltip-popup {
+      display: none;
+      position: absolute;
+      background: #1E293B;
+      color: #FFFFFF;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* Verification Checklist Box */
+    .checklist-box {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+
+    .checklist-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .checklist-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 13px;
+      color: #15803D;
+    }
+
+    .checklist-items li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main-content { padding: 20px 16px; }
+      .hero-card { grid-template-columns: 1fr; gap: 20px; }
+      .hero-mascot-wrap { display: none; }
+      .station-grid { grid-template-columns: 1fr; }
+      .checklist-items { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR DESKTOP QUIET CONFIDENCE (GOM 4 NHÓM) -->
+  <aside class="sidebar">
+    <div class="brand-box">
+      <img src="assets/mascot/may_avatar.png" alt="Mascot Mây" class="brand-avatar">
+      <div>
+        <div class="brand-title">Tôi Đi Đâu Đó</div>
+        <div class="brand-subtitle">Lộ trình TOEIC cá nhân</div>
+      </div>
+    </div>
+
+    <!-- Nhóm 1: Hôm nay -->
+    <div>
+      <div class="nav-group-label">Hôm nay</div>
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link active"><span class="nav-icon">🏠</span> Tổng quan</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">🧭</span> Lộ trình của tôi</a></li>
+      </ul>
+    </div>
+
+    <!-- Nhóm 2: Luyện tập -->
+    <div>
+      <div class="nav-group-label">Luyện tập</div>
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link"><span class="nav-icon">🎧</span> Luyện Nghe (Part 1–4)</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">📖</span> Luyện Đọc (Part 5–7)</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">✨</span> Ngữ pháp trọng tâm</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">🗂️</span> Kho Từ vựng (850 từ)</a></li>
+      </ul>
+    </div>
+
+    <!-- Nhóm 3: Kiểm tra -->
+    <div>
+      <div class="nav-group-label">Kiểm tra</div>
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link"><span class="nav-icon">⏱️</span> Thi thử Full Test</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">⚡</span> Bộ bẫy đề kinh điển</a></li>
+      </ul>
+    </div>
+
+    <!-- Nhóm 4: Công cụ hỗ trợ -->
+    <div>
+      <div class="nav-group-label">Công cụ hỗ trợ</div>
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link"><span class="nav-icon">🎙️</span> Trạm Bóc băng Audio</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">✍️</span> Nghe chép chính tả</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">📝</span> Sổ tay Take Note</a></li>
+        <li><a href="#" class="nav-link"><span class="nav-icon">📚</span> Từ điển thông minh</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div class="top-bar-greeting">
+        <h1>Chào buổi tối, Đăng 👋</h1>
+        <p>Mục tiêu 600 TOEIC · Kế hoạch thi ngày 20/12/2026</p>
+      </div>
+      <div class="stats-pills">
+        <div class="stat-pill streak">🔥 7 Ngày liên tiếp</div>
+        <div class="stat-pill xp">⭐ 120 XP</div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST XÁC NHẬN BƯỚC 1 -->
+    <div class="checklist-box">
+      <div class="checklist-title">
+        <span>✅ ĐÃ THỰC HIỆN XONG CÁC HẠNG MỤC BƯỚC 1 (QUIET CONFIDENCE PREVIEW)</span>
+      </div>
+      <ul class="checklist-items">
+        <li>✔ Cho phép bôi đen đoạn văn để tra từ (Đã sửa lỗi cấm chọn chữ).</li>
+        <li>✔ Xóa vĩnh viễn nút cam Take Note nổi (#floatingTakeNoteFab) che màn hình.</li>
+        <li>✔ Thay Totoro bằng bộ 2D Sói Mây (Rio) phong cách học thuật/thám hiểm.</li>
+        <li>✔ Chuẩn hóa typography: Không còn chữ &lt;12px, bỏ font-black gào thét.</li>
+        <li>✔ Áp dụng bảng màu Study Studio 80-15-5 (Nền giấy xám ấm #F7F8F5).</li>
+        <li>✔ Dựng Hero Card 1 CTA chính: "Tiếp tục học ngay (~8 phút)".</li>
+      </ul>
+    </div>
+
+    <!-- KHỐI 1: HERO CARD (TÂM ĐIỂM THỊ GIÁC - DUY NHẤT 1 CTA CHÍNH) -->
+    <div class="hero-card">
+      <div>
+        <div class="hero-badge">BÀI HỌC TIẾP THEO CỦA BẠN</div>
+        <div class="hero-title">Part 5 — Phân biệt Tính từ & Trạng từ trong câu</div>
+        <div class="hero-desc">
+          Mây đã chuẩn bị 12 câu trọng tâm giúp bạn xử lý dứt điểm bẫy đuôi <em>-ive</em> và <em>-ly</em>. Dự kiến chỉ mất khoảng 8 phút làm bài.
+        </div>
+        <button class="hero-cta-btn" onclick="alert('Bắt đầu bài học 8 phút Part 5!')">
+          <span>▶</span>
+          <span>TIẾP TỤC HỌC NGAY (khoảng 8 phút)</span>
+        </button>
+      </div>
+
+      <!-- Mascot Mây Đeo Kính Đọc Sách (Ảnh Trí thức) -->
+      <div class="hero-mascot-wrap">
+        <img src="assets/mascot/may_reading.png" alt="Mây đeo kính đọc sách" class="hero-mascot-img">
+        <span class="hero-mascot-tag">Mây Đồng Hành</span>
+      </div>
+    </div>
+
+    <!-- KHỐI 2: TIẾN ĐỘ HÔM NAY (1 HÀNG NGANG PHẲNG - KHÔNG ĐÓNG THẺ VỤN VẶT) -->
+    <div class="today-progress-bar">
+      <div class="progress-item">
+        <span class="progress-item-val">⏱️ 15 phút</span>
+        <span class="progress-item-label">thời gian học hôm nay</span>
+      </div>
+      <div class="progress-divider"></div>
+      <div class="progress-item">
+        <span class="progress-item-val">🎯 3/5 nhiệm vụ</span>
+        <span class="progress-item-label">đã hoàn thành</span>
+      </div>
+      <div class="progress-divider"></div>
+      <div class="progress-item">
+        <span class="progress-item-val">📈 6/6 câu đúng</span>
+        <span class="progress-item-label">bài nghe Part 1</span>
+      </div>
+      <div class="progress-divider"></div>
+      <div class="progress-item">
+        <span class="progress-item-val">⭐ +40 XP</span>
+        <span class="progress-item-label">tích lũy hôm nay</span>
+      </div>
+    </div>
+
+    <!-- KHỐI 3: ĐỀ XUẤT CÁ NHÂN HÓA TỪ TRỢ LÝ MÂY AI -->
+    <div class="ai-smart-card">
+      <div class="ai-smart-text">
+        💡 <strong>Mây nhận thấy:</strong> Bạn thường nhầm vị trí của trạng từ đứng trước động từ trong 3 bài gần nhất. Luyện nhanh 8 câu ngắn để vá ngay lỗ hổng này nhé.
+      </div>
+      <button class="ai-smart-btn" onclick="alert('Đang mở 8 câu luyện khắc phục điểm yếu...')">
+        Luyện 5 phút vá lỗi
+      </button>
+    </div>
+
+    <!-- KHỐI 4: CÁC TRẠM HỌC TẬP CHUẨN SINH VIÊN (4 TƯ THẾ MÂY KHÔNG CON NÍT) -->
+    <div class="section-title">
+      <span>Trạm Học Tập Chuyên Sâu</span>
+      <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Chọn kỹ năng bạn muốn trau dồi</span>
+    </div>
+
+    <div class="station-grid">
+      <!-- Trạm Luyện Đọc: Mây Đeo Kính Đọc Sách -->
+      <div class="station-card">
+        <div class="station-top">
+          <div>
+            <div class="station-title">Luyện Đọc & Ngữ Pháp</div>
+            <span class="station-tag" style="background: #F3E8FF; color: #7E22CE;">Part 5, 6, 7</span>
+          </div>
+          <img src="assets/mascot/may_reading.png" alt="Mây đọc sách" class="station-img">
+        </div>
+        <div class="station-desc">Giải mã cấu trúc câu, trật tự từ và rèn phản xạ đọc hiểu đoạn văn dài không ngợp.</div>
+        <div class="station-footer">
+          <span>1.250 câu có giải thích</span>
+          <span style="color: var(--brand-blue); font-weight: 600;">Vào học →</span>
+        </div>
+      </div>
+
+      <!-- Trạm Bóc Băng & Nghe: Mây Đeo Tai Nghe Phòng Thu -->
+      <div class="station-card">
+        <div class="station-top">
+          <div>
+            <div class="station-title">Trạm Bóc Băng & Dictation</div>
+            <span class="station-tag" style="background: #CCFBF1; color: #0F766E;">Audio Lab</span>
+          </div>
+          <img src="assets/mascot/may_listening.png" alt="Mây kiểm âm" class="station-img">
+        </div>
+        <div class="station-desc">Bóc tách lời bài nghe thành transcript song ngữ và luyện nghe chép chính tả từng từ.</div>
+        <div class="station-footer">
+          <span>Giọng chuẩn Mỹ, Anh, Úc</span>
+          <span style="color: var(--brand-blue); font-weight: 600;">Khám phá →</span>
+        </div>
+      </div>
+
+      <!-- Trạm Lộ Trình: Mây Thám Hiểm Cầm Bản Đồ -->
+      <div class="station-card">
+        <div class="station-top">
+          <div>
+            <div class="station-title">Bản Đồ Thám Hiểm 0–990</div>
+            <span class="station-tag" style="background: #FEF3C7; color: #B45309;">Lộ trình Tôi Đi Đâu Đó</span>
+          </div>
+          <img src="assets/mascot/may_explorer.png" alt="Mây thám hiểm" class="station-img">
+        </div>
+        <div class="station-desc">Theo dõi tiến trình từng bước tiến gần đến mốc 600 TOEIC ra trường đúng hạn.</div>
+        <div class="station-footer">
+          <span>Chặng 3 / 6</span>
+          <span style="color: var(--brand-blue); font-weight: 600;">Xem bản đồ →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KHỐI 5: THỬ NGHIỆM BÔI ĐEN VĂN BẢN ĐỂ TRA TỪ ĐIỂN (TEST ACCESSIBILITY) -->
+    <div class="reading-lab">
+      <div class="reading-lab-header">
+        <h3>🧪 Thử Nghiệm Tính Năng: Bôi Đen Văn Bản Để Tra Từ Vựng</h3>
+        <span class="reading-lab-instruction">👉 Đăng hãy thử dùng chuột bôi đen các từ dưới đây!</span>
+      </div>
+
+      <div class="reading-passage" id="samplePassage">
+        "The marketing department has confirmed that the upcoming <strong>negotiation</strong> with the overseas distributor will take place on Friday. All team members are requested to review the contractual <strong>obligations</strong> and prepare the updated financial summary to ensure <strong>comprehensive</strong> alignment before the final signing."
+      </div>
+      <div style="margin-top: 10px; font-size: 13px; color: var(--text-secondary);">
+        💡 <em>Đã loại bỏ đoạn CSS <code>* { user-select: none; }</code>. Giờ đây học viên có thể bôi đen bất kỳ từ ngữ nào trong bài đọc để copy hoặc tra từ điển trực tiếp trên màn hình, không còn bị khóa như trước!</em>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
