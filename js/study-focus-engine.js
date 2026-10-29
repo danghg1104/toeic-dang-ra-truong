@@ -93,6 +93,12 @@
                     border-color: rgba(255, 255, 255, 0.08) !important;
                 }
 
+                /* Zen Mode trong Workstations */
+                body.zen-focus-active #toeicReadingWorkstation header,
+                body.zen-focus-active #toeicListeningWorkstation header {
+                    border-bottom-color: rgba(56, 189, 248, 0.2) !important;
+                }
+
                 /* Floating Zen HUD trên cùng */
                 #zenFocusHeader {
                     animation: zenSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -237,7 +243,7 @@
 
             hud = document.createElement('div');
             hud.id = 'zenFocusHeader';
-            hud.className = 'fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-3 px-4 py-2 rounded-2xl bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-xl border border-cyan-500/30 text-white shadow-2xl zen-pulse-glow max-w-2xl w-[92%] sm:w-auto';
+            hud.className = 'fixed top-3 left-1/2 -translate-x-1/2 z-[9999] flex items-center justify-between gap-3 px-4 py-2 rounded-2xl bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-xl border border-cyan-500/30 text-white shadow-2xl zen-pulse-glow max-w-2xl w-[92%] sm:w-auto';
 
             hud.innerHTML = `
                 <!-- Bên trái: Mascot Sói Mây & Tên Trạm Học -->
