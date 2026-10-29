@@ -85,6 +85,8 @@ const MIME_TYPES = {
   '.mp3': 'audio/mpeg',
   '.pdf': 'application/pdf',
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.glb': 'model/gltf-binary',
+  '.gltf': 'model/gltf+json',
   '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 };
 

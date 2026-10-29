@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rio 3D Frost Companion - Tôi Đi Đâu Đó</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/vendor/canvas-confetti.min.js"></script>
+    <script src="js/ui-motion-engine.js?v=20261029_01"></script>
+    <style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        canvas { touch-action: none; outline: none; }
+        .frost-glow {
+            box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.25), 0 0 15px -3px rgba(14, 165, 233, 0.2);
+        }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body class="bg-[#070b14] text-slate-100 min-h-screen flex flex-col items-center justify-center p-3 md:p-6 relative overflow-x-hidden">
+
+    <!-- Atmospheric Glow -->
+    <div class="fixed -top-40 -left-40 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="fixed -top-20 -right-40 w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <main class="max-w-5xl w-full flex flex-col gap-6 relative z-10">
+
+        <!-- Top Navigation -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 backdrop-blur-xl border border-slate-800/90 px-5 py-3.5 rounded-2xl shadow-xl">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-cyan-500/30">
+                    🐾
+                </div>
+                <div>
+                    <div class="text-sm font-extrabold text-white flex items-center gap-2">
+                        Rio 3D: <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-blue-200">Đã Khôi Phục Nét Đẹp Gốc</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 font-bold border border-emerald-500/30">Mượt mà, Sáng nét</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Đã tắt biến dạng code thô • Giữ trọn vẹn bề mặt tròn xoe mịn màng của Rio</div>
+                </div>
+            </div>
+            
+            <a href="http://localhost:3000" class="text-xs px-3.5 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 transition font-medium border border-slate-700">
+                ← Về Web chính
+            </a>
+        </div>
+
+        <!-- 3D Stage & Dashboard -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- 3D Canvas Box (7 Cột) -->
+            <div class="lg:col-span-7 bg-gradient-to-b from-slate-900/95 via-slate-950/95 to-slate-900/95 rounded-3xl border border-cyan-500/30 p-4 md:p-6 shadow-2xl frost-glow relative overflow-hidden flex flex-col justify-between min-h-[480px]">
+                
+                <!-- Loading Overlay -->
+                <div id="loadingOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md z-30 flex flex-col items-center justify-center gap-3">
+                    <div class="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+                    <div class="text-xs font-bold text-cyan-200 tracking-wide">Đang nạp mô hình Rio siêu mịn...</div>
+                </div>
+
+                <!-- Speech Bubble -->
+                <div class="relative z-20 flex justify-between items-start">
+                    <div id="rioSpeechBubble" class="px-4 py-2.5 rounded-2xl bg-slate-900/95 border border-cyan-400/40 text-xs text-cyan-100 shadow-xl max-w-sm transition-all duration-300">
+                        <span class="font-bold text-cyan-300">Rio:</span> <span id="rioSpeechText">"Phù! May quá, trở lại làm chú sói tuyết đáng yêu rồi! Huỳnh Đăng nhìn mình có đẹp trai chưa nè? 🐾"</span>
+                    </div>
+
+                    <span class="text-[11px] px-3 py-1 rounded-full bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 font-bold shrink-0 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Smooth Shading
+                    </span>
+                </div>
+
+                <!-- Three.js Canvas Container -->
+                <div id="threeContainer" class="w-full h-[360px] md:h-[400px] relative z-10 cursor-grab active:cursor-grabbing"></div>
+
+                <!-- Interactive Hints -->
+                <div class="relative z-20 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/80 pt-3">
+                    <span class="flex items-center gap-1.5 text-cyan-300 font-medium">
+                        <i class="fa-solid fa-sparkles text-xs"></i> Xoay 360° mượt mà • Nghiêng đầu theo chuột • Lơ lửng nhịp thở tự nhiên
+                    </span>
+                    <button onclick="triggerRioHappy()" class="px-3 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 font-bold border border-cyan-500/40 transition">
+                        🎉 Chạm vào Rio
+                    </button>
+                </div>
+            </div>
+
+            <!-- Phân tích & Giải pháp (5 Cột) -->
+            <div class="lg:col-span-5 flex flex-col justify-between gap-4">
+                
+                <!-- Giải thích kỹ thuật tại sao nãy bị dị -->
+                <div class="bg-slate-900/90 rounded-3xl border border-slate-800 p-5 space-y-3.5 shadow-xl text-xs">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs uppercase tracking-wider text-amber-400 font-extrabold flex items-center gap-1.5">
+                            💡 Bài học đồ họa 3D
+                        </span>
+                        <span class="text-[11px] text-slate-400">Bones vs Vertex</span>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-white">Tại sao cử động bằng code vừa nãy lại bị "dị"?</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Một mô hình 3D giống như bức tượng đất sét liền khối. Khi dùng code kéo các đỉnh (vertex) mà <strong>không có khung xương (Skeleton Rigging)</strong>, các phần thịt sẽ bị kéo dãn kỳ dị như sáp nến chảy!
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        Để tay vẫy mượt như phim Pixar, mô hình cần được <strong>gắn xương tự động</strong> (mất đúng 30 giây trên công cụ miễn phí Mixamo của Adobe).
+                    </p>
+                </div>
+
+                <!-- Hướng dẫn 30s với Mixamo -->
+                <div class="bg-slate-900/90 rounded-3xl border border-slate-800 p-5 space-y-3 shadow-xl text-xs">
+                    <div class="font-bold text-white flex items-center justify-between">
+                        <span>🚀 Cách làm animation Hollywood (30s Free):</span>
+                        <span class="text-cyan-400 font-bold">Mixamo.com</span>
+                    </div>
+
+                    <ol class="space-y-1.5 text-slate-300 list-decimal list-inside leading-relaxed">
+                        <li>Vào <a href="https://www.mixamo.com" target="_blank" class="text-cyan-400 underline font-semibold">mixamo.com</a> (miễn phí của Adobe).</li>
+                        <li>Kéo thả file <code>sample.glb</code> vào.</li>
+                        <li>Chấm 5 điểm: Cằm, 2 Cổ tay, 2 Đầu gối.</li>
+                        <li>Chọn điệu nhảy hoặc vẫy tay (Wave/Idle Cute) $\rightarrow$ Tải về!</li>
+                    </ol>
+
+                    <div class="pt-2 border-t border-slate-800/80 flex gap-2">
+                        <button onclick="triggerRioHappy()" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold transition text-center shadow-lg shadow-cyan-500/20">
+                            ✨ Rio nhảy bật lên
+                        </button>
+                        <button onclick="resetCamera()" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition text-center">
+                            🔄 Đặt lại góc nhìn
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Three.js Clean Pipeline Script (No vertex deformation) -->
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
+
+        let scene, camera, renderer, controls, rioModel;
+        let clock = new THREE.Clock();
+
+        let mouse = { x: 0, y: 0 };
+        let targetRotation = { x: 0, y: 0 };
+        let isJumping = false;
+        let jumpVelocity = 0;
+        let jumpBaseY = 0;
+        let snowParticles = null;
+
+        const container = document.getElementById('threeContainer');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const speechText = document.getElementById('rioSpeechText');
+
+        const speeches = [
+            "Phù! May quá, trở lại làm chú sói tuyết đáng yêu rồi! Huỳnh Đăng nhìn mình có đẹp trai chưa nè? 🐾",
+            "Mỗi ngày một bài tập nhỏ, bằng TOEIC 600 điểm là chuyện nhỏ với Rio và Đăng! ❄️",
+            "Mình đứng vững vàng lơ lửng bồng bềnh, sẵn sàng cùng bạn vào học ngay! ✨",
+            "Cố lên bạn ơi! Chinh phục mục tiêu là một hành trình cực kỳ đáng nhớ! 🎯"
+        ];
+        let speechIdx = 0;
+
+        function init() {
+            // 1. Scene
+            scene = new THREE.Scene();
+
+            // 2. Camera
+            camera = new THREE.PerspectiveCamera(36, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 0.5, 2.7);
+
+            // 3. Renderer with ACES Filmic Tone Mapping
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.45;
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            // 4. OrbitControls
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxDistance = 5;
+            controls.minDistance = 1.2;
+            controls.target.set(0, 0.42, 0);
+
+            // 5. Studio Multi-point Lighting
+            const ambient = new THREE.AmbientLight(0xffffff, 1.25);
+            scene.add(ambient);
+
+            const key = new THREE.DirectionalLight(0xfffaed, 2.4);
+            key.position.set(2, 4, 3);
+            scene.add(key);
+
+            const fill = new THREE.DirectionalLight(0x38bdf8, 1.8);
+            fill.position.set(-3, 2, 2);
+            scene.add(fill);
+
+            const rim = new THREE.DirectionalLight(0x0ea5e9, 2.2);
+            rim.position.set(0, 3, -3);
+            scene.add(rim);
+
+            // 6. Snow Particle System
+            createSnowflakes();
+
+            // 7. Load Model & Setup Smooth Normals (KHÔNG BỊ MÉO DỊ)
+            const loader = new GLTFLoader();
+            loader.load('assets/mascot/mascot_3d.glb', function(gltf) {
+                rioModel = gltf.scene;
+
+                rioModel.traverse(function(child) {
+                    if (child.isMesh && child.geometry) {
+                        try {
+                            let geom = child.geometry;
+                            if (BufferGeometryUtils && BufferGeometryUtils.mergeVertices) {
+                                geom = BufferGeometryUtils.mergeVertices(geom, 1e-4);
+                            }
+                            geom.deleteAttribute('normal');
+                            geom.computeVertexNormals();
+                            child.geometry = geom;
+                        } catch (e) {
+                            console.warn(e);
+                        }
+
+                        if (child.material) {
+                            child.material.flatShading = false;
+                            child.material.roughness = 0.72;
+                            child.material.metalness = 0.05;
+                            child.material.needsUpdate = true;
+                        }
+                    }
+                });
+
+                // Căn chỉnh tâm đứng
+                const box = new THREE.Box3().setFromObject(rioModel);
+                const center = box.getCenter(new THREE.Vector3());
+                rioModel.position.sub(center);
+                rioModel.position.y += (box.max.y - box.min.y) / 2;
+                jumpBaseY = rioModel.position.y;
+
+                scene.add(rioModel);
+                loadingOverlay.classList.add('hidden');
+            }, undefined, function(err) {
+                console.error(err);
+                loadingOverlay.innerHTML = '<span class="text-rose-400 text-xs">Lỗi nạp mô hình 3D!</span>';
+            });
+
+            // 8. Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            container.addEventListener('mousemove', onMouseMove);
+            container.addEventListener('click', triggerRioHappy);
+
+            animate();
+        }
+
+        function createSnowflakes() {
+            const count = 120;
+            const geom = new THREE.BufferGeometry();
+            const pos = new Float32Array(count * 3);
+            const vels = new Float32Array(count * 3);
+            for (let i = 0; i < count * 3; i += 3) {
+                pos[i] = (Math.random() - 0.5) * 4;
+                pos[i + 1] = Math.random() * 3 - 0.5;
+                pos[i + 2] = (Math.random() - 0.5) * 3;
+                vels[i + 1] = -(0.003 + Math.random() * 0.005);
+            }
+            geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geom.userData = { vels: vels };
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 32; canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+            g.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            g.addColorStop(0.5, 'rgba(56, 189, 248, 0.8)');
+            g.addColorStop(1, 'rgba(14, 165, 233, 0)');
+            ctx.fillStyle = g;
+            ctx.beginPath(); ctx.arc(16, 16, 16, 0, Math.PI * 2); ctx.fill();
+
+            const mat = new THREE.PointsMaterial({
+                size: 0.05,
+                map: new THREE.CanvasTexture(canvas),
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            snowParticles = new THREE.Points(geom, mat);
+            scene.add(snowParticles);
+        }
+
+        function onMouseMove(e) {
+            const rect = container.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+            mouse.x = x;
+            mouse.y = y;
+            targetRotation.y = x * 0.45;
+            targetRotation.x = -y * 0.22;
+        }
+
+        function onWindowResize() {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        // ================= SMOOTH RIGID ANIMATION LOOP =================
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const t = clock.getElapsedTime();
+
+            if (rioModel) {
+                // 1. NHỊP THỞ LƠ LỬNG BỒNG BỀNH (Smooth floating, không kéo méo da thịt)
+                if (!isJumping) {
+                    rioModel.position.y = jumpBaseY + Math.sin(t * 2.2) * 0.035;
+                }
+
+                // 2. XOAY ĐẦU & THÂN DÕI THEO CHUỘT
+                rioModel.rotation.y += (targetRotation.y - rioModel.rotation.y) * 0.08;
+                rioModel.rotation.x += (targetRotation.x - rioModel.rotation.x) * 0.08;
+
+                // 3. VẬT LÝ NHẢY BẬT LÊN KHI CLICK
+                if (isJumping) {
+                    rioModel.position.y += jumpVelocity;
+                    jumpVelocity -= 0.012;
+                    rioModel.rotation.y += 0.15;
+
+                    if (rioModel.position.y <= jumpBaseY) {
+                        rioModel.position.y = jumpBaseY;
+                        isJumping = false;
+                        jumpVelocity = 0;
+                    }
+                }
+            }
+
+            // 4. BÔNG TUYẾT RƠI
+            if (snowParticles) {
+                const p = snowParticles.geometry.attributes.position.array;
+                const v = snowParticles.geometry.userData.vels;
+                for (let i = 0; i < p.length; i += 3) {
+                    p[i + 1] += v[i + 1];
+                    p[i] += Math.sin(t + i) * 0.001;
+                    if (p[i + 1] < -0.6) p[i + 1] = 2.2;
+                }
+                snowParticles.geometry.attributes.position.needsUpdate = true;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // ================= CONTROLS =================
+        window.triggerRioHappy = function() {
+            if (!rioModel || isJumping) return;
+            isJumping = true;
+            jumpVelocity = 0.13;
+
+            if (window.UIMotion && window.UIMotion.sound) {
+                window.UIMotion.sound.success();
+            }
+
+            speechIdx++;
+            speechText.innerText = speeches[speechIdx % speeches.length];
+
+            if (window.UIMotion && window.UIMotion.confetti) {
+                window.UIMotion.confetti.burstFromElement(container);
+            }
+        };
+
+        window.resetCamera = function() {
+            camera.position.set(0, 0.5, 2.7);
+            controls.target.set(0, 0.42, 0);
+            controls.update();
+        };
+
+        // Init
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thử Nghiệm Linh Vật 2.5D Sống Động - Tôi Đi Đâu Đó</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/vendor/canvas-confetti.min.js"></script>
+    <script src="js/ui-motion-engine.js?v=20261029_01"></script>
+    <style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        
+        /* Hiệu ứng nhịp thở sống động */
+        @keyframes idleBreathe {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.015); }
+        }
+        .anim-breathe {
+            animation: idleBreathe 3.6s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        /* Chớp mắt tự nhiên */
+        @keyframes eyeBlink {
+            0%, 94%, 100% { transform: scaleY(1); }
+            96% { transform: scaleY(0.08); }
+        }
+        .anim-eyelid {
+            transform-origin: 50% 55%;
+            animation: eyeBlink 3.8s ease-in-out infinite;
+        }
+
+        /* Nhún nhảy khi click */
+        @keyframes happyBounce {
+            0% { transform: scale(0.92) translateY(5px); }
+            45% { transform: scale(1.08) translateY(-14px); }
+            75% { transform: scale(0.97) translateY(2px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+        .anim-bounce {
+            animation: happyBounce 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Hiệu ứng tai ve vẩy */
+        @keyframes earWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        .anim-ear-wiggle:hover {
+            animation: earWiggle 350ms ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 md:p-8 relative overflow-x-hidden">
+
+    <!-- Ambient Lighting Backdrop -->
+    <div class="fixed -top-40 -right-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed -bottom-40 -left-40 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <main class="max-w-4xl w-full flex flex-col gap-6 relative z-10">
+
+        <!-- Top Status Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 px-5 py-3.5 rounded-2xl shadow-xl">
+            <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs md:text-sm font-bold text-white">Phòng Thử Nghiệm Linh Vật 2.5D (Cách 2)</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-semibold border border-indigo-500/30">100% Ảnh Gốc Thiên Thần</span>
+            </div>
+            <a href="http://localhost:3000" class="text-xs px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition font-medium">
+                ← Về Web chính
+            </a>
+        </div>
+
+        <!-- ================= HERO PREVIEW SECTION ================= -->
+        <!-- Đây là mô phỏng CHÍNH XÁC vị trí chú sói 2.5D nhô đầu tương tác trên Hero Card của Đăng -->
+        <div class="relative pt-24 md:pt-28">
+
+            <!-- MASCOT 2.5D INTERACTIVE CONTAINER -->
+            <!-- Vị trí: Nhô đầu từ sau mép Hero Card, mắt dõi theo con trỏ chuột -->
+            <div id="mascotWrapper" class="absolute -top-6 md:-top-8 right-6 md:right-16 z-20 flex flex-col items-center select-none cursor-pointer group" onclick="pokeMascot()">
+                
+                <!-- Speech Bubble xuất hiện khi bấm vào sói -->
+                <div id="speechBubble" class="mb-2 px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs font-bold shadow-xl border border-indigo-200 dark:border-slate-700 max-w-[240px] text-center transform -translate-y-2 opacity-0 pointer-events-none transition-all duration-300">
+                    <span id="speechText">Chào Huỳnh Đăng! Hôm nay cùng mình giải quyết Part 5 nhé! ✨</span>
+                    <div class="w-2.5 h-2.5 bg-white dark:bg-slate-800 border-r border-b border-indigo-200 dark:border-slate-700 transform rotate-45 mx-auto -mb-3.5 mt-1"></div>
+                </div>
+
+                <!-- 2.5D Parallax Head (Nghiêng theo chuột) -->
+                <div id="mascotHead" class="relative w-36 h-36 md:w-44 md:h-44 anim-breathe anim-ear-wiggle transition-transform duration-100 ease-out">
+                    <!-- Ảnh gốc độ phân giải cao của Đăng (Cắt tròn phần đầu peeking) -->
+                    <img id="mascotImg" src="assets/mascot/mascot_peeking.png" alt="Lumi Mascot" 
+                        class="w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.35)]">
+                    
+                    <!-- Lớp phủ chớp mắt tự nhiên (Eyelid overlay) -->
+                    <div class="absolute inset-0 pointer-events-none anim-eyelid opacity-90">
+                        <!-- Vùng mắt trái -->
+                        <div class="absolute top-[48%] left-[32%] w-5 h-5 bg-[#ffffff] rounded-full scale-y-0 transition-transform"></div>
+                    </div>
+                </div>
+
+                <div class="text-[10px] text-slate-400 group-hover:text-amber-400 transition font-semibold mt-1">
+                    👆 Click để chào sói!
+                </div>
+            </div>
+
+            <!-- THE REDESIGNED HERO CARD (GIAI ĐOẠN 1) -->
+            <div id="heroCard" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 p-6 md:p-8 shadow-2xl transition-transform duration-200 ease-out">
+                
+                <!-- Background Accent Glow -->
+                <div class="absolute -top-24 -left-24 w-72 h-72 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-lg space-y-4">
+                    <!-- Target Score Badge -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold">
+                        <span>🎯 Mục tiêu 600 TOEIC</span>
+                        <span class="text-slate-500">•</span>
+                        <span>Còn 52 ngày (Thi: 20/12/2026)</span>
+                    </div>
+
+                    <!-- Greeting & Next Goal -->
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                            Chào buổi tối, <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-sky-200 to-indigo-100">Huỳnh Đăng</span> 👋
+                        </h2>
+                        <p class="text-xs md:text-sm text-slate-300 mt-1 leading-relaxed">
+                            Hôm nay bạn còn <span class="text-amber-400 font-bold">17 phút</span> để hoàn thành mục tiêu. Lộ trình gợi ý bài tập tiếp theo:
+                        </p>
+                    </div>
+
+                    <!-- Recommended Lesson Box -->
+                    <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                                    Ngữ pháp Part 5
+                                </span>
+                                <span class="text-xs text-slate-400">12 câu hỏi · ~8 phút</span>
+                            </div>
+                            <div class="text-sm font-bold text-white mt-1">
+                                Nhận diện Tính từ (-ive, -al) & Trạng từ hay gặp
+                            </div>
+                            <div class="text-xs text-emerald-400 mt-0.5 flex items-center gap-1">
+                                <i class="fa-solid fa-bolt text-[10px]"></i> Củng cố bẫy đề Đăng hay nhầm
+                            </div>
+                        </div>
+
+                        <!-- 1 CTA CHÍNH NỔI BẬT -->
+                        <button onclick="simulateStartLesson()" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.03] active:scale-[0.98] transition flex items-center justify-center gap-2 shrink-0 cursor-pointer">
+                            <span>▶ Tiếp tục học</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bento Stat Strip (Gọn gàng, sạch sẽ, màu trung tính) -->
+                <div class="mt-8 pt-5 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                    <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/70">
+                        <div class="text-xs text-slate-400">Chuỗi Streak</div>
+                        <div class="text-base md:text-lg font-black text-amber-400 flex items-center justify-center gap-1.5 mt-0.5">
+                            <span class="motion-flame-active">🔥</span> 7 ngày
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/70">
+                        <div class="text-xs text-slate-400">Từ vựng đã lưu</div>
+                        <div class="text-base md:text-lg font-black text-orange-400 mt-0.5">10 từ mới</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/70">
+                        <div class="text-xs text-slate-400">Thời gian học</div>
+                        <div class="text-base md:text-lg font-black text-teal-400 mt-0.5">13 / 30 phút</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/70">
+                        <div class="text-xs text-slate-400">Độ chính xác</div>
+                        <div class="text-base md:text-lg font-black text-emerald-400 mt-0.5">87.5% (7/8 câu)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Explanation Card -->
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+            <div class="space-y-1">
+                <div class="font-bold text-white text-sm flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span> Điểm vượt trội của Giải pháp 2.5D:
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                    • <strong>Giữ trọn 100% vẻ đẹp thiên thần</strong> của nét vẽ gốc (không méo mặt, không mất răng khểnh hay lông tơ).<br>
+                    • <strong>Tương tác theo chuột:</strong> Rê chuột quanh màn hình, chú sói sẽ nghiêng đầu nhìn theo góc di chuột của Đăng.<br>
+                    • <strong>Tải trang 0.01s:</strong> Dung lượng chỉ bằng 1/10 so với 3D, siêu mượt và không tốn pin điện thoại!
+                </p>
+            </div>
+            <button onclick="pokeMascot()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold border border-slate-700 shrink-0 transition">
+                🎉 Thử bấm vào chú sói
+            </button>
+        </div>
+
+    </main>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+        const mascotWrapper = document.getElementById('mascotWrapper');
+        const mascotHead = document.getElementById('mascotHead');
+        const speechBubble = document.getElementById('speechBubble');
+        const speechText = document.getElementById('speechText');
+        const heroCard = document.getElementById('heroCard');
+
+        const speeches = [
+            "Chào Huỳnh Đăng! Cùng mình hoàn thành 17 phút hôm nay nhé! 🐾",
+            "Đăng làm rất tốt! Chuỗi 7 ngày liên tiếp rồi đó! 🔥",
+            "Part 5 hôm nay có mẹo nhận diện đuôi -ive siêu hay, bấm vào học ngay nào!",
+            "Tớ luôn ở đây đồng hành cùng Đăng luyện thi TOEIC mỗi ngày! ✨"
+        ];
+        let speechIndex = 0;
+        let speechTimer = null;
+
+        // 1. TƯƠNG TÁC THEO CHUỘT (2.5D MOUSE TRACKING)
+        document.addEventListener('mousemove', (e) => {
+            const rect = mascotHead.getBoundingClientRect();
+            const mascotCenterX = rect.left + rect.width / 2;
+            const mascotCenterY = rect.top + rect.height / 2;
+
+            // Tính góc lệch giữa con trỏ chuột và chú sói
+            const deltaX = (e.clientX - mascotCenterX) / (window.innerWidth / 2);
+            const deltaY = (e.clientY - mascotCenterY) / (window.innerHeight / 2);
+
+            // Giới hạn góc nghiêng nhẹ nhàng tinh tế (tối đa ±12 độ)
+            const rotateY = Math.max(Math.min(deltaX * 14, 14), -14);
+            const rotateX = Math.max(Math.min(-deltaY * 10, 10), -10);
+
+            mascotHead.style.transform = `perspective(600px) rotateY(${rotateY.toFixed(1)}deg) rotateX(${rotateX.toFixed(1)}deg)`;
+
+            // Card bên dưới cũng nghiêng nhẹ 3D theo chuột
+            const cardRect = heroCard.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            const cardDeltaX = (e.clientX - cardCenterX) / (window.innerWidth / 2);
+            const cardDeltaY = (e.clientY - cardCenterY) / (window.innerHeight / 2);
+            heroCard.style.transform = `perspective(1000px) rotateY(${(cardDeltaX * 1.5).toFixed(1)}deg) rotateX(${(-cardDeltaY * 1.5).toFixed(1)}deg)`;
+        });
+
+        // 2. KHI CLICK VÀO CHÚ SÓI (POKE & BOUNCE)
+        function pokeMascot() {
+            // Nhún nhảy
+            mascotHead.classList.remove('anim-bounce');
+            void mascotHead.offsetWidth; // Force reflow
+            mascotHead.classList.add('anim-bounce');
+
+            // Âm thanh xúc giác
+            if (window.UIMotion && window.UIMotion.sound) {
+                window.UIMotion.sound.pop();
+            }
+
+            // Hiện bong bóng thoại
+            speechText.innerText = speeches[speechIndex % speeches.length];
+            speechIndex++;
+            speechBubble.classList.remove('opacity-0', '-translate-y-2');
+            speechBubble.classList.add('opacity-100', 'translate-y-0');
+
+            if (speechTimer) clearTimeout(speechTimer);
+            speechTimer = setTimeout(() => {
+                speechBubble.classList.remove('opacity-100', 'translate-y-0');
+                speechBubble.classList.add('opacity-0', '-translate-y-2');
+            }, 3200);
+
+            // Pháo hoa mini
+            if (window.UIMotion && window.UIMotion.confetti) {
+                window.UIMotion.confetti.burstFromElement(mascotHead);
+            }
+        }
+
+        // 3. KHI BẤM NÚT "TIẾP TỤC HỌC"
+        function simulateStartLesson() {
+            if (window.UIMotion && window.UIMotion.sound) {
+                window.UIMotion.sound.success();
+            }
+            if (window.UIMotion && window.UIMotion.confetti) {
+                window.UIMotion.confetti.fire();
+            }
+            pokeMascot();
+        }
+    </script>
+</body>
+</html>

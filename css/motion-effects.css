@@ -1,0 +1,144 @@
+/**
+ * Tôi Đi Đâu Đó - Motion & Micro-interactions Design System
+ * Chạy trên luồng GPU Composite, siêu nhẹ, không giật lag trên mobile
+ * Hỗ trợ tự động prefers-reduced-motion theo chuẩn Accessibility (A11y)
+ */
+
+:root {
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --motion-duration-fast: 160ms;
+    --motion-duration-base: 240ms;
+    --motion-duration-slow: 400ms;
+}
+
+/* 1. NÚT BẤM CÓ ĐỘ ĐÀN HỒI (Button Elasticity & Press Feedback) */
+.motion-btn {
+    transition: transform var(--motion-duration-fast) var(--ease-spring),
+                box-shadow var(--motion-duration-fast) var(--ease-spring),
+                background-color var(--motion-duration-fast) var(--ease-smooth);
+    will-change: transform;
+}
+.motion-btn:hover {
+    transform: translateY(-1.5px);
+}
+.motion-btn:active {
+    transform: scale(0.96) translateY(0);
+}
+
+/* 2. CARD NỔI VẬT LÝ (Subtle Card Lift) */
+.motion-card {
+    transition: transform var(--motion-duration-base) var(--ease-spring),
+                box-shadow var(--motion-duration-base) var(--ease-spring),
+                border-color var(--motion-duration-base) var(--ease-smooth);
+    will-change: transform, box-shadow;
+}
+.motion-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
+}
+
+/* 3. HIỆU ỨNG XUẤT HIỆN TỪNG BƯỚC (Staggered Fade Up) */
+@keyframes motionFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.motion-fade-up {
+    animation: motionFadeUp var(--motion-duration-slow) var(--ease-spring) both;
+}
+.stagger-1 { animation-delay: 40ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 120ms; }
+.stagger-4 { animation-delay: 160ms; }
+.stagger-5 { animation-delay: 200ms; }
+
+/* 4. ÁNH SÁNG SHIMMER LƯỚT QUA THANH TIẾN ĐỘ */
+@keyframes motionShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+.motion-progress-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+.motion-progress-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    animation: motionShimmer 2.2s infinite ease-in-out;
+    pointer-events-none;
+}
+
+/* 5. NGỌN LỬA STREAK CHÁY BẬP BÙNG NHẸ */
+@keyframes motionFlameGaze {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
+    }
+    50% {
+        transform: scale(1.08) rotate(-2deg);
+        filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
+    }
+}
+.motion-flame-active {
+    display: inline-block;
+    animation: motionFlameGaze 1.8s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+/* 6. HIỆU ỨNG NHỊP THỞ LINH VẬT (Mascot Gentle Idle Breathing) */
+@keyframes motionBreathe {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.015); }
+}
+.motion-mascot-idle {
+    animation: motionBreathe 3.2s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+/* 7. PHẢN HỒI LẮC NHẸ KHI CHỌN SAI CÂU HỎI (Subtle Shake) */
+@keyframes motionErrorShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
+}
+.motion-shake {
+    animation: motionErrorShake 300ms var(--ease-spring);
+}
+
+/* 8. HIỆU ỨNG BẬP BÙNG KHI TRẢ LỜI ĐÚNG (Success Bounce) */
+@keyframes motionSuccessPop {
+    0% { transform: scale(0.92); opacity: 0.8; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+.motion-pop {
+    animation: motionSuccessPop 320ms var(--ease-bounce);
+}
+
+/* 9. BẢO VỆ NGƯỜI DÙNG NHẠY CẢM CHUYỂN ĐỘNG (Accessibility First) */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .motion-progress-shimmer::after {
+        display: none !important;
+    }
+    .motion-flame-active, .motion-mascot-idle {
+        animation: none !important;
+    }
+}
