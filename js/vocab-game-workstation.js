@@ -1,13 +1,13 @@
 // ======================================================================================
-// GUNDAM VOCABULARY ARENA WORKSTATION & CEFR SCANNER (CÙNG ĐĂNG RA TRƯỜNG)
+// VOCABULARY STUDIO & SPEED REFLEX WORKSTATION (STUDY STUDIO 2026)
 // ======================================================================================
-// - Mobile Suit Gundam Mecha Launcher (Cử động xoay nòng ngắm mượt & Bắn chùm Beam Laser)
+// - Sói Mây Focus Companion (Cử động xoay theo từ rơi & Tia phản xạ tri thức)
 // - Khung thẻ từ rơi cỡ trung (Medium compact & balanced HUD frame)
 // - Tự động đồng bộ từ vựng vào "Sổ tay từ vựng" (savedVocabItems & localStorage)
 // - Mỗi lượt học là 1 lượt từ mới, tích hợp nút Reset bộ từ
 // - Tính năng Upload File từ vựng (Scan 3,000+ từ, tự động phân loại CEFR A1 - C2)
 // - Tính năng Tự điền từ của mình vào (Custom Manual Input & Auto CEFR Tagger)
-// - Đấu trường Game Arena mở rộng to, rộng rãi, chuẩn không gian vũ trụ Gundam
+// - Studio luyện phản xạ chính tả & tốc độ gõ chuẩn EdTech 2026
 // ======================================================================================
 
 (function(window) {
@@ -500,7 +500,7 @@
             }
         }
 
-        // Gundam Sci-Fi Beam Rifle Laser Shot Sound
+        // Focus Study Reflex Chime (Web Audio API - C6/E6 Harmonic Chime)
         playShootSound() {
             if (!this.soundEnabled) return;
             try {
@@ -508,21 +508,28 @@
                 if (!this.audioCtx) return;
                 const now = this.audioCtx.currentTime;
 
-                // High-tech laser sweep oscillator
-                const osc = this.audioCtx.createOscillator();
+                const osc1 = this.audioCtx.createOscillator();
+                const osc2 = this.audioCtx.createOscillator();
                 const gain = this.audioCtx.createGain();
 
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(980, now);
-                osc.frequency.exponentialRampToValueAtTime(160, now + 0.12);
+                osc1.type = 'sine';
+                osc2.type = 'sine';
+                osc1.frequency.setValueAtTime(523.25, now);
+                osc1.frequency.exponentialRampToValueAtTime(1046.5, now + 0.1);
+                osc2.frequency.setValueAtTime(659.25, now);
+                osc2.frequency.exponentialRampToValueAtTime(1318.5, now + 0.1);
 
-                gain.gain.setValueAtTime(0.22, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
 
-                osc.connect(gain);
+                osc1.connect(gain);
+                osc2.connect(gain);
                 gain.connect(this.audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.12);
+
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + 0.32);
+                osc2.stop(now + 0.32);
             } catch(e) {}
         }
 
@@ -3263,7 +3270,7 @@ resilience - khả năng phục hồi`;
         }
 
         // =========================================================================
-        // VIEW 3: GAME ARENA (ĐẤU TRƯỜNG VŨ TRỤ GUNDAM RỘNG RÃI & KHUNG CỠ TRUNG)
+        // VIEW 3: GAME ARENA (STUDIO LUYỆN PHẢN XẠ TỪ VỰNG TỐC ĐỘ)
         // =========================================================================
         buildGameArenaHTML() {
             return `
@@ -3308,19 +3315,18 @@ resilience - khả năng phục hồi`;
                         class="w-full h-[640px] md:h-[680px] rounded-3xl relative overflow-hidden shadow-2xl select-none"
                         style="background: radial-gradient(circle at 50% 25%, #0f172a 0%, #090d16 55%, #020408 100%);">
                         
-                        <!-- Gundam Space Battlefield HUD Lines & Stars -->
-                        <div class="absolute inset-0 pointer-events-none opacity-35">
-                            <!-- Background Stars -->
+                        <!-- Focus Studio Background HUD & Ambient Stars -->
+                        <div class="absolute inset-0 pointer-events-none opacity-40">
+                            <!-- Background Subtle Stars -->
                             <div class="absolute w-1.5 h-1.5 rounded-full bg-cyan-300 blur-[0.5px] animate-pulse" style="top: 15%; left: 12%;"></div>
                             <div class="absolute w-2 h-2 rounded-full bg-blue-400 blur-[1px] animate-pulse" style="top: 35%; left: 85%; animation-delay: 1.2s;"></div>
                             <div class="absolute w-1.5 h-1.5 rounded-full bg-amber-200 blur-[0.5px] animate-pulse" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
                             <div class="absolute w-1 h-1 rounded-full bg-cyan-200 blur-[0.5px] animate-pulse" style="top: 25%; left: 70%; animation-delay: 0.7s;"></div>
-                            <div class="absolute w-2 h-2 rounded-full bg-indigo-300 blur-[1px] animate-pulse" style="top: 80%; left: 75%; animation-delay: 1.6s;"></div>
                             
-                            <!-- Targeting Crosshair Grid in corners -->
-                            <div class="absolute top-4 left-4 text-cyan-500/40 font-mono text-[10px]">TARGET ACQUISITION: ACTIVE</div>
-                            <div class="absolute top-4 right-4 text-cyan-500/40 font-mono text-[10px]">RADAR LOCK: STANDBY</div>
-                            <div class="absolute bottom-4 left-4 text-cyan-500/30 font-mono text-[10px]">MOBILE SUIT: RX-78 BEAM ARMED</div>
+                            <!-- Focus Studio HUD Indicator -->
+                            <div class="absolute top-4 left-4 text-cyan-400/60 font-mono text-[10px] tracking-wider">FOCUS STUDIO: SPEED SPELLING</div>
+                            <div class="absolute top-4 right-4 text-cyan-400/60 font-mono text-[10px] tracking-wider">CEFR ANALYZER: ACTIVE</div>
+                            <div class="absolute bottom-4 left-4 text-amber-400/50 font-mono text-[10px] tracking-wider">STUDY COMPANION: SÓI MÂY</div>
                         </div>
 
                                                 <!-- Falling Word Card (Ô CHỮ RƠI BỰ VỪA ĐỦ - BALANCED MEDIUM) -->
@@ -3361,136 +3367,29 @@ resilience - khả năng phục hồi`;
                         <!-- Particle Canvas for Beam Laser & Sparks -->
                         <canvas id="vgParticleCanvas" class="absolute inset-0 pointer-events-none z-25"></canvas>
 
-                        <!-- Bottom Launcher: GUNDAM MOBILE SUIT RX-78 MECHA (ẢNH 1 & ẢNH 3) -->
-                        <div class="absolute bottom-4 left-0 right-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                        <!-- Bottom Focus Companion: SÓI MÂY STUDY STUDIO COMPANION -->
+                        <div class="absolute bottom-3 left-0 right-0 flex flex-col items-center justify-center z-20 pointer-events-none">
                             
-                            <!-- Gundam Mecha Turret (Cử động xoay nòng ngắm mượt & nhấp nhô lơ lửng) -->
-                            <div id="vgGundamWrapper" class="relative flex flex-col items-center justify-center pointer-events-none mb-1">
+                            <!-- Studio Companion Platform (Cử động xoay theo vị trí chữ rơi & thở nhẹ) -->
+                            <div id="vgGundamWrapper" class="relative flex flex-col items-center justify-center pointer-events-none mb-2">
                                 <div id="vgGundamLauncher" 
-                                    class="relative flex flex-col items-center justify-center pointer-events-none"
-                                    style="width: 140px; height: 155px; transform-origin: 50% 88%; will-change: transform;">
+                                    class="relative flex flex-col items-center justify-center pointer-events-none transition-transform duration-150"
+                                    style="width: 130px; height: 130px; transform-origin: 50% 85%; will-change: transform;">
                                     
-                                    <svg viewBox="0 0 140 160" class="w-full h-full drop-shadow-[0_10px_25px_rgba(56,189,248,0.5)]">
-                                        <defs>
-                                            <linearGradient id="vFinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                <stop offset="0%" stop-color="#fef08a" />
-                                                <stop offset="60%" stop-color="#f59e0b" />
-                                                <stop offset="100%" stop-color="#b45309" />
-                                            </linearGradient>
-                                            <linearGradient id="chestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                                <stop offset="0%" stop-color="#2563eb" />
-                                                <stop offset="60%" stop-color="#1d4ed8" />
-                                                <stop offset="100%" stop-color="#0f172a" />
-                                            </linearGradient>
-                                            <linearGradient id="rifleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" stop-color="#64748b" />
-                                                <stop offset="50%" stop-color="#334155" />
-                                                <stop offset="100%" stop-color="#1e293b" />
-                                            </linearGradient>
-                                            <linearGradient id="thrusterPlasma" x1="0%" y1="0%" x2="0%" y2="100%">
-                                                <stop offset="0%" stop-color="#ffffff" />
-                                                <stop offset="25%" stop-color="#38bdf8" />
-                                                <stop offset="80%" stop-color="#1d4ed8" />
-                                                <stop offset="100%" stop-color="transparent" />
-                                            </linearGradient>
-                                            <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
-                                                <feGaussianBlur stdDeviation="3" result="blur" />
-                                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                                            </filter>
-                                        </defs>
-
-                                        <!-- 1. BACKPACK THRUSTERS & PLASMA FLAMES -->
-                                        <!-- Left Thruster Pod -->
-                                        <polygon points="32,95 24,105 24,120 36,115 36,98" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
-                                        <polygon points="25,120 29,138 34,120" fill="url(#thrusterPlasma)" class="gundam-thruster" />
-
-                                        <!-- Right Thruster Pod -->
-                                        <polygon points="108,95 116,105 116,120 104,115 104,98" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
-                                        <polygon points="106,120 111,138 115,120" fill="url(#thrusterPlasma)" class="gundam-thruster" />
-
-                                        <!-- 2. BEAM RIFLE (Vươn cao sẵn sàng ngắm bắn) -->
-                                        <g id="gundamBeamRifle">
-                                            <!-- Long Rifle Barrel -->
-                                            <rect x="92" y="10" width="7" height="66" rx="2" fill="url(#rifleGrad)" stroke="#0f172a" stroke-width="1.2" />
-                                            <!-- Muzzle Suppressor Tip -->
-                                            <rect x="90" y="6" width="11" height="8" rx="2" fill="#0f172a" />
-                                            <!-- Glowing Plasma Muzzle Tip -->
-                                            <ellipse id="gundamMuzzle" cx="95.5" cy="6" rx="5" ry="3.5" fill="#38bdf8" filter="url(#cyanGlow)" />
-                                            <!-- Scope Optical Lens -->
-                                            <rect x="88" y="30" width="5" height="14" rx="1.5" fill="#1e293b" />
-                                            <circle cx="90.5" cy="37" r="2" fill="#38bdf8" />
-                                            <!-- Rifle Body / Grip Mount -->
-                                            <polygon points="86,58 102,58 100,82 88,80" fill="#334155" stroke="#0f172a" stroke-width="1.2" />
-                                            <rect x="95" y="80" width="5" height="15" rx="1" fill="#1e293b" />
-                                        </g>
-
-                                        <!-- 3. SHOULDERS (PAULDRONS) -->
-                                        <!-- Left Shoulder -->
-                                        <polygon points="46,65 18,72 14,92 42,88 46,75" fill="#f8fafc" stroke="#334155" stroke-width="1.8" />
-                                        <polygon points="20,74 16,84 26,82" fill="#ef4444" />
-                                        <!-- Right Shoulder -->
-                                        <polygon points="94,65 122,72 126,92 98,88 94,75" fill="#f8fafc" stroke="#334155" stroke-width="1.8" />
-                                        <polygon points="120,74 124,84 114,82" fill="#ef4444" />
-
-                                        <!-- 4. TORSO & CHEST ARMOR -->
-                                        <polygon points="46,70 94,70 86,108 54,108" fill="url(#chestGrad)" stroke="#1e293b" stroke-width="2" />
-                                        <!-- Yellow Chest Intake Vents -->
-                                        <polygon points="50,75 62,75 60,86 52,86" fill="#fbbf24" stroke="#b45309" stroke-width="1.2" />
-                                        <line x1="51" y1="80" x2="61" y2="80" stroke="#78350f" stroke-width="1" />
-                                        <polygon points="78,75 90,75 88,86 80,86" fill="#fbbf24" stroke="#b45309" stroke-width="1.2" />
-                                        <line x1="79" y1="80" x2="89" y2="80" stroke="#78350f" stroke-width="1" />
-                                        <!-- Red Center Cockpit Armor -->
-                                        <polygon points="65,78 75,78 74,96 66,96" fill="#dc2626" stroke="#991b1b" stroke-width="1.2" />
-                                        <polygon points="63,96 77,96 75,108 65,108" fill="#ef4444" />
-
-                                        <!-- 5. ARMS -->
-                                        <!-- Left Forearm -->
-                                        <rect x="24" y="88" width="16" height="26" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1.5" />
-                                        <!-- Right Forearm holding rifle -->
-                                        <rect x="100" y="86" width="16" height="25" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1.5" />
-
-                                        <!-- 6. GUNDAM HEAD & HELMET -->
-                                        <!-- Collar & Neck -->
-                                        <polygon points="56,66 84,66 80,72 60,72" fill="#f8fafc" stroke="#334155" stroke-width="1.5" />
-                                        
-                                        <!-- Face Mask Base (White) -->
-                                        <polygon points="54,38 86,38 88,58 78,66 62,66 52,58" fill="#f8fafc" stroke="#334155" stroke-width="1.8" />
-                                        <!-- Cheek Guards Armor -->
-                                        <polygon points="53,44 60,44 60,60 52,56" fill="#e2e8f0" stroke="#475569" stroke-width="1.2" />
-                                        <polygon points="87,44 80,44 80,60 88,56" fill="#e2e8f0" stroke="#475569" stroke-width="1.2" />
-                                        
-                                        <!-- Glowing Cyan Optical Sensors (Eyes Visor) -->
-                                        <polygon points="61,48 68,48 67,52 62,52" fill="#38bdf8" filter="url(#cyanGlow)" />
-                                        <polygon points="72,48 79,48 78,52 73,52" fill="#38bdf8" filter="url(#cyanGlow)" />
-                                        
-                                        <!-- Nose Bridge & Mouth Plate -->
-                                        <polygon points="67,46 73,46 72,56 68,56" fill="#cbd5e1" />
-                                        <line x1="68" y1="57" x2="72" y2="57" stroke="#475569" stroke-width="1" />
-                                        <line x1="68" y1="59" x2="72" y2="59" stroke="#475569" stroke-width="1" />
-                                        
-                                        <!-- Red Chin Guard -->
-                                        <polygon points="66,61 74,61 73,67 67,67" fill="#ef4444" stroke="#b91c1c" stroke-width="1" />
-
-                                        <!-- Forehead Main Camera Sensor (Red) -->
-                                        <polygon points="66,32 74,32 73,38 67,38" fill="#ef4444" stroke="#991b1b" stroke-width="1" />
-
-                                        <!-- 7. ICONIC V-FIN ANTENNA (Gold / Yellow Samurai Crest) -->
-                                        <g id="gundamVFin">
-                                            <!-- Left Wing of V-fin -->
-                                            <polygon points="68,36 34,16 46,28 66,38" fill="url(#vFinGrad)" stroke="#b45309" stroke-width="1.5" />
-                                            <!-- Right Wing of V-fin -->
-                                            <polygon points="72,36 106,16 94,28 74,38" fill="url(#vFinGrad)" stroke="#b45309" stroke-width="1.5" />
-                                            <!-- Secondary Smaller Antenna -->
-                                            <polygon points="68,37 54,26 60,33 67,38" fill="#f59e0b" />
-                                            <polygon points="72,37 86,26 80,33 73,38" fill="#f59e0b" />
-                                            <!-- Central Diamond Jewel Crest (Red) -->
-                                            <polygon points="70,30 75,36 70,42 65,36" fill="#dc2626" stroke="#991b1b" stroke-width="1.2" />
-                                        </g>
-
-                                        <!-- 8. WAIST / HIP MOUNT -->
-                                        <polygon points="56,108 84,108 80,122 60,122" fill="#f8fafc" stroke="#334155" stroke-width="1.8" />
-                                        <rect x="67" y="110" width="6" height="10" rx="1.5" fill="#ef4444" />
-                                    </svg>
+                                    <!-- Halo Ambient Glow -->
+                                    <div class="absolute inset-0 rounded-full bg-gradient-to-t from-blue-500/20 via-cyan-400/10 to-transparent blur-md"></div>
+                                    
+                                    <!-- Sói Mây Focus Mascot Avatar -->
+                                    <div class="relative w-24 h-24 rounded-2xl bg-slate-900/85 border-2 border-cyan-400/60 p-1.5 shadow-[0_0_25px_rgba(56,189,248,0.35)] flex items-center justify-center overflow-hidden">
+                                        <img src="assets/mascot/may_reading.png" alt="Sói Mây Studio" class="w-full h-full object-contain filter drop-shadow">
+                                        <div class="absolute bottom-0 inset-x-0 h-4 bg-gradient-to-t from-slate-950 to-transparent"></div>
+                                    </div>
+                                    
+                                    <!-- Focus Indicator Quill Tip -->
+                                    <div class="mt-1 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900/90 border border-cyan-500/50 shadow-sm">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                                        <span class="text-[10px] font-extrabold text-cyan-300 uppercase tracking-wider font-mono">SÓI MÂY</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3507,7 +3406,7 @@ resilience - khả năng phục hồi`;
 
                             <div class="text-[10px] font-bold text-slate-400 mt-1 flex items-center gap-1.5">
                                 <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                                <span>Gõ trực tiếp chữ cái trên bàn phím • [Space/Tab] để nghe lại âm chuẩn</span>
+                                <span>Gõ trực tiếp chữ cái trên bàn phím (A-Z) • Phím [Space/Tab] để nghe lại phát âm</span>
                             </div>
                         </div>
                     </div>
@@ -3590,7 +3489,7 @@ resilience - khả năng phục hồi`;
                         }
                     }
 
-                    // Gundam xoay ngắm mượt mà theo vị trí thẻ từ rơi
+                    // Sói Mây xoay mượt mà theo vị trí thẻ từ rơi
                     this.updateGunTracking();
                 }
 
@@ -3613,7 +3512,7 @@ resilience - khả năng phục hồi`;
         }
 
         // =========================================================================
-        // GUNDAM XOAY NÒNG NGẮM MƯỢT MÀ THEO VỊ TRÍ THẺ TỪ (ẢNH 1 & ẢNH 3)
+        // SÓI MÂY XOAY THEO VỊ TRÍ THẺ TỪ RƠI
         // =========================================================================
         updateGunTracking() {
             const card = document.getElementById('vgFallingCard');
@@ -3672,7 +3571,7 @@ resilience - khả năng phục hồi`;
                     shadow: '0 8px 32px rgba(217, 70, 239, 0.45)',
                     glow: '#d946ef'
                 },
-                // Theme 3: Không gian Xanh Lơ Gundam HUD
+                // Theme 3: Không gian Deep Slate Focus Studio
                 {
                     bg: 'rgba(10, 25, 40, 0.92)',
                     border: '2px dashed #06b6d4',
@@ -3885,7 +3784,7 @@ resilience - khả năng phục hồi`;
             const cardRect = card.getBoundingClientRect();
 
             const angleRad = (this.gundamAngle || 0) * (Math.PI / 180);
-            const barrelLen = 78; // Chiều dài nòng Beam Rifle
+            const barrelLen = 50; // Khoảng cách từ Sói Mây
             const startX = (rect.width / 2) + Math.sin(angleRad) * barrelLen;
             const startY = (rect.height - 75) - Math.cos(angleRad) * barrelLen;
 
@@ -3894,7 +3793,7 @@ resilience - khả năng phục hồi`;
 
             this.triggerGundamRecoil();
 
-            // Chớp sáng đầu nòng súng Beam Rifle
+            // Chớp sáng hạt năng lượng tri thức
             for (let m = 0; m < 8; m++) {
                 this.particles.push({
                     x: startX + (Math.random() - 0.5) * 10,
@@ -3908,7 +3807,7 @@ resilience - khả năng phục hồi`;
                 });
             }
 
-            // Viên đạn xanh Beam Laser bay vào ô chữ
+            // Luồng sáng phản xạ bay vào ô chữ
             this.projectiles.push({
                 x: startX,
                 y: startY,
@@ -4062,7 +3961,7 @@ resilience - khả năng phục hồi`;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 1. Vẽ Viên Đạn Xanh Beam Laser từ Gundam
+            // 1. Vẽ Luồng Sáng Phản Xạ từ Sói Mây
             for (let i = this.projectiles.length - 1; i >= 0; i--) {
                 const p = this.projectiles[i];
                 p.prevX = p.x + (p.targetX - p.x) * p.progress;

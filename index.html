@@ -1367,7 +1367,7 @@
                             <div>
                                 <div class="flex items-center gap-2">
                                     <span class="px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 text-xs font-extrabold">PASSTOEIC.VN CURRICULUM</span>
-                                    <span class="text-xs font-bold text-amber-700">✨ Học TOEIC Tích Phước Bớt Nghiệp</span>
+                                    <span class="text-xs font-bold text-amber-700">✨ Chiến thuật nhận diện 5 giây & xử lý bẫy Part 5-6</span>
                                 </div>
                                 <h2 class="text-[18px] font-extrabold text-slate-900 dark:text-white mt-0.5">Ngữ pháp PassToeic — Sửa lỗi yếu ngữ pháp qua Micro-Quiz</h2>
                                 <p class="text-[12px] text-slate-600 dark:text-slate-300">Chuyên sâu Part 5 & Part 6: nhận diện cấu trúc trong 5 giây không cần dịch cả câu, gom nhóm lỗi sai kinh điển.</p>
@@ -5650,30 +5650,26 @@
     </div>
 
     <!-- MOBILE BOTTOM NAVIGATION BAR (Thanh điều hướng cố định dưới đáy màn hình Điện thoại) -->
-    <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200/80 dark:border-slate-800 px-2 pt-1.5 safe-bottom-nav grid grid-cols-6 gap-1 shadow-[0_-4px_20px_rgba(15,23,42,0.08)]">
-        <button onclick="switchTab('hom-nay')" id="mob-nav-hom-nay" class="mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-blue-600 font-extrabold transition">
-            <i class="fa-solid fa-house text-[15px]"></i>
-            <span class="text-xs mt-0.5">Hôm nay</span>
+    <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200/80 dark:border-slate-800 px-3 py-1.5 safe-bottom-nav grid grid-cols-5 gap-1 shadow-[0_-4px_20px_rgba(15,23,42,0.08)]">
+        <button onclick="switchTab('hom-nay')" id="mob-nav-hom-nay" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-bold transition active:scale-95" title="Hôm nay">
+            <i class="fa-solid fa-house text-base"></i>
+            <span class="text-[11px] font-bold mt-0.5">Hôm nay</span>
         </button>
-        <button onclick="switchTab('ngu-phap')" id="mob-nav-ngu-phap" class="mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-semibold transition">
-            <i class="fa-solid fa-book-open text-[15px]"></i>
-            <span class="text-xs mt-0.5">Ngữ pháp</span>
+        <button onclick="switchTab('lo-trinh')" id="mob-nav-lo-trinh" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Lộ trình">
+            <i class="fa-solid fa-route text-base"></i>
+            <span class="text-[11px] font-semibold mt-0.5">Lộ trình</span>
         </button>
-        <button onclick="switchTab('tu-vung')" id="mob-nav-tu-vung" class="mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-semibold transition">
-            <i class="fa-solid fa-spell-check text-[15px]"></i>
-            <span class="text-xs mt-0.5">Từ vựng</span>
+        <button onclick="switchTab('ngu-phap')" id="mob-nav-luyen-tap" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Luyện tập">
+            <i class="fa-solid fa-graduation-cap text-base"></i>
+            <span class="text-[11px] font-semibold mt-0.5">Luyện tập</span>
         </button>
-        <button onclick="switchTab('nghe-chinh-ta')" id="mob-nav-nghe-chinh-ta" class="mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-semibold transition">
-            <i class="fa-solid fa-keyboard text-[15px]"></i>
-            <span class="text-xs mt-0.5">Chính tả</span>
+        <button onclick="switchTab('thi-thu')" id="mob-nav-thi-thu" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Đề thi">
+            <i class="fa-solid fa-file-signature text-base"></i>
+            <span class="text-[11px] font-semibold mt-0.5">Đề thi</span>
         </button>
-        <button onclick="switchTab('take-note')" id="mob-nav-take-note" class="mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-semibold transition">
-            <i class="fa-solid fa-book-bookmark text-[15px]"></i>
-            <span class="text-xs mt-0.5">Sổ Note</span>
-        </button>
-        <button onclick="toggleMobileSidebar()" id="mob-nav-more" class="mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-semibold transition">
-            <i class="fa-solid fa-Grip-lines fa-bars text-[15px]"></i>
-            <span class="text-xs mt-0.5">Tất cả</span>
+        <button onclick="switchTab('tai-khoan')" id="mob-nav-tai-khoan" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Cá nhân">
+            <i class="fa-solid fa-circle-user text-base"></i>
+            <span class="text-[11px] font-semibold mt-0.5">Cá nhân</span>
         </button>
     </nav>
 
@@ -6011,13 +6007,20 @@
                 if (typeof initBocBangSettingsGlobalUI === 'function') initBocBangSettingsGlobalUI();
             }
 
-            // Đồng bộ trạng thái sáng đèn trên Thanh điều hướng đáy Điện thoại (Mobile Bottom Nav)
+            // Đồng bộ trạng thái sáng đèn trên Thanh điều hướng đáy Điện thoại (Mobile Bottom Nav 5 Tabs)
             document.querySelectorAll('.mob-nav-item').forEach(btn => {
-                btn.className = 'mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-semibold transition';
+                btn.className = 'mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95';
             });
-            const activeMobBtn = document.getElementById(`mob-nav-${tabId}`) || document.getElementById('mob-nav-more');
+            let targetMobId = 'mob-nav-hom-nay';
+            if (tabId === 'hom-nay') targetMobId = 'mob-nav-hom-nay';
+            else if (tabId === 'lo-trinh') targetMobId = 'mob-nav-lo-trinh';
+            else if (tabId === 'thi-thu' || tabId === 'bay-de-thi') targetMobId = 'mob-nav-thi-thu';
+            else if (tabId === 'tai-khoan' || tabId === 'cai-dat') targetMobId = 'mob-nav-tai-khoan';
+            else targetMobId = 'mob-nav-luyen-tap';
+
+            const activeMobBtn = document.getElementById(targetMobId);
             if (activeMobBtn) {
-                activeMobBtn.className = 'mob-nav-item flex flex-col items-center justify-center py-1 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-extrabold transition';
+                activeMobBtn.className = 'mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-bold transition active:scale-95';
             }
 
             // Update sidebar companion card text & Image 4 cat mascot pose
@@ -10650,7 +10653,7 @@
                                 </div>
                             </div>
 
-                            <!-- 2 NÚT HỌC TRỰC TIẾP: 1 LÀ FLASHCARD, 2 LÀ BẮN SÚNG GUNDAM -->
+                            <!-- 2 NÚT HỌC TRỰC TIẾP: 1 LÀ FLASHCARD, 2 LÀ LUYỆN PHẢN XẠ -->
                             <div class="flex items-center gap-2 w-full sm:w-auto">
                                 <button type="button" onclick="startSavedVocabStudy('${grp.groupKey}', 'flashcard')"
                                     class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95">
@@ -10661,7 +10664,7 @@
                                 <button type="button" onclick="startSavedVocabStudy('${grp.groupKey}', 'arena')"
                                     class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:opacity-95 text-slate-950 font-black text-xs transition flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95">
                                     <i class="fa-solid fa-gamepad text-xs"></i>
-                                    <span>🚀 Bắn súng Gundam (${count})</span>
+                                    <span>⚡ Luyện phản xạ (${count})</span>
                                 </button>
                             </div>
                         </div>

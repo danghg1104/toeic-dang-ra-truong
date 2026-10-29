@@ -1339,7 +1339,7 @@
                     <div class="mt-2.5 p-3 rounded-2xl ${scorePercent >= 80 ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800' : 'bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800'}">
                         <div class="flex items-center justify-between gap-2 mb-1.5 text-xs font-extrabold">
                             <span class="${scorePercent >= 80 ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">
-                                ${scorePercent >= 80 ? '🎉 Xuất sắc!' : '💪 Cố lên!'} Độ chính xác: ${scorePercent}% (${correctCount}/${total} từ)
+                                ${scorePercent >= 80 ? '🎉 Xuất sắc!' : '🎯 Tiếp tục rèn luyện!'} Độ chính xác: ${scorePercent}% (${correctCount}/${total} từ)
                             </span>
                             <button onclick="ToeicBocBangStation.instance.loopSegment(${segIndex})" class="text-[11px] text-teal-600 dark:text-teal-400 hover:underline">
                                 <i class="fa-solid fa-repeat"></i> Nghe lại câu này
@@ -1970,7 +1970,7 @@
                                     <div class="mt-2.5 p-3 rounded-2xl ${dictScore.percent >= 80 ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800' : 'bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800'}">
                                         <div class="flex items-center justify-between gap-2 mb-1.5 text-xs font-extrabold">
                                             <span class="${dictScore.percent >= 80 ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">
-                                                ${dictScore.percent >= 80 ? '🎉 Xuất sắc!' : '💪 Cố lên!'} Độ chính xác: ${dictScore.percent}% (${dictScore.score}/${dictScore.total} từ)
+                                                ${dictScore.percent >= 80 ? '🎉 Xuất sắc!' : '🎯 Tiếp tục rèn luyện!'} Độ chính xác: ${dictScore.percent}% (${dictScore.score}/${dictScore.total} từ)
                                             </span>
                                             <button onclick="ToeicBocBangStation.instance.loopSegment(${idx})" class="text-[11px] text-teal-600 dark:text-teal-400 hover:underline">
                                                 <i class="fa-solid fa-repeat"></i> Nghe lại
