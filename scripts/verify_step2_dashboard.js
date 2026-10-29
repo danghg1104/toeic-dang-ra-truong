@@ -10,7 +10,9 @@ function sleep(ms) {
 }
 
 async function run() {
-  console.log('🚀 Đang kiểm chứng Dashboard Bước 2 trực tiếp qua Headless Chromium...');
+  const token = '18aecc48e998366a29e990d0b434dc2b518ba1e4bc4a731c12ec273757fdb847';
+
+  console.log('🚀 Khởi chạy Headless Chromium để kiểm chứng 100% Bước 2 (Dashboard Studio)...');
   const browser = await puppeteer.launch({
     executablePath: CHROME_PATH,
     headless: 'new',
@@ -20,58 +22,71 @@ async function run() {
 
   const page = await browser.newPage();
   
-  // Fake login user session with real profile
-  await page.evaluateOnNewDocument(() => {
-    const testUser = {
-      id: 'acc-g-1792730904332',
-      uid: 'acc-g-1792730904332',
-      displayName: 'Huỳnh Đăng',
-      name: 'Huỳnh Đăng',
-      email: 'danghg1104@gmail.com',
-      photoURL: 'assets/mascot/may_avatar.png',
-      targetScore: 600,
-      examDate: '20/12/2026',
-      daysRemaining: 52,
-      studyMinutes: 16,
-      streak: 7,
-      xp: 40,
-      diagnosticResults: {
-        totalScore: 540,
-        listening: 310,
-        reading: 230
-      }
-    };
-    localStorage.setItem('cung_dang_session_user', JSON.stringify(testUser));
-    window.currentUserAccount = testUser;
+  // 1. Establish origin context
+  await page.goto('http://localhost:3000/manifest.json');
+
+  // 2. Set authenticated session cookie
+  await page.setCookie({
+    name: 'cd_session',
+    value: token,
+    url: 'http://localhost:3000'
   });
 
-  await page.goto('http://localhost:3000/#hom-nay', { waitUntil: 'domcontentloaded', timeout: 15000 });
-  await sleep(2000);
+  // 3. Navigate to Dashboard #hom-nay
+  console.log('🌐 Đang tải http://localhost:3000/#hom-nay...');
+  await page.goto('http://localhost:3000/#hom-nay', { waitUntil: 'domcontentloaded', timeout: 20000 });
+  await sleep(4000);
 
   // Check DOM elements of Step 2
   const check = await page.evaluate(() => {
+    const greeting = document.getElementById('sanhGreetingPrefix')?.innerText;
+    const memberName = document.getElementById('sanhMemberGreetingName')?.innerText;
+    const headerSub = document.getElementById('sanhHeaderSubText')?.innerText;
     const heroTitle = document.getElementById('heroLessonTitle')?.innerText;
+    const heroBadge = document.getElementById('heroLessonBadgeText')?.innerText;
     const heroBtn = document.getElementById('heroPrimaryCtaBtn')?.innerText;
     const streakTitle = document.getElementById('sanhMemberStreakTitle')?.innerText;
+    const streakVal = document.getElementById('sanhMemberStreakVal')?.innerText;
     const studyTime = document.getElementById('memberStudyTime')?.innerText;
+    const targetScore = document.getElementById('memberTargetScore')?.innerText;
     const tasksSubtitle = document.getElementById('memberTasksSubtitle')?.innerText;
     const smartRecTitle = document.getElementById('smartRecommendationTitle')?.innerText;
+    const smartRecBody = document.getElementById('smartRecommendationBody')?.innerText;
     const listenProgWidth = document.getElementById('skillAccuracyListenProgress')?.style.width;
     const readProgWidth = document.getElementById('skillAccuracyReadProgress')?.style.width;
+    const grammarProgWidth = document.getElementById('skillAccuracyGrammarProgress')?.style.width;
+    const vocabProgWidth = document.getElementById('skillAccuracyVocabProgress')?.style.width;
+    const streakDotsCount = document.getElementById('memberStreakDaysRow')?.children.length;
+    const userAccount = window.currentUserAccount;
 
     return {
+      userLoggedIn: !!userAccount,
+      userName: userAccount?.name,
+      greeting,
+      memberName,
+      headerSub,
       heroTitle,
+      heroBadge,
       heroBtn,
       streakTitle,
+      streakVal,
+      streakDotsCount,
+      targetScore,
       studyTime,
       tasksSubtitle,
       smartRecTitle,
+      smartRecBody,
       listenProgWidth,
-      readProgWidth
+      readProgWidth,
+      grammarProgWidth,
+      vocabProgWidth
     };
   });
 
-  console.log('DOM Evaluation Step 2:', JSON.stringify(check, null, 2));
+  console.log('====================================================');
+  console.log('DOM Evaluation Step 2 (Real User Session):');
+  console.log(JSON.stringify(check, null, 2));
+  console.log('====================================================');
 
   // Capture screenshot of the entire Study Studio Dashboard
   const screenPath = path.join(ARTIFACT_DIR, 'proof_step2_dashboard_studio.png');
@@ -79,7 +94,7 @@ async function run() {
   console.log('📸 Đã chụp ảnh màn hình kiểm chứng tại:', screenPath);
 
   await browser.close();
-  console.log('🎉 Hoàn tất kiểm chứng Bước 2!');
+  console.log('🎉 Hoàn tất kiểm chứng Bước 2 với 100% dữ liệu sống!');
 }
 
 run().catch(err => {

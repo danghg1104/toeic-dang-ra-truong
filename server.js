@@ -136,7 +136,18 @@ function createSession(userId, maxAgeMs = 30 * 24 * 3600 * 1000) {
 function getSession(token) {
   if (!token) return null;
   const sessions = loadSessionsDatabase();
-  const session = sessions[token];
+  let session = sessions[token];
+  if (!session) {
+    try {
+      if (fs.existsSync(SESSIONS_FILE)) {
+        const fileData = JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8'));
+        if (fileData && fileData[token]) {
+          memorySessions[token] = fileData[token];
+          session = fileData[token];
+        }
+      }
+    } catch (e) {}
+  }
   if (!session) return null;
   if (session.expiresAt && session.expiresAt < Date.now()) {
     deleteSession(token);

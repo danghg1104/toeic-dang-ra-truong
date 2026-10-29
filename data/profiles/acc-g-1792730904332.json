@@ -1,6 +1,6 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793290117788,
+  "lastUpdated": 1793293897288,
   "targetScore": "600",
   "examDate": "20/12/2026",
   "state": {
@@ -10,14 +10,14 @@
     "grammarDone": 2,
     "readDone": 0,
     "listenDone": 6,
-    "studyMinutes": 17,
+    "studyMinutes": 18,
     "totalAnswers": 8,
     "correctAnswers": 7,
     "listenTotalAnswers": 6,
     "listenCorrectAnswers": 6,
     "vocabTotalAnswers": 0,
     "vocabCorrectAnswers": 0,
-    "streak": 7
+    "streak": 8
   },
   "activityDates": [
     "2026-10-23",
@@ -26,7 +26,8 @@
     "2026-10-26",
     "2026-10-27",
     "2026-10-28",
-    "2026-10-29"
+    "2026-10-29",
+    "2026-10-30"
   ],
   "learnedVocabItems": [],
   "savedVocabItems": [
@@ -171,7 +172,7 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 7,
+    "streak": 8,
     "todayStudied": true,
     "yesterdayStudied": true,
     "weekDays": [
@@ -196,14 +197,14 @@
       {
         "label": "T5",
         "dateStr": "2026-10-29",
-        "isToday": true,
+        "isToday": false,
         "active": true
       },
       {
         "label": "T6",
         "dateStr": "2026-10-30",
-        "isToday": false,
-        "active": false
+        "isToday": true,
+        "active": true
       },
       {
         "label": "T7",
@@ -218,7 +219,7 @@
         "active": false
       }
     ],
-    "lastActivityDate": "2026-10-29"
+    "lastActivityDate": "2026-10-30"
   },
   "lastSourceDevice": "Thiết bị",
   "lastDeviceId": "unknown",
