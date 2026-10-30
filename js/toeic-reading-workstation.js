@@ -195,6 +195,79 @@
             document.body.style.overflow = 'hidden';
 
             this.render();
+            if (this.part !== 5) {
+                this.switchMobileTab('passage');
+            }
+        }
+
+        switchMobileTab(targetTab = 'passage') {
+            this.activeMobileTab = targetTab;
+            const tabPassage = document.getElementById('trwMobileTabPassage');
+            const tabQuestions = document.getElementById('trwMobileTabQuestions');
+            const leftCol = this.dom.leftCol || document.getElementById('trwLeftCol');
+            const rightCol = this.dom.rightCol || document.getElementById('trwRightCol');
+
+            if (window.innerWidth < 1024) {
+                if (targetTab === 'passage') {
+                    if (leftCol) leftCol.style.display = 'flex';
+                    if (rightCol) rightCol.style.display = 'none';
+                    if (tabPassage) {
+                        tabPassage.className = 'flex-1 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer';
+                    }
+                    if (tabQuestions) {
+                        tabQuestions.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer';
+                    }
+                } else {
+                    if (leftCol) leftCol.style.display = 'none';
+                    if (rightCol) rightCol.style.display = 'flex';
+                    if (tabQuestions) {
+                        tabQuestions.className = 'flex-1 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer';
+                    }
+                    if (tabPassage) {
+                        tabPassage.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer';
+                    }
+                }
+            } else {
+                if (leftCol) leftCol.style.display = 'flex';
+                if (rightCol) rightCol.style.display = 'flex';
+            }
+            if ('vibrate' in navigator) navigator.vibrate(12);
+        }
+
+        initMobileThumbGestures() {
+            if (this._touchGesturesInitialized) return;
+            this._touchGesturesInitialized = true;
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            const modal = this.dom.modal || document.getElementById('toeicReadingWorkstation');
+            if (!modal) return;
+
+            modal.addEventListener('touchstart', (e) => {
+                if (e.touches && e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            modal.addEventListener('touchend', (e) => {
+                if (!e.changedTouches || e.changedTouches.length !== 1 || window.innerWidth >= 1024) return;
+                const diffX = e.changedTouches[0].clientX - touchStartX;
+                const diffY = e.changedTouches[0].clientY - touchStartY;
+
+                if (Math.abs(diffX) > 65 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+                    if (this.part !== 5) {
+                        if (diffX < 0 && this.activeMobileTab === 'passage') {
+                            this.switchMobileTab('questions');
+                            if (window.SoiMayCompanion) window.SoiMayCompanion.playChime('pop');
+                        } else if (diffX > 0 && this.activeMobileTab === 'questions') {
+                            this.switchMobileTab('passage');
+                            if (window.SoiMayCompanion) window.SoiMayCompanion.playChime('pop');
+                        }
+                    }
+                }
+            }, { passive: true });
         }
 
         async loadItems() {

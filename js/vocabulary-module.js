@@ -1780,25 +1780,44 @@
                 }
             }, { passive: true });
 
-            flipper.addEventListener('touchend', () => {
+            let lastTapTime = 0;
+
+            flipper.addEventListener('touchend', (e) => {
                 if (!isDragging) return;
                 isDragging = false;
                 flipper.style.transition = 'transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1)';
 
                 const baseRot = this.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                const now = Date.now();
 
-                if (currentDx > 75) {
+                // 1. Double Tap Detection (Chạm đúp lật mặt thẻ 3D + Phát âm)
+                if (Math.abs(currentDx) < 10) {
+                    if (now - lastTapTime < 280) {
+                        this.flipCard();
+                        if ('vibrate' in navigator) navigator.vibrate(15);
+                        lastTapTime = 0;
+                        return;
+                    }
+                    lastTapTime = now;
+                }
+
+                // 2. Swipe Gestures with Haptic Feedback
+                if (currentDx > 70) {
                     // Vuốt sang phải -> ĐÃ THUỘC TỪ (+5 XP)
-                    flipper.style.transform = `${baseRot} translateX(320px) rotateZ(16deg)`;
+                    if ('vibrate' in navigator) navigator.vibrate(25);
+                    if (window.SoiMayCompanion) window.SoiMayCompanion.playChime('celebrate');
+                    flipper.style.transform = `${baseRot} translateX(340px) rotateZ(16deg)`;
                     setTimeout(() => {
                         this.markMastered();
-                    }, 220);
-                } else if (currentDx < -75) {
+                    }, 200);
+                } else if (currentDx < -70) {
                     // Vuốt sang trái -> CHƯA THUỘC TỪ (CẦN ÔN LẠI)
-                    flipper.style.transform = `${baseRot} translateX(-320px) rotateZ(-16deg)`;
+                    if ('vibrate' in navigator) navigator.vibrate([15, 30, 15]);
+                    if (window.SoiMayCompanion) window.SoiMayCompanion.playChime('encourage');
+                    flipper.style.transform = `${baseRot} translateX(-340px) rotateZ(-16deg)`;
                     setTimeout(() => {
                         this.markUnmastered();
-                    }, 220);
+                    }, 200);
                 } else {
                     // Trả về vị trí cân bằng
                     flipper.style.transform = baseRot;

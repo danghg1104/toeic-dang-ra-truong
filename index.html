@@ -73,6 +73,7 @@
     <script src="js/study-focus-engine.js?v=studystudio_20261029_step3_zen"></script>
     <script src="js/soi-may-companion.js?v=studystudio_20261030"></script>
     <script src="js/ets-adaptive-scorer.js?v=studystudio_20261030"></script>
+    <script src="js/mobile-ergonomics-engine.js?v=studystudio_20261030_step4"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -954,8 +955,8 @@
                     
                     <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap">
                         <!-- Streak Pill -->
-                        <div class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
-                            <i class="fa-solid fa-fire text-amber-500"></i>
+                        <div onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition" title="Chuỗi học tập liên tục (Bấm để nhận lời chúc từ Sói Mây)">
+                            <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
                             <span id="sanhMemberStreakVal">0 ngày</span>
                         </div>
 
@@ -1058,12 +1059,41 @@
                             </div>
                         </div>
 
-                        <!-- Right Illustration: Rio reading book calmly -->
-                        <div class="shrink-0 flex flex-col items-center justify-center">
-                            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-750 p-2 flex items-center justify-center shadow-xs">
-                                <img src="assets/mascot/may_reading.png" alt="Sói Mây Học Thuật" class="max-h-full max-w-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                        <!-- Right Illustration: Sói Mây Living Companion with Speech Bubble & Micro-interactions -->
+                        <div class="shrink-0 flex flex-col items-center justify-center relative mt-2 md:mt-0 select-none">
+                            <!-- Live Interactive Speech Bubble -->
+                            <div id="heroSoiMayBubble" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" 
+                                 class="mb-2 max-w-[210px] sm:max-w-[250px] px-3.5 py-2.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-sky-400 dark:border-sky-500 shadow-lg shadow-sky-500/15 text-slate-800 dark:text-slate-100 text-[11px] leading-snug font-medium text-center relative cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200 group">
+                                <div class="flex items-center justify-center gap-1.5 font-bold text-sky-600 dark:text-sky-400 mb-0.5">
+                                    <span class="text-xs">🐾</span>
+                                    <span id="heroSoiMayBubbleTitle">Sói Mây đồng hành</span>
+                                </div>
+                                <p id="heroSoiMayBubbleText" class="text-slate-700 dark:text-slate-200 font-medium transition-opacity duration-200">Chào Đăng! Còn 51 ngày nữa, cùng Sói Mây chinh phục 28 câu chẩn đoán nhé! 🎯</p>
+                                <span class="text-[9.5px] text-sky-500 dark:text-sky-400 font-bold group-hover:underline block mt-1">(Chạm tớ để nhận bí kíp ETS ✨)</span>
+                                <!-- Speech Bubble Pointer / Arrow -->
+                                <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-b-2 border-r-2 border-sky-400 dark:border-sky-500 rotate-45"></div>
                             </div>
-                            <span class="mt-2 text-[11.5px] font-bold text-slate-500 dark:text-slate-400">Bạn học Sói Mây đồng hành</span>
+
+                            <!-- Living Mascot Container with Breathing & Ambient Aura -->
+                            <div id="heroSoiMayContainer" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" 
+                                 class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-b from-sky-50 via-white to-indigo-50/70 dark:from-slate-800/90 dark:to-slate-850 border-2 border-sky-200/90 dark:border-sky-800/60 p-2.5 flex items-center justify-center shadow-md hover:shadow-xl hover:border-sky-400 transition-all duration-300 cursor-pointer group">
+                                <!-- Ambient Pulsing Aura Behind Mascot -->
+                                <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-sky-400/20 via-indigo-400/20 to-purple-400/20 animate-pulse pointer-events-none"></div>
+                                
+                                <!-- Mascot Image with Breathing Animation -->
+                                <img id="heroSoiMayImg" src="assets/mascot/may_reading.png" alt="Bạn học Sói Mây" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-110 active:scale-95 transition-transform duration-300">
+                                
+                                <!-- Live Status Badge -->
+                                <div class="absolute -bottom-2 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-[10px] font-extrabold tracking-wide shadow-sm flex items-center gap-1 group-hover:from-sky-600 group-hover:to-indigo-700 transition">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                                    <span>Đang đồng hành</span>
+                                </div>
+                            </div>
+                            
+                            <span class="mt-3 text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                                <span>Bạn học Sói Mây</span>
+                                <i class="fa-solid fa-circle-check text-sky-500 text-[10px]"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1183,14 +1213,20 @@
                         <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
                             <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
                                 <div>
-                                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Cân bằng 4 kỹ năng</h3>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400">Tỷ lệ chính xác bài tập đã giải & Đánh giá năng lực ETS</p>
+                                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <span>Cân bằng 4 kỹ năng</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Chuẩn ETS 2026</span>
+                                    </h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Độ hoàn thiện & Tỷ lệ làm đúng theo ngân hàng câu hỏi</p>
                                 </div>
-                                <button onclick="switchTab('lo-trinh')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">Chi tiết</button>
+                                <button onclick="switchTab('lo-trinh')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer">
+                                    <span>Chi tiết</span>
+                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </button>
                             </div>
 
                             <!-- 4 Thanh Progress Bar ngang trực quan -->
-                            <div class="space-y-3.5">
+                            <div class="space-y-4">
                                 <!-- Kỹ năng 1: Luyện Nghe (Listening - Teal #248A8A) -->
                                 <div class="space-y-1.5">
                                     <div class="flex items-center justify-between text-xs">
@@ -1200,11 +1236,15 @@
                                         </span>
                                         <div class="flex items-center gap-2">
                                             <span id="skillAccuracyListenPct" class="font-bold text-teal-700 dark:text-teal-300">--%</span>
-                                            <span id="skillAccuracyListenCount" class="text-slate-400 text-xs">0/2100</span>
+                                            <span id="skillAccuracyListenCount" class="text-slate-400 text-xs">0/2100 câu</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyListenProgress" class="h-full rounded-full bg-[#248A8A] transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                    <div id="skillAccuracyListenSub" class="text-[10.5px] text-slate-400 flex justify-between">
+                                        <span>Ngân hàng: 2100 câu</span>
+                                        <span id="skillAccuracyListenDetail">Chưa làm bài</span>
                                     </div>
                                 </div>
 
@@ -1217,11 +1257,15 @@
                                         </span>
                                         <div class="flex items-center gap-2">
                                             <span id="skillAccuracyReadPct" class="font-bold text-emerald-700 dark:text-emerald-300">--%</span>
-                                            <span id="skillAccuracyReadCount" class="text-slate-400 text-xs">0/2100</span>
+                                            <span id="skillAccuracyReadCount" class="text-slate-400 text-xs">0/2100 câu</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyReadProgress" class="h-full rounded-full bg-[#3E8B62] transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                    <div id="skillAccuracyReadSub" class="text-[10.5px] text-slate-400 flex justify-between">
+                                        <span>Ngân hàng: 2100 câu</span>
+                                        <span id="skillAccuracyReadDetail">Chưa làm bài</span>
                                     </div>
                                 </div>
 
@@ -1234,11 +1278,15 @@
                                         </span>
                                         <div class="flex items-center gap-2">
                                             <span id="skillAccuracyGrammarPct" class="font-bold text-purple-700 dark:text-purple-300">--%</span>
-                                            <span id="skillAccuracyGrammarCount" class="text-slate-400 text-xs">0/1500</span>
+                                            <span id="skillAccuracyGrammarCount" class="text-slate-400 text-xs">0/1500 câu</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyGrammarProgress" class="h-full rounded-full bg-[#7759C2] transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                    <div id="skillAccuracyGrammarSub" class="text-[10.5px] text-slate-400 flex justify-between">
+                                        <span>Ngân hàng: 1500 câu</span>
+                                        <span id="skillAccuracyGrammarDetail">Chưa làm bài</span>
                                     </div>
                                 </div>
 
@@ -1251,11 +1299,15 @@
                                         </span>
                                         <div class="flex items-center gap-2">
                                             <span id="skillAccuracyVocabPct" class="font-bold text-amber-700 dark:text-amber-300">--%</span>
-                                            <span id="skillAccuracyVocabCount" class="text-slate-400 text-xs">0/4514</span>
+                                            <span id="skillAccuracyVocabCount" class="text-slate-400 text-xs">0/4514 từ</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyVocabProgress" class="h-full rounded-full bg-[#D97A40] transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                    <div id="skillAccuracyVocabSub" class="text-[10.5px] text-slate-400 flex justify-between">
+                                        <span>Ngân hàng: 4514 từ cốt lõi</span>
+                                        <span id="skillAccuracyVocabDetail">Chưa học từ nào</span>
                                     </div>
                                 </div>
                             </div>
@@ -4869,6 +4921,18 @@
             </div>
         </header>
 
+        <!-- Mobile Dual-Tab Thumb Switcher (Chuẩn Công thái học Part 7 trên Điện thoại) -->
+        <div id="trwMobileTabSwitcher" class="lg:hidden flex items-center justify-between p-1.5 bg-slate-200/90 dark:bg-slate-800/90 border-b border-slate-300/80 dark:border-slate-700 shrink-0 gap-1.5">
+            <button type="button" id="trwMobileTabPassage" onclick="ToeicReadingWorkstation.switchMobileTab('passage')" class="flex-1 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer">
+                <i class="fa-solid fa-file-lines text-xs"></i>
+                <span>1. Bài đọc (Passage)</span>
+            </button>
+            <button type="button" id="trwMobileTabQuestions" onclick="ToeicReadingWorkstation.switchMobileTab('questions')" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer">
+                <i class="fa-solid fa-list-check text-xs"></i>
+                <span>2. Câu hỏi & Đáp án</span>
+            </button>
+        </div>
+
         <!-- 2. Main 2-Column Split Workspace -->
         <main class="flex-1 flex flex-col lg:flex-row overflow-hidden bg-slate-100/60 dark:bg-slate-950">
             <!-- Left Column: Context / Instruction / Reading Passage -->
@@ -5664,29 +5728,100 @@
         </div>
     </div>
 
-    <!-- MOBILE BOTTOM NAVIGATION BAR (Thanh điều hướng cố định dưới đáy màn hình Điện thoại) -->
-    <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200/80 dark:border-slate-800 px-3 py-1.5 safe-bottom-nav grid grid-cols-5 gap-1 shadow-[0_-4px_20px_rgba(15,23,42,0.08)]">
-        <button onclick="switchTab('hom-nay')" id="mob-nav-hom-nay" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-bold transition active:scale-95" title="Hôm nay">
+    <!-- MOBILE BOTTOM NAVIGATION BAR 2.0 (Chuẩn Công thái học Thumb Zone & Floating Quick Action) -->
+    <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/90 dark:border-slate-800 px-2 py-1 safe-bottom-nav flex items-center justify-around shadow-[0_-8px_25px_rgba(15,23,42,0.12)]">
+        <!-- Tab 1: Hôm nay -->
+        <button onclick="switchTab('hom-nay'); if(window.SoiMayCompanion) window.SoiMayCompanion.playChime('pop'); if('vibrate' in navigator) navigator.vibrate(10);" id="mob-nav-hom-nay" class="mob-nav-item flex-1 flex flex-col items-center justify-center py-1 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-bold transition active:scale-90" title="Hôm nay">
             <i class="fa-solid fa-house text-base"></i>
-            <span class="text-[11px] font-bold mt-0.5">Hôm nay</span>
+            <span class="text-[10.5px] font-bold mt-0.5">Hôm nay</span>
         </button>
-        <button onclick="switchTab('lo-trinh')" id="mob-nav-lo-trinh" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Lộ trình">
+
+        <!-- Tab 2: Lộ trình -->
+        <button onclick="switchTab('lo-trinh'); if(window.SoiMayCompanion) window.SoiMayCompanion.playChime('pop'); if('vibrate' in navigator) navigator.vibrate(10);" id="mob-nav-lo-trinh" class="mob-nav-item flex-1 flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-90" title="Lộ trình">
             <i class="fa-solid fa-route text-base"></i>
-            <span class="text-[11px] font-semibold mt-0.5">Lộ trình</span>
+            <span class="text-[10.5px] font-semibold mt-0.5">Lộ trình</span>
         </button>
-        <button onclick="switchTab('ngu-phap')" id="mob-nav-luyen-tap" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Luyện tập">
-            <i class="fa-solid fa-graduation-cap text-base"></i>
-            <span class="text-[11px] font-semibold mt-0.5">Luyện tập</span>
+
+        <!-- Tab 3: NÚT NỔI TRUNG TÂM (Floating Quick Practice Action Button) -->
+        <div class="relative -top-4 flex items-center justify-center px-1">
+            <button onclick="openMobileQuickActionSheet(); if(window.SoiMayCompanion) window.SoiMayCompanion.playChime('celebrate'); if('vibrate' in navigator) navigator.vibrate(20);" 
+                    class="w-13 h-13 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 text-white flex flex-col items-center justify-center shadow-lg hover:shadow-indigo-500/40 ring-4 ring-white dark:ring-slate-900 transition-all active:scale-90 group cursor-pointer"
+                    title="Luyện nhanh ngay">
+                <i class="fa-solid fa-bolt text-lg text-amber-300 group-hover:rotate-12 transition-transform"></i>
+                <span class="text-[8.5px] font-black uppercase tracking-wider text-white mt-0.5">Luyện</span>
+            </button>
+        </div>
+
+        <!-- Tab 4: Từ vựng -->
+        <button onclick="switchTab('tu-vung'); if(window.SoiMayCompanion) window.SoiMayCompanion.playChime('pop'); if('vibrate' in navigator) navigator.vibrate(10);" id="mob-nav-tu-vung" class="mob-nav-item flex-1 flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-90" title="Từ vựng">
+            <i class="fa-solid fa-layer-group text-base"></i>
+            <span class="text-[10.5px] font-semibold mt-0.5">Từ vựng</span>
         </button>
-        <button onclick="switchTab('thi-thu')" id="mob-nav-thi-thu" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Đề thi">
-            <i class="fa-solid fa-file-signature text-base"></i>
-            <span class="text-[11px] font-semibold mt-0.5">Đề thi</span>
-        </button>
-        <button onclick="switchTab('tai-khoan')" id="mob-nav-tai-khoan" class="mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95" title="Cá nhân">
+
+        <!-- Tab 5: Cá nhân -->
+        <button onclick="switchTab('tai-khoan'); if(window.SoiMayCompanion) window.SoiMayCompanion.playChime('pop'); if('vibrate' in navigator) navigator.vibrate(10);" id="mob-nav-tai-khoan" class="mob-nav-item flex-1 flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-90" title="Cá nhân">
             <i class="fa-solid fa-circle-user text-base"></i>
-            <span class="text-[11px] font-semibold mt-0.5">Cá nhân</span>
+            <span class="text-[10.5px] font-semibold mt-0.5">Cá nhân</span>
         </button>
     </nav>
+
+    <!-- MOBILE QUICK ACTION SHEET (Khay hành động luyện nhanh bằng 1 chạm ngón cái) -->
+    <div id="mobileQuickActionSheet" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-end justify-center transition-all duration-300" onclick="closeMobileQuickActionSheet(event)">
+        <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-t-[32px] p-5 border-t border-slate-200 dark:border-slate-800 shadow-2xl space-y-4 animate-slideUp" onclick="event.stopPropagation()">
+            <!-- Drag Handle Bar -->
+            <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto mb-2"></div>
+            
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-bolt text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-slate-900 dark:text-white">Trạm Luyện Nhanh Sói Mây</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Chọn 1 chế độ để tích lũy XP hôm nay</p>
+                    </div>
+                </div>
+                <button onclick="closeMobileQuickActionSheet()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 gap-2.5">
+                <button onclick="closeMobileQuickActionSheet(); switchTab('tu-vung');" class="p-3.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50/50 dark:from-slate-800 dark:to-slate-800/60 border border-amber-200/80 dark:border-slate-700 flex items-center gap-3.5 text-left active:scale-98 transition cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-base shrink-0 shadow-sm">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-xs font-bold text-slate-900 dark:text-white">Lật Thẻ Flashcard 3D</div>
+                        <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Học 10 từ cốt lõi chuẩn ETS · Vuốt chạm mượt mà</div>
+                    </div>
+                    <span class="text-xs font-bold text-amber-600 dark:text-amber-400 shrink-0">+5 XP</span>
+                </button>
+
+                <button onclick="closeMobileQuickActionSheet(); switchTab('nghe-chinh-ta');" class="p-3.5 rounded-2xl bg-gradient-to-r from-sky-50 to-blue-50/50 dark:from-slate-800 dark:to-slate-800/60 border border-sky-200/80 dark:border-slate-700 flex items-center gap-3.5 text-left active:scale-98 transition cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center text-base shrink-0 shadow-sm">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-xs font-bold text-slate-900 dark:text-white">Chép Chính Tả Phản Xạ</div>
+                        <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Luyện tai bắt keyword Part 1 - 4 không cần dịch</div>
+                    </div>
+                    <span class="text-xs font-bold text-sky-600 dark:text-sky-400 shrink-0">+10 XP</span>
+                </button>
+
+                <button onclick="closeMobileQuickActionSheet(); if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, topic: 'word_form' });" class="p-3.5 rounded-2xl bg-gradient-to-r from-purple-50 to-indigo-50/50 dark:from-slate-800 dark:to-slate-800/60 border border-purple-200/80 dark:border-slate-700 flex items-center gap-3.5 text-left active:scale-98 transition cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-base shrink-0 shadow-sm">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-xs font-bold text-slate-900 dark:text-white">Giải Bẫy Đề Part 5 Siêu Tốc</div>
+                        <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">10 câu trắc nghiệm từ loại & ngữ pháp 30s/câu</div>
+                    </div>
+                    <span class="text-xs font-bold text-purple-600 dark:text-purple-400 shrink-0">+15 XP</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toastBox" class="fixed bottom-20 lg:bottom-5 right-4 lg:right-5 left-4 sm:left-auto z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-bold flex items-center gap-2.5">
@@ -5895,6 +6030,24 @@
             }
         };
 
+        // Điều khiển Mobile Quick Action Sheet (Khay luyện nhanh 1 chạm ngón cái)
+        function openMobileQuickActionSheet() {
+            const sheet = document.getElementById('mobileQuickActionSheet');
+            if (sheet) {
+                sheet.classList.remove('hidden');
+                sheet.classList.add('flex');
+            }
+        }
+        function closeMobileQuickActionSheet(e) {
+            const sheet = document.getElementById('mobileQuickActionSheet');
+            if (sheet) {
+                sheet.classList.remove('flex');
+                sheet.classList.add('hidden');
+            }
+        }
+        window.openMobileQuickActionSheet = openMobileQuickActionSheet;
+        window.closeMobileQuickActionSheet = closeMobileQuickActionSheet;
+
         function switchTab(tabId) {
             // Đảm bảo lấy tài khoản người dùng đang hoạt động nếu có phiên lưu trữ
             if (!currentUserAccount) {
@@ -6022,20 +6175,19 @@
                 if (typeof initBocBangSettingsGlobalUI === 'function') initBocBangSettingsGlobalUI();
             }
 
-            // Đồng bộ trạng thái sáng đèn trên Thanh điều hướng đáy Điện thoại (Mobile Bottom Nav 5 Tabs)
+            // Đồng bộ trạng thái sáng đèn trên Thanh điều hướng đáy Điện thoại (Mobile Bottom Nav 2.0 Thumb Zone)
             document.querySelectorAll('.mob-nav-item').forEach(btn => {
-                btn.className = 'mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-95';
+                btn.className = 'mob-nav-item flex-1 flex flex-col items-center justify-center py-1 rounded-xl text-slate-500 dark:text-slate-400 font-medium transition active:scale-90';
             });
             let targetMobId = 'mob-nav-hom-nay';
             if (tabId === 'hom-nay') targetMobId = 'mob-nav-hom-nay';
             else if (tabId === 'lo-trinh') targetMobId = 'mob-nav-lo-trinh';
-            else if (tabId === 'thi-thu' || tabId === 'bay-de-thi') targetMobId = 'mob-nav-thi-thu';
+            else if (tabId === 'tu-vung' || tabId === 'hoc-tu-vung' || tabId === 'vocabulary-study' || tabId === 'vocabulary-match' || tabId === 'tu-dien') targetMobId = 'mob-nav-tu-vung';
             else if (tabId === 'tai-khoan' || tabId === 'cai-dat') targetMobId = 'mob-nav-tai-khoan';
-            else targetMobId = 'mob-nav-luyen-tap';
 
             const activeMobBtn = document.getElementById(targetMobId);
             if (activeMobBtn) {
-                activeMobBtn.className = 'mob-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-bold transition active:scale-95';
+                activeMobBtn.className = 'mob-nav-item flex-1 flex flex-col items-center justify-center py-1 rounded-xl text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800 font-bold transition active:scale-90';
             }
 
             // Update sidebar companion card text & Image 4 cat mascot pose
@@ -11686,99 +11838,120 @@
             const lProg = document.getElementById('skillAccuracyListenProgress');
             const lPct = document.getElementById('skillAccuracyListenPct');
             const lCount = document.getElementById('skillAccuracyListenCount');
-            let listenPct = 0;
+            const lDetail = document.getElementById('skillAccuracyListenDetail');
+            let listenProgWidth = 0;
             if (state.listenTotalAnswers && state.listenTotalAnswers > 0) {
                 const correct = state.listenCorrectAnswers || 0;
                 const total = state.listenTotalAnswers;
-                listenPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
-                if (lPct) lPct.textContent = `${listenPct}%`;
-                if (lCount) lCount.textContent = `${correct}/${total} câu đúng`;
-            } else if (diag && diag.listening) {
-                listenPct = Math.min(100, Math.max(0, Math.round((diag.listening / 495) * 100)));
-                if (lPct) lPct.textContent = `${listenPct}%`;
-                if (lCount) lCount.textContent = `${diag.listening}/495 điểm ETS`;
+                const accPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
+                if (lPct) lPct.textContent = `${accPct}%`;
+                if (lCount) lCount.textContent = `${total}/2100 câu`;
+                if (lDetail) lDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
+                listenProgWidth = Math.min(100, Math.max(1, Math.round((total / 2100) * 100 * 5))); // Scale để trực quan nhưng vẫn minh bạch
             } else if (lDone > 0) {
-                listenPct = Math.min(100, Math.max(0, Math.round((lDone / 200) * 100)));
-                if (lPct) lPct.textContent = `${listenPct}%`;
-                if (lCount) lCount.textContent = `Đã luyện ${lDone} câu`;
+                if (lPct) lPct.textContent = '100%';
+                if (lCount) lCount.textContent = `${lDone}/2100 câu`;
+                if (lDetail) lDetail.textContent = `Đã hoàn thành ${lDone} câu luyện nghe`;
+                listenProgWidth = Math.min(100, Math.max(1, Math.round((lDone / 2100) * 100 * 5)));
+            } else if (diag && diag.listening) {
+                const diagPct = Math.round((diag.listening / 495) * 100);
+                if (lPct) lPct.textContent = `${diagPct}%`;
+                if (lCount) lCount.textContent = `${diag.listening}/495 điểm ETS`;
+                if (lDetail) lDetail.textContent = `Năng lực dự báo: ${diag.listening} điểm Listening`;
+                listenProgWidth = diagPct;
             } else {
-                if (lPct) lPct.textContent = '--%';
-                if (lCount) lCount.textContent = 'Chưa làm bài';
-                listenPct = 0;
+                if (lPct) lPct.textContent = 'Chưa test';
+                if (lCount) lCount.textContent = '0/2100 câu';
+                if (lDetail) lDetail.textContent = 'Chưa làm bài kiểm tra nào';
+                listenProgWidth = 0;
             }
-            if (lProg) lProg.style.width = `${listenPct}%`;
+            if (lProg) lProg.style.width = `${listenProgWidth}%`;
 
             // 2. Luyện Đọc (Reading)
             const rProg = document.getElementById('skillAccuracyReadProgress');
             const rPct = document.getElementById('skillAccuracyReadPct');
             const rCount = document.getElementById('skillAccuracyReadCount');
-            let readPct = 0;
+            const rDetail = document.getElementById('skillAccuracyReadDetail');
+            let readProgWidth = 0;
             if (state.readTotalAnswers && state.readTotalAnswers > 0) {
                 const correct = state.readCorrectAnswers || 0;
                 const total = state.readTotalAnswers;
-                readPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
-                if (rPct) rPct.textContent = `${readPct}%`;
-                if (rCount) rCount.textContent = `${correct}/${total} câu đúng`;
-            } else if (diag && diag.reading) {
-                readPct = Math.min(100, Math.max(0, Math.round((diag.reading / 495) * 100)));
-                if (rPct) rPct.textContent = `${readPct}%`;
-                if (rCount) rCount.textContent = `${diag.reading}/495 điểm ETS`;
+                const accPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
+                if (rPct) rPct.textContent = `${accPct}%`;
+                if (rCount) rCount.textContent = `${total}/2100 câu`;
+                if (rDetail) rDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
+                readProgWidth = Math.min(100, Math.max(1, Math.round((total / 2100) * 100 * 5)));
             } else if (rDone > 0) {
-                readPct = Math.min(100, Math.max(0, Math.round((rDone / 200) * 100)));
-                if (rPct) rPct.textContent = `${readPct}%`;
-                if (rCount) rCount.textContent = `Đã luyện ${rDone} câu`;
+                if (rPct) rPct.textContent = '100%';
+                if (rCount) rCount.textContent = `${rDone}/2100 câu`;
+                if (rDetail) rDetail.textContent = `Đã hoàn thành ${rDone} câu luyện đọc`;
+                readProgWidth = Math.min(100, Math.max(1, Math.round((rDone / 2100) * 100 * 5)));
+            } else if (diag && diag.reading) {
+                const diagPct = Math.round((diag.reading / 495) * 100);
+                if (rPct) rPct.textContent = `${diagPct}%`;
+                if (rCount) rCount.textContent = `${diag.reading}/495 điểm ETS`;
+                if (rDetail) rDetail.textContent = `Năng lực dự báo: ${diag.reading} điểm Reading`;
+                readProgWidth = diagPct;
             } else {
-                if (rPct) rPct.textContent = '--%';
-                if (rCount) rCount.textContent = 'Chưa làm bài';
-                readPct = 0;
+                if (rPct) rPct.textContent = 'Chưa test';
+                if (rCount) rCount.textContent = '0/2100 câu';
+                if (rDetail) rDetail.textContent = 'Chưa làm bài kiểm tra nào';
+                readProgWidth = 0;
             }
-            if (rProg) rProg.style.width = `${readPct}%`;
+            if (rProg) rProg.style.width = `${readProgWidth}%`;
 
             // 3. Ngữ pháp trọng tâm (Grammar)
             const gProg = document.getElementById('skillAccuracyGrammarProgress');
             const gPct = document.getElementById('skillAccuracyGrammarPct');
             const gCount = document.getElementById('skillAccuracyGrammarCount');
-            let grammarPct = 0;
+            const gDetail = document.getElementById('skillAccuracyGrammarDetail');
+            let grammarProgWidth = 0;
             if (gAnswered > 0) {
                 const safeCorrect = Math.min(gCorrect, gAnswered);
-                grammarPct = Math.min(100, Math.max(0, Math.round((safeCorrect / gAnswered) * 100)));
-                if (gPct) gPct.textContent = `${grammarPct}%`;
-                if (gCount) gCount.textContent = `${safeCorrect}/${gAnswered} câu đúng`;
+                const accPct = Math.min(100, Math.max(0, Math.round((safeCorrect / gAnswered) * 100)));
+                if (gPct) gPct.textContent = `${accPct}%`;
+                if (gCount) gCount.textContent = `${gAnswered}/1500 câu`;
+                if (gDetail) gDetail.textContent = `Đã làm ${gAnswered} câu · Đúng ${safeCorrect}/${gAnswered} câu`;
+                grammarProgWidth = Math.min(100, Math.max(1, Math.round((gAnswered / 1500) * 100 * 5)));
             } else if (diag && diag.reading) {
-                grammarPct = Math.min(100, Math.max(0, Math.round((diag.reading / 495) * 100)));
-                if (gPct) gPct.textContent = `${grammarPct}%`;
-                if (gCount) gCount.textContent = `Ước lượng ${grammarPct}%`;
+                const estPct = Math.round((diag.reading / 495) * 100);
+                if (gPct) gPct.textContent = `${estPct}%`;
+                if (gCount) gCount.textContent = 'Dự báo năng lực';
+                if (gDetail) gDetail.textContent = `Ước lượng qua kỹ năng Đọc: ${estPct}%`;
+                grammarProgWidth = estPct;
             } else {
-                if (gPct) gPct.textContent = '--%';
-                if (gCount) gCount.textContent = 'Chưa làm bài';
-                grammarPct = 0;
+                if (gPct) gPct.textContent = 'Chưa test';
+                if (gCount) gCount.textContent = '0/1500 câu';
+                if (gDetail) gDetail.textContent = 'Chưa làm câu ngữ pháp nào';
+                grammarProgWidth = 0;
             }
-            if (gProg) gProg.style.width = `${grammarPct}%`;
+            if (gProg) gProg.style.width = `${grammarProgWidth}%`;
 
             // 4. Kho Từ vựng cốt lõi (Vocabulary)
             const vProg = document.getElementById('skillAccuracyVocabProgress');
             const vPct = document.getElementById('skillAccuracyVocabPct');
             const vCount = document.getElementById('skillAccuracyVocabCount');
-            let vocabPct = 0;
+            const vDetail = document.getElementById('skillAccuracyVocabDetail');
+            let vocabProgWidth = 0;
             if (vAnswered > 0) {
                 const safeVCorrect = Math.min(vCorrect, vAnswered);
-                vocabPct = Math.min(100, Math.max(0, Math.round((safeVCorrect / vAnswered) * 100)));
-                if (vPct) vPct.textContent = `${vocabPct}%`;
-                if (vCount) vCount.textContent = `${safeVCorrect}/${vAnswered} từ đúng`;
+                const accPct = Math.min(100, Math.max(0, Math.round((safeVCorrect / vAnswered) * 100)));
+                if (vPct) vPct.textContent = `${accPct}%`;
+                if (vCount) vCount.textContent = `${vLearned}/4514 từ`;
+                if (vDetail) vDetail.textContent = `Đã học ${vLearned} từ · Độ nhớ ${accPct}%`;
+                vocabProgWidth = Math.min(100, Math.max(1, Math.round((vLearned / 500) * 100)));
             } else if (vLearned > 0) {
-                vocabPct = Math.min(100, Math.max(0, Math.round((vLearned / 50) * 100)));
-                if (vPct) vPct.textContent = `${vocabPct}%`;
-                if (vCount) vCount.textContent = `${vLearned} từ đã học`;
-            } else if (diag && diag.totalScore) {
-                vocabPct = Math.min(100, Math.max(0, Math.round((diag.totalScore / 990) * 100)));
-                if (vPct) vPct.textContent = `${vocabPct}%`;
-                if (vCount) vCount.textContent = 'Chuẩn B1 (CEFR)';
+                if (vPct) vPct.textContent = '100%';
+                if (vCount) vCount.textContent = `${vLearned}/4514 từ`;
+                if (vDetail) vDetail.textContent = `Đã thuộc ${vLearned} từ vựng cốt lõi`;
+                vocabProgWidth = Math.min(100, Math.max(1, Math.round((vLearned / 500) * 100)));
             } else {
-                if (vPct) vPct.textContent = '--%';
-                if (vCount) vCount.textContent = 'Chưa làm bài';
-                vocabPct = 0;
+                if (vPct) vPct.textContent = 'Chưa học';
+                if (vCount) vCount.textContent = '0/4514 từ';
+                if (vDetail) vDetail.textContent = 'Chưa học từ vựng nào';
+                vocabProgWidth = 0;
             }
-            if (vProg) vProg.style.width = `${vocabPct}%`;
+            if (vProg) vProg.style.width = `${vocabProgWidth}%`;
 
             if (window.EtsAdaptiveScorer && typeof window.EtsAdaptiveScorer.renderDashboardWidget === 'function') {
                 window.EtsAdaptiveScorer.renderDashboardWidget();
