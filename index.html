@@ -71,6 +71,8 @@
     <script src="js/floating-take-note.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="js/auth-sync-manager.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="js/study-focus-engine.js?v=studystudio_20261029_step3_zen"></script>
+    <script src="js/soi-may-companion.js?v=studystudio_20261030"></script>
+    <script src="js/ets-adaptive-scorer.js?v=studystudio_20261030"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -1173,6 +1175,9 @@
 
                     <!-- CỘT PHẢI: 5 CỘT (Cân bằng kỹ năng dạng Progress Bar + Trợ lý Sói Mây AI) -->
                     <div class="lg:col-span-5 space-y-4">
+
+                        <!-- KHỐI DỰ BÁO ĐIỂM THÍCH ỨNG ETS (AI IRT ADAPTIVE MODEL) -->
+                        <div id="etsAdaptiveForecastContainer"></div>
 
                         <!-- KHỐI 4: CÂN BẰNG 4 KỸ NĂNG (SKILL BALANCE PROGRESS BARS) -->
                         <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
@@ -11775,8 +11780,16 @@
             }
             if (vProg) vProg.style.width = `${vocabPct}%`;
 
+            if (window.EtsAdaptiveScorer && typeof window.EtsAdaptiveScorer.renderDashboardWidget === 'function') {
+                window.EtsAdaptiveScorer.renderDashboardWidget();
+            }
+
             if (typeof updateDashboardStudioHero === 'function') {
                 updateDashboardStudioHero();
+            }
+
+            if (window.EtsAdaptiveScorer && typeof window.EtsAdaptiveScorer.renderDashboardWidget === 'function') {
+                window.EtsAdaptiveScorer.renderDashboardWidget();
             }
 
             if (window.DailyTaskManager && typeof window.DailyTaskManager.render === 'function') {

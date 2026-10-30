@@ -1235,6 +1235,10 @@
                     </div>
                 </div>
             `;
+        
+            if (this.activeStudyTab === 'word') {
+                setTimeout(() => this.attachTouchSwipeListener(), 50);
+            }
         },
 
         renderActiveStudyTabContent(w) {
@@ -1737,6 +1741,71 @@
         // =========================================================================
         // STUDIO ACTIONS: FLIP, TABS, JUMP, MASTER, BOOKMARK
         // =========================================================================
+
+        // =========================================================================
+        // TOUCH SWIPE GESTURE ERGONOMICS (VUỐT CHẠM CẢM ỨNG DI ĐỘNG & TABLET)
+        // =========================================================================
+        attachTouchSwipeListener() {
+            const flipper = document.getElementById('flashcard3DFlipper');
+            if (!flipper || flipper._touchSwipeAttached) return;
+            flipper._touchSwipeAttached = true;
+
+            let startX = 0;
+            let startY = 0;
+            let currentDx = 0;
+            let isDragging = false;
+
+            flipper.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) return;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                currentDx = 0;
+                isDragging = true;
+                flipper.style.transition = 'none';
+            }, { passive: true });
+
+            flipper.addEventListener('touchmove', (e) => {
+                if (!isDragging || e.touches.length !== 1) return;
+                const x = e.touches[0].clientX;
+                const y = e.touches[0].clientY;
+                const dx = x - startX;
+                const dy = y - startY;
+
+                // Chỉ kích hoạt hiệu ứng vuốt ngang khi chuyển động ngang chiếm ưu thế
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    currentDx = dx;
+                    const tilt = dx * 0.05;
+                    const baseRot = this.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                    flipper.style.transform = `${baseRot} translateX(${dx * 0.45}px) rotateZ(${tilt}deg)`;
+                }
+            }, { passive: true });
+
+            flipper.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                flipper.style.transition = 'transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1)';
+
+                const baseRot = this.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+
+                if (currentDx > 75) {
+                    // Vuốt sang phải -> ĐÃ THUỘC TỪ (+5 XP)
+                    flipper.style.transform = `${baseRot} translateX(320px) rotateZ(16deg)`;
+                    setTimeout(() => {
+                        this.markMastered();
+                    }, 220);
+                } else if (currentDx < -75) {
+                    // Vuốt sang trái -> CHƯA THUỘC TỪ (CẦN ÔN LẠI)
+                    flipper.style.transform = `${baseRot} translateX(-320px) rotateZ(-16deg)`;
+                    setTimeout(() => {
+                        this.markUnmastered();
+                    }, 220);
+                } else {
+                    // Trả về vị trí cân bằng
+                    flipper.style.transform = baseRot;
+                }
+            });
+        },
+
         flipCard() {
             this.isFlipped = !this.isFlipped;
             const flipper = document.getElementById('flashcard3DFlipper');
@@ -1802,7 +1871,16 @@
                 if (typeof updateDashboardMetrics === 'function') updateDashboardMetrics();
             }
 
-            showToast(`✨ Đã ghi nhận thuộc từ: "${w.word}" (+5 XP)`);
+            if (window.SoiMayCompanion) {
+                window.SoiMayCompanion.celebrate(`Tuyệt vời! Thuộc từ "${w.word}" (+5 XP)!`);
+            } else if (typeof showToast === 'function') {
+                showToast(`✨ Đã ghi nhận thuộc từ: "${w.word}" (+5 XP)`);
+            }
+
+            if (window.EtsAdaptiveScorer && typeof window.EtsAdaptiveScorer.renderDashboardWidget === 'function') {
+                window.EtsAdaptiveScorer.renderDashboardWidget();
+            }
+
             setTimeout(() => this.nextWord(), 400);
         },
 
@@ -1810,7 +1888,13 @@
             const w = this.currentWords[this.currentWordIndex];
             this.masteredWordsMap[w.id] = false;
             this.saveState();
-            showToast(`Đã lưu từ "${w.word}" vào danh sách cần luyện lại!`);
+
+            if (window.SoiMayCompanion) {
+                window.SoiMayCompanion.encourage(`Đừng lo! Sói Mây đã note lại từ "${w.word}" để ôn lại!`);
+            } else if (typeof showToast === 'function') {
+                showToast(`Đã lưu từ "${w.word}" vào danh sách cần luyện lại!`);
+            }
+
             this.nextWord();
         },
 
