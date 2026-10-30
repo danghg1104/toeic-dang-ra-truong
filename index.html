@@ -23,12 +23,12 @@
     <link rel="stylesheet" href="css/take-note-hybrid.css?v=20261026_07">
     <!-- Google Identity Services (Chính thức) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="if(typeof initGoogleIdentityServices==='function') initGoogleIdentityServices();"></script>
-    <!-- Mammoth.js for Word (.docx) to editable HTML conversion -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <!-- PDF.js for rendering PDF pages & extracting editable text -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <!-- SheetJS (xlsx) for Excel & CSV spreadsheets -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Mammoth.js for Word (.docx) to editable HTML conversion (Lazy-defer on mobile) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <!-- PDF.js for rendering PDF pages & extracting editable text (Lazy-defer on mobile) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- SheetJS (xlsx) for Excel & CSV spreadsheets (Lazy-defer on mobile) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- pdfMake + Roboto Fonts + htmlToPdfmake for high-speed direct PDF export without print dialog -->
     <script src="js/pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="js/vfs_fonts.js?v=studystudio_20261029_step2_perfect"></script>
@@ -74,6 +74,8 @@
     <script src="js/soi-may-companion.js?v=studystudio_20261030"></script>
     <script src="js/ets-adaptive-scorer.js?v=studystudio_20261030"></script>
     <script src="js/mobile-ergonomics-engine.js?v=studystudio_20261030_step4"></script>
+    <script src="js/offline-audio-manager.js?v=studystudio_20261030_step4"></script>
+    <script src="js/streak-reminder-engine.js?v=studystudio_20261030_step4"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -4447,6 +4449,10 @@
                             <span>Chuyển sang tài khoản khác / Đăng ký mới</span>
                         </button>
                     </div>
+
+                    <!-- KHỐI NHẮC HỌC GIỮ STREAK & CÔNG THÁI HỌC DI ĐỘNG (BƯỚC 4) -->
+                    <div id="streakReminderContainer" class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                    </div>
                 </div>
             </section>
 
@@ -6173,6 +6179,12 @@
             }
             if (tabId === 'cai-dat') {
                 if (typeof initBocBangSettingsGlobalUI === 'function') initBocBangSettingsGlobalUI();
+            }
+            if (tabId === 'tai-khoan') {
+                if (window.StreakReminderEngine) {
+                    const c = document.getElementById('streakReminderContainer');
+                    if (c) window.StreakReminderEngine.renderSettingsCard(c);
+                }
             }
 
             // Đồng bộ trạng thái sáng đèn trên Thanh điều hướng đáy Điện thoại (Mobile Bottom Nav 2.0 Thumb Zone)
