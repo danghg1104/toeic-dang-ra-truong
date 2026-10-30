@@ -3091,7 +3091,7 @@ const server = http.createServer((req, res) => {
   }
 
   // =========================================================================
-  // PHỤC VỤ CÁC FILE TĨNH (STATIC FILES)
+  // PHỤC VỤ CÁC FILE TĨNH (STATIC FILES) & SPA DEEP ROUTING
   // =========================================================================
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
@@ -3101,14 +3101,44 @@ const server = http.createServer((req, res) => {
     filePath = publicPath;
   }
 
+  // Khắc phục trường hợp nested route yêu cầu tài nguyên tĩnh nhưng bị lồng tiền tố route (VD: /vocabulary/contracts/js/...)
+  if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+    const staticFolderMatch = reqPath.match(/\/(js|css|assets|data|public|vendor|audio)\/(.+)$/i);
+    if (staticFolderMatch) {
+      const candidatePath = path.join(PUBLIC_DIR, staticFolderMatch[1], staticFolderMatch[2]);
+      if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
+        filePath = candidatePath;
+      }
+    } else {
+      const baseName = path.basename(reqPath);
+      if (['favicon.ico', 'manifest.json', 'icon-192.png', 'icon-512.png', 'app.ico', 'sw.js'].includes(baseName)) {
+        const candidatePath = path.join(PUBLIC_DIR, baseName);
+        if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
+          filePath = candidatePath;
+        }
+      }
+    }
+  }
+
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403);
     res.end('403 Forbidden');
     return;
   }
 
+  const reqExt = path.extname(reqPath).toLowerCase();
+  const isStaticAssetReq = reqExt && reqExt !== '.html';
+
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
+      // Nếu là yêu cầu file tĩnh mà không tồn tại, trả về 404 (KHÔNG trả về index.html gây lỗi MIME / SyntaxError)
+      if (isStaticAssetReq) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+        res.end('404 Not Found');
+        return;
+      }
+
+      // Ngược lại, đây là SPA route (như /vocabulary/contracts/study, /lo-trinh, etc.), trả về index.html
       filePath = path.join(PUBLIC_DIR, 'index.html');
       stats = fs.existsSync(filePath) ? fs.statSync(filePath) : null;
       if (!stats) {

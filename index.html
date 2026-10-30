@@ -2,6 +2,7 @@
 <html lang="vi" class="light">
 <head>
     <meta charset="UTF-8">
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -14780,9 +14781,15 @@
                 window.DailyTaskManager.render();
             }
             try {
+                const path = (window.location && window.location.pathname) || '';
                 const initialHash = window.location.hash.replace('#', '');
                 if (initialHash && typeof switchTab === 'function' && typeof tabConfig !== 'undefined' && tabConfig[initialHash]) {
                     switchTab(initialHash);
+                } else if (path.includes('/study') || path.includes('/match') || path === '/vocabulary') {
+                    if (window.VocabularyEngine && typeof window.VocabularyEngine.init === 'function') {
+                        window.VocabularyEngine.init();
+                    }
+                    return;
                 }
             } catch(e) {}
         }

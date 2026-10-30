@@ -902,15 +902,9 @@
         },
 
         hideAllViews() {
-            const allTabs = ['hom-nay', 'lo-trinh', 'ngu-phap', 'grammar-theory', 'grammar-practice', 'tu-vung', 'tu-dien', 'nghe', 'doc', 'thi-thu', 'bay-de-thi', 'nghe-chinh-ta', 'tu-vung-phim', 'take-note', 'tai-khoan', 'cai-dat'];
-            allTabs.forEach(id => {
-                const el = document.getElementById(`view-${id}`);
-                if (el) el.classList.add('hidden');
+            document.querySelectorAll('[id^="view-"]').forEach(el => {
+                el.classList.add('hidden');
             });
-            const vs = document.getElementById('view-vocabulary-study');
-            if (vs) vs.classList.add('hidden');
-            const vm = document.getElementById('view-vocabulary-match');
-            if (vm) vm.classList.add('hidden');
         },
 
         // =========================================================================
