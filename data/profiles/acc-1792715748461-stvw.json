@@ -1,16 +1,30 @@
 {
   "userId": "acc-1792715748461-stvw",
-  "lastUpdated": 1792715749495,
+  "lastUpdated": 1793351531832,
   "state": {
     "xp": 150,
     "vocabLearned": 3,
-    "streak": 0
+    "dictationDone": 0,
+    "grammarDone": 0,
+    "readDone": 0,
+    "listenDone": 0,
+    "studyMinutes": 1,
+    "totalAnswers": 0,
+    "correctAnswers": 0,
+    "listenTotalAnswers": 0,
+    "listenCorrectAnswers": 0,
+    "vocabTotalAnswers": 0,
+    "vocabCorrectAnswers": 0,
+    "streak": 1
   },
-  "activityDates": [],
+  "activityDates": [
+    "2026-10-30"
+  ],
   "learnedVocabItems": [
     {
       "word": "Metaphor",
-      "meaning": "Phép ẩn dụ"
+      "meaning": "Phép ẩn dụ",
+      "learnedAt": "2026-10-30T07:47:05.732Z"
     }
   ],
   "savedVocabItems": [],
@@ -27,53 +41,58 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 0,
-    "todayStudied": false,
+    "streak": 1,
+    "todayStudied": true,
     "yesterdayStudied": false,
     "weekDays": [
       {
         "label": "T2",
-        "dateStr": "2026-10-19",
+        "dateStr": "2026-10-26",
         "isToday": false,
         "active": false
       },
       {
         "label": "T3",
-        "dateStr": "2026-10-20",
+        "dateStr": "2026-10-27",
         "isToday": false,
         "active": false
       },
       {
         "label": "T4",
-        "dateStr": "2026-10-21",
+        "dateStr": "2026-10-28",
         "isToday": false,
         "active": false
       },
       {
         "label": "T5",
-        "dateStr": "2026-10-22",
+        "dateStr": "2026-10-29",
         "isToday": false,
         "active": false
       },
       {
         "label": "T6",
-        "dateStr": "2026-10-23",
+        "dateStr": "2026-10-30",
         "isToday": true,
-        "active": false
+        "active": true
       },
       {
         "label": "T7",
-        "dateStr": "2026-10-24",
+        "dateStr": "2026-10-31",
         "isToday": false,
         "active": false
       },
       {
         "label": "CN",
-        "dateStr": "2026-10-25",
+        "dateStr": "2026-11-01",
         "isToday": false,
         "active": false
       }
     ],
-    "lastActivityDate": null
-  }
+    "lastActivityDate": "2026-10-30"
+  },
+  "lastSourceDevice": "Thiết bị",
+  "lastDeviceId": "unknown",
+  "lastUserId": "acc-1792715748461-stvw",
+  "targetScore": "600",
+  "examDate": "20/12/2026"
 }

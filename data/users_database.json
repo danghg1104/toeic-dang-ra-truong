@@ -12,7 +12,7 @@
     "examDate": "20/12/2026",
     "authProvider": "google",
     "createdAt": "2026-10-23T04:48:24.332Z",
-    "streak": 8
+    "streak": 9
   },
   {
     "id": "acc-g-1792724111567",
@@ -241,7 +241,8 @@
     "examDate": "",
     "avatarColor": "bg-purple-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T00:35:48.665Z"
+    "createdAt": "2026-10-23T00:35:48.665Z",
+    "streak": 1
   },
   {
     "id": "acc-g-1792229631247",

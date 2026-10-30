@@ -27,6 +27,7 @@
             this.initVirtualKeyboardWatcher();
             this.initMediaSessionHook();
             this.initFastTouchTargets();
+            this.initPwaInstallManager();
             console.log('📱 Mobile Ergonomics & Touch Engine 2.0 initialized.');
         }
 
@@ -181,6 +182,74 @@
                     navigator.vibrate(8); // Rung siêu nhẹ tạo cảm giác click xúc giác
                 }
             }, { passive: true });
+        }
+
+        // =========================================================================
+        // 4. PWA INSTALL PROMPT & STANDALONE APP EXPERIENCE
+        // =========================================================================
+        initPwaInstallManager() {
+            this.deferredInstallPrompt = null;
+            this.isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+            if (this.isStandalone) {
+                console.log('📱 App đang chạy ở chế độ PWA Standalone.');
+                return;
+            }
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                this.deferredInstallPrompt = e;
+                console.log('📲 PWA beforeinstallprompt đã sẵn sàng.');
+
+                // Hiển thị nút cài đặt trên Header & Mobile Menu
+                const headerBtn = document.getElementById('btnPwaHeaderInstall');
+                if (headerBtn) {
+                    headerBtn.classList.remove('hidden');
+                    headerBtn.classList.add('flex');
+                }
+                const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
+                if (quickBtn) {
+                    quickBtn.classList.remove('hidden');
+                    quickBtn.classList.add('flex');
+                }
+            });
+
+            window.addEventListener('appinstalled', () => {
+                console.log('🎉 PWA Tôi Đi Đâu Đó đã được cài đặt thành công!');
+                this.deferredInstallPrompt = null;
+                const headerBtn = document.getElementById('btnPwaHeaderInstall');
+                if (headerBtn) headerBtn.classList.add('hidden');
+                const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
+                if (quickBtn) quickBtn.classList.add('hidden');
+            });
+
+            window.triggerPwaInstallPrompt = async () => {
+                if (!this.deferredInstallPrompt) {
+                    if (typeof showToast === 'function') {
+                        showToast('💡 Mẹo: Trên iOS Safari, bấm nút Chia sẻ (Share) -> "Thêm vào MH chính" (Add to Home Screen).');
+                    } else {
+                        alert('Để cài đặt ứng dụng: Bấm menu trình duyệt và chọn "Cài đặt ứng dụng" hoặc "Thêm vào màn hình chính".');
+                    }
+                    return;
+                }
+
+                this.deferredInstallPrompt.prompt();
+                const { outcome } = await this.deferredInstallPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('✅ Người dùng đồng ý cài đặt PWA.');
+                    if (typeof showToast === 'function') {
+                        showToast('🎉 Đang cài đặt Tôi Đi Đâu Đó về màn hình chính...');
+                    }
+                    if (window.SoiMayCompanion) {
+                        window.SoiMayCompanion.celebrate('Tuyệt vời! Tôi Đi Đâu Đó đã được thêm vào màn hình chính của bạn!');
+                    }
+                }
+                this.deferredInstallPrompt = null;
+                const headerBtn = document.getElementById('btnPwaHeaderInstall');
+                if (headerBtn) headerBtn.classList.add('hidden');
+                const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
+                if (quickBtn) quickBtn.classList.add('hidden');
+            };
         }
     }
 

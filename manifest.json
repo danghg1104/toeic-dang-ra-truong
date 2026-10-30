@@ -1,43 +1,55 @@
 {
-  "name": "Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP",
+  "name": "Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP 2026",
   "short_name": "Tôi Đi Đâu Đó",
-  "description": "Nền tảng luyện thi TOEIC & VSTEP toàn diện miễn phí với Lý thuyết chuyên sâu, Nghe chính tả CEFR, Sổ tay Take Note, Từ điển & Luyện chép từ vựng",
+  "description": "Nền tảng luyện thi TOEIC & VSTEP toàn diện với Sói Mây AI, Dự báo điểm ETS Thích ứng IRT, Flashcard 3D và Chế độ Zen Focus.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#fffbeb",
-  "theme_color": "#2563eb",
+  "background_color": "#0e2238",
+  "theme_color": "#0e2238",
+  "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "/icon-192.png?v=studystudio_20261029",
+      "src": "/icon-192.png?v=soimay_2026",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png?v=studystudio_20261029",
+      "src": "/icon-512.png?v=soimay_2026",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png?v=studystudio_20261029",
+      "src": "/icon-512.png?v=soimay_2026",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Luyện Từ Vựng Flashcard 3D",
+      "short_name": "Từ Vựng",
+      "description": "Học 10 từ vựng cốt lõi hôm nay",
+      "url": "/#tu-vung",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     },
     {
-      "src": "/icon-192.png?v=studystudio_20261029",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "name": "Lộ Trình S-Curve 6 Chặng",
+      "short_name": "Lộ Trình",
+      "description": "Theo dõi tiến độ chinh phục điểm số",
+      "url": "/#lo-trinh",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     },
     {
-      "src": "/icon-512.png?v=studystudio_20261029",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "name": "Luyện Nghe Chép Chính Tả",
+      "short_name": "Nghe Chép",
+      "description": "Luyện phản xạ bắt keyword Part 1 - 4",
+      "url": "/#nghe-chinh-ta",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

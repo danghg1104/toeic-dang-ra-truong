@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Tôi Đi Đâu Đó">
-    <meta name="theme-color" content="#fffbeb">
-    <link rel="manifest" href="manifest.json?v=toididaudo_v13">
-    <link rel="icon" type="image/x-icon" href="favicon.ico?v=studystudio_20261029">
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=studystudio_20261029">
-    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=studystudio_20261029">
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png?v=studystudio_20261029">
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png?v=studystudio_20261029">
+    <meta name="theme-color" content="#0e2238">
+    <meta name="description" content="Tôi Đi Đâu Đó — Nền tảng luyện thi TOEIC & VSTEP toàn diện chuẩn ETS 2026. Luyện nghe, đọc hiểu Part 7, từ vựng EdTech 5-tab, dự báo điểm AI IRT cùng bạn học linh vật Sói Mây.">
+    <!-- Open Graph & Social Cards -->
+    <meta property="og:title" content="Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP Chuẩn ETS 2026">
+    <meta property="og:description" content="Nền tảng ôn thi tiếng Anh thông minh với bạn học Sói Mây, dự báo điểm thích ứng AI IRT và lộ trình cá nhân hóa.">
+    <meta property="og:image" content="/assets/mascot/may_reading.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP 2026">
+    <meta name="twitter:description" content="Học từ vựng 5 tab, luyện nghe chép chính tả, giải bẫy đề ETS cùng bạn học Sói Mây.">
+    <meta name="twitter:image" content="/assets/mascot/may_reading.png">
+
+    <link rel="manifest" href="/manifest.json?v=toididaudo_v15">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=studystudio_20261029">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=studystudio_20261029">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=studystudio_20261029">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png?v=studystudio_20261029">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png?v=studystudio_20261029">
     <title>Tôi đi đâu đó — Luyện thi TOEIC & VSTEP online miễn phí</title>
-    <script src="js/vendor/tailwindcss.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/vendor/tailwindcss.js?v=studystudio_20261029_step2_perfect"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/take-note-hybrid.css?v=20261026_07">
+    <link rel="stylesheet" href="/css/take-note-hybrid.css?v=20261026_07">
     <!-- Google Identity Services (Chính thức) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="if(typeof initGoogleIdentityServices==='function') initGoogleIdentityServices();"></script>
     <!-- Mammoth.js for Word (.docx) to editable HTML conversion (Lazy-defer on mobile) -->
@@ -30,52 +42,52 @@
     <!-- SheetJS (xlsx) for Excel & CSV spreadsheets (Lazy-defer on mobile) -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- pdfMake + Roboto Fonts + htmlToPdfmake for high-speed direct PDF export without print dialog -->
-    <script src="js/pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/vfs_fonts.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/html-to-pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/vfs_fonts.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/html-to-pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
     <!-- Ngân hàng Lý thuyết, Câu hỏi chuyên đề, Từ vựng & Từ điển toàn diện -->
-    <script src="js/grammar-theory-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/grammar-quiz-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/vocab-decks-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/dictionary-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/dictionary-preprocess.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/ipa-helper.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/audio-service.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/dictionary-engine.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/universal-audio-engine.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/toeic-traps-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/toeic-diagnostic-workstation.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/roadmap-and-traps.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/toeic-audio-player.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/listening-data-v2.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/toeic-listening-workstation.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/ets2026-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/reading-practice-database.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/toeic-reading-workstation.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/dailydictation-toeic-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/dailydictation-workstation.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/toeic-boc-bang-station.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/curated-vocab-bank.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/textbook-curriculum-database.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/dynamic-topic-vocab-engine.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/vocab-game-workstation.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/full-part-practice.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/listening-dashboard.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/listening-smart-review.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/landing-mascot-engine.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/grammar-database.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/grammar-module.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/vocabulary-module.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/pdf-studio-module.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/take-note-hybrid-editor.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/floating-take-note.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/auth-sync-manager.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="js/study-focus-engine.js?v=studystudio_20261029_step3_zen"></script>
-    <script src="js/soi-may-companion.js?v=studystudio_20261030"></script>
-    <script src="js/ets-adaptive-scorer.js?v=studystudio_20261030"></script>
-    <script src="js/mobile-ergonomics-engine.js?v=studystudio_20261030_step4"></script>
-    <script src="js/offline-audio-manager.js?v=studystudio_20261030_step4"></script>
-    <script src="js/streak-reminder-engine.js?v=studystudio_20261030_step4"></script>
+    <script src="/js/grammar-theory-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/grammar-quiz-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/vocab-decks-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/dictionary-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/dictionary-preprocess.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/ipa-helper.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/audio-service.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/dictionary-engine.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/universal-audio-engine.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/toeic-traps-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/toeic-diagnostic-workstation.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/roadmap-and-traps.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/toeic-audio-player.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/listening-data-v2.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/toeic-listening-workstation.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/ets2026-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/reading-practice-database.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/toeic-reading-workstation.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/dailydictation-toeic-data.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/dailydictation-workstation.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/toeic-boc-bang-station.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/curated-vocab-bank.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/textbook-curriculum-database.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/dynamic-topic-vocab-engine.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/vocab-game-workstation.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/full-part-practice.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/listening-dashboard.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/listening-smart-review.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/landing-mascot-engine.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/grammar-database.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/grammar-module.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/vocabulary-module.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/pdf-studio-module.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/take-note-hybrid-editor.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/floating-take-note.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/auth-sync-manager.js?v=studystudio_20261029_step2_perfect"></script>
+    <script src="/js/study-focus-engine.js?v=studystudio_20261029_step3_zen"></script>
+    <script src="/js/soi-may-companion.js?v=studystudio_20261030"></script>
+    <script src="/js/ets-adaptive-scorer.js?v=studystudio_20261030"></script>
+    <script src="/js/mobile-ergonomics-engine.js?v=studystudio_20261030_step4"></script>
+    <script src="/js/offline-audio-manager.js?v=studystudio_20261030_step4"></script>
+    <script src="/js/streak-reminder-engine.js?v=studystudio_20261030_step4"></script>
     <script>
         if (window.pdfjsLib) {
             try {
@@ -967,6 +979,12 @@
                             <i class="fa-solid fa-star text-purple-500"></i>
                             <span id="sanhMemberXpVal">0 XP</span>
                         </div>
+
+                        <!-- PWA Install Button (Hiện tự động khi trình duyệt hỗ trợ cài app) -->
+                        <button id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-bold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" title="Cài đặt Ứng dụng Tôi Đi Đâu Đó về màn hình chính">
+                            <i class="fa-solid fa-cloud-arrow-down text-xs animate-bounce"></i>
+                            <span class="hidden sm:inline">Cài App</span>
+                        </button>
 
                         <!-- Notification Bell -->
                         <button onclick="showToast('🔔 Bạn không có thông báo bài tập mới nào!')" class="w-8 h-8 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/70 dark:border-slate-700 flex items-center justify-center transition cursor-pointer" title="Thông báo">
@@ -5824,6 +5842,18 @@
                         <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">10 câu trắc nghiệm từ loại & ngữ pháp 30s/câu</div>
                     </div>
                     <span class="text-xs font-bold text-purple-600 dark:text-purple-400 shrink-0">+15 XP</span>
+                </button>
+
+                <!-- Nút Cài đặt App (PWA) trên Mobile Quick Sheet -->
+                <button id="btnPwaQuickSheetInstall" onclick="closeMobileQuickActionSheet(); window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt();" class="hidden p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50/50 dark:from-slate-800 dark:to-slate-800/60 border border-emerald-300 dark:border-slate-700 items-center gap-3.5 text-left active:scale-98 transition cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-base shrink-0 shadow-sm animate-pulse">
+                        <i class="fa-solid fa-cloud-arrow-down"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-xs font-bold text-slate-900 dark:text-white">Cài Đặt App Tôi Đi Đâu Đó</div>
+                        <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Thêm vào màn hình chính · Học mượt không cần mở trình duyệt</div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 shrink-0">Cài ngay</span>
                 </button>
             </div>
         </div>
