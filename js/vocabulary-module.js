@@ -1321,7 +1321,7 @@
                             <!-- Front Footer: Tip & Action Button -->
                             <div class="pt-2 border-t border-slate-100 dark:border-slate-800 flex flex-col items-center gap-3">
                                 <div class="text-[11px] font-medium text-slate-400 flex items-center gap-1.5">
-                                    <img src="assets/mascot/may_reading.png" alt="Sói Mây" class="w-4 h-4 object-contain">
+                                    <img src="/assets/mascot/may_reading.png" alt="Sói Mây" class="w-4 h-4 object-contain">
                                     <span>Sói Mây: Ghi nhớ phát âm trước khi lật xem nghĩa tiếng Việt</span>
                                 </div>
                                 <button type="button" onclick="VocabularyEngine.flipCard()" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold text-xs shadow-md shadow-indigo-500/25 flex items-center gap-2 transition active:scale-95 cursor-pointer">

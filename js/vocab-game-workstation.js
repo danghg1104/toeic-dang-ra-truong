@@ -1608,7 +1608,7 @@
                                         <!-- Study Studio Vocabulary Header Banner -->
                     <div class="rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/30 shadow-xl flex flex-col sm:flex-row items-center gap-5 relative overflow-hidden">
                         <div class="w-20 sm:w-24 aspect-[219/286] shrink-0 rounded-2xl overflow-hidden border border-indigo-400/40 shadow-lg relative bg-slate-800 flex items-center justify-center">
-                            <img src="assets/mascot/may_reading.png" alt="Sói Mây Từ Vựng" class="w-full h-full object-contain filter brightness-105 hover:scale-105 transition-transform duration-300">
+                            <img src="/assets/mascot/may_reading.png" alt="Sói Mây Từ Vựng" class="w-full h-full object-contain filter brightness-105 hover:scale-105 transition-transform duration-300">
                         </div>
                         <div class="space-y-1.5 text-center sm:text-left flex-1 min-w-0">
                             <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
@@ -3387,7 +3387,7 @@ resilience - khả năng phục hồi`;
                                     
                                     <!-- Sói Mây Focus Mascot Avatar -->
                                     <div class="relative w-24 h-24 rounded-2xl bg-slate-900/85 border-2 border-cyan-400/60 p-1.5 shadow-[0_0_25px_rgba(56,189,248,0.35)] flex items-center justify-center overflow-hidden">
-                                        <img src="assets/mascot/may_reading.png" alt="Sói Mây Studio" class="w-full h-full object-contain filter drop-shadow">
+                                        <img src="/assets/mascot/may_reading.png" alt="Sói Mây Studio" class="w-full h-full object-contain filter drop-shadow">
                                         <div class="absolute bottom-0 inset-x-0 h-4 bg-gradient-to-t from-slate-950 to-transparent"></div>
                                     </div>
                                     

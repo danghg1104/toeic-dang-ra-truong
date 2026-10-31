@@ -698,7 +698,7 @@ window.PersonalizedRoadmapEngine = {
                 <!-- MASCOT COMPANION CARD (Hình 1: Sói Mây Thám Hiểm Lộ Trình 990) -->
                 <div class="p-4 sm:p-5 rounded-3xl border border-amber-200/90 dark:border-slate-700 bg-gradient-to-r from-amber-50/90 via-white to-orange-50/80 dark:from-slate-800/90 dark:to-slate-850 shadow-sm flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                     <div class="w-20 sm:w-24 shrink-0 flex items-center justify-center p-2 rounded-2xl bg-[#f9f1dc] dark:bg-slate-750 border border-amber-300/80 shadow-xs">
-                        <img src="assets/mascot/may_explorer.png" alt="Sói Mây Thám Hiểm Lộ Trình 990" class="max-h-36 sm:max-h-40 object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                        <img src="/assets/mascot/may_explorer.png" alt="Sói Mây Thám Hiểm Lộ Trình 990" class="max-h-36 sm:max-h-40 object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1.5 text-center sm:text-left flex-1 min-w-0">
                         <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
@@ -1234,7 +1234,7 @@ window.TOEICTrapsEngine = {
                 <!-- Bức ảnh thực tế Part 1 (Photographs) -->
                 ${q.image ? `
                     <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 shadow-sm max-w-xl mx-auto my-1.5">
-                        <img src="${q.image}" alt="TOEIC Part 1 Photograph" class="w-full h-56 sm:h-64 object-cover hover:scale-105 transition duration-300" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80';">
+                        <img src="${q.image}" alt="TOEIC Part 1 Photograph" class="w-full h-56 sm:h-64 object-cover hover:scale-105 transition duration-300" loading="lazy" onerror="this.onerror=null; this.src='/assets/mascot/may_listening.png'; this.className='w-full h-56 sm:h-64 object-contain bg-slate-50 dark:bg-slate-800 p-6';">
                     </div>
                 ` : ''}
 

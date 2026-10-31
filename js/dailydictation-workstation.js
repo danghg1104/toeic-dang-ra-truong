@@ -407,7 +407,7 @@
                 <!-- Sói Mây Phòng Thu Listening Mascot Card (Ảnh 3) -->
                 <div class="rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/30 shadow-xl flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mb-4 overflow-hidden relative">
                     <div class="w-20 sm:w-24 aspect-[219/286] shrink-0 rounded-2xl overflow-hidden border border-indigo-400/40 shadow-lg relative bg-slate-800">
-                        <img src="assets/mascot/may_listening.png" alt="Sói Mây Kiểm Âm Phòng Lab" class="w-full h-full object-cover filter brightness-105 hover:scale-105 transition-transform duration-300">
+                        <img src="/assets/mascot/may_listening.png" alt="Sói Mây Kiểm Âm Phòng Lab" class="w-full h-full object-cover filter brightness-105 hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1 text-center sm:text-left flex-1 min-w-0">
                         <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">

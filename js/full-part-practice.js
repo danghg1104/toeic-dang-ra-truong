@@ -932,7 +932,7 @@ window.FullPartPracticeEngine = {
                 <!-- Part 1 Photograph Display with Zoom -->
                 ${q.image ? `
                     <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 shadow-sm max-w-xl mx-auto">
-                        <img src="${q.image}" alt="${q.alt_text || 'TOEIC Part 1 Photograph'}" class="w-full h-56 sm:h-64 object-cover cursor-zoom-in" onclick="window.open(this.src, '_blank')" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80';">
+                        <img src="${q.image}" alt="${q.alt_text || 'TOEIC Part 1 Photograph'}" class="w-full h-56 sm:h-64 object-cover cursor-zoom-in" onclick="window.open(this.src, '_blank')" loading="lazy" onerror="this.onerror=null; this.src='/assets/mascot/may_listening.png'; this.className='w-full h-56 sm:h-64 object-contain bg-slate-50 dark:bg-slate-800 p-6';">
                     </div>
                 ` : ''}
 

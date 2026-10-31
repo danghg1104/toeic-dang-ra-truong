@@ -251,7 +251,7 @@
                 <!-- Bên trái: Mascot Sói Mây & Tên Trạm Học -->
                 <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-xl bg-slate-800 border border-cyan-400/50 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
-                        <img src="assets/mascot/may_reading.png" alt="Sói Mây Focus" class="w-full h-full object-contain filter brightness-110">
+                        <img src="/assets/mascot/may_reading.png" alt="Sói Mây Focus" class="w-full h-full object-contain filter brightness-110">
                     </div>
                     <div class="leading-tight">
                         <div class="flex items-center gap-1.5">

@@ -264,7 +264,7 @@
                 <!-- Avatar Mascot có nhịp thở và vòng sáng -->
                 <div class="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-400 via-indigo-500 to-purple-600 p-0.5 shadow-xl hover:shadow-2xl transition-all">
                     <div class="w-full h-full rounded-[14px] bg-white dark:bg-slate-900 flex items-center justify-center p-1 overflow-hidden relative">
-                        <img id="floatingMascotImg" src="assets/mascot/may_avatar.png" alt="Sói Mây AI" class="soi-may-breathing w-10 h-10 object-contain drop-shadow transition-transform group-hover:scale-115">
+                        <img id="floatingMascotImg" src="/assets/mascot/may_avatar.png" alt="Sói Mây AI" class="soi-may-breathing w-10 h-10 object-contain drop-shadow transition-transform group-hover:scale-115">
                         <span class="absolute bottom-1 right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
                     </div>
                 </div>
