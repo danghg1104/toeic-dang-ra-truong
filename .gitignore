@@ -21,5 +21,7 @@ yarn-error.log*
 Thumbs.db
 
 data/ets2026_raw/
+_backup_version_1.0/
+*.pdf
 scratch/
 scripts/test_audio_openrouter.js
