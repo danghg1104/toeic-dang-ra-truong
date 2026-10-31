@@ -1,0 +1,774 @@
+
+
+-- 1 of 161 --
+
+
+
+-- 2 of 161 --
+
+
+
+-- 3 of 161 --
+
+
+
+-- 4 of 161 --
+
+
+
+-- 5 of 161 --
+
+
+
+-- 6 of 161 --
+
+
+
+-- 7 of 161 --
+
+
+
+-- 8 of 161 --
+
+
+
+-- 9 of 161 --
+
+
+
+-- 10 of 161 --
+
+
+
+-- 11 of 161 --
+
+
+
+-- 12 of 161 --
+
+
+
+-- 13 of 161 --
+
+
+
+-- 14 of 161 --
+
+
+
+-- 15 of 161 --
+
+
+
+-- 16 of 161 --
+
+
+
+-- 17 of 161 --
+
+
+
+-- 18 of 161 --
+
+
+
+-- 19 of 161 --
+
+
+
+-- 20 of 161 --
+
+
+
+-- 21 of 161 --
+
+
+
+-- 22 of 161 --
+
+
+
+-- 23 of 161 --
+
+
+
+-- 24 of 161 --
+
+
+
+-- 25 of 161 --
+
+
+
+-- 26 of 161 --
+
+
+
+-- 27 of 161 --
+
+
+
+-- 28 of 161 --
+
+
+
+-- 29 of 161 --
+
+
+
+-- 30 of 161 --
+
+
+
+-- 31 of 161 --
+
+
+
+-- 32 of 161 --
+
+
+
+-- 33 of 161 --
+
+
+
+-- 34 of 161 --
+
+
+
+-- 35 of 161 --
+
+
+
+-- 36 of 161 --
+
+
+
+-- 37 of 161 --
+
+
+
+-- 38 of 161 --
+
+
+
+-- 39 of 161 --
+
+
+
+-- 40 of 161 --
+
+
+
+-- 41 of 161 --
+
+
+
+-- 42 of 161 --
+
+
+
+-- 43 of 161 --
+
+
+
+-- 44 of 161 --
+
+
+
+-- 45 of 161 --
+
+
+
+-- 46 of 161 --
+
+
+
+-- 47 of 161 --
+
+
+
+-- 48 of 161 --
+
+
+
+-- 49 of 161 --
+
+
+
+-- 50 of 161 --
+
+
+
+-- 51 of 161 --
+
+
+
+-- 52 of 161 --
+
+
+
+-- 53 of 161 --
+
+
+
+-- 54 of 161 --
+
+
+
+-- 55 of 161 --
+
+
+
+-- 56 of 161 --
+
+
+
+-- 57 of 161 --
+
+
+
+-- 58 of 161 --
+
+
+
+-- 59 of 161 --
+
+
+
+-- 60 of 161 --
+
+
+
+-- 61 of 161 --
+
+
+
+-- 62 of 161 --
+
+
+
+-- 63 of 161 --
+
+
+
+-- 64 of 161 --
+
+
+
+-- 65 of 161 --
+
+
+
+-- 66 of 161 --
+
+
+
+-- 67 of 161 --
+
+
+
+-- 68 of 161 --
+
+
+
+-- 69 of 161 --
+
+
+
+-- 70 of 161 --
+
+
+
+-- 71 of 161 --
+
+
+
+-- 72 of 161 --
+
+
+
+-- 73 of 161 --
+
+
+
+-- 74 of 161 --
+
+
+
+-- 75 of 161 --
+
+
+
+-- 76 of 161 --
+
+
+
+-- 77 of 161 --
+
+
+
+-- 78 of 161 --
+
+
+
+-- 79 of 161 --
+
+
+
+-- 80 of 161 --
+
+
+
+-- 81 of 161 --
+
+
+
+-- 82 of 161 --
+
+
+
+-- 83 of 161 --
+
+
+
+-- 84 of 161 --
+
+
+
+-- 85 of 161 --
+
+
+
+-- 86 of 161 --
+
+
+
+-- 87 of 161 --
+
+
+
+-- 88 of 161 --
+
+
+
+-- 89 of 161 --
+
+
+
+-- 90 of 161 --
+
+
+
+-- 91 of 161 --
+
+
+
+-- 92 of 161 --
+
+
+
+-- 93 of 161 --
+
+
+
+-- 94 of 161 --
+
+
+
+-- 95 of 161 --
+
+
+
+-- 96 of 161 --
+
+
+
+-- 97 of 161 --
+
+
+
+-- 98 of 161 --
+
+
+
+-- 99 of 161 --
+
+
+
+-- 100 of 161 --
+
+
+
+-- 101 of 161 --
+
+
+
+-- 102 of 161 --
+
+
+
+-- 103 of 161 --
+
+
+
+-- 104 of 161 --
+
+
+
+-- 105 of 161 --
+
+
+
+-- 106 of 161 --
+
+
+
+-- 107 of 161 --
+
+
+
+-- 108 of 161 --
+
+
+
+-- 109 of 161 --
+
+
+
+-- 110 of 161 --
+
+
+
+-- 111 of 161 --
+
+
+
+-- 112 of 161 --
+
+
+
+-- 113 of 161 --
+
+
+
+-- 114 of 161 --
+
+
+
+-- 115 of 161 --
+
+
+
+-- 116 of 161 --
+
+
+
+-- 117 of 161 --
+
+
+
+-- 118 of 161 --
+
+
+
+-- 119 of 161 --
+
+
+
+-- 120 of 161 --
+
+
+
+-- 121 of 161 --
+
+
+
+-- 122 of 161 --
+
+
+
+-- 123 of 161 --
+
+
+
+-- 124 of 161 --
+
+
+
+-- 125 of 161 --
+
+
+
+-- 126 of 161 --
+
+
+
+-- 127 of 161 --
+
+
+
+-- 128 of 161 --
+
+
+
+-- 129 of 161 --
+
+
+
+-- 130 of 161 --
+
+
+
+-- 131 of 161 --
+
+
+
+-- 132 of 161 --
+
+
+
+-- 133 of 161 --
+
+
+
+-- 134 of 161 --
+
+
+
+-- 135 of 161 --
+
+
+
+-- 136 of 161 --
+
+
+
+-- 137 of 161 --
+
+
+
+-- 138 of 161 --
+
+
+
+-- 139 of 161 --
+
+
+
+-- 140 of 161 --
+
+
+
+-- 141 of 161 --
+
+
+
+-- 142 of 161 --
+
+
+
+-- 143 of 161 --
+
+
+
+-- 144 of 161 --
+
+
+
+-- 145 of 161 --
+
+
+
+-- 146 of 161 --
+
+
+
+-- 147 of 161 --
+
+
+
+-- 148 of 161 --
+
+
+
+-- 149 of 161 --
+
+
+
+-- 150 of 161 --
+
+
+
+-- 151 of 161 --
+
+
+
+-- 152 of 161 --
+
+
+
+-- 153 of 161 --
+
+
+
+-- 154 of 161 --
+
+
+
+-- 155 of 161 --
+
+
+
+-- 156 of 161 --
+
+
+
+-- 157 of 161 --
+
+
+
+-- 158 of 161 --
+
+
+
+-- 159 of 161 --
+
+
+
+-- 160 of 161 --
+
+Pearson Education Limited
+KAO TWO
+KAO Park
+Hockham Way
+Harlow, Essex
+CM17 9SR
+England
+and Associated Companies throughout the world.
+english.com/roadmap
+© Pearson Education Limited 2021
+All rights reserved; no part of this publication may be reproduced, stored in
+a retrieval system, or transmitted in any form or by any means, electronic,
+mechanical, photocopying, recording, or otherwise without the prior written
+permission of the Publishers.
+First published 2021
+ISBN: 978-1-292-22767-2
+Set in Soho Gothic Pro
+Printed and bound by L.E.G.O. S.p.A., Italy
+Acknowledgements
+The Publishers would like to thank the following people for their feedback and
+comments during the development of the material:
+David Allan, Mary-Ann Bell, Ricardo Iglesias Büttner, David Byrne, Laura
+Cunnington, Rollo Desoutter, Claire Fitzgerald, Katy Kelly, Rebecca Lennox,
+Louise Manicolo, Peter Mason, Mike Mooney, Fran Perry, Alexandra Warden
+Illustration acknowledgements
+Keri Green (Beehive Illustration Agency) p.64, 65, 95, 104, 108, 137; Ash Jin
+p.16, 17, 31, 91, 95, 99, 110; Daniel Limon (Beehive Illustration Agency) p.17,
+26, 35, 44, 46, 48, 96, 117, 127, 143; Lauren Radley p.20, 38, 39, 52, 74; Tony
+Richardson p.8, 9, 17, 22, 23, 24, 26, 27, 28, 36, 54, 70, 77, 92, 93, 94, 104, 109,
+119, 153, 154
+Photo acknowledgements
+The publisher would like to thank the following for their kind permission to
+reproduce their photographs:
+123RF.com: Alberto Loyo 54, Alexander Kharchenko 138, Alexandr Malyshev
+138, Andreahast 138, Antonio Guillem 142, Bianca Grueneberg 142, Cathy
+Yeulet 140, Denys Iarkovoi 97, ErickN 11, Fabio Formaggio 140, Fontaineg1234
+37, Foodandmore 140, Iakov Kalinin 11, Ian YeQmkin 140, Igor Tarasyuk 80, Ion
+Chiosea 6, Jakkapan 138, Katarzyna Białasiewicz 32, Khunaspix 151, 152, M R
+Fakhrurrozi 141, Marco Rubino 97, Maridav 140, Marisha5 55, Mikkel Bigandt
+141, Mykhaylo Pelin 55, Natika 140, Pauliene Wessel 43, Roman Iegoshyn
+144, Ronstik 51, Scanrail 32, Sergey Skripnikov 136, Smileus 82, 83, Somsak
+Sudthangtum 37, Stanislav Ponomarenko 138, Tharnapoom Voranavin 141,
+Wavebreak Media Ltd 140, Zacarias Pereira da Mata 138; Alamy Stock Photo:
+ImageBROKER 10, Jim Laws 27, Neal and Molly Jansen 151, 152, Shaun A
+Daley 27, 27, Silwen Randebrock 22; Getty Images: 10’000 Hours 87, 137,
+142, Adam Wallach / EyeEm 19, Adamkaz 154, Adie Bush 51, Aimin Tang 36,
+AleksandarGeorgiev 72, AleksandarNakic 114, Aleksandr Belik / EyeEm 142,
+Aleksandr Zubkov 107, Alexander Spatari 94, 94, 100, AlexBrylov 101, Alexey
+Dulin / EyeEm 98, Aliaksandra Ivanova / EyeEm 50, Alicia Llop 97, Aliyev Alexei
+Sergeevich 49, Alvarez 67, Alys Tomlinson 43, Amesy 87, Amir Mukhtar 16,
+Andre Schoenherr 144, Andresr 84, Andrewmedina 136, AndreyPopov 138,
+Antonio_Diaz 136, AntonioGuillem 47, Arman Zhenikeyev 48, ArtMarie 73,
+Aurelio Scetta / EyeEm 151, 152, AzmanJaka 137, Bader-Butowski 62, Baona
+96, Betsie Van Der Meer 5, 67, 111, Bill Hatcher 18, BJI / Blue Jean Images 139,
+Bjones27 141, Blinow61 36, Boris Zhitkov 16, Brian Niles 87, CaroleGomez 40,
+Cavan Images 62, 95, Chuckcollier 138, Cmspic 97, Cnythzl 141, Craig Russell
+/ EyeEm 32, CSA Images 54, D3sign 34, 142, Damircudic 91, Dan Brownsword
+144, DaniloAndjus 15, David Lees 31, Deagreez 80, Dean Mitchell 73, Deborah
+Andreasen 30, Denia Fernandez 112, DGLimages 136, DisobeyArt 33, Dougal
+Waters 8, 98, Drazen_ 14, Eastimages 55, Eric Burger / EyeEm 18, Estefanía
+Tarifa / EyeEm 138, Eva-Katalin 5, 72, 78, Falombini 138, FatCamera 14,
+Filadendron 111, Fitzer 18, Flashpop 114, 137, 142, 142, Folia Imafes / FOLIO
+102, FS Productions 58, Fuse 24, 24, 64, Geber86 72, Glesik 57, GlobalVision
+Communication / GlobalVision 360 158, GorodenkoP 86, Gpointstudio 78, 151,
+152, Halfpoint 14, Halfpoint Images 98, Helen King 66, Hello World 80, Henglein
+and Steets 81, Hinterhaus Productions 84, 89, 105, 106, Hispanolistic 9, Holger
+Thalmann 144, Iglo Losa / EyeEm 90, Igor Vershinsky 96, Image Source 88,
+97, Imagedepotpro 138, Indeed 7, Inigo Cia 34, Inti St Clair 137, Ippei Naoi 58,
+Ivan Pantic 111, J2R 59, Jake Curtis 100, James Osmond 54, Jasmin Merdan 151,
+152, Jessie Pido / EyeEm 58, JGI/Jamie Grill 5, 51, 142, John Harper 107, Johner
+Images 51, 66, Jose Luis Pelaez Inc 101, Kali9 136, KatarzynaBialasiewicz
+136, Kathrin Ziegler 88, 137, 144, Kentaroo Tryman 89, Kevin Kozicki 86,
+Kittiphan Teerawattanakul / EyeEm 90, Klaus Vedfelt 38, 66, Klubovy 31, Larry
+Washburn 68, LattaPictures 8, LauriPatterson 37, Lechatnoir 41, 57, Leland
+Bobbe 112, lleerogers 42, Luis Alvarez 111, 136, Mammuth 58, Manuel Breva
+Colmeiro 32, Manuel Sulzer 54, Martin Novak 144, Maskot 64, 68, 76, 87, 91,
+93, 98, 103, 113, 114, 114, Maurizio Siani 22, Michael Blann 102, Michael Lee
+41, Mint Images 48, 86, MBI 40, Morsa Images 56, 88, Moyo Studio 144, Msk.
+nina 100, MStudioImages 3, 7, Mykhailo Lukashuk 86, Ng Sok Lian / EyeEm
+32, Nick Brundle Photography 55, Nikada 90, 113, 154, Nisian Hughes 142,
+Nortonrsx 88, Oliver Rossi 10, 137, Olivier Schmidt / EyeEm 158, Oscar Wong
+98, Ozgurdonmaz 89, Patchareeporn_s 8, Patcharin Simalhek / EyeEm 49,
+PaulVinten 153, Peathegee Inc 56, Pekic 34, 51, Peter Adams 107, Peter Cade
+151, 152, Peter M. Fisher 50, Photo by Alex Tihonov 157, PhotoAlto/Frederic
+Cirou 63, Photos by R A Kearton 82, Piola666 136, PixOy 19, Poechri 151, 152,
+Polka Dot RF 88, Pollyana Ventura 91, Portishead1 34, Portra Images 70, Ramiro
+Olaciregui 67, Ranplett 10, Rawpixel 111, Recep-bg 114, RgStudio 91, Ridofranz
+91, Robert Deutschman 15, Roberto Westbrook 15, RobertoDavid 98, Robin
+Skjoldborg 98, Roo Lewis 11, Rosa María Fernández Rz 107, Rosemary Calvert
+32, RossHelen 158, Roy JAMES Shakespeare 37, Russell Monk 30, RyanJLane
+47, Sam Edwards 151, 152, Sashkinw 32, SDI Productions 103, Seb_ra 114,
+Shapecharge 8, Shironosov 103, Skynesher 71, 78, SolStock 10, 88, 101,
+SOPA Images / Contributor 3, 19, South_agency 64, 106, 136, Spooh 151,
+152, StefaNikolic 78, Steve De Neef 54, Steve Prezant 80, Sturti 12, Superb
+Images 15, Sven Hansche / EyeEm 157, Svetikd 81, T2 Images 136, Tadamasa
+Taniguchi 62, Taiyou Nomachi 91, 101, 151, 152, TaPhotograph 96, Tara
+Moore 3, 31, 34, 140, TARIK KIZILKAYA 50, Tatyana Tomsickova Photography
+63, Ted Levine 144, Tempura 84, Terry Vine 141, Tetra Images 37, The Good
+Brigade 140, Thomas Barwick 8, 10, 11, 14, 33, 71, 88, 105, 105, 106, 111, Tim
+Macpherson 89, Tim Robberts 10, 51, 62, T_kimura 17, Tobias Ackeborn 41,
+Tom Werner 113, TommL 112, Tonywestphoto 41, Tracy Packer Photography
+19, VadimZakirov 43, Valentyn Semenov / EyeEm 58, VitalyEdush 157, Vladimir
+Godnik 9, Vostok 24, Weerasak Sariso / EyeEm 18, Westend61 6, 10, 30, 30, 50,
+50, 72, 78, 79, 88, 98, 106, 112, 153, 144, 140, Whiteway 18, Xuanyu Han 107;
+Pearson Education Ltd: Naki Kouyioumtzis 37; Shutterstock: 187633 136,
+3445128471 43, 767659 3, 44, Africa Studio 43, 80, Ahturner 141, Andrew
+Zarivny 151, 152, ArtOfPhotos 142, AzriSuratmin 63, Beata Becla 76, BeerlogoP
+58, Billion Photos 32, Blanscape 83, Borislav Bajkic 32, Bullet74 141, Christian
+Mueller 36, Daniel Prudek 58, Diego Cervo 67, Dolgachov 8, ESB Professional
+55, F11photo 25, Federico Rostagno 138, Fernanda07 7, Flil 142, Foamfoto
+96, Fotokostic 50, Francesco99 16, Gravicapa 40, GSDesign 140, Gutesa 6,
+Hadrian 16, Igorwheeler 16, ILYA AKINSHIN 107, Isak55 16, Jason Dudley 16,
+Jiri Hera 80, Johnfoto18 42, 43, Joshua Resnick 144, K321 80, Karamysh 153,
+Kariphoto 43, Katarish 3, 22, Keith Gentry 60, KTOGRAPHY 15, Kzenon 34,
+LiliGraphie 97, Litvinov 141, lzf 144, Maksym Narodenko 140, MaraZe 43,
+140, Maridav 140, Melih YILDIZ 76, Mohamed Rageh 58, Navee Sangvitoon
+138, New Africa 140, Nick Starichenko 34, Nito 43, Norwaymarine 16, Pavlo
+Loushkin 140, Photographee.eu 24, Pichugin Dmitry 56, Pisaphotography 109,
+Pixel-Shot 138, Puthithons 140, QQ7 34-35, Racorn 86, Radovan1 138, Raisa
+Suprun 138, Ram Kay 67, RossHelen 33, Ruslan Ivantsov 43, SABPICS 32, Sabuhi
+Novruzov 80, Sakeza 80, Samokhin 140, Sculpies 141, Shmeliova Natalia. 141,
+Sirtravelalot 136, Skyearth 11, Soloviova Liudmyla 144, Stargazer 32, Stefan
+Schurr 141, StudioVin 32, Syda Productions 140, Tim UR 140, 140, Timofeev
+Vladimir 138, Tommaso lizzul 142, TriP 55, UrQn 42, Valentina Razumova 140,
+Valerii__Dex 138, Valery121283 80, Victimewalker 19, Viktor1 43, Vixit 5, 54-
+55, Wavebreakmedia ltd 32, Weslley Silva 18, Winston Link 42, Zdenek Venclik
+153, Zurijeta 58.
+Cover Image: Front: Getty Image: Isogawyi
+Every ePort has been made to trace the copyright holders and we apologise
+in advance for any unintentional omissions. We would be pleased to insert the
+appropriate acknowledgement in any subsequent edition of this publication.
+
+-- 161 of 161 --
+
