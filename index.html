@@ -952,7 +952,7 @@
             <section id="view-hom-nay" class="space-y-5">
 
                 <!-- 1. TOP HEADER BAR: LỜI CHÀO CHUYÊN NGHIỆP & HUY HIỆU -->
-                <div class="glass-panel rounded-2xl px-4 sm:px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-xs border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <div class="relative z-40 glass-panel rounded-2xl px-4 sm:px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-xs border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
                     <div class="flex items-center gap-3 text-slate-800 dark:text-white">
                         <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base shrink-0 font-bold border border-blue-100 dark:border-blue-900/40">
                             <i class="fa-solid fa-graduation-cap"></i>
@@ -992,7 +992,7 @@
                         </button>
 
                         <!-- User Profile Pill & Dropdown (Hiện khi đã đăng nhập) -->
-                        <div class="relative z-50 hidden" id="sanhMemberDropdownWrapper">
+                        <div class="relative z-[70] hidden" id="sanhMemberDropdownWrapper">
                             <button type="button" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-3.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-xs flex items-center gap-2 hover:border-blue-400 transition text-left cursor-pointer">
                                 <div id="sanhMemberAvatar" class="w-7 h-7 rounded-full bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center ring-2 ring-blue-300/40">
                                     ?
@@ -1003,7 +1003,7 @@
                                 </div>
                             </button>
                             <!-- Dropdown Menu -->
-                            <div id="sanhMemberProfileMenu" class="hidden absolute right-0 mt-2.5 w-60 rounded-[20px] bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-700 p-2.5 z-[100]">
+                            <div id="sanhMemberProfileMenu" class="hidden absolute right-0 mt-2.5 w-60 rounded-[20px] bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-700 p-2.5 z-[100] ring-1 ring-slate-900/10 dark:ring-white/10">
                                 <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1">
                                     <div id="sanhMemberDropdownEmail" class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">...</div>
                                 </div>
@@ -12444,14 +12444,27 @@
             el.className = el.className.replace(/\bbg-[a-z0-9-]+\b/g, '').trim();
 
             if (avatar.startsWith('data:image/') || avatar.startsWith('http://') || avatar.startsWith('https://')) {
-                el.classList.add('bg-slate-100', 'overflow-hidden');
-                el.innerHTML = `<img src="${avatar}" class="w-full h-full object-cover rounded-full" alt="avatar">`;
+                el.classList.add('bg-slate-100', 'overflow-hidden', 'relative');
+                const img = document.createElement('img');
+                img.src = avatar;
+                img.alt = account?.name || 'avatar';
+                img.className = 'w-full h-full object-cover rounded-full';
+                img.referrerPolicy = 'no-referrer';
+                img.crossOrigin = 'anonymous';
+                img.onerror = function() {
+                    // Fallback thông minh: Khi ảnh mạng lỗi (CORS, 404, Tracking Prevention chặn) -> Tự động chuyển sang chữ cái đầu
+                    this.remove();
+                    el.classList.remove('bg-slate-100');
+                    el.classList.add(avatarColor, 'overflow-hidden', 'flex', 'items-center', 'justify-center');
+                    el.innerHTML = `<span class="select-none font-black text-white leading-none drop-shadow-xs">${initial}</span>`;
+                };
+                el.appendChild(img);
             } else if (avatar && avatar.length <= 4) { // Emoji mascot
                 el.classList.add(avatarColor, 'overflow-hidden', 'flex', 'items-center', 'justify-center');
                 el.innerHTML = `<span class="select-none leading-none">${avatar}</span>`;
             } else {
                 el.classList.add(avatarColor, 'overflow-hidden', 'flex', 'items-center', 'justify-center');
-                el.innerHTML = `<span class="select-none font-extrabold leading-none">${initial}</span>`;
+                el.innerHTML = `<span class="select-none font-black text-white leading-none drop-shadow-xs">${initial}</span>`;
             }
         }
 
