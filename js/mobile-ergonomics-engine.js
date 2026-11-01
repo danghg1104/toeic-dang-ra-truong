@@ -187,68 +187,136 @@
         // =========================================================================
         // 4. PWA INSTALL PROMPT & STANDALONE APP EXPERIENCE
         // =========================================================================
+        // PWA INSTALLATION MANAGER (TỐI ƯU TOÀN DIỆN CHO CẢ IOS SAFARI & ANDROID)
+        // =========================================================================
         initPwaInstallManager() {
             this.deferredInstallPrompt = null;
             this.isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
-            if (this.isStandalone) {
-                console.log('📱 App đang chạy ở chế độ PWA Standalone.');
-                return;
-            }
+            const isIOSDevice = () => {
+                return (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && !window.MSStream;
+            };
+            window.isIOSDevice = isIOSDevice;
 
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                this.deferredInstallPrompt = e;
-                console.log('📲 PWA beforeinstallprompt đã sẵn sàng.');
+            // Hàm mở và đóng Modal hướng dẫn cài đặt iOS toàn cục
+            window.openIosPwaInstallModal = () => {
+                const modal = document.getElementById('iosPwaInstallModal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    modal.style.display = 'flex';
+                }
+            };
+            window.closeIosPwaInstallModal = () => {
+                const modal = document.getElementById('iosPwaInstallModal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    modal.style.display = 'none';
+                }
+            };
 
-                // Hiển thị nút cài đặt trên Header & Mobile Menu
+            const showInstallButtons = () => {
+                if (this.isStandalone) return;
                 const headerBtn = document.getElementById('btnPwaHeaderInstall');
                 if (headerBtn) {
                     headerBtn.classList.remove('hidden');
                     headerBtn.classList.add('flex');
+                    headerBtn.style.display = 'flex';
+                }
+                const stickyBtn = document.getElementById('btnPwaMobileStickyInstall');
+                if (stickyBtn) {
+                    stickyBtn.classList.remove('hidden');
+                    stickyBtn.classList.add('flex');
+                    stickyBtn.style.display = 'flex';
                 }
                 const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
                 if (quickBtn) {
                     quickBtn.classList.remove('hidden');
                     quickBtn.classList.add('flex');
                 }
+            };
+
+            // Đảm bảo DOM đã tải xong trước khi gắn hiển thị nút
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => showInstallButtons());
+            } else {
+                showInstallButtons();
+            }
+
+            if (this.isStandalone) {
+                console.log('📱 App đang chạy ở chế độ PWA Standalone.');
+                return;
+            }
+
+            // Với Android Chrome / Edge: Lắng nghe beforeinstallprompt để kích hoạt prompt gốc
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                this.deferredInstallPrompt = e;
+                console.log('📲 PWA beforeinstallprompt đã sẵn sàng.');
+                showInstallButtons();
             });
 
             window.addEventListener('appinstalled', () => {
                 console.log('🎉 PWA Tôi Đi Đâu Đó đã được cài đặt thành công!');
                 this.deferredInstallPrompt = null;
                 const headerBtn = document.getElementById('btnPwaHeaderInstall');
-                if (headerBtn) headerBtn.classList.add('hidden');
+                if (headerBtn) {
+                    headerBtn.classList.add('hidden');
+                    headerBtn.style.display = 'none';
+                }
+                const stickyBtn = document.getElementById('btnPwaMobileStickyInstall');
+                if (stickyBtn) {
+                    stickyBtn.classList.add('hidden');
+                    stickyBtn.style.display = 'none';
+                }
                 const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
                 if (quickBtn) quickBtn.classList.add('hidden');
             });
 
+            // Trigger chính khi người dùng nhấn "Tải App"
             window.triggerPwaInstallPrompt = async () => {
-                if (!this.deferredInstallPrompt) {
-                    if (typeof showToast === 'function') {
-                        showToast('💡 Mẹo: Trên iOS Safari, bấm nút Chia sẻ (Share) -> "Thêm vào MH chính" (Add to Home Screen).');
-                    } else {
-                        alert('Để cài đặt ứng dụng: Bấm menu trình duyệt và chọn "Cài đặt ứng dụng" hoặc "Thêm vào màn hình chính".');
-                    }
+                // Ưu tiên 1: Thiết bị iOS (iPhone / iPad) -> luôn mở modal 3 bước trực quan chuẩn Apple HIG
+                if (isIOSDevice()) {
+                    window.openIosPwaInstallModal();
                     return;
                 }
 
-                this.deferredInstallPrompt.prompt();
-                const { outcome } = await this.deferredInstallPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('✅ Người dùng đồng ý cài đặt PWA.');
-                    if (typeof showToast === 'function') {
-                        showToast('🎉 Đang cài đặt Tôi Đi Đâu Đó về màn hình chính...');
+                // Trường hợp 2: Có prompt native của trình duyệt (Android Chrome, Edge, Chromium)
+                if (this.deferredInstallPrompt) {
+                    this.deferredInstallPrompt.prompt();
+                    const { outcome } = await this.deferredInstallPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        console.log('✅ Người dùng đồng ý cài đặt PWA.');
+                        if (typeof showToast === 'function') {
+                            showToast('🎉 Đang cài đặt Tôi Đi Đâu Đó về màn hình chính...');
+                        }
+                        if (window.SoiMayCompanion) {
+                            window.SoiMayCompanion.celebrate('Tuyệt vời! Tôi Đi Đâu Đó đã được thêm vào màn hình chính của bạn!');
+                        }
                     }
-                    if (window.SoiMayCompanion) {
-                        window.SoiMayCompanion.celebrate('Tuyệt vời! Tôi Đi Đâu Đó đã được thêm vào màn hình chính của bạn!');
+                    this.deferredInstallPrompt = null;
+                    const headerBtn = document.getElementById('btnPwaHeaderInstall');
+                    if (headerBtn) {
+                        headerBtn.classList.add('hidden');
+                        headerBtn.style.display = 'none';
                     }
+                    const stickyBtn = document.getElementById('btnPwaMobileStickyInstall');
+                    if (stickyBtn) {
+                        stickyBtn.classList.add('hidden');
+                        stickyBtn.style.display = 'none';
+                    }
+                    const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
+                    if (quickBtn) quickBtn.classList.add('hidden');
+                    return;
                 }
-                this.deferredInstallPrompt = null;
-                const headerBtn = document.getElementById('btnPwaHeaderInstall');
-                if (headerBtn) headerBtn.classList.add('hidden');
-                const quickBtn = document.getElementById('btnPwaQuickSheetInstall');
-                if (quickBtn) quickBtn.classList.add('hidden');
+
+                // Trường hợp 3: Thiết bị khác
+                if (typeof openMobileConnectModal === 'function') {
+                    openMobileConnectModal();
+                } else {
+                    window.openIosPwaInstallModal();
+                }
             };
         }
     }

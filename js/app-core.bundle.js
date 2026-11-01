@@ -8709,6 +8709,10 @@
         });
 
         function promptInstallPwaApp() {
+            if (typeof window.triggerPwaInstallPrompt === 'function') {
+                window.triggerPwaInstallPrompt();
+                return;
+            }
             if (deferredPwaInstallPrompt) {
                 deferredPwaInstallPrompt.prompt();
                 deferredPwaInstallPrompt.userChoice.then((choiceResult) => {
@@ -8717,6 +8721,8 @@
                     }
                     deferredPwaInstallPrompt = null;
                 });
+            } else if (typeof openIosPwaInstallModal === 'function') {
+                openIosPwaInstallModal();
             } else {
                 openMobileConnectModal();
             }

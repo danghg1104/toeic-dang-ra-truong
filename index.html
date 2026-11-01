@@ -767,27 +767,31 @@
 
     <!-- MOBILE STICKY TOP HEADER (Chỉ hiện trên Điện thoại & Tablet < 1024px) -->
     <div class="lg:hidden sticky top-1.5 z-30 mb-2.5 glass-panel rounded-[20px] px-3.5 py-2 flex items-center justify-between gap-2 shadow-sm">
-        <div class="flex items-center gap-2.5 min-w-0">
+        <div class="flex items-center gap-2.5 shrink-0">
             <button onclick="toggleMobileSidebar()" aria-label="Mở menu học tập" class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200/80 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 active:scale-95 transition shrink-0">
                 <i class="fa-solid fa-bars text-base"></i>
             </button>
-            <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2 min-w-0">
+            <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2 shrink-0">
                 <div class="w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Tôi Đi Đâu Đó - Lộ trình cá nhân">
                     <img src="/assets/mascot/may_avatar.png?v=soimay_v2_20261101" alt="Mascot Mây" class="w-full h-full object-cover">
                 </div>
-                <div class="leading-tight truncate">
+                <div class="leading-tight shrink-0">
                     <div class="text-xs font-extrabold bg-gradient-to-r from-orange-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
-                    <div class="text-[13.5px] font-extrabold text-slate-900 dark:text-white tracking-tight truncate">đâu đó</div>
+                    <div class="text-[13.5px] font-extrabold text-slate-900 dark:text-white tracking-tight">đâu đó</div>
                 </div>
             </a>
         </div>
 
         <div class="flex items-center gap-1.5 shrink-0">
+            <!-- Mobile Sticky Top Header PWA Install Button (Hiện trên cả iOS Safari & Android) -->
+            <button id="btnPwaMobileStickyInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="w-8 h-8 rounded-full bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white flex items-center justify-center shadow-xs transition active:scale-95 cursor-pointer ring-1 ring-white/20" title="Tải & Cài đặt Ứng dụng Tôi Đi Đâu Đó về màn hình chính">
+                <i class="fa-solid fa-cloud-arrow-down text-xs text-amber-300 animate-bounce"></i>
+            </button>
             <div class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-orange-600 flex items-center gap-1">
                 <span>🔥</span>
                 <span id="mobileTopStreakText">0</span>
             </div>
-            <div class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-rose-600 flex items-center gap-1">
+            <div class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-rose-600 hidden min-[420px]:flex items-center gap-1">
                 <span>✨</span>
                 <span id="mobileTopXpText">+0</span>
             </div>
@@ -973,6 +977,15 @@
                                 <span class="sidebar-text">Từ điển Anh - Việt</span>
                             </button>
                         </div>
+
+                        <!-- TẢI ỨNG DỤNG VỀ ĐIỆN THOẠI (PWA) -->
+                        <div class="pt-2 px-0.5">
+                            <button onclick="toggleSidebar(false); window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-bold text-sky-700 dark:text-sky-300 bg-gradient-to-r from-sky-50 to-indigo-50/80 dark:from-sky-950/40 dark:to-indigo-950/40 border border-sky-200/90 dark:border-sky-800 hover:bg-sky-100 transition shadow-xs cursor-pointer">
+                                <i class="fa-solid fa-cloud-arrow-down text-base text-sky-600 dark:text-sky-400 animate-pulse"></i>
+                                <span class="sidebar-text">Tải App về điện thoại</span>
+                                <span class="ml-auto px-1.5 py-0.5 rounded-md bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-[10px] font-extrabold uppercase">Cài ngay</span>
+                            </button>
+                        </div>
                     </nav>
                 </div>
 
@@ -1044,10 +1057,10 @@
                             <span id="sanhMemberXpVal">0 XP</span>
                         </div>
 
-                        <!-- PWA Install Button (Hiện tự động khi trình duyệt hỗ trợ cài app) -->
-                        <button id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-bold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" title="Cài đặt Ứng dụng Tôi Đi Đâu Đó về màn hình chính">
-                            <i class="fa-solid fa-cloud-arrow-down text-xs animate-bounce"></i>
-                            <span class="hidden sm:inline">Cài App</span>
+                        <!-- PWA Install Button (Hiện trên cả iOS & Android khi chưa cài app) -->
+                        <button id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="flex px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-bold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer ring-1 ring-white/20" title="Tải & Cài đặt Ứng dụng Tôi Đi Đâu Đó về màn hình chính">
+                            <i class="fa-solid fa-cloud-arrow-down text-xs text-amber-300 animate-bounce"></i>
+                            <span class="font-extrabold tracking-tight">Tải App</span>
                         </button>
 
                         <!-- Notification Bell -->
@@ -5899,6 +5912,83 @@
                         <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Thêm vào màn hình chính · Học mượt không cần mở trình duyệt</div>
                     </div>
                     <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 shrink-0">Cài ngay</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HƯỚNG DẪN TẢI & CÀI ĐẶT APP TRÊN IOS (IPHONE / IPAD) -->
+    <div id="iosPwaInstallModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-[9995] hidden items-end sm:items-center justify-center p-0 sm:p-4 animate-fadeIn">
+        <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-t-[32px] sm:rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 overflow-hidden relative animate-slideUp">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-400 to-indigo-600 p-0.5 shadow-md shrink-0">
+                        <img src="/assets/mascot/may_avatar.png?v=soimay_v2_20261101" alt="Logo Sói Mây" class="w-full h-full object-cover rounded-[14px]">
+                    </div>
+                    <div>
+                        <h3 class="text-base font-extrabold text-slate-900 dark:text-white leading-tight">Cài Đặt Trên iPhone / iPad</h3>
+                        <p class="text-xs text-sky-600 dark:text-sky-400 font-bold mt-0.5">3 bước thêm vào Màn hình chính (PWA)</p>
+                    </div>
+                </div>
+                <button onclick="closeIosPwaInstallModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Body: 3 Step Guide -->
+            <div class="py-4 space-y-3">
+                <!-- Bước 1 -->
+                <div class="flex items-start gap-3 p-3 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-900/40">
+                    <div class="w-7 h-7 rounded-xl bg-sky-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">1</div>
+                    <div class="text-xs leading-relaxed">
+                        <div class="font-bold text-slate-900 dark:text-white">Bấm nút "Chia sẻ" ở thanh dưới Safari</div>
+                        <div class="text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1.5 flex-wrap">
+                            Tìm biểu tượng <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-200 dark:bg-slate-700 text-blue-600 dark:text-blue-400 text-xs font-bold"><i class="fa-solid fa-arrow-up-from-bracket"></i></span> ở chính giữa thanh công cụ đáy Safari.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bước 2 -->
+                <div class="flex items-start gap-3 p-3 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40">
+                    <div class="w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">2</div>
+                    <div class="text-xs leading-relaxed">
+                        <div class="font-bold text-slate-900 dark:text-white">Chọn "Thêm vào MH chính"</div>
+                        <div class="text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1.5 flex-wrap">
+                            Cuộn danh sách menu xuống và chạm vào <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold"><i class="fa-regular fa-square-plus text-xs"></i> Thêm vào MH chính</span> (Add to Home Screen).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bước 3 -->
+                <div class="flex items-start gap-3 p-3 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40">
+                    <div class="w-7 h-7 rounded-xl bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">3</div>
+                    <div class="text-xs leading-relaxed">
+                        <div class="font-bold text-slate-900 dark:text-white">Nhấn nút "Thêm" (Add) ở góc trên bên phải</div>
+                        <div class="text-slate-500 dark:text-slate-400 mt-0.5">
+                            Icon ứng dụng <span class="font-bold text-emerald-600 dark:text-emerald-400">Tôi Đi Đâu Đó</span> sẽ xuất hiện ngay trên màn hình iPhone, mở học toàn màn hình cực mượt!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sói Mây Mascot Tip -->
+                <div class="p-3 rounded-2xl bg-amber-50/90 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 flex items-center gap-2.5">
+                    <span class="text-xl">🐺</span>
+                    <p class="text-xs font-medium text-amber-900 dark:text-amber-300 leading-snug">
+                        <b>Lợi ích:</b> Mở học tức thì 0 giây, không có thanh URL Safari, âm thanh và từ vựng chạy mượt mà ngoại tuyến!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Action & Hint pointing down -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-1.5 text-xs text-sky-600 dark:text-sky-400 font-bold animate-pulse">
+                    <i class="fa-solid fa-arrow-down"></i>
+                    <span>Nút Chia sẻ ở thanh đáy Safari</span>
+                </div>
+                <button onclick="closeIosPwaInstallModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 active:scale-95 transition cursor-pointer">
+                    Đã hiểu, làm theo ngay!
                 </button>
             </div>
         </div>
