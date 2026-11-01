@@ -22,12 +22,12 @@
             this.heroQuoteIndex = 0;
 
             this.heroQuotes = [
-                'Chào Đăng! 🎯 Part 5 đừng dịch hết cả câu, nhìn từ trước và sau chỗ trống trước nhé!',
+                'Mẹo từ Sói Mây: 💡 Part 5 đừng dịch hết cả câu, nhìn từ trước và sau chỗ trống trước nhé!',
                 'Mỗi ngày 15 phút là 700+ TOEIC nằm chắc trong tay! Cố lên bạn ơi! ✨',
                 'Nghe Part 1: Bẫy hành động đang diễn ra (V-ing) trong khi tranh chỉ có tĩnh vật!',
-                'Sói Mây đang đồng hành cùng bạn nè! Uống ngụm nước rồi giải đề tiếp nhé! 🥤',
+                'Sói Mây luôn ở đây cùng bạn nè! Uống ngụm nước rồi làm bài tiếp nhé! 🥤',
                 'Đọc Part 7: Đọc câu hỏi trước để bắt từ khóa (Keyword Scanning), đừng đọc bài trước!',
-                'Bạn đã thuộc bao nhiêu từ vựng hôm nay rồi? Cùng Sói Mây lật thẻ ngay nhé! 🦊',
+                'Bạn đã ôn từ vựng hôm nay chưa? Cùng Sói Mây lật thẻ flashcard ngay nhé! 🦊',
                 'Tập trung cao độ với chế độ Zen Focus: Bật tiếng sóng biển hoặc mưa êm dịu nhé!'
             ];
 
@@ -233,17 +233,26 @@
             this.playChime('celebrate');
         }
 
-        // Lời chào mở màn khi vào Dashboard
+        // Lời chào mở màn khi vào Dashboard (Cá nhân hóa theo tài khoản thực tế)
         greetOnLoad() {
             const heroBubbleText = document.getElementById('heroSoiMayBubbleText');
             if (heroBubbleText) {
                 const hour = new Date().getHours();
-                let timeGreeting = 'Chào Đăng! 🎯';
-                if (hour >= 5 && hour < 12) timeGreeting = 'Chào buổi sáng Đăng! 🌅';
-                else if (hour >= 12 && hour < 18) timeGreeting = 'Chào buổi chiều Đăng! ☕';
-                else timeGreeting = 'Chào buổi tối Đăng! 🌙';
+                const currentAcc = window.currentUserAccount || (typeof currentUserAccount !== 'undefined' ? currentUserAccount : null);
+                const userName = (currentAcc && (currentAcc.name || currentAcc.displayName))
+                    ? (currentAcc.name || currentAcc.displayName).trim().split(' ').pop()
+                    : 'bạn';
 
-                heroBubbleText.textContent = `${timeGreeting} Cùng Sói Mây chinh phục 28 câu chẩn đoán ETS hôm nay nhé! ✨`;
+                let timeGreeting = `Chào ${userName}! 🎯`;
+                if (hour >= 5 && hour < 12) timeGreeting = `Chào buổi sáng ${userName}! 🌅`;
+                else if (hour >= 12 && hour < 18) timeGreeting = `Chào buổi chiều ${userName}! ☕`;
+                else timeGreeting = `Chào buổi tối ${userName}! 🌙`;
+
+                if (currentAcc && currentAcc.diagnosticResults) {
+                    heroBubbleText.textContent = `${timeGreeting} Cùng Sói Mây tiếp tục lộ trình học nhé! ✨`;
+                } else {
+                    heroBubbleText.textContent = `${timeGreeting} Cùng Sói Mây làm bài test 25 phút để xác định trình độ và mở khóa lộ trình nhé! 🎯`;
+                }
             }
         }
 

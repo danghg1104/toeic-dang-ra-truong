@@ -933,8 +933,8 @@
                         <img src="/assets/mascot/may_reading.png" alt="Mascot Mây" class="w-24 h-24 object-contain filter drop-shadow">
                     </div>
                 </div>
-                <p id="sidebarMascotText" class="text-[12px] font-bold text-slate-800 dark:text-slate-200 px-2 mb-2.5 leading-snug">
-                    Mây & Đăng đồng hành chinh phục mục tiêu TOEIC!
+                <p id="sidebarMascotText" class="text-[12px] font-medium text-slate-700 dark:text-slate-300 px-2 mb-2.5 leading-snug">
+                    Bạn học Sói Mây đồng hành cùng bạn mỗi ngày!
                 </p>
                 <button onclick="openAITutorModal()" class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white text-[11.5px] font-bold flex items-center justify-center gap-1.5 shadow-sm shadow-purple-500/20 active:scale-95 transition">
                     <i class="fa-solid fa-robot text-amber-300 text-xs"></i>
@@ -1042,78 +1042,59 @@
                         <div class="space-y-3 text-center md:text-left flex-1 min-w-0">
                             <!-- Category Badge & Target Tracker -->
                             <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                                <span id="heroLessonBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-extrabold border border-blue-200/60 dark:border-blue-900/50">
-                                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                                    <span id="heroLessonBadgeText">TIẾP TỤC LỘ TRÌNH ETS 2026</span>
+                                <span id="heroLessonBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-bold border border-blue-200/60 dark:border-blue-900/50">
+                                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                    <span id="heroLessonBadgeText">KHỞI ĐỘNG · BƯỚC 1</span>
                                 </span>
                                 <span class="text-xs font-semibold text-slate-500 dark:text-slate-400" id="heroTargetTracker">
-                                    Mục tiêu <strong class="text-slate-800 dark:text-slate-200" id="memberTargetScore">600</strong> điểm · <span id="memberExamDate">Thi: 20/12/2026</span>
-                                    <button onclick="openTargetModal()" class="ml-1 text-slate-400 hover:text-blue-600 transition" title="Đổi mục tiêu"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
+                                    Mục tiêu <strong class="text-slate-800 dark:text-slate-200" id="memberTargetScore">--</strong> điểm · <span id="memberExamDate">Chưa đặt ngày thi</span>
+                                    <button onclick="openTargetModal()" class="ml-1 text-slate-400 hover:text-blue-600 transition" title="Đặt mục tiêu"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
                                 </span>
                             </div>
 
                             <!-- Main Lesson Headline -->
                             <h2 id="heroLessonTitle" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
-                                Part 5 — Nhận diện Hậu tố Từ loại & Bẫy liên từ cốt lõi
+                                Bài Test Chẩn Đoán 28 Câu (Toàn diện 7 Part)
                             </h2>
 
                             <!-- Lesson Metadata -->
                             <p id="heroLessonDesc" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center md:justify-start gap-3">
-                                <span class="flex items-center gap-1.5"><i class="fa-regular fa-circle-question text-blue-500"></i> <strong id="heroLessonCount">12 câu trắc nghiệm</strong></span>
+                                <span class="flex items-center gap-1.5"><i class="fa-regular fa-circle-question text-blue-500"></i> <strong id="heroLessonCount">28 câu hỏi đa dạng</strong></span>
                                 <span class="text-slate-300 dark:text-slate-700">·</span>
-                                <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong id="heroLessonTime">8 phút</strong></span>
+                                <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong id="heroLessonTime">25 phút</strong></span>
                                 <span class="text-slate-300 dark:text-slate-700">·</span>
-                                <span class="flex items-center gap-1.5 text-purple-600 dark:text-purple-400 font-bold"><i class="fa-solid fa-bolt"></i> +25 XP</span>
+                                <span class="text-slate-500 dark:text-slate-400">Khảo sát năng lực đầu vào</span>
                             </p>
 
                             <!-- Single Primary CTA Button (Quiet Confidence Blue) -->
                             <div class="pt-1 flex flex-wrap items-center justify-center md:justify-start gap-3">
-                                <button id="heroPrimaryCtaBtn" onclick="window.startHeroNextLesson()" class="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 active:scale-98 transition cursor-pointer">
+                                <button id="heroPrimaryCtaBtn" onclick="window.startHeroNextLesson()" class="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-sm hover:shadow-md active:scale-98 transition cursor-pointer">
                                     <i class="fa-solid fa-play text-xs"></i>
-                                    <span id="heroPrimaryCtaText">Tiếp tục học ngay (~8 phút)</span>
+                                    <span id="heroPrimaryCtaText">Bắt đầu Test Chẩn Đoán (25 phút)</span>
                                 </button>
-                                <button onclick="switchTab('lo-trinh')" class="px-4 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/80 dark:border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                                <button id="heroSecondaryBtn" onclick="switchTab('lo-trinh')" class="px-4 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/80 dark:border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
                                     <span>Xem toàn bộ 6 chặng</span>
                                     <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Right Illustration: Sói Mây Living Companion with Speech Bubble & Micro-interactions -->
+                        <!-- Right Illustration: Sói Mây Companion (Clean, Calm & Focused) -->
                         <div class="shrink-0 flex flex-col items-center justify-center relative mt-2 md:mt-0 select-none">
                             <!-- Live Interactive Speech Bubble -->
                             <div id="heroSoiMayBubble" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" 
-                                 class="mb-2 max-w-[210px] sm:max-w-[250px] px-3.5 py-2.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-sky-400 dark:border-sky-500 shadow-lg shadow-sky-500/15 text-slate-800 dark:text-slate-100 text-[11px] leading-snug font-medium text-center relative cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200 group">
-                                <div class="flex items-center justify-center gap-1.5 font-bold text-sky-600 dark:text-sky-400 mb-0.5">
-                                    <span class="text-xs">🐾</span>
-                                    <span id="heroSoiMayBubbleTitle">Sói Mây đồng hành</span>
-                                </div>
-                                <p id="heroSoiMayBubbleText" class="text-slate-700 dark:text-slate-200 font-medium transition-opacity duration-200">Chào Đăng! Còn 51 ngày nữa, cùng Sói Mây chinh phục 28 câu chẩn đoán nhé! 🎯</p>
-                                <span class="text-[9.5px] text-sky-500 dark:text-sky-400 font-bold group-hover:underline block mt-1">(Chạm tớ để nhận bí kíp ETS ✨)</span>
+                                 class="mb-2 max-w-[220px] sm:max-w-[260px] px-3.5 py-2.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-100 text-xs leading-snug font-medium text-center relative cursor-pointer hover:border-blue-400 transition group">
+                                <p id="heroSoiMayBubbleText" class="text-slate-700 dark:text-slate-200 font-medium">Chào bạn! Cùng Sói Mây làm bài test chẩn đoán để xây lộ trình riêng nhé! 🎯</p>
                                 <!-- Speech Bubble Pointer / Arrow -->
-                                <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-b-2 border-r-2 border-sky-400 dark:border-sky-500 rotate-45"></div>
+                                <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 rotate-45"></div>
                             </div>
 
-                            <!-- Living Mascot Container with Breathing & Ambient Aura -->
+                            <!-- Living Mascot Container with Breathing -->
                             <div id="heroSoiMayContainer" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" 
-                                 class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-b from-sky-50 via-white to-indigo-50/70 dark:from-slate-800/90 dark:to-slate-850 border-2 border-sky-200/90 dark:border-sky-800/60 p-2.5 flex items-center justify-center shadow-md hover:shadow-xl hover:border-sky-400 transition-all duration-300 cursor-pointer group">
-                                <!-- Ambient Pulsing Aura Behind Mascot -->
-                                <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-sky-400/20 via-indigo-400/20 to-purple-400/20 animate-pulse pointer-events-none"></div>
-                                
-                                <!-- Mascot Image with Breathing Animation -->
-                                <img id="heroSoiMayImg" src="/assets/mascot/may_reading.png" alt="Bạn học Sói Mây" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-110 active:scale-95 transition-transform duration-300">
-                                
-                                <!-- Live Status Badge -->
-                                <div class="absolute -bottom-2 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-[10px] font-extrabold tracking-wide shadow-sm flex items-center gap-1 group-hover:from-sky-600 group-hover:to-indigo-700 transition">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
-                                    <span>Đang đồng hành</span>
-                                </div>
+                                 class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 p-2.5 flex items-center justify-center shadow-xs hover:border-blue-300 transition cursor-pointer group">
+                                <!-- Mascot Image with Subtle Breathing Animation -->
+                                <img id="heroSoiMayImg" src="/assets/mascot/may_reading.png" alt="Bạn học Sói Mây" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-xs group-hover:scale-105 active:scale-95 transition-transform duration-300">
                             </div>
-                            
-                            <span class="mt-3 text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                                <span>Bạn học Sói Mây</span>
-                                <i class="fa-solid fa-circle-check text-sky-500 text-[10px]"></i>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -1127,9 +1108,9 @@
                                 <i class="fa-regular fa-clock"></i>
                             </div>
                             <div class="min-w-0">
-                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold" id="memberStudyTimeSub">Hôm nay đã học</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold" id="memberStudyTimeSub">Hôm nay: chưa học</div>
                                 <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                                    <span id="memberStudyTime">16p</span>
+                                    <span id="memberStudyTime">--</span>
                                 </div>
                             </div>
                         </div>
@@ -1142,7 +1123,7 @@
                             <div class="min-w-0">
                                 <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Nhiệm vụ hôm nay</div>
                                 <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                                    <span id="memberTasksSubtitle">0/5 hoàn thành</span>
+                                    <span id="memberTasksSubtitle">0/5 nhiệm vụ</span>
                                 </div>
                             </div>
                         </div>
@@ -1174,7 +1155,7 @@
                             <div class="min-w-0">
                                 <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold" id="memberVocabSub">Từ vựng đã thuộc</div>
                                 <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                                    <span id="memberVocabCount">0</span> từ <span class="text-xs font-semibold text-slate-400">·</span> <span id="memberAccuracyVal" class="text-xs font-bold text-slate-500">88% đúng</span>
+                                    <span id="memberVocabCount">0</span> từ <span class="text-xs font-semibold text-slate-400">·</span> <span id="memberAccuracyVal" class="text-xs font-bold text-slate-500">-- đúng</span>
                                 </div>
                             </div>
                         </div>
@@ -1998,7 +1979,7 @@
                                 <span class="text-xs font-bold text-teal-100">Audio to Transcript & Answer Key</span>
                             </div>
                             <h3 class="text-lg font-black text-white mt-0.5">Trạm Bóc Băng File Nghe TOEIC Tự Động</h3>
-                            <p class="text-xs text-teal-50 max-w-xl leading-relaxed">Giáo viên gửi file nghe không có đáp án / transcript? Kéo thả file (.mp3, .wav) để AI chuyển giọng nói thành văn bản 100%, dịch song ngữ, bóc tách đáp án & nghe chép chính tả!</p>
+                            <p class="text-xs text-teal-50 max-w-xl leading-relaxed">Kéo thả file âm thanh (.mp3, .wav) để tự động nhận diện giọng nói thành văn bản (transcript), dịch song ngữ và hỗ trợ luyện nghe chép chính tả thông minh.</p>
                         </div>
                     </div>
                     <button onclick="switchTab('boc-bang-audio')" class="px-5 py-3 rounded-2xl bg-white text-teal-800 font-extrabold text-xs shadow-md hover:bg-teal-50 hover:scale-[1.02] active:scale-95 transition flex items-center gap-2 shrink-0">
@@ -2032,13 +2013,13 @@
                             <div class="space-y-1.5">
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <span class="px-3 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-xs tracking-wide uppercase shadow-sm flex items-center gap-1.5">
-                                        <i class="fa-solid fa-fire animate-pulse text-rose-600"></i> ĐỀ CHÍNH THỨC ETS 2026
+                                        <i class="fa-solid fa-fire text-rose-600"></i> CHUẨN FORMAT ETS 2026
                                     </span>
                                     <span id="ets2026LcBadge" class="px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 text-xs font-bold">
                                         Test 01 · 100 Câu Listening
                                     </span>
                                     <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold">
-                                        100% Audio & Ảnh Gốc
+                                        Audio & Tranh Part 1 Chất Lượng Cao
                                     </span>
                                     <!-- Test Selector Dropdown -->
                                     <div class="flex items-center gap-1.5 ml-auto sm:ml-2">
@@ -2060,7 +2041,7 @@
                                     </div>
                                 </div>
                                 <h2 id="ets2026LcTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight">
-                                    ETS 2026 TOEIC Full Test 01 - Trọn Bộ Listening Bản Quyền
+                                    ETS 2026 TOEIC Full Test 01 - Trọn Bộ Listening
                                 </h2>
                                 <p id="ets2026LcDesc" class="text-xs sm:text-[13.5px] text-slate-300 max-w-2xl leading-relaxed">
                                     Bộ đề vừa cập nhật từ kho ETS 2026 với đầy đủ 54 file âm thanh chuẩn quốc tế, toàn bộ 6 ảnh Part 1 độ phân giải cao trích xuất từ sách gốc và phụ đề song ngữ Anh - Việt có dẫn chứng chi tiết.
@@ -2815,7 +2796,7 @@
                                     </div>
                                 </div>
                                 <h2 id="ets2026RcTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight">
-                                    ETS 2026 TOEIC Full Test 01 - Trọn Bộ Reading Bản Quyền
+                                    ETS 2026 TOEIC Full Test 01 - Trọn Bộ Reading
                                 </h2>
                                 <p id="ets2026RcDesc" class="text-xs sm:text-[13.5px] text-slate-300 max-w-2xl leading-relaxed">
                                     Toàn bộ 100 câu đọc hiểu (Q101 - Q200) kèm đáp án, dịch nghĩa câu hỏi và bài đọc, phân tích ngữ pháp, collocations và dẫn chứng câu trả lời chính xác.
@@ -3116,7 +3097,7 @@
                                 </div>
                                 <div>
                                     <h1 class="text-[22px] font-extrabold text-slate-900 dark:text-white">TOEIC Mock Test</h1>
-                                    <p class="text-[12.5px] text-slate-600 dark:text-slate-300">Thi thử mô phỏng phòng thi thật, trọn bộ 10 đề thi 200 câu chuẩn format bản quyền ETS 2026.</p>
+                                    <p class="text-[12.5px] text-slate-600 dark:text-slate-300">Thi thử mô phỏng phòng thi thật, trọn bộ 10 đề thi 200 câu chuẩn format ETS 2026.</p>
                                 </div>
                             </div>
 
@@ -3169,10 +3150,10 @@
                 <!-- Source & Year Filter Bar -->
                 <div class="glass-panel rounded-[22px] p-4 flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-2">
-                        <span class="px-3 py-1 rounded-full bg-rose-600 text-white font-black text-xs uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                            <i class="fa-solid fa-crown text-amber-300"></i> ETS 2026 CHÍNH THỨC
+                        <span class="px-3 py-1 rounded-full bg-blue-600 text-white font-black text-xs uppercase tracking-wider shadow-xs flex items-center gap-1.5">
+                            <i class="fa-solid fa-layer-group text-sky-200"></i> CHUẨN FORMAT ETS 2026
                         </span>
-                        <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Trọn bộ 10 Full Tests bản quyền (2,000 câu LC + RC có audio & ảnh gốc)</span>
+                        <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Trọn bộ 10 Full Tests mô phỏng (2,000 câu LC + RC có audio & hình ảnh)</span>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -3191,7 +3172,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3235,7 +3216,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3279,7 +3260,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3323,7 +3304,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3367,7 +3348,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3411,7 +3392,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3455,7 +3436,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3499,7 +3480,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3543,7 +3524,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -3587,7 +3568,7 @@
                     <div class="glass-panel rounded-[22px] p-5 border-l-4 border-l-rose-600 flex flex-col justify-between space-y-4 bg-gradient-to-br from-white via-rose-50/20 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-950/40 relative overflow-hidden shadow-md hover:shadow-lg transition">
                         <div class="absolute top-3 right-3 flex items-center gap-1.5">
                             <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-                                CHÍNH THỨC ETS
+                                CHUẨN ETS
                             </span>
                         </div>
                         <div>
@@ -4567,15 +4548,15 @@
                         <h2>Công nghệ AI Bóc Băng File Nghe (Speech-to-Text)</h2>
                     </div>
                     <p class="text-[13.5px] text-slate-600 dark:text-slate-400">
-                        Cấu hình công nghệ nhận diện giọng nói cho Trạm Bóc Băng TOEIC / IELTS. Mặc định chạy ngầm trên trình duyệt qua Web Worker (miễn phí 100%, không giật lag).
+                        Cấu hình công nghệ nhận diện giọng nói cho Trạm Bóc Băng TOEIC / IELTS. Mặc định xử lý trực tiếp trên trình duyệt qua Web Worker hoặc qua dịch vụ Cloud Speech-to-Text.
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[12.5px] font-bold text-slate-800 dark:text-slate-200 mb-2">Nguồn nhận diện giọng nói (STT Engine)</label>
                             <select id="settingsSttEngineSelect" onchange="saveBocBangSettingsFromGlobal()" class="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-teal-500">
-                                <option value="browser_transformers">⚡ Trình duyệt: Web Worker Whisper Tiny (Miễn phí 100%, Không giật lag)</option>
-                                <option value="cloud_ai">🚀 Cloud AI Siêu Tốc: Groq Whisper Large V3 Turbo (2s/file)</option>
+                                <option value="browser_transformers">⚡ Trình duyệt: Web Worker Whisper Tiny (Xử lý cục bộ trên máy)</option>
+                                <option value="cloud_ai">🚀 Cloud AI: Groq Whisper Large V3</option>
                             </select>
                         </div>
 
@@ -5336,7 +5317,7 @@
                 <!-- QR Code Box -->
                 <div class="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-gradient-to-br from-blue-50/70 via-indigo-50/50 to-white dark:from-slate-800/80 dark:to-slate-800/40 border border-blue-100 dark:border-slate-700">
                     <div class="w-40 h-40 bg-white p-2.5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-600 shrink-0 flex items-center justify-center">
-                        <img id="mobileQrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=http://192.168.100.197:3000" alt="QR Code Mở Web Trên Điện Thoại" class="w-full h-full object-contain rounded-lg">
+                        <img id="mobileQrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://toeic-dang-ra-truong.onrender.com" alt="QR Code Mở Web Trên Điện Thoại" class="w-full h-full object-contain rounded-lg">
                     </div>
                     <div class="flex-1 text-center sm:text-left space-y-2">
                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-xs font-bold">
@@ -5346,8 +5327,8 @@
                         <div class="text-xs font-semibold text-slate-700 dark:text-slate-300">
                             Bật Camera trên iPhone hoặc Android, quét mã QR bên cạnh để mở trang web ngay lập tức.
                         </div>
-                        <div class="text-xs text-slate-500 dark:text-slate-400">
-                            ⚡ Điều kiện: Điện thoại và Máy tính cùng kết nối vào một mạng Wi-Fi.
+                        <div id="mobileConnectConditionText" class="text-xs text-slate-500 dark:text-slate-400">
+                            ⚡ Điều kiện: Điện thoại và Máy tính cùng kết nối vào một mạng Wi-Fi (hoặc truy cập trực tiếp bằng 4G/5G).
                         </div>
                     </div>
                 </div>
@@ -5356,7 +5337,7 @@
                 <div class="space-y-1.5">
                     <label class="text-xs font-extrabold text-slate-700 dark:text-slate-300">Hoặc gõ địa chỉ này vào trình duyệt (Safari / Chrome) trên điện thoại:</label>
                     <div class="flex items-center gap-2">
-                        <input id="mobileLanUrlInput" type="text" readonly value="http://192.168.100.197:3000" class="flex-1 px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-mono font-bold text-blue-700 dark:text-blue-400 select-all">
+                        <input id="mobileLanUrlInput" type="text" readonly value="https://toeic-dang-ra-truong.onrender.com" class="flex-1 px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-mono font-bold text-blue-700 dark:text-blue-400 select-all">
                         <button onclick="copyMobileLanUrl()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 transition shadow-sm">
                             <i class="fa-regular fa-copy text-xs"></i>
                             <span>Sao chép</span>
@@ -11699,19 +11680,33 @@
 
                     window._heroNextTabTarget = activeLesson.tab;
                 } else {
-                    if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
-                    if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
+                    if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1';
+                    if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu (Toàn diện 7 Part)';
                     if (countEl) countEl.innerHTML = '<i class="fa-regular fa-circle-question text-blue-500"></i> <strong>28 câu hỏi đa dạng</strong>';
                     if (timeEl) timeEl.innerHTML = '<i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong>25 phút</strong>';
                     if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
                     if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
-                    if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
+                    if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu để khảo sát điểm mạnh & xác định trọng tâm cần cải thiện.';
                     if (smartBtnText) smartBtnText.textContent = 'Làm bài kiểm tra đầu vào (25 phút) →';
 
                     window._heroNextTabTarget = 'diagnostic';
                 }
             } else {
-                if (subTextEl) subTextEl.textContent = 'Đăng nhập để lưu tiến độ và cá nhân hóa lộ trình ETS 2026';
+                if (nameEl) nameEl.textContent = 'bạn!';
+                if (targetScoreEl) targetScoreEl.textContent = '--';
+                if (examDateEl) examDateEl.textContent = 'Chưa đặt ngày thi';
+                if (subTextEl) subTextEl.textContent = 'Đăng nhập để lưu tiến độ và cá nhân hóa lộ trình học';
+                if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1';
+                if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu (Toàn diện 7 Part)';
+                if (countEl) countEl.innerHTML = '<i class="fa-regular fa-circle-question text-blue-500"></i> <strong>28 câu hỏi đa dạng</strong>';
+                if (timeEl) timeEl.innerHTML = '<i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong>25 phút</strong>';
+                if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
+                if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
+                if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu để khảo sát điểm mạnh & xác định trọng tâm cần cải thiện.';
+                if (smartBtnText) smartBtnText.textContent = 'Làm bài kiểm tra đầu vào (25 phút) →';
+                const bubbleTextEl = document.getElementById('heroSoiMayBubbleText');
+                if (bubbleTextEl) bubbleTextEl.textContent = 'Chào bạn! Hãy làm bài test chẩn đoán 25 phút để cùng Sói Mây xây lộ trình riêng nhé! 🎯';
+                window._heroNextTabTarget = 'diagnostic';
             }
         };
 
@@ -13434,6 +13429,14 @@
                         if (input) input.value = data.mobileUrl;
                         const qrImg = document.getElementById('mobileQrCodeImg');
                         if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(data.mobileUrl)}`;
+                        const condEl = document.getElementById('mobileConnectConditionText');
+                        if (condEl) {
+                            if (data.isCloud) {
+                                condEl.innerHTML = '<i class="fa-solid fa-shield-halved text-emerald-500 mr-1"></i> Truy cập trực tiếp qua kết nối HTTPS bảo mật (hoạt động trên cả 4G/5G và Wi-Fi).';
+                            } else {
+                                condEl.innerHTML = '⚡ Điều kiện: Điện thoại và Máy tính cùng kết nối vào một mạng Wi-Fi.';
+                            }
+                        }
                     }
                 })
                 .catch(() => {});

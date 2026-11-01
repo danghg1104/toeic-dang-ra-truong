@@ -2086,19 +2086,27 @@ const server = http.createServer((req, res) => {
   }
 
   // =========================================================================
-  // API: NETWORK INFO
+  // API: NETWORK INFO (HỖ TRỢ CẢ MÁY CỤC BỘ LOCAL VÀ MÔI TRƯỜNG CLOUD / PRODUCTION)
   // =========================================================================
   if (reqPath === '/api/network-info') {
+    const rawHost = req.headers.host || `localhost:${PORT}`;
+    const proto = req.headers['x-forwarded-proto'] || (req.connection && req.connection.encrypted ? 'https' : 'http');
+    const isCloud = !!(process.env.RENDER || process.env.NODE_ENV === 'production' || rawHost.includes('onrender.com') || (!rawHost.startsWith('localhost') && !rawHost.startsWith('127.0.0.1') && !rawHost.startsWith('192.168.') && !rawHost.startsWith('10.') && !rawHost.startsWith('172.')));
     const ip = getLocalIp();
+
+    const publicUrl = isCloud ? `${proto}://${rawHost}` : `http://${ip}:${PORT}`;
+    const localUrl = isCloud ? `${proto}://${rawHost}` : `http://localhost:${PORT}`;
+
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
       'Access-Control-Allow-Origin': '*'
     });
     res.end(JSON.stringify({
-      ip: ip,
+      ip: isCloud ? rawHost : ip,
       port: PORT,
-      localUrl: `http://localhost:${PORT}`,
-      mobileUrl: `http://${ip}:${PORT}`
+      isCloud: isCloud,
+      localUrl: localUrl,
+      mobileUrl: publicUrl
     }));
     return;
   }
@@ -2332,6 +2340,20 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({
       success: true,
       googleClientId: (process.env.GOOGLE_CLIENT_ID || '').trim()
+    }));
+  }
+
+  // 0b2. Danh sách tài khoản chuyển nhanh an toàn (GET /api/auth/users-list)
+  if (reqPath === '/api/auth/users-list' && req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      ...getCorsHeaders(req)
+    });
+    // Trả về JSON hợp lệ với danh sách rỗng để bảo vệ quyền riêng tư và triệt tiêu lỗi parse JSON
+    return res.end(JSON.stringify({
+      success: true,
+      users: []
     }));
   }
 
