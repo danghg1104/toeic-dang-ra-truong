@@ -597,14 +597,20 @@
         function toggleDarkMode() {
             const htmlEl = document.documentElement;
             htmlEl.classList.toggle('dark');
+            const isDark = htmlEl.classList.contains('dark');
+            try {
+                localStorage.setItem('study_studio_theme', isDark ? 'dark' : 'light');
+            } catch (e) {}
+
             const icon = document.getElementById('themeIcon');
-            if (htmlEl.classList.contains('dark')) {
-                icon.className = 'fa-solid fa-moon text-[15px] text-amber-300';
-                showToast('Đã chuyển sang giao diện Tối 🌙');
-            } else {
-                icon.className = 'fa-regular fa-sun text-[15px]';
-                showToast('Đã chuyển sang giao diện Sáng ☀️');
+            if (icon) {
+                if (isDark) {
+                    icon.className = 'fa-solid fa-moon text-[15px] text-amber-300';
+                } else {
+                    icon.className = 'fa-regular fa-sun text-[15px]';
+                }
             }
+            showToast(isDark ? 'Đã chuyển sang giao diện Tối 🌙' : 'Đã chuyển sang giao diện Sáng ☀️');
         }
 
         // Toast Helper
@@ -5769,7 +5775,15 @@
                     subTextEl.textContent = `Mục tiêu ${score} TOEIC · Còn ${daysRemaining} ngày ôn luyện tập trung`;
                 }
 
-                if (user.diagnosticResults) {
+                let diagResults = user?.diagnosticResults;
+                if (!diagResults) {
+                    try {
+                        const guestDiag = localStorage.getItem('study_studio_guest_diagnostic') || localStorage.getItem('cung_dang_diagnostic_results');
+                        if (guestDiag) diagResults = JSON.parse(guestDiag);
+                    } catch(e) {}
+                }
+
+                if (diagResults) {
                     // TÍNH TOÁN ĐỘNG TỪ ROADMAP ENGINE: Tìm lỗ hổng yếu nhất của học viên
                     let weakestPillar = 'gap-part5-grammar';
                     let stageId = 2;
@@ -5836,8 +5850,8 @@
 
                     if (badgeText) badgeText.textContent = `CHẶNG ${stageId} · BÀI HỌC TRỌNG TÂM ETS 2026`;
                     if (titleEl) titleEl.textContent = activeLesson.title;
-                    if (countEl) countEl.innerHTML = `<i class="fa-regular fa-circle-question text-blue-500"></i> <strong>${activeLesson.count}</strong>`;
-                    if (timeEl) timeEl.innerHTML = `<i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong>${activeLesson.time}</strong>`;
+                    if (countEl) countEl.textContent = activeLesson.count;
+                    if (timeEl) timeEl.textContent = activeLesson.time;
                     if (ctaText) ctaText.textContent = `Tiếp tục học ngay (~${activeLesson.time})`;
                     if (smartTitle) smartTitle.textContent = activeLesson.smartTitle;
                     if (smartBody) smartBody.textContent = activeLesson.smartBody;
@@ -5845,29 +5859,35 @@
 
                     window._heroNextTabTarget = activeLesson.tab;
                 } else {
-                    if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1';
-                    if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu (Toàn diện 7 Part)';
-                    if (countEl) countEl.innerHTML = '<i class="fa-regular fa-circle-question text-blue-500"></i> <strong>28 câu hỏi đa dạng</strong>';
-                    if (timeEl) timeEl.innerHTML = '<i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong>25 phút</strong>';
+                    if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
+                    if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
+                    if (countEl) countEl.textContent = '28 câu hỏi đa dạng';
+                    if (timeEl) timeEl.textContent = '25 phút';
                     if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
                     if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
-                    if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu để khảo sát điểm mạnh & xác định trọng tâm cần cải thiện.';
+                    if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
                     if (smartBtnText) smartBtnText.textContent = 'Làm bài kiểm tra đầu vào (25 phút) →';
 
                     window._heroNextTabTarget = 'diagnostic';
                 }
             } else {
+                let guestDiag = null;
+                try {
+                    const saved = localStorage.getItem('study_studio_guest_diagnostic') || localStorage.getItem('cung_dang_diagnostic_results');
+                    if (saved) guestDiag = JSON.parse(saved);
+                } catch(e) {}
+
                 if (nameEl) nameEl.textContent = 'bạn!';
                 if (targetScoreEl) targetScoreEl.textContent = '--';
                 if (examDateEl) examDateEl.textContent = 'Chưa đặt ngày thi';
-                if (subTextEl) subTextEl.textContent = 'Đăng nhập để lưu tiến độ và cá nhân hóa lộ trình học';
-                if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1';
-                if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu (Toàn diện 7 Part)';
-                if (countEl) countEl.innerHTML = '<i class="fa-regular fa-circle-question text-blue-500"></i> <strong>28 câu hỏi đa dạng</strong>';
-                if (timeEl) timeEl.innerHTML = '<i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong>25 phút</strong>';
+                if (subTextEl) subTextEl.textContent = guestDiag ? 'Đã làm bài chẩn đoán. Đăng nhập để lưu vĩnh viễn lộ trình.' : 'Đăng nhập để lưu tiến độ và cá nhân hóa lộ trình học';
+                if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
+                if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
+                if (countEl) countEl.textContent = '28 câu hỏi đa dạng';
+                if (timeEl) timeEl.textContent = '25 phút';
                 if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
                 if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
-                if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu để khảo sát điểm mạnh & xác định trọng tâm cần cải thiện.';
+                if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
                 if (smartBtnText) smartBtnText.textContent = 'Làm bài kiểm tra đầu vào (25 phút) →';
                 const bubbleTextEl = document.getElementById('heroSoiMayBubbleText');
                 if (bubbleTextEl) bubbleTextEl.textContent = 'Chào bạn! Hãy làm bài test chẩn đoán 25 phút để cùng Sói Mây xây lộ trình riêng nhé! 🎯';
@@ -6680,6 +6700,11 @@
         }
 
         function applyCurrentAccountToUI() {
+            if (!currentUserAccount) {
+                if (typeof window.getCurrentUser === 'function') {
+                    currentUserAccount = window.getCurrentUser();
+                }
+            }
             if (!currentUserAccount) {
                 applyGuestStateToUI();
                 return;
@@ -8681,7 +8706,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=toididaudo_v16_phase4').then(reg => {
+                navigator.serviceWorker.register('/sw.js?v=toididaudo_v17_p0_fixed').then(reg => {
                     reg.update();
                 }).catch((err) => {
                     console.log('SW registration note:', err.message);
@@ -9110,11 +9135,21 @@
                 if (window.PersonalizedRoadmapEngine) {
                     PersonalizedRoadmapEngine.renderRoadmapView();
                 }
+                if (window.EtsAdaptiveScorer) {
+                    EtsAdaptiveScorer.renderDashboardWidget();
+                }
                 if (window.TOEICTrapsEngine) {
                     TOEICTrapsEngine.init();
                 }
                 if (window.ListeningDashboard) {
                     ListeningDashboard.renderStats();
+                }
+
+                // Đồng bộ theme icon Sáng / Tối
+                const isDark = document.documentElement.classList.contains('dark');
+                const themeIcon = document.getElementById('themeIcon');
+                if (themeIcon) {
+                    themeIcon.className = isDark ? 'fa-solid fa-moon text-[15px] text-amber-300' : 'fa-regular fa-sun text-[15px]';
                 }
             } catch (err) {
                 console.error('App views initialization warning:', err);

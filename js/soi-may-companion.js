@@ -297,6 +297,16 @@
             }
         }
 
+        hideFloating() {
+            const dock = document.getElementById('soiMayFloatingDock');
+            if (dock) dock.style.display = 'none';
+        }
+
+        showFloating() {
+            const dock = document.getElementById('soiMayFloatingDock');
+            if (dock) dock.style.display = '';
+        }
+
         interactFloating() {
             this.playChime('pop');
             const floatingImg = document.getElementById('floatingMascotImg');

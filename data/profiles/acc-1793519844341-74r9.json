@@ -1,0 +1,75 @@
+{
+  "userId": "acc-1793519844341-74r9",
+  "lastUpdated": 1793519853445,
+  "state": {
+    "xp": 0,
+    "streak": 1,
+    "vocabLearned": 0,
+    "dictationDone": 0,
+    "grammarDone": 0,
+    "readDone": 0,
+    "listenDone": 0,
+    "studyMinutes": 0
+  },
+  "activityDates": [
+    "2026-11-01"
+  ],
+  "learnedVocabItems": [],
+  "savedVocabItems": [],
+  "takeNotesList": [],
+  "savedGrammarNotes": [],
+  "savedWords": [],
+  "copyingHistory": [],
+  "dictationHistory": [],
+  "mockHistory": [],
+  "streakInfo": {
+    "streak": 1,
+    "todayStudied": true,
+    "yesterdayStudied": false,
+    "weekDays": [
+      {
+        "label": "T2",
+        "dateStr": "2026-10-26",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T3",
+        "dateStr": "2026-10-27",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T4",
+        "dateStr": "2026-10-28",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T5",
+        "dateStr": "2026-10-29",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T6",
+        "dateStr": "2026-10-30",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "T7",
+        "dateStr": "2026-10-31",
+        "isToday": false,
+        "active": false
+      },
+      {
+        "label": "CN",
+        "dateStr": "2026-11-01",
+        "isToday": true,
+        "active": true
+      }
+    ],
+    "lastActivityDate": "2026-11-01"
+  }
+}

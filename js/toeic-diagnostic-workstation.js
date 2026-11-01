@@ -905,6 +905,14 @@ VP of Human Resources, Vanguard Tech`,
             this.timeRemaining = 25 * 60; // 25:00
             this.startTimer();
 
+            // Ẩn linh vật nổi để không che nút "Câu tiếp theo / Nộp bài"
+            if (window.SoiMayCompanion && typeof window.SoiMayCompanion.hideFloating === 'function') {
+                window.SoiMayCompanion.hideFloating();
+            } else {
+                const dock = document.getElementById('soiMayFloatingDock');
+                if (dock) dock.style.display = 'none';
+            }
+
             this.renderWorkstationUI();
             this.showQuestion(0);
         }
@@ -917,6 +925,15 @@ VP of Human Resources, Vanguard Tech`,
             this.stopTimer();
             this.stopAudio();
             this.isOpen = false;
+
+            // Khôi phục linh vật nổi
+            if (window.SoiMayCompanion && typeof window.SoiMayCompanion.showFloating === 'function') {
+                window.SoiMayCompanion.showFloating();
+            } else {
+                const dock = document.getElementById('soiMayFloatingDock');
+                if (dock) dock.style.display = '';
+            }
+
             const modal = document.getElementById('toeicDiagnosticWorkstation');
             if (modal) modal.classList.add('hidden');
         }
@@ -1216,15 +1233,15 @@ VP of Human Resources, Vanguard Tech`,
                     </div>
                 </div>
 
-                <!-- MAIN WORKSTATION 2-COLUMN SPLIT PANE -->
-                <main class="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-slate-100 dark:bg-slate-950">
-                    <!-- LEFT COLUMN: Context / Passage / Image / Instructions (Col-span 6) -->
-                    <section id="tdwLeftPane" class="lg:col-span-6 h-full overflow-y-auto p-4 sm:p-6 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 flex flex-col">
+                <!-- MAIN WORKSTATION 2-COLUMN SPLIT PANE (Balanced 50/50 Desktop Split) -->
+                <main class="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-2 bg-slate-100 dark:bg-slate-950">
+                    <!-- LEFT COLUMN: Context / Passage / Image / Instructions (50% Width on Desktop) -->
+                    <section id="tdwLeftPane" class="w-full h-full overflow-y-auto p-4 sm:p-6 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 flex flex-col">
                         <!-- Dynamic Context Loaded in showQuestion() -->
                     </section>
 
-                    <!-- RIGHT COLUMN: Question & Answer Options (Col-span 6) -->
-                    <section id="tdwRightPane" class="lg:col-span-6 h-full overflow-y-auto p-4 sm:p-6 bg-slate-50/50 dark:bg-slate-900 flex flex-col justify-between">
+                    <!-- RIGHT COLUMN: Question & Answer Options (50% Width on Desktop) -->
+                    <section id="tdwRightPane" class="w-full h-full overflow-y-auto p-4 sm:p-6 bg-slate-50/50 dark:bg-slate-900 flex flex-col justify-between">
                         <!-- Dynamic Question & Options Loaded in showQuestion() -->
                     </section>
                 </main>
@@ -1458,18 +1475,11 @@ VP of Human Resources, Vanguard Tech`,
                             </p>
                         </div>
 
-                        <!-- Toggle Transcript Accordion (Optional review) -->
-                        <div class="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-                            <button type="button" onclick="const t = document.getElementById('tdwTranscriptBox'); if(t) t.classList.toggle('hidden');" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between transition cursor-pointer">
-                                <span class="flex items-center gap-1.5">
-                                    <i class="fa-solid fa-file-lines text-indigo-600"></i>
-                                    <span>Xem trước kịch bản nghe (Script)</span>
-                                </span>
-                                <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                            </button>
-                            <div id="tdwTranscriptBox" class="hidden p-4 bg-white dark:bg-slate-900 text-xs text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed font-mono border-t border-slate-200 dark:border-slate-800">
-                                ${q.transcript || q.audioScript}
-                            </div>
+                        <!-- Mẹo làm bài Part 3 & 4 chuẩn ETS -->
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                            <strong class="text-slate-900 dark:text-white block">💡 Kỹ thuật làm bài Part 3 & 4:</strong>
+                            <p>• Đọc lướt câu hỏi và các lựa chọn bên phải trước khi audio bắt đầu phát.</p>
+                            <p>• Chú ý các từ chuyển ý (However, Unfortunately, But...) thường chứa thông tin đáp án.</p>
                         </div>
                     </div>
                 `;
@@ -1582,6 +1592,15 @@ VP of Human Resources, Vanguard Tech`,
 
         renderRightColumnContent(q, index) {
             const selectedKey = this.userAnswers[q.id];
+            const isPart1 = (q.part === 1);
+            const isPart2 = (q.part === 2);
+
+            let questionStatement = q.question;
+            if (isPart1) {
+                questionStatement = `<span class="text-slate-600 dark:text-slate-300 font-medium italic">Quan sát bức ảnh bên trái và lắng nghe 4 câu mô tả (A, B, C, D) trong audio để chọn câu mô tả chính xác nhất.</span>`;
+            } else if (isPart2) {
+                questionStatement = `<span class="text-slate-600 dark:text-slate-300 font-medium italic">Đề thi chuẩn ETS không in câu hỏi. Hãy lắng nghe câu hỏi và 3 câu phản hồi (A, B, C) trong file audio.</span>`;
+            }
 
             return `
                 <div class="space-y-5">
@@ -1598,7 +1617,7 @@ VP of Human Resources, Vanguard Tech`,
 
                         <!-- Question Statement -->
                         <h2 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-relaxed">
-                            ${q.question}
+                            ${questionStatement}
                         </h2>
                     </div>
 
@@ -1606,6 +1625,10 @@ VP of Human Resources, Vanguard Tech`,
                     <div class="space-y-2.5 pt-2" id="tdwOptionsContainer">
                         ${q.options.map(opt => {
                             const isSelected = (selectedKey === opt.key);
+                            const optionLabel = (isPart1 || isPart2)
+                                ? `<span class="italic text-slate-500 dark:text-slate-400">Phương án ${opt.key} (Lắng nghe trong audio)</span>`
+                                : opt.text;
+
                             return `
                                 <div onclick="ToeicDiagnosticWorkstation.selectOption('${q.id}', '${opt.key}')" 
                                     class="p-3.5 sm:p-4 rounded-2xl border ${isSelected ? 'border-indigo-600 bg-indigo-50/70 dark:bg-indigo-950/40 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700'} flex items-start gap-3.5 cursor-pointer transition select-none shadow-2xs group">
@@ -1613,7 +1636,7 @@ VP of Human Resources, Vanguard Tech`,
                                         ${opt.key}
                                     </div>
                                     <span class="text-xs sm:text-[13px] font-semibold text-slate-800 dark:text-slate-200 leading-snug">
-                                        ${opt.text}
+                                        ${optionLabel}
                                     </span>
                                 </div>
                             `;
@@ -1623,7 +1646,7 @@ VP of Human Resources, Vanguard Tech`,
 
                 <!-- Footer Hint / Quick Shortcut -->
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                    <span>💡 Phím tắt: Bấm <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">A</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">B</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">C</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">D</kbd> để chọn đáp án</span>
+                    <span>💡 Phím tắt: Bấm <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">A</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">B</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">C</kbd> ${q.options.length > 3 ? '<kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px] text-slate-800 dark:text-slate-200">D</kbd>' : ''} để chọn đáp án</span>
                     <span>Trụ cột: <strong class="text-indigo-600 dark:text-indigo-400">${q.pillarName.split(':')[0]}</strong></span>
                 </div>
             `;
@@ -1831,7 +1854,13 @@ VP of Human Resources, Vanguard Tech`,
                 user = window.PersonalizedRoadmapEngine.getActiveUser();
             }
             if (!user) {
-                user = { id: 'acc-student-' + Date.now(), name: 'Học viên', targetScore: '650', examDate: '20/12/2026' };
+                try {
+                    const s = localStorage.getItem('cung_dang_session_user');
+                    if (s) user = JSON.parse(s);
+                } catch (e) {}
+            }
+            if (!user) {
+                user = { id: 'acc-guest-' + Date.now(), name: 'Học viên' };
             }
             window.currentUserAccount = user;
             if (typeof currentUserAccount !== 'undefined') currentUserAccount = user;
@@ -1843,6 +1872,9 @@ VP of Human Resources, Vanguard Tech`,
                 readingCorrect: readingCorrect,
                 listeningScore: scaledListening,
                 readingScore: scaledReading,
+                listening: scaledListening,
+                reading: scaledReading,
+                score: totalScore,
                 estimatedScore: totalScore,
                 pillarScores: pillarScores,
                 bandTitle: bandTitle,
@@ -1850,10 +1882,11 @@ VP of Human Resources, Vanguard Tech`,
                 recommendedStage: recommendedStage
             };
 
-            // Lưu vào localStorage
+            // Lưu vào localStorage đa tầng
             try {
                 localStorage.setItem('cung_dang_session_user', JSON.stringify(user));
                 localStorage.setItem('cung_dang_diagnostic_results', JSON.stringify(user.diagnosticResults));
+                localStorage.setItem('study_studio_guest_diagnostic', JSON.stringify(user.diagnosticResults));
             } catch (e) {}
 
             if (window.syncCurrentAccountState) {
@@ -1861,6 +1894,12 @@ VP of Human Resources, Vanguard Tech`,
             }
             if (typeof applyCurrentAccountToUI === 'function') {
                 applyCurrentAccountToUI();
+            }
+            if (window.EtsAdaptiveScorer && typeof window.EtsAdaptiveScorer.renderDashboardWidget === 'function') {
+                window.EtsAdaptiveScorer.renderDashboardWidget();
+            }
+            if (typeof window.updateDashboardStudioHero === 'function') {
+                window.updateDashboardStudioHero();
             }
 
             // Đóng Workstation
@@ -1891,8 +1930,8 @@ VP of Human Resources, Vanguard Tech`,
             const pillarsMeta = [
                 { id: 'gap-part12-listening', name: 'Part 1 & 2: Bẫy Nghe hình ảnh & Đáp án Gián tiếp', icon: 'fa-solid fa-headphones', color: 'teal' },
                 { id: 'gap-part34-paraphrase', name: 'Part 3 & 4: Paraphrasing & Nắm bắt ý đồ người nói', icon: 'fa-solid fa-comments', color: 'indigo' },
-                { id: 'gap-part5-grammar', name: 'Part 5: Ngữ pháp cốt lõi (Từ loại, Mệnh đề quan hệ, Giả định)', icon: 'fa-solid fa-spell-check', color: 'purple' },
-                { id: 'gap-part5-vocab', name: 'Part 5: Từ vựng & Collocations Công sở Doanh nghiệp', icon: 'fa-solid fa-briefcase', color: 'blue' },
+                { id: 'gap-part5-grammar', name: 'Part 5 (Ngữ pháp cốt lõi): Từ loại, Mệnh đề quan hệ, Cấu trúc câu', icon: 'fa-solid fa-spell-check', color: 'purple' },
+                { id: 'gap-part5-vocab', name: 'Part 5 (Từ vựng & Collocations): Cụm từ cố định & Thuật ngữ Doanh nghiệp', icon: 'fa-solid fa-briefcase', color: 'blue' },
                 { id: 'gap-part6-insertion', name: 'Part 6: Điền câu theo mạch logic & Liên từ chuyển ý', icon: 'fa-solid fa-file-pen', color: 'amber' },
                 { id: 'gap-part7-multi', name: 'Part 7: Đọc hiểu văn bản đơn & Chuỗi 2-3 đoạn văn', icon: 'fa-solid fa-newspaper', color: 'rose' }
             ];

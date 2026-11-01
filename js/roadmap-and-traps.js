@@ -88,6 +88,21 @@ window.PersonalizedRoadmapEngine = {
             }
         } catch(e) {}
 
+        // Kiểm tra kết quả test chẩn đoán của khách
+        try {
+            const guestDiag = localStorage.getItem('study_studio_guest_diagnostic') || localStorage.getItem('cung_dang_diagnostic_results');
+            if (guestDiag) {
+                const parsedDiag = JSON.parse(guestDiag);
+                if (parsedDiag && (parsedDiag.listeningScore || parsedDiag.estimatedScore || parsedDiag.listening)) {
+                    return {
+                        id: 'acc-guest-tested',
+                        name: 'Học viên',
+                        diagnosticResults: parsedDiag
+                    };
+                }
+            }
+        } catch(e) {}
+
         return null;
     },
 
