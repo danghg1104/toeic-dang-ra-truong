@@ -1,6 +1,6 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793428154280,
+  "lastUpdated": 1793505875729,
   "targetScore": "600",
   "examDate": "20/12/2026",
   "state": {
@@ -10,14 +10,14 @@
     "grammarDone": 2,
     "readDone": 0,
     "listenDone": 6,
-    "studyMinutes": 29,
+    "studyMinutes": 38,
     "totalAnswers": 8,
     "correctAnswers": 7,
     "listenTotalAnswers": 6,
     "listenCorrectAnswers": 6,
     "vocabTotalAnswers": 0,
     "vocabCorrectAnswers": 0,
-    "streak": 9
+    "streak": 10
   },
   "activityDates": [
     "2026-10-23",
@@ -28,7 +28,8 @@
     "2026-10-28",
     "2026-10-29",
     "2026-10-30",
-    "2026-10-31"
+    "2026-10-31",
+    "2026-11-01"
   ],
   "learnedVocabItems": [],
   "savedVocabItems": [
@@ -152,6 +153,14 @@
       "level": "A1",
       "dateAdded": "29/10/2026",
       "sourceFile": "Sổ tay cá nhân"
+    },
+    {
+      "word": "web",
+      "meaning": "mạng lưới",
+      "phonetic": "/ˈweb/",
+      "level": "A1",
+      "dateAdded": "1/11/2026",
+      "sourceFile": "Sổ tay cá nhân"
     }
   ],
   "takeNotesList": [
@@ -172,7 +181,7 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 9,
+    "streak": 10,
     "todayStudied": true,
     "yesterdayStudied": true,
     "weekDays": [
@@ -209,17 +218,17 @@
       {
         "label": "T7",
         "dateStr": "2026-10-31",
-        "isToday": true,
+        "isToday": false,
         "active": true
       },
       {
         "label": "CN",
         "dateStr": "2026-11-01",
-        "isToday": false,
-        "active": false
+        "isToday": true,
+        "active": true
       }
     ],
-    "lastActivityDate": "2026-10-31"
+    "lastActivityDate": "2026-11-01"
   },
   "lastSourceDevice": "Thiết bị",
   "lastDeviceId": "unknown",
