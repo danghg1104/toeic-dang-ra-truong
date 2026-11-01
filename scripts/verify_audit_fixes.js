@@ -72,5 +72,18 @@ assert(vgContent.includes('buildTopicAIHTML'), 'buildTopicAIHTML function restor
 assert(vgContent.includes('vgCountSlider') && vgContent.includes('vgCountNumInput'), 'Word count slider and direct number input restored');
 assert(vgContent.includes('selectQuickTopic'), 'Topic suggestions and input restored');
 
+// 6. Check Grid & Layout CSS rules
+const cssContent = fs.readFileSync('css/tailwind.static.css', 'utf8');
+assert(cssContent.includes('.lg\\:col-span-3') && cssContent.includes('.lg\\:col-span-9'), 'CSS grid columns lg:col-span-3 and lg:col-span-9 present');
+assert(cssContent.includes('.translate-x-full'), 'CSS transform translate-x-full present');
+
+// 7. Check Reading Workstation rawItems fix
+assert(trwContent.includes('const rawItems = window.ReadingPracticeDatabase.getItemsForPractice'), 'Reading workstation properly declares rawItems');
+
+// 8. Check Guest learning exploration access
+const bundleContent = fs.readFileSync('js/app-core.bundle.js', 'utf8');
+assert(!bundleContent.includes("if (!currentUserAccount && tabId !== 'hom-nay')"), 'Guest users not blocked from learning tabs');
+assert(bundleContent.includes("if (!currentUserAccount && tabId === 'tai-khoan')"), 'Auth modal only guards account profile');
+
 console.log(`\nRESULTS: ${passed} PASSED, ${failed} FAILED.`);
 if (failed > 0) process.exit(1);

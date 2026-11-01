@@ -1300,20 +1300,20 @@
                                     ${w.word}
                                 </h2>
                                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                                    <span>US ${w.ipaUS || ''}</span>
+                                    <span>🇺🇸 US ${w.ipaUS || ''}</span>
                                     <span class="text-slate-300 dark:text-slate-600">•</span>
-                                    <span>UK ${w.ipaUK || ''}</span>
+                                    <span>🇬🇧 UK ${w.ipaUK || ''}</span>
                                 </div>
 
                                 <!-- Audio Pronunciation Buttons -->
                                 <div class="flex items-center justify-center gap-3 pt-2" onclick="event.stopPropagation()">
                                     <button type="button" onclick="VocabularyEngine.speakWord('${w.word}', 'US')" class="px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-slate-800 dark:hover:bg-slate-750 dark:text-indigo-300 border border-indigo-200 dark:border-slate-700 text-xs font-bold flex items-center gap-2 transition active:scale-95 shadow-2xs">
                                         <i class="fa-solid fa-volume-high text-xs text-indigo-600 dark:text-indigo-400"></i>
-                                        <span>US (Mỹ)</span>
+                                        <span>🇺🇸 US (Mỹ)</span>
                                     </button>
                                     <button type="button" onclick="VocabularyEngine.speakWord('${w.word}', 'UK')" class="px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-slate-800 dark:hover:bg-slate-750 dark:text-indigo-300 border border-indigo-200 dark:border-slate-700 text-xs font-bold flex items-center gap-2 transition active:scale-95 shadow-2xs">
                                         <i class="fa-solid fa-volume-high text-xs text-indigo-600 dark:text-indigo-400"></i>
-                                        <span>UK (Anh)</span>
+                                        <span>🇬🇧 UK (Anh)</span>
                                     </button>
                                 </div>
                             </div>

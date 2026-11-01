@@ -232,14 +232,20 @@
                 } catch(e) {}
             }
 
-            // Nếu khách chưa đăng nhập mà bấm vào các tab học chuyên sâu -> gợi ý đăng nhập để bảo toàn tiến độ
-            if (!currentUserAccount && tabId !== 'hom-nay') {
+            // Cho phép khách tự do trải nghiệm học tập, chỉ yêu cầu đăng nhập khi vào quản lý tài khoản cá nhân
+            if (!currentUserAccount && tabId === 'tai-khoan') {
                 openAuthModal('login');
-                showToast('🔒 Vui lòng đăng nhập hoặc tạo tài khoản để học chuyên sâu!');
+                showToast('🔒 Vui lòng đăng nhập để xem và quản lý tài khoản!');
                 return;
             }
 
             state.currentTab = tabId;
+
+            // Prefetch dữ liệu ngân hàng đề khi chuyển sang tab Luyện Đọc
+            if (tabId === 'doc' && window.ToeicReadingWorkstation && !window.ReadingPracticeDatabase) {
+                window.ToeicReadingWorkstation.ensureReadingDatabase(true);
+            }
+
             const allTabs = Object.keys(tabConfig);
 
             allTabs.forEach(id => {

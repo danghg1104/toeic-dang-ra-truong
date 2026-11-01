@@ -782,7 +782,7 @@
                 </div>
 
                 <!-- BOTTOM FLOATING STICKY BAR -->
-                <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200/80 dark:border-slate-800 px-4 sm:px-8 py-3.5 shadow-2xl flex flex-wrap items-center justify-between gap-3">
+                <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200/80 dark:border-slate-800 px-4 sm:px-8 py-3.5 shadow-2xl flex flex-wrap items-center justify-between gap-3" style="padding-right: 130px;">
                     <div class="flex items-center gap-4 text-xs font-bold text-slate-700 dark:text-slate-300">
                         <span>📖 Chủ điểm: <strong class="text-purple-600">${t.title}</strong></span>
                         <span class="hidden sm:inline">|</span>
@@ -1186,8 +1186,10 @@
                 if (open) {
                     backdrop.classList.remove('hidden');
                     drawer.classList.remove('translate-x-full');
+                    drawer.style.transform = 'translateX(0)';
                 } else {
                     drawer.classList.add('translate-x-full');
+                    drawer.style.transform = 'translateX(100%)';
                     setTimeout(() => backdrop.classList.add('hidden'), 250);
                 }
             }
@@ -1286,7 +1288,7 @@
             const t = this.topic;
             return `
                 <div id="theoryDrawerBackdrop" onclick="GrammarEngine.toggleTheoryDrawer(false)" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 transition-opacity"></div>
-                <div id="theorySlideOverDrawer" class="translate-x-full fixed inset-y-0 right-0 max-w-md w-full bg-white dark:bg-slate-900 z-50 shadow-2xl p-6 overflow-y-auto transition-transform duration-300 ease-in-out border-l border-slate-200 dark:border-slate-800 space-y-5">
+                <div id="theorySlideOverDrawer" class="translate-x-full fixed inset-y-0 right-0 max-w-md w-full bg-white dark:bg-slate-900 z-50 shadow-2xl p-6 overflow-y-auto transition-transform duration-300 ease-in-out border-l border-slate-200 dark:border-slate-800 space-y-5" style="transform: translateX(100%);">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-book-open text-purple-600 text-sm"></i>

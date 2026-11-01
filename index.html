@@ -2883,13 +2883,13 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="openFullPartPracticeModal(5)" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, count: 30, title: 'Part 5 - Incomplete Sentences (30 câu)' }); else openFullPartPracticeModal(5);" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-play text-xs"></i> Part 5 (30 câu)
                         </button>
-                        <button onclick="openFullPartPracticeModal(6)" class="px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 6, count: 16, title: 'Part 6 - Text Completion (16 câu)' }); else openFullPartPracticeModal(6);" class="px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-play text-xs"></i> Part 6 (16 câu)
                         </button>
-                        <button onclick="openFullPartPracticeModal(7)" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 7, count: 20, title: 'Part 7 - Reading Comprehension (20 câu)' }); else openFullPartPracticeModal(7);" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-play text-xs"></i> Part 7 (20 câu)
                         </button>
                     </div>

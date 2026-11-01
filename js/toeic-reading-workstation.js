@@ -158,12 +158,16 @@
             }
 
             // Tải dữ liệu
-            await this.loadItems();
+            try {
+                await this.loadItems();
+            } catch (err) {
+                console.error('Lỗi khi nạp đề Reading:', err);
+            }
 
             if (!this.items || this.items.length === 0) {
-                showToast('⚠️ Không tìm thấy câu hỏi cho phần này. Đang nạp đề dự phòng...');
-                if (window.ReadingPracticeDatabase) {
-                    const rawItems = window.ReadingPracticeDatabase.getItemsForPractice({ part: this.part });
+                if (window.ReadingPracticeDatabase && typeof window.ReadingPracticeDatabase.getItemsForPractice === 'function') {
+                    const fallback = window.ReadingPracticeDatabase.getItemsForPractice({ part: this.part }) || [];
+                    this.items = (this.part === 5 && fallback.length > 30) ? fallback.slice(0, 30) : fallback;
                 }
             }
 
@@ -276,9 +280,9 @@
             }, { passive: true });
         }
 
-        async ensureReadingDatabase() {
+        async ensureReadingDatabase(silent = false) {
             if (window.ReadingPracticeDatabase) return;
-            if (typeof showToast === 'function') showToast('⏳ Đang tải ngân hàng đề đọc hiểu (Part 5-6-7)...');
+            if (!silent && typeof showToast === 'function') showToast('⏳ Đang tải ngân hàng đề đọc hiểu (Part 5-6-7)...');
             await new Promise((resolve) => {
                 const s = document.createElement('script');
                 s.src = '/js/reading-practice-database.js?v=studystudio_20261029_step2_perfect';
@@ -289,6 +293,8 @@
                 };
                 document.head.appendChild(s);
             });
+            const box = document.getElementById('toastBox');
+            if (box) box.classList.add('opacity-0', 'translate-y-3');
         }
 
         async loadItems() {
@@ -297,12 +303,12 @@
             }
             // Ưu tiên nạp từ ReadingPracticeDatabase nếu có
             if (window.ReadingPracticeDatabase) {
-                this.items = window.ReadingPracticeDatabase.getItemsForPractice({
+                const rawItems = window.ReadingPracticeDatabase.getItemsForPractice({
                     part: this.part,
                     topic: this.currentTopic,
                     testNum: this.testNumber,
                     isEts2026: this.isEts2026
-                });
+                }) || [];
                 this.items = (this.part === 5 && (!this.currentTopic || this.currentTopic === '') && rawItems.length > 30) ? rawItems.slice(0, 30) : rawItems;
             }
 

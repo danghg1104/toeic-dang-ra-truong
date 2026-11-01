@@ -1350,6 +1350,19 @@ window.FullPartPracticeEngine = {
 
 // Global helper function để mở modal luyện toàn Part
 window.openFullPartPracticeModal = function(partNumber, mode = 'practice') {
+    const p = parseInt(partNumber, 10);
+    if (p >= 5 && p <= 7) {
+        if (window.ToeicReadingWorkstation) {
+            const counts = { 5: 30, 6: 16, 7: 20 };
+            const titles = {
+                5: 'Part 5 - Incomplete Sentences (Full 30 câu)',
+                6: 'Part 6 - Text Completion (Full 16 câu)',
+                7: 'Part 7 - Reading Comprehension (Full 20 câu)'
+            };
+            window.ToeicReadingWorkstation.open({ part: p, count: counts[p] || 30, title: titles[p] });
+            return;
+        }
+    }
     if (window.FullPartPracticeEngine) {
         window.FullPartPracticeEngine.startPart(partNumber, mode);
     }
