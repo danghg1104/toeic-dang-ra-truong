@@ -302,7 +302,7 @@
             if (listenTotalProgressBar) listenTotalProgressBar.style.width = `${totalCoverage}%`;
 
             // Cập nhật badges và progress bars từng Part
-            const p1Done = stats.parts[1].done || 0;
+            const p1Done = Math.min(6, stats.parts[1].done || 0);
             const p1Pct = Math.min(100, Math.round((p1Done / 6) * 100));
             const part1DoneBadge = document.getElementById('part1DoneBadge');
             if (part1DoneBadge) part1DoneBadge.innerHTML = `<i class="fa-solid fa-list-check mr-1 text-indigo-500"></i>${p1Done}/6 câu`;
@@ -311,7 +311,7 @@
             const part1ProgressBar = document.getElementById('part1ProgressBar');
             if (part1ProgressBar) part1ProgressBar.style.width = `${p1Pct}%`;
 
-            const p2Done = stats.parts[2].done || 0;
+            const p2Done = Math.min(25, stats.parts[2].done || 0);
             const p2Pct = Math.min(100, Math.round((p2Done / 25) * 100));
             const part2DoneBadge = document.getElementById('part2DoneBadge');
             if (part2DoneBadge) part2DoneBadge.innerHTML = `<i class="fa-solid fa-list-check mr-1 text-fuchsia-500"></i>${p2Done}/25 câu`;
@@ -320,7 +320,7 @@
             const part2ProgressBar = document.getElementById('part2ProgressBar');
             if (part2ProgressBar) part2ProgressBar.style.width = `${p2Pct}%`;
 
-            const p3Done = stats.parts[3].done || 0;
+            const p3Done = Math.min(39, stats.parts[3].done || 0);
             const p3Pct = Math.min(100, Math.round((p3Done / 39) * 100));
             const part3DoneBadge = document.getElementById('part3DoneBadge');
             if (part3DoneBadge) part3DoneBadge.innerHTML = `<i class="fa-solid fa-list-check mr-1 text-teal-600"></i>${p3Done}/39 câu`;
@@ -329,7 +329,7 @@
             const part3ProgressBar = document.getElementById('part3ProgressBar');
             if (part3ProgressBar) part3ProgressBar.style.width = `${p3Pct}%`;
 
-            const p4Done = stats.parts[4].done || 0;
+            const p4Done = Math.min(30, stats.parts[4].done || 0);
             const p4Pct = Math.min(100, Math.round((p4Done / 30) * 100));
             const part4DoneBadge = document.getElementById('part4DoneBadge');
             if (part4DoneBadge) part4DoneBadge.innerHTML = `<i class="fa-solid fa-list-check mr-1 text-sky-600"></i>${p4Done}/30 câu`;

@@ -382,7 +382,7 @@ window.PersonalizedRoadmapEngine = {
             if (stage.stageId < currentStageId) {
                 // Các chặng bên dưới điểm test đầu vào -> TỰ ĐỘNG ĐÁNH DẤU HOÀN THÀNH (Completed)
                 stage.nodes.forEach(node => {
-                    nodeStates[node.id] = { status: 'completed', progressPct: 100, note: 'Vượt qua nhờ Test Đầu Vào' };
+                    nodeStates[node.id] = { status: 'exempted', progressPct: 0, note: 'Được miễn (Khảo sát đầu vào)' };
                 });
             } else if (stage.stageId === currentStageId) {
                 // Chặng hiện tại tương ứng với trình độ
@@ -528,7 +528,7 @@ window.PersonalizedRoadmapEngine = {
                             ${!hasTested ? '<span class="px-3 py-1 rounded-full bg-amber-500/90 text-slate-900 text-xs font-black">⚠️ CHƯA LÀM TEST ĐẦU VÀO</span>' : isUrgent ? '<span class="px-3 py-1 rounded-full bg-rose-950/80 text-rose-200 text-xs font-black animate-pulse">⚡ CHẾ ĐỘ ĐÔN ĐỐC CẤP TỐC</span>' : '<span class="px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-200 text-xs font-bold">✓ TIẾN ĐỘ VỮNG VÀNG</span>'}
                         </div>
                         <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
-                            Mục tiêu Ra Trường: <span class="underline decoration-wavy decoration-amber-300">${targetScore}+ Điểm</span>
+                            Mục tiêu Ra Trường: <span class="underline decoration-wavy decoration-amber-300">${user && user.targetScore ? user.targetScore + '+ Điểm' : '600+ Điểm (Mặc định)'}</span>
                         </h2>
                         <p class="text-white/90 text-sm leading-relaxed">
                             ${!hasTested ? 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực 7 Part. Hãy làm bài test chuẩn ETS để AI quét 6 lỗ hổng và tự động mở khóa các chặng tương ứng trên bản đồ!' : 'Bản đồ lộ trình đã tự động nhảy cóc và mở khóa theo kết quả bài Test Chẩn Đoán của bạn!'}
@@ -539,8 +539,8 @@ window.PersonalizedRoadmapEngine = {
                     <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20 w-full sm:w-auto flex items-center justify-around sm:justify-start gap-5">
                         <div class="text-center">
                             <span class="block text-[11px] font-bold text-white/80 uppercase">Còn lại</span>
-                            <span class="text-3xl sm:text-4xl font-black text-amber-300">${daysRemaining}</span>
-                            <span class="block text-[11px] font-semibold text-white/80">ngày thi</span>
+                            <span class="text-3xl sm:text-4xl font-black text-amber-300">${daysRemaining !== null ? daysRemaining : '——'}</span>
+                            <span class="block text-[11px] font-semibold text-white/80">${daysRemaining !== null ? 'ngày thi' : 'Chưa đặt ngày'}</span>
                         </div>
                         <div class="h-10 w-px bg-white/20"></div>
                         <div class="text-center">
@@ -795,6 +795,7 @@ window.PersonalizedRoadmapEngine = {
                                     ${stage.nodes.map((node, nIdx) => {
                                         const nodeState = nodeStates[node.id] || { status: 'locked', progressPct: 0 };
                                         const isCompleted = (nodeState.status === 'completed');
+                                        const isExempted = (nodeState.status === 'exempted');
                                         const isCurrent = (nodeState.status === 'current');
                                         const isUnlocked = (nodeState.status === 'unlocked');
                                         const isLocked = (nodeState.status === 'locked');
@@ -814,6 +815,9 @@ window.PersonalizedRoadmapEngine = {
                                         if (isCompleted) {
                                             circleBg = 'bg-gradient-to-tr from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30 border-2 border-emerald-300';
                                             ringColor = '#10b981';
+                                        } else if (isExempted) {
+                                            circleBg = 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-2 border-dashed border-slate-300 dark:border-slate-600 shadow-sm';
+                                            ringColor = '#94a3b8';
                                         } else if (isCurrent) {
                                             circleBg = 'bg-gradient-to-tr from-indigo-600 to-blue-600 text-white shadow-xl shadow-indigo-600/40 border-2 border-indigo-200 ring-4 ring-indigo-400/50 animate-pulse';
                                             ringColor = '#6366f1';
@@ -860,7 +864,7 @@ window.PersonalizedRoadmapEngine = {
 
                                                 <!-- Node Label Below Circle -->
                                                 <div class="mt-2 text-center max-w-[130px] sm:max-w-[150px]">
-                                                    <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black tracking-wider uppercase ${isCompleted ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : isCurrent ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}">
+                                                    <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black tracking-wider uppercase ${isCompleted ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : isExempted ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700' : isCurrent ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}">
                                                         Part ${node.part}
                                                     </span>
                                                     <h5 class="text-[11.5px] font-bold text-slate-800 dark:text-slate-200 line-clamp-2 leading-tight mt-0.5">

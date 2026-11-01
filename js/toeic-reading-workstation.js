@@ -163,7 +163,7 @@
             if (!this.items || this.items.length === 0) {
                 showToast('⚠️ Không tìm thấy câu hỏi cho phần này. Đang nạp đề dự phòng...');
                 if (window.ReadingPracticeDatabase) {
-                    this.items = window.ReadingPracticeDatabase.getItemsForPractice({ part: this.part });
+                    const rawItems = window.ReadingPracticeDatabase.getItemsForPractice({ part: this.part });
                 }
             }
 
@@ -192,6 +192,12 @@
             this.dom.modal.classList.remove('hidden');
             this.dom.modal.classList.add('flex');
             this.isOpen = true;
+            if (window.SoiMayCompanion && typeof window.SoiMayCompanion.hideFloating === 'function') {
+                window.SoiMayCompanion.hideFloating();
+            } else {
+                const dock = document.getElementById('soiMayFloatingDock');
+                if (dock) dock.style.display = 'none';
+            }
             document.body.style.overflow = 'hidden';
 
             this.render();
@@ -297,6 +303,7 @@
                     testNum: this.testNumber,
                     isEts2026: this.isEts2026
                 });
+                this.items = (this.part === 5 && (!this.currentTopic || this.currentTopic === '') && rawItems.length > 30) ? rawItems.slice(0, 30) : rawItems;
             }
 
             // Nếu là đề ETS 2026 và chưa có trong cache, gọi Ets2026Database
@@ -306,7 +313,7 @@
                 }
                 const testData = window.Ets2026Database.testsCache[this.testNumber];
                 if (testData && testData.reading) {
-                    if (this.part === 5) this.items = testData.reading.part5 || [];
+                    if (this.part === 5) this.items = (testData.reading.part5 || []).slice(0, 30);
                     else if (this.part === 6) this.items = testData.reading.part6 || [];
                     else if (this.part === 7) this.items = testData.reading.part7 || [];
                 }
@@ -321,6 +328,12 @@
             }
             this.isOpen = false;
             document.body.style.overflow = '';
+            if (window.SoiMayCompanion && typeof window.SoiMayCompanion.showFloating === 'function') {
+                window.SoiMayCompanion.showFloating();
+            } else {
+                const dock = document.getElementById('soiMayFloatingDock');
+                if (dock) dock.style.display = '';
+            }
             if (this.dom.testDropdown) this.dom.testDropdown.classList.add('hidden');
             if (this.dom.paletteDrawer) this.dom.paletteDrawer.classList.add('hidden');
             if (this.dom.vocabModal) this.dom.vocabModal.classList.add('hidden');

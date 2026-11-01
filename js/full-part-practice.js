@@ -674,7 +674,7 @@ window.FullPartPracticeEngine = {
                     timeLimitMinutes: 6,
                     badge: "Listening · 6 câu chuẩn ETS",
                     optionsCount: 4,
-                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(1)
+                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(1).slice(0, 6)
                 };
             } else if (this.currentPart === 2) {
                 this.partDatasets[2] = {
@@ -683,7 +683,7 @@ window.FullPartPracticeEngine = {
                     timeLimitMinutes: 12,
                     badge: "Listening · 25 câu chuẩn ETS (3 đáp án)",
                     optionsCount: 3,
-                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(2)
+                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(2).slice(0, 25)
                 };
             } else if (this.currentPart === 3) {
                 this.partDatasets[3] = {
@@ -692,7 +692,7 @@ window.FullPartPracticeEngine = {
                     timeLimitMinutes: 18,
                     badge: "Listening · 39 câu (13 hội thoại) chuẩn ETS",
                     optionsCount: 4,
-                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(3)
+                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(3).slice(0, 39)
                 };
             } else if (this.currentPart === 4) {
                 this.partDatasets[4] = {
@@ -701,13 +701,19 @@ window.FullPartPracticeEngine = {
                     timeLimitMinutes: 15,
                     badge: "Listening · 30 câu (10 bài nói) chuẩn ETS",
                     optionsCount: 4,
-                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(4)
+                    questions: window.ListeningDatabaseV2.getFlattenedQuestions(4).slice(0, 30)
                 };
             }
         }
 
         const dataset = this.partDatasets[this.currentPart] || this.partDatasets[1];
-        this.activeQuestions = [...dataset.questions];
+        this.activeQuestions = dataset.questions.slice(0, dataset.totalQuestions || dataset.questions.length);
+        if (window.SoiMayCompanion && typeof window.SoiMayCompanion.hideFloating === 'function') {
+            window.SoiMayCompanion.hideFloating();
+        } else {
+            const dock = document.getElementById('soiMayFloatingDock');
+            if (dock) dock.style.display = 'none';
+        }
         this.currentIndex = 0;
         this.userAnswers = {};
         this.isSubmitted = false;
@@ -1204,6 +1210,12 @@ window.FullPartPracticeEngine = {
         if (this.player) this.player.pause();
         const modal = document.getElementById('fullPartPracticeModal');
         if (modal) modal.remove();
+        if (window.SoiMayCompanion && typeof window.SoiMayCompanion.showFloating === 'function') {
+            window.SoiMayCompanion.showFloating();
+        } else {
+            const dock = document.getElementById('soiMayFloatingDock');
+            if (dock) dock.style.display = '';
+        }
     },
 
     confirmExit() {
@@ -1223,9 +1235,13 @@ window.FullPartPracticeEngine = {
         this.isSubmitted = true;
 
         let correctCount = 0;
+        let answeredQuestionsCount = 0;
         this.activeQuestions.forEach((q, idx) => {
+            const userAns = this.userAnswers[idx];
+            if (userAns === undefined) return;
+            answeredQuestionsCount++;
             const correctKey = (q.ansLetter || (typeof q.ans === 'number' ? ['A','B','C','D'][q.ans] : q.ans) || 'A').toUpperCase();
-            const isCorrect = this.userAnswers[idx] === correctKey;
+            const isCorrect = userAns === correctKey;
             if (isCorrect) {
                 correctCount++;
             } else if (window.ToeicListeningSRS) {

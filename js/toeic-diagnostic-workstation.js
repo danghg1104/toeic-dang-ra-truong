@@ -113,18 +113,18 @@
                     speaker: 'Jenny (US)',
                     image: 'assets/listening/part1/p1_sample_06_librarian.webp',
                     audio: '/audio/listening/part1/p1_q03.mp3',
-                    audioScript: 'Number 3. Look at the picture marked number 3 in your test book. (A) A woman is checking out a library book. (B) She is stacking books onto a tall shelf. (C) Patrons are reading newspapers at a study carrel. (D) She is adjusting the lens of a photocopier.',
-                    transcript: '(A) A woman is checking out a library book.\n(B) She is stacking books onto a tall shelf.\n(C) Patrons are reading newspapers at a study carrel.\n(D) She is adjusting the lens of a photocopier.',
-                    transcriptVi: '(A) Người phụ nữ đang làm thủ tục mượn sách thư viện.\n(B) Cô ấy đang xếp các cuốn sách lên giá sách cao.\n(C) Độc giả đang đọc báo tại bàn tự học.\n(D) Cô ấy đang điều chỉnh ống kính của máy photocopy.',
+                    audioScript: 'Number 3. Look at the picture marked number 3 in your test book. (A) A woman is checking out a library book. (B) Patrons are reading newspapers at a study carrel. (C) She is stacking books onto a tall shelf. (D) She is adjusting the lens of a photocopier.',
+                    transcript: '(A) A woman is checking out a library book.\n(B) Patrons are reading newspapers at a study carrel.\n(C) She is stacking books onto a tall shelf.\n(D) She is adjusting the lens of a photocopier.',
+                    transcriptVi: '(A) Người phụ nữ đang làm thủ tục mượn sách thư viện.\n(B) Độc giả đang đọc báo tại bàn tự học.\n(C) Cô ấy đang xếp các cuốn sách lên giá sách cao.\n(D) Cô ấy đang điều chỉnh ống kính của máy photocopy.',
                     question: 'Look at the picture and choose the statement that best describes what you see:',
                     options: [
                         { key: 'A', text: '(A) A woman is checking out a library book.' },
-                        { key: 'B', text: '(B) She is stacking books onto a tall shelf.' },
-                        { key: 'C', text: '(C) Patrons are reading newspapers at a study carrel.' },
+                        { key: 'B', text: '(B) Patrons are reading newspapers at a study carrel.' },
+                        { key: 'C', text: '(C) She is stacking books onto a tall shelf.' },
                         { key: 'D', text: '(D) She is adjusting the lens of a photocopier.' }
                     ],
-                    correct: 'B',
-                    explanation: 'Người phụ nữ trong thư viện đứng giữa hai kệ sách lớn, tay giơ cao đặt một cuốn sách bìa xanh lên giá sách trên cao ("stacking books onto a tall shelf"). (A) sai vì không ở quầy mượn sách. (C) sai vì không có độc giả nào khác đọc báo. (D) sai vì không có máy photocopy trong ảnh.',
+                    correct: 'C',
+                    explanation: 'Người phụ nữ trong thư viện đứng giữa hai kệ sách lớn, tay giơ cao đặt một cuốn sách bìa xanh lên giá sách trên cao ("stacking books onto a tall shelf" - C). (A) sai vì không ở quầy mượn sách. (B) sai vì không có độc giả nào khác đọc báo. (D) sai vì không có máy photocopy trong ảnh.',
                     vocab: [
                         { word: 'stack', ipa: '/stæk/', meaning: 'xếp chồng, đặt lên giá' },
                         { word: 'tall shelf', ipa: '/tɔːl ʃelf/', meaning: 'giá sách cao' }
@@ -141,18 +141,18 @@
                     speaker: 'Jenny (US)',
                     image: 'assets/listening/part1/p1_sample_07_barista.webp',
                     audio: '/audio/listening/part1/p1_q04.mp3',
-                    audioScript: 'Number 4. Look at the picture marked number 4 in your test book. (A) A server is wiping down a wooden counter. (B) He is pouring coffee into a customer\'s mug. (C) Chairs are stacked on top of the dining tables. (D) A menu board is being replaced on the wall.',
-                    transcript: '(A) A server is wiping down a wooden counter.\n(B) He is pouring coffee into a customer\'s mug.\n(C) Chairs are stacked on top of the dining tables.\n(D) A menu board is being replaced on the wall.',
-                    transcriptVi: '(A) Nhân viên phục vụ đang lau sạch bề mặt quầy gỗ.\n(B) Anh ấy đang rót cà phê vào cốc của khách hàng.\n(C) Ghế được xếp chồng lên trên bàn ăn.\n(D) Bảng thực đơn đang được thay thế trên tường.',
+                    audioScript: 'Number 4. Look at the picture marked number 4 in your test book. (A) A menu board is being replaced on the wall. (B) He is pouring coffee into a customer\'s mug. (C) Chairs are stacked on top of the dining tables. (D) A server is wiping down a wooden counter.',
+                    transcript: '(A) A menu board is being replaced on the wall.\n(B) He is pouring coffee into a customer\'s mug.\n(C) Chairs are stacked on top of the dining tables.\n(D) A server is wiping down a wooden counter.',
+                    transcriptVi: '(A) Bảng thực đơn đang được thay thế trên tường.\n(B) Anh ấy đang rót cà phê vào cốc của khách hàng.\n(C) Ghế được xếp chồng lên trên bàn ăn.\n(D) Nhân viên phục vụ đang lau sạch bề mặt quầy gỗ.',
                     question: 'Look at the picture and choose the statement that best describes what you see:',
                     options: [
-                        { key: 'A', text: '(A) A server is wiping down a wooden counter.' },
+                        { key: 'A', text: '(A) A menu board is being replaced on the wall.' },
                         { key: 'B', text: '(B) He is pouring coffee into a customer\'s mug.' },
                         { key: 'C', text: '(C) Chairs are stacked on top of the dining tables.' },
-                        { key: 'D', text: '(D) A menu board is being replaced on the wall.' }
+                        { key: 'D', text: '(D) A server is wiping down a wooden counter.' }
                     ],
-                    correct: 'A',
-                    explanation: 'Nhân viên quầy cà phê (phía sau bên trái) đang cúi người dùng khăn lau sạch bề mặt quầy pha chế bằng gỗ ("wiping down a wooden counter"). Người nam phía trước đang thao tác máy POS. (B) sai vì không rót cà phê. (C) sai vì bàn ghế không xếp chồng. (D) sai vì không thay bảng thực đơn.',
+                    correct: 'D',
+                    explanation: 'Nhân viên quầy cà phê (phía sau bên trái) đang cúi người dùng khăn lau sạch bề mặt quầy pha chế bằng gỗ ("wiping down a wooden counter" - D). Người nam phía trước đang thao tác máy POS. (A) sai vì không thay bảng thực đơn. (B) sai vì không rót cà phê. (C) sai vì bàn ghế không xếp chồng.',
                     vocab: [
                         { word: 'wipe down', ipa: '/waɪp daʊn/', meaning: 'lau sạch bề mặt' },
                         { word: 'wooden counter', ipa: '/ˈwʊd.ən ˈkaʊn.tər/', meaning: 'quầy gỗ' }
@@ -218,17 +218,17 @@
                     type: 'listening',
                     accent: 'en-US',
                     speaker: 'Jenny (US)',
-                    audioScript: 'Are you attending the international trade seminar tomorrow? (A) In the main auditorium on the fourth floor. (B) Isn\'t it postponed until next Wednesday? (C) Yes, I traded my old laptop yesterday.',
-                    transcript: 'Are you attending the international trade seminar tomorrow?\n(A) In the main auditorium on the fourth floor.\n(B) Isn\'t it postponed until next Wednesday?\n(C) Yes, I traded my old laptop yesterday.',
-                    transcriptVi: 'Bạn có tham dự hội thảo thương mại quốc tế vào ngày mai không?\n(A) Ở hội trường chính trên tầng bốn.\n(B) Không phải nó đã bị hoãn sang thứ Tư tuần sau rồi sao?\n(C) Vâng, tôi đã đổi chiếc máy tính xách tay cũ của mình vào hôm qua.',
+                    audioScript: 'Are you attending the international trade seminar tomorrow? (A) In the main auditorium on the fourth floor. (B) Yes, I traded my old laptop yesterday. (C) Isn\'t it postponed until next Wednesday?',
+                    transcript: 'Are you attending the international trade seminar tomorrow?\n(A) In the main auditorium on the fourth floor.\n(B) Yes, I traded my old laptop yesterday.\n(C) Isn\'t it postponed until next Wednesday?',
+                    transcriptVi: 'Bạn có tham dự hội thảo thương mại quốc tế vào ngày mai không?\n(A) Ở hội trường chính trên tầng bốn.\n(B) Vâng, tôi đã đổi chiếc máy tính xách tay cũ của mình vào hôm qua.\n(C) Không phải nó đã bị hoãn sang thứ Tư tuần sau rồi sao?',
                     question: 'Are you attending the international trade seminar tomorrow?',
                     options: [
                         { key: 'A', text: '(A) In the main auditorium on the fourth floor.' },
-                        { key: 'B', text: '(B) Isn\'t it postponed until next Wednesday?' },
-                        { key: 'C', text: '(C) Yes, I traded my old laptop yesterday.' }
+                        { key: 'B', text: '(B) Yes, I traded my old laptop yesterday.' },
+                        { key: 'C', text: '(C) Isn\'t it postponed until next Wednesday?' }
                     ],
-                    correct: 'B',
-                    explanation: 'Bẫy hỏi ngược lại (Counter-question): Trong đề thi ETS, người trả lời thường phản hồi bằng một câu hỏi khác để thông báo sự kiện bị hoãn ("Isn\'t it postponed...?"). (C) là bẫy lặp từ "trade/traded".',
+                    correct: 'C',
+                    explanation: 'Bẫy hỏi ngược lại (Counter-question): Trong đề thi ETS, người trả lời thường phản hồi bằng một câu hỏi khác để thông báo sự kiện bị hoãn ("Isn\'t it postponed...?" - C). (B) là bẫy lặp từ "trade/traded".',
                     vocab: [
                         { word: 'attend', ipa: '/əˈtend/', meaning: 'tham dự' },
                         { word: 'postpone', ipa: '/pəʊstˈpəʊn/', meaning: 'hoãn lại' }
@@ -305,12 +305,12 @@
                     question: 'What solution does the man propose?',
                     options: [
                         { key: 'A', text: '(A) Canceling the existing order completely' },
-                        { key: 'B', text: '(B) Sending available items from a nearby facility in batches' },
-                        { key: 'C', text: '(C) Giving a fifty percent promotional voucher' },
+                        { key: 'B', text: '(B) Giving a fifty percent promotional voucher' },
+                        { key: 'C', text: '(C) Sending available items from a nearby facility in batches' },
                         { key: 'D', text: '(D) Replacing the chairs with cheaper models' }
                     ],
-                    correct: 'B',
-                    explanation: 'Paraphrase giải pháp: Người đàn ông đề xuất gửi 6 chiếc từ kho địa phương vào ngày mai và 4 chiếc còn lại vào thứ Năm -> Tương đương với "Sending available items from a nearby facility in batches" (B).',
+                    correct: 'C',
+                    explanation: 'Paraphrase giải pháp: Người đàn ông đề xuất gửi 6 chiếc từ kho địa phương vào ngày mai và 4 chiếc còn lại vào thứ Năm -> Tương đương với "Sending available items from a nearby facility in batches" (C).',
                     vocab: [
                         { word: 'distribution center', ipa: '/ˌdɪstrɪˈbjuːʃən ˈsentər/', meaning: 'trung tâm phân phối' },
                         { word: 'in batches', ipa: '/ɪn ˈbætʃɪz/', meaning: 'thành từng đợt' }
@@ -332,12 +332,12 @@
                     question: 'What problem are the speakers discussing?',
                     options: [
                         { key: 'A', text: '(A) A computer network outage' },
-                        { key: 'B', text: '(B) A shortage of available office workstations' },
+                        { key: 'B', text: '(B) Disagreements with an architectural contractor' },
                         { key: 'C', text: '(C) Budget cuts in the recruitment department' },
-                        { key: 'D', text: '(D) Disagreements with an architectural contractor' }
+                        { key: 'D', text: '(D) A shortage of available office workstations' }
                     ],
-                    correct: 'B',
-                    explanation: 'Xác định vấn đề (Problem identification): Người phụ nữ nói "We only have two vacant desks left in our department, and four new recruits are arriving" -> Thiếu bàn làm việc cho nhân viên mới: "A shortage of available office workstations" (B).',
+                    correct: 'D',
+                    explanation: 'Xác định vấn đề (Problem identification): Người phụ nữ nói "We only have two vacant desks left in our department, and four new recruits are arriving" -> Thiếu bàn làm việc cho nhân viên mới: "A shortage of available office workstations" (D).',
                     vocab: [
                         { word: 'vacant', ipa: '/ˈveɪ.kənt/', meaning: 'trống, chưa có người sử dụng' },
                         { word: 'shortage', ipa: '/ˈʃɔː.tɪdʒ/', meaning: 'sự thiếu hụt' }
@@ -357,13 +357,13 @@
                     transcript: 'W: We only have two vacant desks left in our department, and four new recruits are arriving next month.\nM: Well, the executive board just approved our flexible hybrid work policy yesterday.\nW: Ah, of course! That means employees only need to be in the office two days a week...',
                     question: 'What does the man imply when he says: "Well, the executive board just approved our flexible hybrid work policy yesterday"?',
                     options: [
-                        { key: 'A', text: '(A) Staff salaries will be significantly increased' },
-                        { key: 'B', text: '(B) The lack of physical desk space can be accommodated' },
+                        { key: 'A', text: '(A) The lack of physical desk space can be accommodated' },
+                        { key: 'B', text: '(B) Staff salaries will be significantly increased' },
                         { key: 'C', text: '(C) All employees must relocate to a different branch' },
                         { key: 'D', text: '(D) The company will terminate the new recruits\' contracts' }
                     ],
-                    correct: 'B',
-                    explanation: 'Bẫy câu hỏi ngụ ý (Implied Meaning): Khi người phụ nữ than phiền thiếu bàn làm việc, người đàn ông nhắc việc công ty duyệt chính sách "hybrid work" (làm việc tại nhà luân phiên) ngụ ý rằng nhân viên không cần phải đến văn phòng cùng lúc, do đó việc thiếu chỗ ngồi hoàn toàn có thể khắc phục được (B).',
+                    correct: 'A',
+                    explanation: 'Bẫy câu hỏi ngụ ý (Implied Meaning): Khi người phụ nữ than phiền thiếu bàn làm việc, người đàn ông nhắc việc công ty duyệt chính sách "hybrid work" (làm việc tại nhà luân phiên) ngụ ý rằng nhân viên không cần phải đến văn phòng cùng lúc, do đó việc thiếu chỗ ngồi hoàn toàn có thể khắc phục được (A).',
                     vocab: [
                         { word: 'hybrid work', ipa: '/ˈhaɪ.brɪd wɜːk/', meaning: 'chế độ làm việc kết hợp văn phòng và tại nhà' },
                         { word: 'accommodate', ipa: '/əˈkɒm.ə.deɪt/', meaning: 'đáp ứng, xử lý ổn thỏa' }
@@ -389,12 +389,12 @@
                     question: 'What is the announcement mainly about?',
                     options: [
                         { key: 'A', text: '(A) A gate reassignment for incoming flights' },
-                        { key: 'B', text: '(B) A flight departure delay caused by severe weather' },
+                        { key: 'B', text: '(B) An emergency baggage inspection procedure' },
                         { key: 'C', text: '(C) A promotional fare discount for domestic travelers' },
-                        { key: 'D', text: '(D) An emergency baggage inspection procedure' }
+                        { key: 'D', text: '(D) A flight departure delay caused by severe weather' }
                     ],
-                    correct: 'B',
-                    explanation: 'Xác định mục đích chính của bài nói: "Due to severe unpredicted thunderstorms... Our departure has been rescheduled" -> Báo hoãn chuyến bay do thời tiết xấu: "A flight departure delay caused by severe weather" (B).',
+                    correct: 'D',
+                    explanation: 'Xác định mục đích chính của bài nói: "Due to severe unpredicted thunderstorms... Our departure has been rescheduled" -> Báo hoãn chuyến bay do thời tiết xấu: "A flight departure delay caused by severe weather" (D).',
                     vocab: [
                         { word: 'ground hold', ipa: '/ɡraʊnd həʊld/', meaning: 'lệnh hoãn cất cánh trên mặt đất' },
                         { word: 'rescheduled', ipa: '/ˌriːˈʃedʒ.uːld/', meaning: 'được dời lại lịch' }
@@ -414,13 +414,13 @@
                     transcript: '...In the meantime, please present your boarding passes at Gate B12 to receive complimentary refreshment vouchers for use at any airport dining facility. We sincerely apologize for this inconvenience and thank you for your patience.',
                     question: 'What are passengers invited to collect at Gate B12?',
                     options: [
-                        { key: 'A', text: '(A) Free food and beverage vouchers' },
+                        { key: 'A', text: '(A) Cash refunds for flight insurance' },
                         { key: 'B', text: '(B) Upgraded business class tickets' },
-                        { key: 'C', text: '(C) Cash refunds for flight insurance' },
+                        { key: 'C', text: '(C) Free food and beverage vouchers' },
                         { key: 'D', text: '(D) Overnight hotel reservation keys' }
                     ],
-                    correct: 'A',
-                    explanation: 'Paraphrasing chi tiết: "complimentary refreshment vouchers" = "Free food and beverage vouchers" (Phiếu ăn uống/đồ ăn nhẹ miễn phí) (A).',
+                    correct: 'C',
+                    explanation: 'Paraphrasing chi tiết: "complimentary refreshment vouchers" = "Free food and beverage vouchers" (Phiếu ăn uống/đồ ăn nhẹ miễn phí) (C).',
                     vocab: [
                         { word: 'complimentary', ipa: '/ˌkɒm.plɪˈmen.tər.i/', meaning: 'miễn phí' },
                         { word: 'refreshment', ipa: '/rɪˈfreʃ.mənt/', meaning: 'món ăn nhẹ, thức uống' }
@@ -467,13 +467,13 @@
                     transcript: '...Before our product rollout meeting at 2:00 PM, I would like everyone on the customer support team to watch this tutorial and submit your feedback via our intranet form.',
                     question: 'What are the listeners instructed to do before 2:00 PM?',
                     options: [
-                        { key: 'A', text: '(A) View a short instructional video and provide opinions' },
+                        { key: 'A', text: '(A) Prepare a slide presentation for executive directors' },
                         { key: 'B', text: '(B) Conduct direct telephone surveys with eighty clients' },
                         { key: 'C', text: '(C) Install an anti-virus security update' },
-                        { key: 'D', text: '(D) Prepare a slide presentation for executive directors' }
+                        { key: 'D', text: '(D) View a short instructional video and provide opinions' }
                     ],
-                    correct: 'A',
-                    explanation: 'Hành động người nghe cần làm (Action required): "watch this tutorial and submit your feedback" -> Paraphrase thành "View a short instructional video and provide opinions" (A).',
+                    correct: 'D',
+                    explanation: 'Hành động người nghe cần làm (Action required): "watch this tutorial and submit your feedback" -> Paraphrase thành "View a short instructional video and provide opinions" (D).',
                     vocab: [
                         { word: 'walkthrough / tutorial', ipa: '/ˈtʃuː.tɔː.ri.əl/', meaning: 'video hướng dẫn từng bước' },
                         { word: 'rollout', ipa: '/ˈrəʊl.aʊt/', meaning: 'sự ra mắt, triển khai' }
@@ -493,13 +493,13 @@
                     context: '📝 Ngữ pháp Part 5: Bẫy Danh từ đuôi -ive & -al',
                     question: 'A qualified customer service _______ from our regional branch will assist you with the on-site installation tomorrow.',
                     options: [
-                        { key: 'A', text: '(A) represent' },
-                        { key: 'B', text: '(B) representative' },
+                        { key: 'A', text: '(A) representative' },
+                        { key: 'B', text: '(B) represent' },
                         { key: 'C', text: '(C) representing' },
                         { key: 'D', text: '(D) represented' }
                     ],
-                    correct: 'B',
-                    explanation: 'Bẫy từ loại kinh điển ETS: Chỗ trống đứng sau cụm tính từ "A qualified customer service" và trước động từ "will assist". Vị trí này bắt buộc phải là một DANH TỪ ĐẾM ĐƯỢC CHỈ NGƯỜI làm chủ ngữ. "representative" có đuôi -ive tưởng chừng là tính từ nhưng lại là danh từ ("người đại diện"). (A) là động từ, (C) và (D) là dạng phân từ.',
+                    correct: 'A',
+                    explanation: 'Bẫy từ loại kinh điển ETS: Chỗ trống đứng sau cụm tính từ "A qualified customer service" và trước động từ "will assist". Vị trí này bắt buộc phải là một DANH TỪ ĐẾM ĐƯỢC CHỈ NGƯỜI làm chủ ngữ. "representative" có đuôi -ive tưởng chừng là tính từ nhưng lại là danh từ ("người đại diện") (A). (B) là động từ, (C) và (D) là dạng phân từ.',
                     vocab: [
                         { word: 'representative', ipa: '/ˌrep.rɪˈzen.tə.tɪv/', meaning: 'người đại diện (danh từ)' },
                         { word: 'qualified', ipa: '/ˈkwɒl.ɪ.faɪd/', meaning: 'đủ điều kiện, có năng lực' }
@@ -538,12 +538,12 @@
                     question: 'The executive committee strongly recommends that each team leader _______ a safety compliance audit before Friday afternoon.',
                     options: [
                         { key: 'A', text: '(A) conducts' },
-                        { key: 'B', text: '(B) conduct' },
+                        { key: 'B', text: '(B) will conduct' },
                         { key: 'C', text: '(C) conducted' },
-                        { key: 'D', text: '(D) will conduct' }
+                        { key: 'D', text: '(D) conduct' }
                     ],
-                    correct: 'B',
-                    explanation: 'Thể giả định (Subjunctive Mood) trong đề thi TOEIC: Sau các động từ chỉ yêu cầu, đề xuất (recommend, suggest, mandate, require, insist) + that + S + (should) + V-nguyên mẫu không chia "s/es", bất kể chủ ngữ là số ít hay số nhiều! Do đó, mặc dù chủ ngữ là "each team leader" (ngôi thứ 3 số ít), động từ vẫn bắt buộc là "conduct" (B), không dùng "conducts".',
+                    correct: 'D',
+                    explanation: 'Thể giả định (Subjunctive Mood) trong đề thi TOEIC: Sau các động từ chỉ yêu cầu, đề xuất (recommend, suggest, mandate, require, insist) + that + S + (should) + V-nguyên mẫu không chia "s/es", bất kể chủ ngữ là số ít hay số nhiều! Do đó, mặc dù chủ ngữ là "each team leader" (ngôi thứ 3 số ít), động từ vẫn bắt buộc là "conduct" (D), không dùng "conducts".',
                     vocab: [
                         { word: 'compliance audit', ipa: '/kəmˈplaɪ.əns ˈɔː.dɪt/', meaning: 'kiểm toán tuân thủ quy định' },
                         { word: 'mandate', ipa: '/ˈmæn.deɪt/', meaning: 'bắt buộc, ban lệnh' }
@@ -659,12 +659,12 @@ Trân trọng,
                     question: 'Chọn liên từ chuyển ý phù hợp nhất điền vào chỗ trống [ 23 ]:',
                     options: [
                         { key: 'A', text: '(A) On the contrary' },
-                        { key: 'B', text: '(B) In addition' },
+                        { key: 'B', text: '(B) Even though' },
                         { key: 'C', text: '(C) Otherwise' },
-                        { key: 'D', text: '(D) Even though' }
+                        { key: 'D', text: '(D) In addition' }
                     ],
-                    correct: 'B',
-                    explanation: 'Liên từ bổ sung thông tin (Addition): Câu trước nói về hỗ trợ kỹ thuật 24/7, câu này bổ sung thêm quyền lợi về tài chính (giảm giá 15% hóa đơn). Do đó ta dùng liên từ "In addition" (Ngoài ra/Thêm vào đó) (B). "On the contrary" dùng đối lập, "Otherwise" dùng nếu không thì.',
+                    correct: 'D',
+                    explanation: 'Liên từ bổ sung thông tin (Addition): Câu trước nói về hỗ trợ kỹ thuật 24/7, câu này bổ sung thêm quyền lợi về tài chính (giảm giá 15% hóa đơn). Do đó ta dùng liên từ "In addition" (Ngoài ra/Thêm vào đó) (D). "On the contrary" dùng đối lập, "Otherwise" dùng nếu không thì.',
                     vocab: [
                         { word: 'in addition', ipa: '/ɪn əˈdɪʃ.ən/', meaning: 'ngoài ra, thêm vào đó' },
                         { word: 'reflect', ipa: '/rɪˈflekt/', meaning: 'thể hiện, phản ánh' }
@@ -879,12 +879,12 @@ VP of Human Resources, Vanguard Tech`,
                     question: 'What is the primary purpose of Sarah Jenkins\'s email to Dr. Vance?',
                     options: [
                         { key: 'A', text: '(A) To express dissatisfaction with the conference facility acoustics' },
-                        { key: 'B', text: '(B) To commend his presentation and request a brief follow-up consultation' },
+                        { key: 'B', text: '(B) To request a reimbursement for the executive luncheon fee' },
                         { key: 'C', text: '(C) To invite him to become a full-time board member at Vanguard Tech' },
-                        { key: 'D', text: '(D) To request a reimbursement for the executive luncheon fee' }
+                        { key: 'D', text: '(D) To commend his presentation and request a brief follow-up consultation' }
                     ],
-                    correct: 'B',
-                    explanation: 'Xác định mục đích chính của thư: Sarah khen ngợi bài phát biểu của Tiến sĩ Vance ("Thank you for your thought-provoking presentation...") và đề xuất một cuộc họp tư vấn trực tuyến 15 phút vào tuần sau ("Would you have 15 minutes available next week for a brief video consultation..."). Đáp án chính xác là (B).',
+                    correct: 'D',
+                    explanation: 'Xác định mục đích chính của thư: Sarah khen ngợi bài phát biểu của Tiến sĩ Vance ("Thank you for your thought-provoking presentation...") và đề xuất một cuộc họp tư vấn trực tuyến 15 phút vào tuần sau ("Would you have 15 minutes available next week for a brief video consultation..."). Đáp án chính xác là (D).',
                     vocab: [
                         { word: 'thought-provoking', ipa: '/ˈθɔːt.prəˌvəʊ.kɪŋ/', meaning: 'gợi nhiều suy ngẫm' },
                         { word: 'consultation', ipa: '/ˌkɒn.sʌlˈteɪ.ʃən/', meaning: 'buổi tư vấn chuyên môn' }
@@ -913,8 +913,40 @@ VP of Human Resources, Vanguard Tech`,
                 if (dock) dock.style.display = 'none';
             }
 
+            this.bindKeyShortcuts();
             this.renderWorkstationUI();
             this.showQuestion(0);
+        }
+
+        bindKeyShortcuts() {
+            this.unbindKeyShortcuts();
+            this._keyHandler = (e) => {
+                if (!this.isOpen) return;
+                if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+                const key = e.key.toUpperCase();
+                if (['A', 'B', 'C', 'D'].includes(key)) {
+                    e.preventDefault();
+                    this.selectOption(key);
+                } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                    e.preventDefault();
+                    this.nextQuestion();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    this.prevQuestion();
+                } else if (e.key === 'Enter' && e.ctrlKey) {
+                    e.preventDefault();
+                    this.submitTest();
+                }
+            };
+            window.addEventListener('keydown', this._keyHandler);
+        }
+
+        unbindKeyShortcuts() {
+            if (this._keyHandler) {
+                window.removeEventListener('keydown', this._keyHandler);
+                this._keyHandler = null;
+            }
         }
 
         close() {
@@ -924,6 +956,7 @@ VP of Human Resources, Vanguard Tech`,
             }
             this.stopTimer();
             this.stopAudio();
+            this.unbindKeyShortcuts();
             this.isOpen = false;
 
             // Khôi phục linh vật nổi
@@ -1782,15 +1815,15 @@ VP of Human Resources, Vanguard Tech`,
             });
 
             // Quy đổi sang thang điểm chuẩn ETS 0 - 495 cho từng kỹ năng
-            // Bảng điểm chuẩn ETS Listening (16 câu):
+            // Bảng điểm chuẩn ETS Listening (16 câu): Đoán ngẫu nhiên (4/16 = 25%) tương đương 105 điểm
             const listeningScoreMap = {
-                16: 495, 15: 480, 14: 455, 13: 425, 12: 395, 11: 365, 10: 335,
-                9: 305, 8: 275, 7: 245, 6: 215, 5: 185, 4: 155, 3: 120, 2: 85, 1: 50, 0: 20
+                16: 495, 15: 480, 14: 460, 13: 435, 12: 405, 11: 370, 10: 330,
+                9: 290, 8: 250, 7: 210, 6: 175, 5: 140, 4: 105, 3: 75, 2: 45, 1: 25, 0: 10
             };
-            // Bảng điểm chuẩn ETS Reading (12 câu):
+            // Bảng điểm chuẩn ETS Reading (12 câu): Đoán ngẫu nhiên (3/12 = 25%) tương đương 95 điểm
             const readingScoreMap = {
-                12: 495, 11: 465, 10: 430, 12: 495, 9: 390, 8: 350, 7: 310,
-                6: 270, 5: 230, 4: 190, 3: 145, 2: 100, 1: 55, 0: 20
+                12: 495, 11: 465, 10: 430, 9: 385, 8: 335, 7: 285,
+                6: 235, 5: 185, 4: 140, 3: 95, 2: 50, 1: 25, 0: 10
             };
 
             const scaledListening = listeningScoreMap[listeningCorrect] !== undefined ? listeningScoreMap[listeningCorrect] : Math.round((listeningCorrect / 16) * 495);
@@ -1960,6 +1993,10 @@ VP of Human Resources, Vanguard Tech`,
                         <p class="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto pt-1">
                             ${res.bandTitle} · ${res.bandDesc}
                         </p>
+                        <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 text-[11px] font-semibold text-amber-800 dark:text-amber-300 max-w-lg mx-auto flex items-center justify-center gap-1.5 mt-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                            <span>Khảo sát nhanh 28 câu định vị lộ trình xuất phát, không thay thế chứng chỉ thi thật 200 câu ETS.</span>
+                        </div>
                     </div>
 
                     <!-- 6 Trụ Cột Weakness Radar Summary -->

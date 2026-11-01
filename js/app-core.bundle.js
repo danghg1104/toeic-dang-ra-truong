@@ -8706,7 +8706,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=toididaudo_v17_p0_fixed').then(reg => {
+                navigator.serviceWorker.register('/sw.js?v=toididaudo_v18_final').then(reg => {
                     reg.update();
                 }).catch((err) => {
                     console.log('SW registration note:', err.message);
