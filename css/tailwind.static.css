@@ -207,6 +207,12 @@
 .h-\[680px\] {
   height: 680px;
 }
+.z-\[990\] {
+  z-index: 990;
+}
+.z-\[1000\] {
+  z-index: 1000;
+}
 .bottom-3 {
   bottom: 0.75rem;
 }
