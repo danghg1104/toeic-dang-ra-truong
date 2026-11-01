@@ -1,5 +1,5 @@
 // Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (Study Studio 2026) - Offline Audio & Dynamic Caching
-const CACHE_NAME = 'study-studio-cache-v4-phase2-static';
+const CACHE_NAME = 'study-studio-cache-v5-phase4-modular';
 const AUDIO_CACHE_NAME = 'study-studio-audio-offline-v1';
 
 const ASSETS_TO_CACHE = [
