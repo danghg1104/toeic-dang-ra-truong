@@ -2574,9 +2574,13 @@
 
         function openPassToeicStoryModal() {
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập để đọc truyện chêm từ vựng!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                if (window.currentUserAccount) currentUserAccount = window.currentUserAccount;
+                else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
+            }
+            if (!currentUserAccount) {
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             selectPassToeicStory(0);
             const m = document.getElementById('passToeicStoryModal');
@@ -4029,9 +4033,9 @@
                 else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
             }
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để làm trọn vẹn Part ' + partNum + '!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             if (partNum >= 5 && window.ToeicReadingWorkstation) {
                 const partCounts = { 5: 30, 6: 16, 7: 20 };
@@ -4095,9 +4099,9 @@
                 else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
             }
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để làm bài kiểm tra!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             activeQuizType = type;
             let questionsPool = [];
@@ -4819,9 +4823,13 @@
 
         function openVocabFlashcardModal(deckName) {
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để học từ vựng Flashcard!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                if (window.currentUserAccount) currentUserAccount = window.currentUserAccount;
+                else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
+            }
+            if (!currentUserAccount) {
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             if (window.VocabularyEngine) {
                 const slug = (deckName || 'contracts').toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -5170,9 +5178,13 @@
 
         function openEllloModal() {
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để luyện nghe hội thoại thực tế!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                if (window.currentUserAccount) currentUserAccount = window.currentUserAccount;
+                else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
+            }
+            if (!currentUserAccount) {
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             selectEllloLesson(0);
             const m = document.getElementById('ellloModal');
@@ -5259,9 +5271,13 @@
 
         function openNewsInLevelsModal() {
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để đọc tin tức theo cấp độ!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                if (window.currentUserAccount) currentUserAccount = window.currentUserAccount;
+                else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
+            }
+            if (!currentUserAccount) {
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             selectNewsLevel(1);
             const m = document.getElementById('newsModal');
@@ -5303,9 +5319,13 @@
         let currentTheoryTopicTitle = '';
         function openTheoryModal(partTitle) {
             if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để xem lý thuyết & mẹo thi!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
+                if (window.currentUserAccount) currentUserAccount = window.currentUserAccount;
+                else if (typeof window.getCurrentUser === 'function') currentUserAccount = window.getCurrentUser();
+            }
+            if (!currentUserAccount) {
+                currentUserAccount = { id: 'guest-' + Date.now(), name: 'Học viên', isGuest: true };
+                window.currentUserAccount = currentUserAccount;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch(e) {}
             }
             if (window.GrammarEngine && window.grammarDatabase) {
                 const clean = partTitle.trim().toLowerCase();
