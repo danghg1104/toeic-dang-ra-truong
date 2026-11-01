@@ -1,13 +1,14 @@
 // Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (Study Studio 2026) - Offline Audio & Dynamic Caching
-const CACHE_NAME = 'study-studio-cache-v7-audit-remediation';
+const CACHE_NAME = 'study-studio-cache-v8-soimay-logo';
 const AUDIO_CACHE_NAME = 'study-studio-audio-offline-v1';
 
 const ASSETS_TO_CACHE = [
-  '/manifest.json?v=toididaudo_v15',
+  '/manifest.json?v=toididaudo_v16',
   '/icon-192.png',
   '/icon-512.png',
   '/favicon.ico',
-  '/app.ico'
+  '/app.ico',
+  '/assets/mascot/may_avatar.png'
 ];
 
 self.addEventListener('install', (event) => {
