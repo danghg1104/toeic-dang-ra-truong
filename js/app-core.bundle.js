@@ -6450,12 +6450,25 @@
             if (m2) m2.classList.add('hidden');
             const m3 = document.getElementById('mobileProfileMenu');
             if (m3) m3.classList.add('hidden');
+            const bubble = document.getElementById('heroSoiMayBubble');
+            if (bubble) bubble.classList.remove('invisible', 'opacity-0');
         }
 
         function toggleMemberProfileDropdown(e) {
             if (e) e.stopPropagation();
             const menu = document.getElementById('sanhMemberProfileMenu');
-            if (menu) menu.classList.toggle('hidden');
+            if (menu) {
+                const isOpening = menu.classList.contains('hidden');
+                menu.classList.toggle('hidden');
+                const bubble = document.getElementById('heroSoiMayBubble');
+                if (bubble) {
+                    if (isOpening) {
+                        bubble.classList.add('invisible', 'opacity-0');
+                    } else {
+                        bubble.classList.remove('invisible', 'opacity-0');
+                    }
+                }
+            }
         }
 
         function toggleProfileDropdown(e) {
@@ -6482,6 +6495,8 @@
             const m2 = document.getElementById('sanhMemberProfileMenu');
             if (w2 && m2 && !w2.contains(e.target)) {
                 m2.classList.add('hidden');
+                const bubble = document.getElementById('heroSoiMayBubble');
+                if (bubble) bubble.classList.remove('invisible', 'opacity-0');
             }
 
             const w3 = document.getElementById('mobileProfileDropdownWrapper');
