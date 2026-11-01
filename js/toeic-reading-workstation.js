@@ -270,7 +270,25 @@
             }, { passive: true });
         }
 
+        async ensureReadingDatabase() {
+            if (window.ReadingPracticeDatabase) return;
+            if (typeof showToast === 'function') showToast('⏳ Đang tải ngân hàng đề đọc hiểu (Part 5-6-7)...');
+            await new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = '/js/reading-practice-database.js?v=studystudio_20261029_step2_perfect';
+                s.onload = resolve;
+                s.onerror = (e) => {
+                    console.error('Cannot load ReadingPracticeDatabase:', e);
+                    resolve();
+                };
+                document.head.appendChild(s);
+            });
+        }
+
         async loadItems() {
+            if (!window.ReadingPracticeDatabase) {
+                await this.ensureReadingDatabase();
+            }
             // Ưu tiên nạp từ ReadingPracticeDatabase nếu có
             if (window.ReadingPracticeDatabase) {
                 this.items = window.ReadingPracticeDatabase.getItemsForPractice({

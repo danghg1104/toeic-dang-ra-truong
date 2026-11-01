@@ -27,7 +27,8 @@
     <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png?v=studystudio_20261029">
     <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png?v=studystudio_20261029">
     <title>Tôi đi đâu đó — Luyện thi TOEIC & VSTEP online miễn phí</title>
-    <script src="/js/vendor/tailwindcss.js?v=studystudio_20261029_step2_perfect"></script>
+    <!-- Precompiled High-Performance Static CSS (Replaced 400KB in-browser Tailwind compiler) -->
+    <link rel="stylesheet" href="/css/tailwind.static.css?v=studystudio_phase2_static">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -35,16 +36,6 @@
     <link rel="stylesheet" href="/css/take-note-hybrid.css?v=20261026_07">
     <!-- Google Identity Services (Chính thức) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="if(typeof initGoogleIdentityServices==='function') initGoogleIdentityServices();"></script>
-    <!-- Mammoth.js for Word (.docx) to editable HTML conversion (Lazy-defer on mobile) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <!-- PDF.js for rendering PDF pages & extracting editable text (Lazy-defer on mobile) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <!-- SheetJS (xlsx) for Excel & CSV spreadsheets (Lazy-defer on mobile) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <!-- pdfMake + Roboto Fonts + htmlToPdfmake for high-speed direct PDF export without print dialog -->
-    <script src="/js/pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="/js/vfs_fonts.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="/js/html-to-pdfmake.min.js?v=studystudio_20261029_step2_perfect"></script>
     <!-- Ngân hàng Lý thuyết, Câu hỏi chuyên đề, Từ vựng & Từ điển toàn diện -->
     <script src="/js/grammar-theory-data.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="/js/grammar-quiz-data.js?v=studystudio_20261029_step2_perfect"></script>
@@ -62,7 +53,7 @@
     <script src="/js/listening-data-v2.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="/js/toeic-listening-workstation.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="/js/ets2026-data.js?v=studystudio_20261029_step2_perfect"></script>
-    <script src="/js/reading-practice-database.js?v=studystudio_20261029_step2_perfect"></script>
+    <!-- Note: ReadingPracticeDatabase is lazy-loaded on-demand inside toeic-reading-workstation.js (saves 4.04MB on initial load) -->
     <script src="/js/toeic-reading-workstation.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="/js/dailydictation-toeic-data.js?v=studystudio_20261029_step2_perfect"></script>
     <script src="/js/dailydictation-workstation.js?v=studystudio_20261029_step2_perfect"></script>
@@ -88,38 +79,57 @@
     <script src="/js/mobile-ergonomics-engine.js?v=studystudio_20261030_step4"></script>
     <script src="/js/offline-audio-manager.js?v=studystudio_20261030_step4"></script>
     <script src="/js/streak-reminder-engine.js?v=studystudio_20261030_step4"></script>
+    <!-- Document & Export Lazy Toolkit Engine (Loads PDF/Word/Excel on demand only) -->
     <script>
-        if (window.pdfjsLib) {
-            try {
-                const workerBlob = new Blob(
-                    ['importScripts("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js");'],
-                    { type: 'application/javascript' }
-                );
-                window.pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(workerBlob);
-            } catch (e) {
-                window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-            }
-        }
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Be Vietnam Pro"', 'Inter', 'system-ui', 'sans-serif'],
-                    },
-                    colors: {
-                        tart: {
-                            blue: '#2563eb',
-                            purple: '#6d28d9',
-                            magenta: '#a21caf',
-                            teal: '#0d9488',
-                            green: '#15803d',
-                            amber: '#92400e'
-                        }
+        window.DocumentToolkit = {
+            _loaded: {},
+            loadScript(url) {
+                if (this._loaded[url]) return Promise.resolve();
+                return new Promise((resolve, reject) => {
+                    const s = document.createElement('script');
+                    s.src = url;
+                    s.onload = () => { this._loaded[url] = true; resolve(); };
+                    s.onerror = (e) => reject(new Error('Failed to load ' + url));
+                    document.head.appendChild(s);
+                });
+            },
+            async ensurePdfMake() {
+                if (window.pdfMake && window.vfs_fonts && window.htmlToPdfmake) return;
+                if (typeof showToast === 'function') showToast('⏳ Đang khởi tạo bộ công cụ xuất PDF...');
+                await this.loadScript('/js/pdfmake.min.js?v=studystudio_20261029_step2_perfect');
+                await this.loadScript('/js/vfs_fonts.js?v=studystudio_20261029_step2_perfect');
+                await this.loadScript('/js/html-to-pdfmake.min.js?v=studystudio_20261029_step2_perfect');
+                if (window.pdfMake && window.vfs_fonts) {
+                    window.pdfMake.vfs = window.vfs_fonts.pdfMake ? window.vfs_fonts.pdfMake.vfs : window.vfs_fonts;
+                }
+            },
+            async ensureWordMammoth() {
+                if (window.mammoth) return;
+                if (typeof showToast === 'function') showToast('⏳ Đang tải bộ xử lý tài liệu Word...');
+                await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
+            },
+            async ensureExcelSheetJs() {
+                if (window.XLSX) return;
+                if (typeof showToast === 'function') showToast('⏳ Đang tải bộ đọc bảng tính Excel...');
+                await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js');
+            },
+            async ensurePdfJs() {
+                if (window.pdfjsLib) return;
+                if (typeof showToast === 'function') showToast('⏳ Đang tải trình trích xuất nội dung PDF...');
+                await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+                if (window.pdfjsLib) {
+                    try {
+                        const workerBlob = new Blob(
+                            ['importScripts("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js");'],
+                            { type: 'application/javascript' }
+                        );
+                        window.pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(workerBlob);
+                    } catch (e) {
+                        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
                     }
                 }
             }
-        }
+        };
     </script>
     <style>
         /* ========================================================
@@ -952,7 +962,7 @@
             <section id="view-hom-nay" class="space-y-5">
 
                 <!-- 1. TOP HEADER BAR: LỜI CHÀO CHUYÊN NGHIỆP & HUY HIỆU -->
-                <div class="relative z-40 glass-panel rounded-2xl px-4 sm:px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-xs border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <div class="relative z-50 glass-panel rounded-2xl px-4 sm:px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-xs border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
                     <div class="flex items-center gap-3 text-slate-800 dark:text-white">
                         <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base shrink-0 font-bold border border-blue-100 dark:border-blue-900/40">
                             <i class="fa-solid fa-graduation-cap"></i>
@@ -8696,12 +8706,18 @@
                 // 1. WORD (.docx & .doc) -> Full Editable HTML (Handles both modern .docx and legacy binary OLE2 .doc)
                 if (ext === 'docx' || ext === 'doc') {
                     badgeLabel = '📘 WORD';
+                    if (!window.mammoth && window.DocumentToolkit) {
+                        await window.DocumentToolkit.ensureWordMammoth();
+                    }
                     const arrayBuffer = await file.arrayBuffer();
                     extractedHtml = await parseWordFileToCleanHtml(arrayBuffer, ext, fileName);
                 }
                 // 2. PDF (.pdf) -> Chuyên biệt với Interactive PDF Studio & IndexedDB binary caching
                 else if (ext === 'pdf' || file.type === 'application/pdf') {
                     badgeLabel = '📕 PDF';
+                    if (!window.pdfjsLib && window.DocumentToolkit) {
+                        await window.DocumentToolkit.ensurePdfJs();
+                    }
                     pdfFileId = 'pdf-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
                     const arrayBuffer = await file.arrayBuffer();
 
@@ -8762,24 +8778,29 @@
                     `;
                 }
                 // 3. EXCEL / CSV (.xlsx, .xls, .csv) -> Interactive Editable Table via SheetJS
-                else if (['xlsx', 'xls', 'csv'].includes(ext) && window.XLSX) {
+                else if (['xlsx', 'xls', 'csv'].includes(ext)) {
                     badgeLabel = '📗 EXCEL';
-                    const arrayBuffer = await file.arrayBuffer();
-                    const workbook = window.XLSX.read(arrayBuffer, { type: 'array' });
-                    let sheetsHtml = '';
-                    workbook.SheetNames.forEach((sheetName) => {
-                        const worksheet = workbook.Sheets[sheetName];
-                        const tableHtml = window.XLSX.utils.sheet_to_html(worksheet, { editable: true });
-                        sheetsHtml += `
-                            <div class="my-3">
-                                <div class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-t-lg border border-emerald-200">
-                                    📊 Bảng tính (Sheet): ${sheetName} — Nhấn vào bất kỳ ô nào để chỉnh sửa số liệu
+                    if (!window.XLSX && window.DocumentToolkit) {
+                        await window.DocumentToolkit.ensureExcelSheetJs();
+                    }
+                    if (window.XLSX) {
+                        const arrayBuffer = await file.arrayBuffer();
+                        const workbook = window.XLSX.read(arrayBuffer, { type: 'array' });
+                        let sheetsHtml = '';
+                        workbook.SheetNames.forEach((sheetName) => {
+                            const worksheet = workbook.Sheets[sheetName];
+                            const tableHtml = window.XLSX.utils.sheet_to_html(worksheet, { editable: true });
+                            sheetsHtml += `
+                                <div class="my-3">
+                                    <div class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-t-lg border border-emerald-200">
+                                        📊 Bảng tính (Sheet): ${sheetName} — Nhấn vào bất kỳ ô nào để chỉnh sửa số liệu
+                                    </div>
+                                    <div class="overflow-x-auto">${tableHtml}</div>
                                 </div>
-                                <div class="overflow-x-auto">${tableHtml}</div>
-                            </div>
-                        `;
-                    });
-                    extractedHtml = sheetsHtml;
+                            `;
+                        });
+                        extractedHtml = sheetsHtml;
+                    }
                 }
                 // 4. IMAGES (.png, .jpg, .jpeg, .webp, .gif, .svg)
                 else if (['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'].includes(ext) || file.type.startsWith('image/')) {
@@ -9571,6 +9592,9 @@
             showToast('⏳ Đang tạo file PDF trực tiếp...');
 
             try {
+                if (window.DocumentToolkit && typeof window.DocumentToolkit.ensurePdfMake === 'function') {
+                    await window.DocumentToolkit.ensurePdfMake();
+                }
                 // Đảm bảo nạp font Roboto hỗ trợ 100% tiếng Việt có dấu
                 if (window.pdfMake) {
                     if (!window.pdfMake.vfs && window.vfs_fonts) {
@@ -14516,7 +14540,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=toididaudo_v13').then(reg => {
+                navigator.serviceWorker.register('/sw.js?v=toididaudo_v15_phase2').then(reg => {
                     reg.update();
                 }).catch((err) => {
                     console.log('SW registration note:', err.message);
@@ -14524,7 +14548,7 @@
                 if ('caches' in window) {
                     caches.keys().then(keys => {
                         keys.forEach(k => {
-                            if (!k.includes('studystudio_20261029')) {
+                            if (k !== 'study-studio-cache-v4-phase2-static' && k !== 'study-studio-audio-offline-v1') {
                                 console.log('[Client] Purging old cache:', k);
                                 caches.delete(k);
                             }
