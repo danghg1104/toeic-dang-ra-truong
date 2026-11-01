@@ -466,8 +466,12 @@
                     aside.classList.remove('sb-collapsed');
                     aside.removeAttribute('inert');
                     if (main) main.classList.remove('sb-main-collapsed');
-                    if (reopenBtn) reopenBtn.classList.add('hidden');
+                    if (reopenBtn) {
+                        reopenBtn.classList.add('hidden');
+                        reopenBtn.style.display = 'none';
+                    }
                     if (collapseBtn) {
+                        collapseBtn.style.display = 'flex';
                         collapseBtn.setAttribute('aria-expanded', 'true');
                         collapseBtn.setAttribute('aria-label', 'Thu gọn thanh bên');
                     }
@@ -477,10 +481,12 @@
                     if (main) main.classList.add('sb-main-collapsed');
                     if (reopenBtn) {
                         reopenBtn.classList.remove('hidden');
+                        reopenBtn.style.display = 'flex';
                         reopenBtn.setAttribute('aria-expanded', 'false');
                         reopenBtn.setAttribute('aria-label', 'Mở thanh bên');
                     }
                     if (collapseBtn) {
+                        collapseBtn.style.display = 'none';
                         collapseBtn.setAttribute('aria-expanded', 'false');
                         collapseBtn.setAttribute('aria-label', 'Thu gọn thanh bên');
                     }
@@ -504,7 +510,12 @@
                     aside.removeAttribute('inert');
                     if (backdrop) backdrop.classList.remove('hidden');
                     document.body.classList.add('overflow-hidden'); // Khóa cuộn nền CHỈ khi ngăn kéo đang mở
-                    if (reopenBtn) reopenBtn.classList.add('hidden');
+                    if (reopenBtn) {
+                        reopenBtn.classList.add('hidden');
+                        reopenBtn.style.display = 'none';
+                    }
+                    const floatingDock = document.getElementById('soiMayFloatingDock');
+                    if (floatingDock) floatingDock.classList.add('hidden');
                     if (collapseBtn) collapseBtn.setAttribute('aria-expanded', 'true');
                 } else {
                     aside.classList.add('-translate-x-full');
@@ -512,10 +523,11 @@
                     if (backdrop) backdrop.classList.add('hidden');
                     document.body.classList.remove('overflow-hidden'); // Mở khóa cuộn nền khi đóng
                     if (reopenBtn) {
-                        reopenBtn.classList.remove('hidden');
-                        reopenBtn.setAttribute('aria-expanded', 'false');
-                        reopenBtn.setAttribute('aria-label', 'Mở thanh bên');
+                        reopenBtn.classList.add('hidden');
+                        reopenBtn.style.display = 'none';
                     }
+                    const floatingDock = document.getElementById('soiMayFloatingDock');
+                    if (floatingDock) floatingDock.classList.remove('hidden');
                     if (collapseBtn) collapseBtn.setAttribute('aria-expanded', 'false');
                 }
             }

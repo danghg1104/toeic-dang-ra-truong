@@ -719,6 +719,30 @@
         }
         html.sb-preload-collapsed #sidebarReopenBtn {
             display: flex !important;
+            z-index: 60 !important;
+        }
+
+        /* Sidebar Collapse / Expand Toggle Button Rules */
+        @media (max-width: 1023px) {
+            #sidebarCollapseBtn,
+            .sidebar-desktop-collapse-btn {
+                display: none !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            #sidebarCollapseBtn,
+            .sidebar-desktop-collapse-btn {
+                display: flex !important;
+            }
+            aside#sidebarContainer.sb-collapsed #sidebarCollapseBtn,
+            aside#sidebarContainer.sb-collapsed .sidebar-desktop-collapse-btn {
+                display: none !important;
+            }
+            aside#sidebarContainer.sb-collapsed ~ #sidebarReopenBtn,
+            html.sb-preload-collapsed #sidebarReopenBtn {
+                display: flex !important;
+                z-index: 60 !important;
+            }
         }
     </style>
     <style id="critical-hidden-precaution">.hidden { display: none !important; }</style>
@@ -809,13 +833,13 @@
         <i class="fa-solid fa-bars text-base"></i>
     </button>
 
-    <!-- Màn chắn tối khi mở Menu bên trái trên Điện thoại -->
-    <div id="mobileDrawerBackdrop" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+    <!-- Màn chắn tối khi mở Menu bên trái trên Điện thoại (z-index 990 che phủ toàn bộ trang) -->
+    <div id="mobileDrawerBackdrop" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[990] hidden lg:hidden transition-opacity"></div>
 
     <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-3 lg:gap-5 items-start">
         
-        <!-- LEFT SIDEBAR COLUMN (Luôn hiển thị trên màn hình máy tính desktop, hỗ trợ ngăn kéo trên di động) -->
-        <aside id="sidebarContainer" class="fixed lg:sticky lg:top-5 lg:self-start lg:max-h-[calc(100vh-2.5rem)] lg:overflow-y-auto no-scrollbar inset-y-0 left-0 z-50 lg:z-auto w-[275px] lg:w-[228px] max-w-[85vw] p-3 lg:p-0 bg-slate-50/95 lg:bg-transparent dark:bg-slate-950/95 lg:dark:bg-transparent overflow-y-auto -translate-x-full lg:translate-x-0 shrink-0 flex flex-col gap-3.5 transition-transform duration-300 ease-in-out">
+        <!-- LEFT SIDEBAR COLUMN (Luôn hiển thị trên màn hình máy tính desktop, hỗ trợ ngăn kéo z-[1000] trên di động) -->
+        <aside id="sidebarContainer" class="fixed lg:sticky lg:top-5 lg:self-start lg:max-h-[calc(100vh-2.5rem)] lg:overflow-y-auto no-scrollbar inset-y-0 left-0 z-[1000] lg:z-auto w-[275px] lg:w-[228px] max-w-[85vw] p-3 lg:p-0 bg-slate-50/95 lg:bg-transparent dark:bg-slate-950/95 lg:dark:bg-transparent overflow-y-auto -translate-x-full lg:translate-x-0 shrink-0 flex flex-col gap-3.5 transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
             
             <!-- Main Navigation Card -->
             <div class="sidebar-gradient rounded-[26px] p-3.5 flex flex-col justify-between relative">
@@ -840,7 +864,7 @@
                     </a>
 
                     <!-- Nút 3 gạch thu gọn thanh bên (Desktop) -->
-                    <button id="sidebarCollapseBtn" onclick="toggleSidebar(false)" aria-label="Thu gọn thanh bên" aria-expanded="true" aria-controls="sidebarContainer" title="Thu gọn thanh bên" class="hidden lg:flex w-9 h-9 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-amber-200/70 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 shrink-0 items-center justify-center transition active:scale-95 focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:outline-none">
+                    <button id="sidebarCollapseBtn" onclick="toggleSidebar(false)" aria-label="Thu gọn thanh bên" aria-expanded="true" aria-controls="sidebarContainer" title="Thu gọn thanh bên" class="sidebar-desktop-collapse-btn w-9 h-9 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-amber-200/70 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 shrink-0 items-center justify-center transition active:scale-95 focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:outline-none cursor-pointer">
                         <i class="fa-solid fa-bars text-sm"></i>
                     </button>
                 </div>
@@ -976,7 +1000,7 @@
             <section id="view-hom-nay" class="space-y-5">
 
                 <!-- 1. TOP HEADER BAR: LỜI CHÀO CHUYÊN NGHIỆP & HUY HIỆU -->
-                <div class="relative z-50 glass-panel rounded-2xl px-4 sm:px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-xs border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <div class="relative z-10 glass-panel rounded-2xl px-4 sm:px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-xs border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
                     <div class="flex items-center gap-3 text-slate-800 dark:text-white">
                         <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base shrink-0 font-bold border border-blue-100 dark:border-blue-900/40">
                             <i class="fa-solid fa-graduation-cap"></i>

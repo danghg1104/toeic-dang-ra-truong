@@ -120,7 +120,7 @@
                     position: fixed;
                     bottom: 24px;
                     right: 24px;
-                    z-index: 9000;
+                    z-index: 50;
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -128,6 +128,13 @@
                 }
                 #soiMayFloatingDock:hover {
                     transform: scale(1.05);
+                }
+                @media (max-width: 1023px) {
+                    #soiMayFloatingDock {
+                        bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+                        right: 14px !important;
+                        z-index: 45 !important;
+                    }
                 }
             `;
             document.head.appendChild(style);
