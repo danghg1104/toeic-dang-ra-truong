@@ -85,5 +85,10 @@ const bundleContent = fs.readFileSync('js/app-core.bundle.js', 'utf8');
 assert(!bundleContent.includes("if (!currentUserAccount && tabId !== 'hom-nay')"), 'Guest users not blocked from learning tabs');
 assert(bundleContent.includes("if (!currentUserAccount && tabId === 'tai-khoan')"), 'Auth modal only guards account profile');
 
+// 9. Check Vocab Game Arena height and bottom positioning
+const vgwContent = fs.readFileSync('js/vocab-game-workstation.js', 'utf8');
+assert(vgwContent.includes('min-height: 640px'), 'Vocab game arena has explicit min-height 640px');
+assert(vgwContent.includes('style="position: absolute; bottom: 14px;"'), 'Vocab game companion pinned to bottom');
+
 console.log(`\nRESULTS: ${passed} PASSED, ${failed} FAILED.`);
 if (failed > 0) process.exit(1);

@@ -1547,7 +1547,7 @@
                 this.initGameCanvas();
                 this.startGameLoop();
                 this.updateFallingCardUI();
-                this.speakWord(this.currentWord.word);
+                if (this.currentWord && this.currentWord.word) { this.speakWord(this.currentWord.word); }
             } else if (this.activeView === 'summary') {
                 this.detachGlobalKeydown();
                 this.stopGameLoop();
@@ -3452,8 +3452,8 @@ resilience - khả năng phục hồi`;
 
                     <!-- Game Arena Viewport (MỞ RỘNG RỘNG RÃI TO HƠN - ẢNH 4) -->
                     <div id="vgArenaContainer" 
-                        class="w-full h-[640px] md:h-[680px] rounded-3xl relative overflow-hidden shadow-2xl select-none"
-                        style="background: radial-gradient(circle at 50% 25%, #0f172a 0%, #090d16 55%, #020408 100%);">
+                        class="w-full rounded-3xl relative overflow-hidden shadow-2xl select-none"
+                        style="height: 680px; min-height: 640px; max-height: 82vh; background: radial-gradient(circle at 50% 25%, #0f172a 0%, #090d16 55%, #020408 100%);">
                         
                         <!-- Focus Studio Background HUD & Ambient Stars -->
                         <div class="absolute inset-0 pointer-events-none opacity-40">
@@ -3508,7 +3508,7 @@ resilience - khả năng phục hồi`;
                         <canvas id="vgParticleCanvas" class="absolute inset-0 pointer-events-none z-25"></canvas>
 
                         <!-- Bottom Focus Companion: SÓI MÂY STUDY STUDIO COMPANION -->
-                        <div class="absolute bottom-3 left-0 right-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                        <div class="absolute left-0 right-0 flex flex-col items-center justify-center z-20 pointer-events-none" style="position: absolute; bottom: 14px;">
                             
                             <!-- Studio Companion Platform (Cử động xoay theo vị trí chữ rơi & thở nhẹ) -->
                             <div id="vgReflexWrapper" class="relative flex flex-col items-center justify-center pointer-events-none mb-2">
@@ -3534,7 +3534,7 @@ resilience - khả năng phục hồi`;
                             </div>
 
                             <!-- Progress Bar -->
-                            <div class="w-64 sm:w-84 h-7 rounded-full bg-slate-950/85 border border-cyan-500/40 p-1 flex items-center relative overflow-hidden shadow-lg">
+                            <div class="h-7 rounded-full bg-slate-950/85 border border-cyan-500/40 p-1 flex items-center relative overflow-hidden shadow-lg" style="width: 320px; max-width: 90%;">
                                 <div id="vgProgressBarFill" 
                                     class="h-full rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 transition-all duration-300"
                                     style="width: 10%;"></div>
