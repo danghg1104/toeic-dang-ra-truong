@@ -202,7 +202,7 @@
                 const dock = document.getElementById('soiMayFloatingDock');
                 if (dock) dock.style.display = 'none';
             }
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; document.body.classList.add('in-workstation-mode');
 
             this.render();
             if (this.part !== 5) {
@@ -333,7 +333,7 @@
                 this.dom.modal.classList.remove('flex');
             }
             this.isOpen = false;
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; document.body.classList.remove('in-workstation-mode');
             if (window.SoiMayCompanion && typeof window.SoiMayCompanion.showFloating === 'function') {
                 window.SoiMayCompanion.showFloating();
             } else {
@@ -446,7 +446,7 @@
             }
 
             let rightHtml = `
-                <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5 pb-[calc(env(safe-area-inset-bottom,0px)+80px)] sm:pb-6">
                     <!-- Question Text -->
                     <div class="text-sm sm:text-[15.5px] font-bold text-slate-900 dark:text-white leading-relaxed">
                         ${questionText}
@@ -498,10 +498,22 @@
                     <!-- Explanation Box -->
                     ${(this.showExplanation && isAnswered) ? `
                         <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/70 dark:bg-slate-800/90 border border-amber-200 dark:border-slate-700 space-y-2.5 animate-fadeIn">
-                            <div class="flex items-center justify-between">
+                            <div class="flex items-center justify-between gap-2 flex-wrap">
                                 <span class="px-2.5 py-0.5 rounded-full ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'} text-[11px] font-black uppercase tracking-wider">
                                     ${isCorrect ? '✓ Đáp án đúng: ' + (item.ansLetter || ['A','B','C','D'][item.ans]) : '✗ Chưa chính xác (Đáp án đúng: ' + (item.ansLetter || ['A','B','C','D'][item.ans]) + ')'}
                                 </span>
+                                ${!isCorrect ? `
+                                    <button onclick="window.askAiWhyWrong && window.askAiWhyWrong({
+                                        question: '${(item.question_en || item.question || '').replace(/'/g, "\\'")}',
+                                        userAnswer: '${(item.options && item.options[selectedOpt] ? item.options[selectedOpt] : String(selectedOpt)).replace(/'/g, "\\'")}',
+                                        correctAnswer: '${(item.ansLetter || ['A','B','C','D'][item.ans] || '').replace(/'/g, "\\'")}',
+                                        part: 5,
+                                        trapCategory: '${item.trap_type || item.trapCategory || 'TRAP-09'}'
+                                    })" class="px-3 py-1 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-700 hover:text-white dark:text-purple-300 dark:hover:text-white border border-purple-400/40 text-[11px] font-black flex items-center gap-1.5 transition cursor-pointer">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-[10px]"></i>
+                                        <span>💡 Vì sao em sai?</span>
+                                    </button>
+                                ` : ''}
                             </div>
                             <div class="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-line font-medium">
                                 ${item.explanation_vi || 'Đáp án đúng theo cấu trúc ngữ pháp chuẩn TOEIC ETS.'}
@@ -629,8 +641,22 @@
                                 </div>
 
                                 ${(this.showExplanation && isAnswered && qItem.explanation_vi) ? `
-                                    <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-slate-800/90 border border-amber-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed">
-                                        <strong>Giải thích câu ${qItem.qNum}:</strong>\n${qItem.explanation_vi}
+                                    <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-slate-800/90 border border-amber-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed space-y-2">
+                                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                                            <strong>Giải thích câu ${qItem.qNum}:</strong>
+                                            ${!isCorrect ? `
+                                                <button onclick="window.askAiWhyWrong && window.askAiWhyWrong({
+                                                    question: 'Part 6 câu ${qItem.qNum}: Chỗ trống ____[${qItem.qNum}]',
+                                                    userAnswer: '${(qItem.options && qItem.options[selectedOpt] ? qItem.options[selectedOpt] : String(selectedOpt)).replace(/'/g, "\\'")}',
+                                                    correctAnswer: '${(qItem.options && qItem.options[qItem.ans] ? qItem.options[qItem.ans] : ['A','B','C','D'][qItem.ans] || '').replace(/'/g, "\\'")}',
+                                                    part: 6,
+                                                    trapCategory: 'TRAP-11'
+                                                })" class="px-2.5 py-1 rounded-lg bg-purple-600/20 hover:bg-purple-600 text-purple-700 hover:text-white dark:text-purple-300 dark:hover:text-white border border-purple-400/40 text-[10.5px] font-bold flex items-center gap-1 transition cursor-pointer">
+                                                    <span>💡 Vì sao em sai?</span>
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                        <div>${qItem.explanation_vi}</div>
                                     </div>
                                 ` : ''}
                             </div>
@@ -766,8 +792,22 @@
                                 </div>
 
                                 ${(this.showExplanation && isAnswered && qItem.explanation_vi) ? `
-                                    <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-slate-800/90 border border-amber-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed">
-                                        <strong>Giải thích & Dẫn chứng câu ${qItem.qNum}:</strong>\n${qItem.explanation_vi}
+                                    <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-slate-800/90 border border-amber-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed space-y-2">
+                                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                                            <strong>Giải thích & Dẫn chứng câu ${qItem.qNum}:</strong>
+                                            ${!isCorrect ? `
+                                                <button onclick="window.askAiWhyWrong && window.askAiWhyWrong({
+                                                    question: '${(qItem.q || qItem.question_en || 'Part 7 câu ' + qItem.qNum).replace(/'/g, "\\'")}',
+                                                    userAnswer: '${(qItem.options && qItem.options[selectedOpt] ? qItem.options[selectedOpt] : String(selectedOpt)).replace(/'/g, "\\'")}',
+                                                    correctAnswer: '${(qItem.options && qItem.options[qItem.ans] ? qItem.options[qItem.ans] : ['A','B','C','D'][qItem.ans] || '').replace(/'/g, "\\'")}',
+                                                    part: 7,
+                                                    trapCategory: 'TRAP-12'
+                                                })" class="px-2.5 py-1 rounded-lg bg-purple-600/20 hover:bg-purple-600 text-purple-700 hover:text-white dark:text-purple-300 dark:hover:text-white border border-purple-400/40 text-[10.5px] font-bold flex items-center gap-1 transition cursor-pointer">
+                                                    <span>💡 Vì sao em sai?</span>
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                        <div>${qItem.explanation_vi}</div>
                                     </div>
                                 ` : ''}
                             </div>
@@ -1209,6 +1249,16 @@
 
         giveFeedback() {
             showToast('💬 Cảm ơn bạn đã đóng góp ý kiến để nâng cấp giao diện ôn tập TOEIC!');
+        }
+    
+        retryExam() {
+            this.currentIndex = 0;
+            this.userAnswers = {};
+            this.activeBlankFocus = null;
+            this.render();
+            if (typeof showToast === 'function') {
+                showToast('🔄 Đã khởi động lại bài luyện đọc từ câu đầu tiên!');
+            }
         }
     }
 

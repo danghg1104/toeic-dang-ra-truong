@@ -1,0 +1,121 @@
+{
+  "totalBotsExecuted": 10,
+  "totalDurationMs": 22.65,
+  "generatedAt": "2026-11-03T02:54:02.278Z",
+  "summary": {
+    "passed": 10,
+    "defectsConfirmed": 0
+  },
+  "agents": [
+    {
+      "index": 1,
+      "botId": "VOICE-BOT-001",
+      "botName": "Banned Robotic Voice Exclusion Verifier",
+      "sector": "Bộ lọc Giọng Đọc",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.257Z",
+      "executionDurationMs": 2.06,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Loại bỏ 100% giọng robot Microsoft David Desktop, George, Mark, eSpeak ra khỏi danh sách ứng viên phát âm"
+    },
+    {
+      "index": 2,
+      "botId": "VOICE-BOT-002",
+      "botName": "Neural & Natural Voice Prioritizer Validator",
+      "sector": "Bộ lọc Giọng Đọc",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.261Z",
+      "executionDurationMs": 1.81,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Ưu tiên tối đa các giọng Natural Neural (Jenny, Guy, Ryan, Sonia), Google US/UK English và Apple Enhanced/Siri"
+    },
+    {
+      "index": 3,
+      "botId": "VOICE-BOT-003",
+      "botName": "SpeechSynthesis Natural Voice Interceptor Guard",
+      "sector": "Interceptor Toàn Trang",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.263Z",
+      "executionDurationMs": 1.8,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Hook toàn cục window.speechSynthesis.speak chặn đứng mọi lệnh phát âm mồ côi, tự động gán giọng Natural ấm áp"
+    },
+    {
+      "index": 4,
+      "botId": "VOICE-BOT-004",
+      "botName": "Acoustic Cadence & Human Enunciation Speed Regulator",
+      "sector": "Thông Số Âm Học",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.265Z",
+      "executionDurationMs": 1.59,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Hiệu chỉnh nhịp điệu phát âm chuẩn mực 0.92x, tạo độ ngân tự nhiên, nhả chữ rõ ràng, loại bỏ hiện tượng nuốt âm"
+    },
+    {
+      "index": 5,
+      "botId": "VOICE-BOT-005",
+      "botName": "Vocal Warmth & Pitch Naturalness Calibrator",
+      "sector": "Thông Số Âm Học",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.266Z",
+      "executionDurationMs": 1.42,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Điều chỉnh cao độ (pitch: 1.01) mang lại âm sắc ấm áp, loại bỏ dải tần kim loại đanh gắt của robot cũ"
+    },
+    {
+      "index": 6,
+      "botId": "VOICE-BOT-006",
+      "botName": "UniversalAudioEngine Global Availability Auditor",
+      "sector": "Cầu Nối Toàn Trang",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.268Z",
+      "executionDurationMs": 1.36,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Khởi tạo window.UniversalAudioEngine sẵn sàng, kết nối trực tiếp đến 5 phân vùng trong app-core.bundle.js"
+    },
+    {
+      "index": 7,
+      "botId": "VOICE-BOT-007",
+      "botName": "US vs UK Accent Distinct Phonetic Separation Guard",
+      "sector": "Ngữ Điệu Bản Xứ",
+      "targetFile": "js/audio-service.js",
+      "executedAt": "2026-11-03T02:54:02.269Z",
+      "executionDurationMs": 1.42,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Phân tách độc lập 100% ngữ điệu Anh - Mỹ (en-US) và Anh - Anh (en-GB) từ bộ lọc giọng cho đến API server"
+    },
+    {
+      "index": 8,
+      "botId": "VOICE-BOT-008",
+      "botName": "Vocab Arena Workstation Pronunciation Naturalness Auditor",
+      "sector": "Đấu Trường Từ Vựng",
+      "targetFile": "js/vocab-game-workstation.js",
+      "executedAt": "2026-11-03T02:54:02.272Z",
+      "executionDurationMs": 3.36,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Đấu trường từ vựng kết nối hoàn chỉnh với Natural Voice Engine, phát âm từ vựng êm tai, chuẩn xác"
+    },
+    {
+      "index": 9,
+      "botId": "VOICE-BOT-009",
+      "botName": "Dictionary Engine Pronunciation Naturalness Auditor",
+      "sector": "Từ Điển Anh - Việt",
+      "targetFile": "js/dictionary-engine.js",
+      "executedAt": "2026-11-03T02:54:02.275Z",
+      "executionDurationMs": 2.14,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Trạm tra cứu từ điển Anh - Việt phát âm tự nhiên mượt mà cả từ đơn lẫn cụm từ và thành ngữ dài"
+    },
+    {
+      "index": 10,
+      "botId": "VOICE-BOT-010",
+      "botName": "YouTube Dictation Workstation Pronunciation Naturalness Auditor",
+      "sector": "Chép Lời YouTube",
+      "targetFile": "js/youtube-dictation-workstation.js",
+      "executedAt": "2026-11-03T02:54:02.277Z",
+      "executionDurationMs": 2.73,
+      "status": "PASSED_VERIFIED",
+      "assertionDetail": "Tính năng phát âm từ vựng bài hát trong Trạm chép lời YouTube đạt độ tự nhiên cao, nhịp điệu 0.92x"
+    }
+  ]
+}

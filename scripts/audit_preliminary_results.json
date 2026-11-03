@@ -1,0 +1,234 @@
+[
+  {
+    "id": "BUG-001",
+    "category": "NETWORK_API",
+    "title": "HTTP Error on page load",
+    "severity": "MEDIUM",
+    "detail": "401 GET http://localhost:3000/api/me",
+    "elementOrCode": "network"
+  },
+  {
+    "id": "BUG-002",
+    "category": "NETWORK_API",
+    "title": "HTTP Error on page load",
+    "severity": "HIGH",
+    "detail": "403 GET https://accounts.google.com/gsi/button?type=standard&shape=pill&theme=outline&text=continue_with&size=large&logo_alignment=left&width=320&is_fedcm_supported=false&client_id=319079114107-kis60fpksk0gs897fcaon70qmj7p9s8e.apps.googleusercontent.com&iframe_id=gsi_273885_345786&cas=ln%2BoSD31ThWD9X5VATONbZh0mvzWCNd%2FFTynQ4KKOYo",
+    "elementOrCode": "network"
+  },
+  {
+    "id": "BUG-003",
+    "category": "NETWORK_API",
+    "title": "HTTP Error on page load",
+    "severity": "HIGH",
+    "detail": "403 GET https://accounts.google.com/gsi/button?type=standard&shape=pill&theme=outline&text=continue_with&size=large&logo_alignment=left&width=320&is_fedcm_supported=false&client_id=319079114107-kis60fpksk0gs897fcaon70qmj7p9s8e.apps.googleusercontent.com&iframe_id=gsi_273858_773557&cas=ln%2BoSD31ThWD9X5VATONbZh0mvzWCNd%2FFTynQ4KKOYo",
+    "elementOrCode": "network"
+  },
+  {
+    "id": "BUG-004",
+    "category": "NETWORK_API",
+    "title": "HTTP Error on page load",
+    "severity": "MEDIUM",
+    "detail": "401 GET http://localhost:3000/api/me",
+    "elementOrCode": "network"
+  },
+  {
+    "id": "BUG-005",
+    "category": "ROADMAP",
+    "title": "examDate parsing assumes DD/MM/YYYY only, fails on ISO YYYY-MM-DD",
+    "severity": "HIGH",
+    "detail": "If examDate comes from standard date picker (YYYY-MM-DD), split(\"/\") fails and daysRemaining defaults to 30.",
+    "elementOrCode": "js/roadmap-and-traps.js:calculateDaysRemaining"
+  },
+  {
+    "id": "BUG-006",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"hom-nay\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"DIV\",\"className\":\"absolute -right-10 -bottom-10 w-80 h-80 rounded-full bg-blue\",\"width\":320,\"right\":406}]",
+    "elementOrCode": "#view-hom-nay"
+  },
+  {
+    "id": "BUG-007",
+    "category": "MOBILE_UX",
+    "title": "Tab \"hom-nay\" has 1 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Đặt mục tiêu\",\"width\":12,\"height\":16}]",
+    "elementOrCode": "#view-hom-nay button"
+  },
+  {
+    "id": "BUG-008",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"lo-trinh\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"DIV\",\"className\":\"fixed bottom-4 left-3 right-3 sm:left-auto sm:right-6 sm:w-[\",\"width\":382,\"right\":394}]",
+    "elementOrCode": "#view-lo-trinh"
+  },
+  {
+    "id": "BUG-009",
+    "category": "MOBILE_UX",
+    "title": "Tab \"lo-trinh\" has 12 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Vá bẫy này\",\"width\":80,\"height\":16},{\"text\":\"Gia sư AI\",\"width\":64,\"height\":17},{\"text\":\"Vá bẫy này\",\"width\":80,\"height\":16}]",
+    "elementOrCode": "#view-lo-trinh button"
+  },
+  {
+    "id": "BUG-010",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"nghe\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"DIV\",\"className\":\"absolute -right-12 -top-12 w-64 h-64 bg-indigo-500/10 rounde\",\"width\":256,\"right\":414}]",
+    "elementOrCode": "#view-nghe"
+  },
+  {
+    "id": "BUG-011",
+    "category": "MOBILE_UX",
+    "title": "Tab \"nghe\" has 8 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Adaptive AI\",\"width\":84,\"height\":18},{\"text\":\"Mở\",\"width\":43,\"height\":24},{\"text\":\"Luyện\",\"width\":60,\"height\":24}]",
+    "elementOrCode": "#view-nghe button"
+  },
+  {
+    "id": "BUG-012",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"doc\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"DIV\",\"className\":\"absolute -right-12 -top-12 w-64 h-64 bg-emerald-500/10 round\",\"width\":256,\"right\":414}]",
+    "elementOrCode": "#view-doc"
+  },
+  {
+    "id": "BUG-013",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"ngu-phap\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (465px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"BUTTON\",\"className\":\"pb-2.5 border-b-2 border-transparent text-slate-600 dark:tex\",\"width\":313,\"right\":495},{\"tag\":\"SPAN\",\"className\":\"\",\"width\":296,\"right\":495},{\"tag\":\"BUTTON\",\"className\":\"pb-2.5 border-b-2 border-transparent text-slate-600 dark:tex\",\"width\":132,\"right\":642}]",
+    "elementOrCode": "#view-ngu-phap"
+  },
+  {
+    "id": "BUG-014",
+    "category": "MOBILE_UX",
+    "title": "Tab \"ngu-phap\" has 5 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Tất cả\",\"width\":64,\"height\":27},{\"text\":\"TOEIC\",\"width\":62,\"height\":27},{\"text\":\"VSTEP\",\"width\":65,\"height\":27}]",
+    "elementOrCode": "#view-ngu-phap button"
+  },
+  {
+    "id": "BUG-015",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"tu-vung\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (461px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"DIV\",\"className\":\"flex flex-wrap items-center gap-2\",\"width\":438,\"right\":461},{\"tag\":\"SELECT\",\"className\":\"px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border bor\",\"width\":438,\"right\":461}]",
+    "elementOrCode": "#view-tu-vung"
+  },
+  {
+    "id": "BUG-016",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"thi-thu\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: []",
+    "elementOrCode": "#view-thi-thu"
+  },
+  {
+    "id": "BUG-017",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"bay-de-thi\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"BUTTON\",\"className\":\"trap-part-pill px-3.5 py-2.5 rounded-2xl text-xs font-black \",\"width\":139,\"right\":430},{\"tag\":\"SPAN\",\"className\":\"px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-10\",\"width\":41,\"right\":415},{\"tag\":\"BUTTON\",\"className\":\"trap-part-pill px-3.5 py-2.5 rounded-2xl text-xs font-black \",\"width\":137,\"right\":575}]",
+    "elementOrCode": "#view-bay-de-thi"
+  },
+  {
+    "id": "BUG-018",
+    "category": "MOBILE_UX",
+    "title": "Tab \"bay-de-thi\" has 51 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Bẫy tiếp theo\",\"width\":108,\"height\":25},{\"text\":\"Hỏi AI phân tích\",\"width\":134,\"height\":24},{\"text\":\"0.75x\",\"width\":46,\"height\":23}]",
+    "elementOrCode": "#view-bay-de-thi button"
+  },
+  {
+    "id": "BUG-019",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"boc-bang-audio\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: []",
+    "elementOrCode": "#view-boc-bang-audio"
+  },
+  {
+    "id": "BUG-020",
+    "category": "MOBILE_UX",
+    "title": "Tab \"boc-bang-audio\" has 20 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Xóa\",\"width\":24,\"height\":24},{\"text\":\"Xóa\",\"width\":24,\"height\":24},{\"text\":\"Xóa\",\"width\":24,\"height\":24}]",
+    "elementOrCode": "#view-boc-bang-audio button"
+  },
+  {
+    "id": "BUG-021",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"nghe-chinh-ta\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"BUTTON\",\"className\":\"px-2.5 py-1 rounded-lg font-bold transition shrink-0 bg-sky-\",\"width\":67,\"right\":452},{\"tag\":\"BUTTON\",\"className\":\"px-2.5 py-1 rounded-lg font-bold transition shrink-0 bg-ambe\",\"width\":67,\"right\":525},{\"tag\":\"BUTTON\",\"className\":\"px-2.5 py-1 rounded-lg font-bold transition shrink-0 bg-purp\",\"width\":60,\"right\":592}]",
+    "elementOrCode": "#view-nghe-chinh-ta"
+  },
+  {
+    "id": "BUG-022",
+    "category": "MOBILE_UX",
+    "title": "Tab \"nghe-chinh-ta\" has 7 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Tất cả (600)\",\"width\":92,\"height\":25},{\"text\":\"A1 (88)\",\"width\":62,\"height\":27},{\"text\":\"A2 (178)\",\"width\":69,\"height\":27}]",
+    "elementOrCode": "#view-nghe-chinh-ta button"
+  },
+  {
+    "id": "BUG-023",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"hoc-tu-vung\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: []",
+    "elementOrCode": "#view-hoc-tu-vung"
+  },
+  {
+    "id": "BUG-024",
+    "category": "MOBILE_UX",
+    "title": "Tab \"hoc-tu-vung\" has 7 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"5\",\"width\":30,\"height\":26},{\"text\":\"10\",\"width\":36,\"height\":26},{\"text\":\"15\",\"width\":35,\"height\":26}]",
+    "elementOrCode": "#view-hoc-tu-vung button"
+  },
+  {
+    "id": "BUG-025",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"youglish\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: []",
+    "elementOrCode": "#view-youglish"
+  },
+  {
+    "id": "BUG-026",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"take-note\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: [{\"tag\":\"DIV\",\"className\":\"tn-toolbar-group\",\"width\":343,\"right\":723},{\"tag\":\"BUTTON\",\"className\":\"tn-btn font-extrabold\",\"width\":32,\"right\":412},{\"tag\":\"BUTTON\",\"className\":\"tn-btn italic font-serif\",\"width\":32,\"right\":447}]",
+    "elementOrCode": "#view-take-note"
+  },
+  {
+    "id": "BUG-027",
+    "category": "MOBILE_UX",
+    "title": "Tab \"take-note\" has 13 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"Tất cả\",\"width\":60,\"height\":24},{\"text\":\"Ngữ pháp\",\"width\":78,\"height\":24},{\"text\":\"Từ vựng\",\"width\":68,\"height\":24}]",
+    "elementOrCode": "#view-take-note button"
+  },
+  {
+    "id": "BUG-028",
+    "category": "MOBILE_RESPONSIVE",
+    "title": "Tab \"tu-dien\" causes horizontal viewport overflow on 375px mobile",
+    "severity": "HIGH",
+    "detail": "Document scrollWidth (406px) exceeds clientWidth (375px). Users experience unwanted horizontal swaying. Sample overflowing elements: []",
+    "elementOrCode": "#view-tu-dien"
+  },
+  {
+    "id": "BUG-029",
+    "category": "MOBILE_UX",
+    "title": "Tab \"tu-dien\" has 21 touch targets below 28px on mobile",
+    "severity": "MEDIUM",
+    "detail": "Touch targets violate minimum accessibility guidelines (WCAG 2.1 44x44px). Sample: [{\"text\":\"economic\",\"width\":59,\"height\":16},{\"text\":\"Xóa từ này khỏi lịch sử\",\"width\":9,\"height\":16},{\"text\":\"Xóa lịch sử\",\"width\":79,\"height\":16}]",
+    "elementOrCode": "#view-tu-dien button"
+  }
+]

@@ -733,6 +733,11 @@
         },
 
         speakViaSynthesis(text, lang, speed) {
+            const isUK = lang === 'en-GB' || lang === 'UK';
+            if (window.UniversalAudioEngine && typeof window.UniversalAudioEngine.speak === 'function') {
+                window.UniversalAudioEngine.speak(text, { accent: isUK ? 'UK' : 'US', lang: isUK ? 'en-GB' : 'en-US', rate: speed || 0.92 });
+                return;
+            }
             if (!('speechSynthesis' in window)) return;
             try {
                 window.speechSynthesis.cancel();

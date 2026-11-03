@@ -1005,7 +1005,13 @@
             } else {
                 try {
                     localStorage.setItem('cung_dang_take_notes_v1', JSON.stringify(this.getNotesList()));
-                } catch(e) {}
+                } catch(e) {
+                    if (e && (e.name === 'QuotaExceededError' || e.code === 22)) {
+                        if (typeof window.showToast === 'function') {
+                            window.showToast('⚠️ Bộ nhớ ghi chú đã đầy! Vui lòng dọn bớt ảnh hoặc xuất PDF.');
+                        }
+                    }
+                }
             }
 
             // Đồng bộ sang giao diện chính của Sổ Note
@@ -1207,6 +1213,10 @@
             if (list.length <= 1) {
                 if (typeof showToast === 'function') showToast('Sổ Take Note cần giữ lại ít nhất 1 trang!');
                 return;
+            }
+            if (typeof window.confirm === 'function') {
+                const confirmed = window.confirm('⚠️ Bạn có chắc chắn muốn xóa trang ghi chú này không? Thao tác này không thể hoàn tác.');
+                if (!confirmed) return;
             }
             window.takeNotesList = list.filter(n => n.id !== id);
             if (window.activeNoteId === id) {

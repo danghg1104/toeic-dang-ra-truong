@@ -1,0 +1,711 @@
+{
+  "summary": {
+    "totalAgents": 100,
+    "diagnosticScore": 155,
+    "predictedScore": 296,
+    "discrepancyDelta": 141,
+    "roadmapBugNode": "Part 1, 2, 3, 4 falsely marked completed"
+  },
+  "agents": [
+    {
+      "id": "AGENT_SCORE_01",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_02",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_03",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_04",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_05",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_06",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_07",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_08",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_09",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_10",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_11",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_12",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_13",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_14",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_15",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Chuyên gia Đo lường Tâm lý Học đường (Psychometrician)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_16",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_17",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_18",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_19",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_20",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_21",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_22",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_23",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_24",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_25",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_26",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_27",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_28",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_29",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_30",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kỹ sư Dữ liệu Khảo thí ETS (ETS Test Data Analyst)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_31",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_32",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_33",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_34",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_35",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_36",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_37",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_38",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_39",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_40",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_41",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_42",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_43",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_44",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_45",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_46",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_47",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_48",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_49",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_SCORE_50",
+      "group": "Nhóm 1: Thẩm Định Bảng Điểm & Thuật Toán IRT (50 Agents)",
+      "role": "Kiểm thử viên Trải nghiệm Sinh viên (Student QA)",
+      "finding": "Xác nhận chênh lệch từ 155 lên 296 là do 6 câu trả lời cũ có tỷ lệ đúng 100% (state.listenTotalAnswers = 6, state.listenCorrectAnswers = 6) trong profile đã kích hoạt công thức tăng vọt (+90 điểm performanceBoost), làm Listening nhảy từ 105 lên 246 điểm.",
+      "verdict": "LỖI ĐỒNG BỘ DỮ LIỆU & THUẬT TOÁN KÍCH HOẠT QUÁ SỚM"
+    },
+    {
+      "id": "AGENT_ROADMAP_01",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_02",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_03",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_04",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_05",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_06",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_07",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_08",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_09",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_10",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_11",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_12",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_13",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_14",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_15",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Chuyên gia Thiết kế Đường dẫn Học tập (Learning Path Architect)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_16",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_17",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_18",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_19",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_20",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_21",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_22",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_23",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_24",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_25",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_26",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_27",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_28",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_29",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_30",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Giảng viên Luyện thi TOEIC Sơ cấp (TOEIC Foundation Instructor)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_31",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_32",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_33",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_34",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_35",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_36",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_37",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_38",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_39",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_40",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_41",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_42",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_43",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_44",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_45",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_46",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_47",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_48",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_49",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    },
+    {
+      "id": "AGENT_ROADMAP_50",
+      "group": "Nhóm 2: Thẩm Định Lộ Trình S-Curve & Đánh Dấu Hoàn Thành (50 Agents)",
+      "role": "Kiểm thử viên Lô-gíc Nghiệp vụ Lộ trình (Business Logic Tester)",
+      "finding": "Xác nhận lỗi gán nhãn hàng loạt: Thuật toán trong calculateNodeStates() tìm ra lỗ hổng yếu nhất là Part 5 (0%), sau đó tự động đánh dấu toàn bộ các Node đứng trước nó (Part 1, 2, 3, 4) là \"completed\" (Đã hoàn thành 100%) mà không hề kiểm tra xem học viên đã học hay thi đạt các phần này chưa.",
+      "verdict": "LỖI LOGIC GÁN NHÃN HOÀN THÀNH TIỀN ĐỀ"
+    }
+  ]
+}

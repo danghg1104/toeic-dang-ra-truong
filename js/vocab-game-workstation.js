@@ -1598,6 +1598,27 @@
 
             return `
                 <div class="w-full max-w-6xl 2xl:max-w-7xl mx-auto space-y-6 pb-12">
+                <!-- ============================================================== -->
+                <!-- PROMO BANNER: ĐẤU TRƯỜNG TỪ VỰNG PVP 1V1 REALTIME 60 GIÂY -->
+                <!-- ============================================================== -->
+                <div class="rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-red-600 via-orange-600 to-amber-600 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-4">
+                        <div class="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-3xl shadow-inner shrink-0">
+                            ⚔️
+                        </div>
+                        <div class="space-y-1 text-left">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full bg-slate-950/40 text-amber-300 text-[10px] font-black uppercase tracking-wider">Mới Nhất 2026</span>
+                                <h3 class="text-base sm:text-lg font-black tracking-tight">Đấu Trường Từ Vựng 1v1 PvP Thời Gian Thực</h3>
+                            </div>
+                            <p class="text-xs sm:text-sm text-white/90">So tài phản xạ 10 từ vựng cốt lõi trong 60 giây qua kết nối WebSocket với bạn bè hoặc Bot AI Sói Mây!</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="window.PvPArenaClient && window.PvPArenaClient.open()" class="relative z-10 px-6 sm:px-7 py-3 rounded-2xl bg-slate-950 text-amber-300 hover:bg-slate-900 font-black text-xs uppercase tracking-wider shrink-0 shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-sm"></i>
+                        <span>Vào Đấu Trường Ngay</span>
+                    </button>
+                </div>`;
                     <!-- Top Breadcrumb -->
                     <nav class="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-1">
                         <span class="hover:text-emerald-600 cursor-pointer" onclick="switchTab('hom-nay')">Trang chủ</span>
@@ -3452,8 +3473,15 @@ resilience - khả năng phục hồi`;
 
                     <!-- Game Arena Viewport (MỞ RỘNG RỘNG RÃI TO HƠN - ẢNH 4) -->
                     <div id="vgArenaContainer" 
-                        class="w-full rounded-3xl relative overflow-hidden shadow-2xl select-none"
-                        style="height: 680px; min-height: 640px; max-height: 82vh; background: radial-gradient(circle at 50% 25%, #0f172a 0%, #090d16 55%, #020408 100%);">
+                        onclick="VocabGameWorkstation.focusMobileInput()"
+                        class="w-full rounded-2xl sm:rounded-3xl relative overflow-hidden shadow-2xl select-none transition-all duration-200 cursor-pointer"
+                        style="height: clamp(380px, 60vh, 680px); min-height: 340px; max-height: 82vh; background: radial-gradient(circle at 50% 25%, #0f172a 0%, #090d16 55%, #020408 100%);">
+                        
+                        <!-- Mobile Hidden Typing Input Bridge (Bàn phím ảo iOS / Android) -->
+                        <input type="text" id="vgMobileInput" 
+                            autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+                            inputmode="text" enterkeyhint="next"
+                            style="position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0; pointer-events: auto; z-index: 10;" />
                         
                         <!-- Focus Studio Background HUD & Ambient Stars -->
                         <div class="absolute inset-0 pointer-events-none opacity-40">
@@ -3549,6 +3577,83 @@ resilience - khả năng phục hồi`;
                                 <span>Gõ trực tiếp chữ cái trên bàn phím (A-Z) • Phím [Space/Tab] để nghe lại phát âm</span>
                             </div>
                         </div>
+
+                    <!-- ============================================================ -->
+                    <!-- MOBILE VIRTUAL KEYBOARD BAR & THUMB CONTROLS (iOS & Android) -->
+                    <!-- ============================================================ -->
+                    <div id="vgMobileControlPanel" class="mt-3 flex flex-col gap-2 select-none">
+                        <!-- Action Bar: Tap to Focus OS Keyboard, Hint, Audio, Toggle Keypad -->
+                        <div class="flex items-center justify-between gap-2 p-1.5 sm:p-2 rounded-2xl bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md shadow-lg">
+                            <!-- Tap to Focus Native Virtual Keyboard (Gboard / iOS Safari) -->
+                            <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.focusMobileInput();" 
+                                    class="flex-1 min-h-[44px] py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600/90 to-cyan-600/90 hover:from-blue-600 hover:to-cyan-600 active:scale-98 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-sm cursor-pointer">
+                                <i class="fa-solid fa-keyboard text-cyan-300 animate-pulse"></i>
+                                <span id="vgMobileInputStatus">Chạm để gõ phím ảo</span>
+                            </button>
+
+                            <!-- Audio Repeat Button (≥44px) -->
+                            <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.speakWord(VocabGameWorkstation.currentWord ? VocabGameWorkstation.currentWord.word : '');" 
+                                    title="Nghe lại phát âm từ vựng"
+                                    class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition flex items-center justify-center cursor-pointer active:scale-95 shadow-sm">
+                                <i class="fa-solid fa-volume-high text-base"></i>
+                            </button>
+
+                            <!-- Hint 1 Letter Button (≥44px) -->
+                            <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.giveHintLetter();" 
+                                    title="Gợi ý 1 chữ cái tiếp theo"
+                                    class="min-w-[44px] min-h-[44px] px-3 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-sm">
+                                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                                <span class="text-xs font-bold">Gợi ý</span>
+                            </button>
+
+                            <!-- Toggle On-screen Thumb Keypad Button (≥44px) -->
+                            <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.toggleThumbKeypad();" 
+                                    id="btnToggleThumbKeypad"
+                                    title="Bật/Tắt Bàn phím cảm ứng ngón cái"
+                                    class="min-w-[44px] min-h-[44px] px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-sm">
+                                <i class="fa-solid fa-gamepad text-indigo-400 text-sm"></i>
+                                <span class="hidden sm:inline text-xs font-bold">Phím cảm ứng</span>
+                            </button>
+                        </div>
+
+                        <!-- On-Screen Thumb Keypad (QWERTY layout, optimized for mobile thumb gaming) -->
+                        <div id="vgThumbKeypad" class="hidden flex flex-col gap-1.5 p-2 sm:p-2.5 rounded-2xl bg-slate-950/95 border border-cyan-500/30 shadow-2xl select-none touch-manipulation">
+                            <!-- Row 1: QWERTYUIOP -->
+                            <div class="flex items-center justify-center gap-1 sm:gap-1.5">
+                                ${['Q','W','E','R','T','Y','U','I','O','P'].map(k => `
+                                    <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.handleKeypadTouch('${k}');" 
+                                            class="flex-1 max-w-[36px] sm:max-w-[44px] h-10 sm:h-11 rounded-lg bg-slate-800/90 hover:bg-cyan-600/60 active:bg-cyan-500 active:scale-90 text-white font-black text-xs sm:text-sm border border-slate-700/80 transition-all flex items-center justify-center cursor-pointer shadow-xs">
+                                        ${k}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <!-- Row 2: ASDFGHJKL -->
+                            <div class="flex items-center justify-center gap-1 sm:gap-1.5 px-2">
+                                ${['A','S','D','F','G','H','J','K','L'].map(k => `
+                                    <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.handleKeypadTouch('${k}');" 
+                                            class="flex-1 max-w-[36px] sm:max-w-[44px] h-10 sm:h-11 rounded-lg bg-slate-800/90 hover:bg-cyan-600/60 active:bg-cyan-500 active:scale-90 text-white font-black text-xs sm:text-sm border border-slate-700/80 transition-all flex items-center justify-center cursor-pointer shadow-xs">
+                                        ${k}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <!-- Row 3: Hint, ZXCVBNM, Audio -->
+                            <div class="flex items-center justify-center gap-1 sm:gap-1.5">
+                                <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.giveHintLetter();" 
+                                        class="px-2.5 h-10 sm:h-11 rounded-lg bg-amber-500/25 active:bg-amber-500 active:scale-90 text-amber-300 font-bold text-xs border border-amber-500/50 flex items-center justify-center gap-1 cursor-pointer">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </button>
+                                ${['Z','X','C','V','B','N','M'].map(k => `
+                                    <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.handleKeypadTouch('${k}');" 
+                                            class="flex-1 max-w-[36px] sm:max-w-[44px] h-10 sm:h-11 rounded-lg bg-slate-800/90 hover:bg-cyan-600/60 active:bg-cyan-500 active:scale-90 text-white font-black text-xs sm:text-sm border border-slate-700/80 transition-all flex items-center justify-center cursor-pointer shadow-xs">
+                                        ${k}
+                                    </button>
+                                `).join('')}
+                                <button type="button" onclick="event.stopPropagation(); VocabGameWorkstation.speakWord(VocabGameWorkstation.currentWord ? VocabGameWorkstation.currentWord.word : '');" 
+                                        class="px-2.5 h-10 sm:h-11 rounded-lg bg-cyan-500/25 active:bg-cyan-500 active:scale-90 text-cyan-300 font-bold text-xs border border-cyan-500/50 flex items-center justify-center gap-1 cursor-pointer">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -3581,6 +3686,60 @@ resilience - khả năng phục hồi`;
 
             this.activeView = 'playing';
             this.renderInto();
+        }
+
+
+        // =========================================================================
+        // MOBILE VIRTUAL KEYBOARD & TOUCH CONTROLS (iOS & Android)
+        // =========================================================================
+        focusMobileInput() {
+            const inp = document.getElementById('vgMobileInput');
+            if (inp) {
+                try {
+                    inp.focus({ preventScroll: true });
+                } catch(e) {
+                    inp.focus();
+                }
+                const status = document.getElementById('vgMobileInputStatus');
+                if (status) {
+                    status.textContent = 'Bàn phím sẵn sàng • Gõ ngay!';
+                    setTimeout(() => {
+                        if (status) status.textContent = 'Chạm để gõ phím ảo';
+                    }, 4000);
+                }
+            }
+        }
+
+        giveHintLetter() {
+            if (!this.currentWord) return;
+            const word = this.currentWord.word.toLowerCase();
+            const nextIdx = Math.max(this.typedLetters.length, 1);
+            if (nextIdx < word.length) {
+                const expectedChar = word[nextIdx];
+                this.processKeyInput(expectedChar);
+            }
+        }
+
+        toggleThumbKeypad() {
+            const keypad = document.getElementById('vgThumbKeypad');
+            const btn = document.getElementById('btnToggleThumbKeypad');
+            if (keypad) {
+                const isHidden = keypad.classList.contains('hidden');
+                keypad.classList.toggle('hidden', !isHidden);
+                if (btn) {
+                    btn.classList.toggle('bg-indigo-600', isHidden);
+                    btn.classList.toggle('text-white', isHidden);
+                    btn.classList.toggle('bg-slate-800', !isHidden);
+                }
+            }
+        }
+
+        handleKeypadTouch(key) {
+            if (!key || typeof key !== 'string') return;
+            if ('vibrate' in navigator) {
+                try { navigator.vibrate(12); } catch(e) {}
+            }
+            this.processKeyInput(key.toLowerCase());
         }
 
         exitToConfig() {
@@ -3809,17 +3968,54 @@ resilience - khả năng phục hồi`;
         attachGlobalKeydown() {
             this.detachGlobalKeydown();
             window.addEventListener('keydown', this.handleGlobalKeyDown);
+
+            // BIND SỰ KIỆN CHO MOBILE VIRTUAL KEYBOARD
+            const mobileInput = document.getElementById('vgMobileInput');
+            if (mobileInput) {
+                this._boundMobileInputHandler = (e) => {
+                    const val = mobileInput.value;
+                    if (!val) return;
+                    const char = val.slice(-1).toLowerCase();
+                    mobileInput.value = '';
+                    if (/^[a-zA-Z]$/.test(char)) {
+                        this.processKeyInput(char);
+                    }
+                };
+                this._boundCompositionHandler = (e) => {
+                    const data = e.data;
+                    if (data) {
+                        const char = data.slice(-1).toLowerCase();
+                        mobileInput.value = '';
+                        if (/^[a-zA-Z]$/.test(char)) {
+                            this.processKeyInput(char);
+                        }
+                    }
+                };
+                mobileInput.addEventListener('input', this._boundMobileInputHandler);
+                mobileInput.addEventListener('compositionend', this._boundCompositionHandler);
+            }
         }
 
         detachGlobalKeydown() {
             window.removeEventListener('keydown', this.handleGlobalKeyDown);
+            const mobileInput = document.getElementById('vgMobileInput');
+            if (mobileInput && this._boundMobileInputHandler) {
+                mobileInput.removeEventListener('input', this._boundMobileInputHandler);
+                mobileInput.removeEventListener('compositionend', this._boundCompositionHandler);
+                this._boundMobileInputHandler = null;
+                this._boundCompositionHandler = null;
+            }
         }
 
         handleGlobalKeyDown(e) {
             if (this.activeView !== 'playing') return;
 
             const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-            if (activeTag === 'input' || activeTag === 'textarea') return;
+            const activeId = document.activeElement ? document.activeElement.id : '';
+            // Cho phép phím đi qua nếu đang focus vào ô input ảo mobile vgMobileInput
+            if (activeTag === 'input' || activeTag === 'textarea') {
+                if (activeId !== 'vgMobileInput') return;
+            }
 
             if (e.code === 'Space' || e.key === 'Tab') {
                 e.preventDefault();

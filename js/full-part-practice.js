@@ -754,7 +754,7 @@ window.FullPartPracticeEngine = {
         if (!modal) {
             modal = document.createElement('div');
             modal.id = 'fullPartPracticeModal';
-            modal.className = 'fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-0 sm:p-3 overflow-hidden';
+            modal.className = 'fixed inset-0 z-[10000] bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-0 sm:p-3 overflow-hidden workstation-fullscreen-modal'; document.body.classList.add('in-workstation-mode');
             document.body.appendChild(modal);
         }
 
@@ -1152,6 +1152,10 @@ window.FullPartPracticeEngine = {
     jumpToQuestion(idx) {
         this.currentIndex = idx;
         this.renderCurrentQuestion();
+        const activePill = document.getElementById(`nav-pill-${idx}`);
+        if (activePill && typeof activePill.scrollIntoView === 'function') {
+            activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
     },
 
     nextQuestion() {
@@ -1186,12 +1190,14 @@ window.FullPartPracticeEngine = {
 
     startTimer() {
         if (this.timerInterval) clearInterval(this.timerInterval);
+        this.targetEndTime = Date.now() + (this.timeRemaining * 1000);
         this.timerInterval = setInterval(() => {
-            if (this.timeRemaining > 0) {
-                this.timeRemaining--;
-                const timerEl = document.getElementById('fullPartTimerText');
-                if (timerEl) timerEl.textContent = this.formatTime(this.timeRemaining);
-            } else {
+            const now = Date.now();
+            const remain = Math.max(0, Math.ceil((this.targetEndTime - now) / 1000));
+            this.timeRemaining = remain;
+            const timerEl = document.getElementById('fullPartTimerText');
+            if (timerEl) timerEl.textContent = this.formatTime(this.timeRemaining);
+            if (remain <= 0) {
                 clearInterval(this.timerInterval);
                 showToast('⏱️ Hết giờ làm bài! Tự động nộp bài...');
                 this.submitPart();

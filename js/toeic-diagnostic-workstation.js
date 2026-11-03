@@ -969,6 +969,7 @@ VP of Human Resources, Vanguard Tech`,
 
             const modal = document.getElementById('toeicDiagnosticWorkstation');
             if (modal) modal.classList.add('hidden');
+            document.body.classList.remove('in-workstation-mode');
         }
 
         ensureModalContainer() {
@@ -976,10 +977,13 @@ VP of Human Resources, Vanguard Tech`,
             if (!modal) {
                 modal = document.createElement('div');
                 modal.id = 'toeicDiagnosticWorkstation';
-                modal.className = 'fixed inset-0 z-50 bg-[#f8fafc] dark:bg-slate-950 flex flex-col font-sans overflow-hidden';
+                modal.className = 'fixed inset-0 z-[10000] bg-[#f8fafc] dark:bg-slate-950 flex flex-col font-sans overflow-hidden workstation-fullscreen-modal';
                 document.body.appendChild(modal);
+            } else {
+                modal.className = 'fixed inset-0 z-[10000] bg-[#f8fafc] dark:bg-slate-950 flex flex-col font-sans overflow-hidden workstation-fullscreen-modal';
             }
             modal.classList.remove('hidden');
+            document.body.classList.add('in-workstation-mode');
         }
 
         // =========================================================================
@@ -1442,11 +1446,16 @@ VP of Human Resources, Vanguard Tech`,
                             </div>
                         </div>
 
-                        <!-- Listening Instructions -->
-                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-                            <strong class="text-slate-900 dark:text-white block mb-1">🎧 Hướng dẫn làm bài Part 1:</strong>
-                            Nghe 4 câu mô tả (A), (B), (C), (D) về bức tranh. Chọn câu mô tả CHÍNH XÁC NHẤT những gì đang diễn ra trong tranh. Bấm nút Play trên thanh audio để nghe.
-                        </div>
+                        <!-- Listening Instructions (Compact & Collapsible) -->
+                        <details class="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 font-medium group transition">
+                            <summary class="p-2.5 px-3 flex items-center justify-between cursor-pointer list-none font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 select-none">
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info text-blue-500"></i> Hướng dẫn làm bài Part 1</span>
+                                <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-3 pb-2.5 pt-0 text-[11.5px] leading-relaxed text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700/50 mt-1">
+                                Nghe 4 câu mô tả (A), (B), (C), (D) về bức tranh. Chọn câu mô tả CHÍNH XÁC NHẤT những gì đang diễn ra trong tranh. Bấm nút Play trên thanh audio để nghe.
+                            </div>
+                        </details>
                     </div>
                 `;
             } else if (q.part === 2) {
@@ -1689,8 +1698,20 @@ VP of Human Resources, Vanguard Tech`,
         // ANSWER SELECTION & USER INTERACTION
         // =========================================================================
         selectOption(qId, key) {
+            // Hỗ trợ cả 2 dạng gọi: selectOption(key) từ phím tắt và selectOption(qId, key) từ click
+            if (!key && ['A', 'B', 'C', 'D'].includes(qId)) {
+                key = qId;
+                const currentQ = this.questions[this.currentIndex];
+                qId = currentQ ? currentQ.id : null;
+            }
+            if (!qId || !key) return;
+
             this.userAnswers[qId] = key;
-            this.renderRightColumnContent(this.questions[this.currentIndex], this.currentIndex);
+            const rightPane = document.getElementById('tdwRightPane');
+            if (rightPane) {
+                rightPane.innerHTML = this.renderRightColumnContent(this.questions[this.currentIndex], this.currentIndex);
+            }
+            this.renderPaletteGrid();
             this.updateHeaderProgress();
         }
 
@@ -1955,7 +1976,7 @@ VP of Human Resources, Vanguard Tech`,
             if (!modal) {
                 modal = document.createElement('div');
                 modal.id = 'diagResultModal';
-                modal.className = 'fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto font-sans';
+                modal.className = 'fixed inset-0 z-[10001] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto font-sans workstation-fullscreen-modal';
                 document.body.appendChild(modal);
             }
             modal.classList.remove('hidden');
@@ -2038,7 +2059,7 @@ VP of Human Resources, Vanguard Tech`,
                         <button type="button" onclick="document.getElementById('diagResultModal').remove(); ToeicDiagnosticWorkstation.open();" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
                             Thi lại bài test
                         </button>
-                        <button type="button" onclick="document.getElementById('diagResultModal').remove(); switchTab('lo-trinh');" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-md shadow-indigo-600/30 flex items-center justify-center gap-1.5 cursor-pointer">
+                        <button type="button" onclick="document.getElementById('diagResultModal').remove(); document.body.classList.remove('in-workstation-mode'); switchTab('lo-trinh');" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-md shadow-indigo-600/30 flex items-center justify-center gap-1.5 cursor-pointer">
                             <span>Khám Phá Lộ Trình S-Curve Mới</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </button>

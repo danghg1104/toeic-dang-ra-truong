@@ -26,7 +26,12 @@
             this.duration = 0;
             this.playbackRate = 1.0;
             this.isLooping = false;
-            this.volume = 0.9;
+            try {
+                const savedVol = localStorage.getItem('tlw_user_volume');
+                this.volume = savedVol !== null ? parseFloat(savedVol) : 0.9;
+            } catch(e) {
+                this.volume = 0.9;
+            }
             this.audioWaveData = [];
 
             // UI Toggles
@@ -44,6 +49,9 @@
         // =========================================================================
         initAudioEvents() {
             this.audio.preload = 'auto';
+            this.audio.preservesPitch = true;
+            this.audio.mozPreservesPitch = true;
+            this.audio.webkitPreservesPitch = true;
 
             this.audio.addEventListener('timeupdate', () => {
                 this.currentTime = this.audio.currentTime;
@@ -193,7 +201,7 @@
             if (el) {
                 el.classList.remove('hidden');
                 el.classList.add('flex');
-                document.body.classList.add('overflow-hidden');
+                document.body.classList.add('overflow-hidden', 'in-workstation-mode');
             }
 
             this.isOpen = true;
@@ -206,7 +214,7 @@
             if (el) {
                 el.classList.add('hidden');
                 el.classList.remove('flex');
-                document.body.classList.remove('overflow-hidden');
+                document.body.classList.remove('overflow-hidden', 'in-workstation-mode');
             }
             this.isOpen = false;
         }
@@ -543,9 +551,21 @@
             let explHtml = '';
             if (this.part === 1 || this.part === 2) {
                 explHtml = `
-                    <div class="flex items-center gap-2">
-                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 font-extrabold text-[11px]">GIẢI THÍCH CHI TIẾT</span>
-                        ${item.trap_type ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-bold text-[10.5px]"><i class="fa-solid fa-shield-halved mr-1"></i>${item.trap_type}</span>` : ''}
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 font-extrabold text-[11px]">GIẢI THÍCH CHI TIẾT</span>
+                            ${item.trap_type ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-bold text-[10.5px]"><i class="fa-solid fa-shield-halved mr-1"></i>${item.trap_type}</span>` : ''}
+                        </div>
+                        <button onclick="window.askAiWhyWrong && window.askAiWhyWrong({
+                            question: '${(item.audio_script || item.transcript || item.question || 'Part ' + this.part).replace(/'/g, "\\'")}',
+                            userAnswer: '${(this.userAnswers && this.userAnswers[item.id] !== undefined ? this.userAnswers[item.id] : 'Đáp án của em').replace(/'/g, "\\'")}',
+                            correctAnswer: '${(item.ansLetter || item.correct_answer || ['A','B','C','D'][item.correctIndex] || 'Đáp án đúng').replace(/'/g, "\\'")}',
+                            part: ${this.part || 1},
+                            trapCategory: '${item.trap_type || item.trapCategory || (this.part === 1 ? 'TRAP-01' : 'TRAP-03')}'
+                        })" class="px-3 py-1 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-700 hover:text-white dark:text-purple-300 dark:hover:text-white border border-purple-400/40 text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer">
+                            <i class="fa-solid fa-wand-magic-sparkles text-[10px]"></i>
+                            <span>💡 Vì sao em sai?</span>
+                        </button>
                     </div>
                     <p class="text-xs sm:text-[13px] leading-relaxed text-slate-800 dark:text-slate-200">${item.explanation_vi || item.correct_reason || 'Đang cập nhật giải thích.'}</p>
                     ${item.exam_tip ? `
@@ -576,7 +596,18 @@
                     <div class="space-y-2">
                         ${(item.questions || []).map((q, qIdx) => `
                             <div class="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-                                <div class="font-bold text-xs text-slate-900 dark:text-white">Câu ${qIdx + 1}: ${q.q}</div>
+                                <div class="flex items-center justify-between gap-2 flex-wrap">
+                                    <div class="font-bold text-xs text-slate-900 dark:text-white">Câu ${qIdx + 1}: ${q.q}</div>
+                                    <button onclick="window.askAiWhyWrong && window.askAiWhyWrong({
+                                        question: '${(q.q || '').replace(/'/g, "\\'")}',
+                                        userAnswer: '${(this.userAnswers && this.userAnswers[q.id || (item.id + '_' + qIdx)] !== undefined ? this.userAnswers[q.id || (item.id + '_' + qIdx)] : 'Chưa đúng').replace(/'/g, "\\'")}',
+                                        correctAnswer: '${(q.ansLetter || q.ans || '').replace(/'/g, "\\'")}',
+                                        part: ${this.part || 3},
+                                        trapCategory: '${q.trap_type || item.trap_type || (this.part === 3 ? 'TRAP-06' : 'TRAP-07')}'
+                                    })" class="px-2.5 py-0.5 rounded-lg bg-purple-600/20 hover:bg-purple-600 text-purple-700 hover:text-white dark:text-purple-300 dark:hover:text-white border border-purple-400/40 text-[10px] font-bold flex items-center gap-1 transition cursor-pointer">
+                                        <span>💡 Vì sao em sai?</span>
+                                    </button>
+                                </div>
                                 <div class="text-[11.5px] text-emerald-700 dark:text-emerald-400 font-semibold">Đáp án đúng: (${q.ansLetter})</div>
                                 <div class="text-[11.5px] text-slate-600 dark:text-slate-300">${q.explanation_vi || q.correct_reason || ''}</div>
                             </div>
@@ -910,6 +941,7 @@
         changeVolume(delta) {
             this.volume = Math.max(0, Math.min(1, this.volume + delta));
             this.audio.volume = this.volume;
+            try { localStorage.setItem('tlw_user_volume', this.volume); } catch(e) {}
             const slider = document.getElementById('tlwVolumeSlider');
             if (slider) slider.value = Math.round(this.volume * 100);
         }
@@ -917,6 +949,7 @@
         setVolume(percent) {
             this.volume = Math.max(0, Math.min(1, percent / 100));
             this.audio.volume = this.volume;
+            try { localStorage.setItem('tlw_user_volume', this.volume); } catch(e) {}
         }
 
         updatePlayPauseButton() {

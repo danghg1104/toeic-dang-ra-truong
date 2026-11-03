@@ -68,8 +68,8 @@ window.PersonalizedRoadmapEngine = {
 
     // Lấy thông tin tài khoản đang hoạt động (Đồng bộ đa tầng an toàn 100%)
     getActiveUser() {
-        if (window.currentUserAccount && window.currentUserAccount.id) return window.currentUserAccount;
-        if (typeof currentUserAccount !== 'undefined' && currentUserAccount && currentUserAccount.id) {
+        if (window.currentUserAccount) return window.currentUserAccount;
+        if (typeof currentUserAccount !== 'undefined' && currentUserAccount) {
             window.currentUserAccount = currentUserAccount;
             return currentUserAccount;
         }
@@ -110,10 +110,17 @@ window.PersonalizedRoadmapEngine = {
     calculateDaysRemaining() {
         const user = this.getActiveUser();
         if (!user || !user.examDate) return null;
-        const examDateStr = user.examDate;
-        const parts = examDateStr.split('/');
-        if (parts.length === 3) {
-            const targetDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`);
+        const examDateStr = (user.examDate || '').trim();
+        let targetDate = null;
+        if (examDateStr.includes('/')) {
+            const parts = examDateStr.split('/');
+            if (parts.length === 3) {
+                targetDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`);
+            }
+        } else if (examDateStr.includes('-')) {
+            targetDate = new Date(`${examDateStr}T00:00:00`);
+        }
+        if (targetDate && !isNaN(targetDate.getTime())) {
             const now = new Date();
             const diffTime = targetDate - now;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -305,6 +312,11 @@ window.PersonalizedRoadmapEngine = {
 
     // Mở Workstation Test Chẩn Đoán Đầu Vào (Đủ 7 Part chuẩn ETS 2026)
     startDiagnosticTest() {
+        const currentUser = this.getActiveUser();
+        if (currentUser && currentUser.diagnosticResults && typeof window.confirm === 'function') {
+            const confirmed = window.confirm('⚠️ Bạn đã có kết quả bài test chẩn đoán trước đó. Làm lại test sẽ cập nhật lại toàn bộ lộ trình và điểm số mới. Bạn có chắc chắn muốn thi lại không?');
+            if (!confirmed) return;
+        }
         const oldModal = document.getElementById('diagnosticTestModal');
         if (oldModal) oldModal.remove();
         let user = this.getActiveUser();
@@ -378,35 +390,68 @@ window.PersonalizedRoadmapEngine = {
         const nodeStates = {};
         let currentActiveNodeId = null;
 
+        // Lấy danh sách các node người dùng đã thực sự hoàn thành trong quá trình học
+        let completedNodes = user?.completedNodes || [];
+        if (!Array.isArray(completedNodes)) completedNodes = [];
+        try {
+            const storedCompleted = JSON.parse(localStorage.getItem('cung_dang_completed_nodes') || '[]');
+            if (Array.isArray(storedCompleted)) {
+                completedNodes = Array.from(new Set([...completedNodes, ...storedCompleted]));
+            }
+        } catch (e) {}
+
+        // Map từ weakestPillarId sang PartNum
+        let weakestPartNum = null;
+        if (weakestPillarId === 'gap-part12-listening') weakestPartNum = 1;
+        else if (weakestPillarId === 'gap-part34-paraphrase') weakestPartNum = 3;
+        else if (weakestPillarId.includes('part5')) weakestPartNum = 5;
+        else if (weakestPillarId.includes('part6')) weakestPartNum = 6;
+        else if (weakestPillarId.includes('part7')) weakestPartNum = 7;
+
         this.roadmapStages.forEach(stage => {
             if (stage.stageId < currentStageId) {
-                // Các chặng bên dưới điểm test đầu vào -> TỰ ĐỘNG ĐÁNH DẤU HOÀN THÀNH (Completed)
+                // Các chặng bên dưới điểm test đầu vào -> TỰ ĐỘNG ĐƯỢC MIỄN (Exempted) do điểm cao
                 stage.nodes.forEach(node => {
                     nodeStates[node.id] = { status: 'exempted', progressPct: 0, note: 'Được miễn (Khảo sát đầu vào)' };
                 });
             } else if (stage.stageId === currentStageId) {
-                // Chặng hiện tại tương ứng với trình độ
-                let activeNodeInStage = stage.nodes[0].id;
-                if (diag) {
-                    if (weakestPillarId === 'gap-part12-listening') activeNodeInStage = stage.nodes[1].id;
-                    else if (weakestPillarId === 'gap-part34-paraphrase') activeNodeInStage = stage.nodes[2].id;
-                    else if (weakestPillarId.includes('part5')) activeNodeInStage = stage.nodes[4].id;
-                    else if (weakestPillarId.includes('part6')) activeNodeInStage = stage.nodes[5].id;
-                    else if (weakestPillarId.includes('part7')) activeNodeInStage = stage.nodes[6].id;
-                }
-                currentActiveNodeId = activeNodeInStage;
+                // Chặng hiện tại tương ứng với trình độ người dùng
+                // NGUYÊN TẮC VÀNG:
+                // 1. KHÔNG tự động tick hoàn thành (completed) cho bất kỳ node nào nếu học viên chưa học!
+                // 2. Điểm yếu nhất (weakestPillar) được đánh dấu nhãn cảnh báo (isWeakest: true), KHÔNG ép nhảy cóc làm biến mất tiến trình Part 1-4.
+                // 3. Người mới bắt đầu (Band 1) luôn bắt đầu tại Node 1 (Part 1).
+                let foundCurrent = false;
 
-                let passedActive = false;
-                stage.nodes.forEach(node => {
-                    if (node.id === activeNodeInStage) {
-                        nodeStates[node.id] = { status: 'current', progressPct: 35, note: 'Trọng tâm cần bù đắp' };
-                        passedActive = true;
-                    } else if (!passedActive) {
-                        nodeStates[node.id] = { status: 'completed', progressPct: 100, note: 'Đã hoàn thành' };
+                stage.nodes.forEach((node, idx) => {
+                    const isTrulyCompleted = completedNodes.includes(node.id);
+                    const isWeakest = (weakestPartNum !== null && node.partNum === weakestPartNum);
+
+                    if (isTrulyCompleted) {
+                        nodeStates[node.id] = { status: 'completed', progressPct: 100, note: 'Đã hoàn thành', isWeakest: false };
+                    } else if (!foundCurrent) {
+                        // Node chưa học đầu tiên là Node Đang Học (Current)
+                        currentActiveNodeId = node.id;
+                        nodeStates[node.id] = {
+                            status: 'current',
+                            progressPct: 0,
+                            note: isWeakest ? 'Trọng tâm cần bù đắp' : (idx === 0 ? 'Bắt đầu chặng' : 'Bài học tiếp theo'),
+                            isWeakest: isWeakest
+                        };
+                        foundCurrent = true;
                     } else {
-                        nodeStates[node.id] = { status: 'unlocked', progressPct: 0, note: 'Sẵn sàng học' };
+                        // Các node tiếp theo sẵn sàng học
+                        nodeStates[node.id] = {
+                            status: 'unlocked',
+                            progressPct: 0,
+                            note: isWeakest ? '⚠️ Lỗ hổng cần chú ý' : 'Sẵn sàng học',
+                            isWeakest: isWeakest
+                        };
                     }
                 });
+
+                if (!currentActiveNodeId && stage.nodes.length > 0) {
+                    currentActiveNodeId = stage.nodes[0].id;
+                }
             } else {
                 // Các chặng ở band điểm cao hơn -> KHÓA (Locked)
                 stage.nodes.forEach(node => {
@@ -462,12 +507,13 @@ window.PersonalizedRoadmapEngine = {
         if (node.practiceType === 'listening') {
             if (window.ToeicListeningWorkstation && typeof window.ToeicListeningWorkstation.open === 'function') {
                 window.ToeicListeningWorkstation.open({
+                    type: `listening_part${node.partNum}`,
                     part: node.partNum,
                     title: `${node.title} · ${node.stage.title}`,
                     count: node.questionsCount
                 });
             } else {
-                switchTab('luyen-nghe');
+                switchTab('nghe');
             }
         } else {
             if (window.ToeicReadingWorkstation && typeof window.ToeicReadingWorkstation.open === 'function') {
@@ -478,7 +524,7 @@ window.PersonalizedRoadmapEngine = {
                     count: node.questionsCount
                 });
             } else {
-                switchTab('luyen-doc');
+                switchTab('doc');
             }
         }
     },
@@ -640,7 +686,7 @@ window.PersonalizedRoadmapEngine = {
                                         <i class="${g.icon}"></i>
                                     </div>
                                     <div class="truncate">
-                                        <h4 class="font-bold text-xs text-slate-900 dark:text-white truncate">${g.name.split(':')[0]}</h4>
+                                        <h4 class="font-bold text-xs text-slate-900 dark:text-white truncate">${g.id === 'gap-part5-grammar' ? 'Part 5 (Ngữ pháp)' : g.id === 'gap-part5-vocab' ? 'Part 5 (Từ vựng)' : g.name.split(':')[0]}</h4>
                                         <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">${g.part}</span>
                                     </div>
                                 </div>
@@ -1005,6 +1051,21 @@ window.PersonalizedRoadmapEngine = {
         this.renderRoadmapView();
     },
 
+    
+    editTargetScore(score) {
+        if (window.currentUserAccount) {
+            window.currentUserAccount.targetScore = (score || '650').toString().trim();
+            if (window.syncCurrentAccountState) window.syncCurrentAccountState();
+            this.renderRoadmapView();
+        }
+    },
+    editExamDate(date) {
+        if (window.currentUserAccount) {
+            window.currentUserAccount.examDate = (date || '20/12/2026').toString().trim();
+            if (window.syncCurrentAccountState) window.syncCurrentAccountState();
+            this.renderRoadmapView();
+        }
+    },
     openEditGoalModal() {
         if (!window.currentUserAccount) {
             if (typeof showToast === 'function') showToast('⚠️ Vui lòng đăng nhập để chỉnh sửa mục tiêu!');
@@ -1046,6 +1107,11 @@ window.TOEICTrapsEngine = {
     init() {
         this.renderPartsBar();
         this.renderTrapCategoriesBar();
+        try {
+            if (typeof history !== 'undefined' && history.replaceState) {
+                history.replaceState(null, '', '#trap=' + trapId);
+            }
+        } catch(e) {}
         this.selectTrap(this.currentTrapId);
     },
 
@@ -1290,6 +1356,13 @@ window.TOEICTrapsEngine = {
                     </div>
                 ` : ''}
 
+                <!-- Bẫy âm thanh minh họa -->
+                <div class="mb-2">
+                    <button type="button" onclick="if(window.UniversalAudioEngine && window.UniversalAudioEngine.speak) { window.UniversalAudioEngine.speak(this.getAttribute('data-speak')); } else if(window.speechSynthesis) { const u = new SpeechSynthesisUtterance(this.getAttribute('data-speak')); window.speechSynthesis.speak(u); }" data-speak="${(q.audioScript || q.q || '').replace(/"/g, '&quot;')}" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 text-xs font-bold border border-indigo-200 dark:border-indigo-800 flex items-center gap-1.5 transition cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>Nghe bẫy âm thanh (TTS)</span>
+                    </button>
+                </div>
                 <!-- Question Text -->
                 <p class="text-sm font-bold text-slate-900 dark:text-white leading-relaxed">
                     ${q.q}

@@ -241,7 +241,9 @@
 
             if (!slug) return;
             try {
-                const raw = localStorage.getItem(this.getTopicStorageKey(slug));
+                let raw = null;
+                try { raw = sessionStorage.getItem('grammar_active_session_' + slug); } catch(e) {}
+                if (!raw) raw = localStorage.getItem(this.getTopicStorageKey(slug));
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     if (parsed.questionStatusMap) this.questionStatusMap = parsed.questionStatusMap;
@@ -260,6 +262,7 @@
                     lastUpdated: Date.now()
                 };
                 localStorage.setItem(this.getTopicStorageKey(currentSlug), JSON.stringify(payload));
+                try { sessionStorage.setItem('grammar_active_session_' + currentSlug, JSON.stringify(payload)); } catch(e) {}
             } catch (e) {}
         },
 
@@ -1009,7 +1012,7 @@
                                     </div>
 
                                     <!-- Block CÁCH SUY LUẬN (Tư duy 3 bước chuẩn giáo viên luyện thi) -->
-                                    <div class="rounded-3xl bg-white dark:bg-slate-850 border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                                    <div class="rounded-3xl bg-white dark:bg-slate-850 border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4 max-h-[85vh] overflow-y-auto">
                                         <div class="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700 text-purple-700 dark:text-purple-400 font-black text-xs uppercase tracking-wider">
                                             <i class="fa-solid fa-list-check text-sm"></i>
                                             <span>CÁCH SUY LUẬN (3 BƯỚC)</span>
@@ -1382,6 +1385,8 @@
         },
 
         showSummaryModal() {
+            if (typeof updateDashboardMetrics === 'function') updateDashboardMetrics();
+            if (typeof renderSidebarGrammarProgress === 'function') renderSidebarGrammarProgress();
             const correctCount = Object.values(this.questionStatusMap).filter(v => v === 'correct').length;
             const total = this.questions.length;
             const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;

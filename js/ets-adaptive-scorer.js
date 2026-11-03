@@ -62,28 +62,39 @@
             const gAnswered = state.grammarTotalAnswers || 0;
             const gCorrect = state.grammarCorrectAnswers || 0;
 
-            // Thuật toán IRT ước lượng điểm Listening
+            // Thuật toán IRT ước lượng điểm Listening:
+            // Neo giữ chuẩn xác theo lDiag từ bài test chẩn đoán đầu vào.
+            // Chỉ bắt đầu hiệu chỉnh khi người dùng hoàn thành ít nhất 15 câu luyện tập thực tế sau test.
+            // Áp dụng mô hình co thắt Bayes (Bayesian Shrinkage) tương đối quanh lDiag, không cộng mốc 250 tùy tiện.
             let estListening = lDiag;
-            let lConfidence = 30;
+            let lConfidence = 25;
 
-            if (lAnswered >= 5) {
+            if (lAnswered >= 15) {
                 const acc = Math.min(1, Math.max(0, lCorrect / lAnswered));
-                const performanceBoost = (acc - 0.5) * 180;
-                estListening = Math.round(Math.min(this.ETS_MAX, Math.max(this.ETS_MIN, lDiag * 0.4 + (250 + performanceBoost) * 0.6)));
-                lConfidence = Math.max(15, Math.round(30 - Math.min(15, lAnswered * 0.5)));
+                const weightBaseline = 30 / (30 + (lAnswered - 14));
+                const practiceTarget = Math.min(this.ETS_MAX, Math.max(this.ETS_MIN, lDiag + (acc - (lDiag / this.ETS_MAX)) * 120));
+                estListening = Math.round(lDiag * weightBaseline + practiceTarget * (1 - weightBaseline));
+                lConfidence = Math.max(15, Math.round(25 - Math.min(10, (lAnswered - 14) * 0.25)));
+            } else {
+                estListening = lDiag;
+                lConfidence = 25;
             }
 
-            // Thuật toán IRT ước lượng điểm Reading (kết hợp Reading và Grammar)
+            // Thuật toán IRT ước lượng điểm Reading (kết hợp Reading và Grammar):
             let estReading = rDiag;
-            let rConfidence = 30;
+            let rConfidence = 25;
             const combinedReadAnswered = rAnswered + gAnswered;
             const combinedReadCorrect = rCorrect + gCorrect;
 
-            if (combinedReadAnswered >= 5) {
+            if (combinedReadAnswered >= 15) {
                 const acc = Math.min(1, Math.max(0, combinedReadCorrect / combinedReadAnswered));
-                const performanceBoost = (acc - 0.5) * 180;
-                estReading = Math.round(Math.min(this.ETS_MAX, Math.max(this.ETS_MIN, rDiag * 0.4 + (240 + performanceBoost) * 0.6)));
-                rConfidence = Math.max(15, Math.round(30 - Math.min(15, combinedReadAnswered * 0.5)));
+                const weightBaseline = 30 / (30 + (combinedReadAnswered - 14));
+                const practiceTarget = Math.min(this.ETS_MAX, Math.max(this.ETS_MIN, rDiag + (acc - (rDiag / this.ETS_MAX)) * 120));
+                estReading = Math.round(rDiag * weightBaseline + practiceTarget * (1 - weightBaseline));
+                rConfidence = Math.max(15, Math.round(25 - Math.min(10, (combinedReadAnswered - 14) * 0.25)));
+            } else {
+                estReading = rDiag;
+                rConfidence = 25;
             }
 
             const totalScore = estListening + estReading;

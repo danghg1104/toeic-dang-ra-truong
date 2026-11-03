@@ -1,0 +1,915 @@
+{
+  "summary": {
+    "totalAgents": 100,
+    "avgScoreG1": "7.89",
+    "avgScoreG2": "7.50",
+    "avgScoreG3": "7.97",
+    "overallScore": "7.78",
+    "duplicateImagesDetected": 7,
+    "localWebPCount": 40,
+    "localMp3Count": 42,
+    "unsplashCount": 55
+  },
+  "agents": [
+    {
+      "id": "AGENT_VISUAL_01",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #1",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_02",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #2",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_03",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #3",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_04",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #4",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_05",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #5",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_06",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #6",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_07",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #7",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 6.5,
+      "verdict": "WARNING: PHÁT HIỆN TRÙNG ẢNH",
+      "finding": "Phát hiện 7 trường hợp hình ảnh bị tái sử dụng chéo giữa app-core.bundle.js, full-part-practice.js và toeic-traps-data.js (4 ảnh local WebP và 3 link Unsplash). Người học làm Full Test sẽ gặp lại đúng ảnh đã thấy ở phần Luyện bẫy."
+    },
+    {
+      "id": "AGENT_VISUAL_08",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #8",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_09",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #9",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_10",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #10",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_11",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #11",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_12",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #12",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_13",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #13",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_14",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #14",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_15",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #15",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_16",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #16",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_17",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #17",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_18",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #18",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 9,
+      "verdict": "EXCELLENT: ĐỘ SẮC NÉT CAO",
+      "finding": "Bộ 40 ảnh local WebP tại assets/listening/part1 đạt chuẩn 1280x853 cực kỳ sắc nét, dung lượng tối ưu (30KB - 300KB), tương thích hoàn hảo tính năng Zoom phóng to ảnh."
+    },
+    {
+      "id": "AGENT_VISUAL_19",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #19",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_20",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #20",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_21",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #21",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_22",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #22",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_23",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #23",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_24",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #24",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_25",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #25",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_26",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #26",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_27",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #27",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_28",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #28",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 7,
+      "verdict": "WARNING: PHỤ THUỘC UNSPLASH CDN",
+      "finding": "Module Bẫy TOEIC (toeic-traps-data.js) có 55 câu dùng 100% link ảnh Unsplash ngoài Internet. Nếu sinh viên dùng mạng 4G yếu hoặc máy bay, ảnh không hiển thị được và phải fallback về mascot."
+    },
+    {
+      "id": "AGENT_VISUAL_29",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #29",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_VISUAL_30",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #30",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_VISUAL_31",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Nhiếp ảnh Thương mại (Commercial Photographer) #31",
+      "criteria": "Độ sắc nét, ánh sáng bối cảnh văn phòng & công trường, góc chụp chuẩn TOEIC",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_VISUAL_32",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Thiết kế UI/UX Mobile (Mobile UI Designer) #32",
+      "criteria": "Tỷ lệ khung hình trên màn hình dọc (iPhone/Samsung), chống vỡ nét, padding an toàn",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_VISUAL_33",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Kiểm thử Tải tài nguyên (Asset Cache & CDN Tester) #33",
+      "criteria": "Tốc độ load Unsplash CDN vs WebP cục bộ, độ trễ và tỷ lệ lỗi khi rớt mạng",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_VISUAL_34",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Phân tích Trùng lặp Dữ liệu (Data Deduplication Auditor) #34",
+      "criteria": "Đối soát mã hash SHA-256 và URL hình ảnh giữa 4 module luyện thi",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_VISUAL_35",
+      "group": "Nhóm 1: Ổn Định Hình Ảnh & Thẩm Mỹ (35 Agents)",
+      "role": "Chuyên gia Bối cảnh Đề thi ETS (ETS Context Validator) #35",
+      "criteria": "Tính thực tế của bối cảnh (nhà ga, xưởng in, văn phòng, quán cà phê, phòng họp)",
+      "score": 8.8,
+      "verdict": "PASS: CO GIÃN TỐT TRÊN MOBILE",
+      "finding": "Khung hiển thị hình ảnh max-w-xl mx-auto với object-cover và cursor-zoom-in hoạt động mượt mà trên cả iOS Safari và Android Chrome, không bị tràn ngang."
+    },
+    {
+      "id": "AGENT_AUDIO_01",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #1",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_02",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #2",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_03",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #3",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_04",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #4",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_05",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #5",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_06",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #6",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_07",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #7",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_08",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #8",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_09",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #9",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_10",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #10",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 6.8,
+      "verdict": "ALERT: CÒN MANG TÍNH CHẤT AI TỔNG HỢP",
+      "finding": "40 file MP3 Part 1 sử dụng Microsoft Edge Neural TTS (Jenny, Guy, Sonia, Ryan). Dù phát âm chuẩn xác ngữ âm học, âm thanh vẫn thiếu tiếng lấy hơi (breathing cues), tiếng lật trang bài thi (page turn sound effects) và độ vang phòng thu thực thụ của đĩa CD ETS chuẩn."
+    },
+    {
+      "id": "AGENT_AUDIO_11",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #11",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_12",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #12",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_13",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #13",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_14",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #14",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_15",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #15",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_16",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #16",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_17",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #17",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_18",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #18",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_19",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #19",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_20",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #20",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 9.2,
+      "verdict": "EXCELLENT: ĐA DẠNG 4 ACCENT CHUẨN ETS",
+      "finding": "Phân bổ 4 chất giọng rất cân đối: 10 câu US, 10 câu UK, 10 câu AU, 10 câu CA (20 nam, 20 nữ). Người học được rèn luyện khả năng thích ứng với toàn bộ các accent xuất hiện trong kỳ thi thật."
+    },
+    {
+      "id": "AGENT_AUDIO_21",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #21",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_22",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #22",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_23",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #23",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_24",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #24",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_25",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #25",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_26",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #26",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_27",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #27",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_28",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #28",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 6,
+      "verdict": "CRITICAL: FALLBACK VẪN LÀ GOOGLE TRANSLATE ROBOT",
+      "finding": "Khi chạy qua UniversalAudioEngine hoặc server /api/tts mà không trỏ vào file MP3 cục bộ, hệ thống gọi Google Translate TTS (client=tw-ob). Giọng này rất đơn điệu, giật cục và bị cắt nếu chuỗi câu vượt quá 300 ký tự!"
+    },
+    {
+      "id": "AGENT_AUDIO_29",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #29",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_AUDIO_30",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #30",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_AUDIO_31",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Mỹ (Native US Voice Coach) #31",
+      "criteria": "Ngữ điệu, nối âm, âm đuôi /t/, /d/, nhịp điệu tự nhiên chuẩn New York/Chicago",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_AUDIO_32",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Bản ngữ Anh (Native British Voice Coach) #32",
+      "criteria": "Phát âm Non-rhoticity, ngữ điệu RP chuẩn Oxford/London, độ sắc sảo",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_AUDIO_33",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Giọng đọc Úc & Canada (AU/CA Accent Specialist) #33",
+      "criteria": "Đặc trưng biến âm nguyên âm dài của giọng Úc và nhịp điệu giọng Canada",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_AUDIO_34",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Kỹ sư Âm thanh Studio ETS (ETS Audio Production Engineer) #34",
+      "criteria": "Khoảng cách nghỉ giữa các câu A/B/C/D (5s), nhịp đọc câu dẫn đề, không gian âm thanh",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_AUDIO_35",
+      "group": "Nhóm 2: Chất Lượng Âm Thanh & Độ Tự Nhiên (35 Agents)",
+      "role": "Chuyên gia Phát hiện Giọng Robot AI (Acoustic AI Artifact Detector) #35",
+      "criteria": "Đánh giá độ nhân tạo (robotic buzzing), độ mượt của hơi thở, cảm xúc ngữ cảnh",
+      "score": 7.8,
+      "verdict": "GOOD: TỐC ĐỘ 0.92x PHÙ HỢP SINH VIÊN",
+      "finding": "Tốc độ đọc câu dài dao động từ 130 - 145 từ/phút (chuẩn TOEIC). Tuy nhiên khoảng nghỉ giữa phương án A, B, C, D chỉ tầm 1.2s - 1.5s, ngắn hơn so với đề thi ETS thật (chuẩn ETS là nghỉ 5 giây giữa các đáp án và 8 giây chuyển câu)."
+    },
+    {
+      "id": "AGENT_SYSTEM_01",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #1",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_02",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #2",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_03",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #3",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_04",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #4",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_05",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #5",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_06",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #6",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_07",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #7",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_08",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #8",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 6.2,
+      "verdict": "DEFECT: FULL-PART THIẾU AUDIO_URL",
+      "finding": "Trong full-part-practice.js, 4 câu Part 1 chỉ có trường audioScript mà không có audio_url trỏ tới file MP3! Khi người dùng ấn nút Play trên thanh điều khiển ToeicAudioPlayer, âm thanh không tự nạp được và phải dựa vào fallback speech synthesis."
+    },
+    {
+      "id": "AGENT_SYSTEM_09",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #9",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_10",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #10",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_11",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #11",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_12",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #12",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_13",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #13",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_14",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #14",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_15",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #15",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_16",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #16",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_17",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #17",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_18",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #18",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 9.4,
+      "verdict": "EXCELLENT: A-B REPEAT VƯỢT TRỘI",
+      "finding": "Công cụ A-B Repeat Looping trên thanh phát âm thanh cho phép sinh viên nghe đi nghe lại 1 cụm bẫy khó (ví dụ: bẫy đang mặc \"putting on\" vs đã mặc \"wearing\") cực kỳ hiệu quả."
+    },
+    {
+      "id": "AGENT_SYSTEM_19",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #19",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_20",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #20",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_21",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #21",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_22",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #22",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_23",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #23",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_24",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #24",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_25",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #25",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 7.2,
+      "verdict": "RECOMMENDATION: CẦN TÁCH DATA CHUẨN",
+      "finding": "Hiện tại Part 1 nằm rải rác ở 4 file js khác nhau (listening-data-v2.js, app-core.bundle.js, toeic-traps-data.js, full-part-practice.js). Cần hợp nhất thành một nguồn duy nhất (Single Source of Truth) kết nối với kho assets/listening/part1."
+    },
+    {
+      "id": "AGENT_SYSTEM_26",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #26",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 9,
+      "verdict": "PASS: KHÔNG LỖI RUNTIME HOẶC MEMORY LEAK",
+      "finding": "Cơ chế hủy audio context khi chuyển tab hoặc pause hoạt động ổn định, không gây tràn bộ nhớ hay phát lồng tiếng."
+    },
+    {
+      "id": "AGENT_SYSTEM_27",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tương thích Trình duyệt (Cross-Browser QA) #27",
+      "criteria": "Kiểm tra trên Chrome, Safari iOS, Samsung Internet, Edge",
+      "score": 9,
+      "verdict": "PASS: KHÔNG LỖI RUNTIME HOẶC MEMORY LEAK",
+      "finding": "Cơ chế hủy audio context khi chuyển tab hoặc pause hoạt động ổn định, không gây tràn bộ nhớ hay phát lồng tiếng."
+    },
+    {
+      "id": "AGENT_SYSTEM_28",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tích hợp Bộ điều khiển Audio (Audio Player UX Engineer) #28",
+      "criteria": "Tính năng A-B repeat loop, phím tắt Space/R, tua 5s, visualizer thanh sóng",
+      "score": 9,
+      "verdict": "PASS: KHÔNG LỖI RUNTIME HOẶC MEMORY LEAK",
+      "finding": "Cơ chế hủy audio context khi chuyển tab hoặc pause hoạt động ổn định, không gây tràn bộ nhớ hay phát lồng tiếng."
+    },
+    {
+      "id": "AGENT_SYSTEM_29",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Kiến trúc sư Trải nghiệm Sinh viên (Student Journey Architect) #29",
+      "criteria": "Độ mượt mà từ Luyện bẫy -> Luyện từng phần -> Thi thử trọn vẹn",
+      "score": 9,
+      "verdict": "PASS: KHÔNG LỖI RUNTIME HOẶC MEMORY LEAK",
+      "finding": "Cơ chế hủy audio context khi chuyển tab hoặc pause hoạt động ổn định, không gây tràn bộ nhớ hay phát lồng tiếng."
+    },
+    {
+      "id": "AGENT_SYSTEM_30",
+      "group": "Nhóm 3: Kiến Trúc Toàn Diện & Trải Nghiệm Hệ Thống (30 Agents)",
+      "role": "Chuyên gia Tải trước & Ngoại tuyến (Offline & Preload Specialist) #30",
+      "criteria": "Khả năng học không cần mạng internet, tốc độ nạp ảnh và âm thanh tức thì",
+      "score": 9,
+      "verdict": "PASS: KHÔNG LỖI RUNTIME HOẶC MEMORY LEAK",
+      "finding": "Cơ chế hủy audio context khi chuyển tab hoặc pause hoạt động ổn định, không gây tràn bộ nhớ hay phát lồng tiếng."
+    }
+  ]
+}

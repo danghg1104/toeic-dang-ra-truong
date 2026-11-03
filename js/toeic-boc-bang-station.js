@@ -380,8 +380,15 @@
         // ==========================================
         handleUserFiles(files) {
             if (!files || !files.length) return;
+            const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+            const fileList = Array.from(files).filter(file => {
+                if (file.size > MAX_FILE_SIZE) {
+                    this.showToast(`⚠️ File "${file.name}" vượt quá 50MB! Vui lòng chọn file âm thanh nhỏ hơn để tránh đơ trình duyệt.`);
+                    return false;
+                }
+                return true;
+            });
             const newTracks = [];
-            const fileList = Array.from(files);
 
             fileList.forEach((file, idx) => {
                 const blobUrl = URL.createObjectURL(file);
@@ -1489,6 +1496,22 @@
         // ==========================================
         // EXPORT AND DOWNLOAD
         // ==========================================
+        
+        exportBilingualPdf() {
+            if (!this.currentData?.segments?.length) {
+                this.showToast('Chưa có dữ liệu để xuất file!');
+                return;
+            }
+            const printWin = window.open('', '_blank');
+            if (!printWin) {
+                this.showToast('⚠️ Vui lòng mở quyền pop-up trình duyệt để in bài bóc băng.');
+                return;
+            }
+            const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${this.currentData.title || 'TOEIC Transcript'}</title><style>body{font-family:'Segoe UI',Arial,sans-serif;padding:24px;color:#1e293b;line-height:1.6;}.seg{margin-bottom:14px;}.time{font-size:11px;font-weight:bold;color:#0284c7;}.en{font-size:13px;font-weight:600;margin:2px 0;}.vi{font-size:12px;color:#475569;font-style:italic;}</style></head><body><h2>${this.currentData.title || 'Bản Bóc Băng File Nghe'}</h2><p>Part ${this.currentData.part} • ${new Date().toLocaleString('vi-VN')}</p>${this.currentData.segments.map(s => `<div class="seg"><div class="time">[${this.formatTime(s.start)} - ${this.formatTime(s.end)}] ${s.speaker}</div><div class="en">${s.text}</div><div class="vi">${s.viText || ''}</div></div>`).join('')}<script>window.onload=function(){window.print();};<\/script></body></html>`;
+            printWin.document.write(html);
+            printWin.document.close();
+            this.showToast('📄 Đã mở bản in/xuất PDF hỗ trợ tiếng Việt chuẩn Unicode!');
+        }
         exportBilingualTxt() {
             if (!this.currentData?.segments?.length) {
                 this.showToast('Chưa có dữ liệu để xuất file!');

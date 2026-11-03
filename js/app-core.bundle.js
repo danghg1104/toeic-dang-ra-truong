@@ -160,6 +160,13 @@
                 feedbackText: 'Mở Sổ Take Note',
                 owlVariant: 'book'
             },
+            'pvp-arena': {
+                activeClass: 'nav-active-vocab-game',
+                mascotText: 'Đấu trường từ vựng PvP 1v1 trực tiếp thời gian thực 60 giây!',
+                feedbackText: 'Mở Sổ Take Note',
+                owlVariant: 'book',
+                navTarget: 'pvp'
+            },
             'boc-bang-audio': {
                 activeClass: 'nav-active-listen',
                 mascotText: 'Bóc băng file nghe tự động, dịch song ngữ & phân tích đáp án TOEIC!',
@@ -217,6 +224,10 @@
         window.closeMobileQuickActionSheet = closeMobileQuickActionSheet;
 
         function switchTab(tabId) {
+            // Tự động đóng menu thanh bên trên mobile khi chuyển tab
+            if (typeof window !== 'undefined' && window.innerWidth < 1024 && typeof toggleSidebar === 'function') {
+                try { toggleSidebar(false); } catch(e) {}
+            }
             // Đảm bảo lấy tài khoản người dùng đang hoạt động nếu có phiên lưu trữ
             if (!currentUserAccount) {
                 if (typeof window.getCurrentUser === 'function') {
@@ -321,6 +332,11 @@
             if (tabId === 'hoc-tu-vung' && window.VocabGameWorkstation) {
                 window.VocabGameWorkstation.renderInto('view-hoc-tu-vung');
             }
+            if (tabId === 'pvp-arena' && window.PvPArenaClient) {
+                if (typeof window.PvPArenaClient.renderInto === 'function') {
+                    window.PvPArenaClient.renderInto('pvpArenaInlineContainer');
+                }
+            }
             if (tabId === 'nghe' && window.ListeningDashboard) {
                 ListeningDashboard.renderStats();
             }
@@ -330,8 +346,10 @@
                 }
             }
             if (tabId === 'nghe-chinh-ta' || tabId === 'luyen-nghe-chinh-ta') {
-                if (window.DailyDictationWorkstation) {
-                    window.DailyDictationWorkstation.renderInto('view-nghe-chinh-ta');
+                if (window._currentDictationSubMode === 'youtube') {
+                    window.switchDictationSubMode('youtube');
+                } else {
+                    window.switchDictationSubMode('toeic');
                 }
             }
             if (tabId === 'take-note' || tabId === 'so-take-note') {
@@ -385,6 +403,53 @@
             updateSanhAndSidebarVisibility();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        window.switchTab = switchTab;
+
+        // BỘ ĐIỀU HƯỚNG SUB-MODE CHO TRẠM LUYỆN NGHE CHÉP CHÍNH TẢ (TOEIC VS YOUTUBE VOCATYPE)
+        window._currentDictationSubMode = 'toeic';
+        window.switchDictationSubMode = function(mode = 'toeic') {
+            window._currentDictationSubMode = mode;
+            const btnToeic = document.getElementById('btnTabDictationToeic');
+            const btnYt = document.getElementById('btnTabDictationYoutube');
+            const viewToeic = document.getElementById('subViewDictationToeic');
+            const viewYt = document.getElementById('subViewDictationYoutube');
+
+            if (mode === 'youtube') {
+                if (btnToeic) {
+                    btnToeic.className = 'flex-1 py-2 px-3 rounded-xl font-extrabold text-xs transition flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-700 cursor-pointer';
+                }
+                if (btnYt) {
+                    btnYt.className = 'flex-1 py-2 px-3 rounded-xl font-extrabold text-xs transition flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-indigo-600 text-white shadow-xs cursor-pointer';
+                }
+                if (viewToeic) viewToeic.classList.add('hidden');
+                if (viewYt) viewYt.classList.remove('hidden');
+
+                if (window.YouTubeDictationWorkstation) {
+                    window.YouTubeDictationWorkstation.renderInto('youtubeDictationContainer');
+                }
+            } else {
+                if (btnToeic) {
+                    btnToeic.className = 'flex-1 py-2 px-3 rounded-xl font-extrabold text-xs transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-xs cursor-pointer';
+                }
+                if (btnYt) {
+                    btnYt.className = 'flex-1 py-2 px-3 rounded-xl font-extrabold text-xs transition flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-700 cursor-pointer';
+                }
+                if (viewToeic) viewToeic.classList.remove('hidden');
+                if (viewYt) viewYt.classList.add('hidden');
+
+                if (window.DailyDictationWorkstation) {
+                    window.DailyDictationWorkstation.renderInto('dailyDictationContainer');
+                }
+            }
+        };
+
+        window.openYouTubeDictationSong = function(songId = 'heather-conan-gray') {
+            switchTab('nghe-chinh-ta');
+            window.switchDictationSubMode('youtube');
+            if (window.YouTubeDictationWorkstation) {
+                window.YouTubeDictationWorkstation.startSong(songId);
+            }
+        };
 
         // =========================================================================
         // PHÂN BIỆT 2 SẢNH VÀ ĐIỀU KHIỂN THANH HỌC TẬP (SIDEBAR)
@@ -609,6 +674,20 @@
                 lastSidebarWasDesktop = isDesktop;
                 initSidebarState();
             }
+        // [BUG-028] Đóng ngăn kéo sidebar trên mobile khi bấm ra ngoài khoảng trống (Backdrop click)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth < 1024 && sidebarOpen) {
+                const sidebar = document.getElementById('mainSidebar') || document.querySelector('aside');
+                const toggleBtns = document.querySelectorAll('[onclick*="toggleSidebar"], [onclick*="toggleMobileSidebar"]');
+                const isClickInsideSidebar = sidebar && sidebar.contains(e.target);
+                let isClickOnToggle = false;
+                toggleBtns.forEach(btn => { if (btn && btn.contains(e.target)) isClickOnToggle = true; });
+                if (!isClickInsideSidebar && !isClickOnToggle) {
+                    toggleSidebar(false);
+                }
+            }
+        });
+
         });
 
         // Dark / Light Theme Toggle
@@ -989,6 +1068,15 @@
             setVocabLevelFilter(val, null);
         }
 
+        function stripVietnameseAccents(str) {
+            if (!str) return '';
+            return String(str)
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .toLowerCase();
+        }
         function renderAllVocabGroups() {
             const container = document.getElementById('vocabModeCardsContainer');
             if (!container) return;
@@ -1004,7 +1092,10 @@
                 if (groupFilter !== 'ALL' && !grp.groupName.toLowerCase().includes(groupFilter.toLowerCase())) return;
 
                 let filteredDecks = grp.decks.filter(deckName => {
-                    const matchSearch = !searchQ || deckName.toLowerCase().includes(searchQ) || grp.groupName.toLowerCase().includes(searchQ);
+                    const cleanSearch = stripVietnameseAccents(searchQ);
+                    const matchSearch = !cleanSearch || 
+                        stripVietnameseAccents(deckName).includes(cleanSearch) || 
+                        stripVietnameseAccents(grp.groupName).includes(cleanSearch);
                     let matchExam = true;
                     if (examFilter === 'VSTEP') {
                         matchExam = deckName.toLowerCase().includes('vstep') || grp.groupName.toLowerCase().includes('vstep');
@@ -2674,7 +2765,13 @@
                 window.takeNotesList = takeNotesList;
                 window.activeNoteId = activeNoteId;
                 localStorage.setItem('cung_dang_take_notes_v1', JSON.stringify(takeNotesList));
-            } catch (e) {}
+            } catch (e) {
+                if (e && (e.name === 'QuotaExceededError' || e.code === 22)) {
+                    if (typeof showToast === 'function') {
+                        showToast('⚠️ Bộ nhớ ghi chú sắp đầy do ảnh chụp lớn! Hãy xuất PDF hoặc xóa bớt ảnh.');
+                    }
+                }
+            }
         }
 
         function filterTakeNoteTag(tag, btnEl) {
@@ -7813,6 +7910,7 @@
             if (clearBtn) clearBtn.classList.remove('hidden');
         }
 
+        window.removeDictHistoryWord = removeDictHistoryWord;
         function removeDictHistoryWord(w) {
             if (window.DictHistoryManager) {
                 DictHistoryManager.remove(w);
@@ -7859,7 +7957,7 @@
                     </div>
                 `).join('');
                 dropdown.classList.remove('hidden');
-            }, 120);
+            }, 250);
         }
 
         function handleDictSearchKeyDown(event) {
@@ -9257,7 +9355,83 @@
         });
 
         // Khởi chạy Gatekeeper & Master Views NGAY LẬP TỨC khi DOM sẵn sàng (Zero-delay)
+        
+        // =========================================================================
+        // MOBILE EXPERIENCE ENGINE (iOS & Android Virtual Keyboard & AudioContext)
+        // =========================================================================
+        function initMobileExperience() {
+            // 1. Unlock AudioContext trên thiết bị di động (Mobile Autoplay Restriction)
+            const unlockAudio = () => {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContext) {
+                        if (!window._globalAudioCtx) {
+                            window._globalAudioCtx = new AudioContext();
+                        }
+                        if (window._globalAudioCtx.state === 'suspended') {
+                            window._globalAudioCtx.resume();
+                        }
+                    }
+                    if (window.VocabGameWorkstation && window.VocabGameWorkstation.audioCtx && window.VocabGameWorkstation.audioCtx.state === 'suspended') {
+                        window.VocabGameWorkstation.audioCtx.resume();
+                    }
+                } catch (e) {}
+                window.removeEventListener('touchstart', unlockAudio);
+                window.removeEventListener('pointerdown', unlockAudio);
+            };
+            window.addEventListener('touchstart', unlockAudio, { passive: true });
+            window.addEventListener('pointerdown', unlockAudio, { passive: true });
+
+            // 2. VisualViewport & Virtual Keyboard Resize Manager (iOS & Android)
+            const handleViewportChange = () => {
+                if (!window.visualViewport) return;
+                const vh = window.visualViewport.height;
+                const totalH = window.innerHeight;
+                const isKeyboard = vh < totalH * 0.78;
+                
+                document.documentElement.style.setProperty('--mobile-visual-height', `${vh}px`);
+                document.body.classList.toggle('keyboard-open', isKeyboard);
+
+                const nav = document.getElementById('mobileBottomNav');
+                if (nav) {
+                    nav.style.display = isKeyboard ? 'none' : '';
+                }
+            };
+
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', handleViewportChange);
+                window.visualViewport.addEventListener('scroll', handleViewportChange);
+                handleViewportChange();
+            }
+
+            // Fallback cho trình duyệt cũ
+            window.addEventListener('focusin', (e) => {
+                const tag = e.target.tagName ? e.target.tagName.toLowerCase() : '';
+                if (tag === 'input' || tag === 'textarea') {
+                    document.body.classList.add('keyboard-open');
+                    const nav = document.getElementById('mobileBottomNav');
+                    if (nav) nav.style.display = 'none';
+                }
+            });
+
+            window.addEventListener('focusout', (e) => {
+                setTimeout(() => {
+                    const active = document.activeElement;
+                    const tag = active && active.tagName ? active.tagName.toLowerCase() : '';
+                    if (tag !== 'input' && tag !== 'textarea') {
+                        document.body.classList.remove('keyboard-open');
+                        const nav = document.getElementById('mobileBottomNav');
+                        if (nav) nav.style.display = '';
+                    }
+                }, 150);
+            });
+        }
+        if (typeof window !== 'undefined') {
+            window.initMobileExperience = initMobileExperience;
+        }
+    
         function bootstrapApplication() {
+            try { initMobileExperience(); } catch(e) {}
             // Dọn dẹp an toàn các khóa tiến độ ngữ pháp cũ chưa gắn userId (tránh hiển thị nhầm 2% từ dữ liệu cache cũ)
             try {
                 for (let i = localStorage.length - 1; i >= 0; i--) {

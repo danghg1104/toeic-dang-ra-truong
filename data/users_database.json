@@ -26,7 +26,31 @@
     "examDate": "20/12/2026",
     "authProvider": "google",
     "createdAt": "2026-10-23T04:48:24.332Z",
-    "streak": 10
+    "streak": 12,
+    "diagnosticResults": {
+      "testedDate": "03/11/2026",
+      "totalCorrect": 6,
+      "listeningCorrect": 4,
+      "readingCorrect": 2,
+      "listeningScore": 105,
+      "readingScore": 50,
+      "listening": 105,
+      "reading": 50,
+      "score": 155,
+      "estimatedScore": 155,
+      "pillarScores": {
+        "gap-part12-listening": 38,
+        "gap-part34-paraphrase": 13,
+        "gap-part5-grammar": 33,
+        "gap-part5-vocab": 0,
+        "gap-part6-insertion": 0,
+        "gap-part7-multi": 25
+      },
+      "bandTitle": "Band 0 - 300 (Mất gốc / Mới bắt đầu)",
+      "bandDesc": "Xây dựng phản xạ nhận diện âm thanh, bối cảnh tranh người và từ loại cơ bản N - V - Adj - Adv.",
+      "recommendedStage": 1
+    },
+    "completedNodes": []
   },
   {
     "id": "acc-g-1792724111567",

@@ -1,3 +1,6 @@
+// Milestone 4: PvP WebSocket Server & AI Explanation Engine
+const { setupPvPArenaWebSocket } = require('./lib/pvp-arena-server');
+const { explainMistake } = require('./lib/ai-explanation-engine');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -8,6 +11,7 @@ const zlib = require('zlib');
 const DictionaryPreprocess = require(path.join(__dirname, 'lib', 'dictionary', 'preprocess.js'));
 const IPAHelper = require(path.join(__dirname, 'lib', 'dictionary', 'ipa-helper.js'));
 const VocabAIService = require(path.join(__dirname, 'lib', 'vocab-ai-service.js'));
+const YouTubeLyricsService = require(path.join(__dirname, 'lib', 'youtube-lyrics-service.js'));
 
 // In-memory caches cho TTS và Static Assets siêu tốc
 const ttsAudioCache = new Map();
@@ -114,7 +118,9 @@ function loadSessionsDatabase() {
 
 function saveSessionsDatabase() {
   try {
-    fs.writeFileSync(SESSIONS_FILE, JSON.stringify(memorySessions || {}, null, 2), 'utf8');
+    const tempFile = SESSIONS_FILE + '.tmp.' + Date.now();
+    fs.writeFileSync(tempFile, JSON.stringify(memorySessions || {}, null, 2), 'utf8');
+    fs.renameSync(tempFile, SESSIONS_FILE);
   } catch (err) {
     console.error('Lỗi ghi database phiên:', err.message);
   }
@@ -2112,6 +2118,78 @@ const server = http.createServer((req, res) => {
   }
 
   // =========================================================================
+  // API: YOUTUBE & MUSIC DICTATION IMPORT (CÀO LỜI & ĐỒNG BỘ MỌI BÀI HÁT YOUTUBE)
+  // =========================================================================
+  if (reqPath === '/api/youtube-dictation-import') {
+    const urlOrId = queryParams.get('url') || queryParams.get('q') || queryParams.get('v') || '';
+    if (!urlOrId.trim()) {
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      return res.end(JSON.stringify({ success: false, error: 'Thiếu đường link hoặc ID video YouTube' }));
+    }
+
+    YouTubeLyricsService.importYouTubeSong(urlOrId)
+      .then(song => {
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, song }));
+      })
+      .catch(err => {
+        res.writeHead(500, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: false, error: err.message || 'Lỗi khi nhập bài hát từ YouTube' }));
+      });
+    return;
+  }
+
+  if (reqPath === '/api/youtube-dictation-search') {
+    const q = queryParams.get('q') || '';
+    YouTubeLyricsService.searchSongs(q)
+      .then(results => {
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, results }));
+      })
+      .catch(err => {
+        res.writeHead(500, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      });
+    return;
+  }
+
+  if (reqPath === '/api/youtube-dictation-translate') {
+    const text = queryParams.get('text') || '';
+    if (!text.trim()) {
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      return res.end(JSON.stringify({ success: true, translation: '' }));
+    }
+    YouTubeLyricsService.translateText(text)
+      .then(translation => {
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, translation }));
+      })
+      .catch(err => {
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, translation: text }));
+      });
+    return;
+  }
+
+  // =========================================================================
   // API: TEXT-TO-SPEECH PROXY (CHUẨN BẢN XỨ MP3 - 100% TƯƠNG THÍCH MỌI ĐIỆN THOẠI)
   // Tầng 2: Hỗ trợ phân luồng chuẩn xác US (en-US) vs UK (en-GB) và In-Memory Caching
   // =========================================================================
@@ -2291,12 +2369,12 @@ const server = http.createServer((req, res) => {
       } catch (e) {}
     }
     if (!userId) {
-      res.writeHead(401, {
+      res.writeHead(200, {
         'Content-Type': 'application/json; charset=UTF-8',
         'Cache-Control': 'no-store, no-cache, must-revalidate, private',
         ...getCorsHeaders(req)
       });
-      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      return res.end(JSON.stringify({ success: false, authenticated: false, isGuest: true, user: null }));
     }
 
     const users = loadUsersDatabase();
@@ -2318,7 +2396,9 @@ const server = http.createServer((req, res) => {
       ...user,
       streak: profile.state?.streak || profile.streakInfo?.streak || user.streak || 0,
       targetScore: profile.targetScore || user.targetScore || '',
-      examDate: profile.examDate || user.examDate || ''
+      examDate: profile.examDate || user.examDate || '',
+      diagnosticResults: profile.diagnosticResults || user.diagnosticResults || null,
+      completedNodes: profile.completedNodes || user.completedNodes || []
     };
     delete safeUser.password;
     res.writeHead(200, {
@@ -2742,6 +2822,46 @@ const server = http.createServer((req, res) => {
   }
 
   // 2. Lưu tiến độ học của người dùng
+    // =========================================================================
+  // ENDPOINT: AI "VÌ SAO EM SAI?" EXPLANATION GATEWAY (GEMINI 3.8 FLASH)
+  // =========================================================================
+  if (reqPath === '/api/ai/explain-mistake' && req.method === 'POST') {
+    parseJsonBody(req, res, async payload => {
+      try {
+        const { question, userAnswer, correctAnswer, part, trapCategory } = payload || {};
+        if (!question || typeof question !== 'string' || question.trim().length === 0) {
+          res.writeHead(400, {
+            'Content-Type': 'application/json; charset=UTF-8',
+            ...getCorsHeaders(req)
+          });
+          res.end(JSON.stringify({ success: false, error: 'Question is required' }));
+          return;
+        }
+        const safeQuestion = question.length > 2000 ? question.slice(0, 2000) : question;
+        const result = await explainMistake({
+          question: safeQuestion,
+          userAnswer: userAnswer || '',
+          correctAnswer: correctAnswer || '',
+          part: part || 5,
+          trapCategory: trapCategory || 'TRAP-09'
+        });
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        res.end(JSON.stringify(result));
+      } catch (err) {
+        res.writeHead(500, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          ...getCorsHeaders(req)
+        });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   if (reqPath === '/api/user/save-progress' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
       let userId = getAuthenticatedUserId(req);
@@ -2968,13 +3088,8 @@ const server = http.createServer((req, res) => {
   if (reqPath === '/api/dictionary/ai-generate') {
     let word = queryParams.get('word') || '';
     if (req.method === 'POST') {
-      let body = '';
-      req.on('data', chunk => body += chunk);
-      req.on('end', () => {
-        try {
-          const parsed = JSON.parse(body);
-          word = parsed.word || parsed.query || word;
-        } catch(e) {}
+      parseJsonBody(req, res, parsed => {
+        word = (parsed && (parsed.word || parsed.query)) || word;
         const prep = DictionaryPreprocess.processInput(word);
         generateAITier3DictionaryEntry(word, prep, (err, aiEntry) => {
           res.writeHead(200, {
@@ -2999,11 +3114,8 @@ const server = http.createServer((req, res) => {
 
   // 5c. Endpoint AI Sinh Bộ Từ Vựng Theo Chủ Đề & Mức Độ CEFR (Đấu Trường Từ Vựng Sói Mây)
   if (reqPath === '/api/ai/generate-vocab' && req.method === 'POST') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
-      let payload = {};
-      try { payload = JSON.parse(body); } catch(e) {}
+    parseJsonBody(req, res, payload => {
+      payload = payload || {};
       const topic = payload.topic || 'Du lịch';
       const level = payload.level || 'B1';
       const count = parseInt(payload.count, 10) || 10;
@@ -3183,7 +3295,7 @@ const server = http.createServer((req, res) => {
     const clientEtag = req.headers['if-none-match'];
 
     // 1. Phản hồi 304 Not Modified ngay lập tức nếu client đã có bản mới nhất
-    if (clientEtag && clientEtag === etag) {
+    if ((clientEtag && clientEtag === etag) || req.headers['if-none-match'] === etag) {
       res.writeHead(304, {
         'ETag': etag,
         'Access-Control-Allow-Origin': '*',
@@ -3294,6 +3406,8 @@ const server = http.createServer((req, res) => {
     });
   });
 });
+
+setupPvPArenaWebSocket(server);
 
 server.listen(PORT, () => {
   const localIp = getLocalIp();

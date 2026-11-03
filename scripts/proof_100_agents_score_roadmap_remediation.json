@@ -1,0 +1,707 @@
+{
+  "timestamp": "2026-11-03T07:34:54.257Z",
+  "passCount": 100,
+  "failCount": 0,
+  "results": [
+    {
+      "id": 1,
+      "category": "IRT Scorer",
+      "name": "Active User Baseline Retention (155 Points)",
+      "status": "PASSED",
+      "details": "Forecast: 155/990 (LC: 105, RC: 50), Gap: 445"
+    },
+    {
+      "id": 2,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 1 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 1/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 3,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 2 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 2/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 4,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 3 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 3/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 5,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 4 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 4/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 6,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 5 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 5/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 7,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 6 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 6/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 8,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 7 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 7/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 9,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 8 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 8/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 10,
+      "category": "IRT Scorer",
+      "name": "Ghost Answer Immunity with 9 legacy 100% answers",
+      "status": "PASSED",
+      "details": "Ghost Answers: 9/100% -> Forecast LC: 105, Total: 155"
+    },
+    {
+      "id": 11,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=15",
+      "status": "PASSED",
+      "details": "N=15, Acc=80% -> New LC: 107 (Smooth growth from 105)"
+    },
+    {
+      "id": 12,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=20",
+      "status": "PASSED",
+      "details": "N=20, Acc=80% -> New LC: 117 (Smooth growth from 105)"
+    },
+    {
+      "id": 13,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=25",
+      "status": "PASSED",
+      "details": "N=25, Acc=80% -> New LC: 124 (Smooth growth from 105)"
+    },
+    {
+      "id": 14,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=30",
+      "status": "PASSED",
+      "details": "N=30, Acc=80% -> New LC: 130 (Smooth growth from 105)"
+    },
+    {
+      "id": 15,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=35",
+      "status": "PASSED",
+      "details": "N=35, Acc=80% -> New LC: 134 (Smooth growth from 105)"
+    },
+    {
+      "id": 16,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=40",
+      "status": "PASSED",
+      "details": "N=40, Acc=80% -> New LC: 138 (Smooth growth from 105)"
+    },
+    {
+      "id": 17,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=45",
+      "status": "PASSED",
+      "details": "N=45, Acc=80% -> New LC: 141 (Smooth growth from 105)"
+    },
+    {
+      "id": 18,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=50",
+      "status": "PASSED",
+      "details": "N=50, Acc=80% -> New LC: 143 (Smooth growth from 105)"
+    },
+    {
+      "id": 19,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=55",
+      "status": "PASSED",
+      "details": "N=55, Acc=80% -> New LC: 146 (Smooth growth from 105)"
+    },
+    {
+      "id": 20,
+      "category": "IRT Scorer",
+      "name": "Bayesian Smooth Growth for Practice N=60",
+      "status": "PASSED",
+      "details": "N=60, Acc=80% -> New LC: 148 (Smooth growth from 105)"
+    },
+    {
+      "id": 21,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 5 + RC 5 = 10",
+      "status": "PASSED",
+      "details": "Expected 10, got 10 [10 - 45]"
+    },
+    {
+      "id": 22,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 100 + RC 100 = 200",
+      "status": "PASSED",
+      "details": "Expected 200, got 200 [165 - 235]"
+    },
+    {
+      "id": 23,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 200 + RC 150 = 350",
+      "status": "PASSED",
+      "details": "Expected 350, got 350 [315 - 385]"
+    },
+    {
+      "id": 24,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 250 + RC 250 = 500",
+      "status": "PASSED",
+      "details": "Expected 500, got 500 [465 - 535]"
+    },
+    {
+      "id": 25,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 350 + RC 300 = 650",
+      "status": "PASSED",
+      "details": "Expected 650, got 650 [615 - 685]"
+    },
+    {
+      "id": 26,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 400 + RC 400 = 800",
+      "status": "PASSED",
+      "details": "Expected 800, got 800 [765 - 835]"
+    },
+    {
+      "id": 27,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 450 + RC 450 = 900",
+      "status": "PASSED",
+      "details": "Expected 900, got 900 [865 - 935]"
+    },
+    {
+      "id": 28,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 490 + RC 480 = 970",
+      "status": "PASSED",
+      "details": "Expected 970, got 970 [935 - 990]"
+    },
+    {
+      "id": 29,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 495 + RC 495 = 990",
+      "status": "PASSED",
+      "details": "Expected 990, got 990 [955 - 990]"
+    },
+    {
+      "id": 30,
+      "category": "IRT Scorer",
+      "name": "Score Boundary Check: LC 495 + RC 495 = 990",
+      "status": "PASSED",
+      "details": "Expected 990, got 990 [955 - 990]"
+    },
+    {
+      "id": 31,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #1",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 32,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #2",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 33,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #3",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 34,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #4",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 35,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #5",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 36,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #6",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 37,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #7",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 38,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #8",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 39,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #9",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 40,
+      "category": "IRT Scorer",
+      "name": "Zero-State Handling Test Case #10",
+      "status": "PASSED",
+      "details": "Zero-state correctly returns hasData=false and score='--'"
+    },
+    {
+      "id": 41,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 100",
+      "status": "PASSED",
+      "details": "Score 100 CI: [65 - 135], Conf: ±35"
+    },
+    {
+      "id": 42,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 180",
+      "status": "PASSED",
+      "details": "Score 180 CI: [145 - 215], Conf: ±35"
+    },
+    {
+      "id": 43,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 260",
+      "status": "PASSED",
+      "details": "Score 260 CI: [225 - 295], Conf: ±35"
+    },
+    {
+      "id": 44,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 340",
+      "status": "PASSED",
+      "details": "Score 340 CI: [305 - 375], Conf: ±35"
+    },
+    {
+      "id": 45,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 420",
+      "status": "PASSED",
+      "details": "Score 420 CI: [385 - 455], Conf: ±35"
+    },
+    {
+      "id": 46,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 500",
+      "status": "PASSED",
+      "details": "Score 500 CI: [465 - 535], Conf: ±35"
+    },
+    {
+      "id": 47,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 580",
+      "status": "PASSED",
+      "details": "Score 580 CI: [545 - 615], Conf: ±35"
+    },
+    {
+      "id": 48,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 660",
+      "status": "PASSED",
+      "details": "Score 660 CI: [625 - 695], Conf: ±35"
+    },
+    {
+      "id": 49,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 740",
+      "status": "PASSED",
+      "details": "Score 740 CI: [705 - 775], Conf: ±35"
+    },
+    {
+      "id": 50,
+      "category": "IRT Scorer",
+      "name": "Confidence Interval Validation for Score 820",
+      "status": "PASSED",
+      "details": "Score 820 CI: [785 - 855], Conf: ±35"
+    },
+    {
+      "id": 51,
+      "category": "Roadmap Logic",
+      "name": "Active User Stage 1 Starting Point & Zero False Checkmarks",
+      "status": "PASSED",
+      "details": "Stage: 1, Active: s1_n1, Completed in Stage 1: 0, Part 5 isWeakest: true"
+    },
+    {
+      "id": 52,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part12-listening) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part12-listening -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 53,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part34-paraphrase) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part34-paraphrase -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 54,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part5-grammar) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part5-grammar -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 55,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part5-vocab) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part5-vocab -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 56,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part6-insertion) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part6-insertion -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 57,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part7-multi) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part7-multi -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 58,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part12-listening) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part12-listening -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 59,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part34-paraphrase) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part34-paraphrase -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 60,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part5-grammar) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part5-grammar -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 61,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part5-vocab) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part5-vocab -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 62,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part6-insertion) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part6-insertion -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 63,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part7-multi) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part7-multi -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 64,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part12-listening) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part12-listening -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 65,
+      "category": "Roadmap Logic",
+      "name": "Pillar Weakness (gap-part34-paraphrase) Starts at Node 1 without Skipping",
+      "status": "PASSED",
+      "details": "Weakest: gap-part34-paraphrase -> Starts at s1_n1, Completed in Stage 1: 0"
+    },
+    {
+      "id": 66,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 0 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [] -> Active Node: s1_n1"
+    },
+    {
+      "id": 67,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 1 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1] -> Active Node: s1_n2"
+    },
+    {
+      "id": 68,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 2 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1, s1_n2] -> Active Node: s1_n3"
+    },
+    {
+      "id": 69,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 3 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1, s1_n2, s1_n3] -> Active Node: s1_n4"
+    },
+    {
+      "id": 70,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 4 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1, s1_n2, s1_n3, s1_n4] -> Active Node: s1_n5"
+    },
+    {
+      "id": 71,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 5 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1, s1_n2, s1_n3, s1_n4, s1_n5] -> Active Node: s1_n6"
+    },
+    {
+      "id": 72,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 6 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1, s1_n2, s1_n3, s1_n4, s1_n5, s1_n6] -> Active Node: s1_n7"
+    },
+    {
+      "id": 73,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 0 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [] -> Active Node: s1_n1"
+    },
+    {
+      "id": 74,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 1 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1] -> Active Node: s1_n2"
+    },
+    {
+      "id": 75,
+      "category": "Roadmap Logic",
+      "name": "Sequential Progress with 2 truly completed nodes",
+      "status": "PASSED",
+      "details": "Completed: [s1_n1, s1_n2] -> Active Node: s1_n3"
+    },
+    {
+      "id": 76,
+      "category": "Roadmap Logic",
+      "name": "Score 180 correctly opens Stage 1",
+      "status": "PASSED",
+      "details": "Score 180 -> Stage 1, Active: s1_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 77,
+      "category": "Roadmap Logic",
+      "name": "Score 320 correctly opens Stage 2",
+      "status": "PASSED",
+      "details": "Score 320 -> Stage 2, Active: s2_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 78,
+      "category": "Roadmap Logic",
+      "name": "Score 470 correctly opens Stage 3",
+      "status": "PASSED",
+      "details": "Score 470 -> Stage 3, Active: s3_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 79,
+      "category": "Roadmap Logic",
+      "name": "Score 620 correctly opens Stage 4",
+      "status": "PASSED",
+      "details": "Score 620 -> Stage 4, Active: s4_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 80,
+      "category": "Roadmap Logic",
+      "name": "Score 780 correctly opens Stage 5",
+      "status": "PASSED",
+      "details": "Score 780 -> Stage 5, Active: s5_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 81,
+      "category": "Roadmap Logic",
+      "name": "Score 920 correctly opens Stage 6",
+      "status": "PASSED",
+      "details": "Score 920 -> Stage 6, Active: s6_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 82,
+      "category": "Roadmap Logic",
+      "name": "Score 350 correctly opens Stage 2",
+      "status": "PASSED",
+      "details": "Score 350 -> Stage 2, Active: s2_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 83,
+      "category": "Roadmap Logic",
+      "name": "Score 500 correctly opens Stage 3",
+      "status": "PASSED",
+      "details": "Score 500 -> Stage 3, Active: s3_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 84,
+      "category": "Roadmap Logic",
+      "name": "Score 650 correctly opens Stage 4",
+      "status": "PASSED",
+      "details": "Score 650 -> Stage 4, Active: s4_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 85,
+      "category": "Roadmap Logic",
+      "name": "Score 850 correctly opens Stage 5",
+      "status": "PASSED",
+      "details": "Score 850 -> Stage 5, Active: s5_n1, Exempted Prev Stages: true"
+    },
+    {
+      "id": 86,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 1 Node (s1_n1)",
+      "status": "PASSED",
+      "details": "Node s1_n1 -> Type: listening, Part: 1"
+    },
+    {
+      "id": 87,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 2 Node (s1_n2)",
+      "status": "PASSED",
+      "details": "Node s1_n2 -> Type: listening, Part: 2"
+    },
+    {
+      "id": 88,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 3 Node (s1_n3)",
+      "status": "PASSED",
+      "details": "Node s1_n3 -> Type: listening, Part: 3"
+    },
+    {
+      "id": 89,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 4 Node (s1_n4)",
+      "status": "PASSED",
+      "details": "Node s1_n4 -> Type: listening, Part: 4"
+    },
+    {
+      "id": 90,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 5 Node (s1_n5)",
+      "status": "PASSED",
+      "details": "Node s1_n5 -> Type: reading, Part: 5"
+    },
+    {
+      "id": 91,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 6 Node (s1_n6)",
+      "status": "PASSED",
+      "details": "Node s1_n6 -> Type: reading, Part: 6"
+    },
+    {
+      "id": 92,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 7 Node (s1_n7)",
+      "status": "PASSED",
+      "details": "Node s1_n7 -> Type: reading, Part: 7"
+    },
+    {
+      "id": 93,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 1 Node (s1_n1)",
+      "status": "PASSED",
+      "details": "Node s1_n1 -> Type: listening, Part: 1"
+    },
+    {
+      "id": 94,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 2 Node (s1_n2)",
+      "status": "PASSED",
+      "details": "Node s1_n2 -> Type: listening, Part: 2"
+    },
+    {
+      "id": 95,
+      "category": "Roadmap Logic",
+      "name": "Workstation Routing for Part 3 Node (s1_n3)",
+      "status": "PASSED",
+      "details": "Node s1_n3 -> Type: listening, Part: 3"
+    },
+    {
+      "id": 96,
+      "category": "System Sync",
+      "name": "User Profile JSON Schema & Field Cleanness",
+      "status": "PASSED",
+      "details": "Profile: 155 pts, ghost answers: 0, completedNodes: 0"
+    },
+    {
+      "id": 97,
+      "category": "System Sync",
+      "name": "Users Database Synchronization",
+      "status": "PASSED",
+      "details": "User DB: Found acc-g-1792730904332, Diagnostic Score: 155"
+    },
+    {
+      "id": 98,
+      "category": "System Sync",
+      "name": "Symmetrical Sync: ets-adaptive-scorer.js (root vs www)",
+      "status": "PASSED",
+      "details": "Scorer is identically synchronized and legacy 250 formula is completely eradicated"
+    },
+    {
+      "id": 99,
+      "category": "System Sync",
+      "name": "Symmetrical Sync: roadmap-and-traps.js (root vs www)",
+      "status": "PASSED",
+      "details": "Roadmap is identically synchronized and blind auto-completion loop is completely eradicated"
+    },
+    {
+      "id": 100,
+      "category": "System Sync",
+      "name": "Server.js /api/me SafeUser Exposes diagnosticResults & completedNodes",
+      "status": "PASSED",
+      "details": "/api/me faithfully exposes diagnosticResults and completedNodes to prevent state drift"
+    }
+  ]
+}

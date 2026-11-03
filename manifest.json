@@ -1,13 +1,13 @@
 {
   "name": "Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP 2026",
   "short_name": "Tôi Đi Đâu Đó",
-  "description": "Nền tảng luyện thi TOEIC & VSTEP toàn diện với Sói Mây AI, Dự báo điểm ETS Thích ứng IRT, Flashcard 3D và Chế độ Zen Focus.",
+  "description": "Nền tảng luyện thi TOEIC & VSTEP toàn diện với Sói Mây AI, Dự báo điểm ETS Thích ứng IRT, Flashcard 3D, Editorial Warm Sand và Chế độ Zen Focus.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#0e2238",
-  "theme_color": "#0e2238",
+  "background_color": "#F4EFEA",
+  "theme_color": "#161E2E",
   "categories": ["education", "productivity"],
   "icons": [
     {

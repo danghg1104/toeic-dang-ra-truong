@@ -1,0 +1,101 @@
+{
+  "localImgsCount": 40,
+  "localAudiosCount": 42,
+  "v2Count": 40,
+  "trapsCount": 55,
+  "appCoreCount": 7,
+  "fullPracticeCount": 4,
+  "crossDuplicates": [
+    [
+      "assets/listening/part1/p1_sample_01_person.webp",
+      {
+        "count": 3,
+        "sources": [
+          "listening-data-v2.js",
+          "app-core.bundle.js",
+          "full-part-practice.js"
+        ]
+      }
+    ],
+    [
+      "assets/listening/part1/p1_sample_02_object.webp",
+      {
+        "count": 3,
+        "sources": [
+          "listening-data-v2.js",
+          "app-core.bundle.js",
+          "full-part-practice.js"
+        ]
+      }
+    ],
+    [
+      "assets/listening/part1/p1_sample_03_scene.webp",
+      {
+        "count": 3,
+        "sources": [
+          "listening-data-v2.js",
+          "app-core.bundle.js",
+          "full-part-practice.js"
+        ]
+      }
+    ],
+    [
+      "assets/listening/part1/p1_sample_04_interaction.webp",
+      {
+        "count": 3,
+        "sources": [
+          "listening-data-v2.js",
+          "app-core.bundle.js",
+          "full-part-practice.js"
+        ]
+      }
+    ],
+    [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      {
+        "count": 2,
+        "sources": [
+          "toeic-traps-data.js",
+          "app-core.bundle.js"
+        ]
+      }
+    ],
+    [
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
+      {
+        "count": 2,
+        "sources": [
+          "toeic-traps-data.js",
+          "app-core.bundle.js"
+        ]
+      }
+    ],
+    [
+      "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80",
+      {
+        "count": 2,
+        "sources": [
+          "toeic-traps-data.js",
+          "app-core.bundle.js"
+        ]
+      }
+    ]
+  ],
+  "voiceDistribution": {
+    "en-US-JennyNeural": 5,
+    "en-US-GuyNeural": 5,
+    "en-GB-SoniaNeural": 5,
+    "en-GB-RyanNeural": 5,
+    "en-AU-NatashaNeural": 5,
+    "en-AU-WilliamMultilingualNeural": 5,
+    "en-CA-ClaraNeural": 5,
+    "en-CA-LiamNeural": 5
+  },
+  "accentDistribution": {
+    "US": 10,
+    "UK": 10,
+    "AU": 10,
+    "CA": 10
+  },
+  "totalAudioMb": "5.40"
+}

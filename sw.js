@@ -1,21 +1,30 @@
 // Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (Study Studio 2026) - Offline Audio & Dynamic Caching
-const CACHE_NAME = 'study-studio-cache-v8-soimay-logo';
+const CACHE_NAME = 'study-studio-cache-v9-editorial-m1';
 const AUDIO_CACHE_NAME = 'study-studio-audio-offline-v1';
 
 const ASSETS_TO_CACHE = [
-  '/manifest.json?v=toididaudo_v16',
+  '/',
+  '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
   '/favicon.ico',
   '/app.ico',
-  '/assets/mascot/may_avatar.png'
+  '/assets/mascot/may_avatar.png',
+  '/assets/mascot/may_reading.png',
+  '/css/tailwind.static.css',
+  '/js/vendor/canvas-confetti.min.js',
+  '/js/editorial-theme-manager.js',
+  '/js/web-audio-micro-engine.js',
+  '/js/app-tour-guide.js'
 ];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE).catch(() => {});
+      return cache.addAll(ASSETS_TO_CACHE).catch((err) => {
+        console.warn('[SW] Cache prefetch warning:', err);
+      });
     })
   );
 });
@@ -53,7 +62,6 @@ self.addEventListener('fetch', (event) => {
         }
         // Chưa lưu offline -> Tải online từ server
         return fetch(event.request).catch(async () => {
-          // Khi mất mạng, thử tìm fallback trong cache
           return cachedResponse || new Response('Offline audio not available', { status: 503 });
         });
       })
@@ -61,25 +69,56 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. KHÔNG DÙNG CACHE CHO HTML, JS, CSS, MANIFEST, ICONS VÀ API (Luôn lấy mã nguồn mới nhất từ server)
-  if (
+  // 2. NETWORK-FIRST VỚI CACHE FALLBACK CHO HTML, JS, CSS, MANIFEST, ICONS
+  // Đảm bảo luôn lấy mã nguồn mới nhất khi online, và vẫn mở được ứng dụng khi offline
+  const isCoreAsset = (
     event.request.headers.get('accept')?.includes('text/html') ||
     url.pathname === '/' ||
     url.pathname.endsWith('.html') ||
     url.pathname.endsWith('.js') ||
     url.pathname.endsWith('.css') ||
-    url.pathname.startsWith('/api/') ||
     url.pathname.includes('manifest.json') ||
     url.pathname.includes('icon') ||
     url.pathname.endsWith('.ico')
-  ) {
-    event.respondWith(fetch(event.request, { cache: 'no-cache' }));
+  );
+
+  if (isCoreAsset) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-cache' })
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const resClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, resClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          // Khi offline, tìm trong cache
+          const cached = await caches.match(event.request);
+          if (cached) return cached;
+          if (event.request.headers.get('accept')?.includes('text/html')) {
+            const rootCached = await caches.match('/');
+            if (rootCached) return rootCached;
+          }
+          return new Response('Ứng dụng đang ngoại tuyến (Offline mode).', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+        })
+    );
     return;
   }
 
+  // 3. API endpoints: Không cache để giữ realtime
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // 4. Các tài nguyên tĩnh khác: Cache-first
   event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) return cachedResponse;
+      return fetch(event.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const resClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -87,9 +126,7 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return networkResponse;
-      })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+      });
+    })
   );
 });

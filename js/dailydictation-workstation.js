@@ -1,3 +1,9 @@
+
+    function cleanWordForComparison(word) {
+        if (!word) return '';
+        return String(word).replace(/^[\s.,!?:;"'()—\-]+|[\s.,!?:;"'()—\-]+$/g, '').toLowerCase().trim();
+    }
+    
 /**
  * DAILYDICTATION TOEIC LISTENING WORKSTATION
  * Chuẩn giao diện 100% DailyDictation.com (Ảnh 1, 2, 3, 4)
