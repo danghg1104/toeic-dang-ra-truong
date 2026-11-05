@@ -239,10 +239,10 @@
         }
 
         getPublicAppUrl() {
-            if (typeof location !== 'undefined' && location.origin && location.origin.includes('trycloudflare.com')) {
+            if (typeof location !== 'undefined' && location.origin && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1')) {
                 return location.origin;
             }
-            return 'https://med-exposure-advertisements-known.trycloudflare.com';
+            return 'https://toeic-dang-ra-truong.onrender.com';
         }
 
         toggleSound() {
