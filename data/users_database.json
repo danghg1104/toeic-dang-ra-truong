@@ -11,7 +11,8 @@
     "avatarColor": "bg-indigo-600",
     "authProvider": "local",
     "createdAt": "2026-11-01T07:57:24.471Z",
-    "streak": 1
+    "streak": 1,
+    "friendCode": "KT-2026"
   },
   {
     "id": "acc-g-1792730904332",
@@ -26,7 +27,7 @@
     "examDate": "20/12/2026",
     "authProvider": "google",
     "createdAt": "2026-10-23T04:48:24.332Z",
-    "streak": 1,
+    "streak": 2,
     "diagnosticResults": {
       "testedDate": "03/11/2026",
       "totalCorrect": 6,
@@ -50,7 +51,8 @@
       "bandDesc": "Xây dựng phản xạ nhận diện âm thanh, bối cảnh tranh người và từ loại cơ bản N - V - Adj - Adv.",
       "recommendedStage": 1
     },
-    "completedNodes": []
+    "completedNodes": [],
+    "friendCode": "HD-7133"
   },
   {
     "id": "acc-g-1792724111567",
@@ -64,7 +66,8 @@
     "targetScore": "",
     "examDate": "",
     "authProvider": "google",
-    "createdAt": "2026-10-23T02:55:11.568Z"
+    "createdAt": "2026-10-23T02:55:11.568Z",
+    "friendCode": "H-1567"
   },
   {
     "id": "acc-1792720086810-mmv1",
@@ -78,7 +81,8 @@
     "avatarColor": "bg-purple-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T01:48:06.985Z",
-    "streak": 2
+    "streak": 2,
+    "friendCode": "ST-8101"
   },
   {
     "id": "acc-1792720086387-k47u",
@@ -91,7 +95,8 @@
     "examDate": "",
     "avatarColor": "bg-rose-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T01:48:06.565Z"
+    "createdAt": "2026-10-23T01:48:06.565Z",
+    "friendCode": "TB-8747"
   },
   {
     "id": "acc-1792720086036-cvbm",
@@ -105,7 +110,8 @@
     "avatarColor": "bg-teal-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T01:48:06.205Z",
-    "streak": 1
+    "streak": 1,
+    "friendCode": "NA-6036"
   },
   {
     "id": "acc-1792717299691-vyp1",
@@ -119,7 +125,8 @@
     "avatarColor": "bg-rose-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T01:01:39.960Z",
-    "streak": 2
+    "streak": 2,
+    "friendCode": "ST-6911"
   },
   {
     "id": "acc-1792717298981-zmk0",
@@ -132,7 +139,8 @@
     "examDate": "",
     "avatarColor": "bg-amber-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T01:01:39.214Z"
+    "createdAt": "2026-10-23T01:01:39.214Z",
+    "friendCode": "TB-9810"
   },
   {
     "id": "acc-1792717298381-xuz4",
@@ -145,7 +153,8 @@
     "examDate": "",
     "avatarColor": "bg-amber-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T01:01:38.654Z"
+    "createdAt": "2026-10-23T01:01:38.654Z",
+    "friendCode": "NA-3814"
   },
   {
     "id": "acc-1792716813545-8n2r",
@@ -159,7 +168,8 @@
     "avatarColor": "bg-amber-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T00:53:33.737Z",
-    "streak": 2
+    "streak": 2,
+    "friendCode": "ST-4582"
   },
   {
     "id": "acc-1792716812925-1wfv",
@@ -172,7 +182,8 @@
     "examDate": "",
     "avatarColor": "bg-purple-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T00:53:33.176Z"
+    "createdAt": "2026-10-23T00:53:33.176Z",
+    "friendCode": "TB-9251"
   },
   {
     "id": "acc-1792716812206-ovy6",
@@ -185,7 +196,8 @@
     "examDate": "",
     "avatarColor": "bg-amber-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T00:53:32.480Z"
+    "createdAt": "2026-10-23T00:53:32.480Z",
+    "friendCode": "NA-2066"
   },
   {
     "id": "acc-1792716073978-40t0",
@@ -199,7 +211,8 @@
     "avatarColor": "bg-indigo-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T00:41:14.200Z",
-    "streak": 2
+    "streak": 2,
+    "friendCode": "ST-8400"
   },
   {
     "id": "acc-1792716073265-nw57",
@@ -212,7 +225,8 @@
     "examDate": "",
     "avatarColor": "bg-emerald-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T00:41:13.524Z"
+    "createdAt": "2026-10-23T00:41:13.524Z",
+    "friendCode": "TB-6557"
   },
   {
     "id": "acc-1792716072852-1mw7",
@@ -225,7 +239,8 @@
     "examDate": "",
     "avatarColor": "bg-blue-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T00:41:13.051Z"
+    "createdAt": "2026-10-23T00:41:13.051Z",
+    "friendCode": "NA-5217"
   },
   {
     "id": "acc-g-1792716072608",
@@ -239,7 +254,8 @@
     "targetScore": "",
     "examDate": "",
     "authProvider": "google",
-    "createdAt": "2026-10-23T00:41:12.609Z"
+    "createdAt": "2026-10-23T00:41:12.609Z",
+    "friendCode": "SG-2608"
   },
   {
     "id": "acc-1792715749542-yx47",
@@ -253,7 +269,8 @@
     "avatarColor": "bg-indigo-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T00:35:49.760Z",
-    "streak": 2
+    "streak": 2,
+    "friendCode": "ST-4247"
   },
   {
     "id": "acc-1792715749097-md8h",
@@ -266,7 +283,8 @@
     "examDate": "",
     "avatarColor": "bg-teal-600",
     "authProvider": "local",
-    "createdAt": "2026-10-23T00:35:49.257Z"
+    "createdAt": "2026-10-23T00:35:49.257Z",
+    "friendCode": "TB-0978"
   },
   {
     "id": "acc-1792715748461-stvw",
@@ -280,7 +298,8 @@
     "avatarColor": "bg-purple-600",
     "authProvider": "local",
     "createdAt": "2026-10-23T00:35:48.665Z",
-    "streak": 1
+    "streak": 1,
+    "friendCode": "NA-8461"
   },
   {
     "id": "acc-g-1792229631247",
@@ -294,7 +313,8 @@
     "targetScore": "650",
     "examDate": "20/12/2026",
     "authProvider": "google",
-    "createdAt": "2026-10-17T09:33:51.247Z"
+    "createdAt": "2026-10-17T09:33:51.247Z",
+    "friendCode": "NV-1247"
   },
   {
     "id": "acc-g-1792229593150",
@@ -308,7 +328,8 @@
     "targetScore": "650",
     "examDate": "20/12/2026",
     "authProvider": "google",
-    "createdAt": "2026-10-17T09:33:13.151Z"
+    "createdAt": "2026-10-17T09:33:13.151Z",
+    "friendCode": "NT-3150"
   },
   {
     "id": "acc-1792228209202-gi5h",
@@ -321,7 +342,8 @@
     "examDate": "20/12/2026",
     "avatarColor": "bg-amber-600",
     "authProvider": "local",
-    "createdAt": "2026-10-17T09:10:09.202Z"
+    "createdAt": "2026-10-17T09:10:09.202Z",
+    "friendCode": "NT-2025"
   },
   {
     "id": "acc-1792226310955-jka6",
@@ -334,6 +356,7 @@
     "examDate": "20/12/2026",
     "avatarColor": "bg-emerald-600",
     "authProvider": "local",
-    "createdAt": "2026-10-17T08:38:30.955Z"
+    "createdAt": "2026-10-17T08:38:30.955Z",
+    "friendCode": "TU-9556"
   }
 ]

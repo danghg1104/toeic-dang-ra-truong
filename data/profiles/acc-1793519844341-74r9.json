@@ -1,9 +1,9 @@
 {
   "userId": "acc-1793519844341-74r9",
-  "lastUpdated": 1793519853445,
+  "lastUpdated": 1793898326224,
   "state": {
     "xp": 0,
-    "streak": 1,
+    "streak": 0,
     "vocabLearned": 0,
     "dictationDone": 0,
     "grammarDone": 0,
@@ -23,53 +23,64 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 1,
-    "todayStudied": true,
+    "streak": 0,
+    "todayStudied": false,
     "yesterdayStudied": false,
     "weekDays": [
       {
         "label": "T2",
-        "dateStr": "2026-10-26",
+        "dateStr": "2026-11-02",
         "isToday": false,
         "active": false
       },
       {
         "label": "T3",
-        "dateStr": "2026-10-27",
+        "dateStr": "2026-11-03",
         "isToday": false,
         "active": false
       },
       {
         "label": "T4",
-        "dateStr": "2026-10-28",
+        "dateStr": "2026-11-04",
         "isToday": false,
         "active": false
       },
       {
         "label": "T5",
-        "dateStr": "2026-10-29",
+        "dateStr": "2026-11-05",
         "isToday": false,
         "active": false
       },
       {
         "label": "T6",
-        "dateStr": "2026-10-30",
-        "isToday": false,
+        "dateStr": "2026-11-06",
+        "isToday": true,
         "active": false
       },
       {
         "label": "T7",
-        "dateStr": "2026-10-31",
+        "dateStr": "2026-11-07",
         "isToday": false,
         "active": false
       },
       {
         "label": "CN",
-        "dateStr": "2026-11-01",
-        "isToday": true,
-        "active": true
+        "dateStr": "2026-11-08",
+        "isToday": false,
+        "active": false
       }
     ],
     "lastActivityDate": "2026-11-01"
-  }
+  },
+  "friends": [
+    {
+      "id": "acc-g-1792730904332",
+      "friendCode": "HD-7133",
+      "name": "Huynh Dang",
+      "username": "danghg20008",
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIqf3GZEx2d0AUkcqFTnPvvecQ6MTf9v89adahm3RECplz0HQ=s96-c",
+      "avatarColor": "bg-emerald-600",
+      "addedAt": "2026-11-05T17:05:26.217Z"
+    }
+  ]
 }

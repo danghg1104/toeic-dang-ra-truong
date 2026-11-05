@@ -1,11 +1,11 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793896219938,
+  "lastUpdated": 1793899078834,
   "targetScore": "600",
   "examDate": "20/12/2026",
   "state": {
     "xp": 40,
-    "streak": 1,
+    "streak": 2,
     "vocabLearned": 2,
     "dictationDone": 0,
     "grammarDone": 2,
@@ -30,7 +30,8 @@
     "2026-11-01",
     "2026-11-02",
     "2026-11-03",
-    "2026-11-05"
+    "2026-11-05",
+    "2026-11-06"
   ],
   "learnedVocabItems": [],
   "savedVocabItems": [],
@@ -52,9 +53,9 @@
   "dictationHistory": [],
   "mockHistory": [],
   "streakInfo": {
-    "streak": 1,
+    "streak": 2,
     "todayStudied": true,
-    "yesterdayStudied": false,
+    "yesterdayStudied": true,
     "weekDays": [
       {
         "label": "T2",
@@ -77,14 +78,14 @@
       {
         "label": "T5",
         "dateStr": "2026-11-05",
-        "isToday": true,
+        "isToday": false,
         "active": true
       },
       {
         "label": "T6",
         "dateStr": "2026-11-06",
-        "isToday": false,
-        "active": false
+        "isToday": true,
+        "active": true
       },
       {
         "label": "T7",
@@ -99,7 +100,7 @@
         "active": false
       }
     ],
-    "lastActivityDate": "2026-11-05"
+    "lastActivityDate": "2026-11-06"
   },
   "lastSourceDevice": "Thiết bị",
   "lastDeviceId": "unknown",
@@ -127,5 +128,16 @@
     "bandDesc": "Xây dựng phản xạ nhận diện âm thanh, bối cảnh tranh người và từ loại cơ bản N - V - Adj - Adv.",
     "recommendedStage": 1
   },
-  "completedNodes": []
+  "completedNodes": [],
+  "friends": [
+    {
+      "id": "acc-1793519844341-74r9",
+      "friendCode": "KT-2026",
+      "name": "Kiểm Thử Reviewer",
+      "username": "kiemthu2026",
+      "avatar": "",
+      "avatarColor": "bg-indigo-600",
+      "addedAt": "2026-11-05T17:05:26.206Z"
+    }
+  ]
 }

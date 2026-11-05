@@ -32,6 +32,8 @@
             this.inlineContainerId = null;
             this.currentTab = 'quick'; // 'quick' | 'room' | 'friends'
             this.onlineUsersList = [];
+            this.friendsList = [];
+            this.myFriendCode = 'HD-7133';
             this.currentRoomCode = null;
             this.activeInvite = null;
         }
@@ -39,6 +41,7 @@
         init() {
             this.ensureStyles();
             this.createModalDOM();
+            this.loadFriendsList();
             try {
                 if (location.hash && location.hash.includes('pvp_room=')) {
                     const match = location.hash.match(/pvp_room=([A-Za-z0-9]+)/);
@@ -227,8 +230,89 @@
             this.state = 'IDLE';
         }
 
+        async loadFriendsList() {
+            try {
+                const user = window.currentUserAccount || {};
+                const uId = user.id ? `?userId=${encodeURIComponent(user.id)}` : '';
+                const res = await fetch(`/api/user/friends${uId}`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success) {
+                        this.friendsList = data.friends || [];
+                        if (data.myFriendCode) this.myFriendCode = data.myFriendCode;
+                    }
+                }
+            } catch (e) {
+                console.warn('[PvP Client] loadFriendsList note:', e.message);
+            }
+        }
+
+        copyFriendCode() {
+            const code = this.myFriendCode || 'HD-7133';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code);
+                if (typeof showToast === 'function') {
+                    showToast('✨ Đã sao chép Mã Friend ID: ' + code + ' (Gửi mã này cho bạn bè)');
+                }
+            } else {
+                prompt('Mã Friend ID của bạn:', code);
+            }
+        }
+
+        async addFriend(code) {
+            if (!code || !code.trim()) {
+                if (typeof showToast === 'function') showToast('⚠️ Vui lòng nhập mã bạn bè!');
+                else alert('Vui lòng nhập mã bạn bè!');
+                return;
+            }
+            try {
+                const user = window.currentUserAccount || {};
+                const res = await fetch('/api/user/friends/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ friendCode: code.trim(), userId: user.id })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    if (typeof showToast === 'function') showToast('🎉 ' + data.message);
+                    await this.loadFriendsList();
+                    this.renderIdleView();
+                } else {
+                    if (typeof showToast === 'function') showToast('⚠️ ' + (data.error || 'Không thể kết bạn'));
+                    else alert(data.error);
+                }
+            } catch (e) {
+                if (typeof showToast === 'function') showToast('⚠️ Lỗi kết nối: ' + e.message);
+            }
+        }
+
+        async removeFriend(friendId, friendName) {
+            if (!confirm(`Bạn có chắc muốn hủy kết bạn với ${friendName || 'người này'}?`)) return;
+            try {
+                const user = window.currentUserAccount || {};
+                const res = await fetch('/api/user/friends/remove', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ friendId, userId: user.id })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    if (typeof showToast === 'function') showToast('Đã xóa khỏi danh sách bạn bè.');
+                    await this.loadFriendsList();
+                    this.renderIdleView();
+                }
+            } catch (e) {
+                console.error('Lỗi xóa bạn bè:', e);
+            }
+        }
+
         setLobbyTab(tab) {
             this.currentTab = tab;
+            if (tab === 'friends') {
+                this.loadFriendsList().then(() => this.renderIdleView());
+            }
             if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
                 this.connectWebSocket();
             } else if (tab === 'friends') {
@@ -551,51 +635,120 @@
                         </div>
                     ` : ''}
 
-                    <!-- TAB 3: FRIENDS & ONLINE ACCOUNTS -->
+                    <!-- TAB 3: BẠN BÈ & THÁCH ĐẤU 1V1 (FRIEND CODE & LIVE PRESENCE) -->
                     ${this.currentTab === 'friends' ? `
                         <div class="space-y-4 py-1">
-                            <div class="flex items-center justify-between text-xs text-slate-400 px-1">
-                                <span>Bạn học TOEIC đang trực tuyến trên hệ thống:</span>
-                                <button onclick="window.PvPArenaClient.refreshOnlineList()" class="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 cursor-pointer">
-                                    <i class="fa-solid fa-rotate text-[11px]"></i> Làm mới
-                                </button>
-                            </div>
-
-                            ${this.onlineUsersList.length === 0 ? `
-                                <div class="p-8 rounded-3xl bg-slate-950/50 border border-slate-800 text-center space-y-3 max-w-md mx-auto">
-                                    <div class="text-3xl">👥</div>
-                                    <h5 class="text-sm font-bold text-white">Hiện chưa có bạn học nào khác đang online</h5>
-                                    <p class="text-xs text-slate-400 leading-relaxed">
-                                        Mẹo: Bạn có thể mở một <strong>cửa sổ ẩn danh (Incognito)</strong> hoặc đăng nhập tài khoản khác trên điện thoại (qua link bên dưới) để thử nghiệm đấu 1v1 người với người ngay lập tức!
-                                    </p>
-                                    <button onclick="window.PvPArenaClient.copyPublicOnlineLink()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer shadow-sm active:scale-95 inline-flex items-center gap-1.5">
-                                        <i class="fa-solid fa-share-nodes"></i>
-                                        <span>Sao chép Link để mở trên điện thoại</span>
-                                    </button>
-                                </div>
-                            ` : `
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto">
-                                    ${this.onlineUsersList.map(u => `
-                                        <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-3 shadow-xs">
-                                            <div class="flex items-center gap-3 overflow-hidden">
-                                                <div class="relative w-10 h-10 shrink-0">
-                                                    <img src="${u.avatar || '/assets/mascot/soi_may_avt.png'}" class="w-full h-full rounded-xl object-cover border border-slate-700">
-                                                    <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full ${u.status === 'IN_MATCH' ? 'bg-amber-500' : 'bg-emerald-500'} border-2 border-slate-900"></span>
-                                                </div>
-                                                <div class="truncate">
-                                                    <div class="text-xs font-bold text-white truncate">${u.username}</div>
-                                                    <span class="text-[10px] font-semibold text-slate-400">
-                                                        ${u.status === 'IN_MATCH' ? '⚔️ Đang đấu' : '🟢 Sẵn sàng'}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <button onclick="window.PvPArenaClient.inviteUser('${u.userId}', '${u.username}')" ${u.status === 'IN_MATCH' ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl text-xs font-bold ${u.status === 'IN_MATCH' ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white shadow-xs cursor-pointer active:scale-95'} transition shrink-0">
-                                                ⚔️ Thách đấu
+                            <!-- Section 1: Thẻ Mã Friend ID Của Tôi -->
+                            <div class="p-4 sm:p-5 rounded-3xl bg-slate-950/80 border border-amber-400/30 shadow-lg relative overflow-hidden">
+                                <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 relative z-10">
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                                            <span class="text-xs font-black uppercase text-amber-400 tracking-wider">Mã Friend ID Của Bạn</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 pt-0.5">
+                                            <span class="px-4 py-1.5 rounded-xl bg-slate-900 border border-amber-400/50 text-amber-300 font-mono font-black text-lg sm:text-xl tracking-wider shadow-inner select-all">
+                                                ${this.myFriendCode || 'HD-7133'}
+                                            </span>
+                                            <button onclick="window.PvPArenaClient.copyFriendCode()" class="py-2 px-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs transition cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95">
+                                                <i class="fa-regular fa-copy"></i>
+                                                <span>Sao chép mã</span>
                                             </button>
                                         </div>
-                                    `).join('')}
+                                        <p class="text-[11px] text-slate-400 pt-0.5 leading-snug">
+                                            Chia sẻ mã này để bạn bè kết bạn và gửi lời mời đấu 1v1 trực tiếp bất cứ lúc nào.
+                                        </p>
+                                    </div>
+                                    <div class="shrink-0 flex items-center gap-2">
+                                        <button onclick="window.PvPArenaClient.refreshFriendsList()" class="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold transition cursor-pointer flex items-center gap-1.5">
+                                            <i class="fa-solid fa-rotate text-[11px]"></i>
+                                            <span>Làm mới</span>
+                                        </button>
+                                    </div>
                                 </div>
-                            `}
+                            </div>
+
+                            <!-- Section 2: Ô Nhập Mã Để Kết Bạn -->
+                            <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-950/70 border border-slate-800 shadow-md">
+                                <span class="block text-xs font-extrabold text-white mb-2">Thêm Bạn Bè Mới Bằng Mã ID:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="relative flex-1">
+                                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                                        <input type="text" id="pvpAddFriendInput" placeholder="Nhập mã bạn bè (Ví dụ: KT-2026 hoặc HD-7133)..." 
+                                            class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-400 text-white font-mono text-xs sm:text-sm uppercase placeholder-slate-500 focus:outline-none transition">
+                                    </div>
+                                    <button onclick="window.PvPArenaClient.addFriend(document.getElementById('pvpAddFriendInput').value)" 
+                                        class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shrink-0 cursor-pointer shadow-md active:scale-95 transition">
+                                        + Kết Bạn
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Danh Sách Bạn Bè Đã Kết Bạn -->
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between text-xs text-slate-300 px-1 font-bold">
+                                    <span>Danh sách bạn bè (${this.friendsList.length}):</span>
+                                    <span class="text-emerald-400 font-extrabold">
+                                        ${this.friendsList.filter(f => f.isOnline || this.onlineUsersList.some(u => u.userId === f.id || (u.friendCode && u.friendCode === f.friendCode))).length} Đang Online
+                                    </span>
+                                </div>
+
+                                ${this.friendsList.length === 0 ? `
+                                    <div class="p-8 rounded-3xl bg-slate-950/50 border border-slate-800/80 text-center space-y-3 max-w-md mx-auto">
+                                        <div class="text-3xl">🤝</div>
+                                        <h5 class="text-sm font-bold text-white">Chưa có bạn bè nào trong danh bạ</h5>
+                                        <p class="text-xs text-slate-400 leading-relaxed">
+                                            Nhập mã Friend ID của bạn học ở trên hoặc gửi mã <strong>${this.myFriendCode}</strong> cho bạn bè để kết nối cùng học tập và so tài!
+                                        </p>
+                                    </div>
+                                ` : `
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        ${this.friendsList.map(f => {
+                                            const isOnline = f.isOnline || this.onlineUsersList.some(u => u.userId === f.id || (u.friendCode && u.friendCode === f.friendCode));
+                                            const liveUser = this.onlineUsersList.find(u => u.userId === f.id || (u.friendCode && u.friendCode === f.friendCode));
+                                            const status = liveUser ? liveUser.status : (isOnline ? 'IDLE' : 'OFFLINE');
+                                            const initial = (f.name ? f.name.trim()[0] : 'B').toUpperCase();
+                                            return `
+                                                <div class="p-3.5 rounded-2xl bg-slate-950/75 border border-slate-800 hover:border-amber-400/40 flex items-center justify-between gap-3 shadow-sm transition">
+                                                    <div class="flex items-center gap-3 overflow-hidden min-w-0">
+                                                        <div class="relative w-10 h-10 shrink-0">
+                                                            <div class="w-full h-full rounded-xl ${f.avatarColor || 'bg-indigo-600'} flex items-center justify-center text-white font-bold text-sm">
+                                                                ${f.avatar ? `<img src="${f.avatar}" onerror="this.remove()" class="w-full h-full rounded-xl object-cover">` : initial}
+                                                            </div>
+                                                            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full ${status === 'IN_MATCH' ? 'bg-amber-500' : (isOnline ? 'bg-emerald-500' : 'bg-slate-600')} border-2 border-slate-900"></span>
+                                                        </div>
+                                                        <div class="truncate">
+                                                            <div class="flex items-center gap-1.5">
+                                                                <span class="text-xs font-bold text-white truncate">${f.name || f.username}</span>
+                                                                <span class="px-1.5 py-0.2 rounded bg-slate-800 text-amber-300 font-mono text-[9.5px] font-bold shrink-0">${f.friendCode || ''}</span>
+                                                            </div>
+                                                            <span class="text-[10px] font-semibold ${isOnline ? 'text-emerald-400' : 'text-slate-400'}">
+                                                                ${status === 'IN_MATCH' ? '⚔️ Đang trong trận' : (isOnline ? '🟢 Đang Online' : '⚪ Ngoại tuyến')}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5 shrink-0">
+                                                        ${isOnline && status !== 'IN_MATCH' ? `
+                                                            <button onclick="window.PvPArenaClient.inviteUser('${f.id}', '${f.name}', '${f.friendCode}')" 
+                                                                class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-slate-950 shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition">
+                                                                ⚔️ Mời Đấu
+                                                            </button>
+                                                        ` : `
+                                                            <button disabled class="px-2.5 py-1.5 rounded-xl text-[11px] font-semibold bg-slate-900 border border-slate-800 text-slate-500 cursor-not-allowed">
+                                                                ${status === 'IN_MATCH' ? 'Đang đấu' : 'Ngoại tuyến'}
+                                                            </button>
+                                                        `}
+                                                        <button onclick="window.PvPArenaClient.removeFriend('${f.id}', '${f.name}')" class="w-7 h-7 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-slate-800 flex items-center justify-center transition cursor-pointer" title="Xóa bạn bè">
+                                                            <i class="fa-solid fa-xmark text-xs"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                `}
+                            </div>
                         </div>
                     ` : ''}
                 </div>
@@ -670,6 +823,11 @@
             }
         }
 
+        async refreshFriendsList() {
+            await this.loadFriendsList();
+            this.refreshOnlineList();
+        }
+
         refreshOnlineList() {
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
                 const user = window.currentUserAccount || {};
@@ -680,19 +838,21 @@
             }
         }
 
-        inviteUser(targetUserId, targetUsername) {
+        inviteUser(targetUserId, targetUsername, targetFriendCode = '') {
             if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
                 this.connectWebSocket();
-                setTimeout(() => this.inviteUser(targetUserId, targetUsername), 600);
+                setTimeout(() => this.inviteUser(targetUserId, targetUsername, targetFriendCode), 600);
                 return;
             }
             const user = window.currentUserAccount || {};
             this.ws.send(JSON.stringify({
                 type: 'INVITE_FRIEND',
                 targetUserId,
+                targetFriendCode,
                 fromUser: {
                     userId: user.id || 'guest_' + Date.now(),
                     username: user.name || 'Chiến Binh TOEIC',
+                    friendCode: this.myFriendCode || user.friendCode || 'HD-7133',
                     avatar: user.avatar || '/assets/mascot/soi_may_avt.png'
                 }
             }));
@@ -705,25 +865,52 @@
             const fromUser = data.fromUser || {};
             const inviteId = data.inviteId;
 
+            // Âm thanh chuông báo mời đấu (E6 ding!)
+            if (this.soundEnabled) {
+                try {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) {
+                        const ctx = new AudioCtx();
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(880, ctx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.15);
+                        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 0.4);
+                    }
+                } catch (e) {}
+            }
+
             // Xóa lời mời cũ nếu có
             const oldBox = document.getElementById('pvpIncomingInviteModal');
             if (oldBox) oldBox.remove();
 
             const inviteModal = document.createElement('div');
             inviteModal.id = 'pvpIncomingInviteModal';
-            inviteModal.className = 'fixed top-5 right-5 z-[99999] max-w-sm w-full bg-slate-900 border-2 border-amber-400 text-white rounded-3xl p-4 shadow-2xl animate-bounce';
+            inviteModal.className = 'fixed top-4 right-4 sm:right-6 z-[99999] max-w-sm w-[92vw] sm:w-full bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 border-2 border-amber-400/90 text-white rounded-3xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(245,158,11,0.35)] animate-bounce';
             inviteModal.innerHTML = `
                 <div class="flex items-start gap-3">
-                    <img src="${fromUser.avatar || '/assets/mascot/soi_may_avt.png'}" class="w-12 h-12 rounded-2xl object-cover border border-amber-400">
+                    <div class="relative w-12 h-12 shrink-0">
+                        <img src="${fromUser.avatar || '/assets/mascot/soimay_reading_square.png'}" onerror="this.src='/assets/mascot/may_reading.png'" class="w-full h-full rounded-2xl object-cover border-2 border-amber-400">
+                        <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-950"></span>
+                    </div>
                     <div class="flex-1 min-w-0">
-                        <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider">Lời Thách Đấu PvP 1v1!</div>
-                        <div class="text-sm font-extrabold text-white truncate">${fromUser.username || 'Bạn học'}</div>
-                        <p class="text-xs text-slate-300 mt-0.5">Muốn so tài 10 từ vựng phản xạ 60s cùng bạn!</p>
-                        <div class="flex items-center gap-2 mt-3">
-                            <button onclick="window.PvPArenaClient.acceptInvite('${inviteId}')" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black transition cursor-pointer shadow-sm active:scale-95">
-                                ✓ Chấp nhận
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="text-[10.5px] font-black text-amber-400 uppercase tracking-wider">✨ Thách Đấu 1v1</span>
+                            ${fromUser.friendCode ? `<span class="px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 font-mono text-[10px] font-bold">${fromUser.friendCode}</span>` : ''}
+                        </div>
+                        <div class="text-sm font-extrabold text-white truncate mt-0.5">${fromUser.username || 'Bạn học'}</div>
+                        <p class="text-xs text-slate-300 mt-1 leading-snug">Vừa mời bạn vào so tài 10 từ vựng phản xạ 60 giây!</p>
+                        <div class="flex items-center gap-2 mt-3.5">
+                            <button onclick="window.PvPArenaClient.acceptInvite('${inviteId}')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-black transition cursor-pointer shadow-md active:scale-95 flex items-center gap-1.5">
+                                <span>⚔️ Chấp nhận</span>
                             </button>
-                            <button onclick="window.PvPArenaClient.rejectInvite('${inviteId}')" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-bold transition cursor-pointer">
+                            <button onclick="window.PvPArenaClient.rejectInvite('${inviteId}')" class="px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-bold transition cursor-pointer">
                                 Từ chối
                             </button>
                         </div>
@@ -732,12 +919,12 @@
             `;
             document.body.appendChild(inviteModal);
 
-            // Tự động đóng sau 15 giây nếu không phản hồi
+            // Tự động đóng sau 18 giây nếu không phản hồi
             setTimeout(() => {
                 if (document.getElementById('pvpIncomingInviteModal')) {
                     document.getElementById('pvpIncomingInviteModal').remove();
                 }
-            }, 15000);
+            }, 18000);
         }
 
         acceptInvite(inviteId) {
@@ -824,7 +1011,8 @@
                         type: 'REGISTER_USER',
                         userId: uId,
                         username: uName,
-                        avatar: uAvt
+                        avatar: uAvt,
+                        friendCode: this.myFriendCode || user.friendCode || 'HD-7133'
                     }));
 
                     // Yêu cầu danh sách bạn bè trực tuyến
@@ -1191,16 +1379,73 @@
             const body = this.getBodyContainer();
             if (!body) return;
 
+            const total = (this.myScore + this.opponentScore) || 1;
+            const myPct = Math.round((this.myScore / total) * 100);
+
             body.innerHTML = `
-                <div class="space-y-6 text-center py-8">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-indigo-600/30 border-2 border-indigo-400 flex items-center justify-center text-2xl text-white animate-spin">
-                        <i class="fa-solid fa-hourglass-half"></i>
+                <div class="space-y-5 animate-fadeIn">
+                    <!-- Battle HUD Header (Preserved) -->
+                    <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600/30 border border-emerald-400/50 flex items-center justify-center font-black text-emerald-300 text-sm">
+                                10/10
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase text-emerald-400">🏁 ĐÃ VỀ ĐÍCH</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xl font-black text-white" id="pvpMyScore">${this.myScore}</span>
+                                    <span class="px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-[10px] font-black ${this.myCombo >= 2 ? '' : 'hidden'}" id="pvpMyCombo">
+                                        🔥 x${this.myCombo}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Countdown Timer -->
+                        <div class="text-center">
+                            <span class="block text-[10px] font-bold text-slate-400 uppercase">Đồng Bộ</span>
+                            <div class="text-xl font-mono text-amber-300 font-bold transition-all duration-300" id="pvpCountdown">
+                                ${this.remainingSeconds}s
+                            </div>
+                        </div>
+
+                        <!-- Opponent Score -->
+                        <div class="flex items-center gap-3 text-right">
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase text-slate-400">${this.currentMatch?.opponent?.username || 'Đối Thủ'}</span>
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="px-1.5 py-0.5 rounded-md bg-red-500/20 text-red-300 text-[10px] font-black ${this.opponentCombo >= 2 ? '' : 'hidden'}" id="pvpOpponentCombo">
+                                        🔥 x${this.opponentCombo}
+                                    </span>
+                                    <span class="text-xl font-black text-slate-300" id="pvpOpponentScore">${this.opponentScore}</span>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-red-600/30 border border-red-400/50 flex items-center justify-center font-black text-white text-sm">
+                                ⚔️
+                            </div>
+                        </div>
                     </div>
-                    <div class="space-y-1">
-                        <h4 class="text-base font-black text-white">Bạn Đã Hoàn Thành 10/10 Câu!</h4>
-                        <p class="text-xs text-slate-400">Đang chờ đối thủ hoàn thành hoặc đếm hết 60 giây...</p>
+
+                    <!-- Progress Comparison Bar -->
+                    <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden flex">
+                        <div id="pvpMyProgressBar" class="h-full bg-indigo-500 transition-all duration-300" style="width: ${myPct}%;"></div>
+                        <div id="pvpOpponentProgressBar" class="h-full bg-red-500 transition-all duration-300" style="width: ${100 - myPct}%;"></div>
                     </div>
-                    <div class="text-xl font-mono text-amber-300 font-bold" id="pvpCountdown">${this.remainingSeconds}s</div>
+
+                    <!-- Non-destructive Waiting Card -->
+                    <div class="p-8 rounded-3xl bg-slate-900/85 border-2 border-indigo-500/30 text-center space-y-4 shadow-xl">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-2xl text-amber-300 animate-pulse">
+                            <i class="fa-solid fa-flag-checkered"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-lg font-black text-white">Bạn Đã Hoàn Thành Cả 10 Câu!</h4>
+                            <p class="text-xs text-slate-300">Đang đồng bộ kết quả trực tiếp với đối thủ...</p>
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-700/50 text-xs text-indigo-300">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span>Trực tiếp • Sẵn sàng công bố bảng điểm</span>
+                        </div>
+                    </div>
                 </div>
             `;
         }

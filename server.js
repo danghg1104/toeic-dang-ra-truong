@@ -1,5 +1,5 @@
 // Milestone 4: PvP WebSocket Server & AI Explanation Engine
-const { setupPvPArenaWebSocket } = require('./lib/pvp-arena-server');
+const { setupPvPArenaWebSocket, pvpArenaServerInstance } = require('./lib/pvp-arena-server');
 const { explainMistake } = require('./lib/ai-explanation-engine');
 const http = require('http');
 const https = require('https');
@@ -258,11 +258,51 @@ function verifyPassword(password, stored) {
 // =========================================================================
 // QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG & HỒ SƠ ĐỘC LẬP
 // =========================================================================
+// HỆ THỐNG MÃ BẠN BÈ ĐỘC QUYỀN (FRIEND CODE SYSTEM)
+// =========================================================================
+function getOrCreateFriendCode(user) {
+  if (!user) return 'ANON-0000';
+  if (user.friendCode) return user.friendCode;
+
+  const email = (user.email || '').toLowerCase();
+  const name = (user.name || '').toLowerCase();
+
+  // Chủ sở hữu tài khoản (Huynh Dang) nhận mã độc quyền HD-7133
+  if (user.id === 'acc-g-1792730904332' || email === 'danghg20008@gmail.com' || name.includes('huynh dang')) {
+    user.friendCode = 'HD-7133';
+  } else if (user.id === 'acc-1793519844341-74r9' || user.username === 'kiemthu2026') {
+    user.friendCode = 'KT-2026';
+  } else {
+    const rawName = user.name || user.username || 'CB';
+    const words = rawName.trim().split(/\s+/);
+    let initials = '';
+    if (words.length >= 2) {
+      initials = (words[0][0] + words[words.length - 1][0]).toUpperCase();
+    } else {
+      initials = rawName.slice(0, 2).toUpperCase();
+    }
+    initials = initials.replace(/[^A-Z0-9]/g, '') || 'TD';
+    const digits = (user.id ? user.id.replace(/\D/g, '').slice(-4) : '').padStart(4, '7');
+    user.friendCode = `${initials}-${digits}`;
+  }
+  return user.friendCode;
+}
+
 function loadUsersDatabase() {
   try {
     if (fs.existsSync(USERS_FILE)) {
       const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
       if (Array.isArray(users)) {
+        let changed = false;
+        users.forEach(u => {
+          if (!u.friendCode) {
+            getOrCreateFriendCode(u);
+            changed = true;
+          }
+        });
+        if (changed) {
+          saveUsersDatabase(users);
+        }
         return users;
       }
     }
@@ -2418,6 +2458,8 @@ const server = http.createServer((req, res) => {
     const profile = loadUserProfile(userId);
     const safeUser = {
       ...user,
+      friendCode: getOrCreateFriendCode(user),
+      friends: profile.friends || [],
       streak: profile.state?.streak || profile.streakInfo?.streak || user.streak || 0,
       targetScore: profile.targetScore || user.targetScore || '',
       examDate: profile.examDate || user.examDate || '',
@@ -3010,6 +3052,167 @@ const server = http.createServer((req, res) => {
         targetScore: scoreStr,
         examDate: dateStr
       }));
+    });
+    return;
+  }
+
+  // 2d. Lấy danh sách bạn bè & trạng thái online thực tế (GET /api/user/friends)
+  if (reqPath === '/api/user/friends' && req.method === 'GET') {
+    let userId = getAuthenticatedUserId(req);
+    if (!userId) {
+      try {
+        const u = new URL(req.url, 'http://localhost');
+        userId = u.searchParams.get('userId');
+      } catch (e) {}
+    }
+    if (!userId) {
+      res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+    }
+
+    const users = loadUsersDatabase();
+    const currentUser = users.find(u => u.id === userId);
+    const profile = loadUserProfile(userId);
+    const rawFriends = profile.friends || [];
+
+    // Bổ sung thông tin trực tuyến thời gian thực từ pvpArenaServerInstance
+    const friendsWithStatus = rawFriends.map(f => {
+      const isOnline = pvpArenaServerInstance ? pvpArenaServerInstance.onlineUsers.has(f.id) : false;
+      const onlineUser = pvpArenaServerInstance ? pvpArenaServerInstance.onlineUsers.get(f.id) : null;
+      return {
+        ...f,
+        isOnline: !!isOnline,
+        status: onlineUser ? onlineUser.status : 'OFFLINE'
+      };
+    });
+
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+      ...getCorsHeaders(req)
+    });
+    res.end(JSON.stringify({
+      success: true,
+      myFriendCode: currentUser ? getOrCreateFriendCode(currentUser) : 'CB-2026',
+      friends: friendsWithStatus
+    }));
+    return;
+  }
+
+  // 2e. Thêm bạn bè bằng mã Friend ID / username (POST /api/user/friends/add)
+  if (reqPath === '/api/user/friends/add' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      let userId = getAuthenticatedUserId(req);
+      if (!userId && payload?.userId) userId = payload.userId;
+      if (!userId) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
+
+      const inputCode = (payload?.friendCode || payload?.code || '').trim();
+      if (!inputCode) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Vui lòng nhập mã bạn bè hợp lệ.' }));
+      }
+
+      const users = loadUsersDatabase();
+      const currentUser = users.find(u => u.id === userId);
+      if (!currentUser) {
+        res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Tài khoản của bạn không tồn tại.' }));
+      }
+
+      const cleanCode = inputCode.toUpperCase();
+      const targetUser = users.find(u => {
+        const uCode = getOrCreateFriendCode(u).toUpperCase();
+        return uCode === cleanCode || u.id === inputCode || (u.username && u.username.toUpperCase() === cleanCode);
+      });
+
+      if (!targetUser) {
+        res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: `Không tìm thấy tài khoản với mã "${inputCode}".` }));
+      }
+
+      if (targetUser.id === currentUser.id) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Bạn không thể kết bạn với chính mình.' }));
+      }
+
+      // Thêm bạn bè 2 chiều
+      const myProfile = loadUserProfile(currentUser.id);
+      if (!myProfile.friends) myProfile.friends = [];
+      const alreadyFriend = myProfile.friends.some(f => f.id === targetUser.id);
+      if (alreadyFriend) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: `"${targetUser.name}" đã có trong danh sách bạn bè của bạn.` }));
+      }
+
+      const targetFriendData = {
+        id: targetUser.id,
+        friendCode: getOrCreateFriendCode(targetUser),
+        name: targetUser.name,
+        username: targetUser.username,
+        avatar: targetUser.avatar || '',
+        avatarColor: targetUser.avatarColor || 'bg-indigo-600',
+        addedAt: new Date().toISOString()
+      };
+      myProfile.friends.push(targetFriendData);
+      saveUserProfile(currentUser.id, myProfile);
+
+      // Thêm ngược lại vào profile của target
+      const targetProfile = loadUserProfile(targetUser.id);
+      if (!targetProfile.friends) targetProfile.friends = [];
+      if (!targetProfile.friends.some(f => f.id === currentUser.id)) {
+        targetProfile.friends.push({
+          id: currentUser.id,
+          friendCode: getOrCreateFriendCode(currentUser),
+          name: currentUser.name,
+          username: currentUser.username,
+          avatar: currentUser.avatar || '',
+          avatarColor: currentUser.avatarColor || 'bg-emerald-600',
+          addedAt: new Date().toISOString()
+        });
+        saveUserProfile(targetUser.id, targetProfile);
+      }
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({
+        success: true,
+        message: `Đã kết bạn thành công với ${targetUser.name} (${targetFriendData.friendCode})!`,
+        friend: {
+          ...targetFriendData,
+          isOnline: pvpArenaServerInstance ? pvpArenaServerInstance.onlineUsers.has(targetUser.id) : false,
+          status: pvpArenaServerInstance?.onlineUsers.get(targetUser.id)?.status || 'OFFLINE'
+        }
+      }));
+    });
+    return;
+  }
+
+  // 2f. Xóa bạn bè (POST /api/user/friends/remove)
+  if (reqPath === '/api/user/friends/remove' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      let userId = getAuthenticatedUserId(req);
+      if (!userId && payload?.userId) userId = payload.userId;
+      if (!userId) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
+
+      const friendId = payload?.friendId;
+      if (!friendId) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Thiếu friendId cần xóa' }));
+      }
+
+      const myProfile = loadUserProfile(userId);
+      if (myProfile.friends) {
+        myProfile.friends = myProfile.friends.filter(f => f.id !== friendId);
+        saveUserProfile(userId, myProfile);
+      }
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: true, message: 'Đã xóa bạn bè thành công.' }));
     });
     return;
   }
