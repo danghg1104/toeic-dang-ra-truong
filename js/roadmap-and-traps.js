@@ -563,8 +563,8 @@ window.PersonalizedRoadmapEngine = {
         const svgPathD = "M 50 60 C 50 117.5, 75 117.5, 75 175 C 75 232.5, 62 232.5, 62 290 C 62 347.5, 50 347.5, 50 405 C 50 462.5, 25 462.5, 25 520 C 25 577.5, 38 577.5, 38 635 C 38 692.5, 50 692.5, 50 750";
 
         container.innerHTML = `
-            <!-- TOP HERO BANNER: MỤC TIÊU RA TRƯỜNG -->
-            <div class="rounded-[28px] p-6 lg:p-7 relative overflow-hidden text-white shadow-xl ${isUrgent ? 'bg-gradient-to-r from-rose-600 via-amber-600 to-orange-600' : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700'}">
+            <!-- TOP HERO BANNER: MỤC TIÊU RA TRƯỜNG (HẢI TRÌNH TINH TÚ) -->
+            <div class="rounded-[28px] p-6 lg:p-7 relative overflow-hidden text-white shadow-xl artisan-voyage-banner">
                 <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                     <div class="space-y-2 max-w-xl">
                         <div class="flex items-center gap-2">
@@ -721,7 +721,7 @@ window.PersonalizedRoadmapEngine = {
             <!-- ========================================================================= -->
             <!-- BẢN ĐỒ LỘ TRÌNH DỌC S-CURVE ZIGZAG (GAMIFICATION MAP CHUẨN HELLOCHINESE) -->
             <!-- ========================================================================= -->
-            <div class="glass-panel rounded-[28px] p-5 sm:p-7 space-y-8 relative overflow-hidden" id="roadmapVerticalMapContainer">
+            <div class="glass-panel rounded-[28px] p-5 sm:p-7 space-y-8 relative overflow-hidden artisan-deckled-paper" id="roadmapVerticalMapContainer">
                 <!-- Map Header -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
                     <div class="space-y-1">
@@ -758,7 +758,8 @@ window.PersonalizedRoadmapEngine = {
 
                 <!-- MASCOT COMPANION CARD (Hình 1: Sói Mây Thám Hiểm Lộ Trình 990) -->
                 <div class="p-4 sm:p-5 rounded-3xl border border-amber-200/90 dark:border-slate-700 bg-gradient-to-r from-amber-50/90 via-white to-orange-50/80 dark:from-slate-800/90 dark:to-slate-850 shadow-sm flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-                    <div class="w-20 sm:w-24 shrink-0 flex items-center justify-center p-2 rounded-2xl bg-[#f9f1dc] dark:bg-slate-750 border border-amber-300/80 shadow-xs">
+                    <div class="w-20 sm:w-24 shrink-0 flex items-center justify-center p-2 rounded-2xl bg-[#f9f1dc] dark:bg-slate-750 border border-amber-300/80 shadow-xs artisan-polaroid relative">
+                        <div class="artisan-washi-tape"></div>
                         <img src="/assets/mascot/may_explorer.png" alt="Sói Mây Thám Hiểm Lộ Trình 990" class="max-h-36 sm:max-h-40 object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="space-y-1.5 text-center sm:text-left flex-1 min-w-0">

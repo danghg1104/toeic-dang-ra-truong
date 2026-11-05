@@ -111,7 +111,7 @@
             modal.id = 'pvpArenaModal';
             modal.className = 'fixed inset-0 z-[11000] hidden flex items-center justify-center p-3 sm:p-5 bg-slate-950/80 backdrop-blur-md transition-all duration-300';
             modal.innerHTML = `
-                <div class="relative w-full max-w-4xl bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+                <div class="relative w-full max-w-4xl bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] artisan-ocean-stage">
                     <!-- Header -->
                     <div class="p-4 sm:p-5 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70">
                         <div class="flex items-center gap-3">
@@ -160,7 +160,7 @@
             if (!container) return;
 
             container.innerHTML = `
-                <div class="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col min-h-[620px]">
+                <div class="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col min-h-[620px] artisan-ocean-stage">
                     <!-- Header Bar -->
                     <div class="p-4 sm:p-6 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70 backdrop-blur-md">
                         <div class="flex items-center gap-3">

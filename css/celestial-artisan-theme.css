@@ -1,0 +1,271 @@
+/**
+ * =========================================================================
+ * CELESTIAL ARTISAN THEME & MICRO-INTERACTIONS
+ * "Tiệm Trà Sách & Bầu Trời Đêm" (The Artisan Celestial Study Salon)
+ * =========================================================================
+ * Trừu tượng hóa 5 Moodboard Nghệ Thuật:
+ * 1. Hải Vân Tinh Tú: Nền sóng mây cổ điển Ukiyo-e, ánh sao chàm (.artisan-ocean-stage)
+ * 2. Ký Sự & Ghim Cài: Giấy kẻ ô caro, ghim băng, washi tape (.artisan-caro-grid, .artisan-safety-pin-badge)
+ * 3. Đĩa Than Cổ Điển: Vinyl Turntable xoay mượt khi nghe audio (.artisan-vinyl-disc)
+ * 4. Giấy Xé Mép: Thẻ bài trắng ngà viền rách tự nhiên (.artisan-deckled-paper)
+ * 5. Vải Chàm Dệt & Chỉ May: Viền chỉ may tay đứt nét Sashiko (.artisan-sashiko-border)
+ * =========================================================================
+ */
+
+:root {
+    --artisan-sand: #F7F4EE;
+    --artisan-ivory: #FAF8F5;
+    --artisan-indigo: #161E2E;
+    --artisan-navy-wave: #0E1A32;
+    --artisan-gold: #F59E0B;
+    --artisan-amber-soft: #FEF3C7;
+    --artisan-vinyl-slate: #2C3E50;
+    --artisan-sashiko: rgba(99, 102, 241, 0.45);
+}
+
+/* 1. NỀN GIẤY KẺ Ô CARO HỌC THUẬT (Quad-Ruled Memo Paper - Ảnh 2 & 10) */
+.artisan-caro-grid {
+    background-color: var(--artisan-ivory) !important;
+    background-image: 
+        linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px) !important;
+    background-size: 18px 18px !important;
+    position: relative;
+}
+
+html.dark .artisan-caro-grid {
+    background-color: #0f172a !important;
+    background-image: 
+        linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px) !important;
+}
+
+html.editorial .artisan-caro-grid {
+    background-color: #F7F4EE !important;
+    background-image: 
+        linear-gradient(rgba(180, 83, 9, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 83, 9, 0.07) 1px, transparent 1px) !important;
+}
+
+/* 2. THẺ BÀI GIẤY XÉ MÉP TỰ NHIÊN (Deckled Edge Paper - Ảnh 4) */
+.artisan-deckled-paper {
+    background-color: var(--artisan-ivory) !important;
+    border-radius: 22px;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        0 10px 25px -4px rgba(22, 30, 46, 0.06),
+        inset 0 0 30px rgba(240, 235, 224, 0.35) !important;
+    border: 1px solid rgba(226, 218, 206, 0.8) !important;
+    position: relative;
+}
+
+html.dark .artisan-deckled-paper {
+    background-color: #1e293b !important;
+    border-color: rgba(71, 85, 105, 0.45) !important;
+    box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.editorial .artisan-deckled-paper {
+    background-color: #FAF8F5 !important;
+    border-color: rgba(217, 119, 6, 0.25) !important;
+    box-shadow: 0 10px 25px -4px rgba(180, 83, 9, 0.06) !important;
+}
+
+/* 3. VIỀN CHỈ MAY TAY THỦ CÔNG SASHIKO (Running Stitch Border - Ảnh 5) */
+.artisan-sashiko-border {
+    border: 1.5px dashed var(--artisan-sashiko) !important;
+    border-radius: 18px;
+    transition: all 0.25s ease;
+}
+.artisan-sashiko-border:hover {
+    border-color: rgba(245, 158, 11, 0.8) !important;
+}
+
+.artisan-sashiko-white {
+    border: 1.5px dashed rgba(255, 255, 255, 0.65) !important;
+    border-radius: 18px;
+}
+
+/* 4. SÀN ĐẤU SÓNG MÂY CỔ ĐIỂN PINTEREST (Hải Vân Tinh Tú - Ảnh 1, 8, 9) */
+.artisan-ocean-stage {
+    background-color: #0b1222;
+    background-image: 
+        linear-gradient(to bottom, rgba(11, 18, 34, 0.82), rgba(11, 18, 34, 0.92)),
+        url('/assets/theme/vintage_ocean_waves_bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border-radius: 26px;
+    border: 1px solid rgba(245, 158, 11, 0.28) !important;
+    box-shadow: 0 20px 50px -10px rgba(11, 18, 34, 0.45) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 5. HOẠT HỌA MÁY HÁT ĐĨA THAN CỔ ĐIỂN (Vinyl Turntable Player - Ảnh 3) */
+@keyframes artisanVinylSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.artisan-vinyl-disc {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        #3b5266 0%, 
+        #1e293b 22%, 
+        #0f172a 42%, 
+        #334b60 62%, 
+        #0f172a 82%, 
+        #090d16 100%
+    );
+    box-shadow: 
+        0 6px 18px rgba(0, 0, 0, 0.35), 
+        inset 0 0 10px rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.4s ease;
+    flex-shrink: 0;
+}
+
+.artisan-vinyl-disc::before {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fbf8f2;
+    border: 2px solid #b45309;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+.artisan-vinyl-disc::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #1e293b;
+}
+
+.artisan-vinyl-disc.is-playing {
+    animation: artisanVinylSpin 4s linear infinite;
+}
+
+/* Cần kim máy đĩa than */
+.artisan-tonearm {
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    width: 26px;
+    height: 44px;
+    transform-origin: top right;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: rotate(-25deg);
+    pointer-events-none;
+    z-index: 10;
+}
+.artisan-tonearm.is-active,
+.is-playing ~ .artisan-tonearm {
+    transform: rotate(10deg);
+}
+
+/* 6. DẤU ẤN NGÔI SAO THỦ CÔNG & GHIM CÀI KIM LOẠI (Ảnh 2, 8, 10) */
+.artisan-safety-pin-badge {
+    position: relative;
+}
+.artisan-safety-pin-badge::before {
+    content: '🧷';
+    position: absolute;
+    top: -10px;
+    left: -4px;
+    font-size: 14px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+    transform: rotate(-15deg);
+    z-index: 10;
+}
+
+.artisan-star-stamp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--artisan-gold);
+    filter: drop-shadow(0 1px 2px rgba(245, 158, 11, 0.4));
+    animation: starPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+}
+
+/* 7. KHUNG ẢNH POLAROID KỶ NIỆM (Ảnh 2 & 10) */
+.artisan-polaroid {
+    background: #FFFFFF;
+    padding: 6px 6px 14px 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    transform: rotate(-1deg);
+    transition: transform 0.3s ease;
+}
+.artisan-polaroid:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+html.dark .artisan-polaroid {
+    background: #1e293b;
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 8. BĂNG DÍNH WASHI TAPE TRANG TRÍ (Ảnh 2 & 10) */
+.artisan-washi-tape {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1deg);
+    width: 72px;
+    height: 16px;
+    background: rgba(245, 158, 11, 0.25);
+    backdrop-filter: blur(2px);
+    border-left: 2px dashed rgba(217, 119, 6, 0.4);
+    border-right: 2px dashed rgba(217, 119, 6, 0.4);
+    z-index: 15;
+    pointer-events-none;
+}
+
+/* 9. THI THỬ & LỘ TRÌNH VỚI VIBE HẢI TRÌNH (Ảnh 1 & 9) */
+.artisan-voyage-banner {
+    background-color: #0c182e;
+    background-image: 
+        radial-gradient(circle at 85% 20%, rgba(245, 158, 11, 0.15), transparent 40%),
+        linear-gradient(135deg, rgba(14, 26, 50, 0.95), rgba(8, 14, 28, 0.98)),
+        url('/assets/theme/vintage_ocean_waves_bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    box-shadow: 0 12px 36px -6px rgba(11, 18, 34, 0.4) !important;
+}
+
+/* 10. TURNTABLE DOCK FOR LISTENING WORKSTATIONS (Ảnh 3) */
+.artisan-turntable-dock {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(226, 218, 206, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+html.dark .artisan-turntable-dock {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(71, 85, 105, 0.5);
+}
+html.editorial .artisan-turntable-dock {
+    background: rgba(250, 248, 245, 0.9);
+    border-color: rgba(217, 119, 6, 0.25);
+}

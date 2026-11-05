@@ -1,11 +1,10 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793899078834,
+  "lastUpdated": 1793901081529,
   "targetScore": "600",
   "examDate": "20/12/2026",
   "state": {
     "xp": 40,
-    "streak": 2,
     "vocabLearned": 2,
     "dictationDone": 0,
     "grammarDone": 2,
@@ -15,7 +14,10 @@
     "totalAnswers": 8,
     "correctAnswers": 7,
     "listenTotalAnswers": 6,
-    "listenCorrectAnswers": 6
+    "listenCorrectAnswers": 6,
+    "vocabTotalAnswers": 0,
+    "vocabCorrectAnswers": 0,
+    "streak": 2
   },
   "activityDates": [
     "2026-10-23",
