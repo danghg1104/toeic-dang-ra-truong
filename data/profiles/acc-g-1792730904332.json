@@ -1,10 +1,11 @@
 {
   "userId": "acc-g-1792730904332",
-  "lastUpdated": 1793892540391,
+  "lastUpdated": 1793895466659,
   "targetScore": "600",
   "examDate": "20/12/2026",
   "state": {
     "xp": 40,
+    "streak": 1,
     "vocabLearned": 2,
     "dictationDone": 0,
     "grammarDone": 2,
@@ -14,10 +15,7 @@
     "totalAnswers": 8,
     "correctAnswers": 7,
     "listenTotalAnswers": 6,
-    "listenCorrectAnswers": 6,
-    "vocabTotalAnswers": 0,
-    "vocabCorrectAnswers": 0,
-    "streak": 1
+    "listenCorrectAnswers": 6
   },
   "activityDates": [
     "2026-10-23",
@@ -35,137 +33,7 @@
     "2026-11-05"
   ],
   "learnedVocabItems": [],
-  "savedVocabItems": [
-    {
-      "word": "search",
-      "meaning": "tìm kiếm thông tin",
-      "phonetic": "/sɝːtʃ/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "download",
-      "meaning": "tải dữ liệu về máy",
-      "phonetic": "/ˈdaʊn.loʊd/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "folder",
-      "meaning": "thư mục lưu trữ tập tin",
-      "phonetic": "/ˈfoʊl.dɚ/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "password",
-      "meaning": "mật khẩu bảo mật",
-      "phonetic": "/ˈpæs.wɝːd/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "delete",
-      "meaning": "xóa tập tin",
-      "phonetic": "/dɪˈliːt/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "memory",
-      "meaning": "bộ nhớ lưu trữ",
-      "phonetic": "/ˈmem.ər.i/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "software",
-      "meaning": "phần mềm ứng dụng",
-      "phonetic": "/ˈsɑːft.wer/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "message",
-      "meaning": "tin nhắn thông báo",
-      "phonetic": "/ˈmes.ɪdʒ/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "battery",
-      "meaning": "pin lưu trữ điện",
-      "phonetic": "/ˈbæt̬.ɚ.i/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "digital",
-      "meaning": "kỹ thuật số điện tử",
-      "phonetic": "/ˈdɪdʒ.ə.t̬əl/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "laptop",
-      "meaning": "máy tính xách tay",
-      "phonetic": "/ˈlæp.tɑːp/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "website",
-      "meaning": "trang mạng thông tin",
-      "phonetic": "/ˈweb.saɪt/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "upload",
-      "meaning": "tải tập tin lên mạng",
-      "phonetic": "/ˈʌp.loʊd/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "online",
-      "meaning": "trực tuyến trên mạng",
-      "phonetic": "/ˈɑːn.laɪn/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "router",
-      "meaning": "bộ định tuyến internet",
-      "phonetic": "/ˈruː.t̬ɚ/",
-      "level": "A2",
-      "dateAdded": "26/10/2026"
-    },
-    {
-      "word": "robot",
-      "meaning": "người máy",
-      "phonetic": "/ˈroʊ.bɑːt/",
-      "level": "A1",
-      "dateAdded": "29/10/2026",
-      "sourceFile": "Sổ tay cá nhân"
-    },
-    {
-      "word": "card",
-      "meaning": "thẻ nhớ lưu trữ",
-      "phonetic": "/kɑːrd/",
-      "level": "A1",
-      "dateAdded": "29/10/2026",
-      "sourceFile": "Sổ tay cá nhân"
-    },
-    {
-      "word": "web",
-      "meaning": "mạng lưới",
-      "phonetic": "/ˈweb/",
-      "level": "A1",
-      "dateAdded": "1/11/2026",
-      "sourceFile": "Sổ tay cá nhân"
-    }
-  ],
+  "savedVocabItems": [],
   "takeNotesList": [
     {
       "id": "note-1792802063421",

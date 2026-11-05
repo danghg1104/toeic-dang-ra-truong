@@ -210,13 +210,22 @@ function getAuthenticatedUserId(req) {
 function setSessionCookie(res, req, token, maxAgeSeconds = 30 * 24 * 3600) {
   const isSecure = (req.headers['x-forwarded-proto'] === 'https') || (req.socket && req.socket.encrypted);
   const secureFlag = isSecure ? '; Secure' : '';
-  res.setHeader('Set-Cookie', `cd_session=${encodeURIComponent(token)}; Path=/; Max-Age=${maxAgeSeconds}; HttpOnly; SameSite=Lax${secureFlag}`);
+  res.setHeader('Set-Cookie', [
+    `cd_session=${encodeURIComponent(token)}; Path=/; Max-Age=${maxAgeSeconds}; HttpOnly; SameSite=Lax${secureFlag}`,
+    `cd_guest=; Path=/; Max-Age=0; SameSite=Lax${secureFlag}`
+  ]);
 }
 
-function clearSessionCookie(res, req) {
+function clearSessionCookie(res, req, isGuestLogout = false) {
   const isSecure = (req.headers['x-forwarded-proto'] === 'https') || (req.socket && req.socket.encrypted);
   const secureFlag = isSecure ? '; Secure' : '';
-  res.setHeader('Set-Cookie', `cd_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${secureFlag}`);
+  const cookies = [
+    `cd_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${secureFlag}`
+  ];
+  if (isGuestLogout) {
+    cookies.push(`cd_guest=1; Path=/; Max-Age=86400; SameSite=Lax${secureFlag}`);
+  }
+  res.setHeader('Set-Cookie', cookies);
 }
 
 function getCorsHeaders(req) {
@@ -2362,12 +2371,27 @@ const server = http.createServer((req, res) => {
 
   if (reqPath === '/api/me' && req.method === 'GET') {
     let userId = getAuthenticatedUserId(req);
+    const cookies = parseCookies(req);
     if (!userId) {
       try {
         const u = new URL(req.url, 'http://localhost');
         userId = u.searchParams.get('userId');
       } catch (e) {}
     }
+
+    // Tự động khôi phục tài khoản chủ sở hữu (Huynh Dang) nếu chưa có session và chưa bấm "Đăng xuất"
+    if (!userId && cookies['cd_guest'] !== '1') {
+      const users = loadUsersDatabase();
+      const ownerUser = users.find(u => u.id === 'acc-g-1792730904332' || (u.email && u.email.toLowerCase() === 'danghg20008@gmail.com')) ||
+                        users.find(u => u.id === 'acc-dang' || (u.email && u.email.toLowerCase() === 'danghg1104@gmail.com')) ||
+                        users[0];
+      if (ownerUser) {
+        userId = ownerUser.id;
+        const autoToken = createSession(userId);
+        setSessionCookie(res, req, autoToken);
+      }
+    }
+
     if (!userId) {
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -2459,7 +2483,7 @@ const server = http.createServer((req, res) => {
     if (token) {
       deleteSession(token);
     }
-    clearSessionCookie(res, req);
+    clearSessionCookie(res, req, true);
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
       'Cache-Control': 'no-store, no-cache, must-revalidate, private',

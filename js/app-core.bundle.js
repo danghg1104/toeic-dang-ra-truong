@@ -483,12 +483,18 @@
             if (isMember) {
                 if (mobileTopAvatar) mobileTopAvatar.classList.remove('hidden');
                 if (mobileUnauthBtn) mobileUnauthBtn.classList.add('hidden');
-                if (sanhGuestLoginBtn) sanhGuestLoginBtn.classList.add('hidden');
+                if (sanhGuestLoginBtn) {
+                    sanhGuestLoginBtn.classList.add('hidden');
+                    sanhGuestLoginBtn.classList.remove('inline-flex');
+                }
                 if (sanhDropdownWrapper) sanhDropdownWrapper.classList.remove('hidden');
             } else {
                 if (mobileTopAvatar) mobileTopAvatar.classList.add('hidden');
                 if (mobileUnauthBtn) mobileUnauthBtn.classList.remove('hidden');
-                if (sanhGuestLoginBtn) sanhGuestLoginBtn.classList.remove('hidden');
+                if (sanhGuestLoginBtn) {
+                    sanhGuestLoginBtn.classList.remove('hidden');
+                    sanhGuestLoginBtn.classList.add('inline-flex');
+                }
                 if (sanhDropdownWrapper) sanhDropdownWrapper.classList.add('hidden');
             }
 
@@ -6987,6 +6993,28 @@
                 } catch (e) {
                     console.warn('[UserAuthEngine] Kiểm tra /api/me:', e.message);
                 }
+
+                // Nếu chưa có phiên nhưng có tài khoản đã lưu trong localStorage, thử khôi phục
+                try {
+                    const savedStr = localStorage.getItem('cung_dang_session_user');
+                    if (savedStr) {
+                        const savedUser = JSON.parse(savedStr);
+                        if (savedUser && savedUser.id) {
+                            const rRetry = await fetch(`/api/me?userId=${encodeURIComponent(savedUser.id)}`, { credentials: 'include' });
+                            if (rRetry.ok) {
+                                const resRetry = await rRetry.json();
+                                if (resRetry && resRetry.success && resRetry.user) {
+                                    currentUserAccount = resRetry.user;
+                                    window.currentUserAccount = resRetry.user;
+                                    applyCurrentAccountToUI();
+                                    if (resRetry.streakInfo) renderStreakWeekDays(resRetry.streakInfo);
+                                    if (typeof updateSanhAndSidebarVisibility === 'function') updateSanhAndSidebarVisibility(true);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {}
 
                 // Nếu chưa đăng nhập (401 / không có phiên)
                 localStorage.removeItem('cung_dang_session_user');
