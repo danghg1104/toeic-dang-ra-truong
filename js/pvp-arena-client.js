@@ -27,6 +27,7 @@
             this.questionStartTime = 0;
             this.state = 'IDLE'; // IDLE | QUEUE | MATCH_FOUND | PLAYING | RESULT
             this.soundEngine = window.WebAudioMicroEngine || null;
+            this.soundEnabled = true;
             this.missedWords = []; // Danh sách từ làm sai trong trận đấu
             this.inlineContainerId = null;
             this.currentTab = 'quick'; // 'quick' | 'room' | 'friends'
@@ -75,6 +76,19 @@
                     border: 1px solid rgba(239, 68, 68, 0.5) !important;
                     animation: urgentPulse 0.8s infinite ease-in-out !important;
                 }
+                @keyframes vsFireGlow {
+                    0%, 100% {
+                        box-shadow: 0 0 20px rgba(245, 158, 11, 0.4), inset 0 0 15px rgba(239, 68, 68, 0.3);
+                        border-color: rgba(251, 191, 36, 0.8);
+                    }
+                    50% {
+                        box-shadow: 0 0 35px rgba(245, 158, 11, 0.8), inset 0 0 25px rgba(239, 68, 68, 0.6);
+                        border-color: rgba(254, 240, 138, 1);
+                    }
+                }
+                .vs-fire-glow {
+                    animation: vsFireGlow 2.2s infinite ease-in-out;
+                }
             `;
             document.head.appendChild(style);
         }
@@ -94,30 +108,42 @@
             modal.id = 'pvpArenaModal';
             modal.className = 'fixed inset-0 z-[11000] hidden flex items-center justify-center p-3 sm:p-5 bg-slate-950/80 backdrop-blur-md transition-all duration-300';
             modal.innerHTML = `
-                <div class="relative w-full max-w-2xl bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/30 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+                <div class="relative w-full max-w-4xl bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
                     <!-- Header -->
-                    <div class="p-4 sm:p-5 border-b border-indigo-500/20 flex items-center justify-between bg-slate-950/40">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center text-white shadow-md text-base">
+                    <div class="p-4 sm:p-5 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 flex items-center justify-center text-white shadow-md text-lg font-black ring-2 ring-orange-500/30 animate-pulse">
                                 <i class="fa-solid fa-swords"></i>
                             </div>
                             <div>
-                                <h3 class="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2">
-                                    Đấu Trường Từ Vựng 1v1
-                                    <span class="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-wider border border-red-500/30 animate-pulse">
-                                        PvP Realtime
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-base sm:text-lg font-black tracking-tight text-white">
+                                        Đấu Trường Từ Vựng 1v1
+                                    </h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                        Online Realtime
                                     </span>
-                                </h3>
-                                <p class="text-xs text-slate-400">10 từ vựng cốt lõi · Phản xạ 60 giây</p>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-0.5">10 từ vựng ETS 2026 · So tài phản xạ 60 giây trực tiếp giữa người với người</p>
                             </div>
                         </div>
-                        <button onclick="window.PvPArenaClient.close()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition cursor-pointer">
-                            <i class="fa-solid fa-xmark text-sm"></i>
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="window.PvPArenaClient.copyPublicOnlineLink()" class="px-3 py-1.5 rounded-xl bg-indigo-600/60 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-400/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95" title="Sao chép link web để gửi bạn bè trên điện thoại / máy tính khác">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                                <span class="hidden sm:inline">Mời bạn đấu online</span>
+                            </button>
+                            <button onclick="window.PvPArenaClient.toggleSound()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center text-xs transition cursor-pointer" title="Bật/Tắt âm thanh trận đấu">
+                                <i class="fa-solid pvp-sound-icon ${this.soundEnabled ? 'fa-volume-high text-amber-400' : 'fa-volume-xmark text-slate-500'}"></i>
+                            </button>
+                            <button onclick="window.PvPArenaClient.close()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition cursor-pointer" title="Đóng cửa sổ">
+                                <i class="fa-solid fa-xmark text-sm"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Dynamic Body Container -->
-                    <div id="pvpArenaBody" class="p-5 sm:p-6 flex-1 overflow-y-auto">
+                    <div id="pvpArenaBody" class="p-4 sm:p-6 flex-1 overflow-y-auto">
                         <!-- Rendered dynamically -->
                     </div>
                 </div>
@@ -131,27 +157,41 @@
             if (!container) return;
 
             container.innerHTML = `
-                <div class="relative w-full max-w-3xl mx-auto bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/30 shadow-2xl overflow-hidden flex flex-col min-h-[580px]">
-                    <!-- Header -->
-                    <div class="p-4 sm:p-5 border-b border-indigo-500/20 flex items-center justify-between bg-slate-950/40">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center text-white shadow-md text-base">
+                <div class="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col min-h-[620px]">
+                    <!-- Header Bar -->
+                    <div class="p-4 sm:p-6 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70 backdrop-blur-md">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 sm:w-12 h-10 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 flex items-center justify-center text-white shadow-lg text-lg sm:text-xl font-black ring-4 ring-orange-500/20 animate-pulse">
                                 <i class="fa-solid fa-swords"></i>
                             </div>
                             <div>
-                                <h3 class="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2">
-                                    Đấu Trường Từ Vựng 1v1
-                                    <span class="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-wider border border-red-500/30 animate-pulse">
-                                        PvP Realtime
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-lg sm:text-xl font-black tracking-tight text-white">
+                                        Đấu Trường Từ Vựng 1v1
+                                    </h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                        Online Realtime
                                     </span>
-                                </h3>
-                                <p class="text-xs text-slate-400">10 từ vựng cốt lõi · Phản xạ 60 giây</p>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-0.5">10 từ vựng ETS 2026 · So tài phản xạ 60 giây trực tiếp giữa người với người</p>
                             </div>
+                        </div>
+
+                        <!-- Top Right Tools (Online Share & Sound Toggle) -->
+                        <div class="flex items-center gap-2">
+                            <button onclick="window.PvPArenaClient.copyPublicOnlineLink()" class="px-3 py-1.5 rounded-xl bg-indigo-600/60 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-400/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95" title="Sao chép link web để gửi bạn bè trên điện thoại / máy tính khác">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                                <span>Mời bạn đấu online</span>
+                            </button>
+                            <button onclick="window.PvPArenaClient.toggleSound()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center text-xs transition cursor-pointer" title="Bật/Tắt âm thanh trận đấu">
+                                <i class="fa-solid pvp-sound-icon ${this.soundEnabled ? 'fa-volume-high text-amber-400' : 'fa-volume-xmark text-slate-500'}"></i>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Dynamic Body Container -->
-                    <div id="pvpArenaInlineBody" class="p-5 sm:p-6 flex-1 overflow-y-auto">
+                    <div id="pvpArenaInlineBody" class="p-4 sm:p-6 md:p-8 flex-1 overflow-y-auto">
                         <!-- Rendered dynamically -->
                     </div>
                 </div>
@@ -198,6 +238,36 @@
             this.renderIdleView();
         }
 
+        getPublicAppUrl() {
+            if (typeof location !== 'undefined' && location.origin && location.origin.includes('trycloudflare.com')) {
+                return location.origin;
+            }
+            return 'https://med-exposure-advertisements-known.trycloudflare.com';
+        }
+
+        toggleSound() {
+            this.soundEnabled = !this.soundEnabled;
+            if (typeof showToast === 'function') {
+                showToast(this.soundEnabled ? '🔊 Đã bật âm thanh đấu trường' : '🔇 Đã tắt âm thanh đấu trường');
+            }
+            const soundIcons = document.querySelectorAll('.pvp-sound-icon');
+            soundIcons.forEach(icon => {
+                icon.className = `fa-solid pvp-sound-icon ${this.soundEnabled ? 'fa-volume-high text-amber-400' : 'fa-volume-xmark text-slate-500'}`;
+            });
+        }
+
+        copyPublicOnlineLink() {
+            const url = this.getPublicAppUrl();
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url);
+                if (typeof showToast === 'function') {
+                    showToast('🔗 Đã sao chép link trực tuyến! Gửi cho bạn bè trên điện thoại hoặc máy khác để đấu 1v1 ngay.');
+                }
+            } else {
+                prompt('Sao chép link web trực tuyến:', url);
+            }
+        }
+
         renderIdleView() {
             const body = this.getBodyContainer();
             if (!body) return;
@@ -207,140 +277,271 @@
                 this.connectWebSocket();
             }
 
-            const user = window.currentUserAccount || {};
-            const username = user.name || 'Chiến Binh TOEIC';
-            const avatar = user.avatar || '/assets/mascot/soi_may_avt.png';
+            let user = window.currentUserAccount;
+            if (!user && typeof window.getCurrentUser === 'function') {
+                user = window.getCurrentUser();
+            }
+            if (!user) {
+                try {
+                    const saved = localStorage.getItem('cung_dang_session_user');
+                    if (saved) user = JSON.parse(saved);
+                } catch(e) {}
+            }
+            user = user || {};
+            const username = user.name || 'Huynh Dang';
+            const initial = (username.trim()[0] || 'H').toUpperCase();
+            const avatar = user.avatar || '/assets/mascot/may_avatar.png';
 
-            const activeTabClass = 'bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 shadow-md font-black';
+            const activeTabClass = 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 text-slate-950 shadow-lg shadow-orange-500/25 font-black scale-[1.02]';
             const inactiveTabClass = 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-bold';
 
             body.innerHTML = `
-                <div class="space-y-5 py-2">
+                <div class="space-y-4 sm:space-y-5 py-1">
                     <!-- Tab Selector Navigation -->
-                    <div class="grid grid-cols-3 gap-2 p-1.5 rounded-2xl bg-slate-950/70 border border-slate-800">
-                        <button onclick="window.PvPArenaClient.setLobbyTab('quick')" class="py-2.5 px-3 rounded-xl text-xs transition cursor-pointer flex items-center justify-center gap-1.5 ${this.currentTab === 'quick' ? activeTabClass : inactiveTabClass}">
-                            <i class="fa-solid fa-bolt"></i>
+                    <div class="grid grid-cols-3 gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-slate-950/80 border border-slate-800 shadow-md">
+                        <button onclick="window.PvPArenaClient.setLobbyTab('quick')" class="py-2.5 px-2 sm:px-3 rounded-xl text-xs sm:text-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 sm:gap-2 ${this.currentTab === 'quick' ? activeTabClass : inactiveTabClass}">
+                            <i class="fa-solid fa-bolt text-sm"></i>
                             <span>Ghép Nhanh</span>
                         </button>
-                        <button onclick="window.PvPArenaClient.setLobbyTab('room')" class="py-2.5 px-3 rounded-xl text-xs transition cursor-pointer flex items-center justify-center gap-1.5 ${this.currentTab === 'room' ? activeTabClass : inactiveTabClass}">
-                            <i class="fa-solid fa-door-open"></i>
+                        <button onclick="window.PvPArenaClient.setLobbyTab('room')" class="py-2.5 px-2 sm:px-3 rounded-xl text-xs sm:text-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 sm:gap-2 ${this.currentTab === 'room' ? activeTabClass : inactiveTabClass}">
+                            <i class="fa-solid fa-door-open text-sm"></i>
                             <span>Phòng Riêng</span>
                         </button>
-                        <button onclick="window.PvPArenaClient.setLobbyTab('friends')" class="py-2.5 px-3 rounded-xl text-xs transition cursor-pointer flex items-center justify-center gap-1.5 ${this.currentTab === 'friends' ? activeTabClass : inactiveTabClass}">
-                            <i class="fa-solid fa-users"></i>
-                            <span>Bạn Bè & Online (${this.onlineUsersList.length})</span>
+                        <button onclick="window.PvPArenaClient.setLobbyTab('friends')" class="py-2.5 px-2 sm:px-3 rounded-xl text-xs sm:text-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 sm:gap-2 ${this.currentTab === 'friends' ? activeTabClass : inactiveTabClass}">
+                            <i class="fa-solid fa-users text-sm"></i>
+                            <span>Bạn Bè (${this.onlineUsersList.length})</span>
                         </button>
                     </div>
 
-                    <!-- TAB 1: QUICK MATCH -->
+                    <!-- TAB 1: QUICK MATCH (SÀN ĐẤU ĐỐI KHÁNG 1V1 SIÊU CHUYÊN NGHIỆP) -->
                     ${this.currentTab === 'quick' ? `
-                        <div class="space-y-5 text-center py-2">
-                            <!-- Banner Showcase -->
-                            <div class="relative max-w-sm mx-auto p-5 rounded-3xl bg-gradient-to-tr from-indigo-900/40 via-purple-900/30 to-amber-900/20 border border-indigo-400/30 shadow-xl space-y-3">
-                                <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-3xl shadow-inner animate-bounce">
-                                    🏆
+                        <div class="space-y-4 sm:space-y-5 py-1">
+                            <!-- Real-time Online Network Ribbon -->
+                            <div class="flex flex-wrap items-center justify-between gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-950/70 border border-slate-800 text-xs">
+                                <div class="flex items-center gap-2">
+                                    <span class="relative flex h-2.5 w-2.5">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                                    </span>
+                                    <span class="text-slate-300 font-bold">Máy chủ PvP Realtime:</span>
+                                    <span class="text-emerald-400 font-extrabold flex items-center gap-1">
+                                        Đang hoạt động · Sẵn sàng đấu online
+                                    </span>
                                 </div>
-                                <div class="space-y-1">
-                                    <h4 class="text-lg font-black text-white">So Tài Phản Xạ 60 Giây</h4>
-                                    <p class="text-xs text-slate-300 leading-relaxed">
-                                        Đua tốc độ giải 10 từ vựng với các bạn học trực tuyến hoặc luyện phản xạ cùng <strong>Sói Mây AI</strong>!
-                                    </p>
+                                <div class="flex items-center gap-2 ml-auto">
+                                    <button onclick="window.PvPArenaClient.copyPublicOnlineLink()" class="px-3 py-1.5 rounded-xl bg-indigo-600/60 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-400/30 text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95">
+                                        <i class="fa-solid fa-share-nodes"></i>
+                                        <span>Chia sẻ link đấu</span>
+                                    </button>
                                 </div>
-                                <div class="flex items-center justify-center gap-4 text-xs font-bold text-slate-300 pt-2 border-t border-indigo-500/20">
-                                    <div class="flex items-center gap-1.5 text-amber-400">
-                                        <i class="fa-solid fa-bolt"></i>
-                                        <span>10 Từ / Trận</span>
+                            </div>
+
+                            <!-- Versus Arena Stage (Sàn Đấu Đối Kháng 1v1 Đối Xứng) -->
+                            <div class="relative p-3.5 sm:p-6 rounded-3xl bg-gradient-to-b from-slate-950/90 via-slate-900/90 to-indigo-950/50 border border-indigo-500/30 shadow-2xl overflow-hidden">
+                                <div class="absolute -top-20 -left-20 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                                <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                                <div class="relative grid grid-cols-7 md:grid-cols-11 gap-1.5 sm:gap-4 items-center">
+                                    <!-- Player 1 Card (Bạn) -->
+                                    <div class="col-span-3 md:col-span-5 p-2.5 sm:p-4 rounded-2xl bg-slate-900/90 border border-amber-500/30 flex flex-col items-center text-center shadow-lg relative group hover:border-amber-400/60 transition">
+                                        <div class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-amber-500/30 mb-1">
+                                            Player 1 (Bạn)
+                                        </div>
+                                        <div class="relative my-1.5 sm:my-2">
+                                            <div class="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl ring-2 sm:ring-4 ring-amber-400/40 overflow-hidden shadow-xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-800 flex items-center justify-center text-lg sm:text-2xl font-black text-white">
+                                                ${user && user.avatar && !user.avatar.includes('soi_may_avt') ? `
+                                                    <img src="${user.avatar}" alt="${username}" onerror="this.remove()" class="w-full h-full object-cover">
+                                                ` : `
+                                                    <span class="text-xl sm:text-3xl font-black text-white drop-shadow">${initial}</span>
+                                                `}
+                                            </div>
+                                            <span class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black" title="Sẵn sàng">
+                                                ✓
+                                            </span>
+                                        </div>
+                                        <h4 class="text-xs sm:text-base font-black text-white truncate max-w-full">${username}</h4>
+                                        <div class="mt-1 flex flex-wrap items-center justify-center gap-1">
+                                            <span class="px-1.5 sm:px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[9px] sm:text-[10px] font-black">
+                                                🏅 Cao Thủ FSRS
+                                            </span>
+                                            <span class="hidden sm:inline-block px-2 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-[10px] font-black">
+                                                ⚡ 1,250 PTS
+                                            </span>
+                                        </div>
+                                        <div class="mt-2.5 w-full pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-slate-400">
+                                            <span class="text-amber-400">🔥 1 ngày</span>
+                                            <span class="text-emerald-400">🎯 88%</span>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center gap-1.5 text-emerald-400">
-                                        <i class="fa-solid fa-award"></i>
-                                        <span>Thắng: +25 Điểm & +50 XP</span>
+
+                                    <!-- Center VS Badge -->
+                                    <div class="col-span-1 md:col-span-1 flex flex-col items-center justify-center my-1 md:my-0">
+                                        <div class="relative flex items-center justify-center">
+                                            <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 blur-md opacity-70 animate-pulse"></div>
+                                            <div class="relative w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-500 to-red-600 p-0.5 shadow-2xl flex items-center justify-center border-2 border-amber-200 vs-fire-glow">
+                                                <div class="w-full h-full rounded-lg sm:rounded-2xl bg-slate-950 flex flex-col items-center justify-center text-center">
+                                                    <span class="text-xs sm:text-lg font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400 leading-none">VS</span>
+                                                    <span class="text-[7px] sm:text-[9px] font-extrabold uppercase text-slate-400 tracking-widest mt-0.5">1v1</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="mt-1.5 sm:mt-2 text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest text-center whitespace-nowrap">
+                                            60s
+                                        </span>
+                                    </div>
+
+                                    <!-- Player 2 Card (Đối thủ slot) -->
+                                    <div class="col-span-3 md:col-span-5 p-2.5 sm:p-4 rounded-2xl bg-slate-900/80 border border-indigo-500/30 flex flex-col items-center text-center shadow-lg relative group hover:border-indigo-400/60 transition">
+                                        <div class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-indigo-500/30 mb-1">
+                                            Player 2 (Đối thủ)
+                                        </div>
+                                        <div class="relative my-1.5 sm:my-2">
+                                            <div class="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl border-2 border-dashed border-indigo-400/50 flex items-center justify-center bg-slate-950/60 text-lg sm:text-2xl text-indigo-400 shadow-inner">
+                                                <i class="fa-solid fa-gamepad animate-pulse"></i>
+                                            </div>
+                                            <span class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-indigo-500 border-2 border-slate-900 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black" title="Chờ ghép cặp">
+                                                ?
+                                            </span>
+                                        </div>
+                                        <h4 class="text-xs sm:text-base font-black text-slate-200 truncate max-w-full">Đối Thủ Toàn Cầu</h4>
+                                        <div class="mt-1 flex flex-wrap items-center justify-center gap-1">
+                                            <span class="px-1.5 sm:px-2 py-0.5 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 text-[9px] sm:text-[10px] font-bold">
+                                                🌐 Tự động
+                                            </span>
+                                            <span class="hidden sm:inline-block px-2 py-0.5 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-400/30 text-[10px] font-bold">
+                                                🐺 Sói Mây Fallback
+                                            </span>
+                                        </div>
+                                        <div class="mt-2.5 w-full pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-slate-400">
+                                            <span class="text-indigo-400">⚡ Tức thì</span>
+                                            <span class="text-cyan-400">🎮 Online</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- User Profile Quick Card -->
-                            <div class="flex items-center justify-center gap-3 bg-slate-950/60 p-2.5 rounded-2xl border border-slate-800 max-w-xs mx-auto">
-                                <img src="${avatar}" alt="${username}" class="w-9 h-9 rounded-xl object-cover border border-amber-400/50">
-                                <div class="text-left">
-                                    <span class="block text-xs font-bold text-white">${username}</span>
-                                    <span class="block text-[11px] font-semibold text-amber-400">🏅 Rank: Cao Thủ FSRS</span>
+                            <!-- 3 Value Cards (Format Rules & Rewards) -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
+                                <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 sm:gap-3">
+                                    <div class="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs sm:text-sm font-black shrink-0 border border-amber-400/30">
+                                        <i class="fa-solid fa-stopwatch"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-xs font-black text-white">60 Giây Phản Xạ</h6>
+                                        <p class="text-[11px] text-slate-400 leading-tight mt-0.5">Tốc độ cao, đúng liên tiếp kích hoạt Combo x2, x3 để nhân đôi điểm số!</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 sm:gap-3">
+                                    <div class="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs sm:text-sm font-black shrink-0 border border-indigo-400/30">
+                                        <i class="fa-solid fa-book-sparkles"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-xs font-black text-white">10 Từ ETS 2026</h6>
+                                        <p class="text-[11px] text-slate-400 leading-tight mt-0.5">Trích chọn từ ngân hàng đề thi chuẩn, 4 phương án phản xạ từ loại và ngữ nghĩa.</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 sm:gap-3">
+                                    <div class="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs sm:text-sm font-black shrink-0 border border-emerald-400/30">
+                                        <i class="fa-solid fa-trophy"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-xs font-black text-white">Rank & AI Soi Lỗi</h6>
+                                        <p class="text-[11px] text-slate-400 leading-tight mt-0.5">Thắng nhận +25 Rank & +50 XP. Mọi từ làm sai được kích hoạt giải thích AI tức thì.</p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Action Button -->
-                            <div>
-                                <button onclick="window.PvPArenaClient.startMatchmaking()" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-600 to-red-600 hover:from-amber-400 hover:to-red-500 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95 transition-all cursor-pointer">
-                                    <i class="fa-solid fa-play mr-2"></i> Ghép Trận Ngẫu Nhiên
+                            <!-- Big Prominent CTA Button -->
+                            <div class="text-center pt-1">
+                                <button onclick="window.PvPArenaClient.startMatchmaking()" class="w-full max-w-md mx-auto py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-500 to-red-600 hover:from-amber-300 hover:to-red-500 text-slate-950 font-black text-sm sm:text-base uppercase tracking-wider shadow-2xl shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2.5">
+                                    <i class="fa-solid fa-bolt-lightning text-lg"></i>
+                                    <span>Bắt Đầu Tìm Trận 1v1 Ngay</span>
                                 </button>
+                                <p class="text-xs text-slate-400 mt-2 sm:mt-2.5">
+                                    💡 Muốn thi đấu riêng với bạn bè? Chọn tab <button onclick="window.PvPArenaClient.setLobbyTab('room')" class="text-amber-400 hover:underline font-bold cursor-pointer">Phòng Riêng</button> để tạo mã 6 số chia sẻ!
+                                </p>
                             </div>
                         </div>
                     ` : ''}
 
                     <!-- TAB 2: CUSTOM ROOM (MÃ PHÒNG RIÊNG CHO BẠN BÈ) -->
                     ${this.currentTab === 'room' ? `
-                        <div class="space-y-5 text-center py-2">
+                        <div class="space-y-4 sm:space-y-5 text-center py-1">
                             ${this.currentRoomCode ? `
                                 <!-- Đang Chờ Trong Phòng -->
-                                <div class="p-6 rounded-3xl bg-slate-950/80 border border-amber-500/40 shadow-2xl max-w-md mx-auto space-y-4">
-                                    <div class="flex items-center justify-center gap-2 text-amber-400 text-xs font-black uppercase tracking-wider">
+                                <div class="p-6 rounded-3xl bg-slate-950/90 border-2 border-amber-500/50 shadow-2xl max-w-md mx-auto space-y-4">
+                                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black uppercase tracking-wider">
                                         <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
-                                        <span>Phòng Thi Đấu Riêng</span>
+                                        <span>Phòng Thi Đấu Riêng Sẵn Sàng</span>
                                     </div>
-                                    <div class="text-4xl sm:text-5xl font-black font-mono tracking-widest text-amber-300 bg-slate-900 py-3.5 px-6 rounded-2xl border border-amber-400/30 select-all">
-                                        ${this.currentRoomCode}
+                                    <div class="space-y-1">
+                                        <span class="text-xs font-bold text-slate-400 uppercase">Mã PIN Tham Gia</span>
+                                        <div class="text-4xl sm:text-5xl font-black font-mono tracking-widest text-amber-300 bg-slate-900 py-3.5 px-6 rounded-2xl border border-amber-400/40 select-all shadow-inner">
+                                            ${this.currentRoomCode}
+                                        </div>
                                     </div>
                                     <p class="text-xs text-slate-300 leading-relaxed">
-                                        Hãy gửi mã này hoặc đường dẫn cho bạn bè để vào phòng đấu 1v1 ngay lập tức!
+                                        Gửi mã này hoặc copy link bên dưới gửi qua Zalo / Messenger để bạn bè vào phòng đấu 1v1 ngay lập tức:
                                     </p>
-                                    <div class="flex items-center justify-center gap-2 pt-1">
-                                        <button onclick="window.PvPArenaClient.copyRoomCode()" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition cursor-pointer flex items-center gap-1.5 shadow-sm active:scale-95">
+                                    <div class="grid grid-cols-2 gap-2.5 pt-1">
+                                        <button onclick="window.PvPArenaClient.copyRoomCode()" class="py-3 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition cursor-pointer flex items-center justify-center gap-1.5 shadow-md active:scale-95">
                                             <i class="fa-regular fa-copy"></i>
                                             <span>Sao chép mã</span>
                                         </button>
-                                        <button onclick="window.PvPArenaClient.copyRoomLink()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer flex items-center gap-1.5 shadow-sm active:scale-95">
+                                        <button onclick="window.PvPArenaClient.copyRoomLink()" class="py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-xs transition cursor-pointer flex items-center justify-center gap-1.5 shadow-md active:scale-95">
                                             <i class="fa-solid fa-link"></i>
-                                            <span>Sao chép Link</span>
+                                            <span>Sao chép Link Mời</span>
                                         </button>
                                     </div>
-                                    <div class="pt-3 border-t border-slate-800">
-                                        <button onclick="window.PvPArenaClient.cancelRoom()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold cursor-pointer">
-                                            ✕ Hủy phòng thi này
+                                    <!-- Public Online Link Display Box -->
+                                    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-left space-y-1">
+                                        <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold">
+                                            <span>🌐 Link trực tiếp qua Internet:</span>
+                                            <span class="text-emerald-400 font-extrabold">Online sẵn sàng</span>
+                                        </div>
+                                        <div class="text-[11.5px] font-mono text-indigo-300 truncate select-all">
+                                            ${this.getPublicAppUrl()}/#pvp_room=${this.currentRoomCode}
+                                        </div>
+                                    </div>
+                                    <div class="pt-2 border-t border-slate-800">
+                                        <button onclick="window.PvPArenaClient.cancelRoom()" class="text-xs text-rose-400 hover:text-rose-300 font-bold cursor-pointer">
+                                            ✕ Hủy phòng thi đấu này
                                         </button>
                                     </div>
                                 </div>
                             ` : `
                                 <!-- Chưa Tạo Phòng: Cho phép tạo hoặc vào phòng -->
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto text-left">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto text-left">
                                     <!-- Cột 1: Tạo phòng mới -->
-                                    <div class="p-5 rounded-3xl bg-slate-950/60 border border-slate-800 flex flex-col justify-between space-y-4">
+                                    <div class="p-5 sm:p-6 rounded-3xl bg-slate-950/70 border border-slate-800 flex flex-col justify-between space-y-4 hover:border-amber-400/40 transition">
                                         <div class="space-y-2">
-                                            <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg font-black border border-amber-400/30">
+                                            <div class="w-11 h-11 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-black border border-amber-400/30">
                                                 <i class="fa-solid fa-plus"></i>
                                             </div>
-                                            <h5 class="text-sm font-extrabold text-white">Tạo Phòng Mới</h5>
-                                            <p class="text-[11.5px] text-slate-400 leading-relaxed">
-                                                Hệ thống tạo mã 6 chữ số độc quyền. Bạn gửi mã này cho bạn bè để cùng vào thi đấu.
+                                            <h5 class="text-base font-extrabold text-white">Tạo Phòng Mới</h5>
+                                            <p class="text-xs text-slate-400 leading-relaxed">
+                                                Hệ thống tạo mã 6 chữ số độc quyền. Bạn gửi mã hoặc link này cho bạn bè trên điện thoại hoặc máy khác để cùng vào thi đấu.
                                             </p>
                                         </div>
-                                        <button onclick="window.PvPArenaClient.createRoom()" class="w-full py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition cursor-pointer shadow-md active:scale-95 text-center">
+                                        <button onclick="window.PvPArenaClient.createRoom()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-black text-xs uppercase tracking-wider transition cursor-pointer shadow-lg active:scale-95 text-center">
                                             🏠 Tạo Phòng Ngay
                                         </button>
                                     </div>
 
                                     <!-- Cột 2: Vào bằng mã phòng -->
-                                    <div class="p-5 rounded-3xl bg-slate-950/60 border border-slate-800 flex flex-col justify-between space-y-4">
+                                    <div class="p-5 sm:p-6 rounded-3xl bg-slate-950/70 border border-slate-800 flex flex-col justify-between space-y-4 hover:border-indigo-400/40 transition">
                                         <div class="space-y-2">
-                                            <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg font-black border border-indigo-400/30">
+                                            <div class="w-11 h-11 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl font-black border border-indigo-400/30">
                                                 <i class="fa-solid fa-right-to-bracket"></i>
                                             </div>
-                                            <h5 class="text-sm font-extrabold text-white">Vào Bằng Mã Phòng</h5>
-                                            <p class="text-[11.5px] text-slate-400 leading-relaxed">
-                                                Nhập mã phòng do bạn bè chia sẻ để bắt đầu màn đấu đối kháng 1v1.
+                                            <h5 class="text-base font-extrabold text-white">Vào Bằng Mã Phòng</h5>
+                                            <p class="text-xs text-slate-400 leading-relaxed">
+                                                Nhập mã PIN 6 chữ số do bạn bè chia sẻ để bắt đầu màn đấu đối kháng 1v1 trực tiếp.
                                             </p>
                                         </div>
-                                        <div class="space-y-2">
-                                            <input type="text" id="pvpJoinRoomInput" placeholder="Ví dụ: 849201" maxlength="10" class="w-full py-2 px-3 text-center text-sm font-mono font-black text-white bg-slate-900 border border-slate-700 rounded-xl focus:border-indigo-400 focus:outline-none uppercase">
-                                            <button onclick="window.PvPArenaClient.joinRoom(document.getElementById('pvpJoinRoomInput').value)" class="w-full py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition cursor-pointer shadow-md active:scale-95 text-center">
+                                        <div class="space-y-2.5">
+                                            <input type="text" id="pvpJoinRoomInput" placeholder="Ví dụ: 849201" maxlength="10" class="w-full py-2.5 px-3 text-center text-base font-mono font-black text-white bg-slate-900 border border-slate-700 rounded-xl focus:border-indigo-400 focus:outline-none uppercase">
+                                            <button onclick="window.PvPArenaClient.joinRoom(document.getElementById('pvpJoinRoomInput').value)" class="w-full py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs uppercase tracking-wider transition cursor-pointer shadow-lg active:scale-95 text-center">
                                                 Vào Trận Đấu ➔
                                             </button>
                                         </div>
@@ -350,9 +551,9 @@
                         </div>
                     ` : ''}
 
-                    <!-- TAB 3: FRIENDS & ONLINE ACCOUNTS (TÀI KHOẢN KHÁCH THẬT) -->
+                    <!-- TAB 3: FRIENDS & ONLINE ACCOUNTS -->
                     ${this.currentTab === 'friends' ? `
-                        <div class="space-y-4 py-2">
+                        <div class="space-y-4 py-1">
                             <div class="flex items-center justify-between text-xs text-slate-400 px-1">
                                 <span>Bạn học TOEIC đang trực tuyến trên hệ thống:</span>
                                 <button onclick="window.PvPArenaClient.refreshOnlineList()" class="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 cursor-pointer">
@@ -365,8 +566,12 @@
                                     <div class="text-3xl">👥</div>
                                     <h5 class="text-sm font-bold text-white">Hiện chưa có bạn học nào khác đang online</h5>
                                     <p class="text-xs text-slate-400 leading-relaxed">
-                                        Mẹo: Bạn có thể mở một <strong>cửa sổ ẩn danh (Incognito)</strong> hoặc đăng nhập tài khoản khác trên máy tính/điện thoại để đấu 1v1 cùng nhau! Hoặc dùng tab <b>Phòng Riêng</b> để gửi link cho bạn bè.
+                                        Mẹo: Bạn có thể mở một <strong>cửa sổ ẩn danh (Incognito)</strong> hoặc đăng nhập tài khoản khác trên điện thoại (qua link bên dưới) để thử nghiệm đấu 1v1 người với người ngay lập tức!
                                     </p>
+                                    <button onclick="window.PvPArenaClient.copyPublicOnlineLink()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer shadow-sm active:scale-95 inline-flex items-center gap-1.5">
+                                        <i class="fa-solid fa-share-nodes"></i>
+                                        <span>Sao chép Link để mở trên điện thoại</span>
+                                    </button>
                                 </div>
                             ` : `
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto">
@@ -456,10 +661,10 @@
 
         copyRoomLink() {
             if (!this.currentRoomCode) return;
-            const link = location.origin + '/#pvp_room=' + this.currentRoomCode;
+            const link = this.getPublicAppUrl() + '/#pvp_room=' + this.currentRoomCode;
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(link);
-                if (typeof showToast === 'function') showToast('🔗 Đã sao chép liên kết mời bạn!');
+                if (typeof showToast === 'function') showToast('🔗 Đã sao chép liên kết mời bạn: ' + link);
             } else {
                 prompt('Sao chép link mời bạn:', link);
             }
@@ -920,7 +1125,7 @@
             });
 
             // Âm thanh phản hồi Web Audio ("ding!" nốt E6 khi đúng)
-            if (isCorrect) {
+            if (isCorrect && this.soundEnabled) {
                 if (window.WebAudioMicroEngine && typeof window.WebAudioMicroEngine.playDing === 'function') {
                     window.WebAudioMicroEngine.playDing();
                 } else {
