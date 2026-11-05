@@ -1206,6 +1206,95 @@
         });
     </script>
 
+
+<style id="sanh-header-responsive-style">
+    /* Sanh Top Header Bar: Responsive Grid on Mobile, Unified Single Row on Desktop */
+    #sanhTopHeaderBar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.625rem;
+    }
+    #sanhGreetingArea {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+    #sanhAccountCluster {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+    }
+    #studyEnvironmentControls {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.375rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(226, 232, 240, 0.8);
+        width: 100%;
+    }
+    .dark #studyEnvironmentControls {
+        border-top-color: rgba(30, 41, 59, 0.8);
+    }
+    .header-desktop-divider {
+        display: none;
+    }
+
+    /* DESKTOP (min-width: 1024px): Single unified row with right-aligned feature+account cluster */
+    @media (min-width: 1024px) {
+        #sanhTopHeaderBar {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding-top: 0.875rem !important;
+            padding-bottom: 0.875rem !important;
+            padding-left: 1.25rem !important;
+            padding-right: 1.25rem !important;
+            gap: 1rem !important;
+        }
+        #sanhGreetingArea {
+            order: 1 !important;
+            flex-shrink: 0 !important;
+        }
+        #studyEnvironmentControls {
+            order: 2 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            padding-top: 0 !important;
+            border-top: none !important;
+            margin-left: auto !important;
+            width: auto !important;
+        }
+        #studyEnvironmentControls > div,
+        #studyEnvironmentControls > button {
+            width: auto !important;
+        }
+        #sanhAccountCluster {
+            order: 3 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            margin-left: 0.25rem !important;
+        }
+        .header-desktop-divider {
+            display: block !important;
+            height: 1rem !important;
+            width: 1px !important;
+            background-color: #cbd5e1 !important;
+            flex-shrink: 0 !important;
+        }
+        .dark .header-desktop-divider {
+            background-color: #334155 !important;
+        }
+    }
+</style>
+
 </head>
 <body class="p-2 sm:p-3 md:p-4 lg:p-5 pb-24 lg:pb-5 m-0">
 
@@ -1484,124 +1573,124 @@
             <section id="view-hom-nay" class="space-y-5">
 
                 <!-- 1. TOP HEADER BAR: LỜI CHÀO CHUYÊN NGHIỆP & HUY HIỆU (TRẢI DÀI NGANG 1 HÀNG DUY NHẤT) -->
-                <div id="sanhTopHeaderBar" class="header-bar-elevation relative z-30 glass-panel rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-5 flex flex-col gap-2.5 sm:gap-3 shadow-xs border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
-                    <!-- TIER 1: Brand Greeting, Academic Goal & Profile Cluster -->
-                    <div class="flex items-center justify-between gap-2.5 sm:gap-3 flex-nowrap w-full">
-                        <!-- Left: Brand Greeting & Academic Goal (Spacious on mobile) -->
-                        <div class="flex items-center gap-2 sm:gap-3 text-slate-800 dark:text-white min-w-0 flex-1">
-                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xs sm:text-base shrink-0 font-black shadow-md shadow-blue-500/20 ring-2 sm:ring-4 ring-blue-500/10">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
-                                    <span id="sanhGreetingPrefix">Chào bạn,</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400 font-black">Học viên</span>
-                                </h1>
-                                <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate" id="sanhHeaderSubText">
-                                    Mục tiêu 600 TOEIC · Còn 47 ngày ôn luyện tập trung
-                                </p>
-                            </div>
+                <div id="sanhTopHeaderBar" class="header-bar-elevation relative z-30 glass-panel rounded-2xl sm:rounded-3xl shadow-xs border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-3 sm:p-4">
+                    <!-- 1. LEFT: Brand Greeting & Academic Goal -->
+                    <div id="sanhGreetingArea" class="flex items-center gap-2 sm:gap-3 text-slate-800 dark:text-white">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xs sm:text-base shrink-0 font-black shadow-md shadow-blue-500/20 ring-2 sm:ring-4 ring-blue-500/10">
+                            <i class="fa-solid fa-graduation-cap"></i>
                         </div>
+                        <div class="min-w-0 flex-1">
+                            <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
+                                <span id="sanhGreetingPrefix">Chào bạn,</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400 font-black">Học viên</span>
+                            </h1>
+                            <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate" id="sanhHeaderSubText">
+                                Mục tiêu 600 TOEIC · Còn 47 ngày ôn luyện tập trung
+                            </p>
+                        </div>
+                    </div>
 
-                        <!-- Right: Actions (PWA install on desktop, notification bell, user avatar pill) -->
-                        <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-                            <!-- PWA Install Button (Hidden on small mobile since sticky header already has cloud icon) -->
-                            <button id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden sm:inline-flex px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-md shadow-indigo-500/20 transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
-                                <i class="fa-solid fa-cloud-arrow-down text-xs"></i>
-                                <span>Tải App</span>
+                    <!-- 2. ACTIONS CLUSTER: PWA install, notification bell, user avatar profile pill -->
+                    <div id="sanhAccountCluster">
+                        <!-- PWA Install Button -->
+                        <button id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden sm:inline-flex px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-md shadow-indigo-500/20 transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
+                            <i class="fa-solid fa-cloud-arrow-down text-xs"></i>
+                            <span>Tải App</span>
+                        </button>
+
+                        <!-- Notification Center Bell -->
+                        <button onclick="window.toggleNotificationCenter && window.toggleNotificationCenter()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer relative shrink-0" title="Thông báo tiến độ hàng tuần" aria-label="Thông báo tiến độ">
+                            <i class="fa-regular fa-bell text-xs"></i>
+                            <span id="headerWeeklyReportDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900 animate-pulse"></span>
+                        </button>
+
+                        <!-- User Profile Avatar Pill & Dropdown -->
+                        <div class="relative shrink-0" id="sanhMemberDropdownWrapper">
+                            <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2 sm:pr-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 sm:gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
+                                <div id="sanhMemberAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-extrabold text-xs flex items-center justify-center ring-2 ring-purple-300/40 shrink-0">
+                                    <span id="sanhMemberAvatarLetter">H</span>
+                                </div>
+                                <div class="leading-tight hidden sm:block">
+                                    <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Huynh Dang</div>
+                                    <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-[9px] sm:text-[10px] text-slate-400"></i>
                             </button>
 
-                            <!-- Notification Center Bell -->
-                            <button onclick="window.toggleNotificationCenter && window.toggleNotificationCenter()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer relative shrink-0" title="Thông báo tiến độ hàng tuần" aria-label="Thông báo tiến độ">
-                                <i class="fa-regular fa-bell text-xs"></i>
-                                <span id="headerWeeklyReportDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900 animate-pulse"></span>
-                            </button>
+                            <!-- Menu Sổ Xuống (Dropdown) -->
+                            <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
+                                <!-- Thông tin tóm tắt -->
+                                <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
+                                        <span>H</span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <div id="sanhMemberProfileDropdownName" class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">Huynh Dang</div>
+                                        <div id="sanhMemberDropdownEmail" class="text-[10px] text-slate-400 truncate">student@toididau.edu.vn</div>
+                                    </div>
+                                </div>
 
-                            <!-- User Profile Avatar Pill & Dropdown -->
-                            <div class="relative shrink-0" id="sanhMemberDropdownWrapper">
-                                <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2 sm:pr-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 sm:gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
-                                    <div id="sanhMemberAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-extrabold text-xs flex items-center justify-center ring-2 ring-purple-300/40 shrink-0">
-                                        <span id="sanhMemberAvatarLetter">H</span>
-                                    </div>
-                                    <div class="leading-tight hidden sm:block">
-                                        <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Huynh Dang</div>
-                                        <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-down text-[9px] sm:text-[10px] text-slate-400"></i>
-                                </button>
-
-                                <!-- Menu Sổ Xuống (Dropdown) -->
-                                <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
-                                    <!-- Thông tin tóm tắt -->
-                                    <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
-                                        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
-                                            <span>H</span>
-                                        </div>
-                                        <div class="min-w-0 flex-1">
-                                            <div id="sanhMemberProfileDropdownName" class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">Huynh Dang</div>
-                                            <div id="sanhMemberDropdownEmail" class="text-[10px] text-slate-400 truncate">student@toididau.edu.vn</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 3 Mục lựa chọn: Tài khoản, Cài đặt, Đăng xuất -->
-                                    <div class="space-y-0.5">
-                                        <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
-                                            <i class="fa-regular fa-user text-indigo-500 text-xs w-4 text-center"></i>
-                                            <span>Tài khoản & Mục tiêu</span>
-                                        </button>
-                                        <button type="button" onclick="openAccountSettingsView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
-                                            <i class="fa-solid fa-sliders text-emerald-500 text-xs w-4 text-center"></i>
-                                            <span>Cài đặt hệ thống</span>
-                                        </button>
-                                        <button type="button" onclick="handleLogoutUser()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold transition text-left cursor-pointer border-t border-slate-100 dark:border-slate-800 pt-2 mt-1">
-                                            <i class="fa-solid fa-arrow-right-from-bracket text-xs w-4 text-center"></i>
-                                            <span>Đăng xuất</span>
-                                        </button>
-                                    </div>
+                                <!-- 3 Mục lựa chọn: Tài khoản, Cài đặt, Đăng xuất -->
+                                <div class="space-y-0.5">
+                                    <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
+                                        <i class="fa-regular fa-user text-indigo-500 text-xs w-4 text-center"></i>
+                                        <span>Tài khoản & Mục tiêu</span>
+                                    </button>
+                                    <button type="button" onclick="openAccountSettingsView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
+                                        <i class="fa-solid fa-sliders text-emerald-500 text-xs w-4 text-center"></i>
+                                        <span>Cài đặt hệ thống</span>
+                                    </button>
+                                    <button type="button" onclick="handleLogoutUser()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold transition text-left cursor-pointer border-t border-slate-100 dark:border-slate-800 pt-2 mt-1">
+                                        <i class="fa-solid fa-arrow-right-from-bracket text-xs w-4 text-center"></i>
+                                        <span>Đăng xuất</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TIER 2: Responsive Toolbar (Mobile 3-Column Grid / Desktop 1-Row Toolbar - ZERO CUTOFF) -->
-                    <div id="studyEnvironmentControls" class="grid grid-cols-3 sm:flex sm:items-center gap-1.5 sm:gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800/80 w-full sm:w-auto">
+                    <!-- 3. STUDY CONTROLS TOOLBAR: 3x2 Grid on Mobile, Seamless Single Row on Desktop -->
+                    <div id="studyEnvironmentControls">
                         <!-- 1. Streak Pill -->
-                        <div onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="w-full sm:w-auto px-2 sm:px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition shrink-0" title="Chuỗi học tập liên tục (Bấm để nhận lời chúc từ Sói Mây)">
+                        <div onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition shrink-0" title="Chuỗi học tập liên tục (Bấm để nhận lời chúc từ Sói Mây)">
                             <i class="fa-solid fa-fire text-amber-500 animate-pulse text-xs"></i>
                             <span id="sanhMemberStreakVal">0 ngày</span>
                         </div>
 
                         <!-- 2. XP Pill -->
-                        <div class="w-full sm:w-auto px-2 sm:px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs shrink-0">
+                        <div class="px-2 sm:px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs shrink-0">
                             <i class="fa-solid fa-star text-purple-500 text-xs"></i>
                             <span id="sanhMemberXpVal">0 XP</span>
                         </div>
 
                         <!-- 3. Pomodoro Focus Timer -->
-                        <button id="btnQuickPomodoroLaunch" onclick="window.togglePomodoroHudModal && window.togglePomodoroHudModal()" class="w-full sm:w-auto sm:min-w-[85px] px-2 sm:px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đồng hồ Pomodoro tùy chỉnh thời gian">
+                        <button id="btnQuickPomodoroLaunch" onclick="window.togglePomodoroHudModal && window.togglePomodoroHudModal()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đồng hồ Pomodoro tùy chỉnh thời gian">
                             <i class="fa-regular fa-clock text-rose-500 animate-pulse text-xs"></i>
                             <span id="quickPomodoroTimeDisplay">25:00</span>
                         </button>
 
                         <!-- Divider 1 (Desktop only) -->
-                        <div class="hidden sm:block h-4 w-px bg-slate-200 dark:bg-slate-700 shrink-0"></div>
+                        <div class="header-desktop-divider"></div>
 
                         <!-- 4. Warm Sand Theme Toggle -->
-                        <button id="btnEditorialToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleEditorial()" class="w-full sm:w-auto sm:min-w-[115px] px-2 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Chế độ Giấy Tự Nhiên & Mực Trầm (Warm Sand)">
+                        <button id="btnEditorialToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleEditorial()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Chế độ Giấy Tự Nhiên & Mực Trầm (Warm Sand)">
                             <i class="fa-solid fa-scroll text-amber-600 text-xs"></i>
                             <span class="truncate">Warm Sand</span>
                         </button>
 
                         <!-- 5. ETS Serif Font Switcher -->
-                        <button id="btnFontToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleFont()" class="w-full sm:w-auto sm:min-w-[105px] px-2 sm:px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đổi phông thi ETS Serif / Inter">
+                        <button id="btnFontToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleFont()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đổi phông thi ETS Serif / Inter">
                             <i class="fa-solid fa-font text-indigo-600 text-xs"></i>
                             <span class="font-mode-label font-serif truncate">Serif ETS</span>
                         </button>
 
                         <!-- 6. Onboarding Tour Guide Launcher -->
-                        <button id="btnStartTourGuide" onclick="window.AppTourGuide && window.AppTourGuide.start(true)" class="w-full sm:w-auto px-2 sm:px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Hướng dẫn làm quen Tour">
+                        <button id="btnStartTourGuide" onclick="window.AppTourGuide && window.AppTourGuide.start(true)" class="px-2 sm:px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Hướng dẫn làm quen Tour">
                             <i class="fa-solid fa-compass text-sky-600 text-xs"></i>
                             <span class="truncate">Hướng dẫn</span>
                         </button>
+
+                        <!-- Divider 2 (Desktop only between Tour Guide and Account Actions) -->
+                        <div class="header-desktop-divider"></div>
                     </div>
                 </div>
 
