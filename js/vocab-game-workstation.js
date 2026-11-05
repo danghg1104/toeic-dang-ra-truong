@@ -1618,7 +1618,7 @@
                         <i class="fa-solid fa-gamepad text-sm"></i>
                         <span>Vào Đấu Trường Ngay</span>
                     </button>
-                </div>`;
+                </div>
                     <!-- Top Breadcrumb -->
                     <nav class="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-1">
                         <span class="hover:text-emerald-600 cursor-pointer" onclick="switchTab('hom-nay')">Trang chủ</span>
