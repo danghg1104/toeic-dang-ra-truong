@@ -111,9 +111,9 @@
             modal.id = 'pvpArenaModal';
             modal.className = 'fixed inset-0 z-[11000] hidden flex items-center justify-center p-3 sm:p-5 bg-slate-950/80 backdrop-blur-md transition-all duration-300';
             modal.innerHTML = `
-                <div class="relative w-full max-w-4xl bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] artisan-ocean-stage">
+                <div class="relative w-full max-w-4xl bg-gradient-to-b from-[#102452] via-[#142959] to-[#1c3875] text-white rounded-3xl border border-indigo-400/50 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] artisan-ocean-stage">
                     <!-- Header -->
-                    <div class="p-4 sm:p-5 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70">
+                    <div class="p-4 sm:p-5 border-b border-indigo-400/30 flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 backdrop-blur-md">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 p-[2px] shadow-lg shadow-orange-500/30 ring-2 ring-amber-400/25 flex items-center justify-center shrink-0">
                                 <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center">
@@ -168,9 +168,9 @@
             if (!container) return;
 
             container.innerHTML = `
-                <div class="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white rounded-3xl border border-indigo-500/40 shadow-2xl overflow-hidden flex flex-col min-h-[620px] artisan-ocean-stage">
+                <div class="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-[#102452] via-[#142959] to-[#1c3875] text-white rounded-3xl border border-indigo-400/50 shadow-2xl overflow-hidden flex flex-col min-h-[620px] artisan-ocean-stage">
                     <!-- Header Bar -->
-                    <div class="p-4 sm:p-6 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70 backdrop-blur-md">
+                    <div class="p-4 sm:p-6 border-b border-indigo-400/30 flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 backdrop-blur-md">
                         <div class="flex items-center gap-3">
                             <div class="w-10 sm:w-12 h-10 sm:h-12 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 p-[2px] shadow-lg shadow-orange-500/30 ring-2 sm:ring-4 ring-amber-400/25 flex items-center justify-center shrink-0">
                                 <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center">
@@ -417,7 +417,7 @@
                     ${this.currentTab === 'quick' ? `
                         <div class="space-y-4 sm:space-y-5 py-1">
                             <!-- Real-time Online Network Ribbon -->
-                            <div class="flex flex-wrap items-center justify-between gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-950/70 border border-slate-800 text-xs">
+                            <div class="flex flex-wrap items-center justify-between gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-900/60 backdrop-blur-md border border-indigo-400/35 text-xs shadow-sm">
                                 <div class="flex items-center gap-2">
                                     <span class="relative flex h-2.5 w-2.5">
                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -436,14 +436,14 @@
                                 </div>
                             </div>
 
-                            <!-- Versus Arena Stage (Sàn Đấu Đối Kháng 1v1 Đối Xứng) -->
-                            <div class="relative p-3.5 sm:p-6 rounded-3xl bg-gradient-to-b from-slate-950/90 via-slate-900/90 to-indigo-950/50 border border-indigo-500/30 shadow-2xl overflow-hidden">
+                            <!-- Versus Arena Stage (Sàn Đấu Đối Kháng 1v1 Luminous Sapphire) -->
+                            <div class="relative p-3.5 sm:p-6 rounded-3xl bg-gradient-to-b from-[#112455]/85 via-[#162c66]/75 to-[#1c387c]/80 border border-indigo-400/40 shadow-2xl overflow-hidden">
                                 <div class="absolute -top-20 -left-20 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                                <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                                <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none"></div>
 
                                 <div class="relative grid grid-cols-7 md:grid-cols-11 gap-1.5 sm:gap-4 items-center">
                                     <!-- Player 1 Card (Bạn) -->
-                                    <div class="col-span-3 md:col-span-5 p-2.5 sm:p-4 rounded-2xl bg-slate-900/90 border border-amber-500/30 flex flex-col items-center text-center shadow-lg relative group hover:border-amber-400/60 transition">
+                                    <div class="col-span-3 md:col-span-5 p-2.5 sm:p-4 rounded-2xl bg-[#14285c]/85 border border-amber-400/50 flex flex-col items-center text-center shadow-lg relative group hover:border-amber-400/80 transition">
                                         <div class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-amber-500/30 mb-1">
                                             Player 1 (Bạn)
                                         </div>
@@ -491,7 +491,7 @@
                                     </div>
 
                                     <!-- Player 2 Card (Đối thủ slot) -->
-                                    <div class="col-span-3 md:col-span-5 p-2.5 sm:p-4 rounded-2xl bg-slate-900/80 border border-indigo-500/30 flex flex-col items-center text-center shadow-lg relative group hover:border-indigo-400/60 transition">
+                                    <div class="col-span-3 md:col-span-5 p-2.5 sm:p-4 rounded-2xl bg-[#14285c]/85 border border-indigo-400/45 flex flex-col items-center text-center shadow-lg relative group hover:border-indigo-400/80 transition">
                                         <div class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-indigo-500/30 mb-1">
                                             Player 2 (Đối thủ)
                                         </div>
@@ -520,33 +520,33 @@
                                 </div>
                             </div>
 
-                            <!-- 3 Value Cards (Format Rules & Rewards) -->
+                            <!-- 3 Value Cards (Format Rules & Rewards - Lighter Sapphire Glass) -->
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
-                                <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 sm:gap-3">
+                                <div class="p-3 sm:p-3.5 rounded-2xl bg-[#14285c]/65 border border-indigo-400/30 flex items-start gap-2.5 sm:gap-3 backdrop-blur-md">
                                     <div class="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs sm:text-sm font-black shrink-0 border border-amber-400/30">
                                         <i class="fa-solid fa-stopwatch"></i>
                                     </div>
                                     <div>
                                         <h6 class="text-xs font-black text-white">60 Giây Phản Xạ</h6>
-                                        <p class="text-[11px] text-slate-400 leading-tight mt-0.5">Tốc độ cao, đúng liên tiếp kích hoạt Combo x2, x3 để nhân đôi điểm số!</p>
+                                        <p class="text-[11px] text-slate-300 leading-tight mt-0.5">Tốc độ cao, đúng liên tiếp kích hoạt Combo x2, x3 để nhân đôi điểm số!</p>
                                     </div>
                                 </div>
-                                <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 sm:gap-3">
+                                <div class="p-3 sm:p-3.5 rounded-2xl bg-[#14285c]/65 border border-indigo-400/30 flex items-start gap-2.5 sm:gap-3 backdrop-blur-md">
                                     <div class="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs sm:text-sm font-black shrink-0 border border-indigo-400/30">
                                         <i class="fa-solid fa-book-sparkles"></i>
                                     </div>
                                     <div>
                                         <h6 class="text-xs font-black text-white">10 Từ ETS 2026</h6>
-                                        <p class="text-[11px] text-slate-400 leading-tight mt-0.5">Trích chọn từ ngân hàng đề thi chuẩn, 4 phương án phản xạ từ loại và ngữ nghĩa.</p>
+                                        <p class="text-[11px] text-slate-300 leading-tight mt-0.5">Trích chọn từ ngân hàng đề thi chuẩn, 4 phương án phản xạ từ loại và ngữ nghĩa.</p>
                                     </div>
                                 </div>
-                                <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 sm:gap-3">
+                                <div class="p-3 sm:p-3.5 rounded-2xl bg-[#14285c]/65 border border-indigo-400/30 flex items-start gap-2.5 sm:gap-3 backdrop-blur-md">
                                     <div class="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs sm:text-sm font-black shrink-0 border border-emerald-400/30">
                                         <i class="fa-solid fa-trophy"></i>
                                     </div>
                                     <div>
                                         <h6 class="text-xs font-black text-white">Rank & AI Soi Lỗi</h6>
-                                        <p class="text-[11px] text-slate-400 leading-tight mt-0.5">Thắng nhận +25 Rank & +50 XP. Mọi từ làm sai được kích hoạt giải thích AI tức thì.</p>
+                                        <p class="text-[11px] text-slate-300 leading-tight mt-0.5">Thắng nhận +25 Rank & +50 XP. Mọi từ làm sai được kích hoạt giải thích AI tức thì.</p>
                                     </div>
                                 </div>
                             </div>

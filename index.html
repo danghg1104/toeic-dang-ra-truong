@@ -1323,7 +1323,7 @@
         }
     }
 </style>
-    <link rel="stylesheet" href="/css/celestial-artisan-theme.css?v=20261106_v2">
+    <link rel="stylesheet" href="/css/celestial-artisan-theme.css?v=20261106_v3">
 </head>
 <body class="p-2 sm:p-3 md:p-4 lg:p-5 pb-24 lg:pb-5 m-0">
 
@@ -1747,6 +1747,18 @@
                                     Mục tiêu <strong class="text-slate-800 dark:text-slate-200" id="memberTargetScore">--</strong> điểm · <span id="memberExamDate">Chưa đặt ngày thi</span>
                                     <button onclick="openTargetModal()" class="ml-1 text-slate-400 hover:text-blue-600 transition" title="Đặt mục tiêu"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
                                 </span>
+                                <!-- Hộp Nhạc Sói Mây Mini (Pastel Vintage Music Box) -->
+                                <div onclick="window.toggleMiniMusicBox && window.toggleMiniMusicBox()" 
+                                     class="artisan-mini-musicbox inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full cursor-pointer select-none" 
+                                     title="Hộp nhạc Sói Mây: Giai điệu Lofi ôn luyện tập trung">
+                                    <div class="relative w-4 h-4 rounded-full bg-gradient-to-tr from-teal-400 via-amber-300 to-rose-300 p-[1px] shadow-xs flex items-center justify-center shrink-0">
+                                        <div class="w-full h-full rounded-full bg-slate-850 flex items-center justify-center artisan-mini-spindle">
+                                            <span class="text-[8px] text-amber-300 font-black leading-none">♪</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200">Hộp nhạc Lofi</span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
+                                </div>
                             </div>
 
                             <!-- Main Lesson Headline -->
@@ -8245,6 +8257,28 @@
                     });
                 }
             }, true);
+            // Hộp nhạc Sói Mây Mini Lofi Controller
+            window.toggleMiniMusicBox = function() {
+                if (window.WebAudioMicroEngine) {
+                    try {
+                        window.WebAudioMicroEngine.initAudio();
+                        if (typeof window.WebAudioMicroEngine.playComboCheer === 'function') {
+                            window.WebAudioMicroEngine.playComboCheer(3);
+                        }
+                    } catch(e) {}
+                }
+                const toast = document.getElementById('toastBox');
+                const text = document.getElementById('toastText');
+                if (toast && text) {
+                    text.textContent = '🎵 Hộp nhạc Sói Mây: Giai điệu Lofi du dương đang phát... Cùng tập trung ôn luyện nhé!';
+                    toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+                    toast.classList.add('opacity-100', 'translate-y-0');
+                    setTimeout(function() {
+                        toast.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+                        toast.classList.remove('opacity-100', 'translate-y-0');
+                    }, 3500);
+                }
+            };
         })();
     </script>
 </body>
