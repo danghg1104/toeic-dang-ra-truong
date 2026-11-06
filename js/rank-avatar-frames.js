@@ -31,6 +31,15 @@
                 transform-origin: center;
             }
 
+            /* SILVER GEARS & PULSE */
+            @keyframes silverPulse {
+                0%, 100% { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45)); }
+                50% { filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 28px rgba(203, 213, 225, 0.5)); }
+            }
+            .anim-silver-pulse {
+                animation: silverPulse 3.2s ease-in-out infinite;
+            }
+
             /* SILVER GEARS SPIN */
             @keyframes gearSpinCw {
                 from { transform: rotate(0deg); }
@@ -220,7 +229,7 @@
                 // 2. TIER II: SILVER STEAMPUNK (Cánh Cơ Khí Song Kiếm & Bánh Răng La Bàn)
                 // =========================================================================
                 case 'silver':
-                    animClass = '';
+                    animClass = 'anim-silver-pulse';
                     frameElements = `
                         <defs>
                             ${avatarClip}
@@ -572,10 +581,14 @@
 
             const mobileTopAvatar = document.getElementById('mobileTopAvatar');
             if (mobileTopAvatar) {
-                mobileTopAvatar.className = 'relative flex items-center justify-center shrink-0 cursor-pointer';
-                mobileTopAvatar.style.width = '38px';
-                mobileTopAvatar.style.height = '38px';
+                mobileTopAvatar.className = 'w-9 h-9 relative flex items-center justify-center cursor-pointer shrink-0';
                 mobileTopAvatar.innerHTML = this.getSvg(rank, avatarUrl, { size: 38 });
+            }
+
+            const preview = document.getElementById('profileAvatarPreview');
+            if (preview) {
+                preview.className = 'w-24 h-24 relative flex items-center justify-center shrink-0 cursor-pointer';
+                preview.innerHTML = this.getSvg(rank, avatarUrl, { size: 92 });
             }
         },
 

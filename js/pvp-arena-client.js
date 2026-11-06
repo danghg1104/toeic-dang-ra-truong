@@ -447,15 +447,15 @@
                                         <div class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-amber-500/30 mb-1">
                                             Player 1 (Bạn)
                                         </div>
-                                        <div class="relative my-1.5 sm:my-2">
-                                            <div class="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl ring-2 sm:ring-4 ring-amber-400/40 overflow-hidden shadow-xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-800 flex items-center justify-center text-lg sm:text-2xl font-black text-white">
-                                                ${user && user.avatar && !user.avatar.includes('soi_may_avt') ? `
-                                                    <img src="${user.avatar}" alt="${username}" onerror="this.remove()" class="w-full h-full object-cover">
-                                                ` : `
-                                                    <span class="text-xl sm:text-3xl font-black text-white drop-shadow">${initial}</span>
+                                        <div class="relative my-1 sm:my-2 flex items-center justify-center">
+                                            <div class="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
+                                                ${window.RankAvatarFrames ? window.RankAvatarFrames.getSvg(user.rankTier || 'diamond', user.avatar || '/assets/mascot/may_avatar.png', { size: 104 }) : `
+                                                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shadow-xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-800 flex items-center justify-center">
+                                                        <img src="${user.avatar || '/assets/mascot/may_avatar.png'}" class="w-full h-full object-cover">
+                                                    </div>
                                                 `}
                                             </div>
-                                            <span class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black" title="Sẵn sàng">
+                                            <span class="absolute bottom-1 right-2 w-5 h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[10px] text-white font-black shadow-md z-10" title="Sẵn sàng">
                                                 ✓
                                             </span>
                                         </div>
@@ -510,11 +510,11 @@
                                         <div class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-indigo-500/30 mb-1">
                                             Player 2 (Đối thủ)
                                         </div>
-                                        <div class="relative my-1.5 sm:my-2">
-                                            <div class="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl border-2 border-dashed border-indigo-400/50 flex items-center justify-center bg-slate-950/60 text-lg sm:text-2xl text-indigo-400 shadow-inner">
-                                                <i class="fa-solid fa-gamepad animate-pulse"></i>
+                                        <div class="relative my-1 sm:my-2 flex items-center justify-center">
+                                            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-dashed border-indigo-400/50 flex items-center justify-center bg-slate-950/60 text-2xl text-indigo-400 shadow-inner animate-pulse">
+                                                <i class="fa-solid fa-gamepad text-2xl sm:text-3xl"></i>
                                             </div>
-                                            <span class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-indigo-500 border-2 border-slate-900 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black" title="Chờ ghép cặp">
+                                            <span class="absolute bottom-1 right-2 w-5 h-5 rounded-full bg-indigo-500 border-2 border-slate-900 flex items-center justify-center text-[10px] text-white font-black shadow-md z-10" title="Chờ ghép cặp">
                                                 ?
                                             </span>
                                         </div>

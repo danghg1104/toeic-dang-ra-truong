@@ -6767,16 +6767,26 @@
             }
         }
 
-        function renderUserAvatarElement(el, account) {
+        function renderUserAvatarElement(el, account, options = {}) {
             if (!el) return;
-            const avatar = account?.avatar || '';
+            const avatar = account?.avatar || '/assets/mascot/may_avatar.png';
             const avatarColor = account?.avatarColor || 'bg-blue-600';
             const initial = (account?.name || 'U').trim().charAt(0).toUpperCase();
+            const rank = account?.rankTier || 'diamond';
 
-            // Clear previous children
+            // If RankAvatarFrames engine is loaded and frame is requested (default true)
+            if (window.RankAvatarFrames && options.showFrame !== false) {
+                const isProfile = el.id === 'profileAvatarPreview';
+                const isHeader = el.id === 'sanhMemberAvatar' || el.id === 'mobileTopAvatar' || el.id === 'sanhMemberDropdownAvatar' || el.id === 'topUserAvatar';
+                const size = options.size || (isProfile ? 88 : (isHeader ? 42 : 36));
+                el.innerHTML = window.RankAvatarFrames.getSvg(rank, avatar, { size });
+                el.className = el.className.replace(/\bbg-[a-z0-9-]+\b/g, '').replace('rounded-full', '').trim();
+                el.classList.add('relative', 'flex', 'items-center', 'justify-center', 'shrink-0');
+                return;
+            }
+
+            // Fallback if RankAvatarFrames not yet loaded
             el.innerHTML = '';
-            
-            // Remove any old background colors to avoid conflicts
             el.className = el.className.replace(/\bbg-[a-z0-9-]+\b/g, '').trim();
 
             const isImg = avatar && (
@@ -6936,7 +6946,11 @@
             setTxt('sanhMemberXpVal', `+${currentUserAccount.xp || 0} XP`);
             setTxt('sanhMemberDropdownEmail', currentUserAccount.email || '');
             setTxt('mobileDropdownEmail', currentUserAccount.email || '');
-            renderUserAvatarElement(document.getElementById('sanhMemberAvatar'), currentUserAccount);
+            if (window.RankAvatarFrames && typeof window.RankAvatarFrames.updateHeaderAvatar === 'function') {
+                window.RankAvatarFrames.updateHeaderAvatar(currentUserAccount);
+            } else {
+                renderUserAvatarElement(document.getElementById('sanhMemberAvatar'), currentUserAccount);
+            }
             if (typeof renderStreakWeekDays === 'function') {
                 renderStreakWeekDays({ streak: currentUserAccount.streak || state.streak || 0 });
             }
