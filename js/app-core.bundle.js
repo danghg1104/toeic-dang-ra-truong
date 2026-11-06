@@ -8891,7 +8891,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=toididaudo_v18_final').then(reg => {
+                navigator.serviceWorker.register('/sw.js?v=toididaudo_v19_celestial').then(reg => {
                     reg.update();
                 }).catch((err) => {
                     console.log('SW registration note:', err.message);
@@ -8899,7 +8899,7 @@
                 if ('caches' in window) {
                     caches.keys().then(keys => {
                         keys.forEach(k => {
-                            if (k !== 'study-studio-cache-v5-phase4-modular' && k !== 'study-studio-audio-offline-v1') {
+                            if (k !== 'study-studio-cache-v11-celestial-artisan' && k !== 'study-studio-audio-offline-v1') {
                                 console.log('[Client] Purging old cache:', k);
                                 caches.delete(k);
                             }

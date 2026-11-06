@@ -1,5 +1,5 @@
 // Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (Study Studio 2026) - Offline Audio & Dynamic Caching
-const CACHE_NAME = 'study-studio-cache-v10-auth-restore';
+const CACHE_NAME = 'study-studio-cache-v11-celestial-artisan';
 const AUDIO_CACHE_NAME = 'study-studio-audio-offline-v1';
 
 const ASSETS_TO_CACHE = [
@@ -11,7 +11,15 @@ const ASSETS_TO_CACHE = [
   '/app.ico',
   '/assets/mascot/may_avatar.png',
   '/assets/mascot/may_reading.png',
+  '/assets/theme/aqua_vinyl_turntable.png',
+  '/assets/theme/genz_retro_camera_sticker.png',
+  '/assets/theme/moodboard_starry_clouds.jpg',
+  '/assets/theme/moodboard_ocean_waves_ukiyo.jpg',
+  '/assets/theme/moodboard_scrapbook_paper.jpg',
+  '/assets/theme/moodboard_denim_sashiko.jpg',
+  '/assets/theme/vintage_ocean_waves_bg.jpg',
   '/css/tailwind.static.css',
+  '/css/celestial-artisan-theme.css',
   '/js/vendor/canvas-confetti.min.js',
   '/js/editorial-theme-manager.js',
   '/js/web-audio-micro-engine.js',
