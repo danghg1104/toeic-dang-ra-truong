@@ -796,7 +796,7 @@
                     type: 'CREATE_ROOM',
                     userId: user.id || 'guest_' + Date.now(),
                     username: user.name || 'Chủ Phòng TOEIC',
-                    avatar: user.avatar || '/assets/mascot/soi_may_avt.png'
+                    avatar: user.avatar || '/assets/mascot/may_avatar.png'
                 }));
             }
         }
@@ -817,7 +817,7 @@
                     roomCode: cleanCode,
                     userId: user.id || 'guest_' + Date.now(),
                     username: user.name || 'Bạn Học TOEIC',
-                    avatar: user.avatar || '/assets/mascot/soi_may_avt.png'
+                    avatar: user.avatar || '/assets/mascot/may_avatar.png'
                 }));
             }
         }
@@ -884,7 +884,7 @@
                     userId: user.id || 'guest_' + Date.now(),
                     username: user.name || 'Chiến Binh TOEIC',
                     friendCode: this.myFriendCode || user.friendCode || 'HD-7133',
-                    avatar: user.avatar || '/assets/mascot/soi_may_avt.png'
+                    avatar: user.avatar || '/assets/mascot/may_avatar.png'
                 }
             }));
             if (typeof showToast === 'function') {
@@ -971,7 +971,7 @@
                     user: {
                         userId: user.id || 'guest_' + Date.now(),
                         username: user.name || 'Chiến Binh TOEIC',
-                        avatar: user.avatar || '/assets/mascot/soi_may_avt.png'
+                        avatar: user.avatar || '/assets/mascot/may_avatar.png'
                     }
                 }));
             }
@@ -1035,7 +1035,7 @@
                     const user = window.currentUserAccount || {};
                     const uId = user.id || 'guest_' + Date.now();
                     const uName = user.name || 'Chiến Binh TOEIC';
-                    const uAvt = user.avatar || '/assets/mascot/soi_may_avt.png';
+                    const uAvt = user.avatar || '/assets/mascot/may_avatar.png';
 
                     // Đăng ký danh tính lên máy chủ
                     this.ws.send(JSON.stringify({

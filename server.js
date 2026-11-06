@@ -2458,6 +2458,9 @@ const server = http.createServer((req, res) => {
     const profile = loadUserProfile(userId);
     const safeUser = {
       ...user,
+      avatar: user.avatar || profile.avatar || '',
+      avatarColor: user.avatarColor || profile.avatarColor || 'bg-purple-700',
+      rankTier: user.rankTier || profile.rankTier || 'diamond',
       friendCode: getOrCreateFriendCode(user),
       friends: profile.friends || [],
       streak: profile.state?.streak || profile.streakInfo?.streak || user.streak || 0,
@@ -2946,14 +2949,17 @@ const server = http.createServer((req, res) => {
       const dataToSave = payload.data || payload;
       const saved = saveUserProfile(userId, dataToSave);
 
-      // Cập nhật targetScore và examDate vào users_database.json nếu có thay đổi
-      if (dataToSave.targetScore !== undefined || dataToSave.examDate !== undefined) {
+      // Cập nhật targetScore, examDate, avatar vào users_database.json nếu có thay đổi
+      if (dataToSave.targetScore !== undefined || dataToSave.examDate !== undefined || dataToSave.avatar !== undefined || dataToSave.avatarColor !== undefined || dataToSave.rankTier !== undefined) {
         try {
           const users = loadUsersDatabase();
           const user = users.find(u => u.id === userId);
           if (user) {
             if (dataToSave.targetScore !== undefined) user.targetScore = String(dataToSave.targetScore).trim();
             if (dataToSave.examDate !== undefined) user.examDate = String(dataToSave.examDate).trim();
+            if (dataToSave.avatar !== undefined) user.avatar = String(dataToSave.avatar).trim();
+            if (dataToSave.avatarColor !== undefined) user.avatarColor = String(dataToSave.avatarColor).trim();
+            if (dataToSave.rankTier !== undefined) user.rankTier = String(dataToSave.rankTier).trim();
             saveUsersDatabase(users);
           }
         } catch (e) {}
@@ -2965,6 +2971,70 @@ const server = http.createServer((req, res) => {
         ...getCorsHeaders(req)
       });
       res.end(JSON.stringify({ success: true, data: saved }));
+    });
+    return;
+  }
+
+  // 2a-2. Cập nhật thông tin hồ sơ & avatar người dùng (POST /api/user/profile)
+  if (reqPath === '/api/user/profile' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      let userId = getAuthenticatedUserId(req);
+      if (!userId && (payload?.userId || payload?.id)) {
+        userId = payload.userId || payload.id;
+      }
+      if (!userId) {
+        res.writeHead(401, {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+          ...getCorsHeaders(req)
+        });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
+
+      const users = loadUsersDatabase();
+      const user = users.find(u => u.id === userId);
+      if (user) {
+        if (payload.name !== undefined) user.name = String(payload.name).trim();
+        if (payload.avatar !== undefined) user.avatar = String(payload.avatar).trim();
+        if (payload.avatarColor !== undefined) user.avatarColor = String(payload.avatarColor).trim();
+        if (payload.rankTier !== undefined) user.rankTier = String(payload.rankTier).trim();
+        if (payload.targetScore !== undefined) user.targetScore = String(payload.targetScore).trim();
+        if (payload.examDate !== undefined) user.examDate = String(payload.examDate).trim();
+        saveUsersDatabase(users);
+      }
+
+      const profile = loadUserProfile(userId);
+      if (profile) {
+        if (payload.name !== undefined) {
+          if (!profile.profile) profile.profile = {};
+          profile.profile.name = String(payload.name).trim();
+        }
+        if (payload.avatar !== undefined) {
+          profile.avatar = String(payload.avatar).trim();
+          if (!profile.profile) profile.profile = {};
+          profile.profile.avatar = String(payload.avatar).trim();
+        }
+        if (payload.avatarColor !== undefined) profile.avatarColor = String(payload.avatarColor).trim();
+        if (payload.rankTier !== undefined) profile.rankTier = String(payload.rankTier).trim();
+        if (payload.targetScore !== undefined) profile.targetScore = String(payload.targetScore).trim();
+        if (payload.examDate !== undefined) profile.examDate = String(payload.examDate).trim();
+        saveUserProfile(userId, profile);
+      }
+
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+        ...getCorsHeaders(req)
+      });
+      res.end(JSON.stringify({
+        success: true,
+        user: {
+          ...(user || {}),
+          avatar: user?.avatar || profile?.avatar || '',
+          avatarColor: user?.avatarColor || profile?.avatarColor || 'bg-purple-700',
+          rankTier: user?.rankTier || profile?.rankTier || 'diamond'
+        }
+      }));
     });
     return;
   }

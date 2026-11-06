@@ -20,8 +20,8 @@
     "email": "danghg20008@gmail.com",
     "username": "danghg20008",
     "googleSub": "107738900510237453458",
-    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIqf3GZEx2d0AUkcqFTnPvvecQ6MTf9v89adahm3RECplz0HQ=s96-c",
-    "avatarColor": "bg-emerald-600",
+    "avatar": "/assets/mascot/may_avatar.png",
+    "avatarColor": "bg-purple-700",
     "exam": "TOEIC",
     "targetScore": "600",
     "examDate": "20/12/2026",
@@ -52,7 +52,8 @@
       "recommendedStage": 1
     },
     "completedNodes": [],
-    "friendCode": "HD-7133"
+    "friendCode": "HD-7133",
+    "rankTier": "diamond"
   },
   {
     "id": "acc-g-1792724111567",

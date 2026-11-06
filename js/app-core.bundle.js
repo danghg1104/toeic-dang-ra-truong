@@ -6779,16 +6779,26 @@
             // Remove any old background colors to avoid conflicts
             el.className = el.className.replace(/\bbg-[a-z0-9-]+\b/g, '').trim();
 
-            if (avatar.startsWith('data:image/') || avatar.startsWith('http://') || avatar.startsWith('https://')) {
+            const isImg = avatar && (
+                avatar.startsWith('data:image/') ||
+                avatar.startsWith('http://') ||
+                avatar.startsWith('https://') ||
+                avatar.startsWith('/') ||
+                avatar.includes('.png') ||
+                avatar.includes('.jpg') ||
+                avatar.includes('.jpeg') ||
+                avatar.includes('.webp') ||
+                avatar.includes('.svg')
+            );
+
+            if (isImg) {
                 el.classList.add('bg-slate-100', 'overflow-hidden', 'relative');
                 const img = document.createElement('img');
                 img.src = avatar;
                 img.alt = account?.name || 'avatar';
                 img.className = 'w-full h-full object-cover rounded-full';
                 img.referrerPolicy = 'no-referrer';
-                img.crossOrigin = 'anonymous';
                 img.onerror = function() {
-                    // Fallback thông minh: Khi ảnh mạng lỗi (CORS, 404, Tracking Prevention chặn) -> Tự động chuyển sang chữ cái đầu
                     this.remove();
                     el.classList.remove('bg-slate-100');
                     el.classList.add(avatarColor, 'overflow-hidden', 'flex', 'items-center', 'justify-center');
@@ -6826,12 +6836,16 @@
             reader.readAsDataURL(file);
         }
 
-        function selectPresetAvatar(emoji) {
+        function selectPresetAvatar(val) {
             if (!currentUserAccount) return;
-            currentUserAccount.avatar = emoji;
+            currentUserAccount.avatar = val;
             applyCurrentAccountToUI();
             syncCurrentAccountState();
-            showToast(`✨ Đã đổi avatar sang linh vật ${emoji}!`);
+            if (val.startsWith('/') || val.includes('.')) {
+                showToast('✨ Đã đổi avatar sang Linh vật Sói Mây!');
+            } else {
+                showToast(`✨ Đã đổi avatar sang linh vật ${val}!`);
+            }
         }
 
         function selectColorAvatar(colorClass) {
@@ -6888,9 +6902,14 @@
             if (mobTopAv) mobTopAv.classList.remove('hidden');
 
             // Cập nhật avatar đồng bộ khắp các vị trí
+            renderUserAvatarElement(document.getElementById('sanhMemberAvatar'), currentUserAccount);
+            renderUserAvatarElement(document.getElementById('sanhMemberDropdownAvatar'), currentUserAccount);
             renderUserAvatarElement(document.getElementById('topUserAvatar'), currentUserAccount);
             renderUserAvatarElement(document.getElementById('mobileTopAvatar'), currentUserAccount);
             renderUserAvatarElement(document.getElementById('profileAvatarPreview'), currentUserAccount);
+            if (window.RankAvatarFrames && typeof window.RankAvatarFrames.updateHeaderAvatar === 'function') {
+                window.RankAvatarFrames.updateHeaderAvatar(currentUserAccount);
+            }
 
             state.xp = currentUserAccount.xp || 0;
             state.streak = currentUserAccount.streak || 0;
@@ -6938,6 +6957,25 @@
             currentUserAccount.dictationDone = state.dictationDone;
             localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount));
             renderMultiAccountLists();
+
+            // Persist profile & avatar to backend so page refresh never loses it
+            try {
+                fetch('/api/user/profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        userId: currentUserAccount.id,
+                        name: currentUserAccount.name,
+                        avatar: currentUserAccount.avatar,
+                        avatarColor: currentUserAccount.avatarColor,
+                        rankTier: currentUserAccount.rankTier,
+                        targetScore: currentUserAccount.targetScore,
+                        examDate: currentUserAccount.examDate
+                    })
+                }).catch(() => {});
+            } catch (e) {}
+
             if (window.syncAccountToCloud) {
                 window.syncAccountToCloud(currentUserAccount);
             }

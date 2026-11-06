@@ -149,6 +149,7 @@
     <!-- Milestone 4: Real-Time PvP Arena & AI Explanation Engine -->
     <script src="/js/pvp-arena-client.js?v=20261103_m4"></script>
     <script src="/js/ai-mistake-explainer.js?v=20261103_m4"></script>
+    <script src="/js/rank-avatar-frames.js?v=20261106_v1"></script>
     <!-- Document & Export Lazy Toolkit Engine (Loads PDF/Word/Excel on demand only) -->
     <script>
         window.DocumentToolkit = {
@@ -1655,7 +1656,7 @@
                             <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
                                 <!-- Thông tin tóm tắt -->
                                 <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
-                                    <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
+                                    <div id="sanhMemberDropdownAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
                                         <span>H</span>
                                     </div>
                                     <div class="min-w-0 flex-1">
@@ -1803,53 +1804,31 @@
                                             <i class="fa-solid fa-bolt text-amber-500 text-xs"></i>
                                             Công Cụ Luyện Thi Siêu Tốc 2026
                                         </span>
-                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/50">4 Trạm</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/50">2 Trạm</span>
                                     </div>
                                     <span class="text-[10px] text-slate-400 font-medium hidden sm:inline">Bấm để mở công cụ ôn luyện</span>
                                 </div>
 
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
-                                    <!-- 1. Trạm 180s -->
-                                    <button type="button" onclick="window.openCapsuleStationModal && window.openCapsuleStationModal()" class="group p-2.5 rounded-2xl bg-teal-50/80 hover:bg-teal-100 dark:bg-teal-950/30 dark:hover:bg-teal-900/40 border border-teal-200/80 dark:border-teal-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-2.5 shadow-2xs">
-                                        <div class="w-8 h-8 rounded-xl bg-teal-500 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm shadow-teal-500/30 group-hover:scale-105 transition">
-                                            <i class="fa-solid fa-capsules"></i>
-                                        </div>
-                                        <div class="min-w-0 flex-1">
-                                            <div class="text-xs font-bold text-teal-950 dark:text-teal-200 truncate">Trạm 180s</div>
-                                            <div class="text-[10px] text-teal-600 dark:text-teal-400 font-medium truncate">Viên nang 3 phút</div>
-                                        </div>
-                                    </button>
-
-                                    <!-- 2. Flashcard 3D -->
-                                    <button type="button" onclick="window.openTinderFlashcardModal && window.openTinderFlashcardModal()" class="group p-2.5 rounded-2xl bg-fuchsia-50/80 hover:bg-fuchsia-100 dark:bg-fuchsia-950/30 dark:hover:bg-fuchsia-900/40 border border-fuchsia-200/80 dark:border-fuchsia-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-2.5 shadow-2xs">
-                                        <div class="w-8 h-8 rounded-xl bg-fuchsia-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm shadow-fuchsia-600/30 group-hover:scale-105 transition">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                                    <!-- 1. Flashcard 3D -->
+                                    <button type="button" onclick="window.openTinderFlashcardModal && window.openTinderFlashcardModal()" class="group p-3 rounded-2xl bg-fuchsia-50/80 hover:bg-fuchsia-100 dark:bg-fuchsia-950/30 dark:hover:bg-fuchsia-900/40 border border-fuchsia-200/80 dark:border-fuchsia-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-3 shadow-2xs">
+                                        <div class="w-9 h-9 rounded-xl bg-fuchsia-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm shadow-fuchsia-600/30 group-hover:scale-105 transition">
                                             <i class="fa-solid fa-layer-group"></i>
                                         </div>
                                         <div class="min-w-0 flex-1">
                                             <div class="text-xs font-bold text-fuchsia-950 dark:text-fuchsia-200 truncate">Flashcard 3D</div>
-                                            <div class="text-[10px] text-fuchsia-600 dark:text-fuchsia-400 font-medium truncate">Vuốt Tinder FSRS v5</div>
+                                            <div class="text-[10.5px] text-fuchsia-600 dark:text-fuchsia-400 font-medium truncate">Vuốt Tinder FSRS v5 · 10 từ trọng tâm</div>
                                         </div>
                                     </button>
 
-                                    <!-- 3. Cheat Sheet 1 Trang -->
-                                    <button type="button" onclick="window.openCheatSheetModal && window.openCheatSheetModal('unit03')" class="group p-2.5 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40 border border-emerald-200/80 dark:border-emerald-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-2.5 shadow-2xs">
-                                        <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm shadow-emerald-600/30 group-hover:scale-105 transition">
+                                    <!-- 2. Cheat Sheet 1 Trang -->
+                                    <button type="button" onclick="window.openCheatSheetModal && window.openCheatSheetModal('unit03')" class="group p-3 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40 border border-emerald-200/80 dark:border-emerald-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-3 shadow-2xs">
+                                        <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm shadow-emerald-600/30 group-hover:scale-105 transition">
                                             <i class="fa-solid fa-file-lines"></i>
                                         </div>
                                         <div class="min-w-0 flex-1">
-                                            <div class="text-xs font-bold text-emerald-950 dark:text-emerald-200 truncate">Cheat Sheet</div>
-                                            <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium truncate">1 trang tóm tắt & PDF</div>
-                                        </div>
-                                    </button>
-
-                                    <!-- 4. Tài Liệu Thực Chiến -->
-                                    <button type="button" onclick="window.openAuthenticDocumentModal && window.openAuthenticDocumentModal('Email')" class="group p-2.5 rounded-2xl bg-sky-50/80 hover:bg-sky-100 dark:bg-sky-950/30 dark:hover:bg-sky-900/40 border border-sky-200/80 dark:border-sky-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-2.5 shadow-2xs">
-                                        <div class="w-8 h-8 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm shadow-sky-600/30 group-hover:scale-105 transition">
-                                            <i class="fa-solid fa-file-contract"></i>
-                                        </div>
-                                        <div class="min-w-0 flex-1">
-                                            <div class="text-xs font-bold text-sky-950 dark:text-sky-200 truncate">Tài Liệu Đề Thi</div>
-                                            <div class="text-[10px] text-sky-600 dark:text-sky-400 font-medium truncate">Hóa đơn, email Part 6-7</div>
+                                            <div class="text-xs font-bold text-emerald-950 dark:text-emerald-200 truncate">Cheat Sheet Cốt Lõi</div>
+                                            <div class="text-[10.5px] text-emerald-600 dark:text-emerald-400 font-medium truncate">1 trang tóm tắt công thức & PDF</div>
                                         </div>
                                     </button>
                                 </div>
@@ -5209,6 +5188,7 @@
                             <div class="space-y-1.5 pt-1 border-t border-slate-200/60 dark:border-slate-700">
                                 <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 block">Hoặc chọn avatar linh vật / màu sắc yêu thích:</span>
                                 <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
+                                    <button type="button" onclick="selectPresetAvatar('/assets/mascot/may_avatar.png')" class="w-8 h-8 rounded-full overflow-hidden hover:scale-110 transition border-2 border-indigo-400 shadow-sm cursor-pointer p-0.5 bg-indigo-50" title="Sói Mây Chiến Tướng"><img src="/assets/mascot/may_avatar.png" class="w-full h-full object-cover rounded-full" alt="Sói Mây"></button>
                                     <button type="button" onclick="selectPresetAvatar('🐱')" class="w-8 h-8 rounded-full bg-amber-100 hover:scale-110 text-base flex items-center justify-center transition border border-amber-300 shadow-sm cursor-pointer" title="Mèo Cam">🐱</button>
                                     <button type="button" onclick="selectPresetAvatar('🦉')" class="w-8 h-8 rounded-full bg-indigo-100 hover:scale-110 text-base flex items-center justify-center transition border border-indigo-300 shadow-sm cursor-pointer" title="Cú Học Tập">🦉</button>
                                     <button type="button" onclick="selectPresetAvatar('🧑‍🎓')" class="w-8 h-8 rounded-full bg-blue-100 hover:scale-110 text-base flex items-center justify-center transition border border-blue-300 shadow-sm cursor-pointer" title="Cử Nhân Nam">🧑‍🎓</button>
@@ -5290,6 +5270,9 @@
                     <div id="streakReminderContainer" class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
                     </div>
                 </div>
+
+                <!-- KHU VỰC TRƯNG BÀY & TRANG BỊ KHUNG AVATAR CHIẾN TƯỚNG AAA -->
+                <div id="rankFramesShowcaseContainer" class="mt-6"></div>
             </section>
 
             <!-- ========================================== -->
