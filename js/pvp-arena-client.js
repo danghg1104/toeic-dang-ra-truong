@@ -115,8 +115,16 @@
                     <!-- Header -->
                     <div class="p-4 sm:p-5 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 flex items-center justify-center text-white shadow-md text-lg font-black ring-2 ring-orange-500/30 animate-pulse">
-                                <i class="fa-solid fa-swords"></i>
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 p-[2px] shadow-lg shadow-orange-500/30 ring-2 ring-amber-400/25 flex items-center justify-center shrink-0">
+                                <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-amber-400 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.85)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="4" y1="20" x2="20" y2="4"></line>
+                                        <line x1="4" y1="4" x2="20" y2="20"></line>
+                                        <polyline points="14 4 20 4 20 10"></polyline>
+                                        <polyline points="4 14 4 20 10 20"></polyline>
+                                        <circle cx="12" cy="12" r="2" fill="#FBBF24" stroke="none"></circle>
+                                    </svg>
+                                </div>
                             </div>
                             <div>
                                 <div class="flex items-center gap-2 flex-wrap">
@@ -164,8 +172,16 @@
                     <!-- Header Bar -->
                     <div class="p-4 sm:p-6 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 bg-slate-950/70 backdrop-blur-md">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 sm:w-12 h-10 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 flex items-center justify-center text-white shadow-lg text-lg sm:text-xl font-black ring-4 ring-orange-500/20 animate-pulse">
-                                <i class="fa-solid fa-swords"></i>
+                            <div class="w-10 sm:w-12 h-10 sm:h-12 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 p-[2px] shadow-lg shadow-orange-500/30 ring-2 sm:ring-4 ring-amber-400/25 flex items-center justify-center shrink-0">
+                                <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.85)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="4" y1="20" x2="20" y2="4"></line>
+                                        <line x1="4" y1="4" x2="20" y2="20"></line>
+                                        <polyline points="14 4 20 4 20 10"></polyline>
+                                        <polyline points="4 14 4 20 10 20"></polyline>
+                                        <circle cx="12" cy="12" r="2" fill="#FBBF24" stroke="none"></circle>
+                                    </svg>
+                                </div>
                             </div>
                             <div>
                                 <div class="flex items-center gap-2 flex-wrap">
@@ -458,20 +474,20 @@
                                         </div>
                                     </div>
 
-                                    <!-- Center VS Badge -->
-                                    <div class="col-span-1 md:col-span-1 flex flex-col items-center justify-center my-1 md:my-0">
-                                        <div class="relative flex items-center justify-center">
-                                            <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 blur-md opacity-70 animate-pulse"></div>
-                                            <div class="relative w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-500 to-red-600 p-0.5 shadow-2xl flex items-center justify-center border-2 border-amber-200 vs-fire-glow">
-                                                <div class="w-full h-full rounded-lg sm:rounded-2xl bg-slate-950 flex flex-col items-center justify-center text-center">
-                                                    <span class="text-xs sm:text-lg font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400 leading-none">VS</span>
-                                                    <span class="text-[7px] sm:text-[9px] font-extrabold uppercase text-slate-400 tracking-widest mt-0.5">1v1</span>
+                                    <!-- Center VS Badge (Fixed: Scaled, zero clipping, aesthetic battle emblem) -->
+                                    <div class="col-span-1 md:col-span-1 flex flex-col items-center justify-center my-0.5 md:my-0 select-none">
+                                        <div class="relative flex flex-col items-center justify-center">
+                                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-red-600 blur-sm opacity-60 animate-pulse"></div>
+                                            <div class="relative w-11 h-11 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-300 via-orange-500 to-red-600 p-[2px] shadow-2xl flex items-center justify-center border border-amber-200/90 vs-fire-glow">
+                                                <div class="w-full h-full rounded-[10px] sm:rounded-[14px] bg-slate-950/95 flex flex-col items-center justify-center text-center px-1">
+                                                    <span class="text-sm sm:text-xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-orange-400 leading-none filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">VS</span>
+                                                    <span class="text-[8px] sm:text-[10px] font-black uppercase text-amber-400/90 tracking-wider leading-none mt-0.5">1v1</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="mt-1.5 sm:mt-2 text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest text-center whitespace-nowrap">
-                                            60s
-                                        </span>
+                                        <div class="mt-1 px-2 py-0.5 rounded-full bg-slate-950/90 border border-amber-400/40 shadow-xs flex items-center justify-center">
+                                            <span class="text-[8px] sm:text-[9.5px] font-black font-mono text-amber-300 tracking-wider leading-none">60s</span>
+                                        </div>
                                     </div>
 
                                     <!-- Player 2 Card (Đối thủ slot) -->

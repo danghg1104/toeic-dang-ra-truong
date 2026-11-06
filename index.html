@@ -1503,7 +1503,7 @@
                                 <span class="sidebar-text">Đấu trường Từ vựng</span>
                             </button>
                             <button onclick="switchTab('pvp-arena')" id="nav-pvp" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-                                <i class="fa-solid fa-swords text-[14px] w-5 text-center text-rose-500 dark:text-rose-400"></i>
+                                <i class="fa-solid fa-shield-halved text-[14px] w-5 text-center text-rose-500 dark:text-rose-400"></i>
                                 <span class="sidebar-text">Đấu Trường PvP 1v1</span>
                                 <span class="ml-auto px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-bold animate-pulse">LIVE</span>
                             </button>
@@ -2727,22 +2727,29 @@
                         </div>
                     </div>
 
-                    <!-- Vintage Turntable Player & Mascot Phòng Thu (Moodboard 3) -->
+                    <!-- Vintage Turntable Player & Mascot Phòng Thu (Moodboard 4: Aqua Vinyl Turntable) -->
                     <div class="flex items-center gap-4 shrink-0">
-                        <div class="artisan-turntable-dock hidden sm:flex" title="Máy đĩa than cổ điển — Tự động quay khi nghe audio">
-                            <div class="relative">
-                                <div class="artisan-vinyl-disc" id="heroListeningVinylDisc"></div>
-                                <div class="artisan-tonearm" id="heroListeningTonearm">
-                                    <svg viewBox="0 0 30 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="6" r="4.5" fill="#B45309" stroke="#78350F" stroke-width="1.5"/>
-                                        <path d="M24 6 L12 36 L6 42" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
-                                        <rect x="2" y="39" width="7" height="5" rx="1.5" fill="#F59E0B"/>
+                        <div class="artisan-turntable-dock hidden sm:flex items-center gap-3 p-1.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-teal-200/80 dark:border-slate-700 shadow-sm" title="Máy đĩa than cổ điển — Tự động quay khi nghe audio">
+                            <div class="relative w-16 h-16 rounded-xl overflow-hidden shadow-xs border border-teal-100 dark:border-slate-700 flex items-center justify-center shrink-0">
+                                <img src="/assets/theme/aqua_vinyl_turntable.png" alt="Aqua Vinyl Turntable" class="artisan-vinyl-disc w-full h-full object-cover rounded-xl" id="heroListeningVinylDisc">
+                                <div id="heroListeningTonearm" class="artisan-tonearm pointer-events-none" title="Cần kim đĩa than">
+                                    <svg viewBox="0 0 28 48" fill="none" class="w-full h-full drop-shadow">
+                                        <!-- Pivot base -->
+                                        <circle cx="22" cy="6" r="4.5" fill="#0d9488" stroke="#14b8a6" stroke-width="1.5"/>
+                                        <circle cx="22" cy="6" r="2" fill="#f8fafc"/>
+                                        <!-- Tonearm bar -->
+                                        <path d="M21 7 L8 34 L5 38" stroke="#0f766e" stroke-width="2.2" stroke-linecap="round"/>
+                                        <!-- Cartridge headshell -->
+                                        <rect x="2" y="36" width="6" height="8" rx="1.5" transform="rotate(-15 2 36)" fill="#f59e0b" stroke="#b45309" stroke-width="0.8"/>
                                     </svg>
                                 </div>
                             </div>
                             <div class="text-left leading-tight hidden lg:block pr-1">
-                                <div class="text-[11px] font-black uppercase text-amber-800 dark:text-amber-400 tracking-wider">Acoustic Audio</div>
-                                <div class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Giọng chuẩn ETS 2026</div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
+                                    <span class="text-[11px] font-black uppercase text-teal-800 dark:text-teal-300 tracking-wider">Aqua Vinyl</span>
+                                </div>
+                                <div class="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Giọng chuẩn ETS 2026</div>
                             </div>
                         </div>
 
@@ -4442,7 +4449,9 @@
                 <!-- Khung Chi Tiết Bẫy & Luyện Tập Thực Chiến -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
                     <!-- Cột Trái: Lý Thuyết Hay Sai (5 Cột - Hồ Sơ Điều Tra Bẫy ETS) -->
-                    <div class="lg:col-span-5 glass-panel rounded-[26px] p-5 space-y-3.5 border-2 border-red-200/80 dark:border-slate-700 artisan-caro-grid artisan-safety-pin-badge">
+                    <div class="lg:col-span-5 glass-panel rounded-[26px] p-5 space-y-3.5 border-2 border-red-200/80 dark:border-slate-700 artisan-caro-grid artisan-safety-pin-badge relative overflow-hidden">
+                        <!-- Retro Camera Hand Sticker (Moodboard 3 & Gen Z Aesthetic) -->
+                        <img src="/assets/theme/genz_retro_camera_sticker.png" alt="Sticker Snapshot Bẫy ETS" class="absolute -top-3 -right-3 w-16 sm:w-20 object-contain rotate-12 drop-shadow-md pointer-events-none opacity-90 transition z-10">
                         <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-200 dark:border-slate-700">
                             <span id="trapDetailBadge" class="px-2.5 py-1 rounded-lg bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 text-xs font-black">
                                 Bẫy Kinh Điển
@@ -4516,18 +4525,11 @@
                     </div>
 
                     <div class="flex items-center gap-3 shrink-0">
-                        <div class="artisan-turntable-dock hidden sm:flex py-1 px-3" title="Máy đĩa than cổ điển — Tự động quay khi nghe chép chính tả">
-                            <div class="relative">
-                                <div class="artisan-vinyl-disc" style="width: 44px; height: 44px;"></div>
-                                <div class="artisan-tonearm" style="width: 18px; height: 30px;">
-                                    <svg viewBox="0 0 30 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="6" r="4.5" fill="#B45309" stroke="#78350F" stroke-width="1.5"/>
-                                        <path d="M24 6 L12 36 L6 42" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
-                                        <rect x="2" y="39" width="7" height="5" rx="1.5" fill="#F59E0B"/>
-                                    </svg>
-                                </div>
+                        <div class="artisan-turntable-dock hidden sm:flex items-center gap-2.5 py-1 px-3 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-teal-200/80 dark:border-slate-700 shadow-2xs" title="Đĩa Than Aqua — Tự động quay khi nghe chép chính tả">
+                            <div class="w-8 h-8 rounded-full overflow-hidden shadow-xs flex items-center justify-center shrink-0">
+                                <img src="/assets/theme/aqua_vinyl_turntable.png" alt="Vinyl Dictation" class="artisan-vinyl-disc w-full h-full object-cover rounded-full">
                             </div>
-                            <span class="text-[11px] font-bold text-amber-800 dark:text-amber-400 hidden md:inline">Vinyl Dictation</span>
+                            <span class="text-[11px] font-black text-teal-800 dark:text-teal-300 hidden md:inline tracking-wide">Aqua Dictation</span>
                         </div>
                         <button onclick="switchTab('boc-bang-audio')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs transition flex items-center gap-1.5 shadow-2xs cursor-pointer">
                             <i class="fa-solid fa-cloud-arrow-up text-teal-600"></i> Bóc Băng File Riêng ➔

@@ -6,9 +6,10 @@
  * Trừu tượng hóa 5 Moodboard Nghệ Thuật:
  * 1. Hải Vân Tinh Tú: Nền sóng mây cổ điển Ukiyo-e, ánh sao chàm (.artisan-ocean-stage)
  * 2. Ký Sự & Ghim Cài: Giấy kẻ ô caro, ghim băng, washi tape (.artisan-caro-grid, .artisan-safety-pin-badge)
- * 3. Đĩa Than Cổ Điển: Vinyl Turntable xoay mượt khi nghe audio (.artisan-vinyl-disc)
+ * 3. Đĩa Than Cổ Điển: Vinyl Turntable xoay mượt khi nghe audio (.artisan-vinyl-disc, .artisan-turntable-dock)
  * 4. Giấy Xé Mép: Thẻ bài trắng ngà viền rách tự nhiên (.artisan-deckled-paper)
  * 5. Vải Chàm Dệt & Chỉ May: Viền chỉ may tay đứt nét Sashiko (.artisan-sashiko-border)
+ * 6. Retro Camera Sticker & Aqua Vinyl (Ảnh 3 & 4)
  * =========================================================================
  */
 
@@ -23,7 +24,36 @@
     --artisan-sashiko: rgba(99, 102, 241, 0.45);
 }
 
-/* 1. NỀN GIẤY KẺ Ô CARO HỌC THUẬT (Quad-Ruled Memo Paper - Ảnh 2 & 10) */
+/* 1. TOÀN BỘ NỀN WEB KHÔNG GIAN HỌC THUẬT GEN Z (Whole-Website Ambient Canvas) */
+body {
+    background-color: var(--artisan-sand) !important;
+    background-image: 
+        radial-gradient(circle at 92% 8%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 8% 92%, rgba(245, 158, 11, 0.04) 0%, transparent 40%),
+        linear-gradient(rgba(100, 116, 139, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 116, 139, 0.04) 1px, transparent 1px) !important;
+    background-size: auto, auto, 24px 24px, 24px 24px !important;
+    background-attachment: fixed !important;
+}
+
+html.dark body {
+    background-color: #0b1120 !important;
+    background-image: 
+        radial-gradient(circle at 92% 8%, rgba(99, 102, 241, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 8% 92%, rgba(245, 158, 11, 0.06) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+}
+
+html.editorial body {
+    background-color: #F4EFEA !important;
+    background-image: 
+        radial-gradient(circle at 90% 10%, rgba(180, 83, 9, 0.05) 0%, transparent 45%),
+        linear-gradient(rgba(180, 83, 9, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 83, 9, 0.04) 1px, transparent 1px) !important;
+}
+
+/* 2. NỀN GIẤY KẺ Ô CARO HỌC THUẬT (Quad-Ruled Memo Paper - Ảnh 2 & 10) */
 .artisan-caro-grid {
     background-color: var(--artisan-ivory) !important;
     background-image: 
@@ -47,7 +77,7 @@ html.editorial .artisan-caro-grid {
         linear-gradient(90deg, rgba(180, 83, 9, 0.07) 1px, transparent 1px) !important;
 }
 
-/* 2. THẺ BÀI GIẤY XÉ MÉP TỰ NHIÊN (Deckled Edge Paper - Ảnh 4) */
+/* 3. THẺ BÀI GIẤY XÉ MÉP TỰ NHIÊN (Deckled Edge Paper - Ảnh 4) */
 .artisan-deckled-paper {
     background-color: var(--artisan-ivory) !important;
     border-radius: 22px;
@@ -71,7 +101,7 @@ html.editorial .artisan-deckled-paper {
     box-shadow: 0 10px 25px -4px rgba(180, 83, 9, 0.06) !important;
 }
 
-/* 3. VIỀN CHỈ MAY TAY THỦ CÔNG SASHIKO (Running Stitch Border - Ảnh 5) */
+/* 4. VIỀN CHỈ MAY TAY THỦ CÔNG SASHIKO (Running Stitch Border - Ảnh 5) */
 .artisan-sashiko-border {
     border: 1.5px dashed var(--artisan-sashiko) !important;
     border-radius: 18px;
@@ -86,7 +116,7 @@ html.editorial .artisan-deckled-paper {
     border-radius: 18px;
 }
 
-/* 4. SÀN ĐẤU SÓNG MÂY CỔ ĐIỂN PINTEREST (Hải Vân Tinh Tú - Ảnh 1, 8, 9) */
+/* 5. SÀN ĐẤU SÓNG MÂY CỔ ĐIỂN PINTEREST (Hải Vân Tinh Tú - Ảnh 1, 8, 9) */
 .artisan-ocean-stage {
     background-color: #0b1222;
     background-image: 
@@ -101,7 +131,7 @@ html.editorial .artisan-deckled-paper {
     overflow: hidden;
 }
 
-/* 5. HOẠT HỌA MÁY HÁT ĐĨA THAN CỔ ĐIỂN (Vinyl Turntable Player - Ảnh 3) */
+/* 6. HOẠT HỌA MÁY HÁT ĐĨA THAN CỔ ĐIỂN (Vinyl Turntable Player - Ảnh 3 & 4) */
 @keyframes artisanVinylSpin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -111,47 +141,18 @@ html.editorial .artisan-deckled-paper {
     width: 84px;
     height: 84px;
     border-radius: 50%;
-    background: radial-gradient(circle, 
-        #3b5266 0%, 
-        #1e293b 22%, 
-        #0f172a 42%, 
-        #334b60 62%, 
-        #0f172a 82%, 
-        #090d16 100%
-    );
-    box-shadow: 
-        0 6px 18px rgba(0, 0, 0, 0.35), 
-        inset 0 0 10px rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     transition: transform 0.4s ease;
     flex-shrink: 0;
-}
-
-.artisan-vinyl-disc::before {
-    content: '';
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #fbf8f2;
-    border: 2px solid #b45309;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
-}
-
-.artisan-vinyl-disc::after {
-    content: '';
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #1e293b;
+    user-select: none;
 }
 
 .artisan-vinyl-disc.is-playing {
-    animation: artisanVinylSpin 4s linear infinite;
+    animation: artisanVinylSpin 4s linear infinite !important;
+    transform-origin: center center;
 }
 
 /* Cần kim máy đĩa than */
@@ -172,7 +173,7 @@ html.editorial .artisan-deckled-paper {
     transform: rotate(10deg);
 }
 
-/* 6. DẤU ẤN NGÔI SAO THỦ CÔNG & GHIM CÀI KIM LOẠI (Ảnh 2, 8, 10) */
+/* 7. DẤU ẤN NGÔI SAO THỦ CÔNG & GHIM CÀI KIM LOẠI (Ảnh 2, 8, 10) */
 .artisan-safety-pin-badge {
     position: relative;
 }
@@ -201,7 +202,7 @@ html.editorial .artisan-deckled-paper {
     50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
 }
 
-/* 7. KHUNG ẢNH POLAROID KỶ NIỆM (Ảnh 2 & 10) */
+/* 8. KHUNG ẢNH POLAROID KỶ NIỆM (Ảnh 2 & 10) */
 .artisan-polaroid {
     background: #FFFFFF;
     padding: 6px 6px 14px 6px;
@@ -220,7 +221,7 @@ html.dark .artisan-polaroid {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* 8. BĂNG DÍNH WASHI TAPE TRANG TRÍ (Ảnh 2 & 10) */
+/* 9. BĂNG DÍNH WASHI TAPE TRANG TRÍ (Ảnh 2 & 10) */
 .artisan-washi-tape {
     position: absolute;
     top: -8px;
@@ -236,7 +237,7 @@ html.dark .artisan-polaroid {
     pointer-events-none;
 }
 
-/* 9. THI THỬ & LỘ TRÌNH VỚI VIBE HẢI TRÌNH (Ảnh 1 & 9) */
+/* 10. THI THỬ & LỘ TRÌNH VỚI VIBE HẢI TRÌNH (Ảnh 1 & 9) */
 .artisan-voyage-banner {
     background-color: #0c182e;
     background-image: 
@@ -249,7 +250,7 @@ html.dark .artisan-polaroid {
     box-shadow: 0 12px 36px -6px rgba(11, 18, 34, 0.4) !important;
 }
 
-/* 10. TURNTABLE DOCK FOR LISTENING WORKSTATIONS (Ảnh 3) */
+/* 11. TURNTABLE DOCK FOR LISTENING WORKSTATIONS (Ảnh 3 & 4) */
 .artisan-turntable-dock {
     display: flex;
     align-items: center;
@@ -268,4 +269,22 @@ html.dark .artisan-turntable-dock {
 html.editorial .artisan-turntable-dock {
     background: rgba(250, 248, 245, 0.9);
     border-color: rgba(217, 119, 6, 0.25);
+}
+
+/* 12. RETRO CAMERA STICKER (Ảnh 3) */
+.artisan-sticker-camera {
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: auto;
+}
+.artisan-sticker-camera:hover {
+    transform: rotate(15deg) scale(1.08);
+}
+
+/* 13. NÂNG TẦM GIAO DIỆN TỔNG THỂ (Unified Card Elevations) */
+.glass-panel {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.glass-panel:hover {
+    box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
 }
