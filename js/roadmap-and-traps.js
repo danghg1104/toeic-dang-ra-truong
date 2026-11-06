@@ -719,6 +719,41 @@ window.PersonalizedRoadmapEngine = {
             </div>
 
             <!-- ========================================================================= -->
+            <!-- TRẠM THÁCH ĐẤU: ĐẤU TRƯỜNG TỪ VỰNG 1V1 (DƯỚI LỘ TRÌNH CÁ NHÂN)             -->
+            <!-- ========================================================================= -->
+            <div class="rounded-[26px] p-5 lg:p-6 bg-gradient-to-r from-[#102350] via-[#152a60] to-[#1e3b7b] text-white border border-indigo-400/40 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-5 artisan-deckled-paper">
+                <div class="absolute -right-16 -top-16 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex items-center gap-4 relative z-10 w-full md:w-auto">
+                    <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-500 to-rose-600 p-[2px] shadow-lg shadow-orange-500/30 shrink-0 flex items-center justify-center">
+                        <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center text-xl text-amber-400">
+                            <i class="fa-solid fa-shield-halved animate-pulse"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-1 min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-black uppercase tracking-wider border border-rose-500/40 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping"></span>
+                                Đấu Trường PvP 1v1 Trực Tiếp
+                            </span>
+                            <span class="text-xs font-bold text-amber-300">10 Từ · 60 Giây / Trận</span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl font-black tracking-tight text-white">
+                            Thử Thách Phản Xạ Từ Vựng Cùng Đối Thủ
+                        </h4>
+                        <p class="text-xs text-slate-300">
+                            Đo tài từ vựng Part 5 - 7 trực tiếp thời gian thực, tích lũy điểm Rank & thăng cấp Khung Avatar Chiến Tướng!
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 shrink-0 relative z-10 w-full md:w-auto justify-end">
+                    <button onclick="switchTab('pvp-arena')" class="w-full md:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-slate-950 font-black text-sm shadow-lg shadow-orange-500/30 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-gamepad text-base"></i>
+                        <span>Vào Đấu Trường 1v1 Ngay</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
             <!-- BẢN ĐỒ LỘ TRÌNH DỌC S-CURVE ZIGZAG (GAMIFICATION MAP CHUẨN HELLOCHINESE) -->
             <!-- ========================================================================= -->
             <div class="glass-panel rounded-[28px] p-5 sm:p-7 space-y-8 relative overflow-hidden artisan-deckled-paper" id="roadmapVerticalMapContainer">

@@ -474,19 +474,34 @@
                                         </div>
                                     </div>
 
-                                    <!-- Center VS Badge (Fixed: Scaled, zero clipping, aesthetic battle emblem) -->
+                                    <!-- Center VS Badge (Aesthetic Crossed Swords Arena Emblem) -->
                                     <div class="col-span-1 md:col-span-1 flex flex-col items-center justify-center my-0.5 md:my-0 select-none">
                                         <div class="relative flex flex-col items-center justify-center">
-                                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-red-600 blur-sm opacity-60 animate-pulse"></div>
-                                            <div class="relative w-11 h-11 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-300 via-orange-500 to-red-600 p-[2px] shadow-2xl flex items-center justify-center border border-amber-200/90 vs-fire-glow">
-                                                <div class="w-full h-full rounded-[10px] sm:rounded-[14px] bg-slate-950/95 flex flex-col items-center justify-center text-center px-1">
-                                                    <span class="text-sm sm:text-xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-orange-400 leading-none filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">VS</span>
-                                                    <span class="text-[8px] sm:text-[10px] font-black uppercase text-amber-400/90 tracking-wider leading-none mt-0.5">1v1</span>
-                                                </div>
+                                            <div class="relative w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
+                                                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-500/30 via-amber-400/20 to-sky-400/25 blur-sm"></div>
+                                                <svg class="w-full h-full drop-shadow-[0_4px_10px_rgba(245,158,11,0.5)]" viewBox="0 0 72 72" fill="none">
+                                                    <defs>
+                                                        <linearGradient id="vsBladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                            <stop offset="0%" stop-color="#fef08a"/>
+                                                            <stop offset="50%" stop-color="#f59e0b"/>
+                                                            <stop offset="100%" stop-color="#b45309"/>
+                                                        </linearGradient>
+                                                        <linearGradient id="vsShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                            <stop offset="0%" stop-color="#e11d48"/>
+                                                            <stop offset="100%" stop-color="#4c0519"/>
+                                                        </linearGradient>
+                                                    </defs>
+                                                    <path d="M16 16 L56 56 M18 14 L58 54" stroke="url(#vsBladeGrad)" stroke-width="2.6" stroke-linecap="round"/>
+                                                    <path d="M56 16 L16 56 M54 14 L14 54" stroke="url(#vsBladeGrad)" stroke-width="2.6" stroke-linecap="round"/>
+                                                    <polygon points="36,20 48,27 48,43 36,52 24,43 24,27" fill="url(#vsShieldGrad)" stroke="#fef08a" stroke-width="1.6"/>
+                                                    <text x="36" y="39" text-anchor="middle" font-family="'Cinzel', sans-serif" font-weight="900" font-size="12" fill="#ffffff">VS</text>
+                                                </svg>
                                             </div>
                                         </div>
-                                        <div class="mt-1 px-2 py-0.5 rounded-full bg-slate-950/90 border border-amber-400/40 shadow-xs flex items-center justify-center">
-                                            <span class="text-[8px] sm:text-[9.5px] font-black font-mono text-amber-300 tracking-wider leading-none">60s</span>
+                                        <div class="mt-0.5 px-2 py-0.5 rounded-full bg-slate-950/90 border border-amber-400/50 shadow-xs flex items-center gap-1">
+                                            <span class="text-[8px] sm:text-[9px] font-black uppercase text-amber-300 tracking-wider">1v1</span>
+                                            <span class="text-[7px] text-amber-400/60">•</span>
+                                            <span class="text-[8px] sm:text-[9px] font-bold font-mono text-white">60s</span>
                                         </div>
                                     </div>
 
