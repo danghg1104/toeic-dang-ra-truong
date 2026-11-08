@@ -12,6 +12,12 @@
             studyMinutes: 0,
             correctAnswers: 0,
             totalAnswers: 0,
+            listenTotalAnswers: 0,
+            listenCorrectAnswers: 0,
+            readTotalAnswers: 0,
+            readCorrectAnswers: 0,
+            grammarTotalAnswers: 0,
+            grammarCorrectAnswers: 0,
             sidebarCollapsed: false
         };
         window.state = state;
@@ -4219,10 +4225,12 @@
         let quizExamTimerInterval = null;
         let quizExamSecondsRemaining = 7200;
         let examUserAnswers = {};
+        let practiceAnsweredIndices = new Set();
         let initialQuizModalScrollAreaHtml = null;
 
         async function startQuickQuiz(type, title, count = 50, options = {}) {
             isSubmittingExam = false;
+            practiceAnsweredIndices.clear();
             if (typeof count === 'object' && count !== null) {
                 options = count;
                 count = 50;
@@ -4856,8 +4864,25 @@
                 b.disabled = true;
             }
 
-            state.totalAnswers++;
+            practiceAnsweredIndices.add(activeQuizIndex);
+            state.totalAnswers = (state.totalAnswers || 0) + 1;
             const isCorrect = selectedIndex === item.ans;
+            if (isCorrect) state.correctAnswers = (state.correctAnswers || 0) + 1;
+
+            const isLC = item.part ? item.part <= 4 : (activeQuizType.startsWith('listening') || activeQuizType.includes('_lc') || activeQuizType.includes('_p1') || activeQuizType.includes('_p2') || activeQuizType.includes('_p3') || activeQuizType.includes('_p4'));
+            const isRC = item.part ? item.part >= 5 : (activeQuizType.startsWith('reading') || activeQuizType.includes('_rc') || activeQuizType.includes('_p5') || activeQuizType.includes('_p6') || activeQuizType.includes('_p7'));
+            const isGrammar = activeQuizType === 'grammar' || item.category === 'grammar';
+
+            if (isLC) {
+                state.listenTotalAnswers = (state.listenTotalAnswers || 0) + 1;
+                if (isCorrect) state.listenCorrectAnswers = (state.listenCorrectAnswers || 0) + 1;
+            } else if (isRC) {
+                state.readTotalAnswers = (state.readTotalAnswers || 0) + 1;
+                if (isCorrect) state.readCorrectAnswers = (state.readCorrectAnswers || 0) + 1;
+            } else if (isGrammar) {
+                state.grammarTotalAnswers = (state.grammarTotalAnswers || 0) + 1;
+                if (isCorrect) state.grammarCorrectAnswers = (state.grammarCorrectAnswers || 0) + 1;
+            }
 
             // Nếu là Part 1 hoặc Part 2: Sau khi trả lời, hiển thị lại toàn bộ câu chữ của từng phương án
             if (isPart1 || isPart2) {
@@ -5017,21 +5042,27 @@
                     closeQuizModal();
                     return;
                 }
+                const actualAnsweredCount = practiceAnsweredIndices.size;
+                if (actualAnsweredCount === 0) {
+                    closeQuizModal();
+                    showToast('⚠️ Bạn chưa trả lời câu hỏi nào, không ghi nhận tiến độ bài tập.');
+                    return;
+                }
                 state.xp += 10;
                 state.streak = Math.max(1, state.streak);
-                state.studyMinutes += Math.max(1, Math.round(activeQuizList.length * 0.75));
+                state.studyMinutes += Math.max(1, Math.round(actualAnsweredCount * 0.75));
 
                 if (activeQuizType === 'grammar') {
-                    state.grammarDone += activeQuizList.length;
-                    if (window.DailyTaskManager) window.DailyTaskManager.recordProgress('grammar', activeQuizList.length);
+                    state.grammarDone += actualAnsweredCount;
+                    if (window.DailyTaskManager) window.DailyTaskManager.recordProgress('grammar', actualAnsweredCount);
                 }
                 if (activeQuizType.startsWith('listening') || activeQuizType.includes('_lc') || activeQuizType.includes('_p1') || activeQuizType.includes('_p2') || activeQuizType.includes('_p3') || activeQuizType.includes('_p4')) {
-                    state.listenDone += activeQuizList.length;
-                    if (window.DailyTaskManager) window.DailyTaskManager.recordProgress('listening', activeQuizList.length);
+                    state.listenDone += actualAnsweredCount;
+                    if (window.DailyTaskManager) window.DailyTaskManager.recordProgress('listening', actualAnsweredCount);
                 }
                 if (activeQuizType.startsWith('reading') || activeQuizType.includes('_rc') || activeQuizType.includes('_p5') || activeQuizType.includes('_p6') || activeQuizType.includes('_p7')) {
-                    state.readDone += activeQuizList.length;
-                    if (window.DailyTaskManager) window.DailyTaskManager.recordProgress('reading', activeQuizList.length);
+                    state.readDone += actualAnsweredCount;
+                    if (window.DailyTaskManager) window.DailyTaskManager.recordProgress('reading', actualAnsweredCount);
                 }
                 if (activeQuizType === 'mock') {
                     state.mockDone = (state.mockDone || 0) + 1;
@@ -5049,30 +5080,54 @@
                     saveCurrentUserProgressToServer();
                 }
 
-                showToast('🎉 Hoàn thành xuất sắc bài luyện! Bạn nhận được +10 XP!');
+                showToast(`🎉 Hoàn thành bài luyện! Bạn đã làm ${actualAnsweredCount}/${activeQuizList.length} câu và nhận +10 XP!`);
             }
         }
 
         let isSubmittingExam = false;
         function finishExamQuiz(isTimeUp = false) {
             if (isSubmittingExam) return;
+
+            // Kiểm tra và cảnh báo nếu nộp bài khi còn câu chưa làm
+            if (!isTimeUp && activeQuizList && activeQuizList.length) {
+                const total = activeQuizList.length;
+                let answered = 0;
+                for (let i = 0; i < total; i++) {
+                    if (examUserAnswers[i] !== undefined) answered++;
+                }
+                const unanswered = total - answered;
+                if (unanswered > 0) {
+                    const confirmMsg = `⚠️ CẢNH BÁO NỘP BÀI THI:\n\nBạn còn ${unanswered} câu chưa làm (đã làm ${answered}/${total} câu).\n\nBạn có chắc chắn muốn nộp bài thi ngay bây giờ không?`;
+                    if (!window.confirm(confirmMsg)) {
+                        return;
+                    }
+                } else {
+                    if (!window.confirm(`Bạn đã hoàn thành đủ ${total}/${total} câu hỏi.\n\nBạn có chắc chắn muốn nộp bài thi ngay bây giờ không?`)) {
+                        return;
+                    }
+                }
+            }
+
             isSubmittingExam = true;
 
             if (quizExamTimerInterval) {
                 clearInterval(quizExamTimerInterval);
                 quizExamTimerInterval = null;
             }
-            let correctLC = 0, totalLC = 0;
-            let correctRC = 0, totalRC = 0;
+            let correctLC = 0, totalLC = 0, answeredLC = 0;
+            let correctRC = 0, totalRC = 0, answeredRC = 0;
             let totalCorrect = 0;
 
             activeQuizList.forEach((q, idx) => {
                 const userAns = examUserAnswers[idx];
                 const isPartLC = q.part ? q.part <= 4 : idx < 100;
                 if (isPartLC) totalLC++; else totalRC++;
-                if (userAns !== undefined && userAns === q.ans) {
-                    totalCorrect++;
-                    if (isPartLC) correctLC++; else correctRC++;
+                if (userAns !== undefined) {
+                    if (isPartLC) answeredLC++; else answeredRC++;
+                    if (userAns === q.ans) {
+                        totalCorrect++;
+                        if (isPartLC) correctLC++; else correctRC++;
+                    }
                 }
             });
 
@@ -5122,6 +5177,24 @@
             state.mockDone = (state.mockDone || 0) + 1;
             state.xp += 100;
             state.studyMinutes += Math.round((Math.max(0, (120 * 60) - quizExamSecondsRemaining)) / 60);
+
+            // Cập nhật thống kê chi tiết kỹ năng và nhiệm vụ hằng ngày
+            const answeredTotal = answeredLC + answeredRC;
+            state.totalAnswers = (state.totalAnswers || 0) + answeredTotal;
+            state.correctAnswers = (state.correctAnswers || 0) + totalCorrect;
+            state.listenDone = (state.listenDone || 0) + answeredLC;
+            state.readDone = (state.readDone || 0) + answeredRC;
+            state.listenTotalAnswers = (state.listenTotalAnswers || 0) + answeredLC;
+            state.listenCorrectAnswers = (state.listenCorrectAnswers || 0) + correctLC;
+            state.readTotalAnswers = (state.readTotalAnswers || 0) + answeredRC;
+            state.readCorrectAnswers = (state.readCorrectAnswers || 0) + correctRC;
+
+            if (window.DailyTaskManager) {
+                if (answeredLC > 0) window.DailyTaskManager.recordProgress('listening', answeredLC);
+                if (answeredRC > 0) window.DailyTaskManager.recordProgress('reading', answeredRC);
+                window.DailyTaskManager.recordProgress('mock', 1);
+            }
+
             updateDashboardMetrics();
             if (typeof saveCurrentUserProgressToServer === 'function') {
                 saveCurrentUserProgressToServer();
@@ -7029,11 +7102,11 @@
 
             if (state.totalAnswers && state.totalAnswers > 0) {
                 const acc = Math.round((state.correctAnswers / state.totalAnswers) * 100);
-                setTxt('memberAccuracyVal', acc);
+                setTxt('memberAccuracyVal', `${acc}%`);
                 setTxt('memberAccuracySub', `Đã làm ${state.totalAnswers} câu`);
             } else {
                 setTxt('memberAccuracyVal', '——');
-                setTxt('memberAccuracySub', 'Làm bài để biết độ chính xác');
+                setTxt('memberAccuracySub', 'Chưa đủ dữ liệu');
             }
 
             if (sMinutes > 0) {
@@ -7069,7 +7142,7 @@
             } catch (e) {}
             if (gAnswered === 0 && (state.grammarDone || 0) > 0) {
                 gAnswered = state.grammarDone;
-                gCorrect = state.correctAnswers || state.grammarDone;
+                gCorrect = (state.grammarCorrectAnswers !== undefined) ? state.grammarCorrectAnswers : 0;
             }
 
             // 2. Tính toán Từ vựng thực tế
@@ -7094,9 +7167,9 @@
                 if (lDetail) lDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
                 listenProgWidth = Math.min(100, Math.max(1, Math.round((total / 2100) * 100 * 5))); // Scale để trực quan nhưng vẫn minh bạch
             } else if (lDone > 0) {
-                if (lPct) lPct.textContent = '100%';
+                if (lPct) lPct.textContent = 'Chưa đủ dữ liệu';
                 if (lCount) lCount.textContent = `${lDone}/2100 câu`;
-                if (lDetail) lDetail.textContent = `Đã hoàn thành ${lDone} câu luyện nghe`;
+                if (lDetail) lDetail.textContent = `Đã hoàn thành ${lDone} câu · Chưa đủ dữ liệu độ chính xác`;
                 listenProgWidth = Math.min(100, Math.max(1, Math.round((lDone / 2100) * 100 * 5)));
             } else if (diag && diag.listening) {
                 const diagPct = Math.round((diag.listening / 495) * 100);
@@ -7127,9 +7200,9 @@
                 if (rDetail) rDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
                 readProgWidth = Math.min(100, Math.max(1, Math.round((total / 2100) * 100 * 5)));
             } else if (rDone > 0) {
-                if (rPct) rPct.textContent = '100%';
+                if (rPct) rPct.textContent = 'Chưa đủ dữ liệu';
                 if (rCount) rCount.textContent = `${rDone}/2100 câu`;
-                if (rDetail) rDetail.textContent = `Đã hoàn thành ${rDone} câu luyện đọc`;
+                if (rDetail) rDetail.textContent = `Đã hoàn thành ${rDone} câu · Chưa đủ dữ liệu độ chính xác`;
                 readProgWidth = Math.min(100, Math.max(1, Math.round((rDone / 2100) * 100 * 5)));
             } else if (diag && diag.reading) {
                 const diagPct = Math.round((diag.reading / 495) * 100);
@@ -7151,13 +7224,18 @@
             const gCount = document.getElementById('skillAccuracyGrammarCount');
             const gDetail = document.getElementById('skillAccuracyGrammarDetail');
             let grammarProgWidth = 0;
-            if (gAnswered > 0) {
+            if (gAnswered > 0 && (state.grammarTotalAnswers || gCorrect > 0)) {
                 const safeCorrect = Math.min(gCorrect, gAnswered);
                 const accPct = Math.min(100, Math.max(0, Math.round((safeCorrect / gAnswered) * 100)));
                 if (gPct) gPct.textContent = `${accPct}%`;
                 if (gCount) gCount.textContent = `${gAnswered}/1500 câu`;
                 if (gDetail) gDetail.textContent = `Đã làm ${gAnswered} câu · Đúng ${safeCorrect}/${gAnswered} câu`;
                 grammarProgWidth = Math.min(100, Math.max(1, Math.round((gAnswered / 1500) * 100 * 5)));
+            } else if ((state.grammarDone || 0) > 0) {
+                if (gPct) gPct.textContent = 'Chưa đủ dữ liệu';
+                if (gCount) gCount.textContent = `${state.grammarDone}/1500 câu`;
+                if (gDetail) gDetail.textContent = `Đã làm ${state.grammarDone} câu · Chưa đủ dữ liệu độ chính xác`;
+                grammarProgWidth = Math.min(100, Math.max(1, Math.round((state.grammarDone / 1500) * 100 * 5)));
             } else if (diag && diag.reading) {
                 const estPct = Math.round((diag.reading / 495) * 100);
                 if (gPct) gPct.textContent = `${estPct}%`;
@@ -7178,7 +7256,7 @@
             const vCount = document.getElementById('skillAccuracyVocabCount');
             const vDetail = document.getElementById('skillAccuracyVocabDetail');
             let vocabProgWidth = 0;
-            if (vAnswered > 0) {
+            if (vAnswered > 0 && state.vocabTotalAnswers) {
                 const safeVCorrect = Math.min(vCorrect, vAnswered);
                 const accPct = Math.min(100, Math.max(0, Math.round((safeVCorrect / vAnswered) * 100)));
                 if (vPct) vPct.textContent = `${accPct}%`;
@@ -7186,9 +7264,9 @@
                 if (vDetail) vDetail.textContent = `Đã học ${vLearned} từ · Độ nhớ ${accPct}%`;
                 vocabProgWidth = Math.min(100, Math.max(1, Math.round((vLearned / 500) * 100)));
             } else if (vLearned > 0) {
-                if (vPct) vPct.textContent = '100%';
+                if (vPct) vPct.textContent = 'Chưa đủ dữ liệu';
                 if (vCount) vCount.textContent = `${vLearned}/4514 từ`;
-                if (vDetail) vDetail.textContent = `Đã thuộc ${vLearned} từ vựng cốt lõi`;
+                if (vDetail) vDetail.textContent = `Đã thuộc ${vLearned} từ vựng cốt lõi · Chưa làm bài test độ nhớ`;
                 vocabProgWidth = Math.min(100, Math.max(1, Math.round((vLearned / 500) * 100)));
             } else {
                 if (vPct) vPct.textContent = 'Chưa học';
@@ -8083,6 +8161,10 @@
                                 state.correctAnswers = p.state.correctAnswers || 0;
                                 state.listenTotalAnswers = p.state.listenTotalAnswers || 0;
                                 state.listenCorrectAnswers = p.state.listenCorrectAnswers || 0;
+                                state.readTotalAnswers = p.state.readTotalAnswers || 0;
+                                state.readCorrectAnswers = p.state.readCorrectAnswers || 0;
+                                state.grammarTotalAnswers = p.state.grammarTotalAnswers || 0;
+                                state.grammarCorrectAnswers = p.state.grammarCorrectAnswers || 0;
                             }
                             if (currentUserAccount) {
                                 if (p.targetScore) currentUserAccount.targetScore = p.targetScore;
@@ -8153,7 +8235,11 @@
                             totalAnswers: state.totalAnswers || 0,
                             correctAnswers: state.correctAnswers || 0,
                             listenTotalAnswers: state.listenTotalAnswers || 0,
-                            listenCorrectAnswers: state.listenCorrectAnswers || 0
+                            listenCorrectAnswers: state.listenCorrectAnswers || 0,
+                            readTotalAnswers: state.readTotalAnswers || 0,
+                            readCorrectAnswers: state.readCorrectAnswers || 0,
+                            grammarTotalAnswers: state.grammarTotalAnswers || 0,
+                            grammarCorrectAnswers: state.grammarCorrectAnswers || 0
                         },
                         learnedVocabItems: learnedVocabItems,
                         savedVocabItems: savedVocabItems,
@@ -10136,6 +10222,17 @@
                         if (parsed.streak > state.streak) state.streak = parsed.streak;
                         if (parsed.vocabLearned > state.vocabLearned) state.vocabLearned = parsed.vocabLearned;
                         if (parsed.dictationDone > state.dictationDone) state.dictationDone = parsed.dictationDone;
+                        if (parsed.listenDone > (state.listenDone || 0)) state.listenDone = parsed.listenDone;
+                        if (parsed.readDone > (state.readDone || 0)) state.readDone = parsed.readDone;
+                        if (parsed.grammarDone > (state.grammarDone || 0)) state.grammarDone = parsed.grammarDone;
+                        if (parsed.totalAnswers > (state.totalAnswers || 0)) state.totalAnswers = parsed.totalAnswers;
+                        if (parsed.correctAnswers > (state.correctAnswers || 0)) state.correctAnswers = parsed.correctAnswers;
+                        if (parsed.listenTotalAnswers > (state.listenTotalAnswers || 0)) state.listenTotalAnswers = parsed.listenTotalAnswers;
+                        if (parsed.listenCorrectAnswers > (state.listenCorrectAnswers || 0)) state.listenCorrectAnswers = parsed.listenCorrectAnswers;
+                        if (parsed.readTotalAnswers > (state.readTotalAnswers || 0)) state.readTotalAnswers = parsed.readTotalAnswers;
+                        if (parsed.readCorrectAnswers > (state.readCorrectAnswers || 0)) state.readCorrectAnswers = parsed.readCorrectAnswers;
+                        if (parsed.grammarTotalAnswers > (state.grammarTotalAnswers || 0)) state.grammarTotalAnswers = parsed.grammarTotalAnswers;
+                        if (parsed.grammarCorrectAnswers > (state.grammarCorrectAnswers || 0)) state.grammarCorrectAnswers = parsed.grammarCorrectAnswers;
                     }
 
                     const rawLearned = localStorage.getItem(`cung_dang_${uid}_learned_vocab_v1`);
@@ -10174,7 +10271,18 @@
                         streak: state.streak,
                         vocabLearned: Math.max(state.vocabLearned, learnedVocabItems.length),
                         dictationDone: state.dictationDone,
-                        studyMinutes: state.studyMinutes
+                        studyMinutes: state.studyMinutes,
+                        listenDone: state.listenDone || 0,
+                        readDone: state.readDone || 0,
+                        grammarDone: state.grammarDone || 0,
+                        totalAnswers: state.totalAnswers || 0,
+                        correctAnswers: state.correctAnswers || 0,
+                        listenTotalAnswers: state.listenTotalAnswers || 0,
+                        listenCorrectAnswers: state.listenCorrectAnswers || 0,
+                        readTotalAnswers: state.readTotalAnswers || 0,
+                        readCorrectAnswers: state.readCorrectAnswers || 0,
+                        grammarTotalAnswers: state.grammarTotalAnswers || 0,
+                        grammarCorrectAnswers: state.grammarCorrectAnswers || 0
                     }));
                     localStorage.setItem(`cung_dang_${uid}_learned_vocab_v1`, JSON.stringify(learnedVocabItems));
                     localStorage.setItem(`cung_dang_${uid}_saved_vocab_v1`, JSON.stringify(savedVocabItems));
