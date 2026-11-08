@@ -300,7 +300,7 @@
   FSRS5Engine.rateCard = (...args) => FSRS5Engine.defaultInstance.rateCard(...args);
   FSRS5Engine.retrievability = (...args) => FSRS5Engine.defaultInstance.retrievability(...args);
   FSRS5Engine.getDueCards = (...args) => FSRS5Engine.defaultInstance.getDueCards(...args);
-  FSRS5Engine.calcInterval = (...args) => FSRS5Engine.defaultInstance.calcInterval(...args);
+  FSRS5Engine.calcInterval = (s, r) => (r === 0 ? Infinity : FSRS5Engine.defaultInstance.calcInterval(s, r));
 
   return FSRS5Engine;
 }));

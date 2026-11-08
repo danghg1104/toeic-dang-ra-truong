@@ -840,7 +840,7 @@
 
         // Render giao diện Mini-Quiz
         generateMiniQuiz(entry) {
-            if (!entry || !entry.headword) return '';
+            if (!entry || !entry.headword || entry.dataStatus === 'limited' || entry.incomplete) return '';
             const word = entry.headword;
             
             // Câu hỏi 1: Về từ loại họ từ nếu có

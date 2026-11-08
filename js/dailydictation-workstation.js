@@ -42,6 +42,14 @@
             };
             this.loadSettings();
 
+            // Completed challenges tracking for strict idempotency
+            this.completedKeys = new Set();
+            try {
+                const savedCompleted = localStorage.getItem('dailydictation_completed_keys');
+                if (savedCompleted) this.completedKeys = new Set(JSON.parse(savedCompleted));
+            } catch (e) {}
+            this._autoNextTimeout = null;
+
             // Catalog filters
             this.filterSearch = '';
             this.filterLevel = 'All';
@@ -709,6 +717,10 @@
         }
 
         backToCatalog() {
+            if (this._autoNextTimeout) {
+                clearTimeout(this._autoNextTimeout);
+                this._autoNextTimeout = null;
+            }
             this.audioEl.pause();
             this.activeView = 'catalog';
             const catView = document.getElementById('ddwCatalogView');
@@ -1158,16 +1170,37 @@
                 fbBox.classList.remove('hidden');
             }
 
-            // Cập nhật thống kê user nếu có hệ thống lưu tiến độ
-            if (allMatch && window.state) {
-                window.state.dictationDone = (window.state.dictationDone || 0) + 1;
-                const counter = document.getElementById('dictationDoneCount');
-                if (counter) counter.textContent = `${window.state.dictationDone} câu`;
+            // Cập nhật thống kê user nếu có hệ thống lưu tiến độ (đảm bảo tính IDEMPOTENCY tuyệt đối: chỉ cộng 1 lần cho mỗi câu)
+            const challengeKey = `${this.activeTestNum}_${(this.activeLesson && (this.activeLesson.id || this.activeLesson.slug)) || 'lesson'}_${currentChallenge.id || this.currentPartIndex}`;
+            const isFirstCorrect = allMatch && !this.completedKeys.has(challengeKey);
+
+            if (isFirstCorrect) {
+                this.completedKeys.add(challengeKey);
+                try {
+                    localStorage.setItem('dailydictation_completed_keys', JSON.stringify([...this.completedKeys]));
+                } catch (e) {}
+
+                if (window.state) {
+                    window.state.dictationDone = (window.state.dictationDone || 0) + 1;
+                    window.state.listenDone = (window.state.listenDone || 0) + 1;
+                    window.state.xp = (window.state.xp || 0) + 10;
+                    const counter = document.getElementById('dictationDoneCount');
+                    if (counter) counter.textContent = `${window.state.dictationDone} câu`;
+                    if (typeof updateDashboardMetrics === 'function') updateDashboardMetrics();
+                }
+                if (window.DailyTaskManager && typeof window.DailyTaskManager.recordProgress === 'function') {
+                    window.DailyTaskManager.recordProgress('listening', 1);
+                }
             }
 
-            // Tự động qua câu mới nếu đúng và bật Auto Next
+            // Tự động qua câu mới nếu đúng và bật Auto Next (đảm bảo chỉ có duy nhất 1 tác vụ chuyển câu đang chờ)
+            if (this._autoNextTimeout) {
+                clearTimeout(this._autoNextTimeout);
+                this._autoNextTimeout = null;
+            }
             if (allMatch && this.settings.autoNext) {
-                setTimeout(() => {
+                this._autoNextTimeout = setTimeout(() => {
+                    this._autoNextTimeout = null;
                     const totalParts = this.activeLesson.challenges ? this.activeLesson.challenges.length : 1;
                     if (this.currentPartIndex < totalParts - 1) {
                         this.nextPart();
@@ -1179,6 +1212,10 @@
         }
 
         skipCurrentPart() {
+            if (this._autoNextTimeout) {
+                clearTimeout(this._autoNextTimeout);
+                this._autoNextTimeout = null;
+            }
             if (!this.activeLesson) return;
             const currentChallenge = (this.activeLesson.challenges || [])[this.currentPartIndex];
             if (!currentChallenge) return;
@@ -1215,6 +1252,10 @@
         }
 
         prevPart() {
+            if (this._autoNextTimeout) {
+                clearTimeout(this._autoNextTimeout);
+                this._autoNextTimeout = null;
+            }
             if (this.currentPartIndex > 0) {
                 this.currentPartIndex--;
                 this.renderExercise();
@@ -1223,6 +1264,10 @@
         }
 
         nextPart() {
+            if (this._autoNextTimeout) {
+                clearTimeout(this._autoNextTimeout);
+                this._autoNextTimeout = null;
+            }
             const totalParts = this.activeLesson && this.activeLesson.challenges ? this.activeLesson.challenges.length : 1;
             if (this.currentPartIndex < totalParts - 1) {
                 this.currentPartIndex++;

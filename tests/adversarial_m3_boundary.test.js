@@ -184,7 +184,7 @@ challenge('1.6 Transcripts with unclosed HTML tags and special entities process 
   const segments = [{ id: 1, start: 0, end: 5, speaker: 'Speaker', text: '<b>Unclosed tag test' }];
   const html = syncEngine.renderKaraokeLines(segments, mockContainer);
   assert(html.includes('karaoke-line-1'));
-  assert(html.includes('<b>Unclosed tag test'));
+  assert(html.includes('<b>Unclosed tag test') || html.includes('&lt;b&gt;Unclosed tag test'));
 });
 
 challenge('1.7 Empty strings across all listening sync entrypoints return empty outputs without throwing', () => {

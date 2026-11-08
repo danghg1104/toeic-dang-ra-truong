@@ -4007,6 +4007,9 @@ if (require.main === module && fs.existsSync(certPath) && fs.existsSync(keyPath)
       cert: fs.readFileSync(certPath)
     };
     const httpsServer = https.createServer(sslOptions, handleRequest);
+    httpsServer.on('error', (err) => {
+      console.warn('Lỗi server HTTPS (có thể cổng đã bận):', err.message);
+    });
     httpsServer.on('upgrade', (req, socket, head) => {
       server.emit('upgrade', req, socket, head);
     });

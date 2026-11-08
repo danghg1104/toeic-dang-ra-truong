@@ -318,6 +318,70 @@ it('saveActiveExamSession, clearActiveExamSession, and checkAndResumeActiveExamS
     assert(appCore.includes('localStorage.setItem(\'toeic_active_exam_session\','), 'saveActiveExamSession must write to localStorage');
 });
 
+// ----------------------------------------------------
+// 11. DAILY DICTATION WORKSTATION IDEMPOTENCY
+// ----------------------------------------------------
+console.log('\n--- 11. Testing Daily Dictation Workstation Idempotency ---');
+
+it('DailyDictationWorkstation tracks completedKeys and avoids duplicate increments on multiple checks', () => {
+    const ddwCode = fs.readFileSync('js/dailydictation-workstation.js', 'utf8');
+    assert(ddwCode.includes('this.completedKeys = new Set()'), 'Must initialize completedKeys Set');
+    assert(ddwCode.includes('localStorage.getItem(\'dailydictation_completed_keys\')'), 'Must persist completed keys in localStorage');
+    assert(ddwCode.includes('!this.completedKeys.has(challengeKey)'), 'Must guard increment behind completedKeys.has(challengeKey)');
+    assert(ddwCode.includes('this.completedKeys.add(challengeKey)'), 'Must add key to completedKeys');
+    assert(ddwCode.includes('this._autoNextTimeout = null'), 'Must track single auto next timeout');
+});
+
+// ----------------------------------------------------
+// 12. EXAM HISTORY DETAILED REVIEW MODE
+// ----------------------------------------------------
+console.log('\n--- 12. Testing Exam Detailed Review Mode ---');
+
+it('app-core.bundle.js supports dedicated activeQuizMode === "review" with locked options & explanations', () => {
+    const appCore = fs.readFileSync('js/app-core.bundle.js', 'utf8');
+    assert(appCore.includes("activeQuizMode = 'review'"), 'review mode must be set when reviewing attempts');
+    assert(appCore.includes('b.disabled = true;'), 'Options must be disabled during review');
+    assert(appCore.includes('quizExplanationBox'), 'Explanation box must be rendered for review');
+    assert(appCore.includes("if (activeQuizMode === 'review') {\n                    closeQuizModal();\n                    showToast('Đã hoàn thành xem lại bài làm');\n                    return;\n                }"), 'Completing review mode must exit cleanly without awarding XP or mockDone');
+});
+
+// ----------------------------------------------------
+// 13. SCORE ESTIMATION & QUIET CONFIDENCE PHRASING
+// ----------------------------------------------------
+console.log('\n--- 13. Testing Score Estimation Phrasing ---');
+
+it('ets-adaptive-scorer.js and finishExamQuiz use honest estimated score wording', () => {
+    const scorer = fs.readFileSync('js/ets-adaptive-scorer.js', 'utf8');
+    assert(!scorer.includes('Dự Báo Điểm ETS Thích Ứng (AI IRT Model)'), 'Must not claim AI IRT Model in header');
+    assert(scorer.includes('Dự Báo Điểm ETS Thích Ứng (Ước lượng tham khảo)'), 'Must use quiet estimated reference wording');
+    assert(!scorer.includes('Khoảng tin cậy 95% được kích hoạt'), 'Must not claim unverified 95% confidence interval');
+    
+    const appCore = fs.readFileSync('js/app-core.bundle.js', 'utf8');
+    assert(appCore.includes('Điểm ước lượng tham khảo theo thang điểm ETS 10 - 990 (Tính theo tỷ lệ số câu đúng của bài làm)'), 'finishExamQuiz must describe estimated reference score');
+});
+
+// ----------------------------------------------------
+// 14. GUEST DIAGNOSTIC STATE IN DASHBOARD
+// ----------------------------------------------------
+console.log('\n--- 14. Testing Guest Diagnostic Dashboard State ---');
+
+it('updateDashboardHeroLessonState updates hero CTA once guest completes diagnostic test', () => {
+    const appCore = fs.readFileSync('js/app-core.bundle.js', 'utf8');
+    assert(appCore.includes("const saved = localStorage.getItem('study_studio_guest_diagnostic') || localStorage.getItem('cung_dang_diagnostic_results');"), 'Must check guest diagnostic result from localStorage');
+    assert(appCore.includes("ctaText.textContent = 'Tiếp tục luyện tập ngay (~10 phút)';"), 'Must update hero CTA for completed diagnostic guest');
+    assert(appCore.includes("window._heroNextTabTarget = 'lo-trinh';"), 'Must target roadmap tab once diagnostic is done');
+});
+
+// ----------------------------------------------------
+// 15. DICTIONARY MINI-QUIZ SUPPRESSION
+// ----------------------------------------------------
+console.log('\n--- 15. Testing Dictionary Mini-Quiz Suppression ---');
+
+it('dictionary-engine.js suppresses mini-quiz for limited or incomplete entries', () => {
+    const dictCode = fs.readFileSync('js/dictionary-engine.js', 'utf8');
+    assert(dictCode.includes("entry.dataStatus === 'limited' || entry.incomplete"), 'generateMiniQuiz must guard against limited or incomplete entries');
+});
+
 console.log('\n====================================================');
 console.log(`TOTAL TESTS: ${totalTests} | PASSED: ${passedTests} | FAILED: ${totalTests - passedTests}`);
 console.log('====================================================');

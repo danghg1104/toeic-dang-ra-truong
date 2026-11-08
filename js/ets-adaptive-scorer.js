@@ -155,12 +155,12 @@
                                 </div>
                                 <div>
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xs sm:text-sm font-black text-white">Dự Báo Điểm ETS Thích Ứng (AI IRT Model)</span>
+                                        <span class="text-xs sm:text-sm font-black text-white">Dự Báo Điểm ETS Thích Ứng (Ước lượng năng lực tham khảo)</span>
                                         <span class="px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300 border border-slate-600/50 text-[10px] font-bold uppercase tracking-wider">
                                             Chưa Kích Hoạt
                                         </span>
                                     </div>
-                                    <p class="text-[11px] text-slate-300 font-medium">Khoảng tin cậy 95% được kích hoạt sau bài kiểm tra chẩn đoán đầu vào</p>
+                                    <p class="text-[11px] text-slate-300 font-medium">Điểm ước lượng tham khảo được kích hoạt sau bài kiểm tra chẩn đoán đầu vào</p>
                                 </div>
                             </div>
 
@@ -204,12 +204,12 @@
                             </div>
                             <div>
                                 <div class="flex items-center gap-2">
-                                    <span class="text-xs sm:text-sm font-black text-white">Dự Báo Điểm ETS Thích Ứng (AI IRT Model)</span>
+                                    <span class="text-xs sm:text-sm font-black text-white">Dự Báo Điểm ETS Thích Ứng (Ước lượng tham khảo)</span>
                                     <span class="px-2 py-0.5 rounded-full ${isInitialData ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'} text-[10px] font-black uppercase tracking-wider">
                                         ${isInitialData ? 'Dữ liệu ban đầu · Tham khảo' : 'Live Adaptive'}
                                     </span>
                                 </div>
-                                <p class="text-[11px] text-slate-300 font-medium">Khoảng tin cậy dựa trên kết quả làm bài thực tế (Sai số thực nghiệm ±25-45 điểm)</p>
+                                <p class="text-[11px] text-slate-300 font-medium">Ước lượng tham khảo dựa trên kết quả làm bài thực tế (Sai số thực nghiệm ±25-45 điểm)</p>
                             </div>
                         </div>
 

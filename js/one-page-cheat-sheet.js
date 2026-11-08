@@ -46,7 +46,9 @@
       const opts = options || {};
       const title = this.escapeHtml(data.title || data.unit || 'Bản Tóm Tắt Bài Học 1 Trang');
       const student = Object.assign({}, this.defaultStudent, opts.student || data.student);
-      const studentHeader = `Student: ${this.escapeHtml(String(student.name || 'Học viên'))} | Diagnostic: ${this.escapeHtml(String(student.score || 500))} | Target: ${this.escapeHtml(String(student.target || 650))}`;
+      const studentScore = (student.score !== undefined && student.score !== null) ? student.score : 500;
+      const studentTarget = (student.target !== undefined && student.target !== null) ? student.target : 650;
+      const studentHeader = `Student: ${this.escapeHtml(String(student.name || 'Học viên'))} | Diagnostic: ${this.escapeHtml(String(studentScore))} | Target: ${this.escapeHtml(String(studentTarget))}`;
 
       // Rules / Key Points
       const rules = Array.isArray(data.keyRules) && data.keyRules.length > 0
