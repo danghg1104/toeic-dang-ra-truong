@@ -46,7 +46,7 @@ rdb = rdb.replace(/"setId":\s*"([^"]+)"[\s\S]*?"passageContent":\s*"([\s\S]*?)"\
             const startQ = p7Match[2];
             const clean = passagesMap[`t${t}_p7_q${startQ}`];
             if (clean) {
-                return match.replace(`"passageContent": "${oldContent}"`, `"passageContent": ${JSON.stringify(clean)}`);
+                return match.replace(`"passageContent": "${oldContent}"`, () => `"passageContent": ${JSON.stringify(clean)}`);
             }
         }
     }

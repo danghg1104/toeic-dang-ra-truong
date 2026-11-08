@@ -721,32 +721,42 @@ window.PersonalizedRoadmapEngine = {
             <!-- ========================================================================= -->
             <!-- TRẠM THÁCH ĐẤU: ĐẤU TRƯỜNG TỪ VỰNG 1V1 (DƯỚI LỘ TRÌNH CÁ NHÂN)             -->
             <!-- ========================================================================= -->
-            <div class="rounded-[26px] p-5 lg:p-6 bg-gradient-to-r from-[#102350] via-[#152a60] to-[#1e3b7b] text-white border border-indigo-400/40 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-5 artisan-deckled-paper">
-                <div class="absolute -right-16 -top-16 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="flex items-center gap-4 relative z-10 w-full md:w-auto">
-                    <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-500 to-rose-600 p-[2px] shadow-lg shadow-orange-500/30 shrink-0 flex items-center justify-center">
-                        <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center text-xl text-amber-400">
-                            <i class="fa-solid fa-shield-halved animate-pulse"></i>
-                        </div>
+            <div class="rounded-[26px] p-5 lg:p-6 text-white border border-cyan-500/30 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-5" style="background: linear-gradient(135deg, #091326 0%, #102454 50%, #183675 100%) !important; color: #ffffff !important;">
+                <div class="absolute -right-16 -top-16 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex items-center gap-4 sm:gap-5 relative z-10 w-full md:w-auto">
+                    <!-- AVATAR CHIẾN TƯỚNG BĂNG LONG TINH THỂ (AAA ANIMATED RANK FRAME) -->
+                    <div class="w-20 h-20 sm:w-22 sm:h-22 shrink-0 flex items-center justify-center relative cursor-pointer" onclick="switchTab('pvp-arena')" title="Thăng hạng để mở khóa Khung Avatar Chiến Tướng">
+                        ${(window.RankAvatarFrames && typeof window.RankAvatarFrames.getSvg === 'function') 
+                            ? window.RankAvatarFrames.getSvg('diamond', (user && user.avatar) || '/assets/mascot/may_avatar.png', { size: 84 })
+                            : `<div class="w-16 h-16 rounded-full border-2 border-cyan-400 p-0.5 shadow-lg"><img src="${(user && user.avatar) || '/assets/mascot/may_avatar.png'}" class="w-full h-full rounded-full object-cover"></div>`}
                     </div>
-                    <div class="space-y-1 min-w-0">
+                    <div class="space-y-1.5 min-w-0 flex-1">
                         <div class="flex items-center gap-2 flex-wrap">
-                            <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-black uppercase tracking-wider border border-rose-500/40 flex items-center gap-1">
+                            <span class="px-2.5 py-0.5 rounded-full bg-rose-500/25 text-rose-300 text-[10px] font-black uppercase tracking-wider border border-rose-500/40 flex items-center gap-1.5 shadow-xs">
                                 <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping"></span>
-                                Đấu Trường PvP 1v1 Trực Tiếp
+                                <span>Đấu Trường PvP 1v1 LIVE</span>
                             </span>
-                            <span class="text-xs font-bold text-amber-300">10 Từ · 60 Giây / Trận</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 text-[10px] font-black border border-cyan-400/30 flex items-center gap-1">
+                                <i class="fa-solid fa-snowflake text-[9px] text-cyan-300"></i>
+                                <span>Khung Avatar Băng Long Tinh Thể</span>
+                            </span>
+                            <span class="text-xs font-bold text-amber-300 flex items-center gap-1">
+                                <i class="fa-solid fa-bolt text-[10px] text-amber-400"></i> 10 Từ · 60s
+                            </span>
                         </div>
-                        <h4 class="text-lg sm:text-xl font-black tracking-tight text-white">
+                        <h4 class="text-base sm:text-lg font-black tracking-tight text-white leading-tight">
                             Thử Thách Phản Xạ Từ Vựng Cùng Đối Thủ
                         </h4>
-                        <p class="text-xs text-slate-300">
-                            Đo tài từ vựng Part 5 - 7 trực tiếp thời gian thực, tích lũy điểm Rank & thăng cấp Khung Avatar Chiến Tướng!
+                        <p class="text-xs text-slate-300 max-w-xl leading-relaxed">
+                            Đo tài từ vựng Part 5 - 7 trực tiếp thời gian thực, tích lũy điểm Rank ELO & thăng cấp Khung Avatar Chiến Tướng lung linh!
                         </p>
                     </div>
                 </div>
+
                 <div class="flex items-center gap-3 shrink-0 relative z-10 w-full md:w-auto justify-end">
-                    <button onclick="switchTab('pvp-arena')" class="w-full md:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-slate-950 font-black text-sm shadow-lg shadow-orange-500/30 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                    <button type="button" onclick="switchTab('pvp-arena')" class="w-full md:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 hover:from-amber-300 hover:to-rose-400 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-orange-500/30 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
                         <i class="fa-solid fa-gamepad text-base"></i>
                         <span>Vào Đấu Trường 1v1 Ngay</span>
                     </button>
@@ -980,8 +990,13 @@ window.PersonalizedRoadmapEngine = {
             </div>
         `;
 
-        // Render Initial Floating Action Card for the active node
-        this.renderFloatingActionCard();
+        // Only render Floating Action Card if user explicitly selected a node
+        if (this.selectedNodeId) {
+            this.renderFloatingActionCard();
+        } else {
+            const card = document.getElementById('roadmapFloatingActionCard');
+            if (card) card.classList.add('hidden');
+        }
     },
 
     // =========================================================================
@@ -991,7 +1006,11 @@ window.PersonalizedRoadmapEngine = {
         const card = document.getElementById('roadmapFloatingActionCard');
         if (!card) return;
 
-        const nodeId = this.selectedNodeId || 's1_n1';
+        if (!this.selectedNodeId) {
+            card.classList.add('hidden');
+            return;
+        }
+        const nodeId = this.selectedNodeId;
         const node = this.findNode(nodeId);
         if (!node) {
             card.classList.add('hidden');

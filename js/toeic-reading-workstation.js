@@ -282,26 +282,39 @@
 
         async ensureReadingDatabase(silent = false) {
             if (window.ReadingPracticeDatabase) return;
-            if (!silent && typeof showToast === 'function') showToast('⏳ Đang tải ngân hàng đề đọc hiểu (Part 5-6-7)...');
-            await new Promise((resolve) => {
+            if (this._loadingReadingDb) return this._loadingReadingDb;
+            if (!silent && typeof showToast === 'function') showToast('⏳ Đang chuẩn bị ngân hàng đề đọc hiểu (Part 5-6-7)...');
+            this._loadingReadingDb = new Promise((resolve) => {
+                const existing = document.querySelector('script[src*="reading-practice-database"]');
+                if (existing) {
+                    if (window.ReadingPracticeDatabase) { resolve(); return; }
+                    existing.addEventListener('load', resolve, { once: true });
+                    existing.addEventListener('error', resolve, { once: true });
+                    setTimeout(resolve, 2000);
+                    return;
+                }
                 const s = document.createElement('script');
-                s.src = '/js/reading-practice-database.js?v=studystudio_20261029_step2_perfect';
-                s.onload = resolve;
+                s.src = '/js/reading-practice-database.js?v=20261109_v4';
+                s.onload = () => { resolve(); };
                 s.onerror = (e) => {
-                    console.error('Cannot load ReadingPracticeDatabase:', e);
+                    console.warn('Cannot load reading-practice-database.js, falling back to Ets2026Database:', e);
                     resolve();
                 };
                 document.head.appendChild(s);
+                setTimeout(resolve, 3500); // safety fallback timeout
             });
+            await this._loadingReadingDb;
             const box = document.getElementById('toastBox');
             if (box) box.classList.add('opacity-0', 'translate-y-3');
         }
 
         async loadItems() {
+            // 1. Nếu ReadingPracticeDatabase đã có, lấy ngay không chờ
             if (!window.ReadingPracticeDatabase) {
-                await this.ensureReadingDatabase();
+                // Thử nạp nhẹ nhàng với timeout
+                await this.ensureReadingDatabase(true);
             }
-            // Ưu tiên nạp từ ReadingPracticeDatabase nếu có
+
             if (window.ReadingPracticeDatabase) {
                 const rawItems = window.ReadingPracticeDatabase.getItemsForPractice({
                     part: this.part,
@@ -312,12 +325,13 @@
                 this.items = (this.part === 5 && (!this.currentTopic || this.currentTopic === '') && rawItems.length > 30) ? rawItems.slice(0, 30) : rawItems;
             }
 
-            // Nếu là đề ETS 2026 và chưa có trong cache, gọi Ets2026Database
-            if ((!this.items || this.items.length === 0) && this.isEts2026 && window.Ets2026Database) {
-                if (!window.Ets2026Database.hasTest(this.testNumber)) {
-                    await window.Ets2026Database.loadTest(this.testNumber);
+            // 2. Dự phòng tức thì qua Ets2026Database nếu items rỗng (Đảm bảo 0ms độ trễ)
+            if ((!this.items || this.items.length === 0) && window.Ets2026Database) {
+                const tNum = this.testNumber || 1;
+                if (!window.Ets2026Database.hasTest(tNum)) {
+                    await window.Ets2026Database.loadTest(tNum);
                 }
-                const testData = window.Ets2026Database.testsCache[this.testNumber];
+                const testData = window.Ets2026Database.testsCache[tNum];
                 if (testData && testData.reading) {
                     if (this.part === 5) this.items = (testData.reading.part5 || []).slice(0, 30);
                     else if (this.part === 6) this.items = testData.reading.part6 || [];
@@ -504,7 +518,7 @@
                                 </span>
                                 ${!isCorrect ? `
                                     <button onclick="window.askAiWhyWrong && window.askAiWhyWrong({
-                                        question: '${(item.question_en || item.question || '').replace(/'/g, "\\'")}',
+                                        question: '${(item.question_en || item.question || item.q || '').replace(/'/g, "\\'")}',
                                         userAnswer: '${(item.options && item.options[selectedOpt] ? item.options[selectedOpt] : String(selectedOpt)).replace(/'/g, "\\'")}',
                                         correctAnswer: '${(item.ansLetter || ['A','B','C','D'][item.ans] || '').replace(/'/g, "\\'")}',
                                         part: 5,
