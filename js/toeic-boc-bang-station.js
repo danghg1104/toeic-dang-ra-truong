@@ -818,7 +818,7 @@
         // Cloud AI (Groq Whisper)
         async transcribeWithCloudAi(file) {
             this.processPercent = 30;
-            this.processStatusText = 'Đang gửi âm thanh tới Cloud AI Siêu tốc (Groq Whisper Large V3 Turbo)...';
+            this.processStatusText = 'Đang gửi âm thanh tới Cloud AI (Groq Whisper Large V3 Turbo)...';
             this.updateProgressBanner();
 
             const groqKey = this.groqApiKey || '';
@@ -850,13 +850,10 @@
                 }
             } catch (e) {
                 console.warn('Backend cloud transcribe error:', e);
+                throw new Error('Cloud AI không thể nhận dạng âm thanh: ' + (e.message || 'Lỗi kết nối máy chủ'));
             }
 
-            return {
-                engine: 'fallback',
-                text: 'Audio file loaded.',
-                segments: this.splitTextIntoEstimatedSegments('Audio file loaded.', this.audioDuration || 30)
-            };
+            throw new Error('Cloud AI không thể bóc băng tệp âm thanh này. Vui lòng kiểm tra lại kết nối hoặc file âm thanh.');
         }
 
         arrayBufferToBase64(buffer) {
@@ -2123,7 +2120,7 @@
                                     ⚡ Trình duyệt: Web Worker Whisper Tiny (Miễn phí 100%, Không giật lag)
                                 </option>
                                 <option value="cloud_ai" ${this.activeEngine === 'cloud_ai' ? 'selected' : ''}>
-                                    🚀 Siêu tốc 2s: Cloud AI (Groq Whisper Large V3 Turbo)
+                                    🚀 Cloud AI (Groq Whisper Large V3 Turbo)
                                 </option>
                             </select>
                         </div>

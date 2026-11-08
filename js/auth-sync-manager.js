@@ -57,7 +57,7 @@
                 },
                 goals: {
                     targetScore: acc.targetScore || '600',
-                    examDate: acc.examDate || '20/12/2026'
+                    examDate: acc.examDate || ''
                 },
                 stats: {
                     xp: acc.xp || 0,
@@ -304,7 +304,7 @@
                 },
                 goals: {
                     targetScore: acc.targetScore || '600',
-                    examDate: acc.examDate || '20/12/2026'
+                    examDate: acc.examDate || ''
                 },
                 stats: {
                     xp: s.xp || 0,
@@ -482,7 +482,7 @@
                         ...localData,
                         goals: {
                             targetScore: cloudData.targetScore || localData.goals?.targetScore || '600',
-                            examDate: cloudData.examDate || localData.goals?.examDate || '20/12/2026'
+                            examDate: cloudData.examDate || localData.goals?.examDate || ''
                         },
                         stats: mergedStats,
                         learningData: {

@@ -20,10 +20,10 @@
         "audio_url": "/audio/ets2026/test5/E26-T05-01.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. She's pushing a large container  down a hallway.",
-          "B. She's looking at information on a  laptop screen.",
+          "A. She's pushing a large container down a hallway.",
+          "B. She's looking at information on a laptop screen.",
           "C. She's sorting through paper files.",
-          "D. She's placing a hat on top of a file  cabinet."
+          "D. She's placing a hat on top of a file cabinet."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -47,9 +47,9 @@
         "audio_url": "/audio/ets2026/test5/E26-T05-02.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. A worker is painting lines on the  floor.",
-          "B. A worker is using a machine to  move some boxes.",
-          "C. A worker is sealing some  packages.",
+          "A. A worker is painting lines on the floor.",
+          "B. A worker is using a machine to move some boxes.",
+          "C. A worker is sealing some packages.",
           "D. A worker is repairing a motor."
         ],
         "ans": 1,
@@ -74,10 +74,10 @@
         "audio_url": "/audio/ets2026/test5/E26-T05-03.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. There are beverages available  inside a tent.",
-          "B. There are some people riding in an  automobile.",
-          "C. The man is reaching for a water  bottle.",
-          "D. The woman is moving some  furniture."
+          "A. There are beverages available inside a tent.",
+          "B. There are some people riding in an automobile.",
+          "C. The man is reaching for a water bottle.",
+          "D. The woman is moving some furniture."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -101,10 +101,10 @@
         "audio_url": "/audio/ets2026/test5/E26-T05-04.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. The door of a clothing store has  been propped open.",
-          "B. Customers are waiting to enter a  clothing store.",
-          "C. One of the customers is trying on a  jacket.",
-          "D. Clothing is displayed outside on  racks."
+          "A. The door of a clothing store has been propped open.",
+          "B. Customers are waiting to enter a clothing store.",
+          "C. One of the customers is trying on a jacket.",
+          "D. Clothing is displayed outside on racks."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -128,10 +128,10 @@
         "audio_url": "/audio/ets2026/test5/E26-T05-05.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. One of the men is lowering some  window shades.",
-          "B. One of the men is writing on a  poster board.",
-          "C. One of the women is putting on a  sweater.",
-          "D. One of the women is reading from  a notebook."
+          "A. One of the men is lowering some window shades.",
+          "B. One of the men is writing on a poster board.",
+          "C. One of the women is putting on a sweater.",
+          "D. One of the women is reading from a notebook."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -155,10 +155,10 @@
         "audio_url": "/audio/ets2026/test5/E26-T05-06.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. One of the cars is stopped at a  stop sign.",
-          "B. Some tires are stacked against a  building.",
+          "A. One of the cars is stopped at a stop sign.",
+          "B. Some tires are stacked against a building.",
           "C. Some vehicles are being washed.",
-          "D. A motorcycle is going through a  gate."
+          "D. A motorcycle is going through a gate."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -385,7 +385,7 @@
         "q_vi": "Bạn đã quyết định địa điểm cho sự  kiện gây quỹ như thế nào?",
         "options": [
           "A. A small contribution.",
-          "B. I got a recommendation from a  friend.",
+          "B. I got a recommendation from a friend.",
           "C. To buy books for the library."
         ],
         "options_vi": [
@@ -434,7 +434,7 @@
         "q": "The sales representatives really  appreciated the training we led.",
         "q_vi": "Các đại diện bán hàng thực sự đánh  giá cao buổi đào tạo chúng tôi dẫn  dắt.",
         "options": [
-          "A. The new transportation center  nearby.",
+          "A. The new transportation center nearby.",
           "B. No, but there is a manual online.",
           "C. Yes, they seemed to find it helpful."
         ],
@@ -460,7 +460,7 @@
         "q_vi": "Bạn có biết ai được thăng chức lên  giám đốc cấp cao không?",
         "options": [
           "A. It hasn't been announced yet.",
-          "B. I received my promotional gift  yesterday.",
+          "B. I received my promotional gift yesterday.",
           "C. I've seen that film."
         ],
         "options_vi": [
@@ -509,7 +509,7 @@
         "q": "Would you like some help installing  that new software?",
         "q_vi": "Bạn có cần giúp đỡ để cài đặt phần  mềm mới không?",
         "options": [
-          "A. No, I'm sure we sent it out  yesterday.",
+          "A. No, I'm sure we sent it out yesterday.",
           "B. Thanks, but I know how to do it.",
           "C. He can type very fast."
         ],
@@ -561,7 +561,7 @@
         "options": [
           "A. No thanks—I don't need anything.",
           "B. There's a waiting area in the lobby.",
-          "C. Yes, I bought some there  yesterday."
+          "C. Yes, I bought some there yesterday."
         ],
         "options_vi": [
           "(A) Không cảm ơn—Tôi không cần gì.",
@@ -635,7 +635,7 @@
         "q_vi": "Báo cáo hàng quý của bộ phận chúng  ta không phải gửi hôm nay sao?",
         "options": [
           "A. No, he drinks coffee.",
-          "B. There's a lot of information to  include.",
+          "B. There's a lot of information to include.",
           "C. Some office supplies."
         ],
         "options_vi": [
@@ -736,7 +736,7 @@
         "options": [
           "A. The keys are in the desk drawer.",
           "B. No, that's all right.",
-          "C. I heard that traffic is heavy this  morning."
+          "C. I heard that traffic is heavy this morning."
         ],
         "options_vi": [
           "(A) Chìa khóa ở trong ngăn kéo bàn.",
@@ -760,7 +760,7 @@
         "q_vi": "Tôi nên mang hoa hay thức ăn đến  bữa tiệc?",
         "options": [
           "A. He's right down the hall.",
-          "B. Don't you live next to a florist's  shop?",
+          "B. Don't you live next to a florist's shop?",
           "C. A few more hours."
         ],
         "options_vi": [
@@ -814,12 +814,12 @@
           {
             "id": "ets26_t5_p3_q32",
             "qNum": 32,
-            "q": "Người phụ nữ yêu cầu người đàn ông làm  gì cho cô ấy?",
+            "q": "What does the woman ask the man to do for her?",
             "options": [
-              "A. Chào đón khách trong sảnh",
-              "B. Trình bày một bài giới thiệu sản phẩm",
-              "C. Sắp xếp một số bìa còng",
-              "D. Sao chép một số tài liệu"
+              "A. Greet a client in the lobby",
+              "B. Present a product pitch",
+              "C. Organize some binders",
+              "D. Make some photocopies"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -922,12 +922,12 @@
           {
             "id": "ets26_t5_p3_q38",
             "qNum": 38,
-            "q": "Người đàn ông làm việc ở phòng ban nào?",
+            "q": "What department does the man work in?",
             "options": [
-              "A. Pháp lý",
-              "B. Kế toán",
-              "C. Nhân sự",
-              "D. Quan hệ công chúng"
+              "A. Legal",
+              "B. Accounting",
+              "C. Human resources",
+              "D. Public relations"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -977,7 +977,12 @@
             "id": "ets26_t5_p3_q41",
             "qNum": 41,
             "q": "What recently happened at the  business?",
-            "options": [],
+            "options": [
+              "A. Its monthly rent increased.",
+              "B. 42",
+              "C. It was featured in a magazine.",
+              "D. 43"
+            ],
             "ans": 1,
             "ansLetter": "B",
             "explanation_vi": "Đáp án đúng: (B)"
@@ -986,7 +991,12 @@
             "id": "ets26_t5_p3_q42",
             "qNum": 42,
             "q": "Theo người đàn ông, điều gì sẽ giúp khách  hàng?",
-            "options": [],
+            "options": [
+              "A. Purchasing updated equipment",
+              "B. Offering different products",
+              "C. Extending store hours",
+              "D. Hiring more employees"
+            ],
             "ans": 3,
             "ansLetter": "D",
             "explanation_vi": "Đáp án đúng: (D)"
@@ -999,11 +1009,7 @@
               "A. A packaging designer",
               "B. An Internet service provider",
               "C. A delivery service",
-              "D. A bank",
-              "A. Mua thiết bị cập nhật",
-              "B. Cung cấp các sản phẩm khác",
-              "C. Mở rộng giờ làm việc",
-              "D. Thuê thêm nhân viên"
+              "D. A bank"
             ],
             "ans": 2,
             "ansLetter": "C",
@@ -1038,12 +1044,12 @@
           {
             "id": "ets26_t5_p3_q45",
             "qNum": 45,
-            "q": "Người đàn ông gợi ý liên hệ với ai?",
+            "q": "Who does the man suggest contacting?",
             "options": [
-              "A. Một nhà cung cấp da",
-              "B. Một tài xế giao hàng",
-              "C. Một nhà thiết kế nội thất",
-              "D. Một kỹ thuật viên máy móc"
+              "A. A leather supplier",
+              "B. A delivery driver",
+              "C. An interior designer",
+              "D. A machine technician"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1055,8 +1061,8 @@
             "q": "Why is the woman opposed to  making a change?",
             "options": [
               "A. She has contracts with clients.",
-              "B. She is concerned about  quality.",
-              "C. Overhead expenses will  increase.",
+              "B. She is concerned about quality.",
+              "C. Overhead expenses will increase.",
               "D. A license will expire soon."
             ],
             "ans": 1,
@@ -1080,7 +1086,10 @@
             "qNum": 47,
             "q": "What are the speakers meeting  to discuss?",
             "options": [
-              "A. Safety regulations"
+              "A. Safety regulations",
+              "B. Equipment upgrades",
+              "C. 49",
+              "D. 48"
             ],
             "ans": 3,
             "ansLetter": "D",
@@ -1091,10 +1100,10 @@
             "qNum": 48,
             "q": "What does the man mean  when he says, “it takes a lot of  effort to develop and launch new  styles”?",
             "options": [
-              "A. He is excited about a  challenge.",
-              "B. He is surprised at a  competitor’s choices.",
-              "C. He is doubtful about a  suggestion.",
-              "D. He thinks more employees  should be hired."
+              "A. He is excited about a challenge.",
+              "B. He is surprised at a competitor’s choices.",
+              "C. He is doubtful about a suggestion.",
+              "D. He thinks more employees should be hired."
             ],
             "ans": 2,
             "ansLetter": "C",
@@ -1201,8 +1210,8 @@
             "options": [
               "A. Some costs were too high.",
               "B. A facility failed an inspection.",
-              "C. Some paperwork was submitted  late.",
-              "D. A competitor can complete a  project faster."
+              "C. Some paperwork was submitted late.",
+              "D. A competitor can complete a project faster."
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1254,9 +1263,9 @@
             "q": "Why does the man say, “we do  have money available in the budget”?",
             "options": [
               "A. To request another budget analysis",
-              "B. To suggest hiring additional  employees",
-              "C. To agree with a proposed  renovation",
-              "D. To recommend an increase in  advertising"
+              "B. To suggest hiring additional employees",
+              "C. To agree with a proposed renovation",
+              "D. To recommend an increase in advertising"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1270,7 +1279,7 @@
               "A. Have his car repaired",
               "B. Give a presentation",
               "C. Go to a dentist appointment",
-              "D. Attend a reception  M: Tôi không thể làm chiều nay vì phải gặp  nha sĩ, nhưng tôi chắc chắn sẽ gọi."
+              "D. Attend"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1324,7 +1333,7 @@
               "A. Conduct an inspection",
               "B. Sign a document",
               "C. Deliver some materials",
-              "D. Update a Web site    W: Vâng, chúng tôi có chính sách khớp giá.     M: Tuyệt vời. Vậy tôi sẽ mang kim loại đến  chiều nay."
+              "D. Update"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1347,10 +1356,10 @@
             "qNum": 62,
             "q": "Look at the graphic. Which project  phase was just completed?",
             "options": [
-              "A. Phase 1",
-              "B. Phase 2",
-              "C. Phase 3",
-              "D. Phase 4"
+              "A. Phase",
+              "B. Phase",
+              "C. Phase",
+              "D. Phase"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1378,7 +1387,7 @@
               "A. Review some data",
               "B. Move a vehicle",
               "C. Increase the size of a crew",
-              "D. Contact the management team  M: Ừ, tôi không ngạc nhiên. Việc khoan đã  hoàn tất. Vấn đề là chúng ta không thể bắt  đầu lắp đặt cột chống đỡ cho đến khi có đầy  đủ vật liệu cho bê tông.     W: Vật liệu sẽ đến khi nào?     M: Một tuần, có lẽ hai tuần.     W: Hãy xem liệu lô hàng có thể được đẩy  nhanh không. Anh có thể làm điều đó  không?     M: Chắc chắn. Tôi sẽ gọi nhà cung cấp để  hỏi về việc giao sớm hơn.     W: Trong lúc đó, tôi sẽ viết email cho ban  quản lý để giải thích cách chúng ta đang cố  gắng giải quyết tình hình."
+              "D. Contact the management team M:"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1469,10 +1478,10 @@
             "qNum": 69,
             "q": "Look at the graphic. Which step  does the man ask about?",
             "options": [
-              "A. Step 1",
-              "B. Step 2",
-              "C. Step 3",
-              "D. Step 4"
+              "A. Step",
+              "B. Step",
+              "C. Step",
+              "D. Step"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1486,7 +1495,7 @@
               "A. Send a contract",
               "B. Go to the lobby",
               "C. Look at some photographs",
-              "D. Review a cost estimate  W: Sảnh của các anh không có nhiều cửa  sổ, nên đó là cách tốt nhất để đưa thêm ánh  sáng tự nhiên vào phòng. Hơn nữa, các  công việc cải tạo đề xuất của chúng tôi thực  tế sẽ dưới ngân sách. Nếu anh lật sang  trang bốn, anh sẽ thấy phân tích chi phí cụ  thể."
+              "D. Review"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1581,8 +1590,8 @@
             "options": [
               "A. Recordings must be kept short.",
               "B. Electronic devices must be turned off.",
-              "C. Professional references must be  provided.",
-              "D. Vehicles must be parked in a  designated area."
+              "C. Professional references must be provided.",
+              "D. Vehicles must be parked in a designated area."
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1633,10 +1642,10 @@
             "qNum": 78,
             "q": "What does the speaker imply when  she says, “we have such a large group  today”?",
             "options": [
-              "A. She is happy about the popularity of a  tour.",
+              "A. She is happy about the popularity of a tour.",
               "B. She will need to use a microphone.",
               "C. An additional tour guide is needed.",
-              "D. A shop is not big enough for  everyone."
+              "D. A shop is not big enough for everyone."
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1687,9 +1696,9 @@
             "qNum": 81,
             "q": "Why was this year’s award recipient  selected?",
             "options": [
-              "A. For launching a unique advertising  campaign",
-              "B. For developing a successful training  program",
-              "C. For maintaining a perfect safety  record",
+              "A. For launching a unique advertising campaign",
+              "B. For developing a successful training program",
+              "C. For maintaining a perfect safety record",
               "D. For making a scientific discovery"
             ],
             "ans": 0,
@@ -1798,7 +1807,7 @@
               "A. They stayed under budget.",
               "B. They won an award.",
               "C. They showed creativity.",
-              "D. They completed some work on  schedule."
+              "D. They completed some work on schedule."
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1809,10 +1818,10 @@
             "qNum": 88,
             "q": "Why does the speaker say, “we have a  full supply of those in stock”?",
             "options": [
-              "A. To report that inventory has been  completed",
-              "B. To offer to share some supplies with  another store",
-              "C. To explain that some designs are not  needed",
-              "D. To confirm that a customer’s order  can be filled"
+              "A. To report that inventory has been completed",
+              "B. To offer to share some supplies with another store",
+              "C. To explain that some designs are not needed",
+              "D. To confirm that a customer’s order can be filled"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1864,9 +1873,9 @@
             "q": "What does the speaker emphasize  about upcoming events?",
             "options": [
               "A. Many of them are sold out.",
-              "B. Some of them will be affected by the  weather.",
+              "B. Some of them will be affected by the weather.",
               "C. Public transportation will be free.",
-              "D. Discounts are available for large  groups."
+              "D. Discounts are available for large groups."
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -1973,10 +1982,11 @@
             "options": [
               "A. Fifth Street",
               "B. Rose Street",
-              "C. Spring Street"
+              "C. Spring Street",
+              "D. Dill Street"
             ],
-            "ans": 0,
-            "ansLetter": "A",
+            "ans": 1,
+            "ansLetter": "B",
             "explanation_vi": "Đáp án đúng: (A)"
           }
         ]
@@ -2010,10 +2020,10 @@
             "qNum": 99,
             "q": "Look at the graphic. Which stage of  market research will Sarai talk about?",
             "options": [
-              "A. Stage 1",
-              "B. Stage 2",
-              "C. Stage 3",
-              "D. Stage 4"
+              "A. Stage",
+              "B. Stage",
+              "C. Stage",
+              "D. Stage"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -2622,9 +2632,9 @@
             "qNum": 133,
             "q": "Select the best option for blank (133):",
             "options": [
-              "A. Let him know if you would  like to apply.",
-              "B. The salary levels are more  competitive.",
-              "C. He will be joining us on  January 12.",
+              "A. Let him know if you would like to apply.",
+              "B. The salary levels are more competitive.",
+              "C. He will be joining us on January 12.",
               "D. Spencer Design has lost"
             ],
             "ans": 0,
@@ -2674,10 +2684,10 @@
             "qNum": 136,
             "q": "Select the best option for blank (136):",
             "options": [
-              "A. One common problem is  employee tardiness.",
-              "B. Our seminars cost £120  per session.",
-              "C. They communicate with  their team regularly to keep  them informed.",
-              "D. Sign up now and receive a"
+              "A. One common problem is employee tardiness.",
+              "B. Our seminars cost £120 per session.",
+              "C. They communicate with their team regularly to keep them informed.",
+              "D. Sign up now and receive"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -2740,9 +2750,9 @@
             "qNum": 140,
             "q": "Select the best option for blank (140):",
             "options": [
-              "A. Let us help you achieve  these objectives.",
-              "B. Ask us about potential tax  advantages.",
-              "C. Our software makes  booking appointments easy.",
+              "A. Let us help you achieve these objectives.",
+              "B. Ask us about potential tax advantages.",
+              "C. Our software makes booking appointments easy.",
               "D. A well-trained staff is all"
             ],
             "ans": 0,
@@ -2792,9 +2802,9 @@
             "qNum": 143,
             "q": "Select the best option for blank (143):",
             "options": [
-              "A. Lengthier articles are  sometimes considered as  well.",
-              "B. The editorial staff has won  numerous awards.",
-              "C. Subscribe now and receive  a free tote bag.",
+              "A. Lengthier articles are sometimes considered as well.",
+              "B. The editorial staff has won numerous awards.",
+              "C. Subscribe now and receive a free tote bag.",
               "D. Please allow four to six"
             ],
             "ans": 0,
@@ -2855,10 +2865,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q147)",
         "q": "What is the main purpose of the  information?",
         "options": [
-          "A. To announce the opening of a new  business",
-          "B. To publicize storage spaces available  for rent",
-          "C. To attract people who want to  promote their businesses",
-          "D. To encourage people to buy  newspaper subscriptions  Mục đích chính của thông tin này là gì?"
+          "A. To announce the opening of a new business",
+          "B. To publicize storage spaces available for rent",
+          "C. To attract people who want to promote their businesses",
+          "D. To encourage people to buy newspaper subscriptions"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -2875,7 +2885,7 @@
           "A. It is currently for sale.",
           "B. It is a real estate magazine.",
           "C. It is a local weekly publication.",
-          "D. It is a national daily newspaper.  Điều gì được gợi ý về Clearpoint Times?"
+          "D. It is a national daily newspaper."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -2892,7 +2902,7 @@
           "A. To request a meeting",
           "B. To confirm a recent price change",
           "C. To apologize for a scheduling delay",
-          "D. To seek additional staff for some  work  Mục đích của email là gì?"
+          "D. To seek additional staff for some work"
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -2909,7 +2919,7 @@
           "A. Submit a payment",
           "B. Reschedule a work project",
           "C. Avoid parking near a job site",
-          "D. Provide him with landscaping ideas    Ông Paltz yêu cầu ông và bà Witt làm gì?"
+          "D. Provide him with landscaping ideas"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -2925,8 +2935,8 @@
         "options": [
           "A. People who want to tour Jeel City",
           "B. People who enjoy outdoor activities",
-          "C. Business conference organizers  Quảng cáo này nhiều khả năng hướng tới đối  tượng nào?",
-          "A. Những người muốn tham quan thành phố Jeel"
+          "C. Business conference organizers",
+          "D. Hotel industry professionals"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -2943,7 +2953,7 @@
           "A. They contain antique furniture.",
           "B. They have recently been updated.",
           "C. Guests can view them online.",
-          "D. Guests can prepare food in them.  Điều gì được gợi ý về một số phòng tại khách sạn  Cavalina?"
+          "D. Guests can prepare food in them."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -2958,9 +2968,9 @@
         "q": "At 9:50 A.M., what does Mr. Cho most  likely mean when he writes, “I know  you’d be a great fit”?",
         "options": [
           "A. He would like to hire Ms. Rosetti.",
-          "B. He has worked at Yadav Digital  Marketing for a long time.",
-          "C. He thinks Yadav Digital Marketing  needs a new director.",
-          "D. He thinks Ms. Rosetti is a good  candidate for a job.  Vào lúc 9:50 sáng, ông Cho nhiều khả năng muốn  nói gì khi viết “I know you’d be a great fit”?"
+          "B. He has worked at Yadav Digital Marketing for a long time.",
+          "C. He thinks Yadav Digital Marketing needs a new director.",
+          "D. He thinks Ms. Rosetti is a good candidate for a job."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -2974,10 +2984,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q154)",
         "q": "What is indicated about Mr. Cho?",
         "options": [
-          "A. He has known Ms. Mayer for a long  time.",
-          "B. He works at the same company as  Ms. Mayer.",
-          "C. He will help Ms. Rosetti write a cover  letter.",
-          "D. He is a director at a marketing firm.  Điều gì được cho biết về ông Cho?"
+          "A. He has known Ms. Mayer for a long time.",
+          "B. He works at the same company as Ms. Mayer.",
+          "C. He will help Ms. Rosetti write a cover letter.",
+          "D. He is a director at a marketing firm."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -2994,7 +3004,7 @@
           "A. An ice cream producer",
           "B. An advertising agency",
           "C. A beverage manufacturer",
-          "D. A maker of electric fans  Covered Bridge Industries nhiều khả năng là loại  công ty nào?"
+          "D. A maker of electric fans"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3008,10 +3018,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q156)",
         "q": "Why did the leaders of Covered Bridge  Industries not follow their original plan?  Tại sao ban lãnh đạo của Covered Bridge  Industries không thực hiện kế hoạch ban đầu?  21      ETS 2026 READING TEST 5",
         "options": [
-          "A. They wanted to wait for more  favorable market conditions.",
-          "B. Quality tests revealed several  problems.",
-          "C. Their advertising campaign was not  ready on time.",
-          "D. An essential ingredient was  unavailable."
+          "A. They wanted to wait for more favorable market conditions.",
+          "B. Quality tests revealed several problems.",
+          "C. Their advertising campaign was not ready on time.",
+          "D. An essential ingredient was unavailable."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3028,7 +3038,7 @@
           "A. In June",
           "B. In August",
           "C. In November",
-          "D. In December  Trong tháng nào Covered Bridge Industries nhiều  khả năng sẽ tung ra sản phẩm mới?"
+          "D. In December"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3042,10 +3052,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q158)",
         "q": "Why is the Zipvid app no longer being  used?",
         "options": [
-          "A. It is more expensive than similar  programs.",
+          "A. It is more expensive than similar programs.",
           "B. It was used by only a few employees.",
           "C. It malfunctioned too frequently.",
-          "D. It is not compatible with new  computers.  Tại sao ứng dụng Zipvid không còn được sử dụng  nữa?"
+          "D. It is not compatible with new computers."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3062,7 +3072,7 @@
           "A. Convert videos",
           "B. Recover lost data",
           "C. Order software",
-          "D. Complete a form  Theo bản ghi nhớ, ông Costa có thể giúp nhân  viên làm gì?"
+          "D. Complete a form"
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3079,7 +3089,7 @@
           "A. [1]",
           "B. [2]",
           "C. [3]",
-          "D. [4]  Câu sau phù hợp nhất để đặt vào vị trí nào trong  các vị trí được đánh dấu [1], [2], [3] và [4]?  “Phần mềm này đã được cài đặt sẵn trên tất cả  các máy tính làm việc, vì vậy bạn có thể bắt đầu  sử dụng ngay.”"
+          "D. [4]"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3096,7 +3106,7 @@
           "A. A real estate office",
           "B. An event planning service",
           "C. A bookshop",
-          "D. A media company  Bà Ohtani và bà Rivera nhiều khả năng điều hành  loại hình doanh nghiệp nào?"
+          "D. A media company"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3113,7 +3123,7 @@
           "A. Both are operated by co-owners.",
           "B. Both serve customers worldwide.",
           "C. Both advertise primarily online.",
-          "D. Both struggled when they first  opened.  Một điểm giống nhau giữa A Thousand Stories và  Rosier’s Garden Center là gì?"
+          "D. Both struggled when they first opened."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3130,7 +3140,7 @@
           "A. join",
           "B. gain",
           "C. change",
-          "D. reverse  Từ “turn” trong đoạn 5, dòng 4, gần nghĩa nhất với  từ nào?"
+          "D. reverse"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3144,10 +3154,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q164)",
         "q": "According to the article, what will Mr.  Rosier most likely do soon?",
         "options": [
-          "A. He will write a book about his  experience.",
-          "B. He will move his home to  Morganville.",
+          "A. He will write a book about his experience.",
+          "B. He will move his home to Morganville.",
           "C. He will return to his previous career.",
-          "D. He will open another garden center.  Theo bài báo, ông Rosier nhiều khả năng sẽ làm  gì trong thời gian tới?"
+          "D. He will open another garden center."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3162,9 +3172,9 @@
         "q": "What responsibility of a supervisor is  mentioned in the notice?",
         "options": [
           "A. Distributing employee manuals",
-          "B. Overseeing the work of the safety  coordinator",
-          "C. Regularly updating the posted safety  rules",
-          "D. Providing safety guidelines for  specific jobs  Trách nhiệm nào của người giám sát được đề cập  trong thông báo?"
+          "B. Overseeing the work of the safety coordinator",
+          "C. Regularly updating the posted safety rules",
+          "D. Providing safety guidelines for specific jobs"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3181,7 +3191,7 @@
           "A. amounts",
           "B. procedures",
           "C. dimensions",
-          "D. penalties  Từ “measures” trong đoạn 1, dòng 6, gần nghĩa  nhất với từ nào?"
+          "D. penalties"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3198,7 +3208,7 @@
           "A. To apply for a new position",
           "B. To update their contact information",
           "C. To suggest additional safety rules",
-          "D. To request a training schedule  Theo thông báo, tại sao nhân viên nên liên hệ với  bà Schneider?"
+          "D. To request a training schedule"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3214,8 +3224,8 @@
         "options": [
           "A. It gets cold enough to snow there.",
           "B. It has a large population.",
-          "C. It purchases equipment from local  vendors.",
-          "D. It has many four-lane highways.  Điều gì được gợi ý về quận Dora?"
+          "C. It purchases equipment from local vendors.",
+          "D. It has many four-lane highways."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3229,10 +3239,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q169)",
         "q": "According to the job description, what  should the highway supervisor do if a  serious problem with a crew member  arises?",
         "options": [
-          "A. Suggest a replacement worker.  Theo mô tả công việc, người giám sát đường cao  tốc nên làm gì nếu phát sinh vấn đề nghiêm trọng  với một thành viên trong đội?",
-          "A. Đề xuất một công nhân thay thế",
-          "B. Hạn chế các hoạt động của thành viên đó  28      ETS 2026 READING TEST 5",
-          "B. Restrict the crew member’s activities."
+          "A. Suggest a replacement worker.",
+          "B. Restrict the crew member’s activities.",
+          "C. Notify the division director of the issue.",
+          "D. Designate a liaison to explain the matter to management."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3247,9 +3257,9 @@
         "q": "What is NOT a responsibility of the  highway supervisor?",
         "options": [
           "A. Operating construction equipment",
-          "B. Conducting yearly performance  reviews",
+          "B. Conducting yearly performance reviews",
           "C. Managing the monthly budget",
-          "D. Negotiating crew member salaries  Điều nào KHÔNG phải là trách nhiệm của người  giám sát đường cao tốc?"
+          "D. Negotiating crew member salaries"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3266,7 +3276,7 @@
           "A. [1]",
           "B. [2]",
           "C. [3]",
-          "D. [4]  Câu sau phù hợp nhất để đặt vào vị trí nào trong  các vị trí được đánh dấu [1], [2], [3] và [4]?  “Vị trí này bao gồm nhiều nhiệm vụ liên quan đến  việc quản lý nhân sự.”"
+          "D. [4]"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3280,10 +3290,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q172)",
         "q": "What is the purpose of the conversation?",
         "options": [
-          "A. To inform a homeowner about a  construction project",
-          "B. To explain why a repair cannot be  completed on time",
-          "C. To discuss the timing of a public  event",
-          "D. To coordinate a work schedule  Mục đích của cuộc trò chuyện là gì?"
+          "A. To inform a homeowner about a construction project",
+          "B. To explain why a repair cannot be completed on time",
+          "C. To discuss the timing of a public event",
+          "D. To coordinate a work schedule"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3297,10 +3307,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q173)",
         "q": "What can be concluded about 210 Leon  Drive?",
         "options": [
-          "A. It is a private home.  Có thể kết luận gì về 210 Leon Drive?",
-          "A. Là nhà riêng",
-          "B. Là tòa nhà văn phòng  31      ETS 2026 READING TEST 5",
-          "B. It is an office building."
+          "A. It is a private home.",
+          "B. It is an office building.",
+          "C. It is an apartment complex.",
+          "D. It is an industrial warehouse."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3314,10 +3324,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q174)",
         "q": "What is suggested about the members  of Mr. Gruyler’s work crew?",
         "options": [
-          "A. They have added Ms. Kaluza to their  group.",
-          "B. They are repairing Mr. Gollancz’  office.",
-          "C. They usually complete jobs in fewer  than three days.",
-          "D. They have already begun work on Mr.  Amadi’s apartment.  Điều gì được gợi ý về đội làm việc của ông  Gruyler?"
+          "A. They have added Ms. Kaluza to their group.",
+          "B. They are repairing Mr. Gollancz’ office.",
+          "C. They usually complete jobs in fewer than three days.",
+          "D. They have already begun work on Mr. Amadi’s apartment."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3331,10 +3341,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q175)",
         "q": "At 3:25 P.M., what does Ms. Kaluza most  likely mean when she writes, “You got  it”?",
         "options": [
-          "A. She wants to confirm that Mr.  Gollancz understands her.",
-          "B. She will be at 210 Leon Drive early  Monday morning.",
-          "C. She will send Mr. Gruyler a bill for  some work.",
-          "D. She hopes Mr. Gollancz will contact  the Brown family.  Lúc 3:25 chiều, bà Kaluza có ý gì khi viết “You got  it”?"
+          "A. She wants to confirm that Mr. Gollancz understands her.",
+          "B. She will be at 210 Leon Drive early Monday morning.",
+          "C. She will send Mr. Gruyler a bill for some work.",
+          "D. She hopes Mr. Gollancz will contact the Brown family."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3351,7 +3361,7 @@
           "A. Big Mix is currently not available.",
           "B. Mr. Buddy is the best-selling item.",
           "C. Some items cannot be delivered.",
-          "D. All cement mixers have been  discounted.  Trang web cho biết điều gì?"
+          "D. All cement mixers have been discounted."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3368,7 +3378,7 @@
           "A. Easy Star",
           "B. Concretizer",
           "C. Big Mix",
-          "D. Max for Pros  Ông Weaver đã đặt mua sản phẩm nào?"
+          "D. Max for Pros"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3382,10 +3392,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q178)",
         "q": "In the e-mail, the word “full” in paragraph  1, line 7, is closest in meaning to",
         "options": [
-          "A. supplied  Từ “full” gần nghĩa nhất trong email tại câu 1,  dòng 7 là:",
-          "A. được cung cấp  35      ETS 2026 READING TEST 5",
+          "A. supplied",
           "B. occupied",
-          "C. complete"
+          "C. complete",
+          "D. abundant"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3399,10 +3409,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q179)",
         "q": "What is suggested about JJ's Home and  Garden Suppliers?",
         "options": [
-          "A. It specializes in the sale of large  construction equipment.",
+          "A. It specializes in the sale of large construction equipment.",
           "B. It sells most of its products online.",
           "C. It offers free delivery on all products.",
-          "D. It has stores in more than one  location.  Điều gì được gợi ý về JJ’s Home and Garden  Suppliers?"
+          "D. It has stores in more than one location."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3419,7 +3429,7 @@
           "A. $189",
           "B. $359",
           "C. $499",
-          "D. $629  Giá máy trộn xi măng CVY-XU tại Alliance  Hardware là bao nhiêu?"
+          "D. $629"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3436,7 +3446,7 @@
           "A. They are different for each country.",
           "B. They often serve multiple purposes.",
           "C. They are updated on a regular basis.",
-          "D. They are stricter than they once  were.  Trang web cho biết gì về hướng dẫn thương mại  quốc tế?"
+          "D. They are stricter than they once were."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3453,7 +3463,7 @@
           "A. It cannot be negotiated.",
           "B. It costs $329 per month.",
           "C. It is set during an initial meeting.",
-          "D. It may be waived based on client  needs.  Trang web nói gì về phí duy trì hằng tháng?"
+          "D. It may be waived based on client needs."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3467,10 +3477,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q183)",
         "q": "Why does Mr. Yadav provide information  about his company in the e-mail?  Vì sao ông Yadav cung cấp thông tin công ty  trong email?",
         "options": [
-          "A. Trả lời yêu cầu từ người liên hệ tiềm năng  39      ETS 2026 READING TEST 5",
-          "A. He is responding to a request from a  prospective colleague.",
-          "B. He forgot to include the information  on a form.",
-          "C. He is following an established  process."
+          "A. He is responding to a request from a prospective colleague.",
+          "B. He forgot to include the information on a form.",
+          "C. He is following an established process.",
+          "D. He is unsure whether a questionnaire he completed was received."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3487,7 +3497,7 @@
           "A. Ms. Giordano",
           "B. Mr. Woodrow",
           "C. Ms. Wong",
-          "D. Mr. Fadel  Ông Yadav nhiều khả năng sẽ làm việc với ai?"
+          "D. Mr. Fadel"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3501,10 +3511,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q185)",
         "q": "What is mentioned in the e-mail about  Isvarani Ltd.?",
         "options": [
-          "A. It wants its suppliers to remain  confidential.",
-          "B. It violated an international policy by  accident.",
+          "A. It wants its suppliers to remain confidential.",
+          "B. It violated an international policy by accident.",
           "C. It has plans to expand its operations.",
-          "D. It needs more information about  domestic cargo requirements.  Email đề cập gì về Isvarani Ltd.?"
+          "D. It needs more information about domestic cargo requirements."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3521,7 +3531,7 @@
           "A. They are offered for free.",
           "B. They are held once a month.",
           "C. They are led by account managers.",
-          "D. They are held in partnership with  AFR.  Điều gì được đề cập về chương trình giáo dục tài  chính của Sonfaya Mutual?"
+          "D. They are held in partnership with AFR."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3535,10 +3545,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q187)",
         "q": "What is indicated in the article about  Sonfaya Mutual?",
         "options": [
-          "A. It raised the amount for opening a  BASA.",
-          "B. It will continue to add customer  privileges.",
+          "A. It raised the amount for opening a BASA.",
+          "B. It will continue to add customer privileges.",
           "C. It updated its Web site recently.",
-          "D. It is an international company.  Bài báo cho biết gì về Sonfaya Mutual?"
+          "D. It is an international company."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3552,10 +3562,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q188)",
         "q": "Why is Ms. Chabinga looking for a  previous AFR issue?",
         "options": [
-          "A. To learn about the offerings of  Sonfaya Mutual’s competitors",
-          "B. To know more about current  customer-centric trends",
-          "C. To learn about the history of Sonfaya  Mutual",
-          "D. To know more about Sonfaya  Mutual’s BASA  Vì sao bà Chabinga tìm một số báo AFR cũ?"
+          "A. To learn about the offerings of Sonfaya Mutual’s competitors",
+          "B. To know more about current customer-centric trends",
+          "C. To learn about the history of Sonfaya Mutual",
+          "D. To know more about Sonfaya Mutual’s BASA"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3572,7 +3582,7 @@
           "A. Big Mix is currently not available.",
           "B. Mr. Buddy is the best-selling item.",
           "C. Some items cannot be delivered.",
-          "D. All cement mixers have been  discounted.  Trang web cho biết điều gì?"
+          "D. All cement mixers have been discounted."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3587,9 +3597,9 @@
         "q": "What is a purpose of the letter?",
         "options": [
           "A. To explain the benefits of investing",
-          "B. To describe the options for  managing funds",
-          "C. To explain how online stock trading  works",
-          "D. To provide a department’s contact  information  Mục đích của bức thư là gì?"
+          "B. To describe the options for managing funds",
+          "C. To explain how online stock trading works",
+          "D. To provide a department’s contact information"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3603,10 +3613,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q191)",
         "q": "What can be concluded about Valley  Road Bed and Breakfast?",
         "options": [
-          "A. It does not serve breakfast before  7:00 A.M.",
-          "B. It provides a shuttle service to the  airport.",
-          "C. It is located next to the Ivor Hotel and  Conference Center.",
-          "D. It is no longer accepting reservations  for April.  Có thể kết luận gì về Valley Road Bed and  Breakfast?"
+          "A. It does not serve breakfast before 7:00 A.M.",
+          "B. It provides a shuttle service to the airport.",
+          "C. It is located next to the Ivor Hotel and Conference Center.",
+          "D. It is no longer accepting reservations for April."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3620,10 +3630,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q192)",
         "q": "According to the form, what are  employees expected to do?",
         "options": [
-          "A. Seek permission to travel from the  finance department",
+          "A. Seek permission to travel from the finance department",
           "B. Present their work at a conference",
           "C. E-mail expense reports to a manager",
-          "D. Submit receipts within 30 days of  travel  Theo biểu mẫu, nhân viên cần làm gì?"
+          "D. Submit receipts within 30 days of travel"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3637,10 +3647,10 @@
         "topic": "ETS 2026 Test 5 - Part 7 (Q193)",
         "q": "What is most likely true about the Digital  Graphic Designers Conference?",
         "options": [
-          "A. It lasted three days.  Điều nào đúng về hội nghị Digital Graphic  Designers?",
-          "A. Kéo dài 3 ngày  49      ETS 2026 READING TEST 5",
+          "A. It lasted three days.",
           "B. It began on April 28.",
-          "C. It was held in Santa Clara."
+          "C. It was held in Santa Clara.",
+          "D. It provided meals to participants."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3657,7 +3667,7 @@
           "A. She is a financial analyst.",
           "B. She organizes conferences.",
           "C. She is a department manager.",
-          "D. She owns a bed-and-breakfast.  Dựa vào biểu mẫu, điều gì đúng về bà Park?"
+          "D. She owns a bed-and-breakfast."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3674,7 +3684,7 @@
           "A. It is open 24 hours a day.",
           "B. It offers daily breakfast specials.",
           "C. It has locations around the country.",
-          "D. It has been in business for more than  twenty years.  Hóa đơn cho biết gì về Eileen’s Diner?"
+          "D. It has been in business for more than twenty years."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3691,7 +3701,7 @@
           "A. To verify an equipment order",
           "B. To request machinery repair",
           "C. To report on a monthly inspection",
-          "D. To encourage increased production  Mục đích của email đầu tiên là gì?"
+          "D. To encourage increased production"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3708,7 +3718,7 @@
           "A. Employ additional workers",
           "B. Hire an outside company",
           "C. Lease a new building",
-          "D. Purchase a new machine  Ông Nahm đã quyết định làm gì để giải quyết vấn  đề tại tòa F?"
+          "D. Purchase a new machine"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3725,7 +3735,7 @@
           "A. The director of maintenance",
           "B. The lead technician",
           "C. A line worker",
-          "D. A line manager  Ông Nadiner nhiều khả năng là ai?"
+          "D. A line manager"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3742,7 +3752,7 @@
           "A. Quinar Machines",
           "B. Altran Motors",
           "C. Konner Services",
-          "D. Haverford Industries  Bà Landon nhiều khả năng làm việc cho công ty  nào?"
+          "D. Haverford Industries"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3759,7 +3769,7 @@
           "A. 102",
           "B. 393",
           "C. 477",
-          "D. 488  Theo báo cáo, bài kiểm tra nào dẫn đến việc thay  thế linh kiện máy?"
+          "D. 488"
         ],
         "ans": 2,
         "ansLetter": "C",

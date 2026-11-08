@@ -160,7 +160,7 @@
           <!-- Section 3: 12-Trap Alerts Encountered -->
           <div class="space-y-2">
             <h3 class="text-xs font-black uppercase tracking-wider text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-              <span>⚠️ Cảnh Báo Bẫy Tử Huyệt Cần Né</span>
+              <span>⚠️ Cảnh Báo Bẫy Đề Cần Lưu Ý</span>
             </h3>
             <div class="flex flex-wrap items-center gap-2">
               ${trapsHtml}

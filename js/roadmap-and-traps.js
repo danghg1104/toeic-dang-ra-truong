@@ -322,11 +322,11 @@ window.PersonalizedRoadmapEngine = {
         let user = this.getActiveUser();
         if (!user) {
             user = {
-                id: 'acc-student-' + Date.now(),
+                id: 'acc-guest-' + Date.now(),
                 name: 'Học viên',
-                email: 'student@cungdang.edu.vn',
+                email: '',
                 targetScore: '650',
-                examDate: '20/12/2026',
+                examDate: '',
                 isGuest: true
             };
             window.currentUserAccount = user;
@@ -1097,7 +1097,7 @@ window.PersonalizedRoadmapEngine = {
     },
     editExamDate(date) {
         if (window.currentUserAccount) {
-            window.currentUserAccount.examDate = (date || '20/12/2026').toString().trim();
+            window.currentUserAccount.examDate = (date || '').toString().trim();
             if (window.syncCurrentAccountState) window.syncCurrentAccountState();
             this.renderRoadmapView();
         }
@@ -1108,7 +1108,7 @@ window.PersonalizedRoadmapEngine = {
             if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
             return;
         }
-        const currentDate = currentUserAccount?.examDate || '20/12/2026';
+        const currentDate = currentUserAccount?.examDate || '';
         const currentTarget = currentUserAccount?.targetScore || '600';
         const newDate = prompt('Nhập ngày thi của bạn (định dạng Ngày/Tháng/Năm, ví dụ: 25/11/2026):', currentDate);
         if (newDate) {

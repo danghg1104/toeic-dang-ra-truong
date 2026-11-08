@@ -256,6 +256,9 @@
             if (tabId === 'doc' && window.ToeicReadingWorkstation && !window.ReadingPracticeDatabase) {
                 window.ToeicReadingWorkstation.ensureReadingDatabase(true);
             }
+            if (tabId === 'thi-thu' && typeof updateMockTestBannerStats === 'function') {
+                updateMockTestBannerStats();
+            }
 
             const allTabs = Object.keys(tabConfig);
 
@@ -2330,6 +2333,8 @@
             }
         }
 
+        const completedDictationKeys = new Set(JSON.parse(localStorage.getItem('toeic_completed_dictation_keys') || '[]'));
+
         function checkDictationSubmission() {
             const lesson = getActiveDictationLesson();
             if (!lesson) return;
@@ -2341,23 +2346,41 @@
             const userRaw = (document.getElementById('dictationInput').value || '').trim();
             const isExact = cleanWord(userRaw) === cleanWord(item.en);
 
-            state.dictationDone++;
-            state.listenDone++;
-            state.xp += 10;
-            state.streak = Math.max(1, state.streak);
-            document.getElementById('dictationDoneCount').textContent = `${state.dictationDone} câu`;
-            updateDashboardMetrics();
+            const sKey = `${currentDictCat || 'default'}_${currentDictLessonIdx || 0}_${currentDictIdx}`;
+            const isFirstCheck = !completedDictationKeys.has(sKey);
+            if (isFirstCheck) {
+                completedDictationKeys.add(sKey);
+                try {
+                    localStorage.setItem('toeic_completed_dictation_keys', JSON.stringify([...completedDictationKeys]));
+                } catch(e) {}
+                state.dictationDone++;
+                state.listenDone++;
+                state.xp += 10;
+                state.streak = Math.max(1, state.streak);
+                const dcEl = document.getElementById('dictationDoneCount');
+                if (dcEl) dcEl.textContent = `${state.dictationDone} câu`;
+                updateDashboardMetrics();
+            }
 
             const fbBox = document.getElementById('dictationFeedbackBox');
-            document.getElementById('dictationStatusLabel').textContent = isExact
-                ? '🎉 Xuất sắc! Bạn đã nghe và gõ chính xác 100% (+10 XP)!'
-                : '✨ Đã đối chiếu đáp án! Hãy xem kỹ phiên âm IPA và các từ được mở khóa (+10 XP):';
+            const statusLabel = document.getElementById('dictationStatusLabel');
+            if (statusLabel) {
+                if (isExact) {
+                    statusLabel.textContent = isFirstCheck
+                        ? '🎉 Xuất sắc! Bạn đã nghe và gõ chính xác 100% (+10 XP)!'
+                        : '🎉 Chính xác 100%! (Câu này đã được ghi nhận trước đó)';
+                } else {
+                    statusLabel.textContent = isFirstCheck
+                        ? '✨ Đã đối chiếu đáp án! Hãy xem kỹ phiên âm IPA và các từ được mở khóa (+10 XP):'
+                        : '✨ Đã đối chiếu đáp án! (Câu này đã được ghi nhận trước đó):';
+                }
+            }
             document.getElementById('dictationFullEn').textContent = item.en;
             document.getElementById('dictationIpa').textContent = item.ipa;
             document.getElementById('dictationVi').textContent = `Dịch nghĩa: ${item.vi}`;
             fbBox.classList.remove('hidden');
             playCurrentDictationAudio();
-            if (window.StudySync) {
+            if (window.StudySync && isFirstCheck) {
                 window.StudySync.broadcastLearning('DICTATION_PASSED', item.en.substring(0, 30) + '...', 10);
             }
         }
@@ -4306,8 +4329,9 @@
                     return;
                 }
 
-                const isReading = type.includes('p5') || type.includes('p6') || type.includes('p7') || type.includes('rc') || cleanTitle.includes('part 5') || cleanTitle.includes('part 6') || cleanTitle.includes('part 7') || cleanTitle.includes('reading');
-                if (isReading && window.ToeicReadingWorkstation) {
+                const isFullRc = type.includes('rc') || cleanTitle.includes('full reading') || cleanTitle.includes('100 câu') || count === 100;
+                const isSinglePartReading = !isFullRc && (type.includes('p5') || type.includes('p6') || type.includes('p7') || cleanTitle.includes('part 5') || cleanTitle.includes('part 6') || cleanTitle.includes('part 7'));
+                if (isSinglePartReading && window.ToeicReadingWorkstation) {
                     let p = 5;
                     if (type.includes('p6') || cleanTitle.includes('part 6')) p = 6;
                     else if (type.includes('p7') || cleanTitle.includes('part 7')) p = 7;
@@ -4479,6 +4503,7 @@
 
             activeQuizList = questionsPool.slice(0, count || questionsPool.length);
             activeQuizIndex = 0;
+            quizBookmarks.clear();
 
             const isExam = (options && options.mode === 'exam') ||
                            (type && (type.includes('full') || type.includes('exam'))) ||
@@ -4554,6 +4579,21 @@
         function renderQuizQuestion() {
             const item = activeQuizList[activeQuizIndex];
             document.getElementById('quizProgressLabel').textContent = `Câu hỏi ${activeQuizIndex + 1} / ${activeQuizList.length}`;
+            if (typeof updateQuizBookmarkUI === 'function') updateQuizBookmarkUI();
+            const prevBtn = document.getElementById('prevQuestionBtn');
+            if (prevBtn) {
+                if (activeQuizIndex > 0) prevBtn.classList.remove('hidden');
+                else prevBtn.classList.add('hidden');
+            }
+            const nextBtn = document.getElementById('nextQuestionBtn');
+            if (nextBtn) {
+                const isLast = activeQuizIndex === activeQuizList.length - 1;
+                if (activeQuizMode === 'exam') {
+                    nextBtn.innerHTML = isLast ? '<span>Nộp bài thi</span><i class="fa-solid fa-check-circle text-xs"></i>' : '<span>Câu tiếp theo</span><i class="fa-solid fa-arrow-right text-xs"></i>';
+                } else {
+                    nextBtn.innerHTML = isLast ? '<span>Hoàn thành</span><i class="fa-solid fa-check text-xs"></i>' : '<span>Câu tiếp theo</span><i class="fa-solid fa-arrow-right text-xs"></i>';
+                }
+            }
 
             const isPart1 = item.part === 1 || activeQuizType === 'listening_part1';
             const isPart2 = item.part === 2 || activeQuizType === 'listening_part2';
@@ -4697,12 +4737,29 @@
                 btn.onclick = () => selectQuizAnswer(idx, btn);
                 container.appendChild(btn);
             });
+
+            if (activeQuizMode === 'exam') {
+                const chosen = examUserAnswers[activeQuizIndex];
+                if (chosen !== undefined) {
+                    const buttons = container.children;
+                    for (let i = 0; i < buttons.length; i++) {
+                        if (i === chosen) {
+                            buttons[i].className = 'w-full text-left px-4 py-3.5 rounded-2xl border-2 border-indigo-600 bg-indigo-50/80 dark:bg-slate-700/80 font-bold text-[13.5px] text-indigo-900 dark:text-white transition flex items-center justify-between cursor-pointer';
+                        } else {
+                            buttons[i].className = 'w-full text-left px-4 py-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-400 font-semibold text-[13.5px] text-slate-700 dark:text-slate-200 transition flex items-center justify-between cursor-pointer opacity-70';
+                        }
+                    }
+                }
+                if (typeof saveActiveExamSession === 'function') saveActiveExamSession();
+            }
         }
 
         function selectQuizAnswer(selectedIndex, btnEl) {
             const item = activeQuizList[activeQuizIndex];
             if (activeQuizMode === 'exam') {
                 examUserAnswers[activeQuizIndex] = selectedIndex;
+                if (typeof saveActiveExamSession === 'function') saveActiveExamSession();
+                if (typeof renderQuizPalette === 'function') renderQuizPalette();
                 const buttons = document.getElementById('quizOptionsContainer').children;
                 for (let i = 0; i < buttons.length; i++) {
                     const b = buttons[i];
@@ -4892,12 +4949,7 @@
                 }
                 if (activeQuizType === 'mock') {
                     state.mockDone = (state.mockDone || 0) + 1;
-                    const bEl = document.getElementById('mockBestScore');
-                    const lEl = document.getElementById('mockLatestScore');
-                    const cEl = document.getElementById('mockCompletedCount');
-                    if (bEl) bEl.textContent = '650';
-                    if (lEl) lEl.textContent = '650';
-                    if (cEl) cEl.textContent = `${state.mockDone} lượt`;
+                    if (typeof updateMockTestBannerStats === 'function') updateMockTestBannerStats();
                 }
 
                 updateDashboardMetrics();
@@ -4939,21 +4991,42 @@
             const rcScaled = totalRC > 0 ? Math.min(495, Math.max(5, Math.round((correctRC / totalRC) * 490) + 5)) : 5;
             const totalScore = lcScaled + rcScaled;
 
-            // Lưu lịch sử thi mô phỏng riêng biệt
+            // Lưu lịch sử thi mô phỏng đầy đủ chi tiết
+            if (typeof clearActiveExamSession === 'function') clearActiveExamSession();
             try {
                 const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const testTitle = document.getElementById('quizModalTitle')?.textContent || 'Full Mock Test';
                 history.unshift({
+                    id: 'exam_' + Date.now(),
                     date: new Date().toISOString(),
-                    title: document.getElementById('quizModalTitle').textContent,
+                    title: testTitle,
                     totalQuestions: activeQuizList.length,
                     totalCorrect,
+                    correctLC,
+                    totalLC,
+                    correctRC,
+                    totalRC,
                     lcScaled,
                     rcScaled,
                     totalScore,
-                    timeSpentSec: ((120 * 60) - quizExamSecondsRemaining)
+                    timeSpentSec: Math.max(0, (120 * 60) - quizExamSecondsRemaining),
+                    userAnswers: { ...examUserAnswers },
+                    bookmarks: Array.from(quizBookmarks || []),
+                    questionsSummary: activeQuizList.map(q => ({
+                        q: q.q,
+                        ans: q.ans,
+                        options: q.options,
+                        part: q.part,
+                        explain: q.explain || q.explanation_vi || '',
+                        transcript: q.transcript || '',
+                        translation_vi: q.translation_vi || '',
+                        image: q.image || '',
+                        audio_url: q.audio_url || ''
+                    }))
                 });
                 localStorage.setItem('toeic_exam_history', JSON.stringify(history.slice(0, 50)));
             } catch(e) {}
+            if (typeof updateMockTestBannerStats === 'function') updateMockTestBannerStats();
 
             const timerContainer = document.getElementById('quizExamTimerContainer');
             if (timerContainer) {
@@ -5000,6 +5073,430 @@
             }
         }
         window.finishExamQuiz = finishExamQuiz;
+
+        // =========================================================================
+        // EXAM WORKSTATION SUITE: BOOKMARKS, PALETTE, HISTORY & PERSISTENCE
+        // =========================================================================
+        let quizBookmarks = new Set();
+        let paletteFilter = 'all';
+
+        function toggleQuizBookmark() {
+            if (!activeQuizList || !activeQuizList.length) return;
+            if (quizBookmarks.has(activeQuizIndex)) {
+                quizBookmarks.delete(activeQuizIndex);
+                showToast(`Đã bỏ đánh dấu câu ${activeQuizIndex + 1}`);
+            } else {
+                quizBookmarks.add(activeQuizIndex);
+                showToast(`🚩 Đã đánh dấu xem lại câu ${activeQuizIndex + 1}`);
+            }
+            updateQuizBookmarkUI();
+            if (typeof renderQuizPalette === 'function') renderQuizPalette();
+            if (typeof saveActiveExamSession === 'function') saveActiveExamSession();
+        }
+        window.toggleQuizBookmark = toggleQuizBookmark;
+
+        function updateQuizBookmarkUI() {
+            const icon = document.getElementById('quizBookmarkIcon');
+            const label = document.getElementById('quizBookmarkLabel');
+            const btn = document.getElementById('quizBookmarkBtn');
+            const isBookmarked = quizBookmarks.has(activeQuizIndex);
+            if (icon) {
+                icon.className = isBookmarked ? 'fa-solid fa-flag text-amber-500' : 'fa-regular fa-bookmark';
+            }
+            if (label) {
+                label.textContent = isBookmarked ? 'Đã đánh dấu 🚩' : 'Đánh dấu';
+            }
+            if (btn) {
+                if (isBookmarked) {
+                    btn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold text-amber-900 bg-amber-100 dark:bg-amber-950/80 dark:text-amber-200 border border-amber-300 dark:border-amber-700 transition flex items-center gap-1.5 cursor-pointer';
+                } else {
+                    btn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5 cursor-pointer';
+                }
+            }
+        }
+        window.updateQuizBookmarkUI = updateQuizBookmarkUI;
+
+        function prevQuizQuestion() {
+            if (activeQuizIndex > 0) {
+                activeQuizIndex--;
+                renderQuizQuestion();
+            }
+        }
+        window.prevQuizQuestion = prevQuizQuestion;
+
+        function handleExitQuiz() {
+            if (activeQuizMode === 'exam') {
+                const answered = Object.keys(examUserAnswers).length;
+                const total = activeQuizList.length;
+                const confirmExit = confirm(
+                    `Bạn đang trong phòng thi thử (đã làm ${answered}/${total} câu).\n\n` +
+                    `Tiến trình bài thi đã được tự động lưu. Bạn có chắc chắn muốn tạm thoát phòng thi không?`
+                );
+                if (!confirmExit) return;
+            }
+            closeQuizModal();
+        }
+        window.handleExitQuiz = handleExitQuiz;
+
+        function toggleQuizQuestionPalette() {
+            const drawer = document.getElementById('quizQuestionPaletteDrawer');
+            if (!drawer) return;
+            const isHidden = drawer.classList.contains('hidden');
+            if (isHidden) {
+                renderQuizPalette();
+                drawer.classList.remove('hidden');
+                drawer.classList.add('flex');
+            } else {
+                drawer.classList.add('hidden');
+                drawer.classList.remove('flex');
+            }
+        }
+        window.toggleQuizQuestionPalette = toggleQuizQuestionPalette;
+
+        function setPaletteFilter(filter) {
+            paletteFilter = filter;
+            ['all', 'unanswered', 'bookmarked'].forEach(f => {
+                const id = 'paletteFilter' + f.charAt(0).toUpperCase() + f.slice(1);
+                const btn = document.getElementById(id);
+                if (btn) {
+                    if (f === filter) {
+                        btn.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white transition cursor-pointer';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition cursor-pointer';
+                    }
+                }
+            });
+            renderQuizPalette();
+        }
+        window.setPaletteFilter = setPaletteFilter;
+
+        function jumpToQuizQuestion(idx) {
+            if (idx >= 0 && idx < activeQuizList.length) {
+                activeQuizIndex = idx;
+                renderQuizQuestion();
+                const drawer = document.getElementById('quizQuestionPaletteDrawer');
+                if (drawer) {
+                    drawer.classList.add('hidden');
+                    drawer.classList.remove('flex');
+                }
+            }
+        }
+        window.jumpToQuizQuestion = jumpToQuizQuestion;
+
+        function renderQuizPalette() {
+            const grid = document.getElementById('paletteQuestionsGrid');
+            if (!grid || !activeQuizList || !activeQuizList.length) return;
+
+            const total = activeQuizList.length;
+            let answeredCount = 0;
+            let bookmarkedCount = quizBookmarks.size;
+
+            for (let i = 0; i < total; i++) {
+                if (examUserAnswers[i] !== undefined) answeredCount++;
+            }
+
+            const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            setTxt('paletteStatsLabel', `Đã làm ${answeredCount} / ${total} câu • ${bookmarkedCount} đã đánh dấu`);
+            setTxt('paletteCountAll', total);
+            setTxt('paletteCountUnanswered', total - answeredCount);
+            setTxt('paletteCountBookmarked', bookmarkedCount);
+
+            let html = '';
+            for (let i = 0; i < total; i++) {
+                const isAnswered = examUserAnswers[i] !== undefined;
+                const isBookmarked = quizBookmarks.has(i);
+                const isCurrent = (i === activeQuizIndex);
+
+                if (paletteFilter === 'unanswered' && isAnswered) continue;
+                if (paletteFilter === 'bookmarked' && !isBookmarked) continue;
+
+                let bgClass = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700';
+                if (isAnswered) {
+                    bgClass = 'bg-indigo-600 text-white border-indigo-700 font-bold';
+                }
+                if (isBookmarked) {
+                    bgClass = isAnswered 
+                        ? 'bg-amber-600 text-white border-amber-500 font-black'
+                        : 'bg-amber-100 dark:bg-amber-950/70 text-amber-900 dark:text-amber-200 border-amber-400 font-black';
+                }
+                const ringClass = isCurrent ? 'ring-2 ring-indigo-400 ring-offset-2 dark:ring-offset-slate-900 font-black scale-105' : '';
+
+                html += `
+                    <button type="button" onclick="jumpToQuizQuestion(${i})" class="h-9 rounded-xl text-xs font-bold border transition flex items-center justify-center relative cursor-pointer ${bgClass} ${ringClass}">
+                        <span>${i + 1}</span>
+                        ${isBookmarked ? '<span class="absolute -top-1 -right-1 text-[9px]">🚩</span>' : ''}
+                    </button>
+                `;
+            }
+            grid.innerHTML = html;
+        }
+        window.renderQuizPalette = renderQuizPalette;
+
+        function saveActiveExamSession() {
+            if (activeQuizMode !== 'exam' || !activeQuizList || !activeQuizList.length) return;
+            try {
+                const session = {
+                    title: document.getElementById('quizModalTitle')?.textContent || 'Bài thi thử TOEIC',
+                    type: activeQuizType,
+                    index: activeQuizIndex,
+                    answers: examUserAnswers,
+                    bookmarks: Array.from(quizBookmarks),
+                    remainingSec: quizExamSecondsRemaining,
+                    totalQuestions: activeQuizList.length,
+                    questions: activeQuizList,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('toeic_active_exam_session', JSON.stringify(session));
+            } catch (e) {}
+        }
+        window.saveActiveExamSession = saveActiveExamSession;
+
+        function clearActiveExamSession() {
+            try {
+                localStorage.removeItem('toeic_active_exam_session');
+            } catch (e) {}
+        }
+        window.clearActiveExamSession = clearActiveExamSession;
+
+        function checkAndResumeActiveExamSession() {
+            try {
+                const raw = localStorage.getItem('toeic_active_exam_session');
+                if (!raw) return;
+                const session = JSON.parse(raw);
+                if (session && session.timestamp && (Date.now() - session.timestamp < 24 * 3600 * 1000) && session.questions && session.questions.length) {
+                    const answered = Object.keys(session.answers || {}).length;
+                    const confirmResume = confirm(
+                        `Bạn có bài thi thử đang làm dở: "${session.title}" (đã làm ${answered}/${session.totalQuestions} câu).\n\n` +
+                        `Bạn có muốn tiếp tục làm bài này không?`
+                    );
+                    if (confirmResume) {
+                        activeQuizList = session.questions;
+                        activeQuizIndex = session.index || 0;
+                        activeQuizType = session.type || 'mock';
+                        activeQuizMode = 'exam';
+                        examUserAnswers = session.answers || {};
+                        quizBookmarks = new Set(session.bookmarks || []);
+                        quizExamSecondsRemaining = session.remainingSec || (120 * 60);
+
+                        const modal = document.getElementById('quizModal');
+                        if (modal) {
+                            modal.classList.remove('hidden');
+                            modal.classList.add('flex');
+                        }
+                        const titleEl = document.getElementById('quizModalTitle');
+                        if (titleEl) titleEl.textContent = session.title;
+                        const timerContainer = document.getElementById('quizExamTimerContainer');
+                        const timerText = document.getElementById('quizExamTimerText');
+                        if (timerContainer) {
+                            timerContainer.classList.remove('hidden');
+                            timerContainer.classList.add('inline-flex');
+                        }
+                        if (quizExamTimerInterval) clearInterval(quizExamTimerInterval);
+                        const updateTimerDisplay = () => {
+                            if (!timerText) return;
+                            const m = Math.floor(quizExamSecondsRemaining / 60);
+                            const s = quizExamSecondsRemaining % 60;
+                            timerText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                        };
+                        updateTimerDisplay();
+                        quizExamTimerInterval = setInterval(() => {
+                            quizExamSecondsRemaining--;
+                            if (quizExamSecondsRemaining <= 0) {
+                                clearInterval(quizExamTimerInterval);
+                                quizExamTimerInterval = null;
+                                finishExamQuiz(true);
+                            } else {
+                                updateTimerDisplay();
+                            }
+                        }, 1000);
+
+                        renderQuizQuestion();
+                        showToast('🔄 Đã khôi phục phiên thi thử đang làm dở của bạn!');
+                    } else {
+                        clearActiveExamSession();
+                    }
+                }
+            } catch (e) {}
+        }
+        window.checkAndResumeActiveExamSession = checkAndResumeActiveExamSession;
+
+        function updateMockTestBannerStats() {
+            try {
+                const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const count = history.length;
+                let bestScore = '—';
+                let latestScore = '—';
+
+                if (count > 0) {
+                    latestScore = history[0].totalScore != null ? history[0].totalScore : '—';
+                    let maxScore = -1;
+                    for (const item of history) {
+                        if (item.totalScore != null && item.totalScore > maxScore) {
+                            maxScore = item.totalScore;
+                        }
+                    }
+                    if (maxScore >= 0) bestScore = maxScore;
+                }
+
+                const bEl = document.getElementById('mockBestScore');
+                const lEl = document.getElementById('mockLatestScore');
+                const cEl = document.getElementById('mockCompletedCount');
+
+                if (bEl) bEl.textContent = bestScore !== '—' ? `${bestScore}` : '—';
+                if (lEl) lEl.textContent = latestScore !== '—' ? `${latestScore}` : '—';
+                if (cEl) cEl.textContent = `${count} lượt`;
+            } catch (e) {}
+        }
+        window.updateMockTestBannerStats = updateMockTestBannerStats;
+
+        function openExamHistoryModal() {
+            const modal = document.getElementById('examHistoryModal');
+            const list = document.getElementById('examHistoryListContainer');
+            const countLabel = document.getElementById('examHistoryCountLabel');
+            if (!modal || !list) return;
+
+            let history = [];
+            try {
+                history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+            } catch (e) { history = []; }
+
+            if (countLabel) countLabel.textContent = `${history.length} lượt thi thử`;
+
+            if (!history.length) {
+                list.innerHTML = `
+                    <div class="p-8 text-center space-y-3">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 flex items-center justify-center mx-auto text-2xl">
+                            <i class="fa-solid fa-file-circle-question"></i>
+                        </div>
+                        <h4 class="font-extrabold text-sm text-slate-800 dark:text-white">Chưa có bài thi thử nào trong lịch sử</h4>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Hãy hoàn thành một đề thi thử mô phỏng 200 câu để hệ thống ghi nhận bảng điểm chi tiết của bạn tại đây!</p>
+                        <div class="pt-2">
+                            <button onclick="closeExamHistoryModal(); switchTab('thi-thu');" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-xs shadow-md hover:from-amber-700 hover:to-amber-800 transition cursor-pointer">
+                                Vào làm bài thi thử ngay
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = history.map((item, idx) => {
+                    const dateStr = item.date ? new Date(item.date).toLocaleString('vi-VN') : 'Vừa xong';
+                    const mins = Math.floor((item.timeSpentSec || 0) / 60);
+                    const secs = (item.timeSpentSec || 0) % 60;
+                    const durationStr = `${mins}m ${secs}s`;
+                    const accuracy = item.totalQuestions ? Math.round((item.totalCorrect / item.totalQuestions) * 100) : 0;
+
+                    return `
+                        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 shadow-xs space-y-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-extrabold text-[10px] uppercase">Lần ${history.length - idx}</span>
+                                        <span class="text-xs text-slate-400 font-medium">${dateStr}</span>
+                                    </div>
+                                    <h4 class="font-extrabold text-sm text-slate-900 dark:text-white mt-1">${item.title || 'ETS 2026 Full Test'}</h4>
+                                </div>
+                                <div class="text-right shrink-0">
+                                    <div class="text-2xl font-black text-amber-600 dark:text-amber-400">${item.totalScore || 0}</div>
+                                    <div class="text-[10px] uppercase text-slate-400 font-bold">/ 990 điểm ETS</div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-900/60">
+                                    <div class="text-slate-400 text-[10px]">Listening</div>
+                                    <div class="font-black text-teal-600 dark:text-teal-400 text-xs">${item.lcScaled || 0}/495 <span class="text-[10px] text-slate-400 font-normal">(${item.correctLC || 0}/${item.totalLC || 100})</span></div>
+                                </div>
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-900/60">
+                                    <div class="text-slate-400 text-[10px]">Reading</div>
+                                    <div class="font-black text-emerald-600 dark:text-emerald-400 text-xs">${item.rcScaled || 0}/495 <span class="text-[10px] text-slate-400 font-normal">(${item.correctRC || 0}/${item.totalRC || 100})</span></div>
+                                </div>
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-900/60">
+                                    <div class="text-slate-400 text-[10px]">Độ chính xác</div>
+                                    <div class="font-black text-slate-800 dark:text-white text-xs">${accuracy}% <span class="text-[10px] text-slate-400 font-normal">(${item.totalCorrect || 0}/${item.totalQuestions || 200})</span></div>
+                                </div>
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-900/60">
+                                    <div class="text-slate-400 text-[10px]">Thời gian làm</div>
+                                    <div class="font-black text-slate-800 dark:text-white text-xs">${durationStr}</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-end gap-2 pt-1">
+                                <button type="button" onclick="reviewHistoricalAttempt(${idx})" class="px-3.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                                    <span>Xem lại bài làm & Lời giải</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        window.openExamHistoryModal = openExamHistoryModal;
+
+        function closeExamHistoryModal() {
+            const modal = document.getElementById('examHistoryModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+        window.closeExamHistoryModal = closeExamHistoryModal;
+
+        function reviewHistoricalAttempt(idx) {
+            try {
+                const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const attempt = history[idx];
+                if (!attempt) return;
+
+                closeExamHistoryModal();
+
+                if (attempt.questionsSummary && attempt.questionsSummary.length) {
+                    activeQuizList = attempt.questionsSummary;
+                } else if (window.Ets2026Database) {
+                    const match = (attempt.title || '').match(/Test\s*0?(\d+)/i);
+                    const testNum = match ? parseInt(match[1], 10) : 1;
+                    activeQuizList = [
+                        ...window.Ets2026Database.getFullListening(testNum),
+                        ...window.Ets2026Database.getFullReading(testNum)
+                    ];
+                }
+
+                examUserAnswers = attempt.userAnswers || {};
+                quizBookmarks = new Set(attempt.bookmarks || []);
+                activeQuizIndex = 0;
+                activeQuizMode = 'practice';
+                activeQuizType = 'mock';
+
+                const modal = document.getElementById('quizModal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+                const titleEl = document.getElementById('quizModalTitle');
+                if (titleEl) titleEl.textContent = `Xem lại: ${attempt.title || 'Full Test'}`;
+                const timerContainer = document.getElementById('quizExamTimerContainer');
+                if (timerContainer) {
+                    timerContainer.classList.add('hidden');
+                    timerContainer.classList.remove('inline-flex');
+                }
+
+                const scrollArea = document.getElementById('quizModalScrollArea');
+                if (scrollArea && initialQuizModalScrollAreaHtml) {
+                    scrollArea.innerHTML = initialQuizModalScrollAreaHtml;
+                }
+
+                renderQuizQuestion();
+                showToast('📖 Đang xem lại bài làm và lời giải chi tiết');
+            } catch (e) {
+                console.error('Error reviewing attempt:', e);
+                showToast('Không thể mở lại bài làm: ' + e.message);
+            }
+        }
+        window.reviewHistoricalAttempt = reviewHistoricalAttempt;
+
 
         function reviewExamQuestionsWithExplanations() {
             activeQuizMode = 'practice';
@@ -6544,6 +7041,12 @@
             if (window.DailyTaskManager && typeof window.DailyTaskManager.render === 'function') {
                 window.DailyTaskManager.render();
             }
+            if (typeof updateMockTestBannerStats === 'function') {
+                updateMockTestBannerStats();
+            }
+            if (typeof checkAndResumeActiveExamSession === 'function') {
+                setTimeout(checkAndResumeActiveExamSession, 600);
+            }
         }
 
         // Target Modal Handlers
@@ -6556,7 +7059,7 @@
             const inputScore = document.getElementById('inputTargetScore');
             const inputDate = document.getElementById('inputTargetDate');
             if (inputScore) inputScore.value = currentUserAccount.targetScore || '600';
-            if (inputDate) inputDate.value = currentUserAccount.examDate || '20/12/2026';
+            if (inputDate) inputDate.value = currentUserAccount.examDate || '';
 
             const m = document.getElementById('targetModal');
             if (m) {
@@ -6569,7 +7072,7 @@
             const scoreInput = document.getElementById('inputTargetScore');
             const dateInput = document.getElementById('inputTargetDate');
             const score = (scoreInput && scoreInput.value) ? scoreInput.value.trim() : '600';
-            const date = (dateInput && dateInput.value) ? dateInput.value.trim() : '20/12/2026';
+            const date = (dateInput && dateInput.value) ? dateInput.value.trim() : '';
 
             // 1. Cập nhật thẻ mục tiêu trên Sảnh hôm nay (Ảnh 4 & Ảnh 1)
             const scoreEl = document.getElementById('memberTargetScore');
@@ -6905,7 +7408,7 @@
             if (emailIn) emailIn.value = currentUserAccount.email || '';
             if (examIn) examIn.value = currentUserAccount.exam || 'TOEIC';
             if (targetIn) targetIn.value = currentUserAccount.targetScore || '600';
-            if (dateIn) dateIn.value = currentUserAccount.examDate || '20/12/2026';
+            if (dateIn) dateIn.value = currentUserAccount.examDate || '';
         }
 
         function saveAccountProfileChanges() {
@@ -6918,7 +7421,7 @@
             const emailVal = (document.getElementById('profileEmailInput')?.value || '').trim();
             const examVal = document.getElementById('profileExamInput')?.value || 'TOEIC';
             const scoreVal = document.getElementById('profileTargetScoreInput')?.value || '600';
-            const dateVal = (document.getElementById('profileExamDateInput')?.value || '').trim() || '20/12/2026';
+            const dateVal = (document.getElementById('profileExamDateInput')?.value || '').trim();
 
             if (!nameVal) {
                 showToast('⚠️ Họ và tên không được để trống!');
@@ -7111,7 +7614,7 @@
             setTxt('dropdownUserName', currentUserAccount.name || 'Tài khoản');
             setTxt('dropdownUserEmail', currentUserAccount.email || '');
             setTxt('targetScoreVal', currentUserAccount.targetScore || '600');
-            setTxt('targetDateVal', `Thi: ${currentUserAccount.examDate || '20/12/2026'}`);
+            setTxt('targetDateVal', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: Chưa đặt');
 
             // Ẩn nút đăng nhập, hiển thị profile dropdown
             const unauthBtn = document.getElementById('unauthLoginBtnGroup');
@@ -7153,7 +7656,7 @@
             // Cập nhật Sảnh Study Studio chuẩn Quiet Confidence
             setTxt('sanhMemberProfileName', currentUserAccount.name || 'Học viên');
             setTxt('memberTargetScore', currentUserAccount.targetScore || '600');
-            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: 20/12/2026');
+            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: Chưa đặt');
             setTxt('sanhMemberStreakVal', `${currentUserAccount.streak || 0} ngày`);
             setTxt('sanhMemberStreakTitle', `Streak ${currentUserAccount.streak || 0} ngày`);
             setTxt('sanhMemberXpVal', `+${currentUserAccount.xp || 0} XP`);

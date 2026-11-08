@@ -32,7 +32,7 @@
                             email: acc.email,
                             exam: acc.exam || 'TOEIC',
                             targetScore: acc.targetScore || '600',
-                            examDate: acc.examDate || '20/12/2026',
+                            examDate: acc.examDate || '',
                             xp: acc.xp || 0,
                             streak: acc.streak || 0,
                             vocabLearned: acc.vocabLearned || 0,

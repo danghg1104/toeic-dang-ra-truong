@@ -253,7 +253,7 @@
       } else {
         return {
           tier: 'CRITICAL',
-          name: 'Tử huyệt (Critical)',
+          name: 'Mức độ cao (Dễ nhầm)',
           color: 'rose',
           cssClass: 'bg-rose-500/25 text-rose-400 border-rose-500/60 shadow-lg shadow-rose-500/20',
           badgeClass: 'bg-rose-500/40 text-rose-300 border-rose-500/70',
@@ -399,7 +399,7 @@
                 <i class="fa-solid fa-headphones"></i>
               </div>
               <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">
-                Bẫy Tử Huyệt Listening (L1 – L8)
+                Bẫy Đề Listening Thường Gặp (L1 – L8)
               </h3>
               <span class="text-xs text-slate-400 ml-auto font-mono">8 Danh mục</span>
             </div>
@@ -415,7 +415,7 @@
                 <i class="fa-solid fa-book-open"></i>
               </div>
               <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">
-                Bẫy Tử Huyệt Reading (R9 – R12)
+                Bẫy Đề Reading Thường Gặp (R9 – R12)
               </h3>
               <span class="text-xs text-slate-400 ml-auto font-mono">4 Danh mục</span>
             </div>

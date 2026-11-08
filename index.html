@@ -1790,9 +1790,9 @@
                                     <i class="fa-solid fa-gauge-high text-xs"></i>
                                     <span>Test Nhanh 10 Phút</span>
                                 </button>
-                                <button onclick="window.openTrapHeatMatrixModal && window.openTrapHeatMatrixModal()" class="px-3.5 py-3 rounded-2xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 font-bold text-xs border border-amber-200/80 dark:border-amber-800 transition flex items-center gap-1.5 cursor-pointer" title="Khảo sát ma trận 12 bẫy tử huyệt và tỷ lệ sai sót">
+                                <button onclick="window.openTrapHeatMatrixModal && window.openTrapHeatMatrixModal()" class="px-3.5 py-3 rounded-2xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 font-bold text-xs border border-amber-200/80 dark:border-amber-800 transition flex items-center gap-1.5 cursor-pointer" title="Khảo sát ma trận 12 bẫy đề thường gặp và tỷ lệ sai sót">
                                     <i class="fa-solid fa-fire text-xs text-amber-500"></i>
-                                    <span>12 Bẫy Tử Huyệt</span>
+                                    <span>12 Bẫy Đề Thường Gặp</span>
                                 </button>
                             </div>
 
@@ -1802,7 +1802,7 @@
                                     <div class="flex items-center gap-2">
                                         <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                                             <i class="fa-solid fa-bolt text-amber-500 text-xs"></i>
-                                            Công Cụ Luyện Thi Siêu Tốc 2026
+                                            Công Cụ Luyện Thi Trọng Tâm
                                         </span>
                                         <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/50">2 Trạm</span>
                                     </div>
@@ -1817,7 +1817,7 @@
                                         </div>
                                         <div class="min-w-0 flex-1">
                                             <div class="text-xs font-bold text-fuchsia-950 dark:text-fuchsia-200 truncate">Flashcard 3D</div>
-                                            <div class="text-[10.5px] text-fuchsia-600 dark:text-fuchsia-400 font-medium truncate">Vuốt Tinder FSRS v5 · 10 từ trọng tâm</div>
+                                            <div class="text-[10.5px] text-fuchsia-600 dark:text-fuchsia-400 font-medium truncate">Ôn tập FSRS · 10 từ trọng tâm</div>
                                         </div>
                                     </button>
 
@@ -3927,7 +3927,7 @@
                             <div class="text-xs text-slate-500">Xem lại các bài đã hoàn thành bất cứ lúc nào.</div>
                         </div>
                     </div>
-                    <button onclick="showToast('Bạn chưa có bài thi thử nào trong lịch sử. Hãy bấm Thi thử bên dưới nhé!')" class="px-4 py-2 rounded-xl bg-white hover:bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+                    <button onclick="openExamHistoryModal()" class="px-4 py-2 rounded-xl bg-white hover:bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
                         <i class="fa-regular fa-clock"></i>
                         <span>Lịch sử làm bài</span>
                     </button>
@@ -5950,9 +5950,15 @@
                     </div>
                     <h3 id="quizModalTitle" class="text-[17px] font-extrabold text-slate-900 dark:text-white mt-1">Luyện tập TOEIC</h3>
                 </div>
-                <button onclick="closeQuizModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 flex items-center justify-center transition" aria-label="Đóng bài trắc nghiệm">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button id="quizPaletteHeaderBtn" onclick="toggleQuizQuestionPalette()" class="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Bảng danh sách câu hỏi">
+                        <i class="fa-solid fa-table-cells text-indigo-600 dark:text-indigo-400"></i>
+                        <span class="hidden sm:inline">Bảng câu</span>
+                    </button>
+                    <button onclick="handleExitQuiz()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer" aria-label="Đóng bài trắc nghiệm">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Scrollable Middle Content -->
@@ -5999,11 +6005,66 @@
 
             <!-- Fixed Footer -->
             <div class="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                <button onclick="closeQuizModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Đóng bài trắc nghiệm">Đánh dấu xem lại</button>
+                <div class="flex items-center gap-2">
+                    <button id="quizBookmarkBtn" onclick="toggleQuizBookmark()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5 cursor-pointer" aria-label="Đánh dấu câu hỏi để xem lại">
+                        <i id="quizBookmarkIcon" class="fa-regular fa-bookmark"></i>
+                        <span id="quizBookmarkLabel">Đánh dấu</span>
+                    </button>
+                    <button id="quizPaletteFooterBtn" onclick="toggleQuizQuestionPalette()" class="sm:hidden px-3 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-table-cells"></i>
+                        <span>Bảng câu</span>
+                    </button>
+                </div>
+                <button id="prevQuestionBtn" onclick="prevQuizQuestion()" class="hidden px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span>Câu trước</span>
+                </button>
                 <button id="nextQuestionBtn" onclick="nextQuizQuestion()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:from-teal-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5">
                     <span>Câu tiếp theo</span>
                     <i class="fa-solid fa-arrow-right text-xs"></i>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Question Palette Drawer for Exam & Practice -->
+    <div id="quizQuestionPaletteDrawer" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[60] items-center justify-center p-3 sm:p-5">
+        <div class="bg-white dark:bg-slate-900 rounded-[24px] max-w-xl w-full p-4 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[88dvh] flex flex-col overflow-hidden animate-fadeIn">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-table-cells"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-extrabold text-slate-900 dark:text-white">Bảng danh sách câu hỏi</h4>
+                        <p id="paletteStatsLabel" class="text-[11px] text-slate-500">Đã làm 0 / 200 câu • 0 đã đánh dấu</p>
+                    </div>
+                </div>
+                <button onclick="toggleQuizQuestionPalette()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Filter tabs -->
+            <div class="flex items-center gap-1.5 py-3 border-b border-slate-100 dark:border-slate-800 shrink-0 text-xs font-bold">
+                <button id="paletteFilterAll" onclick="setPaletteFilter('all')" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white transition cursor-pointer">Tất cả (<span id="paletteCountAll">0</span>)</button>
+                <button id="paletteFilterUnanswered" onclick="setPaletteFilter('unanswered')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition cursor-pointer">Chưa làm (<span id="paletteCountUnanswered">0</span>)</button>
+                <button id="paletteFilterBookmarked" onclick="setPaletteFilter('bookmarked')" class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 hover:bg-amber-100 transition cursor-pointer">Đã đánh dấu 🚩 (<span id="paletteCountBookmarked">0</span>)</button>
+            </div>
+
+            <!-- Questions Grid -->
+            <div id="paletteQuestionsGrid" class="flex-1 overflow-y-auto py-3 grid grid-cols-5 sm:grid-cols-10 gap-2">
+                <!-- Rendered by JS -->
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500 shrink-0">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-md bg-indigo-600 inline-block"></span> Đã làm</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-md bg-amber-100 border border-amber-400 inline-block"></span> 🚩 Đánh dấu</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-md bg-slate-100 border border-slate-300 inline-block"></span> Chưa làm</span>
+                </div>
+                <button onclick="toggleQuizQuestionPalette()" class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 transition cursor-pointer">Đóng bảng</button>
             </div>
         </div>
     </div>
@@ -6347,7 +6408,7 @@
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Ngày dự thi</label>
-                    <input id="inputTargetDate" type="text" value="20/12/2026" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:bg-slate-800 dark:border-slate-700 text-sm font-bold">
+                    <input id="inputTargetDate" type="text" value="" placeholder="Ví dụ: 20/12/2026 (hoặc để trống)" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:bg-slate-800 dark:border-slate-700 text-sm font-bold">
                 </div>
             </div>
             <div class="flex justify-end gap-2 mt-5">
@@ -6813,7 +6874,7 @@
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <div class="text-xs font-bold text-slate-900 dark:text-white">Giải Bẫy Đề Part 5 Siêu Tốc</div>
+                        <div class="text-xs font-bold text-slate-900 dark:text-white">Luyện Bẫy Đề Part 5</div>
                         <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">10 câu trắc nghiệm từ loại & ngữ pháp 30s/câu</div>
                     </div>
                     <span class="text-xs font-bold text-purple-600 dark:text-purple-400 shrink-0">+15 XP</span>
@@ -7440,7 +7501,7 @@
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="text-base sm:text-lg font-black tracking-tight">Ma Trận Nhiệt 12 Bẫy Tử Huyệt</h3>
+                            <h3 class="text-base sm:text-lg font-black tracking-tight">Ma Trận 12 Bẫy Đề Thường Gặp</h3>
                             <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-extrabold uppercase border border-amber-500/30">Chu kỳ bán rã 7 ngày</span>
                         </div>
                         <p class="text-xs text-slate-400">Trọng số suy giảm thời gian e^(-&lambda;&Delta;t) · Ưu tiên vá bẫy có mật độ lỗi cao</p>
@@ -7459,7 +7520,7 @@
                         <span class="px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-500 font-bold">Cold: 0-19% (Làm chủ)</span>
                         <span class="px-2 py-0.5 rounded-lg bg-sky-500/20 text-sky-500 font-bold">Warm: 20-44% (Nhẹ)</span>
                         <span class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-500 font-bold">Hot: 45-69% (Báo động)</span>
-                        <span class="px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-500 font-bold">Critical: &ge;70% (Tử huyệt)</span>
+                        <span class="px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-500 font-bold">Mức độ cao: &ge;70% (Dễ nhầm lẫn)</span>
                     </div>
                     <button onclick="window.resetTrapHeatDemoData && window.resetTrapHeatDemoData()" class="text-[11px] text-slate-400 hover:text-indigo-500 underline cursor-pointer">
                         Nạp mẫu kiểm thử
@@ -7986,7 +8047,7 @@
                             <h3 class="text-base sm:text-lg font-black tracking-tight">Trạm Viên Nang 180 Giây</h3>
                             <span class="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 text-[10px] font-extrabold uppercase border border-teal-500/30">Micro-Learning</span>
                         </div>
-                        <p class="text-xs text-slate-400">Học nhanh 3 bẫy tử huyệt hoặc 5 từ vựng trong 180 giây</p>
+                        <p class="text-xs text-slate-400">Ôn nhanh 3 bẫy đề hoặc 5 từ vựng trong 180 giây</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -8010,7 +8071,7 @@
                                 <span class="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 font-black text-xs">Capsule Type A</span>
                                 <span class="text-xs font-mono font-bold text-slate-400">180s</span>
                             </div>
-                            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition">3 Bẫy Tử Huyệt Trọng Tâm</h4>
+                            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition">3 Bẫy Đề Thường Gặp Trọng Tâm</h4>
                             <p class="text-xs text-slate-500 leading-relaxed">30s lý thuyết · 120s thực chiến 3 câu · 30s giải bẫy trừ điểm</p>
                         </div>
 
@@ -8067,7 +8128,7 @@
                         <i class="fa-solid fa-layer-group"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-black tracking-tight">Flashcard 3D Vuốt Tinder</h3>
+                        <h3 class="text-base font-black tracking-tight">Thẻ từ vựng Flashcard FSRS</h3>
                         <p class="text-xs text-slate-400">FSRS v5 · Vuốt trái/phải hoặc chạm lật thẻ</p>
                     </div>
                 </div>
@@ -8137,7 +8198,7 @@
                     </div>
                     <div>
                         <h3 class="text-base sm:text-lg font-black tracking-tight">Cheat Sheet 1 Trang Chuẩn In Ấn</h3>
-                        <p class="text-xs text-slate-400">Tóm tắt từ vựng 80/20, mẹo 3 giây & cảnh báo bẫy tử huyệt</p>
+                        <p class="text-xs text-slate-400">Tóm tắt từ vựng 80/20, mẹo 3 giây & cảnh báo bẫy đề thi</p>
                     </div>
                 </div>
                 <button onclick="closeCheatSheetModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer" aria-label="Đóng">
@@ -8577,5 +8638,38 @@
             };
         })();
     </script>
+
+    <!-- Exam History & Review Modal -->
+    <div id="examHistoryModal" class="hidden fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 items-center justify-center p-3 sm:p-5">
+        <div class="bg-white dark:bg-slate-900 rounded-[26px] max-w-2xl w-full p-4 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[90dvh] flex flex-col overflow-hidden animate-fadeIn">
+            <!-- Header -->
+            <div class="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">Lịch sử làm bài Mock Test</h3>
+                        <p class="text-xs text-slate-500">Xem lại kết quả, bảng điểm chi tiết và lời giải các bài thi đã làm</p>
+                    </div>
+                </div>
+                <button onclick="closeExamHistoryModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer" aria-label="Đóng lịch sử">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- List Container -->
+            <div id="examHistoryListContainer" class="flex-1 overflow-y-auto py-3 space-y-3">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Footer -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between shrink-0">
+                <span id="examHistoryCountLabel" class="text-xs text-slate-500">0 lượt thi thử</span>
+                <button onclick="closeExamHistoryModal()" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition cursor-pointer">Đóng lại</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

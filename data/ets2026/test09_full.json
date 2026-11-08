@@ -20,7 +20,7 @@
         "audio_url": "/audio/ets2026/test9/E26-T09-01.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. A man is placing books into a shelving  unit.",
+          "A. A man is placing books into a shelving unit.",
           "B. A man is hanging up some flyers.",
           "C. A man is picking up tools from the floor.",
           "D. A man is bending over some wires."
@@ -104,7 +104,7 @@
           "A. Some people are waiting in line to order.",
           "B. A menu board has been hung on a wall.",
           "C. A server is placing some food on a tray.",
-          "D. A server is taking an order from a  customer."
+          "D. A server is taking an order from a customer."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -128,9 +128,9 @@
         "audio_url": "/audio/ets2026/test9/E26-T09-05.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. One of the men is stacking vegetables in  a basket.",
-          "B. One of the men is selling merchandise in  front of a tent.",
-          "C. One of the men is riding a motorcycle  down a street.",
+          "A. One of the men is stacking vegetables in a basket.",
+          "B. One of the men is selling merchandise in front of a tent.",
+          "C. One of the men is riding a motorcycle down a street.",
           "D. One of the men is walking into a store."
         ],
         "ans": 2,
@@ -155,8 +155,10 @@
         "audio_url": "/audio/ets2026/test9/E26-T09-06.mp3",
         "q": "Look at the picture and choose the statement that best describes what you see:",
         "options": [
-          "A. The woman is standing in front of a  painting.",
-          "B. The woman is carrying a painting through  a doorway."
+          "A. The woman is standing in front of a painting.",
+          "B. The woman is carrying a painting through a doorway.",
+          "C. One of the paintings is displayed in a round frame.",
+          "D. Some paintings are leaning against a wooden bench."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -411,7 +413,7 @@
         "options": [
           "A. The famous singer Bradley Patel.",
           "B. Some seats near the stage.",
-          "C. The corner of Main Street and First  Avenue."
+          "C. The corner of Main Street and First Avenue."
         ],
         "options_vi": [
           "(A) Ca sĩ nổi tiếng Bradley Patel.",
@@ -484,7 +486,7 @@
         "q": "Did you put the brochures in the lobby?",
         "q_vi": "Bạn đã đặt các tờ quảng cáo ở sảnh  chưa?",
         "options": [
-          "A. The conference center is on Walnut  Avenue.",
+          "A. The conference center is on Walnut Avenue.",
           "B. Do you have a reservation?",
           "C. Yes, I left them at the front desk."
         ],
@@ -510,7 +512,7 @@
         "q_vi": "Bao lâu nữa thì chúng ta có thể thay nội  thất trong phòng chờ?",
         "options": [
           "A. We'll do that at the end of the summer.",
-          "B. Agreed—that painting looks good in this  room!",
+          "B. Agreed—that painting looks good in this room!",
           "C. Put all the old files upstairs."
         ],
         "options_vi": [
@@ -585,7 +587,7 @@
         "q_vi": "Tại sao chương trình nghị sự của hội thảo  lại bị thay đổi?",
         "options": [
           "A. Try rebooting the computer.",
-          "B. Because an additional speaker was  added.",
+          "B. Because an additional speaker was added.",
           "C. That’s a good idea."
         ],
         "options_vi": [
@@ -731,18 +733,12 @@
         "test": 9,
         "topic": "ETS 2026 Test 9 - Part 2",
         "audio_url": "/audio/ets2026/test9/E26-T09-29.mp3",
-        "q": "Please close the door so that the  presentation can start.",
+        "q": "Please close the door so that the presentation can start.",
         "q_vi": "Các gói hàng của chúng ta đã bị hư hỏng  bao nhiêu lần trong quá trình giao hàng?",
         "options": [
           "A. The car keys are on my desk.",
-          "B. Our filing cabinets are full.   C  Làm ơn đóng cửa lại để buổi thuyết trình  có thể bắt đầu.",
-          "A. Chìa khóa xe ở trên bàn tôi.",
-          "B. Tủ hồ sơ của chúng ta đã đầy.  4                         ETS 2026 LISTENING TEST 9",
-          "C. We’re waiting for a few more people.",
-          "C. Chúng ta đang chờ thêm vài người.  30  How often have our packages been damaged  during delivery?",
-          "A. We need to find a new shipping partner.",
-          "B. Several customers are waiting to have  their cars serviced.",
-          "C. No, we don’t need to eat."
+          "B. Our filing cabinets are full.",
+          "C. We’re waiting for a few more people."
         ],
         "options_vi": [
           "(A) Chúng ta cần tìm một đối tác vận  chuyển mới.",
@@ -755,8 +751,8 @@
           "(B) Đồ ăn rất tuyệt.",
           "(C) Rẽ trái ở đèn giao thông."
         ],
-        "ans": 0,
-        "ansLetter": "A",
+        "ans": 2,
+        "ansLetter": "C",
         "transcript": "Please close the door so that the  presentation can start. A. The car keys are on my desk. B. Our filing cabinets are full.   C  Làm ơn đóng cửa lại để buổi thuyết trình  có thể bắt đầu. A. Chìa khóa xe ở trên bàn tôi. B. Tủ hồ sơ của chúng ta đã đầy.  4                         ETS 2026 LISTENING TEST 9 C. We’re waiting for a few more people. C. Chúng ta đang chờ thêm vài người.  30  How often have our packages been damaged  during delivery? A. We need to find a new shipping partner. B. Several customers are waiting to have  their cars serviced. C. No, we don’t need to eat.",
         "transcript_vi": "Các gói hàng của chúng ta đã bị hư hỏng  bao nhiêu lần trong quá trình giao hàng? (A) Chúng ta cần tìm một đối tác vận  chuyển mới. (B) Một số khách hàng đang chờ sửa xe. (C) Không, chúng ta không cần ăn.  31  They’re bringing a piano into the café, aren’t  they? (A) There’s not enough space. (B) The food is fantastic. (C) Turn left at the light.  A  Họ đang mang một cây đàn piano vào  quán cà phê, đúng không? (A) Không đủ không gian. (B) Đồ ăn rất tuyệt. (C) Rẽ trái ở đèn giao thông.",
         "explanation_vi": "Đáp án đúng là (A).\nCâu hỏi: Các gói hàng của chúng ta đã bị hư hỏng  bao nhiêu lần trong quá trình giao hàng?\n(A) Chúng ta cần tìm một đối tác vận  chuyển mới.\n(B) Một số khách hàng đang chờ sửa xe.\n(C) Không, chúng ta không cần ăn.  31  They’re bringing a piano into the café, aren’t  they?\n(A) There’s not enough space.\n(B) The food is fantastic.\n(C) Turn left at the light.  A  Họ đang mang một cây đàn piano vào  quán cà phê, đúng không?\n(A) Không đủ không gian.\n(B) Đồ ăn rất tuyệt.\n(C) Rẽ trái ở đèn giao thông."
@@ -772,7 +768,7 @@
         "q_vi": "Các gói hàng của chúng ta đã bị hư hỏng  bao nhiêu lần trong quá trình giao hàng?",
         "options": [
           "A. We need to find a new shipping partner.",
-          "B. Several customers are waiting to have  their cars serviced.",
+          "B. Several customers are waiting to have their cars serviced.",
           "C. No, we don’t need to eat."
         ],
         "options_vi": [
@@ -843,7 +839,9 @@
             "q": "According to the woman, what  additional service does the business  offer?",
             "options": [
               "A. Equipment rentals",
-              "B. Spa treatments"
+              "B. Spa treatments",
+              "C. 33",
+              "D. Nutrition consultations"
             ],
             "ans": 0,
             "ansLetter": "A",
@@ -857,9 +855,7 @@
               "A. Some referral letters",
               "B. Some contact information",
               "C. A copy of a receipt",
-              "D. A discount code",
-              "C. Các buổi huấn luyện cá nhân hóa",
-              "D. Tư vấn dinh dưỡng"
+              "D. A discount code"
             ],
             "ans": 1,
             "ansLetter": "B",
@@ -909,7 +905,12 @@
             "id": "ets26_t9_p3_q37",
             "qNum": 37,
             "q": "What is done at the start of each shift?",
-            "options": [],
+            "options": [
+              "A. A database review",
+              "B. A cleanliness test",
+              "C. 37",
+              "D. 36"
+            ],
             "ans": 1,
             "ansLetter": "B",
             "explanation_vi": "Đáp án đúng: (B)"
@@ -1013,7 +1014,7 @@
             "qNum": 43,
             "q": "What does the woman say she will  do?",
             "options": [
-              "A. Update her résumé",
+              "A. Update her r",
               "B. Speak to a colleague",
               "C. Review a budget",
               "D. Register for a training program"
@@ -1254,7 +1255,12 @@
             "id": "ets26_t9_p3_q56",
             "qNum": 56,
             "q": "What is unique about the woman’s  cookbook recipes?",
-            "options": [],
+            "options": [
+              "A. They are inspired by the woman’s",
+              "B. They are intended for large holiday",
+              "C. They are collected from places the",
+              "D. 57"
+            ],
             "ans": 3,
             "ansLetter": "D",
             "explanation_vi": "Đáp án đúng: (D)"
@@ -1279,7 +1285,7 @@
             "q": "According to the man, what will some  of the readers appreciate about the  recipes?",
             "options": [
               "A. They appear in multiple languages",
-              "B. They explain how to measure  ingredients",
+              "B. They explain how to measure ingredients",
               "C. They list alternative cooking methods",
               "D. They include color photographs"
             ],
@@ -1466,10 +1472,10 @@
             "qNum": 68,
             "q": "Look at the graphic. Where does the  woman want to install a fence?",
             "options": [
-              "A. In location 1",
-              "B. In location 2",
-              "C. In location 3",
-              "D. In location 4"
+              "A. In location",
+              "B. In location",
+              "C. In location",
+              "D. In location"
             ],
             "ans": 1,
             "ansLetter": "B",
@@ -1482,7 +1488,8 @@
             "options": [
               "A. By posting a review on social media",
               "B. By paying half the cost in advance",
-              "C. By enrolling in a loyalty program"
+              "C. By enrolling in a loyalty program",
+              "D. By referring a friend"
             ],
             "ans": 1,
             "ansLetter": "B",
@@ -1496,8 +1503,7 @@
               "A. To obtain a signature",
               "B. To deliver some materials",
               "C. To take some photographs",
-              "D. To take some measurements  thân thiết",
-              "D. Giới thiệu bạn bè"
+              "D. To take some measurements"
             ],
             "ans": 3,
             "ansLetter": "D",
@@ -1698,7 +1704,7 @@
             "qNum": 81,
             "q": "What does the speaker imply when he  says, \"I was just about to post it\"?",
             "options": [
-              "A. He misunderstood the timeline for a  task.",
+              "A. He misunderstood the timeline for a task.",
               "B. Some technical assistance is needed.",
               "C. It is too late to make a change.",
               "D. An immediate answer is required."
@@ -1767,7 +1773,9 @@
             "q": "What will the listeners see on their  screens?",
             "options": [
               "A. Workplace policies",
-              "B. Budget proposals"
+              "B. Budget proposals",
+              "C. Definitions of technical terms",
+              "D. Work assignments"
             ],
             "ans": 3,
             "ansLetter": "D",
@@ -1807,7 +1815,7 @@
               "A. To finalize some relocation plans",
               "B. To go over professional certifications",
               "C. To confirm project deadlines",
-              "D. To prepare for some product  demonstrations"
+              "D. To prepare for some product demonstrations"
             ],
             "ans": 3,
             "ansLetter": "D",
@@ -1913,7 +1921,7 @@
             "q": "According to the speaker, what  happened six months ago?",
             "options": [
               "A. A corporate office was relocated.",
-              "B. An advertising campaign was  launched.",
+              "B. An advertising campaign was launched.",
               "C. A business partnership was formed.",
               "D. A new executive director was hired."
             ],
@@ -1927,8 +1935,8 @@
             "q": "Why does the speaker say, “total sales  revenues are still being calculated”?",
             "options": [
               "A. To express disappointment",
-              "B. To warn against reaching a  conclusion too soon",
-              "C. To offer an excuse for missing an  important deadline",
+              "B. To warn against reaching a conclusion too soon",
+              "C. To offer an excuse for missing an important deadline",
               "D. To suggest that a budget be revised"
             ],
             "ans": 1,
@@ -2618,9 +2626,9 @@
             "qNum": 132,
             "q": "Select the best option for blank (132):",
             "options": [
-              "A. They can easily be covered  by paint.",
-              "B. They are the result of poor  maintenance.",
-              "C. They can reduce the value  of an item.",
+              "A. They can easily be covered by paint.",
+              "B. They are the result of poor maintenance.",
+              "C. They can reduce the value of an item.",
               "D. They are what makes each"
             ],
             "ans": 3,
@@ -2698,9 +2706,9 @@
             "qNum": 137,
             "q": "Select the best option for blank (137):",
             "options": [
-              "A. Then, use a soft brush or  sponge to finish cleaning.",
-              "B. Cleaning utensils must be  purchased separately.",
-              "C. Finally, place the cooker  back in its box.",
+              "A. Then, use a soft brush or sponge to finish cleaning.",
+              "B. Cleaning utensils must be purchased separately.",
+              "C. Finally, place the cooker back in its box.",
               "D. A light will go on when the"
             ],
             "ans": 0,
@@ -2764,9 +2772,9 @@
             "qNum": 141,
             "q": "Select the best option for blank (141):",
             "options": [
-              "A. Nonetheless, they all give  an impression of  trustworthiness and precision.",
-              "B. Those companies have  logos that are very  memorable.",
-              "C. Even so, designing a logo  can be a costly process.",
+              "A. Nonetheless, they all give an impression of trustworthiness and precision.",
+              "B. Those companies have logos that are very memorable.",
+              "C. Even so, designing a logo can be a costly process.",
               "D. I recommend using fewer"
             ],
             "ans": 0,
@@ -2830,9 +2838,9 @@
             "qNum": 145,
             "q": "Select the best option for blank (145):",
             "options": [
-              "A. The fate of the shop in  Leeds is still unknown.",
-              "B. Shipley Designs was  founded almost 90 years ago.",
-              "C. Customers can now take  advantage of a great deal.",
+              "A. The fate of the shop in Leeds is still unknown.",
+              "B. Shipley Designs was founded almost 90 years ago.",
+              "C. Customers can now take advantage of a great deal.",
               "D. All London locations are"
             ],
             "ans": 0,
@@ -2865,10 +2873,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q147)",
         "q": "What is the purpose of the event?",
         "options": [
-          "A. To interview candidates for a  management position",
-          "B. To celebrate the retirement of an  employee",
-          "C. To allow conference participants to  network with one another",
-          "D. To introduce a new company  executive to employees"
+          "A. To interview candidates for a management position",
+          "B. To celebrate the retirement of an employee",
+          "C. To allow conference participants to network with one another",
+          "D. To introduce a new company executive to employees"
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -2885,7 +2893,7 @@
           "A. Refreshments will be served.",
           "B. The president will give a speech.",
           "C. Financial reports will be distributed.",
-          "D. The chief financial officer will receive  an award."
+          "D. The chief financial officer will receive an award."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -2902,7 +2910,7 @@
           "A. It requires a new password.",
           "B. It was created on June 20.",
           "C. It was updated by a colleague of his.",
-          "D. It has not been used in a few  months."
+          "D. It has not been used in a few months."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -2917,7 +2925,7 @@
         "q": "What must Mr. Hong do to maintain  access to his account?",
         "options": [
           "A. Reply to the e-mail",
-          "B. Sign in before July 20",
+          "B. Sign in before July",
           "C. Renew his annual membership",
           "D. Speak with a customer service agent"
         ],
@@ -2933,10 +2941,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q151)",
         "q": "Why does Mr. Dakers contact HVAC  Customer Service?",
         "options": [
-          "A. To express displeasure over the  quality of work",
-          "B. To confirm that he will be available to  work",
-          "C. To ensure that a service will be  provided as planned",
-          "D. To cancel a service he no longer  needs"
+          "A. To express displeasure over the quality of work",
+          "B. To confirm that he will be available to work",
+          "C. To ensure that a service will be provided as planned",
+          "D. To cancel a service he no longer needs"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -2952,8 +2960,8 @@
         "options": [
           "A. He has a question for his supervisor.",
           "B. He lives far away from his office.",
-          "C. A technician should go to Mr. Dakers’  workplace.",
-          "D. An afternoon appointment is  unacceptable."
+          "C. A technician should go to Mr. Dakers’ workplace.",
+          "D. An afternoon appointment is unacceptable."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -2984,10 +2992,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q154)",
         "q": "What is indicated about Bellerson  Financial?  What is indicated about Bellerson  Financial?",
         "options": [
-          "A. It recently promoted Ms. Hirano to  Human Resources Director.",
-          "B. It experienced some financial  difficulties in recent months.",
-          "C. It offers extended service hours  between June and August.",
-          "D. It has built a reputation among  customers for its excellent service."
+          "A. It recently promoted Ms. Hirano to Human Resources Director.",
+          "B. It experienced some financial difficulties in recent months.",
+          "C. It offers extended service hours between June and August.",
+          "D. It has built a reputation among customers for its excellent service."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3001,10 +3009,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q155)",
         "q": "What is the deadline for requesting  vacation time?",
         "options": [
-          "A. April 28",
-          "B. May 8",
-          "C. June 1",
-          "D. August 31"
+          "A. April",
+          "B. May",
+          "C. June",
+          "D. August"
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3021,7 +3029,7 @@
           "A. It took the longest time to develop.",
           "B. It comes with an additional tool.",
           "C. It includes expandable memory.",
-          "D. It has a screen on the front and the  back."
+          "D. It has a screen on the front and the back."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3070,9 +3078,9 @@
         "q": "What is Ms. Finley’s film project about?  What is Ms. Finley’s film project about?",
         "options": [
           "A. The life of a public figure",
-          "B. The restoration of a historic  landmark",
-          "C. A town’s transformation over a  period of time",
-          "D. A manufacturing company’s  innovative policies"
+          "B. The restoration of a historic landmark",
+          "C. A town’s transformation over a period of time",
+          "D. A manufacturing company’s innovative policies"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3137,8 +3145,8 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q163)",
         "q": "What can be concluded about the final  paragraph of a personal statement?",
         "options": [
-          "A. It is the ideal place for a summary of  facts and details.",
-          "B. It is the only paragraph that does not  need careful proofreading.",
+          "A. It is the ideal place for a summary of facts and details.",
+          "B. It is the only paragraph that does not need careful proofreading.",
           "C. It should appear on the second page.",
           "D. It should be easily customizable."
         ],
@@ -3171,10 +3179,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q165)",
         "q": "What is the main purpose of the  text-message chain?",
         "options": [
-          "A. To determine an employee’s current  availability",
+          "A. To determine an employee’s current availability",
           "B. To provide an update about a bridge",
-          "C. To discuss whether an outside  contractor is needed",
-          "D. To thank a coworker for an in-depth  report"
+          "C. To discuss whether an outside contractor is needed",
+          "D. To thank a coworker for an in-depth report"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3206,7 +3214,7 @@
         "q": "What can be concluded about Mr.  Scholz?",
         "options": [
           "A. He is Ms. Vega’s assistant.",
-          "B. He plans to have lunch with Ms.  Vega.",
+          "B. He plans to have lunch with Ms. Vega.",
           "C. He recently hired Ms. Jeon.",
           "D. He directs Ms. Jeon’s work."
         ],
@@ -3225,7 +3233,7 @@
           "A. She is leaving a site now.",
           "B. She has to inspect another bridge.",
           "C. She intends to be at a meeting.",
-          "D. She will arrive after her lunch break.  Lúc 8:18 sáng, câu này ngụ ý điều gì?"
+          "D. She will arrive after her lunch break."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3241,8 +3249,8 @@
         "options": [
           "A. To present a consulting opportunity",
           "B. To schedule a departmental meeting",
-          "C. To announce an upcoming job  opening",
-          "D. To welcome a recently hired  employee"
+          "C. To announce an upcoming job opening",
+          "D. To welcome a recently hired employee"
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3258,8 +3266,8 @@
         "options": [
           "A. He meets regularly with Ms. Acro.",
           "B. He used to be a senior executive.",
-          "C. He operates his own fashion  business.",
-          "D. He often serves on search  committees."
+          "C. He operates his own fashion business.",
+          "D. He often serves on search committees."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3275,7 +3283,7 @@
         "options": [
           "A. A payment schedule",
           "B. A list of required skills",
-          "C. A collection of résumés",
+          "C. A collection of r",
           "D. A revised meeting agenda"
         ],
         "ans": 2,
@@ -3290,10 +3298,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q172)",
         "q": "What is indicated in the article about the  upgrades to exhibits?",
         "options": [
-          "A. They were completed ahead of  schedule.",
-          "B. They were designed by Arnsby Metal  Manufacturing.",
-          "C. They were demonstrated at a press  conference.",
-          "D. They led to an increase in ticket  prices.  Bài báo nói gì về việc nâng cấp triển lãm?"
+          "A. They were completed ahead of schedule.",
+          "B. They were designed by Arnsby Metal Manufacturing.",
+          "C. They were demonstrated at a press conference.",
+          "D. They led to an increase in ticket prices."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3307,10 +3315,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q173)",
         "q": "What is suggested about Ms. Wert?",
         "options": [
-          "A. She was recently named museum  director.",
-          "B. She meets with museum visitors in  person.",
-          "C. She designed some of the museum’s  original displays.",
-          "D. She previously worked for a  technology company."
+          "A. She was recently named museum director.",
+          "B. She meets with museum visitors in person.",
+          "C. She designed some of the museum’s original displays.",
+          "D. She previously worked for a technology company."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3327,7 +3335,7 @@
           "A. Purchase items in the gift shop",
           "B. Sign up for a museum membership",
           "C. Visit a nearby historic neighborhood",
-          "D. Post photos of their visit on social  media"
+          "D. Post photos of their visit on social media"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3358,7 +3366,7 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q176)",
         "q": "What do the vendors in booths 101 and  103 have in common?",
         "options": [
-          "A. They use recycled materials  exclusively.",
+          "A. They use recycled materials exclusively.",
           "B. They have retail stores in Springdale.",
           "C. They make wall hangings.",
           "D. They sell items for the kitchen."
@@ -3376,7 +3384,7 @@
         "q": "What is mentioned about Franny’s  Sensational Scents?",
         "options": [
           "A. It sells scented candles.",
-          "B. It has a booth at the craft festival  every year.",
+          "B. It has a booth at the craft festival every year.",
           "C. Its items are also sold online.",
           "D. Its items contain parts of plants."
         ],
@@ -3409,10 +3417,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q179)",
         "q": "Where did Ms. McFarlan most likely  purchase an item at the festival?",
         "options": [
-          "A. At booth 101",
-          "B. At booth 102",
-          "C. At booth 104",
-          "D. At booth 105"
+          "A. At booth",
+          "B. At booth",
+          "C. At booth",
+          "D. At booth"
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3443,10 +3451,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q181)",
         "q": "What is suggested about Superra  Cleaning?",
         "options": [
-          "A. It uses environmentally friendly  cleaning materials.",
-          "B. It merged with a competing  business.",
-          "C. It is best known for its regular  service packages.",
-          "D. It has lowered the prices of its  services."
+          "A. It uses environmentally friendly cleaning materials.",
+          "B. It merged with a competing business.",
+          "C. It is best known for its regular service packages.",
+          "D. It has lowered the prices of its services."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3477,7 +3485,7 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q183)",
         "q": "What did Superra Cleaning do recently?",
         "options": [
-          "A. It released the results of a customer  survey.",
+          "A. It released the results of a customer survey.",
           "B. It celebrated a business anniversary.",
           "C. It hired additional staff members.",
           "D. It published instructional content."
@@ -3494,10 +3502,10 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q184)",
         "q": "What is most likely true about Mr. Singh?",
         "options": [
-          "A. He provided a team with his own  cleaning materials.",
-          "B. He had to cancel a cleaning service  appointment.",
-          "A. Ông cung cấp chất tẩy rửa của riêng mình cho  đội",
-          "B. Ông phải hủy buổi dọn 59                         ETS 2026 READING TEST 9"
+          "A. He provided a team with his own cleaning materials.",
+          "B. He had to cancel a cleaning service appointment. 184.",
+          "C. He was visited by a three-person cleaning team.",
+          "D. He is a regular client of Superra Cleaning."
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3548,7 +3556,7 @@
           "A. He is a famous person.",
           "B. He owns a restaurant.",
           "C. He repairs damaged books.",
-          "D. He is a regular customer of  Beachside Used Books."
+          "D. He is a regular customer of Beachside Used Books."
         ],
         "ans": 0,
         "ansLetter": "A",
@@ -3579,8 +3587,8 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q189)",
         "q": "What does Mr. Townsend indicate in the  e-mail?",
         "options": [
-          "A. He learned how to cook from his  grandmother.",
-          "B. He recommended Beachside Used  Books to a friend.",
+          "A. He learned how to cook from his grandmother.",
+          "B. He recommended Beachside Used Books to a friend.",
           "C. He often takes his son to the library.",
           "D. He oversees a charity organization."
         ],
@@ -3615,8 +3623,8 @@
         "options": [
           "A. To recommend a job applicant",
           "B. To respond to a customer inquiry",
-          "C. To outline a plan for a new staff  member",
-          "D. To approve an employee’s vacation  time"
+          "C. To outline a plan for a new staff member",
+          "D. To approve an employee’s vacation time"
         ],
         "ans": 2,
         "ansLetter": "C",
@@ -3633,7 +3641,7 @@
           "A. A student at Northburg University",
           "B. A sales agent from Zelehost, Inc.",
           "C. A client of Dorfax Industries",
-          "D. An administrative assistant at Edwil  Durables, Inc."
+          "D. An administrative assistant at Edwil Durables, Inc."
         ],
         "ans": 3,
         "ansLetter": "D",
@@ -3665,7 +3673,7 @@
         "q": "What is suggested by the contact list?",
         "options": [
           "A. The company has several buildings.",
-          "B. An operator directs each incoming  call.",
+          "B. An operator directs each incoming call.",
           "C. One director leads two divisions.",
           "D. Some directors share an office."
         ],
@@ -3682,9 +3690,9 @@
         "q": "What is suggested about Mr. Hillman?",
         "options": [
           "A. He is a new team member.",
-          "B. He returned from a trip in time to  meet Mr. Rein.",
+          "B. He returned from a trip in time to meet Mr. Rein.",
           "C. He was recently promoted.",
-          "D. He works in the human resources  department."
+          "D. He works in the human resources department."
         ],
         "ans": 1,
         "ansLetter": "B",
@@ -3698,8 +3706,8 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q196)",
         "q": "What is mentioned in the article about  Blue Lapis?",
         "options": [
-          "A. Its work can serve many business  purposes.",
-          "B. Its pricing is lower than that of its  competitors.",
+          "A. Its work can serve many business purposes.",
+          "B. Its pricing is lower than that of its competitors.",
           "C. It has a new chief executive officer.",
           "D. It is hiring several video editors."
         ],
@@ -3749,9 +3757,9 @@
         "topic": "ETS 2026 Test 9 - Part 7 (Q199)",
         "q": "What can be concluded about Ms.  Rowley?",
         "options": [
-          "A. She has worked with Ms. Shabangu  for many years.",
-          "B. She is a construction supervisor with  Lunsklip Construction.",
-          "C. She registered some equipment with  an aviation authority.",
+          "A. She has worked with Ms. Shabangu for many years.",
+          "B. She is a construction supervisor with Lunsklip Construction.",
+          "C. She registered some equipment with an aviation authority.",
           "D. She is a flight examiner."
         ],
         "ans": 2,
@@ -3767,8 +3775,8 @@
         "q": "What is most likely true about Lunsklip  Construction?",
         "options": [
           "A. It did not suggest plans for the video.",
-          "B. It will not need to pay an additional  hourly fee.",
-          "C. It is in a partnership with Kwanduma  Realty Ltd.",
+          "B. It will not need to pay an additional hourly fee.",
+          "C. It is in a partnership with Kwanduma Realty Ltd.",
           "D. It is a new client of Blue Lapis."
         ],
         "ans": 1,
