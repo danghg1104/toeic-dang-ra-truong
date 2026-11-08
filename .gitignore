@@ -27,6 +27,8 @@ scratch/
 scripts/test_audio_openrouter.js
 
 .agents/
+certs/
 *.exe
 tests/*.png
 scripts/update_pvp_client_renderinto.js
+data/profiles/test-user-*.json

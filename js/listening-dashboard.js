@@ -112,10 +112,26 @@
 
             const avgTimePerQuestion = totalAnswered > 0 ? Math.round(totalTimeSec / totalAnswered) : 0;
 
-            // Ước lượng điểm Listening 5-495
-            const scaledScoreObj = window.ListeningDatabaseV2 ? 
-                window.ListeningDatabaseV2.calculateScore(Math.round((overallAccuracy / 100) * 100)) : 
-                { scaledScore: 5, cefr: 'A1', evaluation: 'Chưa đủ dữ liệu' };
+            // Ước lượng điểm Listening 5-495 (Đồng bộ với kết quả chẩn đoán và tránh hiển thị điểm ảo khi chưa test)
+            let scaledScoreObj = null;
+            if (totalAnswered > 0 && window.ListeningDatabaseV2) {
+                scaledScoreObj = window.ListeningDatabaseV2.calculateScore(Math.round((overallAccuracy / 100) * 100));
+            } else {
+                const user = window.currentUserAccount || {};
+                let diag = user.diagnosticResults || null;
+                if (!diag) {
+                    try {
+                        const guestDiag = localStorage.getItem('study_studio_guest_diagnostic') || localStorage.getItem('cung_dang_diagnostic_results');
+                        if (guestDiag) diag = JSON.parse(guestDiag);
+                    } catch(e) {}
+                }
+                if (diag && (diag.listening || diag.listeningScore)) {
+                    const score = diag.listening || diag.listeningScore;
+                    scaledScoreObj = { scaledScore: score, cefr: score >= 400 ? 'C1' : score >= 300 ? 'B2' : 'B1', evaluation: 'Theo bài kiểm tra chẩn đoán' };
+                } else {
+                    scaledScoreObj = { scaledScore: '--', cefr: 'Chưa test', evaluation: 'Chưa đủ dữ liệu' };
+                }
+            }
 
             // Chuyển trapStats thành danh sách sắp xếp theo độ yếu (tỷ lệ sai cao nhất)
             const trapHeatmap = Object.keys(trapStats).map(trap => {

@@ -899,6 +899,96 @@ function fetchHttpsJson(url, callback) {
 // KHO TỪ VỰNG CHUẨN ANH - VIỆT VÀ HỌ TỪ TOÀN DIỆN CHO DICTIONARY API
 // =========================================================================
 const CORE_VI_LEXICON = {
+  "economic": {
+    word: "economic",
+    headword: "economic",
+    phonetic: "/ˌiː.kəˈnɒm.ɪk/",
+    partOfSpeech: "Adjective",
+    vi: "Thuộc về kinh tế, liên quan đến nền kinh tế, chính sách kinh tế",
+    mainMeaning: "Thuộc về kinh tế, liên quan đến nền kinh tế, chính sách kinh tế",
+    definition: "Connected with the economy of a country, an area, or a society; connected with trade, industry, and the management of money.",
+    examTag: "TOEIC / VSTEP Core Vocabulary",
+    wordFamily: {
+      noun: [
+        { term: "economy", vi: "nền kinh tế, sự tiết kiệm" },
+        { term: "economics", vi: "môn kinh tế học" },
+        { term: "economist", vi: "nhà kinh tế học" }
+      ],
+      verb: [
+        { term: "economize", vi: "tiết kiệm, thắt chặt chi tiêu" }
+      ],
+      adj: [
+        { term: "economic", vi: "thuộc về kinh tế (chính sách, khủng hoảng, phát triển)" },
+        { term: "economical", vi: "tiết kiệm, không lãng phí (giải pháp, chi phí)" }
+      ],
+      adv: [
+        { term: "economically", vi: "về phương diện kinh tế, một cách tiết kiệm" }
+      ]
+    },
+    synonyms: ["financial", "monetary", "fiscal", "budgetary", "commercial"],
+    antonyms: ["non-economic", "uneconomic"],
+    collocations: [
+      { en: "economic growth", vi: "sự tăng trưởng kinh tế" },
+      { en: "economic recovery", vi: "sự phục hồi kinh tế" },
+      { en: "economic downturn / crisis", vi: "suy thoái / khủng hoảng kinh tế" },
+      { en: "economic policy", vi: "chính sách kinh tế" },
+      { en: "economic development", vi: "phát triển kinh tế" }
+    ],
+    idioms: [
+      { en: "economic climate", vi: "bầu không khí / tình hình kinh tế chung" },
+      { en: "economic powerhouse", vi: "đầu tàu kinh tế, cường quốc kinh tế" }
+    ],
+    toeicNote: "💡 Bẫy kinh điển Part 5 TOEIC: Phân biệt 'economic' (thuộc kinh tế: economic growth) và 'economical' (tiết kiệm tiền: an economical car, economical choice)!",
+    examples: [
+      { en: "The government announced new measures to stimulate economic growth.", vi: "Chính phủ đã công bố các biện pháp mới nhằm kích thích tăng trưởng kinh tế." },
+      { en: "Many small businesses struggled during the recent economic downturn.", vi: "Nhiều doanh nghiệp nhỏ đã gặp khó khăn trong đợt suy thoái kinh tế vừa qua." }
+    ]
+  },
+
+  "economy": {
+    word: "economy",
+    headword: "economy",
+    phonetic: "/ɪˈkɒn.ə.mi/",
+    partOfSpeech: "Noun",
+    vi: "Nền kinh tế; sự tiết kiệm chi tiêu; hạng ghế phổ thông (máy bay)",
+    mainMeaning: "Nền kinh tế; sự tiết kiệm chi tiêu; hạng ghế phổ thông (máy bay)",
+    definition: "The system of trade and industry by which the wealth of a country is made and used; the intentional saving of money or resources.",
+    examTag: "TOEIC / VSTEP Core Vocabulary",
+    wordFamily: {
+      noun: [
+        { term: "economy", vi: "nền kinh tế, sự tiết kiệm" },
+        { term: "economics", vi: "môn kinh tế học" },
+        { term: "economist", vi: "nhà kinh tế học" }
+      ],
+      verb: [
+        { term: "economize", vi: "tiết kiệm, cắt giảm chi phí" }
+      ],
+      adj: [
+        { term: "economic", vi: "thuộc kinh tế" },
+        { term: "economical", vi: "tiết kiệm chi phí" }
+      ],
+      adv: [
+        { term: "economically", vi: "về mặt kinh tế" }
+      ]
+    },
+    synonyms: ["market", "financial system", "wealth", "frugality"],
+    antonyms: ["waste", "extravagance"],
+    collocations: [
+      { en: "global economy", vi: "nền kinh tế toàn cầu" },
+      { en: "boost the economy", vi: "thúc đẩy nền kinh tế" },
+      { en: "economy class", vi: "vé máy bay hạng phổ thông" },
+      { en: "market economy", vi: "nền kinh tế thị trường" }
+    ],
+    idioms: [
+      { en: "economies of scale", vi: "hiệu quả kinh tế theo quy mô (sản xuất nhiều giá thành giảm)" }
+    ],
+    toeicNote: "💡 Đề TOEIC hay kiểm tra cụm 'boost / revive the local economy' (thúc đẩy nền kinh tế địa phương).",
+    examples: [
+      { en: "Tourism plays a vital role in the country's national economy.", vi: "Du lịch đóng một vai trò quan trọng trong nền kinh tế quốc gia của đất nước." },
+      { en: "We decided to book economy class tickets to reduce travel expenses.", vi: "Chúng tôi quyết định đặt vé hạng phổ thông để giảm bớt chi phí đi lại." }
+    ]
+  },
+
   "country": {
     word: "country",
     phonetic: "/ˈkʌn.tri/",
@@ -1713,6 +1803,9 @@ function handleDictionaryLookup(rawWord, callback) {
   const coreKey = CORE_VI_LEXICON[cleanKey] ? cleanKey : (CORE_VI_LEXICON[canonicalKey] ? canonicalKey : null);
   if (coreKey) {
     const entry = JSON.parse(JSON.stringify(CORE_VI_LEXICON[coreKey]));
+    entry.headword = entry.headword || entry.word || cleanKey;
+    entry.mainMeaning = entry.mainMeaning || entry.vi || entry.vietnameseMeaning || entry.definition;
+    entry.isBasicOffline = true;
     if (prep.isSegmented) {
       entry.flags = entry.flags || {};
       entry.flags.isSegmented = true;
@@ -1935,15 +2028,15 @@ function handleDictionaryLookup(rawWord, callback) {
       }
 
       // Tier 2 thất bại -> Chuyển sang Tier 3 AI Dynamic Generation
-      executeTier3Fallback();
+      executeTier3Fallback(statusCode === 404 ? null : dictErr);
     });
     return;
   }
 
   // Với cụm từ có dấu cách: Chuyển thẳng sang Tier 3 AI
-  executeTier3Fallback();
+  executeTier3Fallback(null);
 
-  function executeTier3Fallback() {
+  function executeTier3Fallback(networkIssue) {
     generateAITier3DictionaryEntry(word, prep, (err, aiEntry) => {
       if (aiEntry) {
         dictionaryCache[cleanKey] = aiEntry;
@@ -1952,14 +2045,17 @@ function handleDictionaryLookup(rawWord, callback) {
         return callback({ success: true, fromTier3: true, data: aiEntry });
       }
 
-      // Nếu cả 3 tầng đều không tìm thấy: Báo Not Found kèm gợi ý chính tả Did-You-Mean
+      const isNetError = !!(networkIssue || (err && (err.code || err.message)));
       const suggestions = DictionaryPreprocess.findFuzzySuggestions(cleanKey);
       return callback({
         success: false,
-        notFound: true,
+        notFound: !isNetError,
+        networkError: isNetError,
         query: word,
         suggestions: suggestions,
-        message: `Không tìm thấy từ hoặc cụm từ "${word}" trong từ điển.`
+        message: isNetError
+          ? `Không thể kết nối đến máy chủ tra cứu trực tuyến. Vui lòng kiểm tra kết nối mạng và thử lại.`
+          : `Không tìm thấy từ hoặc cụm từ "${word}" trong từ điển.`
       });
     });
   }
@@ -2051,39 +2147,64 @@ function saveAndMergeSyncStore(incoming) {
     merged.state.vocabLearned = Math.max(merged.state.vocabLearned, merged.learnedVocabItems.length);
   }
 
-  // Hợp nhất từ vựng đã lưu
-  if (Array.isArray(incoming.savedVocabItems)) {
+  // Hợp nhất từ vựng đã lưu (kèm xử lý tombstone xóa)
+  if (Array.isArray(incoming.savedVocabItems) || Array.isArray(incoming.deletedVocabWords)) {
     const map = new Map();
     (current.savedVocabItems || []).forEach(w => map.set((w.word || '').toLowerCase(), w));
-    incoming.savedVocabItems.forEach(w => map.set((w.word || '').toLowerCase(), w));
+    (incoming.savedVocabItems || []).forEach(w => {
+      const k = (w.word || '').toLowerCase();
+      if (w.isDeleted) map.delete(k);
+      else map.set(k, w);
+    });
+    if (Array.isArray(incoming.deletedVocabWords)) {
+      incoming.deletedVocabWords.forEach(w => map.delete(String(w).toLowerCase()));
+    }
     merged.savedVocabItems = Array.from(map.values());
   }
 
-  // Hợp nhất Sổ ghi chép Take Note (Bao gồm hình ảnh base64, tài liệu đính kèm)
-  if (Array.isArray(incoming.takeNotesList)) {
+  // Hợp nhất Sổ ghi chép Take Note (Bao gồm hình ảnh base64, xử lý tombstone xóa)
+  if (Array.isArray(incoming.takeNotesList) || Array.isArray(incoming.deletedNoteIds)) {
     const map = new Map();
     (current.takeNotesList || []).forEach(n => map.set(n.id, n));
-    incoming.takeNotesList.forEach(n => {
-      if (!map.has(n.id) || (n.updatedAtMs || 0) >= (map.get(n.id).updatedAtMs || 0)) {
+    (incoming.takeNotesList || []).forEach(n => {
+      if (n.isDeleted) {
+        map.delete(n.id);
+      } else if (!map.has(n.id) || (n.updatedAtMs || 0) >= (map.get(n.id).updatedAtMs || 0)) {
         map.set(n.id, n);
       }
     });
+    if (Array.isArray(incoming.deletedNoteIds)) {
+      incoming.deletedNoteIds.forEach(id => map.delete(id));
+    }
     merged.takeNotesList = Array.from(map.values());
   }
 
-  // Hợp nhất câu hỏi ngữ pháp đã lưu
-  if (Array.isArray(incoming.savedGrammarNotes)) {
+  // Hợp nhất câu hỏi ngữ pháp đã lưu (kèm xử lý tombstone xóa)
+  if (Array.isArray(incoming.savedGrammarNotes) || Array.isArray(incoming.deletedGrammarQuestions)) {
     const map = new Map();
     (current.savedGrammarNotes || []).forEach(n => map.set(n.q, n));
-    incoming.savedGrammarNotes.forEach(n => map.set(n.q, n));
+    (incoming.savedGrammarNotes || []).forEach(n => {
+      if (n.isDeleted) map.delete(n.q);
+      else map.set(n.q, n);
+    });
+    if (Array.isArray(incoming.deletedGrammarQuestions)) {
+      incoming.deletedGrammarQuestions.forEach(q => map.delete(q));
+    }
     merged.savedGrammarNotes = Array.from(map.values());
   }
 
-  // Hợp nhất từ điển đã lưu
-  if (Array.isArray(incoming.savedWords)) {
+  // Hợp nhất từ điển đã lưu (kèm xử lý tombstone xóa)
+  if (Array.isArray(incoming.savedWords) || Array.isArray(incoming.deletedWordTerms)) {
     const map = new Map();
     (current.savedWords || []).forEach(w => map.set((w.en || '').toLowerCase(), w));
-    incoming.savedWords.forEach(w => map.set((w.en || '').toLowerCase(), w));
+    (incoming.savedWords || []).forEach(w => {
+      const k = (w.en || '').toLowerCase();
+      if (w.isDeleted) map.delete(k);
+      else map.set(k, w);
+    });
+    if (Array.isArray(incoming.deletedWordTerms)) {
+      incoming.deletedWordTerms.forEach(t => map.delete(String(t).toLowerCase()));
+    }
     merged.savedWords = Array.from(map.values());
   }
 
@@ -2125,7 +2246,10 @@ function parseJsonBody(req, res, callback) {
   });
 }
 
-const server = http.createServer((req, res) => {
+// In-memory WebRTC Signaling Broker for Casio Camera Stream
+const webrtcSignalRooms = new Map();
+
+function handleRequest(req, res) {
   let reqPath = decodeURI(req.url.split('?')[0]);
   const queryParams = new URL(req.url, `http://${req.headers.host || 'localhost'}`).searchParams;
 
@@ -2164,6 +2288,72 @@ const server = http.createServer((req, res) => {
       mobileUrl: publicUrl
     }));
     return;
+  }
+
+  // =========================================================================
+  // API: WEBRTC STUN/TURN CONFIG & REAL-TIME SIGNALING BROKER
+  // =========================================================================
+  if (reqPath === '/api/webrtc/ice-servers') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-cache'
+    });
+    res.end(JSON.stringify({
+      success: true,
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' },
+        { urls: 'stun:stun2.l.google.com:19302' },
+        { urls: 'stun:stun.cloudflare.com:3478' },
+        {
+          urls: 'turn:openrelay.metered.ca:80',
+          username: 'openrelayproject',
+          credential: 'openrelayproject'
+        },
+        {
+          urls: 'turn:openrelay.metered.ca:443',
+          username: 'openrelayproject',
+          credential: 'openrelayproject'
+        },
+        {
+          urls: 'turns:openrelay.metered.ca:443?transport=tcp',
+          username: 'openrelayproject',
+          credential: 'openrelayproject'
+        }
+      ]
+    }));
+    return;
+  }
+
+  if (reqPath === '/api/webrtc/signal') {
+    const room = queryParams.get('room') || 'casio';
+    const role = queryParams.get('role') || 'client'; // 'pc' or 'phone'
+
+    if (!webrtcSignalRooms.has(room)) {
+      webrtcSignalRooms.set(room, { pc: [], phone: [], lastActivity: Date.now() });
+    }
+    const roomState = webrtcSignalRooms.get(room);
+    roomState.lastActivity = Date.now();
+
+    if (req.method === 'POST') {
+      parseJsonBody(req, res, payload => {
+        const { targetRole, data } = payload || {};
+        if (targetRole && roomState[targetRole]) {
+          roomState[targetRole].push(data);
+          if (roomState[targetRole].length > 50) roomState[targetRole].shift();
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({ success: true }));
+      });
+      return;
+    } else if (req.method === 'GET') {
+      const messages = roomState[role] || [];
+      roomState[role] = [];
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ success: true, signals: messages }));
+      return;
+    }
   }
 
   // =========================================================================
@@ -2417,19 +2607,6 @@ const server = http.createServer((req, res) => {
         const u = new URL(req.url, 'http://localhost');
         userId = u.searchParams.get('userId');
       } catch (e) {}
-    }
-
-    // Tự động khôi phục tài khoản chủ sở hữu (Huynh Dang) nếu chưa có session và chưa bấm "Đăng xuất"
-    if (!userId && cookies['cd_guest'] !== '1') {
-      const users = loadUsersDatabase();
-      const ownerUser = users.find(u => u.id === 'acc-g-1792730904332' || (u.email && u.email.toLowerCase() === 'danghg20008@gmail.com')) ||
-                        users.find(u => u.id === 'acc-dang' || (u.email && u.email.toLowerCase() === 'danghg1104@gmail.com')) ||
-                        users[0];
-      if (ownerUser) {
-        userId = ownerUser.id;
-        const autoToken = createSession(userId);
-        setSessionCookie(res, req, autoToken);
-      }
     }
 
     if (!userId) {
@@ -2854,6 +3031,88 @@ const server = http.createServer((req, res) => {
           streakInfo: profile.streakInfo
         }));
       });
+    });
+    return;
+  }
+
+  // 4b. Khôi phục mật khẩu (POST /api/auth/reset-password)
+  if (reqPath === '/api/auth/reset-password' && req.method === 'POST') {
+    parseJsonBody(req, res, payload => {
+      const { email, newPassword } = payload || {};
+      const cleanEmail = (email || '').trim().toLowerCase();
+      if (!cleanEmail) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Vui lòng cung cấp địa chỉ email tài khoản!' }));
+      }
+      if (!newPassword || newPassword.length < 6) {
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Mật khẩu mới phải có ít nhất 6 ký tự!' }));
+      }
+      const users = loadUsersDatabase();
+      const user = users.find(u => (u.email && u.email.toLowerCase() === cleanEmail) || (u.username && u.username.toLowerCase() === cleanEmail));
+      if (!user) {
+        res.writeHead(404, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Không tìm thấy tài khoản với email này!' }));
+      }
+      user.password = hashPassword(newPassword);
+      saveUsersDatabase(users);
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      return res.end(JSON.stringify({ success: true, message: 'Đổi mật khẩu thành công! Bạn có thể đăng nhập ngay.' }));
+    });
+    return;
+  }
+
+  // 4c. Xóa tài khoản vĩnh viễn (POST /api/auth/delete-account)
+  if (reqPath === '/api/auth/delete-account' && req.method === 'POST') {
+    let userId = getAuthenticatedUserId(req);
+    parseJsonBody(req, res, payload => {
+      userId = userId || (payload && payload.userId);
+      if (!userId) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Cần xác thực để thực hiện xóa tài khoản!' }));
+      }
+      const users = loadUsersDatabase();
+      const idx = users.findIndex(u => u.id === userId);
+      if (idx !== -1) {
+        users.splice(idx, 1);
+        saveUsersDatabase(users);
+      }
+      // Xóa file profile cá nhân nếu có
+      const profilePath = path.join(PROFILES_DIR, `${userId}.json`);
+      if (fs.existsSync(profilePath)) {
+        try { fs.unlinkSync(profilePath); } catch (e) {}
+      }
+      clearSessionCookie(res, req);
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      return res.end(JSON.stringify({ success: true, message: 'Tài khoản và toàn bộ dữ liệu học tập đã được xóa vĩnh viễn.' }));
+    });
+    return;
+  }
+
+  // 4d. Đặt lại toàn bộ tiến độ học tập về 0 (POST /api/user/reset-progress)
+  if (reqPath === '/api/user/reset-progress' && req.method === 'POST') {
+    let userId = getAuthenticatedUserId(req);
+    parseJsonBody(req, res, payload => {
+      userId = userId || (payload && payload.userId);
+      if (userId) {
+        saveUserProfile(userId, {
+          userId: userId,
+          state: { xp: 0, streak: 0, vocabLearned: 0, dictationDone: 0, grammarDone: 0, readDone: 0, listenDone: 0, studyMinutes: 0 },
+          activityDates: [],
+          learnedVocabItems: [],
+          savedVocabItems: [],
+          takeNotesList: [],
+          savedGrammarNotes: [],
+          savedWords: [],
+          copyingHistory: [],
+          dictationHistory: [],
+          mockHistory: [],
+          diagnosticResults: null,
+          completedNodes: []
+        });
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      return res.end(JSON.stringify({ success: true, message: 'Đã đặt lại tiến độ học tập về 0.' }));
     });
     return;
   }
@@ -3702,11 +3961,13 @@ const server = http.createServer((req, res) => {
       res.end(outContent);
     });
   });
-});
+}
 
+const server = http.createServer(handleRequest);
 setupPvPArenaWebSocket(server);
 
-server.listen(PORT, () => {
+if (require.main === module) {
+  server.listen(PORT, () => {
   const localIp = getLocalIp();
   console.log(`=======================================================`);
   console.log(`💻 Truy cập Web Tôi Đi Đâu Đó trên Máy tính: http://localhost:${PORT}`);
@@ -3730,4 +3991,41 @@ server.listen(PORT, () => {
     }, 10 * 60 * 1000); // 10 phút một lần
   }
 });
+}
+
+// =========================================================================
+// HTTPS SERVER VỚI CHỨNG CHỈ SSL TÙY CHỈNH (LOCAL & MẠNG LAN)
+// =========================================================================
+const certPath = path.join(__dirname, 'certs', 'localhost-cert.pem');
+const keyPath = path.join(__dirname, 'certs', 'localhost-key.pem');
+const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
+
+if (require.main === module && fs.existsSync(certPath) && fs.existsSync(keyPath)) {
+  try {
+    const sslOptions = {
+      key: fs.readFileSync(keyPath),
+      cert: fs.readFileSync(certPath)
+    };
+    const httpsServer = https.createServer(sslOptions, handleRequest);
+    httpsServer.on('upgrade', (req, socket, head) => {
+      server.emit('upgrade', req, socket, head);
+    });
+    httpsServer.listen(HTTPS_PORT, () => {
+      const localIp = getLocalIp();
+      console.log(`🔒 HTTPS (SSL Tùy Chỉnh) trên Máy tính: https://localhost:${HTTPS_PORT}`);
+      console.log(`📱 HTTPS (SSL Tùy Chỉnh) trên Điện thoại: https://${localIp}:${HTTPS_PORT}`);
+    });
+  } catch (sslErr) {
+    console.warn('Không thể khởi tạo server HTTPS:', sslErr.message);
+  }
+}
+
+module.exports = {
+  server,
+  CORE_VI_LEXICON,
+  handleDictionaryLookup,
+  saveAndMergeSyncStore,
+  loadSyncStore
+};
+
 

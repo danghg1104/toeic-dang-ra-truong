@@ -1206,6 +1206,7 @@ window.FullPartPracticeEngine = {
     },
 
     formatTime(sec) {
+        if (!Number.isFinite(sec) || sec < 0) return '00:00';
         const m = Math.floor(sec / 60);
         const s = sec % 60;
         return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;

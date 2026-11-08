@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Maker Studio — Mô Phỏng Lắp Ráp Máy Học Từ Vựng ESP32</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+        canvas { touch-action: none; outline: none; }
+        .cyber-glow {
+            box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25), 0 0 15px -3px rgba(59, 130, 246, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.6);
+        }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body class="bg-[#050811] text-slate-100 min-h-screen flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 relative overflow-x-hidden select-none">
+
+    <!-- Atmospheric Sci-Fi Glow Background -->
+    <div class="fixed -top-40 -left-40 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="fixed top-1/3 -right-40 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+    <div class="fixed -bottom-40 left-1/3 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+
+    <main class="max-w-7xl w-full flex flex-col gap-4 sm:gap-6 relative z-10">
+
+        <!-- Top Navigation Bar -->
+        <header class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 backdrop-blur-xl border border-slate-800/90 px-4 sm:px-6 py-3.5 rounded-2xl shadow-2xl">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-teal-500 to-blue-600 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-cyan-500/25 shrink-0">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div>
+                    <div class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+                        <span>3D Maker Studio:</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-teal-200 font-black">
+                            ESP32 Pocket Vocab
+                        </span>
+                        <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 font-bold border border-cyan-500/30">
+                            DIY Hardware v1.0
+                        </span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">
+                        Mô phỏng lắp ráp từng linh kiện điện tử 3D • Hướng dẫn chế tạo thành thiết bị thật ngoài đời
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Badges & Back button -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="toggleBlueprintModal(true)" class="text-xs px-3 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 font-bold border border-cyan-500/40 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Bảng Linh Kiện & Mua Thật</span>
+                </button>
+                <a href="http://localhost:3000" class="text-xs px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 transition font-medium border border-slate-700 flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Web chính</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Work Area (Grid 12 cols: 8 cols for 3D Viewport, 4 cols for Interactive Assembly Dock) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+
+            <!-- 3D VIEWPORT CONTAINER (8 Cột) -->
+            <div class="lg:col-span-8 bg-gradient-to-b from-slate-900/95 via-[#080d1a]/95 to-slate-900/95 rounded-3xl border border-slate-800 p-3 sm:p-5 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[520px] md:min-h-[640px] cyber-glow">
+                
+                <!-- Loading Screen Overlay -->
+                <div id="loadingOverlay" class="absolute inset-0 bg-[#060a14]/90 backdrop-blur-md z-40 flex flex-col items-center justify-center gap-3">
+                    <div class="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+                    <div class="text-xs font-bold text-cyan-300 tracking-wider uppercase">Đang nạp xưởng chế tạo 3D & render vi mạch...</div>
+                    <div class="text-[11px] text-slate-400">Khởi tạo vật liệu PCB, OLED Pixel Engine & Sound Synth</div>
+                </div>
+
+                <!-- Top Status Bar Inside 3D Viewport -->
+                <div class="relative z-30 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                        <span id="assemblyStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800/90 text-slate-300 border border-slate-700 flex items-center gap-1.5 shadow-md">
+                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                            <span id="assemblyProgressText">Đã lắp: 0/8 linh kiện (0%)</span>
+                        </span>
+
+                        <span id="powerStatusBadge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-800/90 text-slate-400 border border-slate-700/80 flex items-center gap-1.5 shadow-md">
+                            <i class="fa-solid fa-power-off text-[10px]"></i>
+                            <span id="powerStatusText">Nguồn: TẮT</span>
+                        </span>
+                    </div>
+
+                    <!-- Exploded View Quick Mode Switch -->
+                    <div class="flex items-center gap-2 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl border border-slate-800 text-xs">
+                        <span class="text-slate-400 font-medium text-[11px]"><i class="fa-solid fa-layer-group text-cyan-400 mr-1"></i>Bung linh kiện:</span>
+                        <input id="explodedSlider" type="range" min="0" max="100" value="0" class="w-24 sm:w-32 accent-cyan-400 cursor-pointer" title="Kéo để tách rời từng lớp linh kiện theo trục thẳng đứng">
+                        <span id="explodedValText" class="font-mono-code text-[11px] text-cyan-300 font-bold w-7 text-right">0%</span>
+                    </div>
+                </div>
+
+                <!-- Three.js Canvas Mount Container -->
+                <div id="threeContainer" class="w-full h-[400px] sm:h-[460px] md:h-[500px] relative z-20 cursor-grab active:cursor-grabbing"></div>
+
+                <!-- Floating Instruction HUD / Live OLED Controls inside 3D Viewport -->
+                <div class="relative z-30 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800/80 pt-3 text-xs">
+                    
+                    <!-- Viewport Mouse Gestures Guide -->
+                    <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">Chuột trái</span> Xoay 360°
+                        <span class="text-slate-600">•</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">Cuộn</span> Phóng to
+                        <span class="text-slate-600">•</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">Chuột phải</span> Di chuyển
+                    </div>
+
+                    <!-- 3D Hardware Interaction Buttons (When power is ON) -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="togglePowerSwitch()" id="btnTogglePower" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-600 transition flex items-center gap-1.5 text-xs">
+                            <i class="fa-solid fa-toggle-off text-cyan-400" id="powerSwitchIcon"></i>
+                            <span id="powerSwitchLabel">Gạt Công Tắc Nguồn</span>
+                        </button>
+                        
+                        <div id="liveDeviceControls" class="flex items-center gap-1.5 hidden">
+                            <button onclick="simulateHardwareButton('prev')" class="px-2.5 py-1.5 rounded-xl bg-cyan-950/70 hover:bg-cyan-900 border border-cyan-500/40 text-cyan-300 font-bold text-xs" title="Nút cứng 1: Từ trước">
+                                ◀ Prev
+                            </button>
+                            <button onclick="simulateHardwareButton('flip')" class="px-2.5 py-1.5 rounded-xl bg-amber-950/70 hover:bg-amber-900 border border-amber-500/40 text-amber-300 font-bold text-xs" title="Nút cứng 2: Lật nghĩa">
+                                👁 Flip
+                            </button>
+                            <button onclick="simulateHardwareButton('next')" class="px-2.5 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 font-bold text-xs" title="Nút cứng 3: Từ tiếp theo">
+                                Next ▶
+                            </button>
+                        </div>
+
+                        <button onclick="resetCameraView()" class="p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition border border-slate-700" title="Đặt lại góc nhìn chuẩn">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT CONTROL DOCK (4 Cột): Lộ trình lắp ráp từng bước & Mẹo Maker -->
+            <div class="lg:col-span-4 flex flex-col justify-between gap-4">
+
+                <!-- Step Card: Linh kiện đang thao tác -->
+                <div class="bg-slate-900/90 rounded-3xl border border-slate-800 p-4 sm:p-5 space-y-3.5 shadow-xl relative overflow-hidden">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs uppercase tracking-wider text-cyan-400 font-extrabold flex items-center gap-1.5">
+                            <i class="fa-solid fa-wrench"></i> Thao Tác Lắp Ráp
+                        </span>
+                        <span id="currentStepNumber" class="text-xs font-mono-code font-bold text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded-md">
+                            BƯỚC 1/8
+                        </span>
+                    </div>
+
+                    <div>
+                        <h3 id="currentPartTitle" class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                            1. Vỏ đáy nắp in 3D (Bottom Case)
+                        </h3>
+                        <p id="currentPartDesc" class="text-xs text-slate-300 leading-relaxed mt-1">
+                            Đặt khung vỏ đáy lên bàn làm việc. Khung có sẵn khoang pin, rãnh cổng sạc Type-C và 4 trụ cọc ren đồng M2 để cố định bo mạch.
+                        </p>
+                    </div>
+
+                    <!-- Maker Practical Tip Box -->
+                    <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800/90 space-y-1 text-xs">
+                        <div class="text-[11px] font-bold text-amber-400 flex items-center gap-1">
+                            <i class="fa-solid fa-lightbulb"></i> Mẹo thực tế ngoài đời:
+                        </div>
+                        <div id="currentPartTip" class="text-[11.5px] text-slate-400 leading-normal">
+                            In 3D bằng nhựa PETG hoặc PLA+ với độ dày lớp 0.2mm, độ điền (infill) 30% để vỏ chắc chắn, không bị giòn khi siết ốc ren.
+                        </div>
+                    </div>
+
+                    <!-- Assembly Step Buttons -->
+                    <div class="flex items-center gap-2 pt-1">
+                        <button id="btnAssembleNext" onclick="assembleNextPart()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-xs transition text-center shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            <span id="btnAssembleLabel">Lắp Linh Kiện Này Vào</span>
+                        </button>
+                        
+                        <button onclick="autoAssembleAll()" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition border border-slate-700" title="Ráp nhanh toàn bộ thiết bị">
+                            <i class="fa-solid fa-forward-fast"></i>
+                        </button>
+                        <button onclick="disassembleAll()" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition border border-slate-700" title="Tháo rời tất cả linh kiện">
+                            <i class="fa-solid fa-arrow-rotate-left"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Danh sách 8 linh kiện (Interactive Component Drawer) -->
+                <div class="bg-slate-900/90 rounded-3xl border border-slate-800 p-4 sm:p-5 flex-1 flex flex-col justify-between shadow-xl">
+                    <div class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                        <span>Danh mục linh kiện</span>
+                        <span class="text-[11px] font-normal text-slate-400">Bấm để xem & lắp</span>
+                    </div>
+
+                    <!-- Scrollable Component Checklist -->
+                    <div id="componentsListContainer" class="space-y-2 overflow-y-auto max-h-[220px] md:max-h-[260px] pr-1 custom-scrollbar">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                    <!-- Bottom Quick Links -->
+                    <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                        <span class="flex items-center gap-1 text-[11px]">
+                            <i class="fa-solid fa-volume-high text-cyan-400"></i> Âm thanh cơ học: Bật
+                        </span>
+                        <button onclick="toggleBlueprintModal(true)" class="text-cyan-400 hover:text-cyan-300 font-semibold underline text-[11px]">
+                            Xem Sơ đồ nối chân (Pinout)
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- BLUEPRINT & BILL OF MATERIALS (BOM) MODAL -->
+    <div id="blueprintModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-extrabold text-white">Bảng Mua Linh Kiện & Sơ Đồ Chế Tạo Ngoài Đời</h2>
+                        <p class="text-xs text-slate-400">Mọi thứ bạn cần để tự tay biến bản mô phỏng 3D thành thiết bị thật cầm trên tay</p>
+                    </div>
+                </div>
+                <button onclick="toggleBlueprintModal(false)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Tabs Nav -->
+            <div class="flex border-b border-slate-800 bg-slate-950/30 text-xs font-bold px-6">
+                <button onclick="switchModalTab('bom')" id="tabBtnBom" class="py-3 px-4 text-cyan-400 border-b-2 border-cyan-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-cart-shopping"></i> Danh Sách Linh Kiện (BOM)
+                </button>
+                <button onclick="switchModalTab('pinout')" id="tabBtnPinout" class="py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-1.5">
+                    <i class="fa-solid fa-diagram-project"></i> Sơ Đồ Nối Chân (Wiring)
+                </button>
+                <button onclick="switchModalTab('code')" id="tabBtnCode" class="py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-1.5">
+                    <i class="fa-solid fa-code"></i> Code Arduino C++ Mẫu
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 overflow-y-auto space-y-4 custom-scrollbar text-xs">
+                
+                <!-- TAB 1: BOM (Bill of Materials) -->
+                <div id="tabContentBom" class="space-y-4">
+                    <div class="bg-cyan-950/30 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200 text-xs flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-white text-sm">Tổng chi phí ngoài đời thực: Chỉ khoảng ~155.000 VNĐ!</span>
+                            <p class="text-[11px] text-cyan-300/80 mt-0.5">Tất cả linh kiện đều là linh kiện thông dụng, bán sẵn trên Shopee, Lazada hoặc các cửa hàng linh kiện điện tử tại VN.</p>
+                        </div>
+                        <span class="px-3 py-1 bg-cyan-500/20 rounded-full font-bold text-cyan-300 shrink-0">Dễ chế tạo 100%</span>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-2xl border border-slate-800">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-950 text-slate-400 font-bold border-b border-slate-800 text-[11px]">
+                                <tr>
+                                    <th class="p-3">Linh kiện</th>
+                                    <th class="p-3">Thông số kỹ thuật</th>
+                                    <th class="p-3">Nơi mua</th>
+                                    <th class="p-3 text-right">Giá tham khảo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Bo mạch ESP32
+                                    </td>
+                                    <td class="p-3">ESP32-WROOM-32D / ESP32 Type-C (30 chân)</td>
+                                    <td class="p-3">Shopee / Linhkienviet / Nshop</td>
+                                    <td class="p-3 text-right font-mono-code text-cyan-300">65.000 đ</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-blue-400"></span> Màn hình OLED
+                                    </td>
+                                    <td class="p-3">0.96 inch I2C SSD1306 (128x64 pixels)</td>
+                                    <td class="p-3">Shopee / ICdayroi / Linhkiencaulenh</td>
+                                    <td class="p-3 text-right font-mono-code text-cyan-300">38.000 đ</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Pin sạc Lithium Li-Po
+                                    </td>
+                                    <td class="p-3">3.7V 600mAh (kích thước ~503035mm có mạch bảo vệ)</td>
+                                    <td class="p-3">Shopee / Lazada</td>
+                                    <td class="p-3 text-right font-mono-code text-cyan-300">28.000 đ</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Nút bấm xúc giác + Mũ phím
+                                    </td>
+                                    <td class="p-3">3 nút Tact Switch 6x6x7mm + Cap nhựa tròn</td>
+                                    <td class="p-3">Shopee</td>
+                                    <td class="p-3 text-right font-mono-code text-cyan-300">6.000 đ</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-purple-400"></span> Công tắc gạt + Ốc M2
+                                    </td>
+                                    <td class="p-3">Công tắc SS12D00 + 4 bộ ốc vít M2x10mm</td>
+                                    <td class="p-3">Shopee</td>
+                                    <td class="p-3 text-right font-mono-code text-cyan-300">5.000 đ</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-rose-400"></span> Vỏ hộp in 3D
+                                    </td>
+                                    <td class="p-3">File STL nắp trên + dưới (nhựa PLA/PETG)</td>
+                                    <td class="p-3">Tự in hoặc tiệm in 3D sinh viên (~15g nhựa)</td>
+                                    <td class="p-3 text-right font-mono-code text-cyan-300">15.000 đ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 2: Pinout Diagram -->
+                <div id="tabContentPinout" class="space-y-4 hidden">
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 font-mono-code text-xs text-slate-300 space-y-2">
+                        <div class="text-cyan-400 font-bold">// SƠ ĐỒ KẾT NỐI CHÂN VI ĐIỀU KHIỂN ESP32 VỚI LINH KIỆN</div>
+                        <div class="text-slate-400">───────────────────────────────────────────────────────────────────</div>
+                        <div><strong class="text-white">1. Màn hình OLED SSD1306 (Giao tiếp I2C):</strong></div>
+                        <div class="pl-4 text-emerald-400">OLED GND  ───► ESP32 GND</div>
+                        <div class="pl-4 text-rose-400">OLED VCC  ───► ESP32 3V3 (3.3V)</div>
+                        <div class="pl-4 text-cyan-400">OLED SCL  ───► ESP32 GPIO 22 (I2C Clock)</div>
+                        <div class="pl-4 text-amber-400">OLED SDA  ───► ESP32 GPIO 21 (I2C Data)</div>
+                        <div class="text-slate-400 pt-2">───────────────────────────────────────────────────────────────────</div>
+                        <div><strong class="text-white">2. Bộ 3 Phím Bấm Điều Hướng (Cấu hình INPUT_PULLUP):</strong></div>
+                        <div class="pl-4 text-cyan-400">Nút 1 [◀ Prev] ───► ESP32 GPIO 18 (Chân còn lại nối GND)</div>
+                        <div class="pl-4 text-amber-400">Nút 2 [👁 Flip] ───► ESP32 GPIO 19 (Chân còn lại nối GND)</div>
+                        <div class="pl-4 text-emerald-400">Nút 3 [Next ▶] ───► ESP32 GPIO 23 (Chân còn lại nối GND)</div>
+                        <div class="text-slate-400 pt-2">───────────────────────────────────────────────────────────────────</div>
+                        <div><strong class="text-white">3. Mạch Nguồn & Pin:</strong></div>
+                        <div class="pl-4">Cực (+) Pin Li-Po ───► Công tắc gạt ───► Chân VIN / 5V của ESP32</div>
+                        <div class="pl-4">Cực (-) Pin Li-Po ───► Chân GND của ESP32</div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Arduino Code -->
+                <div id="tabContentCode" class="space-y-4 hidden">
+                    <p class="text-slate-300 text-xs">Mã nguồn C++ Arduino IDE hoàn chỉnh (sử dụng thư viện Adafruit SSD1306) để nạp vào ESP32 ngoài đời thực:</p>
+                    <pre class="bg-slate-950 p-4 rounded-2xl border border-slate-800 font-mono-code text-[11px] text-cyan-300 overflow-x-auto leading-relaxed custom-scrollbar"><code>#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+const int BTN_PREV = 18;
+const int BTN_FLIP = 19;
+const int BTN_NEXT = 23;
+
+struct WordItem {
+  const char* word;
+  const char* ipa;
+  const char* type;
+  const char* meaning;
+};
+
+WordItem vocabList[] = {
+  {"APPROVE", "/ə'pru:v/", "v.", "Phe duyet, chap thuan"},
+  {"INVOICE", "/'invɔis/", "n.", "Hoa don thanh toan"},
+  {"NEGOTIATE", "/ni'gəʊʃieit/", "v.", "Dam phan, thuong luong"},
+  {"RELIABLE", "/ri'laiəbl/", "adj.", "Dang tin cay"}
+};
+int currentIndex = 0;
+bool isFlipped = false;
+
+void setup() {
+  pinMode(BTN_PREV, INPUT_PULLUP);
+  pinMode(BTN_FLIP, INPUT_PULLUP);
+  pinMode(BTN_NEXT, INPUT_PULLUP);
+
+  Wire.begin(21, 22);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+  renderScreen();
+}
+
+void renderScreen() {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.print("VOCAB POCKET  BAT:98%");
+  display.drawLine(0, 10, 128, 10, SSD1306_WHITE);
+
+  if (!isFlipped) {
+    display.setTextSize(2);
+    display.setCursor(4, 20);
+    display.print(vocabList[currentIndex].word);
+    display.setTextSize(1);
+    display.setCursor(4, 42);
+    display.print(vocabList[currentIndex].ipa);
+  } else {
+    display.setTextSize(1);
+    display.setCursor(4, 18);
+    display.print(vocabList[currentIndex].type);
+    display.setTextSize(1);
+    display.setCursor(4, 30);
+    display.print(vocabList[currentIndex].meaning);
+  }
+
+  display.drawLine(0, 52, 128, 52, SSD1306_WHITE);
+  display.setCursor(0, 55);
+  display.print("[<]Prev  [*]Flip  [>]Next");
+  display.display();
+}
+
+void loop() {
+  if (digitalRead(BTN_NEXT) == LOW) {
+    currentIndex = (currentIndex + 1) % 4;
+    isFlipped = false;
+    renderScreen();
+    delay(200);
+  }
+  if (digitalRead(BTN_PREV) == LOW) {
+    currentIndex = (currentIndex - 1 + 4) % 4;
+    isFlipped = false;
+    renderScreen();
+    delay(200);
+  }
+  if (digitalRead(BTN_FLIP) == LOW) {
+    isFlipped = !isFlipped;
+    renderScreen();
+    delay(200);
+  }
+}</code></pre>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-3.5 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between">
+                <span class="text-[11px] text-slate-400">✨ Hãy tải code và linh kiện về để tự tay làm nhé!</span>
+                <button onclick="toggleBlueprintModal(false)" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs transition">
+                    Đã hiểu, quay lại xưởng 3D
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN THREE.JS 3D ENGINE SCRIPT -->
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // ─────────────────────────────────────────────────────────────
+        // 1. DATA DEFINITIONS: 8 LINH KIỆN THỰC TẾ
+        // ─────────────────────────────────────────────────────────────
+        const COMPONENTS_DATA = [
+            {
+                id: 'bottom_case',
+                title: '1. Vỏ đáy nắp in 3D (Bottom Case)',
+                shortName: 'Vỏ Đáy In 3D',
+                desc: 'Khung vỏ đáy bằng nhựa PETG chống va đập. Có sẵn khoang âm giữ pin, khe cổng Type-C và 4 trụ cọc ren đồng M2.',
+                tip: 'In 3D bằng nhựa PETG hoặc PLA+ (infill 30%, độ dày thành 2.4mm) để các cọc ren chịu lực tốt khi siết ốc.',
+                assembledPos: { x: 0, y: -0.6, z: 0 },
+                disassembledPos: { x: 0, y: -4.5, z: 0 },
+                color: 0x1e293b,
+                icon: 'fa-cube'
+            },
+            {
+                id: 'battery',
+                title: '2. Khối Pin Sạc Li-Po 3.7V (Battery Pack)',
+                shortName: 'Pin Li-Po 600mAh',
+                desc: 'Cell pin Lithium Polymer 3.7V 600mAh bọc màng nhôm sáng, tích hợp sẵn bo mạch bảo vệ quá nạp và đoản mạch.',
+                tip: 'Dán một miếng băng keo xốp 2 mặt mỏng dưới đáy pin để chống xộc xệch khi cầm máy di chuyển.',
+                assembledPos: { x: -0.8, y: -0.2, z: 0 },
+                disassembledPos: { x: -3.5, y: -1.0, z: -3.5 },
+                color: 0x94a3b8,
+                icon: 'fa-battery-full'
+            },
+            {
+                id: 'switch',
+                title: '3. Công Tắc Nguồn Gạt (Slide Switch)',
+                shortName: 'Công Tắc Nguồn Gạt',
+                desc: 'Công tắc mini 3 chân SS12D00 lắp ở mép hông trái vỏ máy, giúp ngắt dòng triệt để tiết kiệm pin khi không học.',
+                tip: 'Hàn 2 dây dẫn ngắn vào chân giữa và chân ngoài cùng của công tắc, bọc ống gen co nhiệt cẩn thận.',
+                assembledPos: { x: -2.3, y: 0.1, z: 0.8 },
+                disassembledPos: { x: -4.8, y: 1.5, z: 2.5 },
+                color: 0xe2e8f0,
+                icon: 'fa-toggle-on'
+            },
+            {
+                id: 'pcb_mainboard',
+                title: '4. Bo Mạch Chủ ESP32 (Main PCB Board)',
+                shortName: 'Bo Mạch ESP32 Mainboard',
+                desc: 'Bo mạch sợi thủy tinh FR-4 xanh thẫm mạ vàng ENIG. Tích hợp chip ESP32-WROOM-32D, cổng sạc Type-C, anten và socket I2C.',
+                tip: 'Đặt bo mạch thẳng đứng khớp 4 cọc định vị của nắp đáy, đảm bảo cổng sạc Type-C thò đúng tâm lỗ khoét.',
+                assembledPos: { x: 0, y: 0.1, z: 0 },
+                disassembledPos: { x: 0, y: 2.0, z: 0 },
+                color: 0x064e3b,
+                icon: 'fa-microchip'
+            },
+            {
+                id: 'oled_screen',
+                title: '5. Màn Hình OLED 0.96 inch (SSD1306 Display)',
+                shortName: 'Màn Hình OLED 0.96"',
+                desc: 'Module màn hình OLED phát quang sắc nét (128x64 điểm ảnh). Kết nối với bo mạch ESP32 qua 4 chân I2C.',
+                tip: 'Chỉ cần cắm 4 chân (GND, VCC, SCL, SDA). Module này tiêu thụ dòng điện cực nhỏ chỉ khoảng 10-15mA.',
+                assembledPos: { x: -0.8, y: 0.5, z: 0 },
+                disassembledPos: { x: -2.5, y: 3.5, z: 2.5 },
+                color: 0x0284c7,
+                icon: 'fa-tv'
+            },
+            {
+                id: 'button_switches',
+                title: '6. Cụm 3 Nút Bấm Xúc Giác (Tactile Buttons)',
+                shortName: '3 Phím Bấm Cơ Học',
+                desc: '3 nút bấm vi mô 6x6mm kèm nắp phím in 3D công thái học màu sắc nổi bật: [Prev] [Flip] [Next].',
+                tip: 'Dùng chế độ INPUT_PULLUP trong code ESP32 để không cần gắn thêm điện trở kéo ngoài, mạch sẽ gọn hơn rất nhiều.',
+                assembledPos: { x: 1.2, y: 0.5, z: 0 },
+                disassembledPos: { x: 3.5, y: 3.5, z: -2.0 },
+                color: 0x06b6d4,
+                icon: 'fa-keyboard'
+            },
+            {
+                id: 'top_case',
+                title: '7. Nắp Trên Vỏ Hộp (Top Bezel Faceplate)',
+                shortName: 'Nắp Trên Mặt Kính',
+                desc: 'Nắp trên in 3D có vát cạnh tinh tế, khoét khung vừa khít màn hình OLED và 3 lỗ cho phím bấm nổi lên.',
+                tip: 'Các mép ngàm âm dương đã được tinh chỉnh dung sai 0.2mm để khi ốp vào nắp đáy sẽ kêu tiếng "tách" ôm khít.',
+                assembledPos: { x: 0, y: 0.75, z: 0 },
+                disassembledPos: { x: 0, y: 5.2, z: 0 },
+                color: 0x0f172a,
+                icon: 'fa-shield'
+            },
+            {
+                id: 'screws',
+                title: '8. Bộ 4 Ốc Vít Lục Giác M2 (M2 Hex Screws)',
+                shortName: '4 Ốc Vít Thép M2',
+                desc: '4 ốc vít kim loại M2 ren mịn siết từ mặt trên xuống 4 cọc ren nắp đáy, cố định chắc chắn toàn bộ khối máy.',
+                tip: 'Dùng tua-vít lục giác H1.5 để siết. Vặn vừa tay đến khi cảm thấy khít, không siết quá lực làm toét ren nhựa.',
+                assembledPos: { x: 0, y: 0.88, z: 0 },
+                disassembledPos: { x: 0, y: 6.8, z: 0 },
+                color: 0x64748b,
+                icon: 'fa-screwdriver'
+            }
+        ];
+
+        // Dữ liệu từ vựng TOEIC hiển thị động trên màn hình OLED 3D
+        const VOCAB_DATABASE = [
+            {
+                word: "ACCOMPLISH",
+                ipa: "/ə'kʌmplɪʃ/",
+                type: "verb • ETS Core",
+                meaning: "Hoàn thành xuất sắc, đạt được mục tiêu",
+                example: "She accomplished her goal of scoring 850+ TOEIC."
+            },
+            {
+                word: "COLLABORATE",
+                ipa: "/kə'læbəreɪt/",
+                type: "verb • Business",
+                meaning: "Hợp tác, cùng làm việc",
+                example: "The team collaborated to build the IoT device."
+            },
+            {
+                word: "INNOVATIVE",
+                ipa: "/'ɪnəveɪtɪv/",
+                type: "adj • Tech & Product",
+                meaning: "Mang tính sáng tạo, đổi mới",
+                example: "An innovative handheld flashcard gadget."
+            },
+            {
+                word: "DETERMINATION",
+                ipa: "/dɪˌtɜ:mɪ'neɪʃn/",
+                type: "noun • Success",
+                meaning: "Lòng quyết tâm, kiên định",
+                example: "With determination, any dream can become reality."
+            }
+        ];
+
+        // ─────────────────────────────────────────────────────────────
+        // 2. AUDIO SYNTHESIZER (WEB AUDIO API - ZERO DEPENDENCY)
+        // ─────────────────────────────────────────────────────────────
+        class HardwareAudioSynth {
+            constructor() {
+                this.ctx = null;
+            }
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+            }
+            playSnap() {
+                this.init();
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(420, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.08);
+            }
+            playScrew() {
+                this.init();
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+                osc.frequency.linearRampToValueAtTime(200, this.ctx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.15);
+            }
+            playBeep(freq = 980, duration = 0.06) {
+                this.init();
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + duration);
+            }
+            playPowerOn() {
+                this.init();
+                if (!this.ctx) return;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    setTimeout(() => this.playBeep(freq, 0.09), idx * 75);
+                });
+            }
+        }
+        const audioSynth = new HardwareAudioSynth();
+
+        // ─────────────────────────────────────────────────────────────
+        // 3. THREE.JS SCENE SETUP & PROCEDURAL 3D MESH BUILDER
+        // ─────────────────────────────────────────────────────────────
+        let scene, camera, renderer, controls;
+        let componentMeshes = {};
+        let assembledState = {}; // id -> boolean
+        let currentStepIndex = 0;
+        let isPowerOn = false;
+        let currentVocabIdx = 0;
+        let isFlippedVocab = false;
+        let oledCanvas, oledCtx, oledTexture;
+        let explodedFactor = 0; // 0 (assembled) -> 1 (fully separated)
+        let ledLight = null;
+
+        const container = document.getElementById('threeContainer');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        function initScene() {
+            // Scene & Fog
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x060913);
+            scene.fog = new THREE.FogExp2(0x060913, 0.04);
+
+            // Camera
+            const aspect = container.clientWidth / container.clientHeight;
+            camera = new THREE.PerspectiveCamera(40, aspect, 0.1, 100);
+            camera.position.set(4.5, 4.2, 5.8);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.15;
+            container.appendChild(renderer.domElement);
+
+            // Orbit Controls
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxDistance = 16;
+            controls.minDistance = 2.5;
+            controls.target.set(0, 0.2, 0);
+
+            // Lighting Setup (Studio 3-Point Light + Ambient)
+            const ambient = new THREE.AmbientLight(0xffffff, 1.2);
+            scene.add(ambient);
+
+            // Key light (Studio warm white)
+            const keyLight = new THREE.DirectionalLight(0xfff8ee, 2.8);
+            keyLight.position.set(5, 8, 5);
+            keyLight.castShadow = true;
+            keyLight.shadow.mapSize.width = 1024;
+            keyLight.shadow.mapSize.height = 1024;
+            keyLight.shadow.bias = -0.0005;
+            scene.add(keyLight);
+
+            // Fill light (Cool cyan hue)
+            const fillLight = new THREE.DirectionalLight(0x38bdf8, 1.6);
+            fillLight.position.set(-6, 3, 4);
+            scene.add(fillLight);
+
+            // Rim light (Back edge highlight)
+            const rimLight = new THREE.DirectionalLight(0x06b6d4, 2.0);
+            rimLight.position.set(0, -4, -6);
+            scene.add(rimLight);
+
+            // Green/Blue Power LED PointLight inside device
+            ledLight = new THREE.PointLight(0x10b981, 0, 2);
+            ledLight.position.set(1.5, 0.35, 0.8);
+            scene.add(ledLight);
+
+            // Workbench Floor Grid & Circular Pedestal
+            buildWorkbench();
+
+            // Setup Dynamic OLED Screen Canvas Texture
+            setupOledCanvasTexture();
+
+            // Procedurally build all 8 3D hardware components
+            buildAllHardwareComponents();
+
+            // Initial UI Sync
+            COMPONENTS_DATA.forEach((c) => { assembledState[c.id] = false; });
+            renderComponentsDrawer();
+            updateStepDisplay();
+
+            // Hide Loading Overlay
+            setTimeout(() => {
+                if (loadingOverlay) {
+                    loadingOverlay.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => loadingOverlay.remove(), 400);
+                }
+            }, 350);
+
+            // Window resize handler
+            window.addEventListener('resize', onWindowResize);
+
+            // Animation Loop
+            animate();
+        }
+
+        // Workbench Pedestal
+        function buildWorkbench() {
+            const gridHelper = new THREE.GridHelper(12, 24, 0x0284c7, 0x1e293b);
+            gridHelper.position.y = -1.5;
+            scene.add(gridHelper);
+
+            // Circular Sci-fi Pedestal
+            const discGeo = new THREE.CylinderGeometry(3.5, 3.8, 0.15, 64);
+            const discMat = new THREE.MeshStandardMaterial({
+                color: 0x090f1d,
+                roughness: 0.6,
+                metalness: 0.2
+            });
+            const pedestal = new THREE.Mesh(discGeo, discMat);
+            pedestal.position.y = -1.58;
+            pedestal.receiveShadow = true;
+            scene.add(pedestal);
+
+            // Glowing ring on pedestal
+            const ringGeo = new THREE.RingGeometry(3.2, 3.28, 64);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, side: THREE.DoubleSide });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = Math.PI / 2;
+            ring.position.y = -1.49;
+            scene.add(ring);
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 4. DYNAMIC OLED TEXTURE ENGINE (2D Canvas rendered to 3D Glass)
+        // ─────────────────────────────────────────────────────────────
+        function setupOledCanvasTexture() {
+            oledCanvas = document.createElement('canvas');
+            oledCanvas.width = 256;
+            oledCanvas.height = 128;
+            oledCtx = oledCanvas.getContext('2d');
+            oledTexture = new THREE.CanvasTexture(oledCanvas);
+            oledTexture.minFilter = THREE.LinearFilter;
+            oledTexture.magFilter = THREE.LinearFilter;
+            renderOledDisplay();
+        }
+
+        function renderOledDisplay() {
+            if (!oledCtx) return;
+            const w = oledCanvas.width;
+            const h = oledCanvas.height;
+
+            // Background: Black OLED pixels
+            oledCtx.fillStyle = '#020617';
+            oledCtx.fillRect(0, 0, w, h);
+
+            if (!isPowerOn) {
+                // Screen is completely OFF (deep black glass reflection)
+                oledTexture.needsUpdate = true;
+                return;
+            }
+
+            const item = VOCAB_DATABASE[currentVocabIdx];
+
+            // Header status bar
+            oledCtx.fillStyle = '#06b6d4';
+            oledCtx.font = 'bold 11px monospace';
+            oledCtx.fillText('VOCAB POCKET', 8, 14);
+
+            // Battery & Signal icons
+            oledCtx.font = '10px monospace';
+            oledCtx.fillStyle = '#10b981';
+            oledCtx.fillText('BAT:98% [■■■■]', w - 105, 14);
+
+            // Divider line
+            oledCtx.strokeStyle = '#0284c7';
+            oledCtx.lineWidth = 1.5;
+            oledCtx.beginPath();
+            oledCtx.moveTo(6, 20);
+            oledCtx.lineTo(w - 6, 20);
+            oledCtx.stroke();
+
+            if (!isFlippedVocab) {
+                // FRONT SIDE: Word & Pronunciation
+                oledCtx.fillStyle = '#38bdf8';
+                oledCtx.font = 'bold 20px monospace';
+                oledCtx.fillText(item.word, 10, 48);
+
+                oledCtx.fillStyle = '#94a3b8';
+                oledCtx.font = '12px monospace';
+                oledCtx.fillText(item.ipa, 12, 70);
+
+                oledCtx.fillStyle = '#fbbf24';
+                oledCtx.font = '11px monospace';
+                oledCtx.fillText(`Type: ${item.type}`, 12, 90);
+            } else {
+                // BACK SIDE: Meaning & Vietnamese definition
+                oledCtx.fillStyle = '#34d399';
+                oledCtx.font = 'bold 13px sans-serif';
+                oledCtx.fillText(item.type, 10, 40);
+
+                oledCtx.fillStyle = '#ffffff';
+                oledCtx.font = 'bold 13px sans-serif';
+                oledCtx.fillText(item.meaning, 10, 62);
+
+                oledCtx.fillStyle = '#94a3b8';
+                oledCtx.font = 'italic 10px sans-serif';
+                oledCtx.fillText(`"${item.example}"`, 10, 88);
+            }
+
+            // Bottom Footer Key Help
+            oledCtx.strokeStyle = '#1e293b';
+            oledCtx.beginPath();
+            oledCtx.moveTo(6, 105);
+            oledCtx.lineTo(w - 6, 105);
+            oledCtx.stroke();
+
+            oledCtx.fillStyle = '#64748b';
+            oledCtx.font = '10px monospace';
+            oledCtx.fillText('[<]Prev   [*]Flip   [>]Next', 24, 120);
+
+            oledTexture.needsUpdate = true;
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 5. PROCEDURAL 3D MESH GENERATION FOR ALL 8 HARDWARE MODULES
+        // ─────────────────────────────────────────────────────────────
+        function buildAllHardwareComponents() {
+            // Case Dimensions: Length=4.8, Width=3.0, Thickness=0.8
+            
+            // 1. MODULE: BOTTOM CASE
+            const bottomGroup = new THREE.Group();
+            
+            // Outer bottom shell
+            const botShellGeo = new THREE.BoxGeometry(4.8, 0.45, 3.0);
+            const botShellMat = new THREE.MeshStandardMaterial({
+                color: 0x131d2e,
+                roughness: 0.5,
+                metalness: 0.1
+            });
+            const botMesh = new THREE.Mesh(botShellGeo, botShellMat);
+            botMesh.castShadow = true;
+            botMesh.receiveShadow = true;
+            bottomGroup.add(botMesh);
+
+            // Battery compartment depression
+            const bayGeo = new THREE.BoxGeometry(2.3, 0.2, 1.8);
+            const bayMat = new THREE.MeshStandardMaterial({ color: 0x0b111c, roughness: 0.8 });
+            const bayMesh = new THREE.Mesh(bayGeo, bayMat);
+            bayMesh.position.set(-0.8, 0.15, 0);
+            bottomGroup.add(bayMesh);
+
+            // 4 Screw Standoffs (Cọc ren đồng)
+            const standoffGeo = new THREE.CylinderGeometry(0.14, 0.16, 0.5, 16);
+            const standoffMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.3, metalness: 0.8 });
+            const standoffPositions = [
+                [-2.1, 0.15, -1.2],
+                [2.1, 0.15, -1.2],
+                [-2.1, 0.15, 1.2],
+                [2.1, 0.15, 1.2]
+            ];
+            standoffPositions.forEach(([x, y, z]) => {
+                const s = new THREE.Mesh(standoffGeo, standoffMat);
+                s.position.set(x, y, z);
+                bottomGroup.add(s);
+            });
+
+            // Type-C Cutout slot on right edge
+            const usbCutoutGeo = new THREE.BoxGeometry(0.3, 0.25, 0.6);
+            const usbCutoutMat = new THREE.MeshBasicMaterial({ color: 0x050811 });
+            const usbCutout = new THREE.Mesh(usbCutoutGeo, usbCutoutMat);
+            usbCutout.position.set(2.4, 0.15, 0);
+            bottomGroup.add(usbCutout);
+
+            componentMeshes['bottom_case'] = bottomGroup;
+            scene.add(bottomGroup);
+
+            // 2. MODULE: BATTERY PACK
+            const batGroup = new THREE.Group();
+            const batGeo = new THREE.BoxGeometry(2.0, 0.22, 1.5);
+            const batMat = new THREE.MeshStandardMaterial({
+                color: 0xb0bec5,
+                metalness: 0.8,
+                roughness: 0.25
+            });
+            const batMesh = new THREE.Mesh(batGeo, batMat);
+            batMesh.castShadow = true;
+            batGroup.add(batMesh);
+
+            // Kapton Gold Tape around battery edge
+            const tapeGeo = new THREE.BoxGeometry(2.02, 0.08, 0.4);
+            const tapeMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.2, metalness: 0.3 });
+            const tapeMesh = new THREE.Mesh(tapeGeo, tapeMat);
+            tapeMesh.position.set(0, 0.08, -0.4);
+            batGroup.add(tapeMesh);
+
+            // Silicone power wires (Red +, Black -)
+            const wireRedGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.7, 8);
+            const wireRedMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+            const wireRed = new THREE.Mesh(wireRedGeo, wireRedMat);
+            wireRed.rotation.z = Math.PI / 2.8;
+            wireRed.position.set(1.1, 0.1, -0.3);
+            batGroup.add(wireRed);
+
+            const wireBlackGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.7, 8);
+            const wireBlackMat = new THREE.MeshBasicMaterial({ color: 0x111827 });
+            const wireBlack = new THREE.Mesh(wireBlackGeo, wireBlackMat);
+            wireBlack.rotation.z = Math.PI / 2.8;
+            wireBlack.position.set(1.1, 0.1, -0.2);
+            batGroup.add(wireBlack);
+
+            componentMeshes['battery'] = batGroup;
+            scene.add(batGroup);
+
+            // 3. MODULE: SLIDE POWER SWITCH
+            const switchGroup = new THREE.Group();
+            const switchBodyGeo = new THREE.BoxGeometry(0.2, 0.25, 0.5);
+            const switchBodyMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.2 });
+            const switchBody = new THREE.Mesh(switchBodyGeo, switchBodyMat);
+            switchGroup.add(switchBody);
+
+            // Slider toggle knob (Red / Black)
+            const knobGeo = new THREE.BoxGeometry(0.18, 0.18, 0.18);
+            const knobMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.3 });
+            const knob = new THREE.Mesh(knobGeo, knobMat);
+            knob.position.set(0, 0.12, 0);
+            knob.name = 'powerKnob';
+            switchGroup.add(knob);
+
+            componentMeshes['switch'] = switchGroup;
+            scene.add(switchGroup);
+
+            // 4. MODULE: PCB MAINBOARD
+            const pcbGroup = new THREE.Group();
+            
+            // PCB Substrate (FR-4 Dark Green / ENIG Gold)
+            const pcbGeo = new THREE.BoxGeometry(4.4, 0.08, 2.6);
+            const pcbMat = new THREE.MeshStandardMaterial({
+                color: 0x064e3b, // Deep circuit board green
+                roughness: 0.35,
+                metalness: 0.2
+            });
+            const pcbMesh = new THREE.Mesh(pcbGeo, pcbMat);
+            pcbMesh.castShadow = true;
+            pcbMesh.receiveShadow = true;
+            pcbGroup.add(pcbMesh);
+
+            // ESP32 Metal RF Shield Can (Laser engraved look)
+            const espGeo = new THREE.BoxGeometry(1.2, 0.15, 1.4);
+            const espMat = new THREE.MeshStandardMaterial({
+                color: 0xd1d5db,
+                metalness: 0.9,
+                roughness: 0.2
+            });
+            const espMesh = new THREE.Mesh(espGeo, espMat);
+            espMesh.position.set(0.9, 0.1, 0.4);
+            espMesh.castShadow = true;
+            pcbGroup.add(espMesh);
+
+            // Gold Meandered PCB Antenna
+            const antGeo = new THREE.BoxGeometry(0.35, 0.02, 1.3);
+            const antMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8, roughness: 0.2 });
+            const antMesh = new THREE.Mesh(antGeo, antMat);
+            antMesh.position.set(1.9, 0.05, 0.4);
+            pcbGroup.add(antMesh);
+
+            // USB Type-C Connector (Metal Shield)
+            const typeCGeo = new THREE.BoxGeometry(0.45, 0.18, 0.5);
+            const typeCMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.95, roughness: 0.15 });
+            const typeCMesh = new THREE.Mesh(typeCGeo, typeCMat);
+            typeCMesh.position.set(2.1, 0.1, 0);
+            pcbGroup.add(typeCMesh);
+
+            // Small SMD Components (Capacitors, Resistors, TP4056 IC)
+            const smdMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, roughness: 0.5 });
+            const smdCapMat = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.4 });
+            for (let i = 0; i < 8; i++) {
+                const smd = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.05, 0.12), (i % 2 === 0 ? smdMat : smdCapMat));
+                smd.position.set(0.2 + (i % 3) * 0.2, 0.06, -0.6 + (i * 0.15));
+                pcbGroup.add(smd);
+            }
+
+            // Power Indicator LED (Green)
+            const ledGeo = new THREE.BoxGeometry(0.08, 0.06, 0.08);
+            const ledMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.1, emissive: 0x000000 });
+            const ledMesh = new THREE.Mesh(ledGeo, ledMat);
+            ledMesh.name = 'powerLed';
+            ledMesh.position.set(1.5, 0.07, 0.8);
+            pcbGroup.add(ledMesh);
+
+            componentMeshes['pcb_mainboard'] = pcbGroup;
+            scene.add(pcbGroup);
+
+            // 5. MODULE: OLED 0.96" DISPLAY
+            const oledGroup = new THREE.Group();
+            
+            // OLED breakout blue PCB
+            const oledPcbGeo = new THREE.BoxGeometry(1.6, 0.06, 1.6);
+            const oledPcbMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.4 });
+            const oledPcb = new THREE.Mesh(oledPcbGeo, oledPcbMat);
+            oledGroup.add(oledPcb);
+
+            // Glass Display Surface with Live Dynamic Canvas Texture
+            const glassGeo = new THREE.BoxGeometry(1.4, 0.04, 1.1);
+            const glassMat = new THREE.MeshStandardMaterial({
+                map: oledTexture,
+                roughness: 0.1,
+                metalness: 0.1,
+                emissive: 0x000000,
+                emissiveMap: oledTexture,
+                emissiveIntensity: 0.85
+            });
+            const glassMesh = new THREE.Mesh(glassGeo, glassMat);
+            glassMesh.position.set(0, 0.04, 0.1);
+            oledGroup.add(glassMesh);
+
+            // 4 Pin Header (I2C)
+            const pinGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.35, 8);
+            const pinMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.9 });
+            for (let p = 0; p < 4; p++) {
+                const pin = new THREE.Mesh(pinGeo, pinMat);
+                pin.position.set(-0.45 + p * 0.3, -0.15, -0.7);
+                oledGroup.add(pin);
+            }
+
+            componentMeshes['oled_screen'] = oledGroup;
+            scene.add(oledGroup);
+
+            // 6. MODULE: 3 TACTILE BUTTONS & COLORFUL KEYCAPS
+            const btnGroup = new THREE.Group();
+            const btnConfigs = [
+                { name: 'btnPrev', label: '◀', color: 0x06b6d4, x: 0.5 },
+                { name: 'btnFlip', label: '👁', color: 0xf59e0b, x: 1.1 },
+                { name: 'btnNext', label: '▶', color: 0x10b981, x: 1.7 }
+            ];
+
+            btnConfigs.forEach((cfg) => {
+                // Tactile switch base
+                const base = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.35, 0.18, 0.35),
+                    new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.6, roughness: 0.4 })
+                );
+                base.position.set(cfg.x, 0.08, -0.5);
+                btnGroup.add(base);
+
+                // Cylindrical ergonomic keycap
+                const capGeo = new THREE.CylinderGeometry(0.18, 0.2, 0.32, 24);
+                const capMat = new THREE.MeshStandardMaterial({
+                    color: cfg.color,
+                    roughness: 0.3,
+                    metalness: 0.15
+                });
+                const cap = new THREE.Mesh(capGeo, capMat);
+                cap.position.set(cfg.x, 0.25, -0.5);
+                cap.name = cfg.name;
+                btnGroup.add(cap);
+            });
+
+            componentMeshes['button_switches'] = btnGroup;
+            scene.add(btnGroup);
+
+            // 7. MODULE: TOP BEZEL COVER (Faceplate)
+            const topGroup = new THREE.Group();
+            
+            // Outer Top Plate
+            const topGeo = new THREE.BoxGeometry(4.8, 0.2, 3.0);
+            const topMat = new THREE.MeshStandardMaterial({
+                color: 0x0f172a, // Slate 900 Matte Plastic
+                roughness: 0.45,
+                metalness: 0.1
+            });
+            const topMesh = new THREE.Mesh(topGeo, topMat);
+            topMesh.castShadow = true;
+            topMesh.receiveShadow = true;
+            topGroup.add(topMesh);
+
+            // OLED Window Bezel Frame (Subtle recessed chamfer)
+            const oledFrameGeo = new THREE.BoxGeometry(1.5, 0.22, 1.25);
+            const oledFrameMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.2, metalness: 0.5 });
+            const oledFrame = new THREE.Mesh(oledFrameGeo, oledFrameMat);
+            oledFrame.position.set(-0.8, 0.01, 0);
+            topGroup.add(oledFrame);
+
+            // 3 Button Aperture Rings
+            [-0.8, 0, 0.8].forEach((offset, idx) => {
+                const ringRing = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.24, 0.24, 0.22, 24),
+                    new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5 })
+                );
+                ringRing.position.set(1.1 + (idx - 1) * 0.6, 0.01, -0.5);
+                topGroup.add(ringRing);
+            });
+
+            // Engraved Model Branding Accent
+            const logoPlaque = new THREE.Mesh(
+                new THREE.BoxGeometry(1.4, 0.02, 0.22),
+                new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.2, metalness: 0.8 })
+            );
+            logoPlaque.position.set(0.9, 0.11, 0.8);
+            topGroup.add(logoPlaque);
+
+            componentMeshes['top_case'] = topGroup;
+            scene.add(topGroup);
+
+            // 8. MODULE: 4 CORNER M2 SCREWS
+            const screwGroup = new THREE.Group();
+            const screwHeadGeo = new THREE.CylinderGeometry(0.18, 0.16, 0.12, 16);
+            const screwMat = new THREE.MeshStandardMaterial({
+                color: 0x334155,
+                metalness: 0.95,
+                roughness: 0.15
+            });
+
+            standoffPositions.forEach(([x, y, z]) => {
+                const screw = new THREE.Mesh(screwHeadGeo, screwMat);
+                screw.position.set(x, 0.1, z);
+                screwGroup.add(screw);
+            });
+
+            componentMeshes['screws'] = screwGroup;
+            scene.add(screwGroup);
+
+            // Set all meshes to disassembled initial positions
+            updateAllMeshPositions();
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 6. POSITION & EXPLODED VIEW ENGINE
+        // ─────────────────────────────────────────────────────────────
+        function updateAllMeshPositions() {
+            COMPONENTS_DATA.forEach((comp, idx) => {
+                const mesh = componentMeshes[comp.id];
+                if (!mesh) return;
+
+                const isAssembled = assembledState[comp.id];
+
+                if (!isAssembled) {
+                    // Mesh is detached in component tray
+                    mesh.position.set(comp.disassembledPos.x, comp.disassembledPos.y, comp.disassembledPos.z);
+                    mesh.rotation.set(0.1, (idx * 0.2), 0);
+                    mesh.visible = true;
+                } else {
+                    // Mesh is assembled into device
+                    // Apply exploded view offset along Y axis if slider is active
+                    const explodeYOffset = (idx - 3.5) * explodedFactor * 1.8;
+                    mesh.position.set(
+                        comp.assembledPos.x,
+                        comp.assembledPos.y + explodeYOffset,
+                        comp.assembledPos.z
+                    );
+                    mesh.rotation.set(0, 0, 0);
+                    mesh.visible = true;
+                }
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 7. INTERACTIVE ASSEMBLY CONTROLS & STEP RUNNER
+        // ─────────────────────────────────────────────────────────────
+        window.assembleNextPart = function() {
+            if (currentStepIndex >= COMPONENTS_DATA.length) return;
+            const currentPart = COMPONENTS_DATA[currentStepIndex];
+            
+            // Mark as assembled
+            assembledState[currentPart.id] = true;
+
+            // Audio & Visual Snap feedback
+            if (currentPart.id === 'screws') {
+                audioSynth.playScrew();
+            } else {
+                audioSynth.playSnap();
+            }
+
+            // Smooth animate position
+            updateAllMeshPositions();
+
+            // Next step
+            currentStepIndex++;
+            updateStepDisplay();
+            renderComponentsDrawer();
+
+            // Auto turn on power if all 8 assembled!
+            if (currentStepIndex === COMPONENTS_DATA.length && !isPowerOn) {
+                setTimeout(() => {
+                    togglePowerSwitch(true);
+                }, 600);
+            }
+        };
+
+        window.assembleSpecificPart = function(partId) {
+            const partIdx = COMPONENTS_DATA.findIndex(c => c.id === partId);
+            if (partIdx === -1) return;
+
+            // Assemble all dependencies up to this part
+            for (let i = 0; i <= partIdx; i++) {
+                assembledState[COMPONENTS_DATA[i].id] = true;
+            }
+            currentStepIndex = Math.max(currentStepIndex, partIdx + 1);
+
+            audioSynth.playSnap();
+            updateAllMeshPositions();
+            updateStepDisplay();
+            renderComponentsDrawer();
+
+            if (currentStepIndex === COMPONENTS_DATA.length && !isPowerOn) {
+                setTimeout(() => togglePowerSwitch(true), 500);
+            }
+        };
+
+        window.autoAssembleAll = function() {
+            COMPONENTS_DATA.forEach(c => { assembledState[c.id] = true; });
+            currentStepIndex = COMPONENTS_DATA.length;
+            audioSynth.playScrew();
+            updateAllMeshPositions();
+            updateStepDisplay();
+            renderComponentsDrawer();
+
+            if (!isPowerOn) {
+                setTimeout(() => togglePowerSwitch(true), 400);
+            }
+        };
+
+        window.disassembleAll = function() {
+            if (isPowerOn) togglePowerSwitch(false);
+            COMPONENTS_DATA.forEach(c => { assembledState[c.id] = false; });
+            currentStepIndex = 0;
+            audioSynth.playSnap();
+            updateAllMeshPositions();
+            updateStepDisplay();
+            renderComponentsDrawer();
+        };
+
+        function updateStepDisplay() {
+            const progress = Math.round((currentStepIndex / COMPONENTS_DATA.length) * 100);
+            document.getElementById('assemblyProgressText').textContent = `Đã lắp: ${currentStepIndex}/8 linh kiện (${progress}%)`;
+
+            const badge = document.getElementById('assemblyStatusBadge');
+            if (currentStepIndex === COMPONENTS_DATA.length) {
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 shadow-md';
+                badge.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Lắp ráp 100% Hoàn Tất!';
+                document.getElementById('currentStepNumber').textContent = 'HOÀN THÀNH';
+                document.getElementById('currentPartTitle').textContent = '🎉 Thiết bị đã sẵn sàng hoạt động!';
+                document.getElementById('currentPartDesc').textContent = 'Bạn đã lắp ráp thành công toàn bộ linh kiện của chiếc máy học từ vựng ESP32. Hãy gạt công tắc nguồn để trải nghiệm phần mềm bên trong!';
+                document.getElementById('currentPartTip').textContent = 'Ngoài đời, sau khi lắp xong bạn chỉ việc cắm dây sạc Type-C khoảng 30 phút là có thể mang máy đi học mọi nơi!';
+                document.getElementById('btnAssembleLabel').textContent = 'Thiết Bị Đã Lắp Xong';
+                document.getElementById('btnAssembleNext').disabled = true;
+                document.getElementById('btnAssembleNext').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                const part = COMPONENTS_DATA[currentStepIndex];
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-800/90 text-slate-300 border border-slate-700 flex items-center gap-1.5 shadow-md';
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Đã lắp: ${currentStepIndex}/8 (${progress}%)`;
+                document.getElementById('currentStepNumber').textContent = `BƯỚC ${currentStepIndex + 1}/8`;
+                document.getElementById('currentPartTitle').textContent = part.title;
+                document.getElementById('currentPartDesc').textContent = part.desc;
+                document.getElementById('currentPartTip').textContent = part.tip;
+                document.getElementById('btnAssembleLabel').textContent = `Lắp: ${part.shortName}`;
+                document.getElementById('btnAssembleNext').disabled = false;
+                document.getElementById('btnAssembleNext').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function renderComponentsDrawer() {
+            const container = document.getElementById('componentsListContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            COMPONENTS_DATA.forEach((comp, idx) => {
+                const isDone = assembledState[comp.id];
+                const isCurrent = idx === currentStepIndex;
+
+                const item = document.createElement('div');
+                item.className = `p-2.5 rounded-2xl border transition flex items-center justify-between text-xs cursor-pointer ${
+                    isDone 
+                        ? 'bg-slate-950/60 border-emerald-500/30 text-slate-300' 
+                        : isCurrent
+                            ? 'bg-cyan-950/40 border-cyan-400/60 text-white shadow-md'
+                            : 'bg-slate-950/30 border-slate-800/80 text-slate-400 hover:border-slate-700'
+                }`;
+
+                item.innerHTML = `
+                    <div class="flex items-center gap-2.5 truncate">
+                        <div class="w-7 h-7 rounded-lg ${isDone ? 'bg-emerald-500/20 text-emerald-400' : isCurrent ? 'bg-cyan-500/20 text-cyan-300' : 'bg-slate-800 text-slate-500'} flex items-center justify-center font-bold text-xs shrink-0">
+                            <i class="fa-solid ${comp.icon}"></i>
+                        </div>
+                        <div class="truncate">
+                            <div class="font-bold text-[12px] truncate">${comp.shortName}</div>
+                            <div class="text-[10px] text-slate-500">${isDone ? 'Đã lắp vào thân máy' : 'Chờ lắp ráp'}</div>
+                        </div>
+                    </div>
+                    <div>
+                        ${isDone 
+                            ? '<span class="text-emerald-400 font-bold text-xs"><i class="fa-solid fa-check"></i></span>'
+                            : `<button onclick="event.stopPropagation(); assembleSpecificPart('${comp.id}')" class="px-2 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/30 text-cyan-300 font-bold text-[11px] border border-cyan-500/30">Ráp</button>`
+                        }
+                    </div>
+                `;
+
+                item.onclick = () => {
+                    assembleSpecificPart(comp.id);
+                };
+
+                container.appendChild(item);
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 8. POWER SWITCH & LIVE HARDWARE INTERACTION (OLED VOCABULARY)
+        // ─────────────────────────────────────────────────────────────
+        window.togglePowerSwitch = function(forceState) {
+            // Require PCB and Battery to turn on
+            if (!assembledState['battery'] || !assembledState['pcb_mainboard']) {
+                alert('⚠️ Bạn cần lắp ráp Pin và Bo Mạch ESP32 trước khi bật nguồn!');
+                return;
+            }
+
+            if (forceState !== undefined) {
+                isPowerOn = forceState;
+            } else {
+                isPowerOn = !isPowerOn;
+            }
+
+            const pcbMesh = componentMeshes['pcb_mainboard'];
+            const pcbLed = pcbMesh ? pcbMesh.getObjectByName('powerLed') : null;
+            const switchMesh = componentMeshes['switch'];
+            const knob = switchMesh ? switchMesh.getObjectByName('powerKnob') : null;
+
+            if (isPowerOn) {
+                audioSynth.playPowerOn();
+                document.getElementById('powerStatusBadge').className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 shadow-md';
+                document.getElementById('powerStatusText').textContent = 'Nguồn: ĐANG BẬT';
+                document.getElementById('powerSwitchLabel').textContent = 'Tắt Nguồn';
+                document.getElementById('powerSwitchIcon').className = 'fa-solid fa-toggle-on text-emerald-400';
+                document.getElementById('liveDeviceControls').classList.remove('hidden');
+
+                if (pcbLed) pcbLed.material.emissive.setHex(0x10b981);
+                if (ledLight) ledLight.intensity = 1.2;
+                if (knob) knob.position.z = 0.12; // Slide forward
+            } else {
+                audioSynth.playBeep(220, 0.1);
+                document.getElementById('powerStatusBadge').className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-slate-800/90 text-slate-400 border border-slate-700/80 flex items-center gap-1.5 shadow-md';
+                document.getElementById('powerStatusText').textContent = 'Nguồn: TẮT';
+                document.getElementById('powerSwitchLabel').textContent = 'Bật Nguồn';
+                document.getElementById('powerSwitchIcon').className = 'fa-solid fa-toggle-off text-slate-400';
+                document.getElementById('liveDeviceControls').classList.add('hidden');
+
+                if (pcbLed) pcbLed.material.emissive.setHex(0x000000);
+                if (ledLight) ledLight.intensity = 0;
+                if (knob) knob.position.z = -0.12; // Slide backward
+            }
+
+            renderOledDisplay();
+        };
+
+        window.simulateHardwareButton = function(action) {
+            if (!isPowerOn) return;
+
+            const btnMeshGroup = componentMeshes['button_switches'];
+
+            if (action === 'prev') {
+                currentVocabIdx = (currentVocabIdx - 1 + VOCAB_DATABASE.length) % VOCAB_DATABASE.length;
+                isFlippedVocab = false;
+                audioSynth.playBeep(620, 0.05);
+                animateKeycapPress(btnMeshGroup ? btnMeshGroup.getObjectByName('btnPrev') : null);
+            } else if (action === 'flip') {
+                isFlippedVocab = !isFlippedVocab;
+                audioSynth.playBeep(880, 0.05);
+                animateKeycapPress(btnMeshGroup ? btnMeshGroup.getObjectByName('btnFlip') : null);
+            } else if (action === 'next') {
+                currentVocabIdx = (currentVocabIdx + 1) % VOCAB_DATABASE.length;
+                isFlippedVocab = false;
+                audioSynth.playBeep(740, 0.05);
+                animateKeycapPress(btnMeshGroup ? btnMeshGroup.getObjectByName('btnNext') : null);
+            }
+
+            renderOledDisplay();
+        };
+
+        function animateKeycapPress(keycap) {
+            if (!keycap) return;
+            keycap.position.y -= 0.12;
+            setTimeout(() => {
+                keycap.position.y += 0.12;
+            }, 90);
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 9. EXPLODED VIEW SLIDER LISTENER
+        // ─────────────────────────────────────────────────────────────
+        const explodedSlider = document.getElementById('explodedSlider');
+        const explodedValText = document.getElementById('explodedValText');
+        explodedSlider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value, 10);
+            explodedFactor = val / 100;
+            explodedValText.textContent = `${val}%`;
+            updateAllMeshPositions();
+        });
+
+        window.resetCameraView = function() {
+            camera.position.set(4.5, 4.2, 5.8);
+            controls.target.set(0, 0.2, 0);
+            controls.update();
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // 10. MODAL CONTROLS: BILL OF MATERIALS & PINOUT TABS
+        // ─────────────────────────────────────────────────────────────
+        window.toggleBlueprintModal = function(show) {
+            const modal = document.getElementById('blueprintModal');
+            if (!modal) return;
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        };
+
+        window.switchModalTab = function(tabName) {
+            ['bom', 'pinout', 'code'].forEach(t => {
+                const content = document.getElementById(`tabContent${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (t === tabName) {
+                    content.classList.remove('hidden');
+                    btn.className = 'py-3 px-4 text-cyan-400 border-b-2 border-cyan-400 flex items-center gap-1.5';
+                } else {
+                    content.classList.add('hidden');
+                    btn.className = 'py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-1.5';
+                }
+            });
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // 11. ANIMATION & RENDER LOOP
+        // ─────────────────────────────────────────────────────────────
+        function onWindowResize() {
+            if (!container || !renderer || !camera) return;
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+
+            // Subtle floating idle motion when fully assembled
+            if (currentStepIndex === COMPONENTS_DATA.length && explodedFactor === 0) {
+                const time = Date.now() * 0.0015;
+                const floatY = Math.sin(time) * 0.04;
+                Object.values(componentMeshes).forEach(mesh => {
+                    if (mesh) mesh.position.y += floatY * 0.02;
+                });
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Start Studio
+        window.addEventListener('DOMContentLoaded', initScene);
+    </script>
+
+</body>
+</html>

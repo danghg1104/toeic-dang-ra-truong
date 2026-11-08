@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casio 3D — Trạm Phát Camera Từ Xa (WebRTC STUN/TURN)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+        .pulse-live { animation: pulse-live 1.5s infinite; }
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.9); }
+        }
+    </style>
+</head>
+<body class="bg-[#060a14] text-slate-100 min-h-screen flex flex-col items-center justify-between p-3 sm:p-5 relative select-none">
+
+    <!-- Top Header -->
+    <header class="w-full max-w-md bg-slate-900/90 border border-slate-800 p-4 rounded-2xl flex items-center justify-between shadow-xl">
+        <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                <i class="fa-solid fa-tower-broadcast"></i>
+            </div>
+            <div>
+                <h1 class="text-sm font-extrabold text-white">Casio Camera Sender</h1>
+                <p class="text-[11px] text-slate-400">WebRTC P2P STUN/TURN Node</p>
+            </div>
+        </div>
+
+        <span id="p2pStatusBadge" class="text-[11px] px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 font-bold border border-slate-700 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-slate-500" id="statusDot"></span>
+            <span id="statusText">Chờ kết nối</span>
+        </span>
+    </header>
+
+    <!-- Center Camera Preview Viewport -->
+    <main class="w-full max-w-md my-auto flex flex-col gap-3">
+        <div class="relative w-full aspect-[4/3] rounded-3xl bg-slate-950 border border-cyan-500/30 overflow-hidden shadow-2xl flex items-center justify-center">
+            
+            <video id="localVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+
+            <!-- Overlay target mask: 12x25mm slot guide -->
+            <div class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center">
+                <div class="w-48 h-24 border-2 border-dashed border-cyan-400/70 rounded-xl bg-cyan-500/10 flex flex-col items-center justify-center text-cyan-200 text-xs font-mono-code font-bold backdrop-blur-[2px]">
+                    <i class="fa-solid fa-crosshairs text-lg mb-1 text-cyan-300"></i>
+                    <span>TÂM KHE CASIO</span>
+                    <span class="text-[10px] text-cyan-300/70">12 x 25 mm</span>
+                </div>
+            </div>
+
+            <!-- Live Metrics HUD -->
+            <div class="absolute bottom-2 inset-x-3 flex items-center justify-between text-[10px] font-mono-code text-slate-300 bg-slate-900/80 px-2.5 py-1 rounded-xl backdrop-blur-md">
+                <span id="hudResolution">CAM: Đang khởi động...</span>
+                <span id="hudIceType" class="text-cyan-300">ICE: STUN Active</span>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="grid grid-cols-2 gap-2">
+            <button id="btnToggleCam" onclick="toggleCamera()" class="py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-xs transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-video"></i>
+                <span id="btnCamText">Bật Camera</span>
+            </button>
+
+            <button onclick="switchFacingMode()" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition border border-slate-700 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-camera-rotate"></i>
+                <span>Đổi Trước / Sau</span>
+            </button>
+        </div>
+
+        <!-- Diagnostic Log -->
+        <div class="bg-slate-900/80 rounded-2xl border border-slate-800/80 p-3 text-[11px] text-slate-400 font-mono-code space-y-1">
+            <div class="flex items-center justify-between text-slate-300 font-bold">
+                <span>Trạng thái STUN/TURN:</span>
+                <span id="turnStatus" class="text-emerald-400">Google STUN + OpenRelay</span>
+            </div>
+            <div id="logText" class="text-[10.5px] text-slate-400 truncate">Sẵn sàng phát video tới máy tính...</div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-md text-center text-xs text-slate-500 py-2">
+        <a href="/preview_casio_3d.html" class="text-cyan-400 hover:underline">← Xem Máy Tính Casio 3D</a>
+    </footer>
+
+    <!-- WebRTC Sender Script -->
+    <script type="module">
+        import { RTC_ICE_CONFIG } from './js/webrtc-config.js';
+
+        let localStream = null;
+        let peerConnection = null;
+        let facingMode = 'environment'; // default back camera for phones
+        const video = document.getElementById('localVideo');
+        const room = new URLSearchParams(window.location.search).get('room') || 'casio';
+
+        async function startCamera() {
+            try {
+                if (localStream) {
+                    localStream.getTracks().forEach(t => t.stop());
+                }
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: facingMode, width: { ideal: 640 }, height: { ideal: 480 } },
+                    audio: false
+                });
+                video.srcObject = localStream;
+                await video.play();
+
+                const track = localStream.getVideoTracks()[0];
+                const settings = track.getSettings();
+                document.getElementById('hudResolution').textContent = `${settings.width || 640}x${settings.height || 480} @ ${Math.round(settings.frameRate || 30)}fps`;
+                document.getElementById('btnCamText').textContent = 'Tắt Camera';
+
+                initPeerConnection();
+            } catch (err) {
+                alert('Không thể mở camera: ' + err.message);
+            }
+        }
+
+        window.toggleCamera = function() {
+            if (localStream) {
+                localStream.getTracks().forEach(t => t.stop());
+                localStream = null;
+                video.srcObject = null;
+                document.getElementById('btnCamText').textContent = 'Bật Camera';
+                if (peerConnection) peerConnection.close();
+            } else {
+                startCamera();
+            }
+        };
+
+        window.switchFacingMode = function() {
+            facingMode = facingMode === 'user' ? 'environment' : 'user';
+            if (localStream) startCamera();
+        };
+
+        async function initPeerConnection() {
+            if (peerConnection) peerConnection.close();
+            peerConnection = new RTCPeerConnection(RTC_ICE_CONFIG);
+
+            // Add local stream tracks
+            localStream.getTracks().forEach(track => {
+                peerConnection.addTrack(track, localStream);
+            });
+
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    sendSignal({ type: 'candidate', candidate: event.candidate });
+                    document.getElementById('hudIceType').textContent = `ICE: ${event.candidate.type.toUpperCase()}`;
+                }
+            };
+
+            peerConnection.oniceconnectionstatechange = () => {
+                const state = peerConnection.iceConnectionState;
+                document.getElementById('logText').textContent = `ICE State: ${state}`;
+                const badge = document.getElementById('p2pStatusBadge');
+                const dot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+
+                if (state === 'connected' || state === 'completed') {
+                    badge.className = 'text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/40 flex items-center gap-1.5';
+                    dot.className = 'w-2 h-2 rounded-full bg-emerald-400 pulse-live';
+                    statusText.textContent = 'Đang truyền vào Casio';
+                } else if (state === 'checking') {
+                    badge.className = 'text-[11px] px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40 flex items-center gap-1.5';
+                    dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-ping';
+                    statusText.textContent = 'Đang kết nối STUN/TURN...';
+                }
+            };
+
+            // Create Offer
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
+            await sendSignal({ type: 'offer', sdp: offer });
+
+            // Start polling for PC answer & candidates
+            pollSignals();
+        }
+
+        async function sendSignal(data) {
+            try {
+                await fetch(`/api/webrtc/signal?room=${room}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ targetRole: 'pc', data })
+                });
+            } catch (e) {}
+        }
+
+        async function pollSignals() {
+            if (!peerConnection || peerConnection.signalingState === 'closed') return;
+            try {
+                const res = await fetch(`/api/webrtc/signal?room=${room}&role=phone`);
+                const json = await res.json();
+                if (json.signals && json.signals.length > 0) {
+                    for (const sig of json.signals) {
+                        if (sig.type === 'answer' && peerConnection.signalingState === 'have-local-offer') {
+                            await peerConnection.setRemoteDescription(new RTCSessionDescription(sig.sdp));
+                        } else if (sig.type === 'candidate' && sig.candidate) {
+                            await peerConnection.addIceCandidate(new RTCIceCandidate(sig.candidate));
+                        }
+                    }
+                }
+            } catch (e) {}
+            setTimeout(pollSignals, 1000);
+        }
+
+        // Auto start on page load
+        window.addEventListener('DOMContentLoaded', startCamera);
+    </script>
+</body>
+</html>

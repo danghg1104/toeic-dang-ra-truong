@@ -1193,7 +1193,7 @@
                         <div class="flex items-center gap-2 px-1">
                             <span class="w-2.5 h-2.5 rounded-full ${grp.color}"></span>
                             <h2 class="text-[17px] font-extrabold text-slate-900 dark:text-white">${grp.groupName}</h2>
-                            <span class="text-xs font-medium text-slate-500 ml-1">${filteredDecks.length} bộ từ</span>
+                            <span class="text-xs font-medium text-slate-500 ml-1">${filteredDecks.length === grp.decks.length ? `${filteredDecks.length} bộ từ` : `${filteredDecks.length}/${grp.decks.length} bộ (đang lọc)`}</span>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             ${deckCards}
@@ -4194,8 +4194,17 @@
         let activeQuizList = [];
         let activeQuizIndex = 0;
         let activeQuizType = 'grammar';
+        let activeQuizMode = 'practice';
+        let quizExamTimerInterval = null;
+        let quizExamSecondsRemaining = 7200;
+        let examUserAnswers = {};
+        let initialQuizModalScrollAreaHtml = null;
 
-        async function startQuickQuiz(type, title, count = 50) {
+        async function startQuickQuiz(type, title, count = 50, options = {}) {
+            if (typeof count === 'object' && count !== null) {
+                options = count;
+                count = 50;
+            }
             window.startQuickQuiz = startQuickQuiz;
             if (!currentUserAccount) {
                 if (window.currentUserAccount) currentUserAccount = window.currentUserAccount;
@@ -4471,8 +4480,69 @@
             activeQuizList = questionsPool.slice(0, count || questionsPool.length);
             activeQuizIndex = 0;
 
+            const isExam = (options && options.mode === 'exam') ||
+                           (type && (type.includes('full') || type.includes('exam'))) ||
+                           (title && (title.includes('200 Câu') || title.includes('120 PHÚT') || title.includes('120 phút') || title.includes('Full Exam')));
+            activeQuizMode = isExam ? 'exam' : 'practice';
+            examUserAnswers = {};
+
+            const scrollArea = document.getElementById('quizModalScrollArea');
+            if (scrollArea) {
+                if (!initialQuizModalScrollAreaHtml) {
+                    initialQuizModalScrollAreaHtml = scrollArea.innerHTML;
+                } else {
+                    scrollArea.innerHTML = initialQuizModalScrollAreaHtml;
+                }
+            }
+
+            if (quizExamTimerInterval) {
+                clearInterval(quizExamTimerInterval);
+                quizExamTimerInterval = null;
+            }
+
+            const timerContainer = document.getElementById('quizExamTimerContainer');
+            const timerText = document.getElementById('quizExamTimerText');
+
+            if (isExam) {
+                const minutes = (options && options.durationMinutes) || 120;
+                quizExamSecondsRemaining = minutes * 60;
+                if (timerContainer) {
+                    timerContainer.classList.remove('hidden');
+                    timerContainer.classList.add('inline-flex');
+                }
+                const updateTimerDisplay = () => {
+                    if (!timerText) return;
+                    const m = Math.floor(quizExamSecondsRemaining / 60);
+                    const s = quizExamSecondsRemaining % 60;
+                    const mm = String(m).padStart(2, '0');
+                    const ss = String(s).padStart(2, '0');
+                    timerText.textContent = `${mm}:${ss}`;
+                };
+                updateTimerDisplay();
+
+                quizExamTimerInterval = setInterval(() => {
+                    quizExamSecondsRemaining--;
+                    if (quizExamSecondsRemaining <= 0) {
+                        clearInterval(quizExamTimerInterval);
+                        quizExamTimerInterval = null;
+                        finishExamQuiz(true);
+                    } else {
+                        updateTimerDisplay();
+                    }
+                }, 1000);
+
+                document.getElementById('quizCategoryBadge').textContent = 'CHẾ ĐỘ THI THỬ MÔ PHỎNG ETS (120 PHÚT)';
+                document.getElementById('quizCategoryBadge').className = 'px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs';
+            } else {
+                if (timerContainer) {
+                    timerContainer.classList.add('hidden');
+                    timerContainer.classList.remove('inline-flex');
+                }
+                document.getElementById('quizCategoryBadge').textContent = `${type.toUpperCase().replace('_', ' · ')} · ${activeQuizList.length} CÂU HỎI LUYỆN TẬP`;
+                document.getElementById('quizCategoryBadge').className = 'px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 text-xs font-bold';
+            }
+
             document.getElementById('quizModalTitle').textContent = title;
-            document.getElementById('quizCategoryBadge').textContent = `${type.toUpperCase().replace('_', ' · ')} · ${activeQuizList.length} CÂU HỎI THỰC CHIẾN`;
 
             renderQuizQuestion();
             const modal = document.getElementById('quizModal');
@@ -4516,7 +4586,7 @@
                     if (!window._quizToeicPlayer && window.ToeicAudioPlayer) {
                         window._quizToeicPlayer = new window.ToeicAudioPlayer({
                             containerId: 'quizToeicAudioPlayerContainer',
-                            mode: 'practice',
+                            mode: activeQuizMode,
                             onOptionSelect: (optIdx) => {
                                 const btn = document.getElementById('quizOptionsContainer')?.children[optIdx];
                                 if (btn && !btn.disabled) selectQuizAnswer(optIdx, btn);
@@ -4528,6 +4598,7 @@
                     }
                     window._currentToeicAudioPlayer = window._quizToeicPlayer;
                     if (window._quizToeicPlayer) {
+                        window._quizToeicPlayer.setMode(activeQuizMode);
                         window._quizToeicPlayer.render();
                         if (item.audio_url) {
                             window._quizToeicPlayer.load(item.audio_url, { autoPlay: false });
@@ -4630,6 +4701,21 @@
 
         function selectQuizAnswer(selectedIndex, btnEl) {
             const item = activeQuizList[activeQuizIndex];
+            if (activeQuizMode === 'exam') {
+                examUserAnswers[activeQuizIndex] = selectedIndex;
+                const buttons = document.getElementById('quizOptionsContainer').children;
+                for (let i = 0; i < buttons.length; i++) {
+                    const b = buttons[i];
+                    if (i === selectedIndex) {
+                        b.className = 'w-full text-left px-4 py-3.5 rounded-2xl border-2 border-indigo-600 bg-indigo-50/80 dark:bg-slate-700/80 font-bold text-[13.5px] text-indigo-900 dark:text-white transition flex items-center justify-between cursor-pointer';
+                    } else {
+                        b.className = 'w-full text-left px-4 py-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-400 font-semibold text-[13.5px] text-slate-700 dark:text-slate-200 transition flex items-center justify-between cursor-pointer opacity-70';
+                    }
+                }
+                const exp = document.getElementById('quizExplanationBox');
+                if (exp) exp.classList.add('hidden');
+                return;
+            }
             const isPart1 = item.part === 1 || activeQuizType === 'listening_part1';
             const isPart2 = item.part === 2 || activeQuizType === 'listening_part2';
             const buttons = document.getElementById('quizOptionsContainer').children;
@@ -4784,6 +4870,10 @@
                 activeQuizIndex++;
                 renderQuizQuestion();
             } else {
+                if (activeQuizMode === 'exam') {
+                    finishExamQuiz(false);
+                    return;
+                }
                 state.xp += 10;
                 state.streak = Math.max(1, state.streak);
                 state.studyMinutes += 5;
@@ -4825,7 +4915,118 @@
             }
         }
 
+        function finishExamQuiz(isTimeUp = false) {
+            if (quizExamTimerInterval) {
+                clearInterval(quizExamTimerInterval);
+                quizExamTimerInterval = null;
+            }
+            let correctLC = 0, totalLC = 0;
+            let correctRC = 0, totalRC = 0;
+            let totalCorrect = 0;
+
+            activeQuizList.forEach((q, idx) => {
+                const userAns = examUserAnswers[idx];
+                const isPartLC = q.part ? q.part <= 4 : idx < 100;
+                if (isPartLC) totalLC++; else totalRC++;
+                if (userAns !== undefined && userAns === q.ans) {
+                    totalCorrect++;
+                    if (isPartLC) correctLC++; else correctRC++;
+                }
+            });
+
+            // Ước tính điểm ETS theo bảng quy đổi chuẩn
+            const lcScaled = totalLC > 0 ? Math.min(495, Math.max(5, Math.round((correctLC / totalLC) * 490) + 5)) : 5;
+            const rcScaled = totalRC > 0 ? Math.min(495, Math.max(5, Math.round((correctRC / totalRC) * 490) + 5)) : 5;
+            const totalScore = lcScaled + rcScaled;
+
+            // Lưu lịch sử thi mô phỏng riêng biệt
+            try {
+                const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                history.unshift({
+                    date: new Date().toISOString(),
+                    title: document.getElementById('quizModalTitle').textContent,
+                    totalQuestions: activeQuizList.length,
+                    totalCorrect,
+                    lcScaled,
+                    rcScaled,
+                    totalScore,
+                    timeSpentSec: ((120 * 60) - quizExamSecondsRemaining)
+                });
+                localStorage.setItem('toeic_exam_history', JSON.stringify(history.slice(0, 50)));
+            } catch(e) {}
+
+            const timerContainer = document.getElementById('quizExamTimerContainer');
+            if (timerContainer) {
+                timerContainer.classList.add('hidden');
+                timerContainer.classList.remove('inline-flex');
+            }
+
+            // Hiển thị bảng tổng kết điểm thi trong Modal
+            const scrollArea = document.getElementById('quizModalScrollArea');
+            if (scrollArea) {
+                scrollArea.innerHTML = `
+                    <div class="p-6 text-center space-y-5 animate-fadeIn">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 text-white flex items-center justify-center mx-auto text-3xl shadow-lg">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white">${isTimeUp ? 'HẾT GIỜ THI! ĐÃ TỰ ĐỘNG THU BÀI' : 'HOÀN THÀNH BÀI THI THỬ MÔ PHỎNG 120 PHÚT'}</h3>
+                            <p class="text-xs text-slate-500">Kết quả được chấm theo thang điểm chuẩn ETS 10 - 990 (Dữ liệu thi mô phỏng)</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-slate-900 text-white space-y-3 max-w-md mx-auto">
+                            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold">Tổng điểm ước tính</div>
+                            <div class="text-4xl font-black text-amber-300">${totalScore} <span class="text-lg font-normal text-slate-400">/ 990</span></div>
+                            <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-800 text-xs">
+                                <div>
+                                    <div class="text-slate-400">Listening (${correctLC}/${totalLC})</div>
+                                    <div class="text-lg font-black text-teal-300">${lcScaled} / 495</div>
+                                </div>
+                                <div>
+                                    <div class="text-slate-400">Reading (${correctRC}/${totalRC})</div>
+                                    <div class="text-lg font-black text-emerald-300">${rcScaled} / 495</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-3 pt-2">
+                            <button type="button" onclick="reviewExamQuestionsWithExplanations()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-magnifying-glass"></i> Xem giải thích chi tiết & Transcript
+                            </button>
+                            <button type="button" onclick="closeQuizModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs transition cursor-pointer">
+                                Đóng lại
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        window.finishExamQuiz = finishExamQuiz;
+
+        function reviewExamQuestionsWithExplanations() {
+            activeQuizMode = 'practice';
+            const scrollArea = document.getElementById('quizModalScrollArea');
+            if (scrollArea && initialQuizModalScrollAreaHtml) {
+                scrollArea.innerHTML = initialQuizModalScrollAreaHtml;
+            }
+            activeQuizIndex = 0;
+            renderQuizQuestion();
+            const chosen = examUserAnswers[0];
+            if (chosen !== undefined) {
+                const btn = document.getElementById('quizOptionsContainer')?.children[chosen];
+                if (btn) selectQuizAnswer(chosen, btn);
+            }
+        }
+        window.reviewExamQuestionsWithExplanations = reviewExamQuestionsWithExplanations;
+
         function closeQuizModal() {
+            if (quizExamTimerInterval) {
+                clearInterval(quizExamTimerInterval);
+                quizExamTimerInterval = null;
+            }
+            const timerContainer = document.getElementById('quizExamTimerContainer');
+            if (timerContainer) {
+                timerContainer.classList.add('hidden');
+                timerContainer.classList.remove('inline-flex');
+            }
             const modal = document.getElementById('quizModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
@@ -5938,61 +6139,69 @@
 
                     const lessonPresets = {
                         'gap-part12-listening': {
-                            title: 'Chặng 1: Part 1 & 2 — Bẫy Nghe hình ảnh & Đáp án Gián tiếp',
+                            title: 'Part 1 & 2 — Bẫy Nghe hình ảnh & Đáp án Gián tiếp',
                             count: '15 câu hỏi trọng tâm',
                             time: '10 phút',
                             tab: 'nghe',
+                            tag: 'Luyện nghe phản xạ',
                             smartTitle: 'Cải thiện phản xạ Part 1 & 2',
                             smartBody: 'AI phát hiện bạn hay phân vân bẫy Being vs Been trong tranh tĩnh và câu hỏi phủ định Part 2. Luyện tập ngay để tăng 40 điểm Listening.'
                         },
                         'gap-part34-paraphrase': {
-                            title: 'Chặng 3: Part 3 & 4 — Kỹ thuật Paraphrasing & Nắm bắt ý đồ người nói',
+                            title: 'Part 3 & 4 — Kỹ thuật Paraphrasing & Nắm bắt ý đồ người nói',
                             count: '12 câu hỏi hội thoại',
                             time: '12 phút',
                             tab: 'nghe',
+                            tag: 'Kỹ thuật nghe hiểu',
                             smartTitle: 'Luyện kỹ thuật Paraphrasing Part 3-4',
                             smartBody: 'Từ đồng nghĩa chuyển đổi ngữ cảnh là bẫy lớn nhất của Part 3-4. Hoàn thành 1 bài luyện ngắn để nắm chắc phương pháp bắt keyword.'
                         },
                         'gap-part5-grammar': {
-                            title: 'Chặng 2: Part 5 — Nhận diện Hậu tố Từ loại & Bẫy liên từ cốt lõi',
+                            title: 'Part 5 — Nhận diện Hậu tố Từ loại & Bẫy liên từ cốt lõi',
                             count: '12 câu trắc nghiệm',
                             time: '8 phút',
                             tab: 'ngu-phap',
+                            tag: 'Trọng tâm ngữ pháp',
                             smartTitle: 'Điểm cần cải thiện để tăng 50+ điểm',
                             smartBody: 'AI phân tích bạn hay nhầm lẫn giữa tính từ đuôi -ive / -al và danh từ trong Part 5. Luyện nhanh 8 câu bẫy kinh điển để khắc phục.'
                         },
                         'gap-part5-vocab': {
-                            title: 'Chặng 3: Part 5 — Từ vựng & Collocations Công sở Doanh nghiệp',
+                            title: 'Part 5 — Từ vựng & Collocations Công sở Doanh nghiệp',
                             count: '15 cụm từ cố định',
                             time: '8 phút',
                             tab: 'tu-vung',
+                            tag: 'Từ vựng & Cụm từ',
                             smartTitle: 'Mở rộng cụm từ cố định Part 5',
                             smartBody: 'Học ngay 15 collocations xuất hiện với tần suất 85% trong đề thi ETS 2026 để làm bài Part 5 trong 10 giây/câu.'
                         },
                         'gap-part6-insertion': {
-                            title: 'Chặng 4: Part 6 — Điền câu theo mạch logic & Liên từ chuyển ý',
+                            title: 'Part 6 — Điền câu theo mạch logic & Liên từ chuyển ý',
                             count: '10 câu đoạn văn',
                             time: '10 phút',
                             tab: 'doc',
+                            tag: 'Đọc hiểu logic',
                             smartTitle: 'Bẫy điền cả câu Part 6',
                             smartBody: 'Bẫy liên từ However, Therefore, In spite of thường làm mất điểm. Luyện 2 đoạn văn Part 6 để làm quen mạch logic.'
                         },
                         'gap-part7-multi': {
-                            title: 'Chặng 5: Part 7 — Đọc hiểu văn bản đơn & Chuỗi đa đoạn văn',
+                            title: 'Part 7 — Đọc hiểu văn bản đơn & Chuỗi đa đoạn văn',
                             count: '10 câu hỏi Skimming',
                             time: '12 phút',
                             tab: 'doc',
+                            tag: 'Kỹ năng Skimming / Scanning',
                             smartTitle: 'Kỹ thuật Skimming / Scanning Part 7',
                             smartBody: 'Tiết kiệm 15 phút làm bài Part 7 bằng kỹ thuật đọc quét thông tin chéo giữa email và hóa đơn đặt hàng.'
                         }
                     };
 
                     const activeLesson = lessonPresets[weakestPillar] || lessonPresets['gap-part5-grammar'];
+                    const tagEl = document.getElementById('heroLessonTag');
 
                     if (badgeText) badgeText.textContent = `CHẶNG ${stageId} · BÀI HỌC TRỌNG TÂM ETS 2026`;
                     if (titleEl) titleEl.textContent = activeLesson.title;
                     if (countEl) countEl.textContent = activeLesson.count;
                     if (timeEl) timeEl.textContent = activeLesson.time;
+                    if (tagEl) tagEl.textContent = activeLesson.tag || 'Trọng tâm lộ trình';
                     if (ctaText) ctaText.textContent = `Tiếp tục học ngay (~${activeLesson.time})`;
                     if (smartTitle) smartTitle.textContent = activeLesson.smartTitle;
                     if (smartBody) smartBody.textContent = activeLesson.smartBody;
@@ -6000,10 +6209,12 @@
 
                     window._heroNextTabTarget = activeLesson.tab;
                 } else {
+                    const tagEl = document.getElementById('heroLessonTag');
                     if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
                     if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
                     if (countEl) countEl.textContent = '28 câu hỏi đa dạng';
                     if (timeEl) timeEl.textContent = '25 phút';
+                    if (tagEl) tagEl.textContent = 'Khảo sát năng lực đầu vào';
                     if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
                     if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
                     if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
@@ -6018,6 +6229,7 @@
                     if (saved) guestDiag = JSON.parse(saved);
                 } catch(e) {}
 
+                const tagEl = document.getElementById('heroLessonTag');
                 if (nameEl) nameEl.textContent = 'bạn!';
                 if (targetScoreEl) targetScoreEl.textContent = '--';
                 if (examDateEl) examDateEl.textContent = 'Chưa đặt ngày thi';
@@ -6026,6 +6238,7 @@
                 if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
                 if (countEl) countEl.textContent = '28 câu hỏi đa dạng';
                 if (timeEl) timeEl.textContent = '25 phút';
+                if (tagEl) tagEl.textContent = 'Khảo sát năng lực đầu vào';
                 if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
                 if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
                 if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
@@ -7301,7 +7514,8 @@
             const panels = {
                 'login': document.getElementById('authPanelLogin'),
                 'register': document.getElementById('authPanelRegister'),
-                'switch': document.getElementById('authPanelSwitch')
+                'switch': document.getElementById('authPanelSwitch'),
+                'forgot': document.getElementById('authPanelForgot')
             };
 
             Object.keys(panels).forEach(key => {
@@ -7344,13 +7558,21 @@
                 if (modalTitle) modalTitle.textContent = 'Quản lý & Đổi tài khoản';
                 if (modalSubtitle) modalSubtitle.textContent = 'Chạm vào tài khoản bất kỳ bên dưới để chuyển nhanh';
                 if (modalIcon) modalIcon.innerHTML = '<i class="fa-solid fa-users"></i>';
+            } else if (tab === 'forgot') {
+                if (modalTitle) modalTitle.textContent = 'Khôi phục mật khẩu';
+                if (modalSubtitle) modalSubtitle.textContent = 'Nhập email và mật khẩu mới để thiết lập lại tài khoản';
+                if (modalIcon) modalIcon.innerHTML = '<i class="fa-solid fa-key"></i>';
             }
 
             // Ẩn các thông báo lỗi cũ khi chuyển tab
             const errLogin = document.getElementById('loginErrorAlert');
             const errReg = document.getElementById('regErrorAlert');
+            const errForgot = document.getElementById('forgotErrorAlert');
+            const succForgot = document.getElementById('forgotSuccessAlert');
             if (errLogin) errLogin.classList.add('hidden');
             if (errReg) errReg.classList.add('hidden');
+            if (errForgot) errForgot.classList.add('hidden');
+            if (succForgot) succForgot.classList.add('hidden');
         }
 
         function handleLoginSubmit() {
@@ -7834,6 +8056,163 @@
             showToast('💬 Cảm ơn bạn! Hộp thư góp ý cho TART đã ghi nhận phản hồi.');
         }
 
+        async function handleResetPasswordSubmit() {
+            const email = (document.getElementById('forgotEmailInput')?.value || '').trim();
+            const newPassword = document.getElementById('forgotNewPasswordInput')?.value || '';
+            const errAlert = document.getElementById('forgotErrorAlert');
+            const errMsg = document.getElementById('forgotErrorMsg');
+            const successAlert = document.getElementById('forgotSuccessAlert');
+            const successMsg = document.getElementById('forgotSuccessMsg');
+            const submitBtn = document.getElementById('forgotSubmitBtn');
+
+            if (errAlert) errAlert.classList.add('hidden');
+            if (successAlert) successAlert.classList.add('hidden');
+
+            if (!email) {
+                if (errAlert && errMsg) {
+                    errMsg.textContent = 'Vui lòng nhập địa chỉ email!';
+                    errAlert.classList.remove('hidden');
+                }
+                return;
+            }
+            if (!newPassword || newPassword.length < 6) {
+                if (errAlert && errMsg) {
+                    errMsg.textContent = 'Mật khẩu mới phải có ít nhất 6 ký tự!';
+                    errAlert.classList.remove('hidden');
+                }
+                return;
+            }
+
+            if (submitBtn) submitBtn.textContent = 'Đang xử lý...';
+
+            try {
+                const res = await fetch('/api/auth/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, newPassword })
+                });
+                const data = await res.json();
+                if (submitBtn) submitBtn.textContent = 'Cập nhật mật khẩu mới';
+                if (!data.success) {
+                    if (errAlert && errMsg) {
+                        errMsg.textContent = data.error || 'Không thể đặt lại mật khẩu!';
+                        errAlert.classList.remove('hidden');
+                    }
+                    return;
+                }
+
+                if (successAlert && successMsg) {
+                    successMsg.textContent = data.message || 'Đặt lại mật khẩu thành công! Vui lòng đăng nhập.';
+                    successAlert.classList.remove('hidden');
+                }
+                showToast('🎉 Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
+                setTimeout(() => {
+                    switchAuthModalTab('login');
+                    const loginIn = document.getElementById('loginEmailInput');
+                    if (loginIn) loginIn.value = email;
+                    const passIn = document.getElementById('loginPasswordInput');
+                    if (passIn) {
+                        passIn.value = '';
+                        passIn.focus();
+                    }
+                }, 1200);
+            } catch (err) {
+                if (submitBtn) submitBtn.textContent = 'Cập nhật mật khẩu mới';
+                if (errAlert && errMsg) {
+                    errMsg.textContent = 'Lỗi kết nối máy chủ: ' + err.message;
+                    errAlert.classList.remove('hidden');
+                }
+            }
+        }
+        window.handleResetPasswordSubmit = handleResetPasswordSubmit;
+
+        async function handleUserResetProgress() {
+            if (!confirm('Bạn có chắc chắn muốn đặt lại toàn bộ tiến độ học tập về 0? Hành động này sẽ xóa điểm số, lịch sử làm đề và số phút đã học.')) {
+                return;
+            }
+            try {
+                const res = await fetch('/api/user/reset-progress', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    try {
+                        localStorage.removeItem('toeic_exam_history');
+                        localStorage.removeItem('user_study_stats');
+                        localStorage.removeItem('toeic_diagnostic_v1');
+                        localStorage.removeItem('ets_adaptive_diagnostic_result');
+                        localStorage.removeItem('toeic_learning_progress');
+                    } catch (e) {}
+                    showToast('✅ Đã đặt lại toàn bộ tiến độ học tập!');
+                    setTimeout(() => { window.location.reload(); }, 800);
+                } else {
+                    showToast('⚠️ Không thể đặt lại tiến độ: ' + (data.error || 'Lỗi không xác định'));
+                }
+            } catch (err) {
+                showToast('⚠️ Lỗi kết nối: ' + err.message);
+            }
+        }
+        window.handleUserResetProgress = handleUserResetProgress;
+
+        async function handleUserDeleteAccount() {
+            if (!confirm('CẢNH BÁO NGUY HIỂM: Bạn có chắc chắn muốn XÓA VĨNH VIỄN tài khoản và toàn bộ dữ liệu cá nhân không? Hành động này KHÔNG THỂ khôi phục!')) {
+                return;
+            }
+            const secondConfirm = prompt('Nhập chữ "XOA" để xác nhận xóa tài khoản:');
+            if (secondConfirm !== 'XOA') {
+                showToast('Đã hủy thao tác xóa tài khoản.');
+                return;
+            }
+            try {
+                const res = await fetch('/api/auth/delete-account', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('✅ Tài khoản đã được xóa hoàn toàn.');
+                    handleLogoutUser(false);
+                    try {
+                        localStorage.clear();
+                    } catch (e) {}
+                    setTimeout(() => { window.location.reload(); }, 1000);
+                } else {
+                    showToast('⚠️ Không thể xóa tài khoản: ' + (data.error || 'Lỗi không xác định'));
+                }
+            } catch (err) {
+                showToast('⚠️ Lỗi kết nối: ' + err.message);
+            }
+        }
+        window.handleUserDeleteAccount = handleUserDeleteAccount;
+
+        function openPrivacyPolicyModal() {
+            const modal = document.getElementById('privacyPolicyModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+        function closePrivacyPolicyModal() {
+            const modal = document.getElementById('privacyPolicyModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+        function openTermsOfServiceModal() {
+            const modal = document.getElementById('termsOfServiceModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+        function closeTermsOfServiceModal() {
+            const modal = document.getElementById('termsOfServiceModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+        window.openPrivacyPolicyModal = openPrivacyPolicyModal;
+        window.closePrivacyPolicyModal = closePrivacyPolicyModal;
+        window.openTermsOfServiceModal = openTermsOfServiceModal;
+        window.closeTermsOfServiceModal = closeTermsOfServiceModal;
+
         // =========================================================================
         // MỞ WEB TRÊN ĐIỆN THOẠI (MOBILE CONNECT VIA LAN IP & QR CODE)
         // =========================================================================
@@ -8097,10 +8476,32 @@
             // Cập nhật lại thanh lịch sử
             renderDictHistoryChips();
 
+            // 0. Trường hợp lỗi kết nối mạng (Dịch vụ bên ngoài hoặc backend chưa thể truy cập)
+            if (entry && entry.networkError) {
+                const queryStr = escapeHtml(entry?.query || raw);
+                container.innerHTML = `
+                    <div class="glass-panel rounded-[26px] p-8 text-center space-y-4 border-2 border-amber-200 dark:border-amber-900/50">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-600 flex items-center justify-center mx-auto text-2xl shadow-sm">
+                            <i class="fa-solid fa-wifi"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-extrabold text-slate-800 dark:text-white">Không thể kết nối máy chủ tra cứu</h4>
+                            <p class="text-xs text-slate-500 max-w-lg mx-auto">Hệ thống tạm thời không kết nối được dịch vụ từ điển trực tuyến để tra cứu "${queryStr}". Vui lòng kiểm tra lại kết nối mạng hoặc thử lại.</p>
+                        </div>
+                        <div class="pt-2">
+                            <button type="button" onclick="renderDictionaryResult('${escapeHtml(raw)}')" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition inline-flex items-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-rotate-right"></i> Thử lại tra cứu
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
             // 1. Trường hợp: Không tìm thấy từ (Chỉ xảy ra khi người dùng gõ chuỗi vô nghĩa như "asdfghjkl123")
             if (!entry || entry.notFound) {
                 const queryStr = escapeHtml(entry?.query || raw);
-                const suggestions = Array.isArray(entry?.suggestions) ? entry.suggestions : [];
+                const suggestions = Array.isArray(entry?.suggestions) ? entry.suggestions.filter(s => s.toLowerCase() !== raw.toLowerCase()) : [];
                 const suggestHtml = suggestions.length > 0 ? `
                     <div class="p-4 rounded-2xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 max-w-md mx-auto space-y-2 text-left">
                         <div class="text-xs font-black text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
@@ -8124,7 +8525,7 @@
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-extrabold text-slate-800 dark:text-white">Không tìm thấy từ hoặc cụm từ "${queryStr}"</h4>
-                            <p class="text-xs text-slate-500 max-w-lg mx-auto">Vui lòng kiểm tra lại chính tả hoặc thử các từ quen thuộc như: <em>imminent, eager, economic, head of state, happy new year...</em></p>
+                            <p class="text-xs text-slate-500 max-w-lg mx-auto">Vui lòng kiểm tra lại chính tả hoặc thử các từ quen thuộc như: <em>imminent, eager, collaborate, head of state, happy new year...</em></p>
                         </div>
                         ${suggestHtml}
                     </div>
@@ -8136,8 +8537,9 @@
                 DictionaryEngine.currentEntry = entry;
             }
 
-            const displayWord = entry.isReverseLookup ? (entry.englishTargetWord || entry.headword) : entry.headword;
-            const displayEnglishWord = entry.englishTargetWord || entry.headword;
+            const displayWord = entry.isReverseLookup ? (entry.englishTargetWord || entry.headword || entry.word || raw) : (entry.headword || entry.word || raw);
+            const displayEnglishWord = entry.englishTargetWord || entry.headword || entry.word || raw;
+            const mainMeaning = entry.isReverseLookup ? (entry.englishTargetWord || raw) : (entry.mainMeaning || entry.vi || entry.vietnameseMeaning || entry.definition || '');
             currentDictLookupWord = displayEnglishWord;
 
             const pos = escapeHtml(entry.partOfSpeech || 'Từ vựng tiếng Anh');
@@ -8303,6 +8705,11 @@
                                 `}
                                 <span class="px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-slate-800 text-sky-800 dark:text-sky-300 text-xs font-extrabold">${pos}</span>
                                 <span class="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 text-xs font-bold">${examTag}</span>
+                                ${entry.isBasicOffline ? `
+                                    <span class="px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1" title="Kết quả từ kho từ vựng cốt lõi cục bộ, chưa nạp phần mở rộng trực tuyến">
+                                        <i class="fa-solid fa-database text-xs"></i> Cơ bản offline (Chưa nạp phần bổ sung trực tuyến)
+                                    </span>
+                                ` : ''}
                                 ${entry.isInflected ? `
                                     <span class="px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-300 text-xs font-bold flex items-center gap-1">
                                         <i class="fa-solid fa-code-branch"></i> Từ gốc: <strong class="cursor-pointer hover:underline" onclick="quickLookupDictWord('${escapeHtml(entry.baseForm)}')">${escapeHtml(entry.baseForm)}</strong>
@@ -8356,7 +8763,7 @@
                             <i class="fa-solid fa-star text-amber-500"></i> Nghĩa chính cốt lõi:
                         </div>
                         <div class="text-[22px] font-black text-slate-900 dark:text-white leading-snug">
-                            ${entry.isReverseLookup ? '🇬🇧 ' + escapeHtml(entry.englishTargetWord) : '🇻🇳 ' + escapeHtml(entry.mainMeaning)}
+                            ${entry.isReverseLookup ? '🇬🇧 ' + escapeHtml(entry.englishTargetWord) : '🇻🇳 ' + escapeHtml(mainMeaning)}
                         </div>
                         ${alternatives.length > 0 ? `
                             <div class="pt-2 border-t border-sky-200/60 dark:border-slate-700 flex flex-wrap items-center gap-1.5">

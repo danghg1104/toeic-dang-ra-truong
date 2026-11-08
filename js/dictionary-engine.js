@@ -399,13 +399,35 @@
             // TẦNG 3: GỌI GOOGLE TRANSLATE GTX VỚI &dj=1 (HỖ TRỢ 100% CỤM TỪ, TỪ ĐƠN, IDIOMS)
             const gtxUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&dt=bd&dt=ex&dt=md&dt=ss&dt=at&dj=1&q=${encodeURIComponent(raw)}`;
             let gtxData = null;
+            let networkFailed = false;
             try {
                 const gtxRes = await fetch(gtxUrl);
                 if (gtxRes.ok) {
                     gtxData = await gtxRes.json();
+                } else {
+                    networkFailed = true;
                 }
             } catch(e) {
+                networkFailed = true;
                 console.warn('GTX Fetch error:', e);
+            }
+
+            // Fallback sang backend local lexicon (/api/dictionary/lookup) nếu GTX gặp lỗi mạng
+            if (!gtxData) {
+                try {
+                    const serverRes = await fetch(`/api/dictionary/lookup?word=${encodeURIComponent(cleanKey)}`);
+                    if (serverRes.ok) {
+                        const sJson = await serverRes.json();
+                        if (sJson && sJson.success && sJson.data) {
+                            return sJson.data;
+                        }
+                        if (sJson && sJson.networkError) {
+                            networkFailed = true;
+                        }
+                    }
+                } catch(e) {
+                    networkFailed = true;
+                }
             }
 
             // Xử lý thông minh tiếng Việt không dấu (vd: "con meo", "hanh phuc")
@@ -469,7 +491,15 @@
                 }
             }
 
-            // KIỂM TRA CHUỖI RÁC (GIBBERISH CHECK - Chỉ báo Not Found khi hoàn toàn vô nghĩa)
+            // KIỂM TRA LỖI KẾT NỐI MẠNG VS CHUỖI RÁC (GIBBERISH)
+            if (!gtxData && networkFailed && !freeDictData) {
+                return {
+                    networkError: true,
+                    query: raw,
+                    message: "Không thể kết nối đến dịch vụ từ điển."
+                };
+            }
+
             const hasSentences = !!(gtxData && gtxData.sentences && gtxData.sentences.length > 0 && mainTrans);
             const hasDict = !!(gtxData && gtxData.dict && gtxData.dict.length > 0);
             const isEchoed = mainTrans.trim().toLowerCase() === cleanKey;
@@ -481,7 +511,7 @@
                     const sugRes = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(cleanKey)}`);
                     if (sugRes.ok) {
                         const sugData = await sugRes.json();
-                        suggestions = sugData.map(s => s.word).slice(0, 5);
+                        suggestions = sugData.map(s => s.word).filter(w => w.toLowerCase() !== cleanKey).slice(0, 5);
                     }
                 } catch(e) {}
 

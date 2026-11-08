@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casio fx-570ES PLUS 3D Digital Twin — Đầy Đủ Cấu Tạo Vật Lý & Bộ Máy Tính Toán</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+        canvas { touch-action: none; outline: none; }
+        .cyber-glow {
+            box-shadow: 0 0 35px -5px rgba(99, 102, 241, 0.25), 0 0 15px -3px rgba(30, 58, 138, 0.2);
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.7); }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body class="bg-[#060911] text-slate-100 min-h-screen flex flex-col items-center justify-start p-2 sm:p-4 md:p-5 relative overflow-x-hidden select-none">
+
+    <!-- Ambient Lighting Backdrop -->
+    <div class="fixed -top-40 -left-40 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+    <div class="fixed top-1/2 -right-40 w-[650px] h-[650px] bg-cyan-600/10 rounded-full blur-[180px] pointer-events-none"></div>
+
+    <!-- Hidden Video & Canvas for WebRTC Feed -->
+    <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+    <video id="remoteP2pVideo" autoplay playsinline muted style="display:none;"></video>
+
+    <main class="max-w-[1550px] w-full flex flex-col gap-3 relative z-10">
+
+        <!-- Top Header Bar -->
+        <header class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/95 backdrop-blur-xl border border-slate-800/90 px-4 sm:px-6 py-3 rounded-2xl shadow-2xl">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#787da4] via-[#54587c] to-[#393c59] flex items-center justify-center text-white font-black text-lg shadow-lg shrink-0">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div>
+                    <div class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+                        <span>Casio fx-570ES PLUS Digital Twin:</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-sky-200 to-indigo-200 font-black">
+                            Cấu Tạo Vật Lý & Tính Toán Thật
+                        </span>
+                        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 font-bold border border-emerald-500/30">
+                            9 Lớp Linh Kiện • 417 Chức Năng
+                        </span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">
+                        Tháo rời từng lớp vỏ, bo mạch PCB mạ vàng, chip xử lý Custom ASIC, pin AAA, màng silicone & 50 phím cơ học
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+                <button onclick="restoreAuthenticFormula()" class="text-xs px-3 py-2 rounded-xl bg-purple-600/25 hover:bg-purple-600/40 text-purple-200 font-bold border border-purple-500/40 transition flex items-center gap-1.5 shadow-sm" title="Hiển thị lại công thức chuẩn như ảnh 1">
+                    <i class="fa-solid fa-square-root-variable"></i>
+                    <span>Công Thức Chuẩn</span>
+                </button>
+
+                <button onclick="toggleModMode()" id="btnModToggle" class="text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold border border-amber-500/40 transition flex items-center gap-1.5 shadow-sm" title="Chuyển đổi giữa Bản Zin Nhà Máy và Bản Độ AI Gemini">
+                    <i class="fa-solid fa-microchip text-amber-400" id="btnModIcon"></i>
+                    <span id="btnModLabel">Bản Zin Nhà Máy</span>
+                </button>
+
+                <button onclick="animateExplodeToggle()" id="btnExplodeQuick" class="text-xs px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold transition flex items-center gap-2 shadow-lg shadow-purple-500/20">
+                    <i class="fa-solid fa-layer-group" id="btnExplodeIcon"></i>
+                    <span id="btnExplodeLabel">Bung Tách Lớp (100%)</span>
+                </button>
+
+                <button onclick="exportCasioSvgForFigma()" class="text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold border border-slate-700 transition flex items-center gap-1.5" title="Tải file vector SVG kéo thả trực tiếp vào Figma hoặc Canva">
+                    <i class="fa-brands fa-figma text-pink-400"></i>
+                    <span>Xuất SVG (Figma / Canva)</span>
+                </button>
+
+                <button onclick="captureRenderPng()" class="text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Chụp Ảnh</span>
+                </button>
+
+                <button id="btnToggleCamera" onclick="toggleWebRtcCamera()" class="text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-semibold border border-slate-700 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-video" id="btnCameraIcon"></i>
+                    <span id="btnCameraLabel">Camera LCD</span>
+                </button>
+
+                <a href="http://localhost:3000" class="text-xs px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 transition font-medium border border-slate-700">
+                    ← Web chính
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Workspace (8 cols Viewport, 4 cols Specs & Component Inspector) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
+
+            <!-- 3D VIEWPORT (8 Cột) -->
+            <div class="lg:col-span-8 bg-gradient-to-b from-slate-900/95 via-[#070b16]/95 to-slate-900/95 rounded-3xl border border-slate-800 p-3 sm:p-4 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[580px] md:min-h-[700px] cyber-glow">
+                
+                <!-- Top Status Bar inside Viewport -->
+                <div class="relative z-30 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple-950/80 text-purple-300 border border-purple-500/40 flex items-center gap-1.5 shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span id="activeModelLabel">Casio fx-570ES PLUS (Digital Twin)</span>
+                        </span>
+                        <span id="selectedPartBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800/90 text-cyan-300 border border-slate-700">
+                            Linh kiện chọn: [Chưa chọn - Click vào máy]
+                        </span>
+                    </div>
+
+                    <!-- Exploded View Slider -->
+                    <div class="flex items-center gap-2 bg-slate-950/85 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-slate-800 text-xs shadow-lg">
+                        <span class="text-slate-400 font-medium text-[11px] flex items-center gap-1">
+                            <i class="fa-solid fa-layer-group text-purple-400"></i>
+                            <span>Bung ruột máy:</span>
+                        </span>
+                        <input id="explodedSlider" type="range" min="0" max="100" value="0" class="w-28 sm:w-36 accent-purple-400 cursor-pointer">
+                        <span id="explodedValText" class="font-mono-code text-[11.5px] text-purple-300 font-bold w-8 text-right">0%</span>
+                    </div>
+                </div>
+
+                <!-- Three.js Canvas Container -->
+                <div id="threeContainer" class="w-full h-[450px] sm:h-[520px] md:h-[570px] relative z-20 cursor-grab active:cursor-grabbing"></div>
+
+                <!-- Bottom Floating HUD & Camera Presets -->
+                <div class="relative z-30 flex flex-col sm:flex-row items-center justify-between gap-2.5 border-t border-slate-800/80 pt-2.5 text-xs">
+                    <div class="text-[11px] text-slate-400 flex items-center gap-2 flex-wrap">
+                        <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">Click 3D</span> Bấm phím / Chọn linh kiện
+                        <span class="text-slate-600">•</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">Kéo chuột</span> Xoay 360°
+                        <span class="text-slate-600">•</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">Cuộn</span> Phóng to/thu nhỏ
+                    </div>
+
+                    <!-- Camera View Presets -->
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <button onclick="setCameraPreset('front')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition" title="Nhìn trực diện mặt trước">
+                            <i class="fa-solid fa-square mr-1 text-purple-400"></i>Trực diện
+                        </button>
+                        <button onclick="setCameraPreset('perspective')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition" title="Góc phối cảnh 3D tiêu chuẩn">
+                            <i class="fa-solid fa-cube mr-1 text-sky-400"></i>Góc 3D
+                        </button>
+                        <button onclick="setCameraPreset('back')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition" title="Nhìn mặt lưng khoang pin">
+                            <i class="fa-solid fa-rotate mr-1 text-emerald-400"></i>Mặt sau
+                        </button>
+                        <button onclick="setCameraPreset('side')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition" title="Nhìn cạnh bên để thấy độ mỏng và độ tách lớp">
+                            <i class="fa-solid fa-arrows-left-right mr-1 text-amber-400"></i>Cạnh bên
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT DOCK (4 Cột): Tabbed Specs, Inspector & Interactive Keypad -->
+            <div class="lg:col-span-4 flex flex-col justify-between gap-3">
+                
+                <!-- Tab Headers -->
+                <div class="flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 text-xs font-bold">
+                    <button id="tabBtnInspector" onclick="switchRightTab('inspector')" class="flex-1 py-2 rounded-xl transition text-center bg-purple-600/30 text-purple-200 border border-purple-500/40">
+                        <i class="fa-solid fa-screwdriver-wrench mr-1"></i> Mổ Xẻ Ruột Máy
+                    </button>
+                    <button id="tabBtnCalculator" onclick="switchRightTab('calculator')" class="flex-1 py-2 rounded-xl transition text-center text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-calculator mr-1"></i> 50 Phím & Test
+                    </button>
+                    <button id="tabBtnSpecs" onclick="switchRightTab('specs')" class="flex-1 py-2 rounded-xl transition text-center text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-circle-info mr-1"></i> Thông Số
+                    </button>
+                </div>
+
+                <!-- TAB 1: COMPONENT INSPECTOR (Mổ xẻ linh kiện) -->
+                <div id="tabContentInspector" class="bg-slate-900/95 rounded-3xl border border-slate-800 p-4 sm:p-5 flex-1 flex flex-col justify-between shadow-xl text-xs space-y-2.5">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                            <span class="font-extrabold text-cyan-300 uppercase tracking-wider text-[11.5px]" id="inspectorCompTitle">
+                                MAIN PRINTED CIRCUIT BOARD (GY315-1)
+                            </span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono-code bg-slate-800 text-purple-300 border border-slate-700" id="inspectorCompLayer">
+                            Lớp 7 / 15
+                        </span>
+                    </div>
+
+                    <!-- Quick Component Selection Dropdown -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="text-[11px] text-slate-400 font-semibold">Chọn bộ phận để mổ xẻ soi kỹ:</label>
+                            <span class="text-[10px] text-emerald-400 font-mono-code">15 Lớp Chi Tiết</span>
+                        </div>
+                        <select id="componentSelectDropdown" onchange="selectComponentFromUi(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500 font-medium">
+                            <option value="front_case">1. Khung vỏ trước & Mặt nhôm bạc in Decal Casio</option>
+                            <option value="keycaps_group">2. Hệ thống 50 phím bấm cơ học đúc độc lập</option>
+                            <option value="silicone_membrane">3. Màng đệm cao su đàn hồi & 50 núm than dẫn điện</option>
+                            <option value="lcd_assembly">4. Cụm màn hình tinh thể lỏng STN Natural-V.P.A.M.</option>
+                            <option value="heat_seal_cable">5. Cáp bẹt sọc ngựa vằn Heat-Seal (40 đường)</option>
+                            <option value="tinplate_shield">6. Tấm chắn kim loại mạ thiếc bảo vệ LCD</option>
+                            <option value="main_pcb" selected>7. Bo mạch chủ Casio FR-4 GY315-1 mạ vàng</option>
+                            <option value="asic_controller">8. Chip xử lý COB ASIC U101 & Flash ROM U202</option>
+                            <option value="smd_components">9. Hệ thống linh kiện dán SMD & Tụ điện CapXon 22uF</option>
+                            <option value="solar_module">10. Tấm pin mặt trời TRONY SC1535I</option>
+                            <option value="battery_assembly">11. Cụm nguồn pin AAA 1.5V trên đỉnh máy (Y=71.5mm)</option>
+                            <option value="power_wiring">12. Dây câu nguồn Đỏ (BT+) & Đen (BT-) hàn thiếc</option>
+                            <option value="casio_gpt_mod">13. [MOD] Module Độ AI "Casio GPT" (ESP32-CAM & Li-Po)</option>
+                            <option value="back_case">14. Vỏ lưng sau đúc khuôn có gân gia cường (>PS< RT03-2)</option>
+                            <option value="hard_case">15. Nắp trượt bảo vệ chịu lực (Slide-on Hard Case)</option>
+                        </select>
+                    </div>
+
+                    <!-- Detailed Technical Card with 4 Sections -->
+                    <div class="space-y-2 text-[11.5px] overflow-y-auto max-h-[310px] pr-1">
+                        <!-- Mục 1: Tên & Phân loại -->
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                            <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-0.5">1. Tên Tiếng Việt & Mã Kỹ Thuật:</div>
+                            <div class="text-white font-bold text-xs" id="inspectorCompViName">Bo mạch chủ Casio FR-4 GY315-1 mạ vàng</div>
+                            <div class="text-purple-300 text-[11px] mt-0.5" id="inspectorCompType">Hạ tầng điện tử kết nối trung tâm</div>
+                        </div>
+
+                        <!-- Mục 2: Vật liệu & Cấu tạo -->
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                            <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-0.5">2. Vật liệu & Cấu tạo vật lý:</div>
+                            <div class="text-slate-300 font-mono-code text-[11px] leading-relaxed whitespace-pre-line" id="inspectorCompSpecs">
+                                • Phíp thủy tinh FR-4 chống cháy UL94V-0
+                                • Độ dày 0.8mm • 50 cặp tiếp điểm răng lược SW301
+                            </div>
+                        </div>
+
+                        <!-- Mục 3: Sơ đồ Chân cắm & Test Pads (Pinout Map) -->
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                            <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-1.5 flex items-center justify-between">
+                                <span>3. Sơ đồ Chân cắm & Test Pads (Pinout Map):</span>
+                                <span class="text-cyan-400 font-mono-code text-[9.5px]">Hardware Specs</span>
+                            </div>
+                            <div id="inspectorPinoutTableContainer" class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse text-[10.5px]">
+                                    <thead>
+                                        <tr class="border-b border-slate-800 text-slate-400">
+                                            <th class="py-1 px-1.5 font-bold">Chân</th>
+                                            <th class="py-1 px-1.5 font-bold">Điện áp</th>
+                                            <th class="py-1 px-1.5 font-bold">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="inspectorPinoutTableBody" class="divide-y divide-slate-800/60 font-mono-code text-slate-300">
+                                        <!-- Dynamically generated from comp.pinout -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Mục 4: Chức năng & Nguyên lý -->
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                            <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-0.5">4. Chức năng & Nguyên lý hoạt động:</div>
+                            <div class="text-slate-300 leading-relaxed text-[11px] mb-1.5" id="inspectorCompDesc">
+                                Bảng mạch trung tâm chứa ma trận quét 50 phím, vi xử lý ASIC, mạch ổn áp nguồn và kết nối màn hình LCD.
+                            </div>
+                            <div class="text-slate-400 leading-relaxed text-[10.5px] italic border-t border-slate-800/60 pt-1" id="inspectorCompPrinciple">
+                                Quét ma trận X hàng × Y cột. Khi núm than carbon chạm vào vạch đồng sẽ làm đoản mạch, truyền tín hiệu tức thì về ASIC.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Buttons for Inspector -->
+                    <div class="pt-2 border-t border-slate-800 flex items-center gap-2">
+                        <button onclick="focusSelectedComponent()" class="flex-1 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 font-bold text-xs transition border border-indigo-500/40 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-crosshairs"></i>
+                            <span>Focus Camera</span>
+                        </button>
+                        <button id="btnToggleIsolate" onclick="toggleIsolateCurrentComponent()" class="flex-1 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 font-bold text-xs transition border border-purple-500/40 flex items-center justify-center gap-1.5" title="Chế độ Cô Lập: Làm mờ trong suốt 14% các linh kiện khác để nhìn xuyên thấu">
+                            <i class="fa-solid fa-ghost" id="btnIsolateIcon"></i>
+                            <span id="btnIsolateLabel">Cô Lập (Ghost Mode)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 2: 50 KEYCAPS & CALCULATOR BENCHMARK TESTS -->
+                <div id="tabContentCalculator" class="bg-slate-900/95 rounded-3xl border border-slate-800 p-4 sm:p-5 flex-1 flex flex-col justify-between shadow-xl text-xs space-y-2.5 hidden">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
+                        <span class="font-extrabold text-slate-200 uppercase tracking-wider">Bộ Test Phép Tính Thật</span>
+                        <span class="text-[10px] font-mono-code px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                            Engine Sẵn Sàng
+                        </span>
+                    </div>
+
+                    <!-- Benchmark Automated Math Tests -->
+                    <div class="grid grid-cols-2 gap-1.5 text-[11px]">
+                        <button onclick="runCalculatorTest('125+375')" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-left transition">
+                            <div class="font-mono-code text-cyan-300 font-bold">125 + 375</div>
+                            <div class="text-[10px] text-slate-400">Kết quả: = 500</div>
+                        </button>
+                        <button onclick="runCalculatorTest('25*4')" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-left transition">
+                            <div class="font-mono-code text-cyan-300 font-bold">25 × 4</div>
+                            <div class="text-[10px] text-slate-400">Kết quả: = 100</div>
+                        </button>
+                        <button onclick="runCalculatorTest('sqrt(144)')" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-left transition">
+                            <div class="font-mono-code text-cyan-300 font-bold">√144</div>
+                            <div class="text-[10px] text-slate-400">Kết quả: = 12</div>
+                        </button>
+                        <button onclick="runCalculatorTest('sin(90)')" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-left transition">
+                            <div class="font-mono-code text-cyan-300 font-bold">sin(90°) [DEG]</div>
+                            <div class="text-[10px] text-slate-400">Kết quả: = 1</div>
+                        </button>
+                        <button onclick="runCalculatorTest('pow(2,3)*5')" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-left transition">
+                            <div class="font-mono-code text-cyan-300 font-bold">2³ × 5</div>
+                            <div class="text-[10px] text-slate-400">Kết quả: = 40</div>
+                        </button>
+                        <button onclick="runCalculatorTest('integral_default')" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-left transition">
+                            <div class="font-mono-code text-cyan-300 font-bold">∫_0^(π/3) sin(X)dx</div>
+                            <div class="text-[10px] text-slate-400">Kết quả: = 1/2</div>
+                        </button>
+                    </div>
+
+                    <!-- 50 Keycaps Quick Interactive Grid -->
+                    <div class="pt-2 border-t border-slate-800">
+                        <div class="flex items-center justify-between mb-1.5 text-[11px] text-slate-400">
+                            <span>Bàn phím 50 nút ảo:</span>
+                            <span class="text-orange-400 font-bold">DEL & AC cam</span>
+                        </div>
+                        <div id="keycapsList" class="grid grid-cols-5 gap-1 overflow-y-auto max-h-[180px] pr-1">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PHYSICAL SPECIFICATIONS (Thông số chuẩn hãng) -->
+                <div id="tabContentSpecs" class="bg-slate-900/95 rounded-3xl border border-slate-800 p-4 sm:p-5 flex-1 flex flex-col justify-between shadow-xl text-xs space-y-2.5 hidden">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
+                        <span class="font-extrabold text-slate-200 uppercase tracking-wider">Thông Số Casio fx-570ES PLUS</span>
+                        <span class="text-[10px] font-mono-code px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            Chính Hãng
+                        </span>
+                    </div>
+
+                    <div class="space-y-2 text-[11.5px] overflow-y-auto max-h-[300px] pr-1">
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Kích thước</span>
+                            <span class="font-mono-code text-slate-200 font-bold">161.5 × 77.0 × 13.8 mm</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Trọng lượng</span>
+                            <span class="text-slate-200 font-bold">~105 g (kèm pin AAA)</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Nguồn điện</span>
+                            <span class="text-amber-300 font-bold">1x Pin AAA R03 (1.5V)</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Công suất tiêu thụ</span>
+                            <span class="font-mono-code text-emerald-400 font-bold">0.0002 W (200 µW)</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Công nghệ màn hình</span>
+                            <span class="text-slate-200">LCD Natural Textbook Display (10+2 số)</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Số chức năng</span>
+                            <span class="text-purple-300 font-bold">417 chức năng khoa học</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400">Tự động ngắt</span>
+                            <span class="text-slate-300 font-mono-code">Sau ~10 phút không thao tác</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+                        <span>Đúng chuẩn Casio Computer Co., Ltd.</span>
+                        <span class="text-cyan-400 font-mono-code">100% CAD Match</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- MAIN MODULE SCRIPT -->
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { createFrontCaseGroup } from './js/CasioFx570FrontCase.js';
+        import { COMPONENT_DATABASE } from './js/calculator/ComponentDatabase.js';
+
+        let scene, camera, renderer, controls;
+        let frontCaseInstance;
+        const container = document.getElementById('threeContainer');
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Web Audio Synthesizer for Key Mechanical Click
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playKeyClickSound(freq = 680) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.04);
+            gain.gain.setValueAtTime(0.28, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.04);
+        }
+
+        async function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x060911);
+
+            const aspect = container.clientWidth / container.clientHeight;
+            camera = new THREE.PerspectiveCamera(40, aspect, 1, 1000);
+            camera.position.set(0, -5, 230);
+
+            renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true,
+                preserveDrawingBuffer: true,
+                powerPreference: 'high-performance'
+            });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            // Cap pixel ratio to 1.5 for guaranteed 60FPS on mobile and budget GPUs
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.08;
+            container.appendChild(renderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.08;
+            controls.maxDistance = 500;
+            controls.minDistance = 50;
+            controls.target.set(0, -2, 0);
+
+            // Balanced Studio Lighting
+            const ambient = new THREE.AmbientLight(0xffffff, 1.4);
+            scene.add(ambient);
+
+            const key = new THREE.DirectionalLight(0xfff8ee, 2.0);
+            key.position.set(50, 110, 110);
+            key.castShadow = true;
+            key.shadow.mapSize.width = 1024;
+            key.shadow.mapSize.height = 1024;
+            key.shadow.camera.near = 20;
+            key.shadow.camera.far = 350;
+            key.shadow.camera.left = -60;
+            key.shadow.camera.right = 60;
+            key.shadow.camera.top = 90;
+            key.shadow.camera.bottom = -90;
+            key.shadow.bias = -0.001;
+            scene.add(key);
+
+            const fill = new THREE.DirectionalLight(0xb4c6fc, 1.2);
+            fill.position.set(-60, 20, 80);
+            scene.add(fill);
+
+            const rim = new THREE.DirectionalLight(0xc084fc, 1.6);
+            rim.position.set(0, -90, -80);
+            scene.add(rim);
+
+            // Create Casio fx-570ES PLUS Digital Twin
+            frontCaseInstance = createFrontCaseGroup();
+            scene.add(frontCaseInstance);
+
+            // Populate Keycaps Quick Grid in UI
+            renderKeycapsGrid();
+
+            // Default component inspector info
+            updateComponentInspector('main_pcb');
+
+            // Event Listeners
+            container.addEventListener('pointerdown', onPointerDown);
+            container.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('resize', onResize);
+
+            // Exploded View Slider
+            document.getElementById('explodedSlider').addEventListener('input', (e) => {
+                const val = parseInt(e.target.value, 10);
+                document.getElementById('explodedValText').textContent = `${val}%`;
+                frontCaseInstance.setExplodedOffset(val / 100);
+            });
+
+            animate();
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // RAYCASTER FOR 3D KEY CLICKS & COMPONENT SELECTION
+        // ─────────────────────────────────────────────────────────────
+        function onPointerMove(event) {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(frontCaseInstance.children, true);
+
+            if (intersects.length > 0) {
+                let obj = intersects[0].object;
+                let foundPart = false;
+                while (obj && obj !== frontCaseInstance) {
+                    if (obj.userData && (obj.userData.id || obj.userData.componentId)) {
+                        container.style.cursor = 'pointer';
+                        foundPart = true;
+                        break;
+                    }
+                    obj = obj.parent;
+                }
+                if (!foundPart) container.style.cursor = 'grab';
+            } else {
+                container.style.cursor = 'grab';
+            }
+        }
+
+        function onPointerDown(event) {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(frontCaseInstance.children, true);
+
+            for (const hit of intersects) {
+                let obj = hit.object;
+                while (obj && obj !== frontCaseInstance) {
+                    // Check if it's a keycap
+                    if (obj.userData && obj.userData.id) {
+                        handleKeyAction(obj.userData.id, obj.userData.label || obj.name);
+                        updateComponentInspector('keycaps_group');
+                        return;
+                    }
+                    // Check if it's an internal component
+                    if (obj.userData && obj.userData.componentId) {
+                        updateComponentInspector(obj.userData.componentId);
+                        focusSelectedComponent();
+                        return;
+                    }
+                    obj = obj.parent;
+                }
+            }
+        }
+
+        function handleKeyAction(keyId, label) {
+            frontCaseInstance.pressKey(keyId);
+            playKeyClickSound(keyId === 'key_ac' || keyId === 'key_del' ? 880 : 640);
+            document.getElementById('selectedPartBadge').textContent = `Phím vừa bấm: [ ${label} ]`;
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // COMPONENT INSPECTOR UPDATE WITH PINOUT MAP
+        // ─────────────────────────────────────────────────────────────
+        function updateComponentInspector(compId) {
+            const comp = COMPONENT_DATABASE[compId];
+            if (!comp) return;
+
+            document.getElementById('inspectorCompTitle').textContent = comp.nameEn;
+            document.getElementById('inspectorCompViName').textContent = comp.nameVi;
+            document.getElementById('inspectorCompType').textContent = `${comp.type} • ${comp.material}`;
+            
+            // Format specs
+            const specsStr = Object.entries(comp.specs).map(([k, v]) => `• ${v}`).join('\n');
+            document.getElementById('inspectorCompSpecs').textContent = specsStr;
+            document.getElementById('inspectorCompDesc').textContent = comp.description;
+            document.getElementById('inspectorCompPrinciple').textContent = comp.workingPrinciple;
+
+            // Generate dynamic Pinout Map Table
+            const tbody = document.getElementById('inspectorPinoutTableBody');
+            tbody.innerHTML = '';
+            if (comp.pinout && comp.pinout.length > 0) {
+                comp.pinout.forEach(p => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-slate-800/40 transition';
+                    row.innerHTML = `
+                        <td class="py-1 px-1.5 font-bold text-cyan-300 whitespace-nowrap">${p.pin}</td>
+                        <td class="py-1 px-1.5 text-amber-300 font-medium whitespace-nowrap">${p.volt}</td>
+                        <td class="py-1 px-1.5 text-slate-300 text-[10px] leading-tight">${p.role}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="3" class="py-1.5 px-2 text-slate-500 italic text-center">Không có chân cắm ngoại vi</td></tr>';
+            }
+
+            document.getElementById('selectedPartBadge').textContent = `Linh kiện: ${comp.nameVi}`;
+            document.getElementById('componentSelectDropdown').value = compId;
+
+            // Update layer index badge
+            const keys = Object.keys(COMPONENT_DATABASE);
+            const idx = keys.indexOf(compId) + 1;
+            document.getElementById('inspectorCompLayer').textContent = `Lớp ${idx} / ${keys.length}`;
+
+            // If currently in ghost mode, apply transparency focus
+            if (isGhostActive) {
+                frontCaseInstance.setGhostMode(compId);
+            }
+        }
+        window.selectComponentFromUi = function(compId) {
+            updateComponentInspector(compId);
+            focusSelectedComponent();
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // GHOST MODE / COMPONENT ISOLATION TOGGLE
+        // ─────────────────────────────────────────────────────────────
+        let isGhostActive = false;
+        window.toggleIsolateCurrentComponent = function() {
+            isGhostActive = !isGhostActive;
+            const compId = document.getElementById('componentSelectDropdown').value;
+            const btnLabel = document.getElementById('btnIsolateLabel');
+            const btnIcon = document.getElementById('btnIsolateIcon');
+
+            if (isGhostActive) {
+                frontCaseInstance.setGhostMode(compId);
+                btnLabel.textContent = 'Tắt Cô Lập (Đủ 100%)';
+                btnIcon.className = 'fa-solid fa-eye-slash text-purple-400';
+                focusSelectedComponent();
+            } else {
+                frontCaseInstance.setGhostMode('all');
+                btnLabel.textContent = 'Cô Lập (Ghost Mode)';
+                btnIcon.className = 'fa-solid fa-ghost';
+            }
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // TOGGLE CASIO GPT AI MOD
+        // ─────────────────────────────────────────────────────────────
+        let isModActive = false;
+        window.toggleModMode = function() {
+            isModActive = !isModActive;
+            frontCaseInstance.setModMode(isModActive);
+            const label = document.getElementById('btnModLabel');
+            const icon = document.getElementById('btnModIcon');
+
+            if (isModActive) {
+                label.textContent = 'Bản Độ AI (Casio GPT)';
+                icon.className = 'fa-solid fa-wand-magic-sparkles text-amber-400 animate-pulse';
+                document.getElementById('activeModelLabel').textContent = 'Casio fx-570ES PLUS [AI MOD ESP32-CAM]';
+                updateComponentInspector('casio_gpt_mod');
+                focusSelectedComponent();
+            } else {
+                label.textContent = 'Bản Zin Nhà Máy';
+                icon.className = 'fa-solid fa-microchip text-slate-400';
+                document.getElementById('activeModelLabel').textContent = 'Casio fx-570ES PLUS (Digital Twin)';
+                updateComponentInspector('main_pcb');
+                focusSelectedComponent();
+            }
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // SMOOTH CAMERA GLIDE TWEEN TO COMPONENT
+        // ─────────────────────────────────────────────────────────────
+        let isCameraTweening = false;
+        const targetCameraPos = new THREE.Vector3();
+        const targetControlsTarget = new THREE.Vector3();
+
+        window.focusSelectedComponent = function() {
+            const compId = document.getElementById('componentSelectDropdown').value;
+            const tPos = new THREE.Vector3(0, 0, 0);
+            let dist = 160;
+
+            if (compId === 'front_case') { tPos.set(0, 20, 0); dist = 180; }
+            else if (compId === 'keycaps_group') { tPos.set(0, -25, 0); dist = 130; }
+            else if (compId === 'silicone_membrane') { tPos.set(0, -22, 0); dist = 130; }
+            else if (compId === 'lcd_assembly' || compId === 'tinplate_shield' || compId === 'heat_seal_cable') { tPos.set(0, 42, 0); dist = 100; }
+            else if (compId === 'solar_module') { tPos.set(18, 64, 0); dist = 75; }
+            else if (compId === 'main_pcb') { tPos.set(0, -5, 0); dist = 160; }
+            else if (compId === 'asic_controller' || compId === 'smd_components') { tPos.set(0, 10, 0); dist = 85; }
+            else if (compId === 'battery_assembly') { tPos.set(0, 71.5, 0); dist = 95; }
+            else if (compId === 'power_wiring') { tPos.set(0, 30, 0); dist = 120; }
+            else if (compId === 'casio_gpt_mod') { tPos.set(0, 50, 0); dist = 110; }
+            else if (compId === 'back_case' || compId === 'hard_case') { tPos.set(0, 0, 0); dist = -210; }
+            else { tPos.set(0, 0, 0); dist = 200; }
+
+            targetControlsTarget.copy(tPos);
+            if (dist < 0) {
+                targetCameraPos.set(tPos.x, tPos.y, dist);
+            } else {
+                targetCameraPos.set(tPos.x, tPos.y, tPos.z + dist);
+            }
+            isCameraTweening = true;
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // EXPLODED VIEW QUICK BUTTON ANIMATION
+        // ─────────────────────────────────────────────────────────────
+        let isExploded = false;
+        window.animateExplodeToggle = function() {
+            isExploded = !isExploded;
+            const targetVal = isExploded ? 100 : 0;
+            const slider = document.getElementById('explodedSlider');
+            const startVal = parseInt(slider.value, 10);
+            const startTime = performance.now();
+            const duration = 600;
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                const currentVal = Math.round(startVal + (targetVal - startVal) * progress);
+                slider.value = currentVal;
+                document.getElementById('explodedValText').textContent = `${currentVal}%`;
+                frontCaseInstance.setExplodedOffset(currentVal / 100);
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    document.getElementById('btnExplodeLabel').textContent = isExploded ? 'Lắp Ráp Lại (0%)' : 'Bung Tách Lớp (100%)';
+                    document.getElementById('btnExplodeIcon').className = isExploded ? 'fa-solid fa-compress' : 'fa-solid fa-layer-group';
+                }
+            }
+            requestAnimationFrame(step);
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // CAMERA PRESETS
+        // ─────────────────────────────────────────────────────────────
+        window.setCameraPreset = function(preset) {
+            if (preset === 'front') {
+                camera.position.set(0, 0, 215);
+                controls.target.set(0, 0, 0);
+            } else if (preset === 'perspective') {
+                camera.position.set(0, -5, 230);
+                controls.target.set(0, -2, 0);
+            } else if (preset === 'back') {
+                camera.position.set(0, 0, -220);
+                controls.target.set(0, 0, 0);
+            } else if (preset === 'side') {
+                camera.position.set(220, 0, 0);
+                controls.target.set(0, 0, 0);
+            }
+            controls.update();
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // CALCULATOR BENCHMARK TESTS
+        // ─────────────────────────────────────────────────────────────
+        window.runCalculatorTest = function(testKey) {
+            if (testKey === '125+375') {
+                frontCaseInstance.calculator.rawInput = '125+375';
+                frontCaseInstance.calculator.executeCalculation();
+            } else if (testKey === '25*4') {
+                frontCaseInstance.calculator.rawInput = '25×4';
+                frontCaseInstance.calculator.executeCalculation();
+            } else if (testKey === 'sqrt(144)') {
+                frontCaseInstance.calculator.rawInput = '√(144)';
+                frontCaseInstance.calculator.executeCalculation();
+            } else if (testKey === 'sin(90)') {
+                frontCaseInstance.calculator.rawInput = 'sin(90)';
+                frontCaseInstance.calculator.executeCalculation();
+            } else if (testKey === 'pow(2,3)*5') {
+                frontCaseInstance.calculator.rawInput = '2^3×5';
+                frontCaseInstance.calculator.executeCalculation();
+            } else if (testKey === 'integral_default') {
+                frontCaseInstance.calculator.setDefaultFormula();
+            }
+            frontCaseInstance.updateLcd();
+            playKeyClickSound(880);
+        };
+
+        window.restoreAuthenticFormula = function() {
+            frontCaseInstance.calculator.setDefaultFormula();
+            frontCaseInstance.updateLcd();
+            document.getElementById('selectedPartBadge').textContent = 'Hiển thị: Công thức tích phân chuẩn Ảnh 1';
+        };
+
+        // Tab Switching
+        window.switchRightTab = function(tabName) {
+            ['inspector', 'calculator', 'specs'].forEach(t => {
+                const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const content = document.getElementById(`tabContent${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (t === tabName) {
+                    btn.className = 'flex-1 py-2 rounded-xl transition text-center bg-purple-600/30 text-purple-200 border border-purple-500/40 font-bold';
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = 'flex-1 py-2 rounded-xl transition text-center text-slate-400 hover:text-white font-medium';
+                    content.classList.add('hidden');
+                }
+            });
+        };
+
+        // Populate Keycaps Grid
+        function renderKeycapsGrid() {
+            const listEl = document.getElementById('keycapsList');
+            listEl.innerHTML = '';
+            const keys = [
+                { id: 'key_shift', label: 'SHIFT', bg: 'bg-[#54587c] text-amber-300' },
+                { id: 'key_alpha', label: 'ALPHA', bg: 'bg-[#54587c] text-rose-300' },
+                { id: 'key_replay', label: 'REPLAY', bg: 'bg-[#54587c] text-white font-bold' },
+                { id: 'key_mode', label: 'MODE', bg: 'bg-[#54587c] text-white' },
+                { id: 'key_on', label: 'ON', bg: 'bg-[#54587c] text-white font-bold' },
+                { id: 'key_calc', label: 'CALC', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_integral', label: '∫dx', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_x_inv', label: 'x⁻¹', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_log_ab', label: 'log_a', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_frac', label: '■/□', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_sqrt', label: '√■', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_x2', label: 'x²', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_xy', label: 'xⁿ', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_log', label: 'log', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_ln', label: 'ln', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_neg', label: '(-)', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_deg', label: '°\'"', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_hyp', label: 'hyp', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_sin', label: 'sin', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_cos', label: 'cos', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_tan', label: 'tan', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_sto', label: 'RCL', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_eng', label: 'ENG', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_lpar', label: '(', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_rpar', label: ')', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_sd', label: 'S⇔D', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_mplus', label: 'M+', bg: 'bg-slate-800 text-slate-200' },
+                { id: 'key_7', label: '7', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_8', label: '8', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_9', label: '9', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_del', label: 'DEL', bg: 'bg-orange-500 text-white font-black' },
+                { id: 'key_ac',  label: 'AC',  bg: 'bg-orange-500 text-white font-black' },
+                { id: 'key_4', label: '4', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_5', label: '5', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_6', label: '6', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_mul', label: '×', bg: 'bg-slate-100 text-slate-900 font-black' },
+                { id: 'key_div', label: '÷', bg: 'bg-slate-100 text-slate-900 font-black' },
+                { id: 'key_1', label: '1', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_2', label: '2', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_3', label: '3', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_add', label: '+', bg: 'bg-slate-100 text-slate-900 font-black' },
+                { id: 'key_sub', label: '-', bg: 'bg-slate-100 text-slate-900 font-black' },
+                { id: 'key_0', label: '0', bg: 'bg-slate-100 text-slate-900 font-extrabold' },
+                { id: 'key_dot', label: '•', bg: 'bg-slate-100 text-slate-900 font-black' },
+                { id: 'key_exp', label: 'x10ⁿ', bg: 'bg-slate-100 text-slate-900 font-bold' },
+                { id: 'key_ans', label: 'Ans', bg: 'bg-slate-100 text-slate-900 font-bold' },
+                { id: 'key_eq', label: '=', bg: 'bg-slate-100 text-slate-900 font-black' }
+            ];
+
+            keys.forEach(k => {
+                const btn = document.createElement('button');
+                btn.className = `p-1.5 rounded-lg text-[10.5px] font-semibold transition active:scale-95 shadow-sm truncate ${k.bg}`;
+                btn.textContent = k.label;
+                btn.onclick = () => handleKeyAction(k.id, k.label);
+                listEl.appendChild(btn);
+            });
+        }
+
+        // SVG Export for Figma / Canva
+        window.exportCasioSvgForFigma = function() {
+            const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="770" height="1620" viewBox="0 0 770 1620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lilacBodyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a5e84"/>
+      <stop offset="50%" stop-color="#54587c"/>
+      <stop offset="100%" stop-color="#414463"/>
+    </linearGradient>
+    <linearGradient id="silverPlateGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#edf0f6"/>
+      <stop offset="50%" stop-color="#d8dce6"/>
+      <stop offset="100%" stop-color="#e2e6f0"/>
+    </linearGradient>
+    <radialGradient id="replayGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#767ba2"/>
+      <stop offset="70%" stop-color="#54587c"/>
+      <stop offset="100%" stop-color="#3d405e"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer Body -->
+  <path d="M 120 0 Q 385 -20 650 0 Q 770 15 770 120 Q 770 650 740 950 Q 736 1250 760 1420 Q 770 1620 620 1620 Q 385 1640 150 1620 Q 0 1620 10 1420 Q 34 1250 30 950 Q 0 650 0 120 Q 0 15 120 0 Z" fill="url(#lilacBodyGrad)" stroke="#3b3e5b" stroke-width="4"/>
+  <!-- Silver Faceplate -->
+  <path d="M 140 35 Q 385 20 630 35 Q 725 45 725 130 Q 725 650 700 950 Q 697 1250 717 1410 Q 725 1575 600 1580 Q 385 1595 170 1580 Q 45 1575 53 1410 Q 73 1250 70 950 Q 45 650 45 130 Q 45 45 140 35 Z" fill="url(#silverPlateGrad)" stroke="#c4c8d4" stroke-width="2"/>
+  <!-- Brand Decals -->
+  <text x="120" y="160" font-family="sans-serif" font-weight="900" font-size="44" fill="#111827">CASIO</text>
+  <text x="385" y="160" font-family="sans-serif" font-style="italic" font-weight="bold" font-size="28" fill="#047857" text-anchor="middle">NATURAL-V.P.A.M.</text>
+  <text x="650" y="160" font-family="serif" font-style="italic" font-weight="bold" font-size="34" fill="#1e293b" text-anchor="end">fx-570ES PLUS</text>
+  <!-- LCD Window -->
+  <rect x="105" y="240" width="560" height="280" rx="16" fill="#181a24"/>
+  <rect x="115" y="250" width="540" height="260" rx="10" fill="#9eb3a0"/>
+  <text x="145" y="410" font-family="serif" font-size="90" fill="#111f14">∫</text>
+  <text x="186" y="325" font-family="sans-serif" font-weight="bold" font-size="22" fill="#111f14">π</text>
+  <line x1="182" y1="334" x2="204" y2="334" stroke="#111f14" stroke-width="2.5"/>
+  <text x="187" y="358" font-family="sans-serif" font-weight="bold" font-size="22" fill="#111f14">3</text>
+  <text x="178" y="435" font-family="sans-serif" font-weight="bold" font-size="24" fill="#111f14">0</text>
+  <text x="240" y="390" font-family="sans-serif" font-weight="bold" font-size="44" fill="#111f14">sin(X)dx</text>
+  <text x="580" y="365" font-family="sans-serif" font-weight="bold" font-size="40" fill="#111f14">1</text>
+  <line x1="565" y1="378" x2="605" y2="378" stroke="#111f14" stroke-width="3.5"/>
+  <text x="580" y="415" font-family="sans-serif" font-weight="bold" font-size="40" fill="#111f14">2</text>
+</svg>`;
+            const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Casio_fx570ES_PLUS_Vector.svg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        window.captureRenderPng = function() {
+            renderer.render(scene, camera);
+            const dataUrl = renderer.domElement.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'Casio_fx570ES_PLUS_DigitalTwin.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        // WebRTC
+        let localStream = null;
+        let isCameraActive = false;
+        window.toggleWebRtcCamera = async function() {
+            const video = document.getElementById('webcamVideo');
+            if (isCameraActive) {
+                if (localStream) localStream.getTracks().forEach(t => t.stop());
+                video.pause();
+                isCameraActive = false;
+                document.getElementById('btnCameraLabel').textContent = 'Camera LCD';
+                frontCaseInstance.toggleArScreenFeed(null, false);
+            } else {
+                try {
+                    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                    video.srcObject = localStream;
+                    await video.play();
+                    isCameraActive = true;
+                    document.getElementById('btnCameraLabel').textContent = 'Tắt Camera';
+                    frontCaseInstance.toggleArScreenFeed(video, true);
+                } catch (e) {
+                    alert('Camera không khả dụng: ' + e.message);
+                }
+            }
+        };
+
+        function onResize() {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (isCameraTweening) {
+                camera.position.lerp(targetCameraPos, 0.08);
+                controls.target.lerp(targetControlsTarget, 0.08);
+                if (camera.position.distanceTo(targetCameraPos) < 0.2) {
+                    camera.position.copy(targetCameraPos);
+                    controls.target.copy(targetControlsTarget);
+                    isCameraTweening = false;
+                }
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

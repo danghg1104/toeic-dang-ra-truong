@@ -228,6 +228,16 @@
         // =====================================================================
 
         _setupAudioEvents() {
+            this.audio.addEventListener('loadedmetadata', () => {
+                this._updateTimerLabels(this.audio.currentTime, this.audio.duration);
+            });
+
+            this.audio.addEventListener('canplay', () => {
+                if (this.state === AudioState.LOADING) {
+                    this._setState(AudioState.IDLE);
+                }
+            });
+
             this.audio.addEventListener('waiting', () => {
                 if (this.state === AudioState.PLAYING) this._setState(AudioState.BUFFERING);
             });
@@ -260,7 +270,7 @@
                 return;
             }
 
-            if (duration > 0) {
+            if (Number.isFinite(duration) && duration > 0) {
                 const percent = (current / duration) * 100;
                 this._updateProgressBar(percent);
             }
@@ -351,7 +361,14 @@
 
             const isExam = this.mode === 'exam';
             const isPlaying = this.state === AudioState.PLAYING;
-            const playDisabled = isExam && this.hasPlayedInExamMode && this.state !== AudioState.PLAYING;
+            const isLoading = this.state === AudioState.LOADING || this.state === AudioState.BUFFERING;
+            const isError = this.state === AudioState.ERROR;
+            const playDisabled = isError || (isExam && this.hasPlayedInExamMode && this.state !== AudioState.PLAYING);
+
+            let playButtonLabel = 'Phát Audio';
+            if (isLoading) playButtonLabel = 'Đang nạp âm thanh...';
+            else if (isPlaying) playButtonLabel = 'Tạm dừng';
+            else if (this.state === AudioState.ENDED) playButtonLabel = isExam ? 'Đã hoàn thành nghe' : 'Nghe lại';
 
             container.innerHTML = `
                 <div class="toeic-player-card rounded-2xl bg-gradient-to-r from-teal-500/10 via-sky-500/10 to-indigo-500/10 dark:from-slate-800 dark:to-slate-800 border border-teal-200/80 dark:border-slate-700 p-3.5 space-y-3 shadow-xs">
@@ -361,7 +378,7 @@
                         <div class="flex items-center gap-2">
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${isExam ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300' : 'bg-teal-100 text-teal-800 dark:bg-teal-950/40 dark:text-teal-300'}">
                                 <i class="fa-solid ${isExam ? 'fa-stopwatch' : 'fa-graduation-cap'}"></i>
-                                <span>${isExam ? 'Chế độ Thi: Nghe 1 Lần' : 'Chế độ Luyện Tập'}</span>
+                                <span>${isExam ? 'Chế độ Thi Thật: Nghe 1 Lần' : 'Chế độ Luyện Tập'}</span>
                             </span>
 
                             <!-- Waveform Equalizer Animated Bars -->
@@ -374,9 +391,13 @@
                             </div>
                         </div>
 
-                        <!-- Speed Controls -->
+                        <!-- Speed Controls (Ẩn / Khóa ở chế độ thi) -->
                         <div class="flex items-center gap-1">
-                            ${[0.75, 1.0, 1.25, 1.5].map(s => `
+                            ${isExam ? `
+                                <span class="px-2 py-0.5 text-[10.5px] font-bold rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                    Tốc độ chuẩn 1.0x (ETS)
+                                </span>
+                            ` : [0.75, 1.0, 1.25, 1.5].map(s => `
                                 <button type="button" onclick="window._currentToeicAudioPlayer?.setSpeed(${s})" class="px-2 py-0.5 text-[10.5px] font-bold rounded-lg transition ${this.currentSpeed === s ? 'bg-teal-600 text-white shadow-xs' : 'bg-white/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}">
                                     ${s}x
                                 </button>
@@ -384,9 +405,16 @@
                         </div>
                     </div>
 
+                    ${isError ? `
+                        <div class="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center justify-between gap-2">
+                            <span class="flex items-center gap-1.5 font-medium"><i class="fa-solid fa-triangle-exclamation"></i> Không thể nạp âm thanh câu hỏi</span>
+                            <button type="button" onclick="window._currentToeicAudioPlayer?.retry()" class="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shrink-0 cursor-pointer transition">Thử lại</button>
+                        </div>
+                    ` : ''}
+
                     <!-- Progress Bar & Scrubbing -->
                     <div class="space-y-1">
-                        <div class="relative w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer overflow-hidden" onclick="window._currentToeicAudioPlayer?._handleProgressClick(event)">
+                        <div class="relative w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full ${isExam ? 'cursor-default' : 'cursor-pointer'} overflow-hidden" ${isExam ? '' : 'onclick="window._currentToeicAudioPlayer?._handleProgressClick(event)"'}>
                             <div id="toeicPlayerProgressFill" class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-indigo-600 rounded-full transition-all duration-100" style="width: 0%"></div>
                         </div>
                         <div class="flex items-center justify-between text-[10.5px] font-semibold text-slate-500 dark:text-slate-400">
@@ -400,33 +428,37 @@
                         
                         <!-- Left: Seek -5s, Play/Pause, Seek +5s -->
                         <div class="flex items-center gap-1.5">
-                            <button type="button" onclick="window._currentToeicAudioPlayer?.seek(-5)" title="Tua lùi 5 giây" class="w-8 h-8 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-teal-50 hover:text-teal-700 text-xs font-bold transition flex items-center justify-center shadow-xs">
-                                <i class="fa-solid fa-rotate-left"></i>
+                            ${!isExam ? `
+                                <button type="button" onclick="window._currentToeicAudioPlayer?.seek(-5)" title="Tua lùi 5 giây" class="w-8 h-8 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-teal-50 hover:text-teal-700 text-xs font-bold transition flex items-center justify-center shadow-xs">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                </button>
+                            ` : ''}
+
+                            <button type="button" onclick="window._currentToeicAudioPlayer?.togglePlay()" ${playDisabled ? 'disabled' : ''} class="px-4 py-2 rounded-xl ${playDisabled ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-teal-600 to-indigo-600 hover:from-teal-700 hover:to-indigo-700 text-white shadow-md active:scale-95'} text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                                <i class="fa-solid ${isLoading ? 'fa-spinner fa-spin' : (isPlaying ? 'fa-pause' : 'fa-play')} text-xs"></i>
+                                <span>${playButtonLabel}</span>
                             </button>
 
-                            <button type="button" onclick="window._currentToeicAudioPlayer?.togglePlay()" ${playDisabled ? 'disabled' : ''} class="px-4 py-2 rounded-xl ${playDisabled ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-teal-600 to-indigo-600 hover:from-teal-700 hover:to-indigo-700 text-white shadow-md active:scale-95'} text-xs font-bold transition flex items-center gap-2">
-                                <i class="fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} text-xs"></i>
-                                <span>${isPlaying ? 'Tạm dừng' : (this.state === AudioState.ENDED ? 'Nghe lại' : 'Phát Audio')}</span>
-                            </button>
+                            ${!isExam ? `
+                                <button type="button" onclick="window._currentToeicAudioPlayer?.seek(5)" title="Tua tới 5 giây" class="w-8 h-8 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-teal-50 hover:text-teal-700 text-xs font-bold transition flex items-center justify-center shadow-xs">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
 
-                            <button type="button" onclick="window._currentToeicAudioPlayer?.seek(5)" title="Tua tới 5 giây" class="w-8 h-8 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-teal-50 hover:text-teal-700 text-xs font-bold transition flex items-center justify-center shadow-xs">
-                                <i class="fa-solid fa-rotate-right"></i>
-                            </button>
-
-                            <button type="button" onclick="window._currentToeicAudioPlayer?.replay()" ${playDisabled ? 'disabled' : ''} title="Nghe lại từ đầu" class="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-100 transition shadow-xs flex items-center gap-1">
-                                <i class="fa-solid fa-arrows-rotate text-[10px]"></i>
-                                <span class="hidden sm:inline">Từ đầu</span>
-                            </button>
+                                <button type="button" onclick="window._currentToeicAudioPlayer?.replay()" ${playDisabled ? 'disabled' : ''} title="Nghe lại từ đầu" class="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-100 transition shadow-xs flex items-center gap-1 cursor-pointer">
+                                    <i class="fa-solid fa-arrows-rotate text-[10px]"></i>
+                                    <span class="hidden sm:inline">Từ đầu</span>
+                                </button>
+                            ` : ''}
                         </div>
 
                         <!-- Right: A-B Loop Controls (Practice mode only) -->
                         ${!isExam ? `
                             <div class="flex items-center gap-1">
                                 <button type="button" onclick="window._currentToeicAudioPlayer?.setPointA()" class="px-2 py-1 rounded-lg ${this.pointA !== null ? 'bg-amber-500 text-white' : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300'} text-[11px] font-bold border border-slate-200 dark:border-slate-600 hover:bg-amber-50 transition" title="Đặt điểm bắt đầu đoạn lặp [A]">
-                                    [A] ${this.pointA !== null ? this._formatTime(this.pointA) : ''}
+                                    [A] ${this.pointA !== null ? this._formatTime(this.pointA, false) : ''}
                                 </button>
                                 <button type="button" onclick="window._currentToeicAudioPlayer?.setPointB()" class="px-2 py-1 rounded-lg ${this.pointB !== null ? 'bg-amber-500 text-white' : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300'} text-[11px] font-bold border border-slate-200 dark:border-slate-600 hover:bg-amber-50 transition" title="Đặt điểm kết thúc đoạn lặp [B]">
-                                    [B] ${this.pointB !== null ? this._formatTime(this.pointB) : ''}
+                                    [B] ${this.pointB !== null ? this._formatTime(this.pointB, false) : ''}
                                 </button>
                                 ${this.isAbLoopActive ? `
                                     <button type="button" onclick="window._currentToeicAudioPlayer?.clearAB()" class="p-1 rounded-lg text-rose-500 hover:bg-rose-50 text-xs" title="Hủy lặp A-B">
@@ -453,19 +485,29 @@
             if (el) el.style.width = `${Math.min(100, Math.max(0, percent))}%`;
         }
 
+        retry() {
+            if (this.currentUrl) {
+                this.load(this.currentUrl, { autoPlay: true });
+            }
+        }
+
         _updateTimerLabels(current, duration) {
             const curEl = document.getElementById('toeicPlayerCurrentTime');
             const durEl = document.getElementById('toeicPlayerDuration');
-            if (curEl) curEl.textContent = this._formatTime(current);
-            if (durEl && duration > 0) durEl.textContent = this._formatTime(duration);
+            if (curEl) curEl.textContent = this._formatTime(current, false);
+            if (durEl) {
+                durEl.textContent = (Number.isFinite(duration) && duration > 0) ? this._formatTime(duration, true) : '--:--';
+            }
         }
 
         _updateUI() {
             this.render();
         }
 
-        _formatTime(seconds) {
-            if (isNaN(seconds) || seconds < 0) return '00:00';
+        _formatTime(seconds, isDuration = false) {
+            if (!Number.isFinite(seconds) || seconds < 0) {
+                return isDuration ? '--:--' : '00:00';
+            }
             const m = Math.floor(seconds / 60);
             const s = Math.floor(seconds % 60);
             return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;

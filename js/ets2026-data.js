@@ -241,10 +241,10 @@
                 return;
             }
 
-            // Full Test 200 câu (100 LC + 100 RC)
+            // Full Test 200 câu (100 LC + 100 RC) - Chế độ thi mô phỏng 120 phút chuẩn ETS
             if (pStr === 'full' || pStr === 'full_test' || pStr === 'exam' || pStr === '200') {
                 if (typeof window.startQuickQuiz === 'function') {
-                    window.startQuickQuiz(`ets2026_t${num}_full`, `ETS 2026 Test ${num} - Full Exam 200 Câu (LC + RC)`, 200);
+                    window.startQuickQuiz(`ets2026_t${num}_full`, `ETS 2026 Test ${num} - Full Exam 200 Câu (LC + RC)`, 200, { mode: 'exam', durationMinutes: 120 });
                 }
                 return;
             }

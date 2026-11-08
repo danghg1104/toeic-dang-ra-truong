@@ -1013,8 +1013,9 @@
         }
 
         _formatSeconds(sec) {
+            if (!Number.isFinite(sec) || sec < 0) return '00:00';
             const m = Math.floor(sec / 60);
-            const s = sec % 60;
+            const s = Math.floor(sec % 60);
             return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
         }
     }

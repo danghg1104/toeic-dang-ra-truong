@@ -388,8 +388,8 @@
                 } catch(e) {}
             }
             user = user || {};
-            const username = user.name || 'Huynh Dang';
-            const initial = (username.trim()[0] || 'H').toUpperCase();
+            const username = user.name || (user.isGuest ? 'Khách' : 'Người chơi');
+            const initial = (username.trim()[0] || 'K').toUpperCase();
             const avatar = user.avatar || '/assets/mascot/may_avatar.png';
 
             const activeTabClass = 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 text-slate-950 shadow-lg shadow-orange-500/25 font-black scale-[1.02]';

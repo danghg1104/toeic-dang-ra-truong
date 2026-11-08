@@ -1634,19 +1634,19 @@
                         </button>
 
                         <!-- Guest Login Button for Top Bar (Displayed when not logged in) -->
-                        <button id="sanhGuestLoginBtn" onclick="openAuthModal('login')" class="hidden px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs items-center gap-1.5 shadow-md shadow-indigo-500/25 transition active:scale-95 cursor-pointer shrink-0" title="Đăng nhập tài khoản">
+                        <button id="sanhGuestLoginBtn" onclick="openAuthModal('login')" class="inline-flex px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs items-center gap-1.5 shadow-md shadow-indigo-500/25 transition active:scale-95 cursor-pointer shrink-0" title="Đăng nhập tài khoản">
                             <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
                             <span>Đăng nhập</span>
                         </button>
 
                         <!-- User Profile Avatar Pill & Dropdown -->
-                        <div class="relative shrink-0" id="sanhMemberDropdownWrapper">
+                        <div class="relative shrink-0 hidden" id="sanhMemberDropdownWrapper">
                             <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2 sm:pr-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 sm:gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
                                 <div id="sanhMemberAvatar" class="w-10 h-10 relative flex items-center justify-center shrink-0">
-                                    <span id="sanhMemberAvatarLetter">H</span>
+                                    <span id="sanhMemberAvatarLetter">K</span>
                                 </div>
                                 <div class="leading-tight hidden sm:block">
-                                    <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Huynh Dang</div>
+                                    <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Khách</div>
                                     <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
                                 </div>
                                 <i class="fa-solid fa-chevron-down text-[9px] sm:text-[10px] text-slate-400"></i>
@@ -1657,11 +1657,11 @@
                                 <!-- Thông tin tóm tắt -->
                                 <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
                                     <div id="sanhMemberDropdownAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
-                                        <span>H</span>
+                                        <span>K</span>
                                     </div>
                                     <div class="min-w-0 flex-1">
-                                        <div id="sanhMemberProfileDropdownName" class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">Huynh Dang</div>
-                                        <div id="sanhMemberDropdownEmail" class="text-[10px] text-slate-400 truncate">student@toididau.edu.vn</div>
+                                        <div id="sanhMemberProfileDropdownName" class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">Khách</div>
+                                        <div id="sanhMemberDropdownEmail" class="text-[10px] text-slate-400 truncate">Chưa đăng nhập</div>
                                     </div>
                                 </div>
 
@@ -1773,7 +1773,7 @@
                                 <span class="text-slate-300 dark:text-slate-700">·</span>
                                 <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong id="heroLessonTime">25 phút</strong></span>
                                 <span class="text-slate-300 dark:text-slate-700">·</span>
-                                <span class="text-slate-500 dark:text-slate-400">Khảo sát năng lực đầu vào</span>
+                                <span id="heroLessonTag" class="text-slate-500 dark:text-slate-400">Khảo sát năng lực đầu vào</span>
                             </p>
 
                             <!-- Single Primary CTA Button (Quiet Confidence Blue) -->
@@ -1935,7 +1935,7 @@
                                 <span class="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-100/60 dark:bg-blue-950/60 px-2 py-0.5 rounded-md">AI Analyzer</span>
                             </div>
                             <p id="smartRecommendationBody" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                                Khảo sát năng lực ban đầu: Làm bài test chẩn đoán 28 câu chuẩn ETS 2026 (25 phút) để AI quét chính xác 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.
+                                Khảo sát năng lực ban đầu: Làm bài test chẩn đoán 28 câu tham chiếu ETS 2026 (25 phút) để phân tích 6 vùng kiến thức và mở khóa lộ trình tự động.
                             </p>
                             <div class="pt-1">
                                 <button id="smartRecommendationBtn" onclick="window.startSmartRecommendationAction()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-2 shadow-xs transition cursor-pointer">
@@ -2132,8 +2132,8 @@
                                     <div id="grammarDoneStat" class="text-[16px] font-extrabold text-slate-900 dark:text-white mt-0.5">0</div>
                                 </div>
                                 <div class="bg-white/90 dark:bg-slate-800 rounded-2xl px-4 py-2.5 min-w-[100px] shadow-sm border border-purple-100 dark:border-slate-700">
-                                    <div class="text-xs text-slate-500 flex items-center gap-1"><i class="fa-solid fa-book-open text-purple-600"></i> Chủ đề</div>
-                                    <div class="text-[16px] font-extrabold text-slate-900 dark:text-white mt-0.5">30</div>
+                                    <div class="text-xs text-slate-500 flex items-center gap-1"><i class="fa-solid fa-book-open text-purple-600"></i> Bài học</div>
+                                    <div class="text-[16px] font-extrabold text-slate-900 dark:text-white mt-0.5" title="35 bài học thuộc 8 chuyên đề cốt lõi">35 bài</div>
                                 </div>
                                 <div class="bg-white/90 dark:bg-slate-800 rounded-2xl px-4 py-2.5 min-w-[100px] shadow-sm border border-purple-100 dark:border-slate-700">
                                     <div class="text-xs text-slate-500 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation text-purple-600"></i> Điểm yếu</div>
@@ -2145,7 +2145,7 @@
                         <!-- Accuracy Bar -->
                         <div>
                             <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
-                                <span class="text-slate-600 dark:text-slate-300">Độ chính xác tổng</span>
+                                <span class="text-slate-600 dark:text-slate-300">Độ chính xác toàn bài (Hệ thống)</span>
                                 <span id="grammarTotalPct" class="text-purple-700 font-bold">0%</span>
                             </div>
                             <div class="w-full h-2.5 bg-purple-200/70 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -2162,7 +2162,7 @@
                 <div class="border-b border-slate-200/80 dark:border-slate-700 flex items-center gap-4 sm:gap-6 px-2 overflow-x-auto no-scrollbar whitespace-nowrap">
                     <button id="grammarSubTabLearn" onclick="switchGrammarSubTab('learn')" class="pb-2.5 border-b-2 border-purple-600 text-purple-700 dark:text-purple-400 font-bold text-[12.5px] sm:text-[13.5px] flex items-center gap-2 shrink-0">
                         <i class="fa-solid fa-book-open text-xs"></i>
-                        <span>Học tập (30 Chủ đề)</span>
+                        <span>Học tập (8 Chuyên đề · 35 Bài)</span>
                     </button>
                     <button id="grammarSubTabPassToeic" onclick="switchGrammarSubTab('passtoeic')" class="pb-2.5 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-purple-600 font-semibold text-[12.5px] sm:text-[13.5px] flex items-center gap-2 shrink-0">
                         <i class="fa-solid fa-fire-flame-curved text-xs text-orange-500"></i>
@@ -2434,8 +2434,8 @@
 
                         <div class="flex flex-wrap items-center gap-2">
                             <select id="vocabExamFilter" onchange="renderAllVocabGroups()" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[12px] font-bold text-slate-700 dark:text-slate-200 focus:outline-none">
-                                <option value="ALL">TOEIC & VSTEP</option>
-                                <option value="TOEIC" selected>TOEIC</option>
+                                <option value="ALL" selected>TOEIC & VSTEP (48 bộ)</option>
+                                <option value="TOEIC">Chỉ TOEIC (42 bộ)</option>
                                 <option value="VSTEP">VSTEP B1-B2</option>
                             </select>
                             <select id="vocabCourseFilter" onchange="handleVocabCourseDropdownChange(this.value)" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[12px] font-bold text-slate-700 dark:text-slate-200 focus:outline-none">
@@ -2451,7 +2451,7 @@
                                 <option value="Purchasing & Logistics">Purchasing & Logistics (8 bộ)</option>
                                 <option value="Finance & Accounting">Finance & Accounting (8 bộ)</option>
                                 <option value="Travel & Entertainment">Travel & Entertainment (8 bộ)</option>
-                                <option value="Health & VSTEP">Health & VSTEP Academic (6 bộ)</option>
+                                <option value="Health & VSTEP">Health & VSTEP Academic (6 bộ: 3 TOEIC + 3 VSTEP)</option>
                             </select>
                         </div>
                     </div>
@@ -3637,21 +3637,21 @@
                         </div>
                         <div>
                             <div class="text-[13.5px] font-extrabold text-slate-800 dark:text-white flex items-center gap-2">
-                                <span>Luyện Trọn Vẹn Cả Part Đọc (Chuẩn ETS)</span>
+                                <span>Luyện Theo Part Đọc (Toàn bộ / Mini-set)</span>
                                 <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">Mới</span>
                             </div>
-                            <div class="text-xs text-slate-500">Làm toàn bộ 1 Part liên tục (Part 5: 30 câu; Part 6: 16 câu; Part 7: 20 câu) kèm tính điểm & bấm giờ</div>
+                            <div class="text-xs text-slate-500">Làm theo Part: Part 5 (30 câu ETS 2019); Part 6 (16 câu); Part 7 (Mini-set 20 câu / Chuẩn 54 câu)</div>
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, count: 30, title: 'Part 5 - Incomplete Sentences (30 câu)' }); else openFullPartPracticeModal(5);" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-play text-xs"></i> Part 5 (30 câu)
+                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, count: 30, title: 'Part 5 - Incomplete Sentences (30 câu · Đề tham chiếu ETS 2019)' }); else openFullPartPracticeModal(5);" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-play text-xs"></i> Part 5 (30 câu · ETS 2019)
                         </button>
                         <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 6, count: 16, title: 'Part 6 - Text Completion (16 câu)' }); else openFullPartPracticeModal(6);" class="px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-play text-xs"></i> Part 6 (16 câu)
                         </button>
-                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 7, count: 20, title: 'Part 7 - Reading Comprehension (20 câu)' }); else openFullPartPracticeModal(7);" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-play text-xs"></i> Part 7 (20 câu)
+                        <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 7, count: 20, title: 'Part 7 - Reading Comprehension (Mini-set 20 câu / Chuẩn 54 câu)' }); else openFullPartPracticeModal(7);" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-play text-xs"></i> Part 7 (Mini-set 20 câu)
                         </button>
                     </div>
                 </div>
@@ -3709,9 +3709,9 @@
                                 <i class="fa-solid fa-list-check mr-1"></i>0/630 câu · 630 bài · <i class="fa-regular fa-clock mx-0.5"></i>~12 phút
                             </div>
                             <div class="flex items-center gap-2">
-                                <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, title: 'Part 5 - Incomplete Sentences (Full 30 câu)', count: 30 }); else openFullPartPracticeModal(5);" class="px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[12px] font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+                                <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, title: 'Part 5 - Incomplete Sentences (30 câu · Đề tham chiếu ETS 2019)', count: 30 }); else openFullPartPracticeModal(5);" class="px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[12px] font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
                                     <i class="fa-solid fa-bolt text-amber-300 text-xs"></i>
-                                    <span>Luyện trọn vẹn Part 5 (30 câu)</span>
+                                    <span>Luyện trọn vẹn Part 5 (30 câu · ETS 2019)</span>
                                 </button>
                                 <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 5, title: 'Part 5 - Incomplete Sentences' }); else startQuickQuiz('reading_part5', 'Part 5: Incomplete Sentences');" class="px-3.5 py-1.5 rounded-full bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 text-[12px] font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
                                     <span>Vào luyện</span>
@@ -3856,10 +3856,10 @@
                         <div class="flex items-center gap-2">
                             <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 7, title: 'Part 7 - Reading Comprehension (Full 20 câu)', count: 20 }); else openFullPartPracticeModal(7);" class="px-3.5 py-1.5 rounded-full bg-sky-600 hover:bg-sky-700 text-white text-[12px] font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
                                 <i class="fa-solid fa-bolt text-amber-300 text-xs"></i>
-                                <span>Luyện trọn vẹn Part 7 (20 câu)</span>
+                                <span>Luyện Mini-set Part 7 (20 câu)</span>
                             </button>
                             <button onclick="if(window.ToeicReadingWorkstation) ToeicReadingWorkstation.open({ part: 7, title: 'Part 7 - Reading Comprehension' }); else startQuickQuiz('reading_part7', 'Part 7: Reading Comprehension');" class="px-3.5 py-1.5 rounded-full bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 text-[12px] font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
-                                <span>Vào luyện</span>
+                                <span>Full 54 câu chuẩn ETS</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </button>
                         </div>
@@ -5394,6 +5394,51 @@
                         </button>
                     </div>
                 </div>
+                <!-- Card 6: Quyền riêng tư & Điều khoản sử dụng -->
+                <div class="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-100 dark:border-slate-800 max-w-5xl space-y-3">
+                    <div class="flex items-center gap-2.5 text-[15px] font-extrabold text-slate-900 dark:text-white">
+                        <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h2>Quyền riêng tư & Pháp lý</h2>
+                    </div>
+                    <p class="text-[13.5px] text-slate-600 dark:text-slate-400">
+                        Bảo mật dữ liệu học tập cá nhân, quyền riêng tư và điều khoản dịch vụ minh bạch.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                        <button type="button" onclick="openPrivacyPolicyModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-user-shield text-indigo-600"></i>
+                            <span>Chính sách quyền riêng tư</span>
+                        </button>
+                        <button type="button" onclick="openTermsOfServiceModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-scale-balanced text-teal-600"></i>
+                            <span>Điều khoản sử dụng & Tuyên bố ETS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 7: Vùng nguy hiểm & Xóa dữ liệu (Danger Zone) -->
+                <div class="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-rose-200 dark:border-rose-950 max-w-5xl space-y-4">
+                    <div class="flex items-center gap-2.5 text-[15px] font-extrabold text-rose-600 dark:text-rose-400">
+                        <div class="w-8 h-8 rounded-xl bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <h2>Vùng nguy hiểm & Quản lý dữ liệu</h2>
+                    </div>
+                    <p class="text-[13.5px] text-slate-600 dark:text-slate-400">
+                        Các thao tác này sẽ can thiệp trực tiếp đến dữ liệu cá nhân, tiến độ học tập và tài khoản của bạn.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                        <button type="button" onclick="handleUserResetProgress()" class="px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span>Đặt lại tiến độ học tập (Reset)</span>
+                        </button>
+                        <button type="button" onclick="handleUserDeleteAccount()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Xóa vĩnh viễn tài khoản & Toàn bộ dữ liệu</span>
+                        </button>
+                    </div>
+                </div>
             </section>
 
         </main>
@@ -5649,7 +5694,7 @@
                         Part 5 - Incomplete Sentences (Điền từ)
                     </h1>
                     <p id="trwSubtitle" class="text-xs sm:text-xs text-slate-400 font-medium">
-                        ETS 2019 - Test 2 · Bộ đề ôn tập tiêu chuẩn
+                        ETS 2026 - Test 01 · 10 Đề thi thật ETS 2026
                     </p>
                 </div>
             </div>
@@ -5658,7 +5703,7 @@
             <div class="relative hidden md:block">
                 <button type="button" id="trwTestSelectorBtn" onclick="ToeicReadingWorkstation.toggleTestDropdown()" class="px-3.5 py-1.5 rounded-full bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-white text-xs font-bold flex items-center gap-2 shadow-xs transition cursor-pointer">
                     <i class="fa-solid fa-book-bookmark text-blue-400 text-xs"></i>
-                    <span id="trwTestSelectorLabel">ETS 2019 - Test 2</span>
+                    <span id="trwTestSelectorLabel">ETS 2026 - Test 01</span>
                     <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
                 </button>
 
@@ -5896,7 +5941,13 @@
             <!-- Fixed Header -->
             <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
                 <div class="space-y-0.5">
-                    <span id="quizCategoryBadge" class="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 text-xs font-bold">TOEIC Practice</span>
+                    <div class="flex items-center gap-2">
+                        <span id="quizCategoryBadge" class="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 text-xs font-bold">TOEIC Practice</span>
+                        <span id="quizExamTimerContainer" class="hidden items-center gap-1.5 px-3 py-0.5 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 text-xs font-black animate-pulse">
+                            <i class="fa-solid fa-stopwatch"></i>
+                            <span id="quizExamTimerText">120:00</span>
+                        </span>
+                    </div>
                     <h3 id="quizModalTitle" class="text-[17px] font-extrabold text-slate-900 dark:text-white mt-1">Luyện tập TOEIC</h3>
                 </div>
                 <button onclick="closeQuizModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 flex items-center justify-center transition" aria-label="Đóng bài trắc nghiệm">
@@ -6234,11 +6285,11 @@
                 <div class="p-3.5 rounded-2xl bg-amber-50/80 dark:bg-slate-800/80 border border-amber-200/80 dark:border-slate-700 space-y-2 text-xs">
                     <div class="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i>
-                        <span>Cơ chế Tự động hóa thông minh (0.1 giây):</span>
+                        <span>Cơ chế Tự động hóa thông minh (thời gian thực qua SSE):</span>
                     </div>
                     <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 list-disc pl-4 leading-relaxed">
                         <li>Khi bạn học bất kỳ từ nào trên <b>Điện thoại</b> (Lật Flashcard, Chép từ trong Sổ Take Note, hoặc Nghe chính tả), hệ thống sẽ <b>tự động đẩy lên máy chủ LAN</b>.</li>
-                        <li><b>Laptop để trên bàn</b> sẽ ngay lập tức nhận tín hiệu trong <b>0.1 giây</b>: thanh XP tăng lên, danh sách "Từ đã học" cập nhật ngay mà bạn <b>không cần bấm F5 hay tải lại trang</b>!</li>
+                        <li><b>Laptop để trên bàn</b> sẽ ngay lập tức nhận tín hiệu đồng bộ: thanh XP tăng lên, danh sách "Từ đã học" cập nhật ngay mà bạn <b>không cần bấm F5 hay tải lại trang</b>!</li>
                         <li>Và ngược lại, mọi bài học làm trên Laptop cũng sẽ ngay lập tức xuất hiện trên Điện thoại.</li>
                     </ul>
                 </div>
@@ -6347,7 +6398,10 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Mật khẩu</label>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Mật khẩu</label>
+                        <button type="button" onclick="switchAuthModalTab('forgot')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">Quên mật khẩu?</button>
+                    </div>
                     <div class="relative">
                         <input id="loginPasswordInput" type="password" value="" placeholder="Nhập mật khẩu" onkeydown="if(event.key==='Enter') handleLoginSubmit()" class="w-full px-4 py-3 pr-10 rounded-2xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm font-medium">
                         <button type="button" onclick="toggleLoginPasswordEye()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-sm" aria-label="Hiện hoặc ẩn mật khẩu">
@@ -6482,10 +6536,130 @@
                 <div class="text-xs font-bold text-slate-500">Chạm vào tài khoản bất kỳ bên dưới để chuyển nhanh:</div>
                 <div id="savedAccountsListContainer" class="space-y-2.5 max-h-[320px] overflow-y-auto pr-1"></div>
             </div>
+            <!-- TAB 4: FORGOT PASSWORD -->
+            <div id="authPanelForgot" class="hidden space-y-3.5 pt-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                    <button type="button" onclick="switchAuthModalTab('login')" class="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 hover:underline">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>← Quay lại Đăng nhập</span>
+                    </button>
+                    <span class="text-xs text-slate-400 font-semibold">Khôi phục mật khẩu</span>
+                </div>
+
+                <div id="forgotErrorAlert" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="forgotErrorMsg"></span>
+                </div>
+                <div id="forgotSuccessAlert" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="forgotSuccessMsg"></span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Email tài khoản <span class="text-rose-500">*</span></label>
+                    <input id="forgotEmailInput" type="email" placeholder="VD: minhanh@gmail.com" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:outline-none focus:border-blue-600 text-sm font-medium">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Mật khẩu mới (tối thiểu 6 ký tự) <span class="text-rose-500">*</span></label>
+                    <input id="forgotNewPasswordInput" type="password" placeholder="Nhập mật khẩu mới" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:outline-none focus:border-blue-600 text-sm font-medium">
+                </div>
+
+                <button id="forgotSubmitBtn" onclick="handleResetPasswordSubmit()" class="w-full mt-2 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Cập nhật mật khẩu mới</span>
+                </button>
+            </div>
+
+            <!-- Legal links footer in Auth Modal -->
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-400">
+                Bằng việc tiếp tục, bạn đồng ý với <button type="button" onclick="openTermsOfServiceModal()" class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer font-bold">Điều khoản</button> & <button type="button" onclick="openPrivacyPolicyModal()" class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer font-bold">Chính sách quyền riêng tư</button>.
+            </div>
         </div>
     </div>
 
 
+
+    
+    <!-- PRIVACY POLICY MODAL -->
+    <div id="privacyPolicyModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4 z-[10001]" style="position: fixed !important; inset: 0 !important;">
+        <div class="bg-white dark:bg-slate-900 rounded-[28px] max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center text-sm shadow-sm">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-sm sm:text-base text-slate-900 dark:text-white">Chính sách Quyền riêng tư & Bảo vệ Dữ liệu</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Cam kết minh bạch và bảo mật thông tin học viên</p>
+                    </div>
+                </div>
+                <button onclick="closePrivacyPolicyModal()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 hover:bg-slate-100 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition shadow-sm cursor-pointer" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">1. Dữ liệu chúng tôi thu thập</h4>
+                    <p>Ứng dụng chỉ lưu trữ các thông tin phục vụ trực tiếp cho việc theo dõi tiến độ học tập: tên hiển thị, email/tên đăng nhập, mục tiêu điểm số, lịch sử làm bài tập, kết quả thi thử mô phỏng, flashcard từ vựng đã học và các ghi chú bạn chủ động lưu lại.</p>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">2. Lưu trữ và đồng bộ hóa</h4>
+                    <p>Dữ liệu được lưu trữ cục bộ trên trình duyệt (LocalStorage) và đồng bộ bảo mật lên máy chủ khi bạn đăng nhập tài khoản. Chúng tôi sử dụng cơ chế đồng bộ với tombstone deletion nhằm đảm bảo không thất thoát dữ liệu và không tự động khôi phục nội dung bạn đã chủ động xóa.</p>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">3. Quyền kiểm soát và xóa dữ liệu</h4>
+                    <p>Bạn có toàn quyền kiểm soát dữ liệu của mình bất cứ lúc nào. Trong mục <strong>Cài đặt & Tài khoản</strong>, bạn có thể chủ động sử dụng tính năng <em>"Đặt lại tiến độ học tập"</em> hoặc <em>"Xóa vĩnh viễn tài khoản & Toàn bộ dữ liệu"</em>. Khi yêu cầu xóa, toàn bộ hồ sơ cá nhân và dữ liệu liên quan trên máy chủ sẽ được xóa ngay lập tức và không thể khôi phục.</p>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">4. Tính độc lập về bản quyền và học liệu</h4>
+                    <p>Nền tảng được xây dựng phục vụ mục đích học tập cá nhân phi thương mại. Mọi dẫn chiếu đến đề mẫu ETS, PassToeic hay các tài liệu khác chỉ nhằm mục đích hướng dẫn ôn thi TOEIC®. TOEIC® là nhãn hiệu đã đăng ký của Viện Khảo thí Giáo dục Hoa Kỳ (ETS). Nền tảng này không liên kết, không được chứng thực và không đại diện cho ETS hay IIG Việt Nam.</p>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex justify-end">
+                <button onclick="closePrivacyPolicyModal()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition cursor-pointer">Đã hiểu & Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TERMS OF SERVICE MODAL -->
+    <div id="termsOfServiceModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4 z-[10001]" style="position: fixed !important; inset: 0 !important;">
+        <div class="bg-white dark:bg-slate-900 rounded-[28px] max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-slate-800 dark:to-slate-900">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center text-sm shadow-sm">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-sm sm:text-base text-slate-900 dark:text-white">Điều khoản Sử dụng & Tuyên bố Miễn trừ ETS</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Quy định sử dụng nền tảng và căn cứ đánh giá năng lực</p>
+                    </div>
+                </div>
+                <button onclick="closeTermsOfServiceModal()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 hover:bg-slate-100 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition shadow-sm cursor-pointer" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">1. Mục đích học tập & Luyện thi</h4>
+                    <p>Ứng dụng cung cấp môi trường luyện thi mô phỏng và công cụ hỗ trợ người học rèn luyện kỹ năng Nghe và Đọc tiếng Anh. Người dùng cam kết sử dụng nền tảng cho mục đích ôn tập cá nhân trung thực.</p>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">2. Tuyên bố về Điểm số Dự báo & Giới hạn Sai số</h4>
+                    <p>Các chỉ số ước tính điểm số (TOEIC Estimated Score) và xác suất đạt mục tiêu được tính toán dựa trên các mô hình thống kê thực nghiệm kết hợp ma trận quy đổi câu hỏi ETS 2026. <strong>Đây là dự báo nội bộ chỉ mang tính chất tham khảo, không phải điểm thi chính thức do ETS cấp.</strong></p>
+                    <p class="mt-1 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 p-2.5 rounded-xl text-amber-900 dark:text-amber-200 text-xs">
+                        ⚠️ <strong>Lưu ý về độ tin cậy:</strong> Dự báo điểm chỉ bắt đầu có ý nghĩa thống kê khi bạn hoàn thành tối thiểu <strong>30 câu hỏi</strong> thuộc đầy đủ các Part. Kết quả có khoảng sai số thực nghiệm ±25 đến ±45 điểm so với kết quả thi thực tế tùy theo điều kiện phòng thi và tâm lý làm bài.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white mb-1">3. Phân biệt Chế độ Thi thử và Chế độ Luyện tập</h4>
+                    <p>Chế độ "Thi thử Full Test (120 phút)" áp dụng đồng hồ đếm ngược liên tục, khóa tua thanh âm thanh và chỉ hiển thị đáp án/giải thích sau khi nộp bài. Chế độ "Luyện tập" cho phép tùy chỉnh tốc độ, tua lại và tra từ điển tự do.</p>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex justify-end">
+                <button onclick="closeTermsOfServiceModal()" class="px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-sm transition cursor-pointer">Đã hiểu & Đóng</button>
+            </div>
+        </div>
+    </div>
 
     <!-- FLOATING TAKE NOTE LAUNCHER (Sổ Take Note Nhanh - Vòng tròn nhỏ cố định mở mọi lúc khi giải đề, Part 5,...) -->
     <button id="floatingTakeNoteFab" style="display: none !important;" onclick="FloatingTakeNote.toggle()" class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-[9990] bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 h-12 w-12 rounded-full shadow-2xl flex items-center justify-center gap-1.5 transition-transform text-xs font-black border-2 border-amber-200/80 backdrop-blur-md overflow-hidden floating-take-note-fab touch-none select-none cursor-grab active:cursor-grabbing" title="Mở Sổ Take Note Nhanh (Ghi chú Part 5, Từ vựng, Ngữ pháp) - Kéo để di chuyển khắp màn hình">
@@ -7195,7 +7369,7 @@
                         Dải Điểm Ước Lượng ETS: <span id="adpResultScoreRange" class="text-indigo-600 dark:text-indigo-400 font-mono">610 – 670</span>
                     </h3>
                     <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto">
-                        Đánh giá dựa trên mô hình phản hồi câu hỏi 2PL IRT chuẩn xác với độ tin cậy 95% sau <span id="adpResultCount" class="font-bold">16</span> câu hỏi.
+                        Ước lượng theo mô hình 2PL IRT sau <span id="adpResultCount" class="font-bold">16</span> câu hỏi (sai số thực nghiệm ±30–50 điểm; kết quả tham khảo, không phải điểm chính thức của ETS).
                     </p>
                 </div>
 
@@ -7214,7 +7388,7 @@
                     <div class="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800">
                         <span class="text-xs font-bold text-indigo-600 uppercase">Cơ hội &ge; 650+ Điểm</span>
                         <div id="adpResultProb650" class="text-2xl font-black text-indigo-700 dark:text-indigo-300 font-mono mt-1">78%</div>
-                        <span class="text-[11px] text-slate-400">Mô hình hồi quy Gauss</span>
+                        <span class="text-[11px] text-slate-400">Ước lượng xác suất thống kê</span>
                     </div>
                 </div>
 
@@ -7230,6 +7404,18 @@
                     <div id="adpRadarChartContainer" class="flex justify-center py-2">
                         <!-- SVG Radar rendered here -->
                     </div>
+                </div>
+
+                <!-- Review & Transcript Container -->
+                <div class="p-4 sm:p-5 rounded-3xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3 text-left">
+                    <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines text-teal-600"></i>
+                            Chữa Bài Chi Tiết & Bóc Băng Transcript
+                        </h4>
+                        <span class="text-xs text-slate-400">Transcript mở khi xem lại kết quả</span>
+                    </div>
+                    <div id="adpReviewContainer" class="space-y-3 max-h-[360px] overflow-y-auto pr-1"></div>
                 </div>
 
                 <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -7456,14 +7642,44 @@
 
                 // Context display
                 if (ctxEl) {
-                    const ctx = q.dialogue || q.talk || q.passage || q.graphic;
-                    if (ctx) {
-                        ctxEl.textContent = ctx;
+                    const isListening = (q.part >= 1 && q.part <= 4);
+                    const dialogue = q.dialogue || q.talk;
+                    const readingCtx = q.passage || q.graphic;
+                    if (isListening) {
+                        window._currentAdpAudioText = dialogue || q.q || '';
+                        window._currentAdpAudioUrl = q.audio_url || q.audio || '';
+                        ctxEl.innerHTML = `
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-indigo-50/80 to-blue-50/60 dark:from-slate-800 dark:to-indigo-950/40 border border-indigo-200/80 dark:border-indigo-900/50">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                                        <i class="fa-solid fa-headphones text-xs animate-pulse"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-slate-800 dark:text-slate-200">Âm thanh hội thoại Part ${q.part}</div>
+                                        <div class="text-[11px] text-slate-500 dark:text-slate-400">Bản bóc băng ẩn trong khi làm bài, chỉ xem khi chữa bài</div>
+                                    </div>
+                                </div>
+                                <button type="button" id="adpAudioPlayBtn" onclick="window.playAdaptiveListeningAudio()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-500/25 cursor-pointer transition shrink-0">
+                                    <i class="fa-solid fa-play text-xs" id="adpAudioPlayIcon"></i>
+                                    <span id="adpAudioPlayText">Phát âm thanh</span>
+                                </button>
+                            </div>
+                        `;
+                        ctxEl.classList.remove('hidden');
+                    } else if (readingCtx) {
+                        ctxEl.textContent = readingCtx;
                         ctxEl.classList.remove('hidden');
                     } else {
                         ctxEl.classList.add('hidden');
                     }
                 }
+
+
+
+
+
+
+
 
                 // Render options
                 if (optionsCont && Array.isArray(q.options)) {
@@ -7498,6 +7714,60 @@
                 });
                 const submitBtn = document.getElementById('adpSubmitBtn');
                 if (submitBtn) submitBtn.disabled = false;
+            };
+
+            window.playAdaptiveListeningAudio = function() {
+                const icon = document.getElementById('adpAudioPlayIcon');
+                const txt = document.getElementById('adpAudioPlayText');
+
+                if (window._adpAudioEl && !window._adpAudioEl.paused) {
+                    window._adpAudioEl.pause();
+                    if (icon) icon.className = 'fa-solid fa-play text-xs';
+                    if (txt) txt.textContent = 'Phát âm thanh';
+                    return;
+                }
+                if (window.speechSynthesis && window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                    if (icon) icon.className = 'fa-solid fa-play text-xs';
+                    if (txt) txt.textContent = 'Phát âm thanh';
+                    return;
+                }
+
+                if (window._currentAdpAudioUrl) {
+                    if (!window._adpAudioEl) window._adpAudioEl = new Audio();
+                    window._adpAudioEl.src = window._currentAdpAudioUrl;
+                    window._adpAudioEl.onended = () => {
+                        if (icon) icon.className = 'fa-solid fa-play text-xs';
+                        if (txt) txt.textContent = 'Nghe lại';
+                    };
+                    window._adpAudioEl.play().then(() => {
+                        if (icon) icon.className = 'fa-solid fa-pause text-xs';
+                        if (txt) txt.textContent = 'Tạm dừng';
+                    }).catch(() => fallbackSpeech());
+                } else {
+                    fallbackSpeech();
+                }
+
+                function fallbackSpeech() {
+                    if (!window.speechSynthesis || !window._currentAdpAudioText) return;
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance(window._currentAdpAudioText);
+                    utter.lang = 'en-US';
+                    utter.rate = 0.95;
+                    utter.onstart = () => {
+                        if (icon) icon.className = 'fa-solid fa-pause text-xs';
+                        if (txt) txt.textContent = 'Đang đọc...';
+                    };
+                    utter.onend = () => {
+                        if (icon) icon.className = 'fa-solid fa-play text-xs';
+                        if (txt) txt.textContent = 'Nghe lại';
+                    };
+                    utter.onerror = () => {
+                        if (icon) icon.className = 'fa-solid fa-play text-xs';
+                        if (txt) txt.textContent = 'Phát âm thanh';
+                    };
+                    window.speechSynthesis.speak(utter);
+                }
             };
 
             window.submitAdaptiveAnswer = function() {
@@ -7558,6 +7828,49 @@
                 // Fire celebration confetti if score >= 600
                 if (results.totalScore >= 600 && window.WebAudioMicroEngine) {
                     window.WebAudioMicroEngine.fireConfetti();
+                }
+
+                // Render Detailed Review with Transcripts (revealed after test completion)
+                const revContainer = document.getElementById('adpReviewContainer');
+                if (revContainer && adaptiveEngine && Array.isArray(adaptiveEngine.administered)) {
+                    revContainer.innerHTML = adaptiveEngine.administered.map((it, idx) => {
+                        const qData = (adaptiveEngine.pool && adaptiveEngine.pool.find(p => p.id === it.id)) || {};
+                        const dialogue = qData.dialogue || qData.talk || '';
+                        const isLc = (it.part >= 1 && it.part <= 4);
+                        const selOptText = (qData.options && qData.options[it.selectedOption]) ? qData.options[it.selectedOption] : 'Chưa chọn';
+                        const corrOptText = (qData.options && qData.options[it.correctOption]) ? qData.options[it.correctOption] : '';
+                        return `
+                            <div class="p-3.5 rounded-2xl border ${it.isCorrect ? 'border-emerald-200 dark:border-emerald-900 bg-emerald-50/40 dark:bg-emerald-950/20' : 'border-rose-200 dark:border-rose-900 bg-rose-50/40 dark:bg-rose-950/20'} space-y-2 text-xs">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="flex items-center gap-1.5">
+                                        <i class="fa-solid ${it.isCorrect ? 'fa-circle-check text-emerald-600' : 'fa-circle-xmark text-rose-500'}"></i>
+                                        <span>Câu ${idx + 1} · Part ${it.part}</span>
+                                    </span>
+                                    <span class="px-2 py-0.5 rounded-full ${it.isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'} text-[10.5px]">
+                                        ${it.isCorrect ? 'Đúng' : 'Sai'}
+                                    </span>
+                                </div>
+                                <div class="text-slate-800 dark:text-slate-200 font-medium">${qData.q || ''}</div>
+                                ${isLc && dialogue ? `
+                                    <div class="p-2.5 rounded-xl bg-indigo-50 dark:bg-slate-800/80 border border-indigo-100 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+                                        <div class="font-bold text-indigo-700 dark:text-indigo-300 text-[11px] mb-1 flex items-center gap-1">
+                                            <i class="fa-solid fa-headphones text-[10px]"></i> Bản bóc băng Transcript:
+                                        </div>
+                                        <div class="italic whitespace-pre-line leading-relaxed">${dialogue}</div>
+                                    </div>
+                                ` : ''}
+                                <div class="space-y-0.5 pt-1 text-[11.5px]">
+                                    <div>Lựa chọn của bạn: <strong class="${it.isCorrect ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">${selOptText}</strong></div>
+                                    ${!it.isCorrect ? `<div>Đáp án đúng: <strong class="text-emerald-700 dark:text-emerald-400">${corrOptText}</strong></div>` : ''}
+                                </div>
+                                ${qData.explanation ? `
+                                    <div class="text-[11px] text-slate-500 dark:text-slate-400 pt-1 border-t border-slate-200/60 dark:border-slate-700">
+                                        💡 <strong>Giải thích:</strong> ${qData.explanation}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                    }).join('');
                 }
             }
 

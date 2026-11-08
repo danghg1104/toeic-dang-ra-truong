@@ -1156,10 +1156,11 @@
             }
         }
 
-        formatTime(sec) {
+        formatTime(sec, isDuration = false) {
+            if (!Number.isFinite(sec) || sec < 0) return isDuration ? '--:--' : '00:00';
             const m = Math.floor(sec / 60);
             const s = Math.floor(sec % 60);
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
+            return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
         }
 
         togglePlayPause() {

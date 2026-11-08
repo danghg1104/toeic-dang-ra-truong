@@ -242,6 +242,7 @@
     }
 
     formatTime(sec) {
+      if (!Number.isFinite(sec) || sec < 0) return '00:00';
       const s = Math.max(0, Math.floor(sec || 0));
       const m = Math.floor(s / 60);
       const rem = s % 60;

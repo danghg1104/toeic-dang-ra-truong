@@ -191,6 +191,9 @@
                 return;
             }
 
+            const totalAnswered = (listening.answered || 0) + (reading.answered || 0);
+            const isInitialData = totalAnswered < 30;
+
             container.innerHTML = `
                 <div class="rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-indigo-500/30 p-5 sm:p-6 text-white shadow-xl space-y-4">
                     <!-- Top Header -->
@@ -202,11 +205,11 @@
                             <div>
                                 <div class="flex items-center gap-2">
                                     <span class="text-xs sm:text-sm font-black text-white">Dự Báo Điểm ETS Thích Ứng (AI IRT Model)</span>
-                                    <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] font-black uppercase tracking-wider">
-                                        Live Adaptive
+                                    <span class="px-2 py-0.5 rounded-full ${isInitialData ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'} text-[10px] font-black uppercase tracking-wider">
+                                        ${isInitialData ? 'Dữ liệu ban đầu · Tham khảo' : 'Live Adaptive'}
                                     </span>
                                 </div>
-                                <p class="text-[11px] text-slate-300 font-medium">Khoảng tin cậy 95% Confidence Interval dựa trên kết quả làm bài thực tế</p>
+                                <p class="text-[11px] text-slate-300 font-medium">Khoảng tin cậy dựa trên kết quả làm bài thực tế (Sai số thực nghiệm ±25-45 điểm)</p>
                             </div>
                         </div>
 
@@ -217,6 +220,13 @@
                             <span class="text-[11px] font-bold text-slate-400">/ 990 [${total.min} - ${total.max}]</span>
                         </div>
                     </div>
+
+                    ${isInitialData ? `
+                        <div class="px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400 shrink-0"></i>
+                            <span>Chưa đủ dữ liệu — đã làm ${totalAnswered}/30 câu tối thiểu. Kết quả hiện tại chỉ để tham khảo, không phải điểm chính thức của ETS.</span>
+                        </div>
+                    ` : ''}
 
                     <!-- 2 Kỹ Năng: Listening & Reading Breakdown -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -235,7 +245,7 @@
                             </div>
                             <div class="flex items-center justify-between text-[11px] text-slate-400">
                                 <span>Dải điểm: [${listening.min} - ${listening.max}]</span>
-                                <span class="text-teal-300 font-semibold">${listening.accuracy !== '--' ? `Độ chính xác: ${listening.accuracy}%` : 'Đã làm bài chẩn đoán'}</span>
+                                <span class="text-teal-300 font-semibold">${listening.accuracy !== '--' ? `Độ chính xác: ${listening.accuracy}% (${listening.answered} câu)` : 'Đã làm bài chẩn đoán'}</span>
                             </div>
                         </div>
 
@@ -254,7 +264,7 @@
                             </div>
                             <div class="flex items-center justify-between text-[11px] text-slate-400">
                                 <span>Dải điểm: [${reading.min} - ${reading.max}]</span>
-                                <span class="text-emerald-300 font-semibold">${reading.accuracy !== '--' ? `Độ chính xác: ${reading.accuracy}%` : 'Đã làm bài chẩn đoán'}</span>
+                                <span class="text-emerald-300 font-semibold">${reading.accuracy !== '--' ? `Độ chính xác: ${reading.accuracy}% (${reading.answered} câu)` : 'Đã làm bài chẩn đoán'}</span>
                             </div>
                         </div>
                     </div>
@@ -271,6 +281,10 @@
                         <div class="text-[11px] text-slate-400">
                             Tự động hiệu chỉnh sau từng bài tập hoàn thành
                         </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-indigo-500/20 text-[10.5px] text-slate-400 leading-relaxed">
+                        * Ước lượng dựa trên ${listening.answered || 0} câu LC (Part 1-4) & ${reading.answered || 0} câu RC (Part 5-7). Điều kiện tối thiểu: hoàn thành bài chẩn đoán và làm tối thiểu 30 câu luyện tập. Đây là kết quả mô phỏng tham khảo, không phải bảng điểm chính thức do ETS cấp.
                     </div>
                 </div>
             `;

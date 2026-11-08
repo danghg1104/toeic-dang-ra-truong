@@ -7,6 +7,7 @@
 let transcriber = null;
 
 function formatTime(sec) {
+    if (!Number.isFinite(sec) || sec < 0) return '00:00';
     const s = Math.floor(sec || 0);
     const m = Math.floor(s / 60);
     const r = s % 60;

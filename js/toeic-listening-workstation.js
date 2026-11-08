@@ -964,12 +964,12 @@
         updateTimeDisplay() {
             const curEl = document.getElementById('tlwTimeCurrent');
             const durEl = document.getElementById('tlwTimeDuration');
-            if (curEl) curEl.textContent = this.formatTime(this.currentTime);
-            if (durEl) durEl.textContent = this.formatTime(this.duration);
+            if (curEl) curEl.textContent = this.formatTime(this.currentTime, false);
+            if (durEl) durEl.textContent = this.formatTime(this.duration, true);
         }
 
-        formatTime(seconds) {
-            if (!seconds || isNaN(seconds)) return '00:00';
+        formatTime(seconds, isDuration = false) {
+            if (!Number.isFinite(seconds) || seconds <= 0) return isDuration ? '--:--' : '00:00';
             const m = Math.floor(seconds / 60);
             const s = Math.floor(seconds % 60);
             return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;

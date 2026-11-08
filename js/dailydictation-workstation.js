@@ -1008,8 +1008,8 @@
             const cur = this.audioEl.currentTime || 0;
             const dur = this.audioEl.duration || 0;
 
-            if (currentEl) currentEl.textContent = this.formatTime(cur);
-            if (durationEl) durationEl.textContent = this.formatTime(dur);
+            if (currentEl) currentEl.textContent = this.formatTime(cur, false);
+            if (durationEl) durationEl.textContent = this.formatTime(dur, true);
             if (scrubber && dur > 0) {
                 scrubber.value = (cur / dur) * 100;
             }
@@ -1022,7 +1022,8 @@
             }
         }
 
-        formatTime(seconds) {
+        formatTime(seconds, isDuration = false) {
+            if (!Number.isFinite(seconds) || seconds < 0) return isDuration ? '--:--' : '00:00';
             const m = Math.floor(seconds / 60);
             const s = Math.floor(seconds % 60);
             return `${m}:${String(s).padStart(2, '0')}`;

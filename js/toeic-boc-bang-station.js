@@ -1242,9 +1242,9 @@
             const cur = this.audio.currentTime || 0;
             const dur = this.audio.duration || this.audioDuration || 0;
 
-            if (curEl) curEl.textContent = this.formatTime(cur);
-            if (totalEl) totalEl.textContent = this.formatTime(dur);
-            if (barEl && dur > 0) {
+            if (curEl) curEl.textContent = this.formatTime(cur, false);
+            if (totalEl) totalEl.textContent = this.formatTime(dur, true);
+            if (barEl && Number.isFinite(dur) && dur > 0) {
                 const pct = Math.min(100, Math.max(0, (cur / dur) * 100));
                 barEl.style.width = `${pct}%`;
             }
@@ -1286,8 +1286,9 @@
             this.updateTimelineUI();
         }
 
-        formatTime(seconds) {
-            const s = Math.floor(seconds || 0);
+        formatTime(seconds, isDuration = false) {
+            if (!Number.isFinite(seconds) || seconds < 0) return isDuration ? '--:--' : '00:00';
+            const s = Math.floor(seconds);
             const mins = Math.floor(s / 60);
             const secs = s % 60;
             return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
