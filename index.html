@@ -147,9 +147,10 @@
     <script src="/js/one-page-cheat-sheet.js?v=20261103_m3"></script>
     <script src="/js/toeic-capsule-station.js?v=20261103_m3"></script>
     <!-- Milestone 4: Real-Time PvP Arena & AI Explanation Engine -->
-    <script src="/js/pvp-arena-client.js?v=20261103_m4"></script>
+    <script src="/js/rank-avatar-frames.js?v=20261109_v3"></script>
+    <script src="/js/pvp-arena-client.js?v=20261109_v3"></script>
     <script src="/js/ai-mistake-explainer.js?v=20261103_m4"></script>
-    <script src="/js/rank-avatar-frames.js?v=20261106_v1"></script>
+
     <!-- Document & Export Lazy Toolkit Engine (Loads PDF/Word/Excel on demand only) -->
     <script>
         window.DocumentToolkit = {
@@ -5162,12 +5163,12 @@
                     <!-- KHU VỰC TÙY CHỈNH & THAY ĐỔI ẢNH ĐẠI DIỆN (AVATAR) -->
                     <div class="mb-7 p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 flex flex-col sm:flex-row items-center gap-5">
                         <div class="relative group shrink-0">
-                            <div id="profileAvatarPreview" class="w-20 h-20 rounded-full bg-blue-600 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg ring-4 ring-white dark:ring-slate-800 overflow-hidden cursor-pointer" onclick="document.getElementById('avatarFileInput').click()">
+                            <div id="profileAvatarPreview" class="w-24 h-24 relative flex items-center justify-center shrink-0 cursor-pointer" onclick="document.getElementById('avatarFileInput').click()">
                                 <i class="fa-solid fa-user"></i>
                             </div>
-                            <button type="button" onclick="document.getElementById('avatarFileInput').click()" class="absolute inset-0 bg-black/40 text-white rounded-full flex flex-col items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition cursor-pointer">
-                                <i class="fa-solid fa-camera mb-0.5"></i>
-                                <span>Đổi ảnh</span>
+                            <button type="button" onclick="document.getElementById('avatarFileInput').click()" class="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg border-2 border-white dark:border-slate-800 hover:bg-blue-700 transition cursor-pointer" title="Đổi ảnh">
+                                <i class="fa-solid fa-camera text-[12px]"></i>
+
                             </button>
                         </div>
 
@@ -8568,7 +8569,7 @@
     </div>
 
     <!-- Application Core Logic & Workstation Controllers (Extracted for Caching & Speed) -->
-    <script src="/js/app-core.bundle.js?v=studystudio_v2026_artisan_v2"></script>
+    <script src="/js/app-core.bundle.js?v=studystudio_v2026_passages_v3"></script>
     <!-- Cloud Multi-User Realtime Sync (Firestore) -->
     <script type="module" src="/js/cloud-realtime-sync.js?v=studystudio_phase4_cloud"></script>
     <script>

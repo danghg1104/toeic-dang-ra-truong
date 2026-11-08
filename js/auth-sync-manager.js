@@ -35,9 +35,8 @@
         },
 
         getTodayDateStr() {
-            const now = new Date();
-            const vnTime = new Date(now.getTime() + (7 * 3600 - now.getTimezoneOffset() * 60) * 1000);
-            return vnTime.toISOString().slice(0, 10);
+            // Chuẩn hóa ngày theo múi giờ Việt Nam (Asia/Ho_Chi_Minh) tránh lật ngày lúc 17h
+            return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date());
         },
 
         // ---------------------------------------------------------------------

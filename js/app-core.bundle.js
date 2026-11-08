@@ -4222,6 +4222,7 @@
         let initialQuizModalScrollAreaHtml = null;
 
         async function startQuickQuiz(type, title, count = 50, options = {}) {
+            isSubmittingExam = false;
             if (typeof count === 'object' && count !== null) {
                 options = count;
                 count = 50;
@@ -5012,9 +5013,13 @@
                     showToast('Đã hoàn thành xem lại bài làm');
                     return;
                 }
+                if (!activeQuizList || !activeQuizList.length) {
+                    closeQuizModal();
+                    return;
+                }
                 state.xp += 10;
                 state.streak = Math.max(1, state.streak);
-                state.studyMinutes += 5;
+                state.studyMinutes += Math.max(1, Math.round(activeQuizList.length * 0.75));
 
                 if (activeQuizType === 'grammar') {
                     state.grammarDone += activeQuizList.length;
@@ -5048,7 +5053,11 @@
             }
         }
 
+        let isSubmittingExam = false;
         function finishExamQuiz(isTimeUp = false) {
+            if (isSubmittingExam) return;
+            isSubmittingExam = true;
+
             if (quizExamTimerInterval) {
                 clearInterval(quizExamTimerInterval);
                 quizExamTimerInterval = null;
@@ -5072,10 +5081,12 @@
             const rcScaled = totalRC > 0 ? Math.min(495, Math.max(5, Math.round((correctRC / totalRC) * 490) + 5)) : 5;
             const totalScore = lcScaled + rcScaled;
 
-            // Lưu lịch sử thi mô phỏng đầy đủ chi tiết
+            // Lưu lịch sử thi mô phỏng đầy đủ chi tiết với namespace tài khoản
             if (typeof clearActiveExamSession === 'function') clearActiveExamSession();
             try {
-                const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                const userHistoryKey = 'toeic_exam_history_' + uid;
+                const history = JSON.parse(localStorage.getItem(userHistoryKey) || localStorage.getItem('toeic_exam_history') || '[]');
                 const testTitle = document.getElementById('quizModalTitle')?.textContent || 'Full Mock Test';
                 history.unshift({
                     id: 'exam_' + Date.now(),
@@ -5105,6 +5116,7 @@
                         audio_url: q.audio_url || ''
                     }))
                 });
+                localStorage.setItem(userHistoryKey, JSON.stringify(history.slice(0, 50)));
                 localStorage.setItem('toeic_exam_history', JSON.stringify(history.slice(0, 50)));
             } catch(e) {}
             state.mockDone = (state.mockDone || 0) + 1;
@@ -5369,10 +5381,13 @@
                     answers: examUserAnswers,
                     bookmarks: Array.from(quizBookmarks),
                     remainingSec: quizExamSecondsRemaining,
+                    targetEndTimestamp: Date.now() + (quizExamSecondsRemaining * 1000),
                     totalQuestions: activeQuizList.length,
                     questions: activeQuizList,
                     timestamp: Date.now()
                 };
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                localStorage.setItem('toeic_active_exam_session_' + uid, JSON.stringify(session));
                 localStorage.setItem('toeic_active_exam_session', JSON.stringify(session));
             } catch (e) {}
         }
@@ -5380,6 +5395,8 @@
 
         function clearActiveExamSession() {
             try {
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                localStorage.removeItem('toeic_active_exam_session_' + uid);
                 localStorage.removeItem('toeic_active_exam_session');
             } catch (e) {}
         }
@@ -5387,7 +5404,12 @@
 
         function checkAndResumeActiveExamSession() {
             try {
-                const raw = localStorage.getItem('toeic_active_exam_session');
+                // Đang làm bài thi hoặc modal thi đang mở thì không hỏi lại
+                const modal = document.getElementById('quizModal');
+                if (modal && !modal.classList.contains('hidden') && activeQuizMode === 'exam') return;
+
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                const raw = localStorage.getItem('toeic_active_exam_session_' + uid) || localStorage.getItem('toeic_active_exam_session');
                 if (!raw) return;
                 const session = JSON.parse(raw);
                 if (session && session.timestamp && (Date.now() - session.timestamp < 24 * 3600 * 1000) && session.questions && session.questions.length) {
@@ -5403,7 +5425,15 @@
                         activeQuizMode = 'exam';
                         examUserAnswers = session.answers || {};
                         quizBookmarks = new Set(session.bookmarks || []);
-                        quizExamSecondsRemaining = session.remainingSec || (120 * 60);
+                        
+                        // Hiệu chỉnh đồng hồ theo thời gian thực (wall-clock elapsed time)
+                        if (session.targetEndTimestamp) {
+                            const now = Date.now();
+                            quizExamSecondsRemaining = Math.max(0, Math.round((session.targetEndTimestamp - now) / 1000));
+                        } else {
+                            const elapsedSec = Math.round((Date.now() - session.timestamp) / 1000);
+                            quizExamSecondsRemaining = Math.max(0, (session.remainingSec || (120 * 60)) - elapsedSec);
+                        }
 
                         const modal = document.getElementById('quizModal');
                         if (modal) {
@@ -5449,7 +5479,9 @@
 
         function updateMockTestBannerStats() {
             try {
-                const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                const userHistoryKey = 'toeic_exam_history_' + uid;
+                const history = JSON.parse(localStorage.getItem(userHistoryKey) || localStorage.getItem('toeic_exam_history') || '[]');
                 const count = history.length;
                 let bestScore = '—';
                 let latestScore = '—';
@@ -5484,7 +5516,9 @@
 
             let history = [];
             try {
-                history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                const userHistoryKey = 'toeic_exam_history_' + uid;
+                history = JSON.parse(localStorage.getItem(userHistoryKey) || localStorage.getItem('toeic_exam_history') || '[]');
             } catch (e) { history = []; }
 
             if (countLabel) countLabel.textContent = `${history.length} lượt thi thử`;
@@ -5637,6 +5671,7 @@
         window.reviewExamQuestionsWithExplanations = reviewExamQuestionsWithExplanations;
 
         function closeQuizModal() {
+            isSubmittingExam = false;
             if (quizExamTimerInterval) {
                 clearInterval(quizExamTimerInterval);
                 quizExamTimerInterval = null;
@@ -6455,10 +6490,8 @@
             },
 
             getTodayDateStr() {
-                // Định dạng YYYY-MM-DD theo múi giờ Việt Nam (UTC+7)
-                const now = new Date();
-                const vnTime = new Date(now.getTime() + (7 * 3600 - now.getTimezoneOffset() * 60) * 1000);
-                return vnTime.toISOString().slice(0, 10);
+                // Chuẩn hóa ngày theo múi giờ Việt Nam (Asia/Ho_Chi_Minh) tránh lật ngày lúc 17h
+                return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date());
             },
 
             getStorageKey() {
@@ -7493,6 +7526,10 @@
             }
             populateAccountProfileForm();
             switchTab('tai-khoan');
+            if (window.RankAvatarFrames && typeof window.RankAvatarFrames.renderShowcaseInProfile === 'function') {
+                window.RankAvatarFrames.renderShowcaseInProfile();
+                window.RankAvatarFrames.updateHeaderAvatar(currentUserAccount);
+            }
         }
 
         function openAccountSettingsView() {
@@ -7657,7 +7694,7 @@
             );
 
             if (isImg) {
-                el.classList.add('bg-slate-100', 'overflow-hidden', 'relative');
+                el.classList.add('rounded-full', 'overflow-hidden', 'relative');
                 const img = document.createElement('img');
                 img.src = avatar;
                 img.alt = account?.name || 'avatar';
@@ -7686,17 +7723,47 @@
                 showToast('Vui lòng chọn file hình ảnh hợp lệ (PNG, JPG, WEBP)!');
                 return;
             }
-            if (file.size > 2 * 1024 * 1024) {
-                showToast('Ảnh quá lớn (> 2MB). Vui lòng chọn ảnh nhỏ hơn để tối ưu bộ nhớ!');
+            if (file.size > 8 * 1024 * 1024) {
+                showToast('Ảnh quá lớn (> 8MB). Vui lòng chọn ảnh nhỏ hơn để tối ưu bộ nhớ!');
                 return;
             }
             const reader = new FileReader();
             reader.onload = function(e) {
                 if (!currentUserAccount) return;
-                currentUserAccount.avatar = e.target.result;
-                applyCurrentAccountToUI();
-                syncCurrentAccountState();
-                showToast('🎉 Đã cập nhật ảnh đại diện mới thành công!');
+                const rawData = e.target.result;
+                const img = new Image();
+                img.onload = function() {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        const size = 256;
+                        canvas.width = size;
+                        canvas.height = size;
+                        const ctx = canvas.getContext('2d');
+                        const minDim = Math.min(img.width, img.height);
+                        const sx = (img.width - minDim) / 2;
+                        const sy = (img.height - minDim) / 2;
+                        ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
+                        const compactData = canvas.toDataURL('image/jpeg', 0.88);
+                        currentUserAccount.avatar = compactData;
+                        const uid = currentUserAccount.id || 'current';
+                        try {
+                            localStorage.setItem('toeic_user_avatar_' + uid, compactData);
+                            localStorage.setItem('toeic_saved_avatar', compactData);
+                        } catch (err) {}
+                    } catch (canvasErr) {
+                        currentUserAccount.avatar = rawData;
+                    }
+                    applyCurrentAccountToUI();
+                    syncCurrentAccountState();
+                    showToast('🎉 Đã cập nhật ảnh đại diện mới thành công!');
+                };
+                img.onerror = function() {
+                    currentUserAccount.avatar = rawData;
+                    applyCurrentAccountToUI();
+                    syncCurrentAccountState();
+                    showToast('🎉 Đã cập nhật ảnh đại diện mới thành công!');
+                };
+                img.src = rawData;
             };
             reader.readAsDataURL(file);
         }
@@ -7824,7 +7891,20 @@
             currentUserAccount.streak = state.streak;
             currentUserAccount.vocabLearned = state.vocabLearned;
             currentUserAccount.dictationDone = state.dictationDone;
-            localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount));
+            try {
+                localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount));
+            } catch (err) {
+                console.warn('[Sync] QuotaExceeded saving session user, saving sanitized profile:', err.message);
+                const miniUser = { ...currentUserAccount };
+                delete miniUser.avatar;
+                try { localStorage.setItem('cung_dang_session_user', JSON.stringify(miniUser)); } catch (e) {}
+            }
+            if (currentUserAccount.avatar) {
+                try {
+                    localStorage.setItem('toeic_user_avatar_' + (currentUserAccount.id || 'current'), currentUserAccount.avatar);
+                    localStorage.setItem('toeic_saved_avatar', currentUserAccount.avatar);
+                } catch (e) {}
+            }
             renderMultiAccountLists();
 
             // Persist profile & avatar to backend so page refresh never loses it
@@ -7877,8 +7957,12 @@
                         const res = await r.json();
                         if (res && res.success && res.user) {
                             currentUserAccount = res.user;
-                            window.currentUserAccount = res.user;
-                            try { localStorage.setItem('cung_dang_session_user', JSON.stringify(res.user)); } catch (e) {}
+                            const cachedAvt = localStorage.getItem('toeic_user_avatar_' + res.user.id) || localStorage.getItem('toeic_saved_avatar');
+                            if (cachedAvt && (!currentUserAccount.avatar || currentUserAccount.avatar === '/assets/mascot/may_avatar.png' || currentUserAccount.avatar.length <= 4 || cachedAvt.startsWith('data:image/'))) {
+                                currentUserAccount.avatar = cachedAvt;
+                            }
+                            window.currentUserAccount = currentUserAccount;
+                            try { localStorage.setItem('cung_dang_session_user', JSON.stringify(currentUserAccount)); } catch (e) {}
                             applyCurrentAccountToUI();
                             if (res.streakInfo) {
                                 renderStreakWeekDays(res.streakInfo);

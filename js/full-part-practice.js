@@ -1131,17 +1131,21 @@ window.FullPartPracticeEngine = {
         if (this.isSubmitted) return;
         this.userAnswers[qIndex] = optKey;
 
-        // Nếu ở chế độ học, ghi nhận kết quả ngay vào ListeningDashboard và SRS
+        // Nếu ở chế độ học, ghi nhận kết quả ngay vào ListeningDashboard và SRS (chỉ ghi nhận 1 lần duy nhất cho mỗi câu)
         if (this.mode !== 'exam') {
-            const q = this.activeQuestions[qIndex];
-            if (q) {
-                const correctKey = (q.ansLetter || (typeof q.ans === 'number' ? ['A','B','C','D'][q.ans] : q.ans) || 'A').toUpperCase();
-                const isCorrect = optKey === correctKey;
-                if (window.ListeningDashboard) {
-                    window.ListeningDashboard.recordAnswer(q, isCorrect);
-                }
-                if (!isCorrect && window.ToeicListeningSRS) {
-                    window.ToeicListeningSRS.addQuestion(q);
+            this.recordedAnswers = this.recordedAnswers || new Set();
+            if (!this.recordedAnswers.has(qIndex)) {
+                this.recordedAnswers.add(qIndex);
+                const q = this.activeQuestions[qIndex];
+                if (q) {
+                    const correctKey = (q.ansLetter || (typeof q.ans === 'number' ? ['A','B','C','D'][q.ans] : q.ans) || 'A').toUpperCase();
+                    const isCorrect = optKey === correctKey;
+                    if (window.ListeningDashboard) {
+                        window.ListeningDashboard.recordAnswer(q, isCorrect);
+                    }
+                    if (!isCorrect && window.ToeicListeningSRS) {
+                        window.ToeicListeningSRS.addQuestion(q);
+                    }
                 }
             }
         }
@@ -1215,6 +1219,7 @@ window.FullPartPracticeEngine = {
     closeModal() {
         if (this.timerInterval) clearInterval(this.timerInterval);
         if (this.player) this.player.pause();
+        this.recordedAnswers = new Set();
         const modal = document.getElementById('fullPartPracticeModal');
         if (modal) modal.remove();
         if (window.SoiMayCompanion && typeof window.SoiMayCompanion.showFloating === 'function') {

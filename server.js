@@ -2635,7 +2635,7 @@ function handleRequest(req, res) {
     const profile = loadUserProfile(userId);
     const safeUser = {
       ...user,
-      avatar: user.avatar || profile.avatar || '',
+      avatar: user.avatar || profile.avatar || (profile.profile && profile.profile.avatar) || '',
       avatarColor: user.avatarColor || profile.avatarColor || 'bg-purple-700',
       rankTier: user.rankTier || profile.rankTier || 'diamond',
       friendCode: getOrCreateFriendCode(user),

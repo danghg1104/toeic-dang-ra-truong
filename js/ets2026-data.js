@@ -125,7 +125,16 @@
                 });
                 return flat;
             }
-            if (p === 7) return (db.reading && db.reading.part7) || [];
+            if (p === 7) {
+                const list = (db.reading && db.reading.part7) || [];
+                return list.map(q => ({
+                    ...q,
+                    part: 7,
+                    test: db.test_info ? db.test_info.test_number : testNum,
+                    passage: q.passage || '',
+                    passage_vi: q.passage_vi || ''
+                }));
+            }
             return [];
         },
 

@@ -176,6 +176,42 @@
                 </clipPath>
             `;
 
+            const isImg = imgHref && (
+                imgHref.startsWith('data:image/') ||
+                imgHref.startsWith('http://') ||
+                imgHref.startsWith('https://') ||
+                imgHref.startsWith('/') ||
+                imgHref.includes('.png') ||
+                imgHref.includes('.jpg') ||
+                imgHref.includes('.jpeg') ||
+                imgHref.includes('.webp') ||
+                imgHref.includes('.svg')
+            );
+
+            let avatarInner = '';
+            if (isImg) {
+                avatarInner = `
+                    <circle cx="100" cy="100" r="44" fill="#0f172a"/>
+                    <g clip-path="url(#clipCircle_${uniqueId})">
+                        <image href="${imgHref}" xlink:href="${imgHref}" x="56" y="56" width="88" height="88" preserveAspectRatio="xMidYMid slice"/>
+                    </g>
+                `;
+            } else {
+                const isEmoji = imgHref && imgHref.length <= 4 && !/^[A-Za-z0-9]$/.test(imgHref);
+                if (isEmoji) {
+                    avatarInner = `
+                        <circle cx="100" cy="100" r="44" fill="#312e81"/>
+                        <text x="100" y="112" text-anchor="middle" font-size="40">${imgHref}</text>
+                    `;
+                } else {
+                    const letter = (imgHref || 'U').trim().charAt(0).toUpperCase();
+                    avatarInner = `
+                        <circle cx="100" cy="100" r="44" fill="#4c1d95"/>
+                        <text x="100" y="112" text-anchor="middle" fill="#ffffff" font-size="36" font-weight="900" font-family="system-ui, -apple-system, sans-serif">${letter}</text>
+                    `;
+                }
+            }
+
             let frameElements = '';
             let animClass = '';
 
@@ -214,7 +250,7 @@
                         <!-- Inner Bevel Ring -->
                         <circle cx="100" cy="100" r="48" fill="#0f172a" stroke="#d97706" stroke-width="2.5"/>
                         <!-- Sói Mây Avatar Image -->
-                        <image href="${imgHref}" x="56" y="56" width="88" height="88" clip-path="url(#clipCircle_${uniqueId})" preserveAspectRatio="xMidYMid slice"/>
+                        ${avatarInner}
                         <!-- Inner Gold Rim -->
                         <circle cx="100" cy="100" r="44" fill="none" stroke="#fef08a" stroke-width="1.8"/>
                         <!-- 4 Rune Gemstones -->
@@ -271,7 +307,7 @@
                         <!-- Center Main Metallic Bevel Ring -->
                         <circle cx="100" cy="100" r="52" fill="#0f172a" stroke="url(#silverGrad_${uniqueId})" stroke-width="5"/>
                         <!-- Sói Mây Avatar Image -->
-                        <image href="${imgHref}" x="56" y="56" width="88" height="88" clip-path="url(#clipCircle_${uniqueId})" preserveAspectRatio="xMidYMid slice"/>
+                        ${avatarInner}
                         <!-- Inner Cyan Tech Halo -->
                         <circle cx="100" cy="100" r="44" fill="none" stroke="#38bdf8" stroke-width="2"/>
                         <!-- Top Aviator Crest -->
@@ -323,7 +359,7 @@
                         <!-- Center Gold Ring -->
                         <circle cx="100" cy="100" r="54" fill="#1e1b4b" stroke="url(#goldFeatherGrad_${uniqueId})" stroke-width="5.5"/>
                         <!-- Sói Mây Avatar Image -->
-                        <image href="${imgHref}" x="56" y="56" width="88" height="88" clip-path="url(#clipCircle_${uniqueId})" preserveAspectRatio="xMidYMid slice"/>
+                        ${avatarInner}
                         <!-- Inner Gold Sun Rim -->
                         <circle cx="100" cy="100" r="44" fill="none" stroke="#fef08a" stroke-width="2.2"/>
                         <!-- Flowing Royal Gold Ribbon Bottom -->
@@ -372,7 +408,7 @@
                         <!-- Center Swirling Ring -->
                         <circle cx="100" cy="100" r="54" fill="#042f2e" stroke="url(#waveAquaGrad_${uniqueId})" stroke-width="5.5"/>
                         <!-- Sói Mây Avatar Image -->
-                        <image href="${imgHref}" x="56" y="56" width="88" height="88" clip-path="url(#clipCircle_${uniqueId})" preserveAspectRatio="xMidYMid slice"/>
+                        ${avatarInner}
                         <!-- Inner Aqua Rim -->
                         <circle cx="100" cy="100" r="44" fill="none" stroke="#e0f2fe" stroke-width="2"/>
                         <!-- Top 4-Pointed Astral Star -->
@@ -477,7 +513,7 @@
                         <!-- Faceted Crystal Border Ring -->
                         <circle cx="100" cy="100" r="54" fill="#0f172a" stroke="url(#frostCrystalGrad_${uniqueId})" stroke-width="5.5"/>
                         <!-- Sói Mây Avatar Image -->
-                        <image href="${imgHref}" x="56" y="56" width="88" height="88" clip-path="url(#clipCircle_${uniqueId})" preserveAspectRatio="xMidYMid slice"/>
+                        ${avatarInner}
                         <!-- Inner Diamond Ice Rim -->
                         <circle cx="100" cy="100" r="44" fill="none" stroke="#e0f2fe" stroke-width="2"/>
                         <!-- Bottom Faceted Crystal Crown -->
@@ -531,7 +567,7 @@
                         <!-- Center Dark Matter Bevel Ring -->
                         <circle cx="100" cy="100" r="54" fill="#180404" stroke="url(#dragonFlameGrad_${uniqueId})" stroke-width="6"/>
                         <!-- Sói Mây Avatar Image -->
-                        <image href="${imgHref}" x="56" y="56" width="88" height="88" clip-path="url(#clipCircle_${uniqueId})" preserveAspectRatio="xMidYMid slice"/>
+                        ${avatarInner}
                         <!-- Inner Flame Corona Rim -->
                         <circle cx="100" cy="100" r="44" fill="none" stroke="#fef08a" stroke-width="2.4"/>
                         <!-- Solar Prominence Flare Gem Bottom -->
