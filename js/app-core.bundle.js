@@ -8980,9 +8980,27 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
         // =========================================================================
         // ĐĂNG NHẬP GOOGLE IDENTITY SERVICES (GIS THẬT CHUẨN GOOGLE OAUTH)
         // =========================================================================
+        function isCapacitorNativeApp() {
+            return Boolean(
+                (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform())
+                || window.location.protocol === 'capacitor:'
+                || window.__CAPACITOR_REMOTE_ORIGIN__
+            );
+        }
+
         let gsiClientInited = false;
         async function initGoogleIdentityServices() {
             try {
+                const loginSec = document.getElementById('googleSignInSectionLogin');
+                const regSec = document.getElementById('googleSignInSectionRegister');
+
+                if (isCapacitorNativeApp()) {
+                    // Android WebView (https://localhost) không được Google GIS cấp origin; ẩn sạch để tránh lỗi UI
+                    if (loginSec) loginSec.classList.add('hidden');
+                    if (regSec) regSec.classList.add('hidden');
+                    return;
+                }
+
                 let clientId = window.googleAuthClientId || '';
                 if (!clientId) {
                     try {
@@ -8992,9 +9010,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                         window.googleAuthClientId = clientId;
                     } catch (e) {}
                 }
-
-                const loginSec = document.getElementById('googleSignInSectionLogin');
-                const regSec = document.getElementById('googleSignInSectionRegister');
 
                 if (!clientId) {
                     // Yêu cầu c: Khi thiếu GOOGLE_CLIENT_ID: ẨN nút Google, chỉ hiện form email/mật khẩu. KHÔNG có bảng giả hay fallback đăng nhập nào.
@@ -9042,7 +9057,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
         }
 
         function renderGoogleOfficialButtons() {
-            if (typeof google === 'undefined' || !google.accounts || !google.accounts.id || !window.googleAuthClientId) return;
+            if (isCapacitorNativeApp() || typeof google === 'undefined' || !google.accounts || !google.accounts.id || !window.googleAuthClientId) return;
             try {
                 const loginContainer = document.getElementById('googleOfficialBtnContainerLogin');
                 const customLoginBtn = document.getElementById('customGoogleSignInBtnLogin');
@@ -9123,6 +9138,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
         window.handleGoogleCredentialResponse = handleGoogleCredentialResponse;
 
         async function handleGoogleSignIn() {
+            if (isCapacitorNativeApp()) {
+                showToast('📱 Trên app Android, vui lòng đăng nhập bằng Email/Mật khẩu hoặc chế độ Khách.');
+                return;
+            }
             let clientId = window.googleAuthClientId || '';
             if (!clientId) {
                 try {

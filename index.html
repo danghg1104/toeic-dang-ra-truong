@@ -15,7 +15,8 @@
             var TOKEN_KEY = 'cd_session_token';
             window.__CAPACITOR_REMOTE_ORIGIN__ = REMOTE_ORIGIN;
             var needsRemote = function(u) {
-                return typeof u === 'string' && (u.indexOf('/api/') === 0 || u.indexOf('/audio/') === 0 || u.indexOf('/data/ets2026/') === 0);
+                // Local /audio/listening/* (19.56 MB) lives offline in www/audio/; only missing ETS 2026 sets stream from Render
+                return typeof u === 'string' && (u.indexOf('/api/') === 0 || u.indexOf('/audio/ets2026/') === 0 || u.indexOf('/data/ets2026/') === 0);
             };
             var origFetch = window.fetch.bind(window);
             window.fetch = function(input, init) {
