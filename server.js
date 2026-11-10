@@ -3779,6 +3779,21 @@ function handleRequest(req, res) {
     return;
   }
 
+  // Trang Chính sách Quyền riêng tư & Xóa tài khoản công khai (phục vụ chuẩn kiểm duyệt Google Play / CH Play)
+  if (reqPath === '/privacy' || reqPath === '/privacy-policy' || reqPath === '/delete-account') {
+    const isDeletePage = reqPath === '/delete-account';
+    const title = isDeletePage
+      ? 'Yêu cầu Xóa tài khoản & Dữ liệu — Tôi Đi Đâu Đó'
+      : 'Chính sách Quyền riêng tư & Bảo vệ Dữ liệu — Tôi Đi Đâu Đó';
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=UTF-8',
+      'Cache-Control': 'no-cache, must-revalidate',
+      ...getCorsHeaders(req)
+    });
+    res.end(`<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:32px auto;padding:0 18px;line-height:1.65;color:#1e293b}h1{font-size:1.5rem;color:#0f172a}h2{font-size:1.1rem;margin-top:1.5rem;color:#1d4ed8}.box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;margin:16px 0}a{color:#2563eb}</style></head><body><h1>${title}</h1><p><strong>Ứng dụng:</strong> Tôi Đi Đâu Đó — Luyện thi TOEIC &amp; VSTEP (<code>com.danghg1104.cungdang</code>)<br><strong>Nhà phát triển / Liên hệ:</strong> <a href="mailto:danghg1104@gmail.com">danghg1104@gmail.com</a></p><h2>1. Dữ liệu chúng tôi thu thập</h2><p>Ứng dụng chỉ thu thập và lưu trữ thông tin cần thiết để đồng bộ tiến độ học tập đa thiết bị: tên hiển thị, địa chỉ email tài khoản (nếu đăng ký hoặc đăng nhập), mục tiêu điểm số, lịch sử bài tập, bài thi thử TOEIC và ghi chú từ vựng do người dùng tạo. Chế độ Khách lưu dữ liệu cục bộ trên thiết bị và không yêu cầu thông tin cá nhân.</p><h2>2. Mục đích sử dụng &amp; Bảo mật dữ liệu</h2><p>Mọi dữ liệu truyền giữa ứng dụng và máy chủ đều được mã hóa qua HTTPS. Mật khẩu được băm an toàn (scrypt + salt). Chúng tôi <strong>không</strong> bán, không chia sẻ dữ liệu cá nhân cho bên thứ ba hoặc mạng quảng cáo.</p><h2>3. Xóa tài khoản &amp; Dữ liệu vĩnh viễn (Account &amp; Data Deletion)</h2><div class="box"><p><strong>Cách 1 — Xóa trực tiếp trong ứng dụng / website:</strong> Mở ứng dụng <em>Tôi Đi Đâu Đó</em> → đăng nhập → vào mục <strong>Cài đặt &amp; Tài khoản</strong> → chọn <strong>"Xóa vĩnh viễn tài khoản &amp; Toàn bộ dữ liệu"</strong>. Hồ sơ, lịch sử làm bài và dữ liệu đồng bộ trên máy chủ sẽ bị xóa ngay lập tức và không thể khôi phục.</p><p><strong>Cách 2 — Yêu cầu qua Email:</strong> Gửi email tới <a href="mailto:danghg1104@gmail.com?subject=Yeu%20cau%20xoa%20tai%20khoan%20com.danghg1104.cungdang">danghg1104@gmail.com</a> kèm địa chỉ email đã đăng ký; yêu cầu xóa tài khoản sẽ được xử lý hoàn tất trong vòng tối đa 7 ngày.</p></div><h2>4. Tuyên bố độc lập học liệu</h2><p>TOEIC® là nhãn hiệu đã đăng ký của ETS. Ứng dụng là công cụ luyện tập cá nhân độc lập, không đại diện hay liên kết với ETS hoặc IIG Việt Nam.</p><p><a href="/">← Quay lại ứng dụng</a> · <a href="/privacy">Chính sách Quyền riêng tư</a> · <a href="/delete-account">Hướng dẫn Xóa tài khoản</a></p></body></html>`);
+    return;
+  }
+
   // =========================================================================
   // PHỤC VỤ CÁC FILE TĨNH (STATIC FILES) & SPA DEEP ROUTING
   // =========================================================================
