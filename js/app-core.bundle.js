@@ -10,71 +10,181 @@ function formatAuthenticPassage(raw) {
 
     const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-    // Check for Email / Memo headers
-    if (/^(From|To|Date|Subject)\s*:/im.test(text)) {
-        const lines = text.split(/\r?\n/);
-        const headerLines = [];
-        const bodyLines = [];
-        let inHeader = true;
+    // Render helper for a single authentic document chunk
+    const renderSingleDoc = (docText) => {
+        const chunk = (docText || '').trim();
+        if (!chunk) return '';
 
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i];
-            if (inHeader && /^(From|To|Date|Subject|Cc|Bcc)\s*:/i.test(line.trim())) {
-                headerLines.push(line.trim());
-            } else if (inHeader && line.trim() === '') {
-                inHeader = false;
-            } else {
-                inHeader = false;
-                bodyLines.push(line);
+        // 1. Text Message Chain (Chat): lines starting with Name (10:45 AM) / Name [10:45]:
+        const chatLines = chunk.split(/\r?\n/).filter(l => l.trim().length > 0);
+        const chatRegex = /^([A-Z][a-zA-Z\s.]{1,28})\s*[\(\[](\d{1,2}:\d{2}(?:\s*[AP]M)?)\]?\)?\s*:?\s*(.+)$/i;
+        const chatMatches = chatLines.filter(l => chatRegex.test(l.trim()));
+        if (chatLines.length >= 2 && chatMatches.length >= Math.max(2, Math.floor(chatLines.length * 0.6))) {
+            const firstSender = (chatMatches[0].match(chatRegex)[1] || '').trim().toLowerCase();
+            const bubblesHtml = chatLines.map(line => {
+                const m = line.trim().match(chatRegex);
+                if (!m) {
+                    return `<div class="text-xs text-slate-600 dark:text-slate-300 px-2 py-1">${esc(line.trim())}</div>`;
+                }
+                const sender = m[1].trim();
+                const time = m[2].trim();
+                const msg = esc(m[3].trim());
+                const isSelf = sender.toLowerCase() !== firstSender;
+                return `
+                    <div class="flex flex-col ${isSelf ? 'items-end' : 'items-start'}">
+                        <div class="text-[10px] font-bold text-slate-400 mb-0.5 px-1">${esc(sender)} · ${esc(time)}</div>
+                        <div class="max-w-[85%] px-3.5 py-2 rounded-2xl text-xs sm:text-[13px] leading-relaxed shadow-2xs ${isSelf ? 'bg-indigo-600 text-white rounded-br-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-bl-sm border border-slate-200 dark:border-slate-700'}">
+                            ${msg}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            return `
+                <div class="doc-formatted-container p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 space-y-2.5 font-sans">
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 border-b border-slate-100 dark:border-slate-800 pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-comments"></i> Text Message Chain
+                    </div>
+                    <div class="space-y-2.5">${bubblesHtml}</div>
+                </div>
+            `;
+        }
+
+        // 2. Workplace Email / Correspondence
+        if (/^(From|To|Date|Subject)\s*:/im.test(chunk)) {
+            const lines = chunk.split(/\r?\n/);
+            const headerLines = [];
+            const bodyLines = [];
+            let inHeader = true;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                if (inHeader && /^(From|To|Date|Subject|Cc|Bcc)\s*:/i.test(line.trim())) {
+                    headerLines.push(line.trim());
+                } else if (inHeader && line.trim() === '') {
+                    inHeader = false;
+                } else {
+                    inHeader = false;
+                    bodyLines.push(line);
+                }
+            }
+
+            if (headerLines.length > 0) {
+                const headersHtml = headerLines.map(h => {
+                    const parts = h.split(/:(.*)/s);
+                    const field = esc(parts[0].trim());
+                    const val = esc((parts[1] || '').trim());
+                    return `<div class="flex items-baseline text-xs py-0.5"><strong class="w-16 text-slate-500 uppercase tracking-wider font-mono text-[10px] shrink-0">${field}:</strong> <span class="text-slate-900 dark:text-white font-semibold">${val}</span></div>`;
+                }).join('');
+
+                const formattedBody = formatBodyAndTables(bodyLines.join('\n'));
+
+                return `
+                    <div class="doc-formatted-container space-y-3 font-sans">
+                        <div class="doc-header-card border-b-2 border-indigo-200 dark:border-indigo-800">
+                            <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-envelope"></i> Workplace Email / Correspondence
+                            </div>
+                            ${headersHtml}
+                        </div>
+                        <div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif space-y-2">
+                            ${formattedBody}
+                        </div>
+                    </div>
+                `;
             }
         }
 
-        if (headerLines.length > 0) {
-            const headersHtml = headerLines.map(h => {
-                const parts = h.split(/:(.*)/s);
-                const field = esc(parts[0].trim());
-                const val = esc((parts[1] || '').trim());
-                return `<div class="flex items-baseline text-xs py-0.5"><strong class="w-16 text-slate-500 uppercase tracking-wider font-mono text-[10px] shrink-0">${field}:</strong> <span class="text-slate-900 dark:text-white font-semibold">${val}</span></div>`;
-            }).join('');
-
-            const formattedBody = esc(bodyLines.join('\n')).replace(/\n\n+/g, '</p><p class="mt-2.5">').replace(/\n/g, '<br/>');
-
+        // 3. Notice / Memo / Policy
+        if (/^(NOTICE|MEMORANDUM|ANNOUNCEMENT|POLICY)\s*:/i.test(chunk)) {
+            const parts = chunk.split(/:(.*)/s);
+            const title = esc(parts[0].trim());
+            const body = formatBodyAndTables((parts[1] || '').trim());
             return `
                 <div class="doc-formatted-container space-y-3 font-sans">
-                    <div class="doc-header-card border-b-2 border-indigo-200 dark:border-indigo-800">
-                        <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-envelope"></i> Workplace Email / Correspondence
-                        </div>
-                        ${headersHtml}
+                    <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200">
+                        <span class="font-black text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
+                            <i class="fa-solid fa-bullhorn"></i> ${title}
+                        </span>
                     </div>
-                    <div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif">
-                        <p>${formattedBody}</p>
+                    <div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif space-y-2">
+                        ${body}
                     </div>
                 </div>
             `;
         }
+
+        return `<div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif space-y-2">${formatBodyAndTables(chunk)}</div>`;
+    };
+
+    // Format text blocks plus pipe/tab Schedule & Invoice tables
+    const formatBodyAndTables = (bodyStr) => {
+        const rawLines = bodyStr.split(/\r?\n/);
+        const blocks = [];
+        let tableBuf = [];
+        let paraBuf = [];
+
+        const flushPara = () => {
+            if (paraBuf.length > 0) {
+                const textBlock = paraBuf.join('\n').trim();
+                if (textBlock) {
+                    blocks.push(`<p class="whitespace-pre-line">${esc(textBlock)}</p>`);
+                }
+                paraBuf = [];
+            }
+        };
+        const flushTable = () => {
+            if (tableBuf.length >= 2) {
+                const rowsHtml = tableBuf.map((row, idx) => {
+                    const cells = row.split(/\t|\s*\|\s*/).filter((_, ci, arr) => !(arr.length > 2 && row.trim().startsWith('|') && (ci === 0 || ci === arr.length - 1)));
+                    const tag = idx === 0 ? 'th' : 'td';
+                    const cls = idx === 0
+                        ? 'px-2.5 py-1.5 text-left font-bold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700'
+                        : 'px-2.5 py-1.5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300';
+                    return `<tr>${cells.map(c => `<${tag} class="${cls}">${esc(c.trim())}</${tag}>`).join('')}</tr>`;
+                }).join('');
+                blocks.push(`<div class="overflow-x-auto my-2 rounded-xl border border-slate-200 dark:border-slate-700"><table class="w-full text-xs border-collapse font-sans">${rowsHtml}</table></div>`);
+            } else if (tableBuf.length === 1) {
+                blocks.push(`<p class="whitespace-pre-line">${esc(tableBuf[0])}</p>`);
+            }
+            tableBuf = [];
+        };
+
+        rawLines.forEach(line => {
+            const isTableRow = (line.includes('|') && line.split('|').length >= 2 && !/^-{3,}/.test(line.trim())) || line.includes('\t');
+            if (isTableRow) {
+                flushPara();
+                tableBuf.push(line);
+            } else {
+                flushTable();
+                if (line.trim() === '') flushPara();
+                else paraBuf.push(line);
+            }
+        });
+        flushTable();
+        flushPara();
+        return blocks.join('');
+    };
+
+    // Multi-document Part 7 splitting (e.g., --- DOCUMENT 1: ... --- / --- DOCUMENT 2: ... ---)
+    if (/^---\s*DOCUMENT\s+\d+/im.test(text)) {
+        const parts = text.split(/(?=^---\s*DOCUMENT\s+\d+[^\n]*---)/im).filter(p => p.trim().length > 0);
+        if (parts.length > 1) {
+            return parts.map(part => {
+                const headerMatch = part.match(/^---\s*(DOCUMENT\s+\d+[^\n]*?)\s*---\s*\r?\n?([\s\S]*)$/i);
+                if (headerMatch) {
+                    return `
+                        <div class="mb-4 last:mb-0 rounded-2xl border border-slate-200 dark:border-slate-700 p-3.5 bg-slate-50/50 dark:bg-slate-900/40 space-y-2">
+                            <div class="text-[10.5px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">${esc(headerMatch[1])}</div>
+                            ${renderSingleDoc(headerMatch[2])}
+                        </div>
+                    `;
+                }
+                return renderSingleDoc(part);
+            }).join('');
+        }
     }
 
-    // Check for Notice / Policy header
-    if (/^(NOTICE|MEMORANDUM|ANNOUNCEMENT|POLICY)\s*:/i.test(text)) {
-        const parts = text.split(/:(.*)/s);
-        const title = esc(parts[0].trim());
-        const body = esc((parts[1] || '').trim()).replace(/\n\n+/g, '</p><p class="mt-2.5">').replace(/\n/g, '<br/>');
-        return `
-            <div class="doc-formatted-container space-y-3 font-sans">
-                <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200">
-                    <span class="font-black text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
-                        <i class="fa-solid fa-bullhorn"></i> ${title}
-                    </span>
-                </div>
-                <div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif">
-                    <p>${body}</p>
-                </div>
-            </div>
-        `;
-    }
-
-    return `<div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif whitespace-pre-line">${esc(text)}</div>`;
+    return renderSingleDoc(text);
 }
 if (typeof window !== 'undefined') window.formatAuthenticPassage = formatAuthenticPassage;
 if (typeof module !== 'undefined' && module.exports) module.exports.formatAuthenticPassage = formatAuthenticPassage;
@@ -355,7 +465,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
         window.openMobileQuickActionSheet = openMobileQuickActionSheet;
         window.closeMobileQuickActionSheet = closeMobileQuickActionSheet;
 
-        function switchTab(tabId) {
+        function switchTab(tabId, skipHash = false) {
+            if (!tabId) tabId = 'hom-nay';
+            if (typeof tabConfig !== 'undefined' && !tabConfig[tabId]) tabId = 'hom-nay';
+
             // Tự động đóng menu thanh bên trên mobile khi chuyển tab
             if (typeof window !== 'undefined' && window.innerWidth < 1024 && typeof toggleSidebar === 'function') {
                 try { toggleSidebar(false); } catch(e) {}
@@ -390,6 +503,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
 
             state.currentTab = tabId;
 
+            // Định tuyến URL Hash để hỗ trợ nút Back/Forward & F5 không văng về trang chủ
+            if (!skipHash && typeof window !== 'undefined' && window.location) {
+                try {
+                    const targetHash = '#' + tabId;
+                    if (window.location.hash !== targetHash) {
+                        window.location.hash = targetHash;
+                    }
+                } catch (e) {}
+            }
+
             // Prefetch dữ liệu ngân hàng đề khi chuyển sang tab Luyện Đọc
             if (tabId === 'doc' && window.ToeicReadingWorkstation && !window.ReadingPracticeDatabase) {
                 window.ToeicReadingWorkstation.ensureReadingDatabase(true);
@@ -403,6 +526,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             allTabs.forEach(id => {
                 const sectionEl = document.getElementById(`view-${id}`);
                 const navEl = document.getElementById(`nav-${id}`);
+                const mobNavEl = document.getElementById(`mob-nav-${id}`);
                 if (sectionEl) {
                     if (id === tabId) {
                         sectionEl.classList.remove('hidden');
@@ -428,7 +552,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                     );
                     if (id === tabId) {
                         navEl.classList.add(tabConfig[id].activeClass);
+                        navEl.setAttribute('aria-current', 'page');
+                    } else {
+                        navEl.removeAttribute('aria-current');
                     }
+                }
+                if (mobNavEl) {
+                    if (id === tabId) mobNavEl.setAttribute('aria-current', 'page');
+                    else mobNavEl.removeAttribute('aria-current');
                 }
             });
 
@@ -437,6 +568,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const activeNavEl = document.getElementById(`nav-${targetNavId}`);
             if (activeNavEl && tabConfig[tabId]) {
                 activeNavEl.classList.add(tabConfig[tabId].activeClass);
+                activeNavEl.setAttribute('aria-current', 'page');
             }
 
             // Kích hoạt render views ngữ pháp chuyên sâu nếu cần
@@ -4686,7 +4818,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
 
                 window._quizExamEndTime = Date.now() + quizExamSecondsRemaining * 1000;
                 quizExamTimerInterval = setInterval(() => {
-                    quizExamSecondsRemaining = Math.max(0, Math.round((window._quizExamEndTime - Date.now()) / 1000));
+                    quizExamSecondsRemaining = Math.max(0, Math.floor((window._quizExamEndTime - Date.now()) / 1000));
                     if (quizExamSecondsRemaining <= 0) {
                         clearInterval(quizExamTimerInterval);
                         quizExamTimerInterval = null;
@@ -4713,7 +4845,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             renderQuizQuestion();
             const modal = document.getElementById('quizModal');
             modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            modal.classList.add('flex', 'workstation-fullscreen-modal');
+            document.body.classList.add('in-workstation-mode', 'overflow-hidden');
         }
         window.startQuickQuiz = startQuickQuiz;
 
@@ -5664,17 +5797,20 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                         // Hiệu chỉnh đồng hồ theo thời gian thực (wall-clock elapsed time)
                         if (session.targetEndTimestamp) {
                             const now = Date.now();
-                            quizExamSecondsRemaining = Math.max(0, Math.round((session.targetEndTimestamp - now) / 1000));
+                            window._quizExamEndTime = session.targetEndTimestamp;
+                            quizExamSecondsRemaining = Math.max(0, Math.floor((session.targetEndTimestamp - now) / 1000));
                         } else {
-                            const elapsedSec = Math.round((Date.now() - session.timestamp) / 1000);
+                            const elapsedSec = Math.floor((Date.now() - session.timestamp) / 1000);
                             quizExamSecondsRemaining = Math.max(0, (session.remainingSec || (120 * 60)) - elapsedSec);
+                            window._quizExamEndTime = Date.now() + quizExamSecondsRemaining * 1000;
                         }
 
                         const modal = document.getElementById('quizModal');
                         if (modal) {
                             modal.classList.remove('hidden');
-                            modal.classList.add('flex');
+                            modal.classList.add('flex', 'workstation-fullscreen-modal');
                         }
+                        document.body.classList.add('in-workstation-mode', 'overflow-hidden');
                         const titleEl = document.getElementById('quizModalTitle');
                         if (titleEl) titleEl.textContent = session.title;
                         const timerContainer = document.getElementById('quizExamTimerContainer');
@@ -5691,14 +5827,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                             timerText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
                         };
                         updateTimerDisplay();
-                        if (activeSession.quizExamEndTime && activeSession.quizExamEndTime > Date.now()) {
-                            window._quizExamEndTime = activeSession.quizExamEndTime;
-                            quizExamSecondsRemaining = Math.max(0, Math.round((window._quizExamEndTime - Date.now()) / 1000));
-                        } else {
+                        if (!window._quizExamEndTime || window._quizExamEndTime <= Date.now()) {
                             window._quizExamEndTime = Date.now() + quizExamSecondsRemaining * 1000;
                         }
                         quizExamTimerInterval = setInterval(() => {
-                            quizExamSecondsRemaining = Math.max(0, Math.round((window._quizExamEndTime - Date.now()) / 1000));
+                            quizExamSecondsRemaining = Math.max(0, Math.floor((window._quizExamEndTime - Date.now()) / 1000));
                             if (quizExamSecondsRemaining <= 0) {
                                 clearInterval(quizExamTimerInterval);
                                 quizExamTimerInterval = null;
@@ -5850,7 +5983,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
 
         function reviewHistoricalAttempt(idx) {
             try {
-                const history = JSON.parse(localStorage.getItem('toeic_exam_history') || '[]');
+                const uid = (currentUserAccount && currentUserAccount.id) ? currentUserAccount.id : 'guest';
+                const history = JSON.parse(localStorage.getItem('toeic_exam_history_' + uid) || localStorage.getItem('toeic_exam_history') || '[]');
                 const attempt = history[idx];
                 if (!attempt) return;
 
@@ -5876,8 +6010,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 const modal = document.getElementById('quizModal');
                 if (modal) {
                     modal.classList.remove('hidden');
-                    modal.classList.add('flex');
+                    modal.classList.add('flex', 'workstation-fullscreen-modal');
                 }
+                document.body.classList.add('in-workstation-mode', 'overflow-hidden');
                 const titleEl = document.getElementById('quizModalTitle');
                 if (titleEl) titleEl.textContent = `Xem lại: ${attempt.title || 'Full Test'}`;
                 const timerContainer = document.getElementById('quizExamTimerContainer');
@@ -5924,13 +6059,23 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 timerContainer.classList.remove('inline-flex');
             }
             const modal = document.getElementById('quizModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            if (window._quizToeicPlayer) window._quizToeicPlayer.pause();
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex', 'workstation-fullscreen-modal');
+            }
+            document.body.classList.remove('in-workstation-mode', 'overflow-hidden');
+            if (window.AudioManager && typeof window.AudioManager.stopAll === 'function') {
+                window.AudioManager.stopAll();
+            } else {
+                if (window._quizToeicPlayer) window._quizToeicPlayer.pause();
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
         }
 
         function speakCurrentListeningQuestion() {
+            if (window.AudioManager && typeof window.AudioManager.pauseLofi === 'function') {
+                window.AudioManager.pauseLofi();
+            }
             if (window._quizToeicPlayer) {
                 window._quizToeicPlayer.togglePlay();
                 return;
@@ -5938,7 +6083,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const item = activeQuizList[activeQuizIndex];
             if (!item) return;
             const textToSpeak = item.audioScript || item.q;
-            if (window.UniversalAudioEngine) {
+            if (window.AudioManager && typeof window.AudioManager.speakDialogue === 'function') {
+                window.AudioManager.speakDialogue(textToSpeak, { rate: 0.95 });
+            } else if (window.UniversalAudioEngine) {
                 window.UniversalAudioEngine.speak(textToSpeak, { rate: 0.95 });
             } else if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -6946,29 +7093,86 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
         // =========================================================================
         // STUDY STUDIO DASHBOARD HERO & SMART RECOMMENDATION LOGIC (GIAI ĐOẠN 2)
         // =========================================================================
-        window.startHeroNextLesson = function() {
-            const user = (typeof PersonalizedRoadmapEngine !== 'undefined') ? PersonalizedRoadmapEngine.getActiveUser() : currentUserAccount;
-            if (!user || !user.diagnosticResults) {
-                if (window.ToeicDiagnosticWorkstation && typeof window.ToeicDiagnosticWorkstation.open === 'function') {
-                    window.ToeicDiagnosticWorkstation.open();
-                    return;
+        function getDynamicQuestionBankTotals() {
+            let listening = 0;
+            let reading = 0;
+            let grammar = 0;
+            let vocab = 0;
+
+            try {
+                if (window.Ets2026Database && Array.isArray(window.Ets2026Database.testsIndex)) {
+                    window.Ets2026Database.testsIndex.forEach(t => {
+                        listening += (t.listening || 100);
+                        reading += (t.reading || 100);
+                    });
                 }
-            }
-            if (typeof switchTab === 'function') {
-                switchTab('ngu-phap');
-            }
-        };
+                if (window.ListeningDatabaseV2 && typeof window.ListeningDatabaseV2.getAllMockTestQuestions === 'function') {
+                    listening += window.ListeningDatabaseV2.getAllMockTestQuestions().length;
+                }
+                if (window.ReadingPracticeDatabase) {
+                    const rp = window.ReadingPracticeDatabase;
+                    if (rp.subtopics_part5) {
+                        Object.values(rp.subtopics_part5).forEach(arr => { if (Array.isArray(arr)) reading += arr.length; });
+                    }
+                    ['subtopics_part6', 'subtopics_part7'].forEach(key => {
+                        if (rp[key]) {
+                            Object.values(rp[key]).forEach(sets => {
+                                if (Array.isArray(sets)) {
+                                    sets.forEach(st => { reading += (st && Array.isArray(st.questions) ? st.questions.length : 1); });
+                                }
+                            });
+                        }
+                    });
+                }
+                if (window.grammarQuizBank) {
+                    Object.values(window.grammarQuizBank).forEach(arr => { if (Array.isArray(arr)) grammar += arr.length; });
+                }
+                if (window.grammarDatabase) {
+                    const seenSlugs = new Set();
+                    Object.values(window.grammarDatabase).forEach(v => {
+                        if (v && v.slug && !seenSlugs.has(v.slug)) {
+                            seenSlugs.add(v.slug);
+                            grammar += Array.isArray(v.questions) ? v.questions.length : 0;
+                        }
+                    });
+                }
+                if (window.vocabDecksDatabase) {
+                    Object.values(window.vocabDecksDatabase).forEach(arr => { if (Array.isArray(arr)) vocab += arr.length; });
+                }
+                if (window.CURATED_FRONTEND_TOPIC_BANK) {
+                    Object.values(window.CURATED_FRONTEND_TOPIC_BANK).forEach(t => {
+                        if (!t) return;
+                        if (Array.isArray(t.words)) vocab += t.words.length;
+                        else if (t.words && typeof t.words === 'object') {
+                            Object.values(t.words).forEach(lvl => { if (Array.isArray(lvl)) vocab += lvl.length; });
+                        }
+                    });
+                }
+            } catch (e) {}
+
+            return {
+                listening: listening || 1134,
+                reading: reading || 1000,
+                grammar: grammar || 182,
+                vocab: vocab || 576
+            };
+        }
+        window.getDynamicQuestionBankTotals = getDynamicQuestionBankTotals;
 
         window.startSmartRecommendationAction = function() {
-            const user = (typeof PersonalizedRoadmapEngine !== 'undefined') ? PersonalizedRoadmapEngine.getActiveUser() : currentUserAccount;
-            if (!user || !user.diagnosticResults) {
-                if (window.ToeicDiagnosticWorkstation && typeof window.ToeicDiagnosticWorkstation.open === 'function') {
-                    window.ToeicDiagnosticWorkstation.open();
+            const target = window._smartRecActionTarget || 'quick_vocab';
+            if (target === 'quick_vocab') {
+                if (window.openTinderFlashcardModal && typeof window.openTinderFlashcardModal === 'function') {
+                    window.openTinderFlashcardModal();
+                    return;
+                }
+                if (typeof switchTab === 'function') {
+                    switchTab('ngu-phap');
                     return;
                 }
             }
             if (typeof switchTab === 'function') {
-                switchTab('bay-de-thi');
+                switchTab(target);
             }
         };
 
@@ -6997,18 +7201,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const smartBody = document.getElementById('smartRecommendationBody');
             const smartBtnText = document.getElementById('smartRecommendationBtnText');
 
+            let guestTarget = null;
+            try {
+                const rawTarget = localStorage.getItem('toeic_guest_target');
+                if (rawTarget) guestTarget = JSON.parse(rawTarget);
+            } catch (e) {}
+
             if (user && user.id) {
                 const displayName = user.name || user.displayName || 'Học viên';
                 if (nameEl) nameEl.textContent = displayName;
                 const score = user.targetScore || '';
-                if (targetScoreEl) targetScoreEl.textContent = score || '--';
+                if (targetScoreEl) targetScoreEl.textContent = score || 'Chưa đặt';
 
                 let daysRemaining = null;
                 if (typeof PersonalizedRoadmapEngine !== 'undefined' && typeof PersonalizedRoadmapEngine.calculateDaysRemaining === 'function') {
                     daysRemaining = PersonalizedRoadmapEngine.calculateDaysRemaining();
                 }
                 if (examDateEl) {
-                    examDateEl.textContent = user.examDate ? `Thi: ${user.examDate}` : 'Chưa đặt ngày thi';
+                    examDateEl.textContent = user.examDate ? `Thi: ${user.examDate}` : 'Bấm để thiết lập ngày thi';
                 }
                 if (subTextEl) {
                     if (score && daysRemaining !== null) {
@@ -7029,7 +7239,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 }
 
                 if (diagResults) {
-                    // TÍNH TOÁN ĐỘNG TỪ ROADMAP ENGINE: Tìm lỗ hổng yếu nhất của học viên
                     let weakestPillar = 'gap-part5-grammar';
                     let stageId = 2;
                     if (typeof PersonalizedRoadmapEngine !== 'undefined' && typeof PersonalizedRoadmapEngine.calculateNodeStates === 'function') {
@@ -7111,6 +7320,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                     if (smartBtnText) smartBtnText.textContent = 'Luyện tập trọng tâm ngay →';
 
                     window._heroNextTabTarget = activeLesson.tab;
+                    window._smartRecActionTarget = activeLesson.tab;
                 } else {
                     const tagEl = document.getElementById('heroLessonTag');
                     if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
@@ -7119,11 +7329,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                     if (timeEl) timeEl.textContent = '25 phút';
                     if (tagEl) tagEl.textContent = 'Khảo sát năng lực đầu vào';
                     if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
-                    if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
-                    if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
-                    if (smartBtnText) smartBtnText.textContent = 'Làm bài kiểm tra đầu vào (25 phút) →';
+                    if (smartTitle) smartTitle.textContent = 'Khởi động nhanh 2 phút';
+                    if (smartBody) smartBody.textContent = 'Chưa có đủ 25 phút rảnh? Khởi động nhanh với 5 từ vựng TOEIC cốt lõi hoặc 3 câu ngữ pháp Part 5 chỉ trong 2 phút để mở chuỗi ngày học đầu tiên!';
+                    if (smartBtnText) smartBtnText.textContent = 'Học nhanh 5 từ cốt lõi (2 phút) →';
 
                     window._heroNextTabTarget = 'diagnostic';
+                    window._smartRecActionTarget = 'quick_vocab';
                 }
             } else {
                 let guestDiag = null;
@@ -7135,8 +7346,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 const tagEl = document.getElementById('heroLessonTag');
                 if (prefixEl) prefixEl.textContent = 'Chào bạn,';
                 if (nameEl) nameEl.textContent = 'Học viên!';
-                if (targetScoreEl) targetScoreEl.textContent = (guestDiag && (guestDiag.totalScore || guestDiag.score || guestDiag.estimatedScore)) || '--';
-                if (examDateEl) examDateEl.textContent = 'Chưa đặt ngày thi';
+                const targetDisplay = (guestTarget && guestTarget.targetScore) || (guestDiag && (guestDiag.totalScore || guestDiag.score || guestDiag.estimatedScore)) || 'Chưa đặt';
+                if (targetScoreEl) targetScoreEl.textContent = targetDisplay;
+                if (examDateEl) examDateEl.textContent = (guestTarget && guestTarget.examDate) ? `Thi: ${guestTarget.examDate}` : 'Bấm để thiết lập ngày thi';
 
                 if (guestDiag) {
                     if (subTextEl) subTextEl.textContent = 'Đã hoàn thành bài chẩn đoán. Đăng nhập để đồng bộ lộ trình đa thiết bị.';
@@ -7149,9 +7361,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                     if (smartTitle) smartTitle.textContent = 'Lộ trình cá nhân hóa đã sẵn sàng';
                     if (smartBody) smartBody.textContent = `Kết quả chẩn đoán đầu vào: Ước lượng ~${guestDiag.totalScore || guestDiag.score || 450} TOEIC. Hãy tiếp tục ôn luyện các chuyên đề trọng tâm để cải thiện điểm số.`;
                     if (smartBtnText) smartBtnText.textContent = 'Tiếp tục luyện tập ngay →';
-                    const bubbleTextEl = document.getElementById('heroSoiMayBubbleText');
-                    if (bubbleTextEl) bubbleTextEl.textContent = 'Bạn đã làm bài chẩn đoán rồi! Cùng Sói Mây luyện tập các bài học tiếp theo nhé! 🎯';
                     window._heroNextTabTarget = 'lo-trinh';
+                    window._smartRecActionTarget = 'lo-trinh';
                 } else {
                     if (subTextEl) subTextEl.textContent = 'Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu tiến độ';
                     if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
@@ -7160,12 +7371,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                     if (timeEl) timeEl.textContent = '25 phút';
                     if (tagEl) tagEl.textContent = 'Khảo sát năng lực đầu vào';
                     if (ctaText) ctaText.textContent = 'Bắt đầu Test Chẩn Đoán (25 phút)';
-                    if (smartTitle) smartTitle.textContent = 'Khảo sát năng lực ban đầu';
-                    if (smartBody) smartBody.textContent = 'Bạn chưa làm bài kiểm tra chẩn đoán năng lực. Hãy làm bài test 28 câu chuẩn ETS để AI quét 6 lỗ hổng kiến thức và mở khóa lộ trình tự động.';
-                    if (smartBtnText) smartBtnText.textContent = 'Làm bài kiểm tra đầu vào (25 phút) →';
-                    const bubbleTextEl = document.getElementById('heroSoiMayBubbleText');
-                    if (bubbleTextEl) bubbleTextEl.textContent = 'Chào bạn! Hãy làm bài test chẩn đoán 25 phút để cùng Sói Mây xây lộ trình riêng nhé! 🎯';
+                    if (smartTitle) smartTitle.textContent = 'Khởi động nhanh 2 phút';
+                    if (smartBody) smartBody.textContent = 'Chưa có đủ 25 phút rảnh? Khởi động nhanh với 5 từ vựng TOEIC cốt lõi hoặc 3 câu ngữ pháp Part 5 chỉ trong 2 phút để mở chuỗi ngày học đầu tiên!';
+                    if (smartBtnText) smartBtnText.textContent = 'Học nhanh 5 từ cốt lõi (2 phút) →';
                     window._heroNextTabTarget = 'diagnostic';
+                    window._smartRecActionTarget = 'quick_vocab';
                 }
             }
         };
@@ -7193,12 +7403,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
             const currentXp = state.xp || 0;
             const currentStreak = (currentUserAccount && currentUserAccount.streak !== undefined) ? currentUserAccount.streak : (state.streak || 0);
+            const bank = getDynamicQuestionBankTotals();
 
             setTxt('topXpText', `+${currentXp} XP`);
             setTxt('topStreakText', `${currentStreak} ngày`);
             setTxt('mobileTopXpText', `+${currentXp}`);
             setTxt('mobileTopStreakText', `${currentStreak}`);
-            setTxt('streakCardTitle', `Streak ${currentStreak} ngày`);
+            setTxt('streakCardTitle', `${currentStreak} ngày liên tiếp`);
             setTxt('leaderboardUserXp', `${currentXp} XP`);
             setTxt('todayPaceXp', `+${currentXp} XP`);
 
@@ -7218,9 +7429,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             setTxt('dashVocabCount', vLearned);
             setTxt('dashVocabSub', vLearned > 0 ? `Đã học ${vLearned} từ mới tuần này` : 'Chưa học từ nào tuần này');
             setTxt('vocabHeaderLearned', vLearned);
+            setTxt('vocabHeaderTotal', bank.vocab);
             setTxt('learnedWordsBadge', vLearned);
-            setTxt('ring-vocab-cnt', `${vLearned}/4514`);
-            setTxt('ring-vocab-pct', `${Math.min(100, Math.round((vLearned / 4514) * 100))}%`);
+            setTxt('ring-vocab-cnt', `${vLearned}/${bank.vocab}`);
+            setTxt('ring-vocab-pct', `${Math.min(100, Math.round((vLearned / Math.max(1, bank.vocab)) * 100))}%`);
             const taskBarVocab = document.getElementById('task-bar-vocab');
             if (taskBarVocab) taskBarVocab.style.width = `${Math.min(100, (vLearned / 10) * 100)}%`;
             setTxt('task-count-vocab', `${Math.min(10, vLearned)}/10`);
@@ -7244,37 +7456,42 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             // Grammar Metrics
             const gDone = state.grammarDone || 0;
             setTxt('grammarDoneStat', gDone);
-            setTxt('ring-grammar-cnt', `${gDone}/1500`);
-            setTxt('ring-grammar-pct', `${Math.min(100, Math.round((gDone / 1500) * 100))}%`);
+            setTxt('ring-grammar-cnt', `${gDone}/${bank.grammar}`);
+            setTxt('ring-grammar-pct', `${Math.min(100, Math.round((gDone / Math.max(1, bank.grammar)) * 100))}%`);
             const taskBarGrammar = document.getElementById('task-bar-grammar');
             if (taskBarGrammar) taskBarGrammar.style.width = `${Math.min(100, (gDone / 20) * 100)}%`;
             setTxt('task-count-grammar', `${Math.min(20, gDone)}/20`);
 
             // Listen Metrics
             const lDone = state.listenDone || 0;
-            setTxt('listenDoneStat', `${lDone}/2100`);
-            setTxt('ring-listen-cnt', `${lDone}/2100`);
-            setTxt('ring-listen-pct', `${Math.min(100, Math.round((lDone / 2100) * 100))}%`);
+            setTxt('listenDoneStat', `${lDone}/${bank.listening}`);
+            setTxt('ring-listen-cnt', `${lDone}/${bank.listening}`);
+            setTxt('ring-listen-pct', `${Math.min(100, Math.round((lDone / Math.max(1, bank.listening)) * 100))}%`);
             const taskBarListen = document.getElementById('task-bar-listen');
             if (taskBarListen) taskBarListen.style.width = `${Math.min(100, (lDone / 10) * 100)}%`;
             setTxt('task-count-listen', `${Math.min(10, lDone)}/10`);
 
             // Read Metrics
             const rDone = state.readDone || 0;
-            setTxt('readDoneStat', `${rDone}/2100`);
-            setTxt('ring-read-cnt', `${rDone}/2100`);
-            setTxt('ring-read-pct', `${Math.min(100, Math.round((rDone / 2100) * 100))}%`);
+            setTxt('readDoneStat', `${rDone}/${bank.reading}`);
+            setTxt('ring-read-cnt', `${rDone}/${bank.reading}`);
+            setTxt('ring-read-pct', `${Math.min(100, Math.round((rDone / Math.max(1, bank.reading)) * 100))}%`);
             const taskBarRead = document.getElementById('task-bar-read');
             if (taskBarRead) taskBarRead.style.width = `${Math.min(100, (rDone / 10) * 100)}%`;
             setTxt('task-count-read', `${Math.min(10, rDone)}/10`);
 
             // Member Dashboard Summary Cards (Single Source of Truth)
+            let guestTarget = null;
+            try {
+                const rawTarget = localStorage.getItem('toeic_guest_target');
+                if (rawTarget) guestTarget = JSON.parse(rawTarget);
+            } catch (e) {}
             if (currentUserAccount) {
-                setTxt('memberTargetScore', currentUserAccount.targetScore || '--');
-                setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Chưa đặt ngày thi');
+                setTxt('memberTargetScore', currentUserAccount.targetScore || 'Chưa đặt');
+                setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Bấm để thiết lập ngày thi');
             } else {
-                setTxt('memberTargetScore', '--');
-                setTxt('memberExamDate', 'Chưa đặt ngày thi');
+                setTxt('memberTargetScore', (guestTarget && guestTarget.targetScore) || 'Chưa đặt');
+                setTxt('memberExamDate', (guestTarget && guestTarget.examDate) ? `Thi: ${guestTarget.examDate}` : 'Bấm để thiết lập ngày thi');
             }
             setTxt('memberVocabCount', vLearned);
             setTxt('memberVocabSub', vLearned > 0 ? `Đã học ${vLearned} từ mới tuần này` : 'Chưa học từ nào tuần này');
@@ -7297,7 +7514,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             }
 
             setTxt('sanhMemberStreakVal', `${currentStreak} ngày`);
-            setTxt('sanhMemberStreakTitle', `Streak ${currentStreak} ngày`);
+            setTxt('sanhMemberStreakTitle', `${currentStreak} ngày liên tiếp`);
 
             // 1. Tính toán câu đúng / câu làm Ngữ pháp thực tế
             let gAnswered = 0;
@@ -7328,7 +7545,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const vAnswered = state.vocabTotalAnswers || (vLearned > 0 ? vLearned : 0);
             const vCorrect = state.vocabCorrectAnswers || vLearned;
 
-            // Update 4 Horizontal Progress Bars for Skill Balance (Logic chuẩn Senior Tech Lead & Product Designer)
+            // Update 4 Horizontal Progress Bars for Skill Balance (Neutral 0% when no data, dynamic bank counts)
+            setTxt('skillBankTotalListen', `Ngân hàng: ${bank.listening} câu`);
+            setTxt('skillBankTotalRead', `Ngân hàng: ${bank.reading} câu`);
+            setTxt('skillBankTotalGrammar', `Ngân hàng: ${bank.grammar} câu`);
+            setTxt('skillBankTotalVocab', `Ngân hàng: ${bank.vocab} từ cốt lõi`);
+
             const diag = (currentUserAccount && currentUserAccount.diagnosticResults) ? currentUserAccount.diagnosticResults : null;
 
             // 1. Luyện Nghe (Listening)
@@ -7341,24 +7563,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 const correct = state.listenCorrectAnswers || 0;
                 const total = state.listenTotalAnswers;
                 const accPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
-                if (lPct) lPct.textContent = `${accPct}%`;
-                if (lCount) lCount.textContent = `${total}/2100 câu`;
+                if (lPct) { lPct.textContent = `${accPct}%`; lPct.className = 'font-bold text-teal-700 dark:text-teal-300'; }
+                if (lCount) lCount.textContent = `${total}/${bank.listening} câu`;
                 if (lDetail) lDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
-                listenProgWidth = Math.min(100, Math.max(1, Math.round((total / 2100) * 100 * 5))); // Scale để trực quan nhưng vẫn minh bạch
+                listenProgWidth = Math.min(100, Math.max(2, Math.round((total / Math.max(1, bank.listening)) * 100 * 5)));
             } else if (lDone > 0) {
-                if (lPct) lPct.textContent = 'Chưa đủ dữ liệu';
-                if (lCount) lCount.textContent = `${lDone}/2100 câu`;
-                if (lDetail) lDetail.textContent = `Đã hoàn thành ${lDone} câu · Chưa đủ dữ liệu độ chính xác`;
-                listenProgWidth = Math.min(100, Math.max(1, Math.round((lDone / 2100) * 100 * 5)));
+                if (lPct) { lPct.textContent = '0%'; lPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (lCount) lCount.textContent = `${lDone}/${bank.listening} câu`;
+                if (lDetail) lDetail.textContent = `Đã hoàn thành ${lDone} câu`;
+                listenProgWidth = Math.min(100, Math.max(2, Math.round((lDone / Math.max(1, bank.listening)) * 100 * 5)));
             } else if (diag && diag.listening) {
                 const diagPct = Math.round((diag.listening / 495) * 100);
-                if (lPct) lPct.textContent = `${diagPct}%`;
+                if (lPct) { lPct.textContent = `${diagPct}%`; lPct.className = 'font-bold text-teal-700 dark:text-teal-300'; }
                 if (lCount) lCount.textContent = `${diag.listening}/495 điểm ETS`;
                 if (lDetail) lDetail.textContent = `Năng lực dự báo: ${diag.listening} điểm Listening`;
                 listenProgWidth = diagPct;
             } else {
-                if (lPct) lPct.textContent = 'Chưa test';
-                if (lCount) lCount.textContent = '0/2100 câu';
+                if (lPct) { lPct.textContent = '0%'; lPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (lCount) lCount.textContent = `0/${bank.listening} câu`;
                 if (lDetail) lDetail.textContent = 'Chưa làm bài kiểm tra nào';
                 listenProgWidth = 0;
             }
@@ -7374,24 +7596,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 const correct = state.readCorrectAnswers || 0;
                 const total = state.readTotalAnswers;
                 const accPct = Math.min(100, Math.max(0, Math.round((correct / total) * 100)));
-                if (rPct) rPct.textContent = `${accPct}%`;
-                if (rCount) rCount.textContent = `${total}/2100 câu`;
+                if (rPct) { rPct.textContent = `${accPct}%`; rPct.className = 'font-bold text-emerald-700 dark:text-emerald-300'; }
+                if (rCount) rCount.textContent = `${total}/${bank.reading} câu`;
                 if (rDetail) rDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
-                readProgWidth = Math.min(100, Math.max(1, Math.round((total / 2100) * 100 * 5)));
+                readProgWidth = Math.min(100, Math.max(2, Math.round((total / Math.max(1, bank.reading)) * 100 * 5)));
             } else if (rDone > 0) {
-                if (rPct) rPct.textContent = 'Chưa đủ dữ liệu';
-                if (rCount) rCount.textContent = `${rDone}/2100 câu`;
-                if (rDetail) rDetail.textContent = `Đã hoàn thành ${rDone} câu · Chưa đủ dữ liệu độ chính xác`;
-                readProgWidth = Math.min(100, Math.max(1, Math.round((rDone / 2100) * 100 * 5)));
+                if (rPct) { rPct.textContent = '0%'; rPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (rCount) rCount.textContent = `${rDone}/${bank.reading} câu`;
+                if (rDetail) rDetail.textContent = `Đã hoàn thành ${rDone} câu`;
+                readProgWidth = Math.min(100, Math.max(2, Math.round((rDone / Math.max(1, bank.reading)) * 100 * 5)));
             } else if (diag && diag.reading) {
                 const diagPct = Math.round((diag.reading / 495) * 100);
-                if (rPct) rPct.textContent = `${diagPct}%`;
+                if (rPct) { rPct.textContent = `${diagPct}%`; rPct.className = 'font-bold text-emerald-700 dark:text-emerald-300'; }
                 if (rCount) rCount.textContent = `${diag.reading}/495 điểm ETS`;
                 if (rDetail) rDetail.textContent = `Năng lực dự báo: ${diag.reading} điểm Reading`;
                 readProgWidth = diagPct;
             } else {
-                if (rPct) rPct.textContent = 'Chưa test';
-                if (rCount) rCount.textContent = '0/2100 câu';
+                if (rPct) { rPct.textContent = '0%'; rPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (rCount) rCount.textContent = `0/${bank.reading} câu`;
                 if (rDetail) rDetail.textContent = 'Chưa làm bài kiểm tra nào';
                 readProgWidth = 0;
             }
@@ -7406,24 +7628,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             if (gAnswered > 0 && (state.grammarTotalAnswers || gCorrect > 0)) {
                 const safeCorrect = Math.min(gCorrect, gAnswered);
                 const accPct = Math.min(100, Math.max(0, Math.round((safeCorrect / gAnswered) * 100)));
-                if (gPct) gPct.textContent = `${accPct}%`;
-                if (gCount) gCount.textContent = `${gAnswered}/1500 câu`;
+                if (gPct) { gPct.textContent = `${accPct}%`; gPct.className = 'font-bold text-purple-700 dark:text-purple-300'; }
+                if (gCount) gCount.textContent = `${gAnswered}/${bank.grammar} câu`;
                 if (gDetail) gDetail.textContent = `Đã làm ${gAnswered} câu · Đúng ${safeCorrect}/${gAnswered} câu`;
-                grammarProgWidth = Math.min(100, Math.max(1, Math.round((gAnswered / 1500) * 100 * 5)));
+                grammarProgWidth = Math.min(100, Math.max(2, Math.round((gAnswered / Math.max(1, bank.grammar)) * 100 * 5)));
             } else if ((state.grammarDone || 0) > 0) {
-                if (gPct) gPct.textContent = 'Chưa đủ dữ liệu';
-                if (gCount) gCount.textContent = `${state.grammarDone}/1500 câu`;
-                if (gDetail) gDetail.textContent = `Đã làm ${state.grammarDone} câu · Chưa đủ dữ liệu độ chính xác`;
-                grammarProgWidth = Math.min(100, Math.max(1, Math.round((state.grammarDone / 1500) * 100 * 5)));
+                if (gPct) { gPct.textContent = '0%'; gPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (gCount) gCount.textContent = `${state.grammarDone}/${bank.grammar} câu`;
+                if (gDetail) gDetail.textContent = `Đã làm ${state.grammarDone} câu`;
+                grammarProgWidth = Math.min(100, Math.max(2, Math.round((state.grammarDone / Math.max(1, bank.grammar)) * 100 * 5)));
             } else if (diag && diag.reading) {
                 const estPct = Math.round((diag.reading / 495) * 100);
-                if (gPct) gPct.textContent = `${estPct}%`;
+                if (gPct) { gPct.textContent = `${estPct}%`; gPct.className = 'font-bold text-purple-700 dark:text-purple-300'; }
                 if (gCount) gCount.textContent = 'Dự báo năng lực';
                 if (gDetail) gDetail.textContent = `Ước lượng qua kỹ năng Đọc: ${estPct}%`;
                 grammarProgWidth = estPct;
             } else {
-                if (gPct) gPct.textContent = 'Chưa test';
-                if (gCount) gCount.textContent = '0/1500 câu';
+                if (gPct) { gPct.textContent = '0%'; gPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (gCount) gCount.textContent = `0/${bank.grammar} câu`;
                 if (gDetail) gDetail.textContent = 'Chưa làm câu ngữ pháp nào';
                 grammarProgWidth = 0;
             }
@@ -7438,18 +7660,18 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             if (vAnswered > 0 && state.vocabTotalAnswers) {
                 const safeVCorrect = Math.min(vCorrect, vAnswered);
                 const accPct = Math.min(100, Math.max(0, Math.round((safeVCorrect / vAnswered) * 100)));
-                if (vPct) vPct.textContent = `${accPct}%`;
-                if (vCount) vCount.textContent = `${vLearned}/4514 từ`;
+                if (vPct) { vPct.textContent = `${accPct}%`; vPct.className = 'font-bold text-amber-700 dark:text-amber-300'; }
+                if (vCount) vCount.textContent = `${vLearned}/${bank.vocab} từ`;
                 if (vDetail) vDetail.textContent = `Đã học ${vLearned} từ · Độ nhớ ${accPct}%`;
-                vocabProgWidth = Math.min(100, Math.max(1, Math.round((vLearned / 500) * 100)));
+                vocabProgWidth = Math.min(100, Math.max(2, Math.round((vLearned / Math.max(1, bank.vocab)) * 100 * 5)));
             } else if (vLearned > 0) {
-                if (vPct) vPct.textContent = 'Chưa đủ dữ liệu';
-                if (vCount) vCount.textContent = `${vLearned}/4514 từ`;
-                if (vDetail) vDetail.textContent = `Đã thuộc ${vLearned} từ vựng cốt lõi · Chưa làm bài test độ nhớ`;
-                vocabProgWidth = Math.min(100, Math.max(1, Math.round((vLearned / 500) * 100)));
+                if (vPct) { vPct.textContent = '0%'; vPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (vCount) vCount.textContent = `${vLearned}/${bank.vocab} từ`;
+                if (vDetail) vDetail.textContent = `Đã thuộc ${vLearned} từ vựng cốt lõi`;
+                vocabProgWidth = Math.min(100, Math.max(2, Math.round((vLearned / Math.max(1, bank.vocab)) * 100 * 5)));
             } else {
-                if (vPct) vPct.textContent = 'Chưa học';
-                if (vCount) vCount.textContent = '0/4514 từ';
+                if (vPct) { vPct.textContent = '0%'; vPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (vCount) vCount.textContent = `0/${bank.vocab} từ`;
                 if (vDetail) vDetail.textContent = 'Chưa học từ vựng nào';
                 vocabProgWidth = 0;
             }
@@ -7463,10 +7685,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 updateDashboardStudioHero();
             }
 
-            if (window.EtsAdaptiveScorer && typeof window.EtsAdaptiveScorer.renderDashboardWidget === 'function') {
-                window.EtsAdaptiveScorer.renderDashboardWidget();
-            }
-
             if (window.DailyTaskManager && typeof window.DailyTaskManager.render === 'function') {
                 window.DailyTaskManager.render();
             }
@@ -7478,17 +7696,22 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             }
         }
 
-        // Target Modal Handlers
+        // Target Modal Handlers (Hỗ trợ cả Khách và Tài khoản đăng nhập)
         function openTargetModal() {
-            if (!currentUserAccount) {
-                showToast('⚠️ Vui lòng đăng nhập hoặc tạo tài khoản để đặt mục tiêu cá nhân!');
-                if (window.UserAuthEngine) window.UserAuthEngine.showForcedGatekeeper();
-                return;
-            }
             const inputScore = document.getElementById('inputTargetScore');
             const inputDate = document.getElementById('inputTargetDate');
-            if (inputScore) inputScore.value = currentUserAccount.targetScore || '600';
-            if (inputDate) inputDate.value = currentUserAccount.examDate || '';
+            if (currentUserAccount) {
+                if (inputScore) inputScore.value = currentUserAccount.targetScore || '600';
+                if (inputDate) inputDate.value = currentUserAccount.examDate || '';
+            } else {
+                let guestTarget = null;
+                try {
+                    const rawTarget = localStorage.getItem('toeic_guest_target');
+                    if (rawTarget) guestTarget = JSON.parse(rawTarget);
+                } catch (e) {}
+                if (inputScore) inputScore.value = (guestTarget && guestTarget.targetScore) || '600';
+                if (inputDate) inputDate.value = (guestTarget && guestTarget.examDate) || '';
+            }
 
             const m = document.getElementById('targetModal');
             if (m) {
@@ -7505,9 +7728,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
 
             // 1. Cập nhật thẻ mục tiêu trên Sảnh hôm nay
             const scoreEl = document.getElementById('memberTargetScore');
-            if (scoreEl) scoreEl.textContent = score || '--';
+            if (scoreEl) scoreEl.textContent = score || 'Chưa đặt';
             const dateEl = document.getElementById('memberExamDate');
-            if (dateEl) dateEl.textContent = date ? `Thi: ${date}` : 'Chưa đặt ngày thi';
+            if (dateEl) dateEl.textContent = date ? `Thi: ${date}` : 'Bấm để thiết lập ngày thi';
 
             // 2. Cập nhật các trường phụ trong trang cài đặt
             const profTarget = document.getElementById('profileTargetScoreInput');
@@ -7518,21 +7741,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const oldScore = document.getElementById('targetScoreVal');
             if (oldScore) oldScore.textContent = score;
             const oldDate = document.getElementById('targetDateVal');
-            if (oldDate) oldDate.textContent = `Thi: ${date}`;
+            if (oldDate) oldDate.textContent = date ? `Thi: ${date}` : 'Chưa đặt';
 
-            // 3. Cập nhật tài khoản hiện tại và đồng bộ
+            // 3. Cập nhật tài khoản hoặc lưu cục bộ cho Khách
             if (currentUserAccount) {
                 currentUserAccount.targetScore = score;
                 currentUserAccount.examDate = date;
                 syncCurrentAccountState();
 
-                // Lưu lên server qua /api/user/update-target
                 fetch('/api/user/update-target', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                     body: JSON.stringify({ targetScore: score, examDate: date, userId: currentUserAccount.id })
                 }).catch(err => console.warn('Lỗi lưu mục tiêu lên máy chủ:', err));
+            } else {
+                try {
+                    localStorage.setItem('toeic_guest_target', JSON.stringify({ targetScore: score, examDate: date }));
+                } catch (e) {}
             }
 
             const m = document.getElementById('targetModal');
@@ -7583,7 +7809,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             const streakVal = document.getElementById('sanhMemberStreakVal');
             const streakCount = streakInfo?.streak !== undefined ? streakInfo.streak : ((currentUserAccount && currentUserAccount.streak !== undefined) ? currentUserAccount.streak : (state.streak || 0));
 
-            if (title) title.textContent = `Streak ${streakCount} ngày`;
+            if (title) title.textContent = `${streakCount} ngày liên tiếp`;
             if (streakVal) streakVal.textContent = `${streakCount} ngày`;
 
             if (!row) return;
@@ -7631,6 +7857,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             window.currentUserAccount = null;
             const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
 
+            let guestTarget = null;
+            try {
+                const rawTarget = localStorage.getItem('toeic_guest_target');
+                if (rawTarget) guestTarget = JSON.parse(rawTarget);
+            } catch (e) {}
+
             setTxt('userNameDisplay', 'Học viên!');
             setTxt('topUserName', 'Chưa đăng nhập');
             setTxt('dropdownUserName', 'Chưa đăng nhập');
@@ -7641,17 +7873,17 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             setTxt('sanhMemberProfileName', 'Khách');
             setTxt('sanhMemberDropdownEmail', 'Chưa đăng nhập');
             setTxt('mobileDropdownEmail', 'Chưa đăng nhập');
-            setTxt('memberTargetScore', '--');
-            setTxt('memberExamDate', 'Chưa đặt ngày thi');
+            setTxt('memberTargetScore', (guestTarget && guestTarget.targetScore) || 'Chưa đặt');
+            setTxt('memberExamDate', (guestTarget && guestTarget.examDate) ? `Thi: ${guestTarget.examDate}` : 'Bấm để thiết lập ngày thi');
             setTxt('memberVocabCount', '0');
             setTxt('memberAccuracyVal', 'Độ nhớ: Chưa kiểm tra');
             setTxt('memberStudyTime', 'Chưa học');
             setTxt('memberStudyTimeSub', 'Hôm nay: 0 phút');
             setTxt('sanhMemberStreakVal', '0 ngày');
-            setTxt('sanhMemberStreakTitle', 'Streak 0 ngày');
+            setTxt('sanhMemberStreakTitle', '0 ngày liên tiếp');
             setTxt('sanhMemberXpVal', '0 XP');
-            setTxt('targetScoreVal', '--');
-            setTxt('targetDateVal', 'Chưa đặt');
+            setTxt('targetScoreVal', (guestTarget && guestTarget.targetScore) || '--');
+            setTxt('targetDateVal', (guestTarget && guestTarget.examDate) ? `Thi: ${guestTarget.examDate}` : 'Chưa đặt');
 
             renderStreakWeekDays({ streak: 0, weekDays: [] });
             if (window.DailyTaskManager && typeof window.DailyTaskManager.render === 'function') {
@@ -8128,10 +8360,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
 
             // Cập nhật Sảnh Study Studio chuẩn Quiet Confidence
             setTxt('sanhMemberProfileName', currentUserAccount.name || 'Học viên');
-            setTxt('memberTargetScore', currentUserAccount.targetScore || '--');
-            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Chưa đặt ngày thi');
+            setTxt('memberTargetScore', currentUserAccount.targetScore || 'Chưa đặt');
+            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Bấm để thiết lập ngày thi');
             setTxt('sanhMemberStreakVal', `${currentUserAccount.streak || 0} ngày`);
-            setTxt('sanhMemberStreakTitle', `Streak ${currentUserAccount.streak || 0} ngày`);
+            setTxt('sanhMemberStreakTitle', `${currentUserAccount.streak || 0} ngày liên tiếp`);
             setTxt('sanhMemberXpVal', `+${currentUserAccount.xp || 0} XP`);
             setTxt('sanhMemberDropdownEmail', currentUserAccount.email || '');
             setTxt('mobileDropdownEmail', currentUserAccount.email || '');
@@ -10971,12 +11203,23 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 const path = (window.location && window.location.pathname) || '';
                 const initialHash = window.location.hash.replace('#', '');
                 if (initialHash && typeof switchTab === 'function' && typeof tabConfig !== 'undefined' && tabConfig[initialHash]) {
-                    switchTab(initialHash);
+                    switchTab(initialHash, true);
                 } else if (path.includes('/study') || path.includes('/match') || path === '/vocabulary') {
                     if (window.VocabularyEngine && typeof window.VocabularyEngine.init === 'function') {
                         window.VocabularyEngine.init();
                     }
                     return;
+                }
+                if (!window._hashChangeRouterAttached) {
+                    window._hashChangeRouterAttached = true;
+                    window.addEventListener('hashchange', function() {
+                        try {
+                            const h = (window.location.hash || '').replace('#', '') || 'hom-nay';
+                            if (typeof switchTab === 'function' && typeof tabConfig !== 'undefined' && tabConfig[h]) {
+                                switchTab(h, true);
+                            }
+                        } catch (err) {}
+                    });
                 }
             } catch(e) {}
         }

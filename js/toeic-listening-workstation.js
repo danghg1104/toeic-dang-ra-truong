@@ -482,15 +482,29 @@
             const scriptText = item.transcript || item.audioScript || item.dialogue || item.talk || '';
             const transVi = item.translation_vi || item.dialogue_vi || item.talk_vi || '';
 
+            const escAttr = (s) => String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const lineTimestamps = Array.isArray(item.timestamps) ? item.timestamps : (Array.isArray(item.segments) ? item.segments : null);
+
             if (this.part === 1 || this.part === 2) {
-                const pLines = scriptText.split('\n').filter(l => l.trim().length > 0);
-                const pLinesHtml = pLines.length > 0
-                    ? pLines.map((l, idx) => `<div class="tlw-transcript-line px-2 py-1 rounded-lg transition-colors font-medium text-slate-800 dark:text-slate-100 text-[13px] leading-relaxed" data-line-index="${idx}" data-char-weight="${Math.max(10, l.trim().length)}">${l.trim()}</div>`).join('')
-                    : `<p class="tlw-transcript-line px-2 py-1 rounded-lg transition-colors font-medium text-slate-800 dark:text-slate-100 text-[13px] leading-relaxed" data-line-index="0" data-char-weight="${Math.max(10, scriptText.length)}">${scriptText}</p>`;
+                const pLines = scriptText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                const linesArr = pLines.length > 0 ? pLines : (scriptText ? [scriptText.trim()] : []);
+                const pLinesHtml = linesArr.map((l, idx) => {
+                    const ts = (lineTimestamps && lineTimestamps[idx]) ? lineTimestamps[idx] : null;
+                    const tsAttr = ts && Number.isFinite(ts.start) ? `data-start="${ts.start}" data-end="${ts.end ?? (ts.start + 4)}"` : '';
+                    return `
+                        <button type="button" onclick="ToeicListeningWorkstation.speakTranscriptLine(${idx})" class="tlw-transcript-line group w-full text-left flex items-start gap-2 px-2.5 py-1.5 rounded-xl hover:bg-indigo-50/80 dark:hover:bg-slate-800/80 transition-colors font-medium text-slate-800 dark:text-slate-100 text-[13px] leading-relaxed cursor-pointer" data-line-index="${idx}" data-speech-text="${escAttr(l)}" ${tsAttr} title="Bấm vào câu này để nghe đọc lại">
+                            <i class="fa-solid fa-volume-high text-[10px] text-indigo-500 mt-1 opacity-60 group-hover:opacity-100 shrink-0"></i>
+                            <span class="flex-1">${l}</span>
+                        </button>
+                    `;
+                }).join('');
 
                 transcriptHtml = `
-                    <div class="font-bold uppercase tracking-wider text-[10.5px] text-indigo-600 dark:text-indigo-400 mb-1 flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-audio"></i> Lời thoại trong audio:
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                        <span class="font-bold uppercase tracking-wider text-[10.5px] text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-audio"></i> Lời thoại trong audio:
+                        </span>
+                        <span class="text-[10.5px] text-slate-400 font-medium">Bấm vào câu để nghe lại</span>
                     </div>
                     <div class="space-y-1">${pLinesHtml}</div>
                     ${this.showBilingual && (item.explanation_vi || transVi) ? `<div class="pt-2 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs italic">${item.explanation_vi || transVi}</div>` : ''}
@@ -520,27 +534,32 @@
 
                     let lineContent = dialogueContent;
                     if (this.showEvidence) {
-                        // Highlight evidence
                         lineContent = lineContent.replace(/(\b[A-Za-z0-9\s]{15,40}\b)/g, match => {
                             return `<span class="bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 font-bold px-1 rounded">${match}</span>`;
                         });
                     }
 
-                    const viSub = (this.showBilingual && viLines[idx]) ? `<div class="text-[11.5px] text-slate-500 dark:text-slate-400 pl-4 border-l-2 border-slate-300 dark:border-slate-700 italic">${viLines[idx].trim()}</div>` : '';
+                    const viSub = (this.showBilingual && viLines[idx]) ? `<div class="text-[11.5px] text-slate-500 dark:text-slate-400 pl-4 border-l-2 border-slate-300 dark:border-slate-700 italic mt-0.5">${viLines[idx].trim()}</div>` : '';
+                    const ts = (lineTimestamps && lineTimestamps[idx]) ? lineTimestamps[idx] : null;
+                    const tsAttr = ts && Number.isFinite(ts.start) ? `data-start="${ts.start}" data-end="${ts.end ?? (ts.start + 5)}"` : '';
 
                     return `
-                        <div class="tlw-transcript-line space-y-0.5 px-2.5 py-1.5 rounded-xl transition-colors" data-line-index="${idx}" data-char-weight="${Math.max(12, dialogueContent.length)}">
-                            <div class="font-semibold text-[12.5px] text-slate-800 dark:text-slate-200">${speakerPrefix}${lineContent}</div>
+                        <button type="button" onclick="ToeicListeningWorkstation.speakTranscriptLine(${idx})" class="tlw-transcript-line group w-full text-left block px-2.5 py-1.5 rounded-xl hover:bg-indigo-50/80 dark:hover:bg-slate-800/80 transition-colors cursor-pointer" data-line-index="${idx}" data-speech-text="${escAttr(trimmed)}" ${tsAttr} title="Bấm vào câu thoại để nghe đọc lại">
+                            <div class="font-semibold text-[12.5px] text-slate-800 dark:text-slate-200 flex items-start gap-2">
+                                <i class="fa-solid fa-volume-high text-[10px] text-indigo-500 mt-1 opacity-60 group-hover:opacity-100 shrink-0"></i>
+                                <span class="flex-1">${speakerPrefix}${lineContent}</span>
+                            </div>
                             ${viSub}
-                        </div>
+                        </button>
                     `;
                 }).join('');
 
                 transcriptHtml = `
-                    <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center justify-between gap-2 mb-2">
                         <span class="font-bold uppercase tracking-wider text-[10.5px] text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
                             <i class="fa-solid fa-comments"></i> Transcript lời thoại ${this.part === 3 ? 'hội thoại' : 'bài nói'}:
                         </span>
+                        <span class="text-[10.5px] text-slate-400 font-medium">Bấm vào từng câu để nghe lại</span>
                     </div>
                     <div class="space-y-1.5">${linesHtml}</div>
                 `;
@@ -1034,6 +1053,20 @@
             }
         }
 
+        setTranscriptActiveLine(activeIdx) {
+            const box = document.getElementById('tlwTranscriptBox');
+            if (!box) return;
+            const lineEls = box.querySelectorAll('.tlw-transcript-line');
+            lineEls.forEach((el, idx) => {
+                const isActive = (idx === activeIdx);
+                el.classList.toggle('bg-indigo-100/90', isActive);
+                el.classList.toggle('dark:bg-indigo-900/60', isActive);
+                el.classList.toggle('ring-1', isActive);
+                el.classList.toggle('ring-indigo-300', isActive);
+                el.classList.toggle('dark:ring-indigo-700', isActive);
+            });
+        }
+
         updateTranscriptHighlight() {
             const box = document.getElementById('tlwTranscriptBox');
             if (!box || !this.duration || this.duration <= 0) return;
@@ -1041,31 +1074,58 @@
             const lineEls = box.querySelectorAll('.tlw-transcript-line');
             if (!lineEls.length) return;
 
-            const progress = Math.min(1, Math.max(0, this.currentTime / this.duration));
-            let totalWeight = 0;
-            lineEls.forEach(el => {
-                totalWeight += parseInt(el.dataset.charWeight || '20', 10);
-            });
+            // Chỉ tô sáng theo audio khi có mảng per-line timestamps thật; tắt hoàn toàn chia giờ theo ký tự
+            const hasRealTimestamps = Array.from(lineEls).some(el => el.dataset.start !== undefined);
+            if (!hasRealTimestamps) return;
 
-            let cumWeight = 0;
-            let activeIdx = 0;
-            for (let i = 0; i < lineEls.length; i++) {
-                const w = parseInt(lineEls[i].dataset.charWeight || '20', 10);
-                cumWeight += w;
-                if (progress <= (cumWeight / totalWeight) || i === lineEls.length - 1) {
-                    activeIdx = i;
-                    break;
+            let activeIdx = -1;
+            if (this.isPlaying) {
+                for (let i = 0; i < lineEls.length; i++) {
+                    const start = parseFloat(lineEls[i].dataset.start);
+                    const end = parseFloat(lineEls[i].dataset.end);
+                    if (!Number.isNaN(start) && this.currentTime >= start && (Number.isNaN(end) || this.currentTime < end)) {
+                        activeIdx = i;
+                        break;
+                    }
                 }
             }
+            this.setTranscriptActiveLine(activeIdx);
+        }
 
-            lineEls.forEach((el, idx) => {
-                const isActive = (this.isPlaying && idx === activeIdx);
-                el.classList.toggle('bg-indigo-100/90', isActive);
-                el.classList.toggle('dark:bg-indigo-900/60', isActive);
-                el.classList.toggle('ring-1', isActive);
-                el.classList.toggle('ring-indigo-300', isActive);
-                el.classList.toggle('dark:ring-indigo-700', isActive);
-            });
+        speakTranscriptLine(idx) {
+            const box = document.getElementById('tlwTranscriptBox');
+            if (!box) return;
+            const targetEl = box.querySelector(`.tlw-transcript-line[data-line-index="${idx}"]`);
+            if (!targetEl) return;
+
+            const rawText = targetEl.dataset.speechText || targetEl.textContent || '';
+            if (!rawText.trim()) return;
+
+            // Tạm dừng audio chính và Lofi để phát âm câu thoại sạch sẽ, không chồng tiếng
+            this.pause();
+            const currentItem = this.items[this.currentIndex] || {};
+            const accent = (currentItem.accent || 'en-US').includes('GB') ? 'en-GB' : 'en-US';
+
+            if (typeof window !== 'undefined' && window.AudioManager && typeof window.AudioManager.speakDialogue === 'function') {
+                window.AudioManager.speakDialogue(rawText, {
+                    lang: accent,
+                    rate: this.playbackRate || 0.95,
+                    onTurnStart: () => this.setTranscriptActiveLine(idx),
+                    onBoundary: () => this.setTranscriptActiveLine(idx),
+                    onTurnEnd: () => this.setTranscriptActiveLine(-1)
+                }, () => this.setTranscriptActiveLine(-1));
+            } else if ('speechSynthesis' in window) {
+                try { window.speechSynthesis.cancel(); } catch (e) {}
+                const cleanSpeech = rawText.replace(/^(Man|Woman|Female|Male|M|W|Speaker\s*\d*|Person\s*[A-B]):\s*/i, '');
+                const u = new SpeechSynthesisUtterance(cleanSpeech);
+                u.lang = accent;
+                u.rate = this.playbackRate || 0.95;
+                u.onstart = () => this.setTranscriptActiveLine(idx);
+                u.onboundary = () => this.setTranscriptActiveLine(idx);
+                u.onend = () => this.setTranscriptActiveLine(-1);
+                u.onerror = () => this.setTranscriptActiveLine(-1);
+                window.speechSynthesis.speak(u);
+            }
         }
 
         // =========================================================================

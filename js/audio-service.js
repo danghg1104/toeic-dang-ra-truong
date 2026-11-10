@@ -510,19 +510,19 @@
                 const lines = transcript.split(/\n+/).map(l => l.trim()).filter(Boolean);
                 const rawTurns = [];
 
-                lines.forEach(line => {
+                lines.forEach((line, idx) => {
                     const match = line.match(/^(Man|Woman|Female|Male|M|W|Speaker\s*\d*|Person\s*[A-B]):\s*(.+)$/i);
                     if (match) {
-                        rawTurns.push({ speaker: match[1].toLowerCase(), text: match[2].trim() });
+                        rawTurns.push({ speaker: match[1].toLowerCase(), text: match[2].trim(), lineIdx: idx });
                     } else if (rawTurns.length > 0) {
                         rawTurns[rawTurns.length - 1].text += ' ' + line;
                     } else {
-                        rawTurns.push({ speaker: 'neutral', text: line });
+                        rawTurns.push({ speaker: 'neutral', text: line, lineIdx: idx });
                     }
                 });
 
                 if (rawTurns.length === 0) {
-                    rawTurns.push({ speaker: 'neutral', text: transcript });
+                    rawTurns.push({ speaker: 'neutral', text: transcript, lineIdx: 0 });
                 }
 
                 // Tách câu dài > 140 ký tự để tránh Chrome ngắt âm thanh sau 15 giây
@@ -535,13 +535,13 @@
                         let buf = '';
                         sentences.forEach(s => {
                             if ((buf + ' ' + s).trim().length > 140 && buf.trim()) {
-                                turns.push({ speaker: t.speaker, text: buf.trim() });
+                                turns.push({ speaker: t.speaker, text: buf.trim(), lineIdx: t.lineIdx });
                                 buf = s;
                             } else {
                                 buf = (buf ? buf + ' ' : '') + s.trim();
                             }
                         });
-                        if (buf.trim()) turns.push({ speaker: t.speaker, text: buf.trim() });
+                        if (buf.trim()) turns.push({ speaker: t.speaker, text: buf.trim(), lineIdx: t.lineIdx });
                     }
                 });
 
@@ -554,7 +554,8 @@
                         return;
                     }
 
-                    const turn = turns[currentTurn++];
+                    const turnIdx = currentTurn++;
+                    const turn = turns[turnIdx];
                     const u = new SpeechSynthesisUtterance(turn.text);
                     u.lang = options.lang || 'en-US';
                     u.rate = options.rate || 0.95;
@@ -572,8 +573,17 @@
                         if (maleVoice) u.voice = maleVoice;
                     }
 
+                    u.onstart = () => {
+                        if (token !== this._dialogueToken) return;
+                        if (typeof options.onTurnStart === 'function') options.onTurnStart(turn.lineIdx, turn);
+                    };
+                    u.onboundary = (e) => {
+                        if (token !== this._dialogueToken) return;
+                        if (typeof options.onBoundary === 'function') options.onBoundary(e, turn.lineIdx, turn);
+                    };
                     u.onend = () => {
                         if (token !== this._dialogueToken) return;
+                        if (typeof options.onTurnEnd === 'function') options.onTurnEnd(turn.lineIdx, turn);
                         setTimeout(playNextTurn, 350);
                     };
                     u.onerror = () => {

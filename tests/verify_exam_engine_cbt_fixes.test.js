@@ -140,19 +140,21 @@ assert(diagContent.includes('this.showQuestion(this.currentIndex);'), 'open() mu
 assert(diagContent.includes('this.saveSession();'), 'selectOption/showQuestion must persist session');
 assert(diagContent.includes('id="tdwSeekbarContainer"') && diagContent.includes('pointer-events-none select-none'), 'Diagnostic seekbar must lock pointer-events');
 
-// Evaluate scaleEtsScore logic
+// Evaluate scaleEtsScore & diagnostic difficulty weights
 const scaleFnMatch = diagContent.match(/function scaleEtsScore\([\s\S]*?\n\s*\}/);
 assert(scaleFnMatch, 'scaleEtsScore function must exist');
 const scaleFn = new Function('return ' + scaleFnMatch[0])();
 assert.strictEqual(scaleFn(0, 20), 5, '0 weighted points scales to minimum ETS score 5');
 assert.strictEqual(scaleFn(20, 20), 495, 'Full weighted points scales to maximum ETS score 495');
-assert(scaleFn(1.8, 5.7) > scaleFn(1.1, 5.7), 'Part 7 weight (1.8) contributes more than Part 5 weight (1.1)');
-console.log('  ✓ PASS: Diagnostic session restore/save, pointer-events:none seekbar, and ETS difficulty weights verified');
+assert(/partWeights\s*=\s*\{\s*1:\s*1\.0,\s*2:\s*1\.0,\s*3:\s*1\.2,\s*4:\s*1\.2,\s*5:\s*1\.2,\s*6:\s*1\.2,\s*7:\s*1\.5\s*\}/.test(diagContent), 'Diagnostic weights must match 1.0 / 1.2 / 1.5 ETS tiering');
+assert(diagContent.includes('window.confirm('), 'Diagnostic session restore must ask confirm before resuming');
+assert(scaleFn(1.5, 5.1) > scaleFn(1.2, 5.1), 'Part 7 weight (1.5) contributes more than Part 5 weight (1.2)');
+console.log('  ✓ PASS: Diagnostic session confirm/restore, pointer-events:none seekbar, and ETS difficulty weights (1.0/1.2/1.5) verified');
 
 // ------------------------------------------------------------
-// 5. Reading CBT Split-Screen & Authentic Document Formatting
+// 5. Reading CBT Split-Screen, Multi-Doc/Chat/Table Formatting & Exam Focus Mode
 // ------------------------------------------------------------
-console.log('\n--- 5. Testing Reading CBT Split-Screen & formatAuthenticPassage Runtime ---');
+console.log('\n--- 5. Testing Reading CBT Split-Screen, formatAuthenticPassage & Exam Fullscreen ---');
 const formatSandbox = { window: {}, module: { exports: {} } };
 vm.runInNewContext(
     appCoreContent.slice(
@@ -174,31 +176,45 @@ const noticeSample = "NOTICE: Parking Lot Repaving\nAll vehicles must be moved b
 const noticeHtml = formatAuthenticPassage(noticeSample);
 assert(noticeHtml.includes('fa-bullhorn') && noticeHtml.includes('NOTICE'), 'Notice must render bullhorn banner');
 
+const chatSample = "Text Message Chain\nMinh (9:02 AM): Have we booked the booth?\nLan (9:04 AM): Yes, Hall B.";
+const chatHtml = formatAuthenticPassage(chatSample);
+assert(chatHtml.includes('Text Message') && chatHtml.includes('rounded-2xl'), 'Chat passages must render message bubbles');
+
+const tableSample = "Conference Schedule\nTime | Room | Speaker\n09:00 | Room A | Dr. Kim\n10:30 | Room B | Ms. Lee";
+const tableHtml = formatAuthenticPassage(tableSample);
+assert(tableHtml.includes('<table') && tableHtml.includes('Dr. Kim'), 'Pipe-delimited schedules/invoices must render HTML tables');
+
+const multiDocSample = "--- DOCUMENT 1 ---\nFrom: hr@acme.com\nTo: staff@acme.com\nSubject: New Policy\n\nUpdated hours.\n--- DOCUMENT 2 ---\nMEMO\nPlease read.";
+const multiDocHtml = formatAuthenticPassage(multiDocSample);
+assert(multiDocHtml.includes('DOCUMENT 1') && multiDocHtml.includes('DOCUMENT 2'), 'Part 7 multi-doc separators must split cleanly');
+
 const preformattedCard = '<div class="toeic-reading-passage-card"><p>Already formatted</p></div>';
 assert.strictEqual(formatAuthenticPassage(preformattedCard), preformattedCard, 'Preformatted HTML cards must pass through untouched');
 
 assert(indexHtml.includes('.reading-workspace {') && indexHtml.includes('.passage-pane {') && indexHtml.includes('.questions-pane {'), 'CSS split-screen panes required');
+assert(indexHtml.includes('body.in-workstation-mode aside#sidebarContainer'), 'Fullscreen exam mode CSS must hide sidebar');
+assert(appCoreContent.includes("document.body.classList.add('in-workstation-mode'"), 'Quiz modal must engage in-workstation-mode');
+assert(appCoreContent.includes("window.addEventListener('hashchange'"), 'SPA router must handle hashchange for Back/Forward navigation');
 assert(diagContent.includes('window.formatAuthenticPassage(q.passageContent)'), 'Diagnostic Part 6 & 7 must use formatAuthenticPassage');
-console.log('  ✓ PASS: Reading CBT split-screen and formatAuthenticPassage (Email, Notice, Preformatted Card, XSS escape) verified');
+console.log('  ✓ PASS: Reading CBT split-screen, Multi-doc/Chat/Table formatAuthenticPassage, Fullscreen & hashchange verified');
 
 // ------------------------------------------------------------
-// 6. Practice Mode Seek/Speed & Live Transcript Highlighting
+// 6. Practice Mode Seek/Speed & Strict Timestamp Transcript Sync
 // ------------------------------------------------------------
-console.log('\n--- 6. Testing Practice Audio Player (-5s/+5s, Speed, Live Transcript Highlight) ---');
+console.log('\n--- 6. Testing Practice Audio Player (-5s/+5s, Speed, Strict Timestamp Sync & Clickable Line TTS) ---');
 assert(indexHtml.includes('ToeicListeningWorkstation.seekBy(-5)') && indexHtml.includes('ToeicListeningWorkstation.seekBy(5)'), 'Practice player must have -5s/+5s seek buttons');
 assert(indexHtml.includes('data-speed="0.75"') && indexHtml.includes('data-speed="1.25"'), 'Practice player must include speed pills');
 assert(listeningContent.includes('if (this.mode === \'exam\') return;') && listeningContent.includes('updateTranscriptHighlight()'), 'Listening workstation must guard exam-mode seek and update live transcript highlight');
+assert(listeningContent.includes('speakTranscriptLine('), 'Transcript lines must support clickable TTS playback');
+assert(!listeningContent.includes('data-char-weight'), 'Character-weighted drift estimation must be removed from transcript markup');
 assert(listeningContent.includes('window.AudioManager.pauseLofi()'), 'Listening workstation play() must pause Lofi');
 
-// Runtime test of updateTranscriptHighlight logic
-const mockLines = [
-    { dataset: { charWeight: '50' }, classList: { classes: new Set(), toggle(c, on) { on ? this.classes.add(c) : this.classes.delete(c); } } },
-    { dataset: { charWeight: '50' }, classList: { classes: new Set(), toggle(c, on) { on ? this.classes.add(c) : this.classes.delete(c); } } }
-];
+// Runtime test of strict timestamp-only updateTranscriptHighlight logic
+let activeQueryLines = [];
 const lwSandbox = {
     window: { addEventListener: () => {} },
     document: {
-        getElementById: (id) => id === 'tlwTranscriptBox' ? { querySelectorAll: () => mockLines } : null
+        getElementById: (id) => id === 'tlwTranscriptBox' ? { querySelectorAll: () => activeQueryLines } : null
     },
     Audio: class { addEventListener() {} },
     localStorage: { getItem: () => null },
@@ -207,18 +223,34 @@ const lwSandbox = {
 lwSandbox.window.ToeicListeningWorkstation = null;
 vm.runInNewContext(listeningContent, lwSandbox);
 const tlw = lwSandbox.window.ToeicListeningWorkstation;
+
+// Case A: Static audio without timestamps MUST NOT guess/highlight using char-length drift
+activeQueryLines = [
+    { dataset: { speechText: 'Line one' }, classList: { classes: new Set(), toggle(c, on) { on ? this.classes.add(c) : this.classes.delete(c); } } },
+    { dataset: { speechText: 'Line two' }, classList: { classes: new Set(), toggle(c, on) { on ? this.classes.add(c) : this.classes.delete(c); } } }
+];
 tlw.isPlaying = true;
 tlw.duration = 20;
-tlw.currentTime = 15; // 75% progress -> should highlight line index 1
+tlw.currentTime = 15;
 tlw.updateTranscriptHighlight();
-assert(!mockLines[0].classList.classes.has('bg-indigo-100/90'), 'Line 0 should not be highlighted at 75%');
-assert(mockLines[1].classList.classes.has('bg-indigo-100/90'), 'Line 1 should be highlighted at 75%');
+assert(!activeQueryLines[0].classList.classes.has('bg-indigo-100/90') && !activeQueryLines[1].classList.classes.has('bg-indigo-100/90'), 'Lines without real timestamps must NOT drift-highlight on <audio> playback');
+
+// Case B: Lines WITH real timestamps MUST highlight accurately
+activeQueryLines = [
+    { dataset: { start: '0', end: '8' }, classList: { classes: new Set(), toggle(c, on) { on ? this.classes.add(c) : this.classes.delete(c); } } },
+    { dataset: { start: '8', end: '20' }, classList: { classes: new Set(), toggle(c, on) { on ? this.classes.add(c) : this.classes.delete(c); } } }
+];
+tlw.currentTime = 12;
+tlw.updateTranscriptHighlight();
+assert(!activeQueryLines[0].classList.classes.has('bg-indigo-100/90'), 'Timestamped line 0 should not be highlighted at 12s');
+assert(activeQueryLines[1].classList.classes.has('bg-indigo-100/90'), 'Timestamped line 1 should highlight at 12s');
+
 tlw.mode = 'exam';
 tlw.audio.duration = 20;
 tlw.audio.currentTime = 5;
 tlw.seekBy(5);
 assert.strictEqual(tlw.audio.currentTime, 5, 'seekBy must be blocked in exam mode');
-console.log('  ✓ PASS: Practice seek/speed controls, exam-mode lock, Lofi pause & live transcript sync verified');
+console.log('  ✓ PASS: Practice seek/speed controls, exam-mode lock, Lofi pause & strict timestamp sync verified');
 
 // Verify Ets2026Database Test 1 Part 6 & Part 7 flattened passages are populated (not blank)
 const etsDataContent = fs.readFileSync(path.join(__dirname, '../js/ets2026-data.js'), 'utf8');

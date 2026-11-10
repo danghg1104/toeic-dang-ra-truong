@@ -1001,7 +1001,7 @@ VP of Human Resources, Vanguard Tech`,
                 this.timerEndTime = Date.now() + (this.timeRemaining || (25 * 60)) * 1000;
             }
             this.timerInterval = setInterval(() => {
-                const remaining = Math.max(0, Math.round((this.timerEndTime - Date.now()) / 1000));
+                const remaining = Math.max(0, Math.floor((this.timerEndTime - Date.now()) / 1000));
                 this.timeRemaining = remaining;
                 if (remaining <= 0) {
                     this.stopTimer();
@@ -1755,13 +1755,21 @@ VP of Human Resources, Vanguard Tech`,
                 const raw = localStorage.getItem('toeic_diagnostic_active_session');
                 if (!raw) return false;
                 const data = JSON.parse(raw);
-                if (data && data.userAnswers && Object.keys(data.userAnswers).length > 0) {
+                const answeredCount = (data && data.userAnswers) ? Object.keys(data.userAnswers).length : 0;
+                if (answeredCount > 0) {
+                    const shouldResume = (typeof window !== 'undefined' && typeof window.confirm === 'function')
+                        ? window.confirm(`Bạn đang có bài Test Chẩn Đoán làm dở (${answeredCount}/28 câu). Tiếp tục làm bài?`)
+                        : true;
+                    if (!shouldResume) {
+                        this.clearSavedSession();
+                        return false;
+                    }
                     this.userAnswers = data.userAnswers || {};
                     this.flagged = data.flagged || {};
                     this.currentIndex = typeof data.currentIndex === 'number' ? data.currentIndex : 0;
                     if (data.timerEndTime && data.timerEndTime > Date.now()) {
                         this.timerEndTime = data.timerEndTime;
-                        this.timeRemaining = Math.max(0, Math.round((data.timerEndTime - Date.now()) / 1000));
+                        this.timeRemaining = Math.max(0, Math.floor((data.timerEndTime - Date.now()) / 1000));
                     } else if (data.timeRemaining > 0) {
                         this.timeRemaining = data.timeRemaining;
                         this.timerEndTime = Date.now() + this.timeRemaining * 1000;
@@ -1907,8 +1915,8 @@ VP of Human Resources, Vanguard Tech`,
 
             // Tính số câu đúng và điểm trọng số độ khó từng Part theo chuẩn ETS
             const partWeights = {
-                1: 1.0, 2: 1.2, 3: 1.4, 4: 1.5,
-                5: 1.1, 6: 1.4, 7: 1.8
+                1: 1.0, 2: 1.0, 3: 1.2, 4: 1.2,
+                5: 1.2, 6: 1.2, 7: 1.5
             };
 
             let listeningCorrect = 0; // 0..16

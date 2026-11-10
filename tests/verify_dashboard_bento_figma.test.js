@@ -1,5 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawn } = require('child_process');
 const puppeteer = require('puppeteer-core');
@@ -28,11 +29,13 @@ function findEdgeOrChrome() {
     assert(html.includes('/css/app.bundle.css?v=20261110_v1'), 'Single consolidated CSS bundle must be loaded');
     assert(!html.includes('href="/css/celestial-artisan-theme.css?v=20261106_v3"'), 'Stray CSS before </head> must be gone');
     assert(html.includes('sizes="180x180"'), 'Apple touch icon must be 180x180');
-    assert(!html.includes('0 từ · -- đúng') && !html.includes('id="memberAccuracyVal" class="text-xs font-bold text-slate-500">-- đúng'), 'Must not contain awkward -- đúng placeholder');
+    assert(!html.includes('0 từ · -- đúng') && !/skillAccuracy(?:Listen|Read|Grammar|Vocab)Pct[^>]*>--%/.test(html), 'Must not contain awkward -- đúng or --% placeholders in 4-skill balance');
     assert(html.includes('Độ nhớ: Chưa kiểm tra'), 'Empty vocab memory state must be clean');
+    assert(html.includes('Khởi động nhanh 2 phút'), 'AI Analyzer default must offer 2-minute micro-learning instead of repeating diagnostic');
     assert(appCore.includes("setTxt('memberAccuracyVal', 'Độ nhớ: Chưa kiểm tra')"), 'JS empty state must set Độ nhớ: Chưa kiểm tra');
     assert(appCore.includes("setTxt('memberStudyTime', 'Chưa học')"), 'JS empty state must set Chưa học');
-    console.log('  ✓ PASS: Static DOM, CSS bundle & empty-state copy invariants verified.');
+    assert(appCore.includes('getDynamicQuestionBankTotals'), 'Dynamic question bank total computation required');
+    console.log('  ✓ PASS: Static DOM, CSS bundle, dynamic bank totals & empty-state copy invariants verified.');
 
     // 2. Runtime Browser DOM & Layout Geometry Verification
     const exePath = findEdgeOrChrome();
@@ -51,7 +54,6 @@ function findEdgeOrChrome() {
     });
 
     try {
-        // Wait for server ready
         let ready = false;
         for (let i = 0; i < 30; i++) {
             try {
@@ -86,38 +88,55 @@ function findEdgeOrChrome() {
             const optA = document.getElementById('heroPrimaryCtaBtn');
             const optB = document.getElementById('heroQuickOnboardBtn');
             const tasksEl = document.getElementById('memberTasksSubtitle');
-            const tasksBox = tasksEl ? tasksEl.parentElement : null;
+            const dailyTasksCard = document.getElementById('dailyTasksCard');
+            const streakTitle = document.getElementById('sanhMemberStreakTitle');
+            const targetCard = document.getElementById('heroTargetTracker');
+            const navHome = document.getElementById('nav-hom-nay');
             const lofiSpan = lofi ? lofi.querySelector('span:last-child') : null;
+            const skillListenPct = document.getElementById('skillAccuracyListenPct');
+            const skillListenTotal = document.getElementById('skillBankTotalListen');
 
             return {
                 headerHeight: header ? Math.round(header.getBoundingClientRect().height) : 0,
                 headerSticky: header ? getComputedStyle(header).position : '',
                 lofiLabelWidth: lofiSpan ? Math.round(lofiSpan.getBoundingClientRect().width) : 0,
-                tasksNotClipped: tasksBox ? (tasksBox.scrollWidth <= tasksBox.clientWidth + 1 && getComputedStyle(tasksBox).textOverflow !== 'ellipsis') : false,
-                greetingOutsideHeader: header && greeting ? !header.contains(greeting) : false,
-                lofiInsideHeader: header && lofi ? header.contains(lofi) : false,
-                toolsOutsideHero: hero && tools ? !hero.contains(tools) : false,
-                bubbleHidden: bubble ? getComputedStyle(bubble).display === 'none' : false,
+                greetingInsideHeader: !!(header && greeting && header.contains(greeting)),
+                lofiInsideHeader: !!(header && lofi && header.contains(lofi)),
+                toolsOutsideHero: !!(hero && tools && !hero.contains(tools)),
+                bubbleRemoved: bubble === null,
+                targetCardCount: targetCard && targetCard.parentElement ? targetCard.parentElement.children.length : 0,
+                tasksInChecklistCard: !!(dailyTasksCard && tasksEl && dailyTasksCard.contains(tasksEl)),
+                streakText: streakTitle ? streakTitle.textContent.trim() : '',
+                navHomeTag: navHome ? navHome.tagName : '',
+                navHomeAriaCurrent: navHome ? navHome.getAttribute('aria-current') : '',
                 heroImgSrc: heroImg ? heroImg.getAttribute('src') : '',
                 aiTutorImgSrc: aiTutorImg ? aiTutorImg.getAttribute('src') : '',
                 sidebarImgSrc: sidebarImg ? sidebarImg.getAttribute('src') : '',
                 accText: accVal ? accVal.textContent.trim() : '',
                 studyTimeText: studyTime ? studyTime.textContent.trim() : '',
                 subText: subText ? subText.textContent.trim() : '',
+                skillListenPctText: skillListenPct ? skillListenPct.textContent.trim() : '',
+                skillListenTotalText: skillListenTotal ? skillListenTotal.textContent.trim() : '',
                 hasOptA: !!optA,
                 hasOptB: !!optB,
                 overflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth
             };
         });
 
-        assert.ok(desktopAudit.headerHeight > 0 && desktopAudit.headerHeight <= 84, `Desktop global sticky header should be 1 compact row (<=84px), got ${desktopAudit.headerHeight}px`);
+        assert.ok(desktopAudit.headerHeight > 0 && desktopAudit.headerHeight <= 84, `Desktop global sticky header should be 1 unified compact row (<=84px), got ${desktopAudit.headerHeight}px`);
         assert.strictEqual(desktopAudit.headerSticky, 'sticky', 'Global header must be sticky on desktop');
         assert.ok(desktopAudit.lofiLabelWidth > 10, `Mini Lofi player label should be visible at 1280px, got ${desktopAudit.lofiLabelWidth}px`);
-        assert.ok(desktopAudit.tasksNotClipped, 'Stat Card 2 tasks subtitle must not be truncated with ellipsis');
-        assert.ok(desktopAudit.greetingOutsideHeader, 'Greeting must be separated below the global sticky header');
+        assert.ok(desktopAudit.greetingInsideHeader, 'Greeting must be merged into left side of global sticky header (no double header)');
         assert.ok(desktopAudit.lofiInsideHeader, 'Mini Lofi player must live inside the Global Sticky Header');
         assert.ok(desktopAudit.toolsOutsideHero, 'Quick study tools section must NOT be nested inside Hero Card');
-        assert.ok(desktopAudit.bubbleHidden, 'Redundant speech bubble on Hero must be hidden');
+        assert.ok(desktopAudit.bubbleRemoved, 'Empty #heroSoiMayBubble DOM node must be removed completely');
+        assert.strictEqual(desktopAudit.targetCardCount, 4, 'Bento Stat Row must have balanced 4 cards including Target tracker');
+        assert.ok(desktopAudit.tasksInChecklistCard, 'Daily tasks count pill must sit inside #dailyTasksCard header');
+        assert.strictEqual(desktopAudit.streakText, '0 ngày liên tiếp', 'Streak label must use clean Vietnamese copy');
+        assert.strictEqual(desktopAudit.navHomeTag, 'A', 'Sidebar nav items must be semantic <a> links');
+        assert.strictEqual(desktopAudit.navHomeAriaCurrent, 'page', 'Active home nav item must carry aria-current="page"');
+        assert.strictEqual(desktopAudit.skillListenPctText, '0%', 'Skill balance empty percentage must be 0%');
+        assert.ok(desktopAudit.skillListenTotalText.includes('Ngân hàng:') && !desktopAudit.skillListenTotalText.includes('Đang đồng bộ'), 'Skill bank totals must compute dynamically');
         assert.ok(desktopAudit.heroImgSrc.includes('may_guide.png'), `Hero mascot should be may_guide.png, got ${desktopAudit.heroImgSrc}`);
         assert.ok(desktopAudit.aiTutorImgSrc.includes('may_explorer.png'), `AI Tutor mascot should be may_explorer.png, got ${desktopAudit.aiTutorImgSrc}`);
         assert.ok(desktopAudit.sidebarImgSrc.includes('may_reading.png'), `Sidebar mascot should be may_reading.png, got ${desktopAudit.sidebarImgSrc}`);
@@ -128,9 +147,9 @@ function findEdgeOrChrome() {
         assert.ok(!desktopAudit.overflowX, 'Zero horizontal overflow on 1280px desktop');
         assert.strictEqual(pageErrors.length, 0, `Zero page errors expected, got: ${pageErrors.join('; ')}`);
 
-        const artifactDir = path.resolve('C:/Users/Admin/.gemini/antigravity/brain/ed360126-cbd6-4e9c-92fb-38b43251e283');
+        const artifactDir = os.tmpdir();
         await page.screenshot({ path: path.join(artifactDir, 'figma_fixed_desktop_1280.png'), fullPage: true });
-        console.log('  ✓ PASS: Desktop (1280x850) Bento hierarchy, distinct mascots, sticky header & single-source data verified.');
+        console.log('  ✓ PASS: Desktop (1280x850) unified header, 4-card Bento row, semantic nav & dynamic stats verified.');
 
         // Compact Laptop 1024px check
         await page.setViewport({ width: 1024, height: 768 });
@@ -153,6 +172,8 @@ function findEdgeOrChrome() {
             const mobileHeader = document.getElementById('mobileStickyTopHeader');
             const loginBtn = document.getElementById('mobileUnauthLoginBtn');
             const accountCluster = document.getElementById('sanhAccountCluster');
+            const dupPills = Array.from(document.querySelectorAll('#sanhTopHeaderBar .mobile-dup-stat-pill'));
+            const dupPillsAllHidden = dupPills.length >= 2 && dupPills.every((el) => getComputedStyle(el).display === 'none');
             const headerRect = mobileHeader ? mobileHeader.getBoundingClientRect() : null;
             const loginRect = loginBtn ? loginBtn.getBoundingClientRect() : null;
             return {
@@ -160,14 +181,16 @@ function findEdgeOrChrome() {
                 loginRight: loginRect ? Math.round(loginRect.right) : 0,
                 headerRight: headerRect ? Math.round(headerRect.right) : 0,
                 loginInsideMobileHeader: headerRect && loginRect ? loginRect.right <= headerRect.right + 1 && loginRect.right <= window.innerWidth : false,
-                duplicateClusterHidden: accountCluster ? getComputedStyle(accountCluster).display === 'none' : false
+                duplicateClusterHidden: accountCluster ? getComputedStyle(accountCluster).display === 'none' : false,
+                dupPillsAllHidden
             };
         });
         assert.ok(!mobileAudit.overflowX, 'Zero horizontal overflow on 375px mobile');
         assert.ok(mobileAudit.loginInsideMobileHeader, `Mobile Login button must not clip at 375px (loginRight=${mobileAudit.loginRight}, headerRight=${mobileAudit.headerRight})`);
         assert.ok(mobileAudit.duplicateClusterHidden, 'Duplicate desktop account cluster must be hidden on <1024px mobile');
+        assert.ok(mobileAudit.dupPillsAllHidden, 'Duplicate Streak/XP pills in main header must be hidden on 375px mobile');
         await page.screenshot({ path: path.join(artifactDir, 'figma_fixed_mobile_375.png'), fullPage: false });
-        console.log('  ✓ PASS: Laptop (1024px) & Mobile (375px) responsive headers verified with zero clipping.');
+        console.log('  ✓ PASS: Laptop (1024px) & Mobile (375px) responsive headers & deduplication verified with zero clipping.');
 
         console.log('\n🎉 ALL FIGMA DESIGN SYSTEM & PRODUCTION EDTECH CHECKS PASSED!');
     } finally {

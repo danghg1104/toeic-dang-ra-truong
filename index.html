@@ -1298,6 +1298,11 @@
             display: none !important;
         }
     }
+    @media (max-width: 768px) {
+        .mobile-dup-stat-pill {
+            display: none !important;
+        }
+    }
     @media (max-width: 420px) {
         #mobileStickyTopHeader {
             padding-inline: 0.625rem !important;
@@ -1322,16 +1327,16 @@
     /* WIDE DESKTOP (>= 1400px): Fixed label button widths prevent sub-pixel jitter on toggle */
     @media (min-width: 1400px) {
         #btnFontToggle {
-            width: 114px !important;
-            min-width: 114px !important;
-            max-width: 114px !important;
+            width: 106px !important;
+            min-width: 106px !important;
+            max-width: 106px !important;
             justify-content: center !important;
             text-align: center !important;
         }
         #btnEditorialToggle {
-            width: 118px !important;
-            min-width: 118px !important;
-            max-width: 118px !important;
+            width: 112px !important;
+            min-width: 112px !important;
+            max-width: 112px !important;
             justify-content: center !important;
             text-align: center !important;
         }
@@ -1344,19 +1349,25 @@
         }
     }
 
-    /* DESKTOP (min-width: 1024px): Single unified sticky global bar */
+    /* DESKTOP (min-width: 1024px): Single unified sticky global bar with Greeting left & Controls/Account right */
     @media (min-width: 1024px) {
         #sanhTopHeaderBar {
             position: sticky !important;
             top: 0.75rem !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
             flex-wrap: nowrap !important;
-            padding: 0.625rem 1rem !important;
-            gap: 0.75rem !important;
+            padding: 0.5rem 0.875rem !important;
+            gap: 0.625rem !important;
             overflow: visible !important;
         }
         #studyEnvironmentControls {
+            display: flex !important;
             flex-wrap: nowrap !important;
-            gap: 0.375rem !important;
+            align-items: center !important;
+            gap: 0.3rem !important;
         }
         #studyEnvironmentControls > div,
         #studyEnvironmentControls > button {
@@ -1364,17 +1375,36 @@
             flex-shrink: 0 !important;
         }
         #sanhAccountCluster {
-            margin-left: 0.5rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.375rem !important;
+            margin-left: 0.375rem !important;
+            padding-left: 0.5rem !important;
+            border-left: 1px solid #cbd5e1 !important;
         }
-        .header-desktop-divider {
-            display: block !important;
-            height: 1rem !important;
-            width: 1px !important;
-            background-color: #cbd5e1 !important;
-            flex-shrink: 0 !important;
+        .dark #sanhAccountCluster {
+            border-left-color: #334155 !important;
         }
-        .dark .header-desktop-divider {
-            background-color: #334155 !important;
+    }
+    /* COMPACT LAPTOP (1024px - 1279px): Keep single-row greeting + controls + account inside 720px main pane */
+    @media (min-width: 1024px) and (max-width: 1279px) {
+        #sanhTopHeaderBar {
+            gap: 0.375rem !important;
+            padding: 0.45rem 0.625rem !important;
+        }
+        #sanhHeaderSubText {
+            display: none !important;
+        }
+        #studyEnvironmentControls {
+            gap: 0.2rem !important;
+        }
+        #studyEnvironmentControls > div,
+        #studyEnvironmentControls > button {
+            padding-inline: 0.42rem !important;
+        }
+        #sanhAccountCluster {
+            margin-left: 0.2rem !important;
+            padding-left: 0.35rem !important;
         }
     }
 </style>
@@ -1389,7 +1419,7 @@
             </button>
             <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-1.5 shrink-0">
                 <div class="mobile-brand-avatar w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP Chuẩn ETS 2026">
-                    <img src="/assets/mascot/may_avatar.png?v=soimay_20261110" alt="Mascot Mây" class="w-full h-full object-cover">
+                    <img src="/assets/mascot/may_avatar.png?v=soimay_20261110" alt="Logo Sói Mây" class="w-full h-full object-cover">
                 </div>
                 <div class="leading-tight shrink-0">
                     <div class="text-xs font-extrabold bg-gradient-to-r from-orange-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
@@ -1496,7 +1526,7 @@
                         <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2.5 group min-w-0">
                         <div class="w-13 h-13 w-[52px] h-[52px] rounded-2xl bg-[#f9f1dc] border-2 border-amber-300/80 flex items-center justify-center shadow-md shadow-orange-500/15 relative overflow-hidden shrink-0 group-hover:scale-105 transition" title="Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP Chuẩn ETS 2026">
                             <!-- Mascot Mây (Logo chính thức) -->
-                            <img src="/assets/mascot/may_avatar.png?v=soimay_20261110" alt="Mascot Mây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                            <img src="/assets/mascot/may_avatar.png?v=soimay_20261110" alt="Logo Sói Mây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         </div>
                         <div class="leading-tight sidebar-text">
                             <div class="text-[15px] font-extrabold bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
@@ -1512,27 +1542,27 @@
 
                 
 
-                    <!-- Navigation Menu (Matched to Image 1 + DailyDictation, YouGlish, Take Note) -->
-                    <nav class="space-y-3" id="sidebarNav">
+                    <!-- Navigation Menu (Semantic Links for SPA Hash Routing) -->
+                    <nav class="space-y-3" id="sidebarNav" aria-label="Điều hướng chính">
                         <!-- NHÓM 1: HÔM NAY -->
                         <div class="space-y-0.5">
                             <div class="px-3 pt-1 pb-1 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider sidebar-text">
                                 Hôm nay
                             </div>
-                            <button onclick="switchTab('hom-nay')" id="nav-hom-nay" class="nav-item nav-active-home w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" aria-current="page" id="nav-hom-nay" class="nav-item nav-active-home w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-house text-[14px] w-5 text-center text-blue-600 dark:text-blue-400"></i>
                                 <span class="sidebar-text">Tổng quan</span>
-                            </button>
-                            <button onclick="switchTab('lo-trinh')" id="nav-lo-trinh" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#lo-trinh" onclick="switchTab('lo-trinh'); return false;" id="nav-lo-trinh" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-map-location-dot text-[14px] w-5 text-center text-emerald-600 dark:text-emerald-400"></i>
                                 <span class="sidebar-text">Lộ trình cá nhân</span>
                                 <span id="urgentRushBadge" class="hidden ml-auto px-1.5 py-0.5 rounded-full bg-rose-500 text-white text-xs font-bold">GẤP</span>
-                            </button>
-                            <button onclick="switchTab('pvp-arena')" id="nav-pvp" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#pvp-arena" onclick="switchTab('pvp-arena'); return false;" id="nav-pvp" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-shield-halved text-[14px] w-5 text-center text-rose-500 dark:text-rose-400"></i>
                                 <span class="sidebar-text">Đấu Trường PvP 1v1</span>
                                 <span class="ml-auto px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-bold animate-pulse">LIVE</span>
-                            </button>
+                            </a>
                         </div>
 
                         <!-- NHÓM 2: LUYỆN TẬP KỸ NĂNG -->
@@ -1540,26 +1570,26 @@
                             <div class="px-3 pt-1.5 pb-1 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider sidebar-text">
                                 Luyện tập kỹ năng
                             </div>
-                            <button onclick="switchTab('nghe')" id="nav-nghe" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            <a href="#nghe" onclick="switchTab('nghe'); return false;" id="nav-nghe" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-headphones text-[14px] w-5 text-center text-teal-600 dark:text-teal-400"></i>
                                 <span class="sidebar-text">Luyện Nghe (Listening)</span>
-                            </button>
-                            <button onclick="switchTab('doc')" id="nav-doc" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#doc" onclick="switchTab('doc'); return false;" id="nav-doc" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-regular fa-file-lines text-[14px] w-5 text-center text-green-600 dark:text-green-400"></i>
                                 <span class="sidebar-text">Luyện Đọc (Reading)</span>
-                            </button>
-                            <button onclick="switchTab('ngu-phap')" id="nav-ngu-phap" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#ngu-phap" onclick="switchTab('ngu-phap'); return false;" id="nav-ngu-phap" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-book-open text-[14px] w-5 text-center text-purple-600 dark:text-purple-400"></i>
                                 <span class="sidebar-text">Ngữ pháp trọng tâm</span>
-                            </button>
-                            <button onclick="switchTab('tu-vung')" id="nav-tu-vung" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#tu-vung" onclick="switchTab('tu-vung'); return false;" id="nav-tu-vung" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-spell-check text-[14px] w-5 text-center text-amber-600 dark:text-amber-400"></i>
                                 <span class="sidebar-text">Kho Từ vựng cốt lõi</span>
-                            </button>
-                            <button onclick="switchTab('hoc-tu-vung')" id="nav-hoc-tu-vung" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#hoc-tu-vung" onclick="switchTab('hoc-tu-vung'); return false;" id="nav-hoc-tu-vung" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-gamepad text-[14px] w-5 text-center text-indigo-600 dark:text-indigo-400"></i>
                                 <span class="sidebar-text">Đấu trường Từ vựng</span>
-                            </button>
+                            </a>
                         </div>
 
                         <!-- NHÓM 3: KIỂM TRA & BẪY ĐỀ -->
@@ -1567,14 +1597,14 @@
                             <div class="px-3 pt-1.5 pb-1 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider sidebar-text">
                                 Kiểm tra & Đề thi
                             </div>
-                            <button onclick="switchTab('thi-thu')" id="nav-thi-thu" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            <a href="#thi-thu" onclick="switchTab('thi-thu'); return false;" id="nav-thi-thu" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-bolt text-[14px] w-5 text-center text-amber-500"></i>
                                 <span class="sidebar-text">Thi thử Full Test ETS</span>
-                            </button>
-                            <button onclick="switchTab('bay-de-thi')" id="nav-bay-de-thi" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#bay-de-thi" onclick="switchTab('bay-de-thi'); return false;" id="nav-bay-de-thi" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-triangle-exclamation text-[14px] w-5 text-center text-rose-500"></i>
                                 <span class="sidebar-text">Bộ bẫy đề kinh điển</span>
-                            </button>
+                            </a>
 
                         </div>
 
@@ -1583,26 +1613,26 @@
                             <div class="px-3 pt-1.5 pb-1 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider sidebar-text">
                                 Công cụ hỗ trợ
                             </div>
-                            <button onclick="switchTab('boc-bang-audio')" id="nav-boc-bang-audio" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            <a href="#boc-bang-audio" onclick="switchTab('boc-bang-audio'); return false;" id="nav-boc-bang-audio" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-file-audio text-[14px] w-5 text-center text-teal-600 dark:text-teal-400"></i>
                                 <span class="sidebar-text">Trạm Bóc băng file nghe</span>
-                            </button>
-                            <button onclick="switchTab('nghe-chinh-ta')" id="nav-nghe-chinh-ta" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#nghe-chinh-ta" onclick="switchTab('nghe-chinh-ta'); return false;" id="nav-nghe-chinh-ta" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-keyboard text-[14px] w-5 text-center text-indigo-600 dark:text-indigo-400"></i>
                                 <span class="sidebar-text">Luyện nghe chép chính tả</span>
-                            </button>
-                            <button onclick="switchTab('tu-vung-phim')" id="nav-tu-vung-phim" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#tu-vung-phim" onclick="switchTab('tu-vung-phim'); return false;" id="nav-tu-vung-phim" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-clapperboard text-[14px] w-5 text-center text-rose-600 dark:text-rose-400"></i>
                                 <span class="sidebar-text">Từ vựng qua video</span>
-                            </button>
-                            <button onclick="switchTab('take-note')" id="nav-take-note" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#take-note" onclick="switchTab('take-note'); return false;" id="nav-take-note" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-book-bookmark text-[14px] w-5 text-center text-amber-600 dark:text-amber-400"></i>
                                 <span class="sidebar-text">Sổ Take Note & Lưu file</span>
-                            </button>
-                            <button onclick="switchTab('tu-dien')" id="nav-tu-dien" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            </a>
+                            <a href="#tu-dien" onclick="switchTab('tu-dien'); return false;" id="nav-tu-dien" class="nav-item w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-[13.5px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                                 <i class="fa-solid fa-book-atlas text-[14px] w-5 text-center text-sky-600 dark:text-sky-400"></i>
                                 <span class="sidebar-text">Từ điển Anh - Việt</span>
-                            </button>
+                            </a>
                         </div>
 
                         <!-- TẢI ỨNG DỤNG VỀ ĐIỆN THOẠI (PWA) -->
@@ -1634,7 +1664,7 @@
                     </div>
                     <!-- Mascot Mây Companion -->
                     <div id="sidebarOwlContainer" class="w-28 h-28 mascot-float flex items-center justify-center">
-                        <img src="/assets/mascot/may_reading.png?v=soimay_20261110" alt="Mascot Mây" class="w-24 h-24 object-contain filter drop-shadow">
+                        <img src="/assets/mascot/may_reading.png?v=soimay_20261110" alt="Sói Mây đọc sách" class="w-24 h-24 object-contain filter drop-shadow">
                     </div>
                 </div>
                 <p id="sidebarMascotText" class="text-[12px] font-medium text-slate-700 dark:text-slate-300 px-2 mb-2.5 leading-snug">
@@ -1655,147 +1685,137 @@
             <!-- ========================================== -->
             <section id="view-hom-nay" class="space-y-5">
 
-                <!-- 1. GLOBAL STICKY HEADER: CHỈ SỐ TẬP TRUNG, HỘP NHẠC LOFI & TÀI KHOẢN -->
-                <header id="sanhTopHeaderBar" class="header-bar-elevation lg:sticky lg:top-4 z-30 glass-panel rounded-2xl shadow-sm border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-2.5 sm:p-3 artisan-deckled-paper">
-                    <!-- LEFT: Study Environment Controls (Streak, XP, Lofi, Pomodoro, Theme, Font, Guide) -->
-                    <div id="studyEnvironmentControls">
-                        <!-- 1. Streak Pill -->
-                        <button type="button" onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition shrink-0" title="Chuỗi học tập liên tục">
-                            <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
-                            <span id="sanhMemberStreakVal">0 ngày</span>
-                        </button>
-
-                        <!-- 2. XP Pill -->
-                        <div class="px-2.5 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs shrink-0" title="Điểm kinh nghiệm tích lũy">
-                            <i class="fa-solid fa-wand-magic-sparkles text-purple-500 text-xs"></i>
-                            <span id="sanhMemberXpVal">0 XP</span>
-                        </div>
-
-                        <!-- 3. Mini Lofi Music Box (Chuyển từ Hero lên Global Sticky Header) -->
-                        <button type="button" id="headerMiniMusicBoxBtn" onclick="window.toggleMiniMusicBox && window.toggleMiniMusicBox()" class="artisan-mini-musicbox inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl cursor-pointer select-none shrink-0" title="Hộp nhạc Sói Mây: Giai điệu Lofi ôn luyện tập trung">
-                            <span class="relative w-4 h-4 rounded-full bg-gradient-to-tr from-teal-400 via-amber-300 to-rose-300 p-[1px] shadow-xs flex items-center justify-center shrink-0">
-                                <span class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center artisan-mini-spindle">
-                                    <i class="fa-solid fa-music text-[8px] text-amber-300"></i>
-                                </span>
-                            </span>
-                            <span class="text-xs font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">Lofi</span>
-                        </button>
-
-                        <!-- 4. Pomodoro Focus Timer -->
-                        <button type="button" id="btnQuickPomodoroLaunch" onclick="window.togglePomodoroHudModal && window.togglePomodoroHudModal()" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đồng hồ Pomodoro tùy chỉnh thời gian">
-                            <i class="fa-regular fa-clock text-rose-500 text-xs"></i>
-                            <span id="quickPomodoroTimeDisplay">25:00</span>
-                        </button>
-
-                        <div class="header-desktop-divider"></div>
-
-                        <!-- 5. Warm Sand Theme Toggle -->
-                        <button type="button" id="btnEditorialToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleEditorial()" class="px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Chế độ Giấy Tự Nhiên & Mực Trầm (Warm Sand)">
-                            <i class="fa-solid fa-scroll text-amber-600 text-xs"></i>
-                            <span class="control-text truncate">Warm Sand</span>
-                        </button>
-
-                        <!-- 6. ETS Serif Font Switcher -->
-                        <button type="button" id="btnFontToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleFont()" class="px-2.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đổi phông thi ETS Serif / Inter">
-                            <i class="fa-solid fa-font text-indigo-600 text-xs"></i>
-                            <span class="control-text font-mode-label font-serif truncate">Serif ETS</span>
-                        </button>
-
-                        <!-- 7. Onboarding Tour Guide Launcher -->
-                        <button type="button" id="btnStartTourGuide" onclick="window.AppTourGuide && window.AppTourGuide.start(true)" class="px-2.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Hướng dẫn làm quen Tour">
-                            <i class="fa-solid fa-compass text-sky-600 text-xs"></i>
-                            <span class="control-text truncate">Hướng dẫn</span>
-                        </button>
-
-                        <div class="header-desktop-divider"></div>
-                    </div>
-
-                    <!-- RIGHT: Actions & Profile Cluster -->
-                    <div id="sanhAccountCluster">
-                        <!-- PWA Install Button -->
-                        <button type="button" id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
-                            <i class="fa-solid fa-cloud-arrow-down text-xs"></i>
-                            <span>Tải App</span>
-                        </button>
-
-                        <!-- Notification Center Bell -->
-                        <button type="button" onclick="window.toggleNotificationCenter && window.toggleNotificationCenter()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer relative shrink-0" title="Thông báo tiến độ hàng tuần" aria-label="Thông báo tiến độ">
-                            <i class="fa-regular fa-bell text-xs"></i>
-                            <span id="headerWeeklyReportDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900"></span>
-                        </button>
-
-                        <!-- Guest Login Button for Top Bar (Displayed when not logged in) -->
-                        <button type="button" id="sanhGuestLoginBtn" onclick="openAuthModal('login')" class="inline-flex px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Đăng nhập tài khoản">
-                            <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
-                            <span>Khách · Đăng nhập</span>
-                        </button>
-
-                        <!-- User Profile Avatar Pill & Dropdown -->
-                        <div class="relative shrink-0 hidden" id="sanhMemberDropdownWrapper">
-                            <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
-                                <div id="sanhMemberAvatar" class="w-8 h-8 relative flex items-center justify-center shrink-0">
-                                    <span id="sanhMemberAvatarLetter">K</span>
-                                </div>
-                                <div class="leading-tight hidden sm:block">
-                                    <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Khách</div>
-                                    <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
-                                </div>
-                                <i class="fa-solid fa-chevron-down text-[9px] text-slate-400"></i>
-                            </button>
-
-                            <!-- Menu Sổ Xuống (Dropdown) -->
-                            <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
-                                <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
-                                    <div id="sanhMemberDropdownAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
-                                        <span>K</span>
-                                    </div>
-                                    <div class="min-w-0 flex-1">
-                                        <div id="sanhMemberProfileDropdownName" class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">Khách</div>
-                                        <div id="sanhMemberDropdownEmail" class="text-[10px] text-slate-400 truncate">Chưa đăng nhập</div>
-                                    </div>
-                                </div>
-
-                                <div class="space-y-0.5">
-                                    <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
-                                        <i class="fa-regular fa-user text-indigo-500 text-xs w-4 text-center"></i>
-                                        <span>Tài khoản & Mục tiêu</span>
-                                    </button>
-                                    <button type="button" onclick="openAccountSettingsView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
-                                        <i class="fa-solid fa-sliders text-emerald-500 text-xs w-4 text-center"></i>
-                                        <span>Cài đặt hệ thống</span>
-                                    </button>
-                                    <button type="button" id="sanhMemberLogoutBtn" onclick="handleLogoutUser()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold transition text-left cursor-pointer border-t border-slate-100 dark:border-slate-800 pt-2 mt-1">
-                                        <i class="fa-solid fa-arrow-right-from-bracket text-xs w-4 text-center"></i>
-                                        <span>Đăng xuất</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
-                <!-- 2. EDITORIAL GREETING & SINGLE-SOURCE TARGET STRIP -->
-                <div id="sanhGreetingArea" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
-                    <div class="flex items-center gap-3 min-w-0">
-                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-base shrink-0 font-black shadow-sm shadow-blue-500/20">
+                <!-- 1. UNIFIED SINGLE-ROW STICKY HEADER: CHÀO HỎI + CHỈ SỐ TẬP TRUNG, LOFI & TÀI KHOẢN -->
+                <header id="sanhTopHeaderBar" class="header-bar-elevation lg:sticky lg:top-4 z-30 glass-panel rounded-2xl shadow-sm border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-2.5 sm:p-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 artisan-deckled-paper">
+                    <!-- LEFT: Compact Greeting & Active Workspace Subtitle -->
+                    <div id="sanhGreetingArea" class="flex items-center gap-2.5 min-w-0 flex-1 overflow-hidden">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-sm shrink-0 font-black shadow-sm shadow-blue-500/20" aria-hidden="true">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                         <div class="min-w-0">
-                            <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
+                            <h1 class="text-sm xl:text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
                                 <span id="sanhGreetingPrefix">Chào bạn,</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400 font-black">Học viên!</span>
                             </h1>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate mt-0.5" id="sanhHeaderSubText">
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate" id="sanhHeaderSubText">
                                 Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu lộ trình cá nhân
                             </p>
                         </div>
                     </div>
 
-                    <button type="button" id="heroTargetTracker" onclick="openTargetModal()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-900 hover:border-blue-400 dark:hover:border-blue-500 border border-slate-200/90 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300 shadow-2xs transition cursor-pointer shrink-0 self-start sm:self-auto" title="Thiết lập mục tiêu điểm TOEIC & ngày thi">
-                        <i class="fa-solid fa-bullseye text-blue-600 dark:text-blue-400"></i>
-                        <span>Mục tiêu <strong class="text-slate-900 dark:text-white font-extrabold" id="memberTargetScore">--</strong> · <span id="memberExamDate">Chưa đặt ngày thi</span></span>
-                        <span class="px-2 py-0.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-[11px]">Đặt mục tiêu &amp; ngày thi</span>
-                    </button>
-                </div>
+                    <!-- RIGHT: Study Environment Controls & Account Cluster -->
+                    <div class="flex flex-wrap lg:flex-nowrap items-center justify-between lg:justify-end gap-1.5 shrink-0">
+                        <div id="studyEnvironmentControls" class="flex flex-wrap lg:flex-nowrap items-center gap-1.5">
+                            <!-- 1. Streak Pill (Hidden on mobile < 768px to prevent duplicating mobileStickyTopHeader) -->
+                            <button type="button" onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="mobile-dup-stat-pill px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition shrink-0" title="Chuỗi học tập liên tục">
+                                <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
+                                <span id="sanhMemberStreakVal">0 ngày</span>
+                            </button>
+
+                            <!-- 2. XP Pill (Hidden on mobile < 768px to prevent duplicating mobileStickyTopHeader) -->
+                            <div class="mobile-dup-stat-pill px-2.5 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs shrink-0" title="Điểm kinh nghiệm tích lũy">
+                                <i class="fa-solid fa-wand-magic-sparkles text-purple-500 text-xs"></i>
+                                <span id="sanhMemberXpVal">0 XP</span>
+                            </div>
+
+                            <!-- 3. Mini Lofi Music Box -->
+                            <button type="button" id="headerMiniMusicBoxBtn" onclick="window.toggleMiniMusicBox && window.toggleMiniMusicBox()" class="artisan-mini-musicbox inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl cursor-pointer select-none shrink-0" title="Hộp nhạc Sói Mây: Giai điệu Lofi ôn luyện tập trung">
+                                <span class="relative w-4 h-4 rounded-full bg-gradient-to-tr from-teal-400 via-amber-300 to-rose-300 p-[1px] shadow-xs flex items-center justify-center shrink-0">
+                                    <span class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center artisan-mini-spindle">
+                                        <i class="fa-solid fa-music text-[8px] text-amber-300"></i>
+                                    </span>
+                                </span>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">Lofi</span>
+                            </button>
+
+                            <!-- 4. Pomodoro Focus Timer -->
+                            <button type="button" id="btnQuickPomodoroLaunch" onclick="window.togglePomodoroHudModal && window.togglePomodoroHudModal()" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đồng hồ Pomodoro tùy chỉnh thời gian">
+                                <i class="fa-regular fa-clock text-rose-500 text-xs"></i>
+                                <span id="quickPomodoroTimeDisplay">25:00</span>
+                            </button>
+
+                            <!-- 5. Warm Sand Theme Toggle -->
+                            <button type="button" id="btnEditorialToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleEditorial()" class="px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Chế độ Giấy Tự Nhiên & Mực Trầm (Warm Sand)">
+                                <i class="fa-solid fa-scroll text-amber-600 text-xs"></i>
+                                <span class="control-text truncate">Warm Sand</span>
+                            </button>
+
+                            <!-- 6. ETS Serif Font Switcher -->
+                            <button type="button" id="btnFontToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleFont()" class="px-2.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đổi phông thi ETS Serif / Inter">
+                                <i class="fa-solid fa-font text-indigo-600 text-xs"></i>
+                                <span class="control-text font-mode-label font-serif truncate">Serif ETS</span>
+                            </button>
+
+                            <!-- 7. Onboarding Tour Guide Launcher -->
+                            <button type="button" id="btnStartTourGuide" onclick="window.AppTourGuide && window.AppTourGuide.start(true)" class="px-2.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Hướng dẫn làm quen Tour">
+                                <i class="fa-solid fa-compass text-sky-600 text-xs"></i>
+                                <span class="control-text truncate">Hướng dẫn</span>
+                            </button>
+                        </div>
+
+                        <!-- RIGHT: Actions & Profile Cluster -->
+                        <div id="sanhAccountCluster">
+                            <!-- PWA Install Button -->
+                            <button type="button" id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden xl:inline-flex px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
+                                <i class="fa-solid fa-cloud-arrow-down text-xs"></i>
+                                <span>Tải App</span>
+                            </button>
+
+                            <!-- Notification Center Bell -->
+                            <button type="button" onclick="window.toggleNotificationCenter && window.toggleNotificationCenter()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer relative shrink-0" title="Thông báo tiến độ hàng tuần" aria-label="Thông báo tiến độ">
+                                <i class="fa-regular fa-bell text-xs"></i>
+                                <span id="headerWeeklyReportDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900"></span>
+                            </button>
+
+                            <!-- Guest Login Button for Top Bar (Displayed when not logged in) -->
+                            <button type="button" id="sanhGuestLoginBtn" onclick="openAuthModal('login')" class="inline-flex px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Đăng nhập tài khoản">
+                                <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
+                                <span>Khách · Đăng nhập</span>
+                            </button>
+
+                            <!-- User Profile Avatar Pill & Dropdown -->
+                            <div class="relative shrink-0 hidden" id="sanhMemberDropdownWrapper">
+                                <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
+                                    <div id="sanhMemberAvatar" class="w-8 h-8 relative flex items-center justify-center shrink-0">
+                                        <span id="sanhMemberAvatarLetter">K</span>
+                                    </div>
+                                    <div class="leading-tight hidden sm:block">
+                                        <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Khách</div>
+                                        <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-down text-[9px] text-slate-400"></i>
+                                </button>
+
+                                <!-- Menu Sổ Xuống (Dropdown) -->
+                                <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
+                                    <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
+                                        <div id="sanhMemberDropdownAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
+                                            <span>K</span>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div id="sanhMemberProfileDropdownName" class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">Khách</div>
+                                            <div id="sanhMemberDropdownEmail" class="text-[10px] text-slate-400 truncate">Chưa đăng nhập</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-0.5">
+                                        <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
+                                            <i class="fa-regular fa-user text-indigo-500 text-xs w-4 text-center"></i>
+                                            <span>Tài khoản & Mục tiêu</span>
+                                        </button>
+                                        <button type="button" onclick="openAccountSettingsView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
+                                            <i class="fa-solid fa-sliders text-emerald-500 text-xs w-4 text-center"></i>
+                                            <span>Cài đặt hệ thống</span>
+                                        </button>
+                                        <button type="button" id="sanhMemberLogoutBtn" onclick="handleLogoutUser()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold transition text-left cursor-pointer border-t border-slate-100 dark:border-slate-800 pt-2 mt-1">
+                                            <i class="fa-solid fa-arrow-right-from-bracket text-xs w-4 text-center"></i>
+                                            <span>Đăng xuất</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
 
                 <!-- 3. HERO ACTION CARD: CHỈ 1 MỤC TIÊU DUY NHẤT + 2 TÙY CHỌN LÀM QUEN (A / B) -->
                 <article id="heroActionCardContainer" class="relative z-0 overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-sm artisan-deckled-paper">
@@ -1839,22 +1859,17 @@
                             </div>
                         </div>
 
-                        <!-- Hidden speech bubble element kept purely for JS null-safety without duplicating Hero title -->
-                        <div id="heroSoiMayBubble" class="hidden" aria-hidden="true">
-                            <p id="heroSoiMayBubbleText"></p>
-                        </div>
-
                         <!-- Right Illustration: Distinct Guide Mascot in Polaroid Frame -->
                         <div class="shrink-0 flex flex-col items-center justify-center relative select-none">
                             <div id="heroSoiMayContainer" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 p-2.5 flex items-center justify-center shadow-xs hover:border-blue-300 transition cursor-pointer group artisan-polaroid">
                                 <div class="artisan-washi-tape"></div>
-                                <img id="heroSoiMayImg" src="/assets/mascot/may_guide.png?v=soimay_20261110" alt="Bạn học Sói Mây hướng dẫn" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-xs group-hover:scale-105 active:scale-95 transition-transform duration-300">
+                                <img id="heroSoiMayImg" src="/assets/mascot/may_guide.png?v=soimay_20261110" alt="Sói Mây hướng dẫn bài thi" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-xs group-hover:scale-105 active:scale-95 transition-transform duration-300">
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <!-- 4. BENTO GRID ROW 1: 4 THẺ THỐNG KÊ TIẾN ĐỘ (SINGLE SOURCE OF TRUTH) -->
+                <!-- 4. BENTO GRID ROW 1: 4 THẺ THỐNG KÊ TIẾN ĐỘ CÂN XỨNG -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                     <!-- Stat 1: Thời gian học hôm nay -->
                     <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-4 shadow-2xs flex items-center gap-3">
@@ -1869,20 +1884,7 @@
                         </div>
                     </div>
 
-                    <!-- Stat 2: Nhiệm vụ hoàn thành (Links cleanly to checklist below) -->
-                    <button type="button" onclick="document.getElementById('dailyTasksCard') && document.getElementById('dailyTasksCard').scrollIntoView({ behavior: 'smooth', block: 'center' })" class="rounded-2xl bg-white dark:bg-slate-900 hover:border-emerald-400 border border-slate-200/90 dark:border-slate-800 p-4 shadow-sm flex items-center gap-3 text-left transition cursor-pointer">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm shrink-0 font-bold border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fa-solid fa-list-check"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Nhiệm vụ hôm nay</div>
-                            <div class="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
-                                <span id="memberTasksSubtitle">0/5 nhiệm vụ</span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <!-- Stat 3: Chuỗi học tập Streak (Kèm 7 chấm ngày trong tuần) -->
+                    <!-- Stat 2: Chuỗi học tập Streak (Kèm 7 chấm ngày trong tuần) -->
                     <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-3.5 shadow-2xs flex flex-col justify-center min-w-0">
                         <div class="flex items-center gap-2.5">
                             <div class="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm shrink-0 font-bold border border-amber-100 dark:border-amber-900/40">
@@ -1891,7 +1893,7 @@
                             <div class="min-w-0">
                                 <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Chuỗi liên tục</div>
                                 <div class="text-base font-bold text-slate-900 dark:text-white leading-tight truncate">
-                                    <span id="sanhMemberStreakTitle">Streak 0 ngày</span>
+                                    <span id="sanhMemberStreakTitle">0 ngày liên tiếp</span>
                                 </div>
                             </div>
                         </div>
@@ -1900,7 +1902,7 @@
                         </div>
                     </div>
 
-                    <!-- Stat 4: Từ vựng & Độ nhớ (Clean empty-state copy) -->
+                    <!-- Stat 3: Từ vựng & Độ nhớ (Clean empty-state copy) -->
                     <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-4 shadow-2xs flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm shrink-0 font-bold border border-purple-100 dark:border-purple-900/40">
                             <i class="fa-solid fa-book-bookmark"></i>
@@ -1913,6 +1915,20 @@
                             <div id="memberAccuracyVal" class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 truncate">Độ nhớ: Chưa kiểm tra</div>
                         </div>
                     </div>
+
+                    <!-- Stat 4: Mục tiêu & Dự kiến -->
+                    <button type="button" id="heroTargetTracker" onclick="openTargetModal()" class="rounded-2xl bg-white dark:bg-slate-900 hover:border-blue-400 dark:hover:border-blue-500 border border-slate-200/90 dark:border-slate-800 p-4 shadow-2xs flex items-center gap-3 text-left transition cursor-pointer" title="Thiết lập mục tiêu điểm TOEIC & ngày thi">
+                        <div class="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center text-sm shrink-0 font-bold border border-sky-100 dark:border-sky-900/40">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold truncate">Mục tiêu &amp; Dự kiến</div>
+                            <div class="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight truncate">
+                                Mục tiêu: <span id="memberTargetScore">Chưa đặt</span>
+                            </div>
+                            <div id="memberExamDate" class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 truncate">Bấm để thiết lập ngày thi</div>
+                        </div>
+                    </button>
                 </div>
 
                 <!-- 4. GRID CHÍNH 2 CỘT: CỘT TRÁI (Nhiệm vụ & Đề xuất) + CỘT PHẢI (Kỹ năng & AI) -->
@@ -1921,21 +1937,21 @@
                     <!-- CỘT TRÁI: 7 CỘT (Đề xuất thông minh + Danh sách nhiệm vụ) -->
                     <div class="lg:col-span-7 space-y-4">
 
-                        <!-- KHỐI 3: ĐỀ XUẤT CÁ NHÂN HÓA THÔNG MINH -->
+                        <!-- KHỐI 3: ĐỀ XUẤT KHỞI ĐỘNG NHẸ (MICRO-LEARNING) -->
                         <div id="smartRecommendationBox" class="rounded-2xl p-4 sm:p-5 bg-gradient-to-r from-blue-50/70 via-white to-indigo-50/50 dark:from-slate-850 dark:to-slate-800 border border-blue-200/70 dark:border-slate-700 shadow-xs space-y-3">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
                                     <i class="fa-solid fa-compass text-blue-600 dark:text-blue-400 text-sm"></i>
-                                    <span id="smartRecommendationTitle">Đề xuất cá nhân hóa hôm nay</span>
+                                    <span id="smartRecommendationTitle">Khởi động nhanh 2 phút</span>
                                 </div>
                                 <span class="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-100/60 dark:bg-blue-950/60 px-2 py-0.5 rounded-md">AI Analyzer</span>
                             </div>
                             <p id="smartRecommendationBody" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                                Khảo sát năng lực ban đầu: Làm bài test chẩn đoán 28 câu tham chiếu ETS 2026 (25 phút) để phân tích 6 vùng kiến thức và mở khóa lộ trình tự động.
+                                Chưa có đủ 25 phút rảnh? Khởi động nhanh với 5 từ vựng TOEIC cốt lõi hoặc 3 câu ngữ pháp Part 5 chỉ trong 2 phút để mở chuỗi ngày học đầu tiên!
                             </p>
                             <div class="pt-1">
                                 <button id="smartRecommendationBtn" onclick="window.startSmartRecommendationAction()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-2 shadow-xs transition cursor-pointer">
-                                    <span id="smartRecommendationBtnText">Bắt đầu bài Test Chẩn đoán (25 phút)</span>
+                                    <span id="smartRecommendationBtnText">Học nhanh 5 từ cốt lõi (2 phút)</span>
                                     <i class="fa-solid fa-arrow-right text-xs"></i>
                                 </button>
                             </div>
@@ -1943,12 +1959,15 @@
 
                         <!-- KHỐI 5: NHIỆM VỤ HÔM NAY (DAILY TASKS CHECKLIST) -->
                         <div id="dailyTasksCard" class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
-                            <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                            <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
                                 <div>
                                     <h3 class="text-base font-bold text-slate-900 dark:text-white">Nhiệm vụ hôm nay</h3>
                                     <p class="text-xs text-slate-500 dark:text-slate-400">Hoàn thành mục tiêu nhỏ để duy trì tiến độ vững chắc</p>
                                 </div>
-                                <span id="memberTasksTotalXp" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold">+0 XP</span>
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <span id="memberTasksSubtitle" class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold">0/5 nhiệm vụ</span>
+                                    <span id="memberTasksTotalXp" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold">+0 XP</span>
+                                </div>
                             </div>
 
                             <!-- Container nhiệm vụ được tự động render bởi DailyTaskManager.render() -->
@@ -1971,7 +1990,7 @@
                                         <span>Cân bằng 4 mảng học trọng tâm</span>
                                         <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300 border border-blue-200 dark:border-blue-800 whitespace-nowrap shrink-0">Chuẩn ETS 2026</span>
                                     </h3>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Độ hoàn thiện & Tỷ lệ làm đúng theo ngân hàng câu hỏi</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Độ hoàn thiện &amp; Tỷ lệ làm đúng theo ngân hàng câu hỏi</p>
                                 </div>
                                 <button onclick="switchTab('lo-trinh')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 pt-0.5">
                                     <span>Chi tiết</span>
@@ -1989,15 +2008,15 @@
                                             <span>Luyện Nghe (Listening)</span>
                                         </span>
                                         <div class="flex items-center gap-2">
-                                            <span id="skillAccuracyListenPct" class="font-bold text-teal-700 dark:text-teal-300">--%</span>
-                                            <span id="skillAccuracyListenCount" class="text-slate-400 text-xs">0/2100 câu</span>
+                                            <span id="skillAccuracyListenPct" class="font-bold text-slate-500 dark:text-slate-400">0%</span>
+                                            <span id="skillAccuracyListenCount" class="text-slate-400 text-xs">0 câu</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyListenProgress" class="h-full rounded-full bg-[#248A8A] transition-all duration-500" style="width: 0%"></div>
                                     </div>
                                     <div id="skillAccuracyListenSub" class="text-xs text-slate-400 flex justify-between">
-                                        <span>Ngân hàng: 2100 câu</span>
+                                        <span id="skillBankTotalListen">Ngân hàng: Đang đồng bộ...</span>
                                         <span id="skillAccuracyListenDetail">Chưa làm bài</span>
                                     </div>
                                 </div>
@@ -2010,15 +2029,15 @@
                                             <span>Luyện Đọc (Reading)</span>
                                         </span>
                                         <div class="flex items-center gap-2">
-                                            <span id="skillAccuracyReadPct" class="font-bold text-emerald-700 dark:text-emerald-300">--%</span>
-                                            <span id="skillAccuracyReadCount" class="text-slate-400 text-xs">0/2100 câu</span>
+                                            <span id="skillAccuracyReadPct" class="font-bold text-slate-500 dark:text-slate-400">0%</span>
+                                            <span id="skillAccuracyReadCount" class="text-slate-400 text-xs">0 câu</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyReadProgress" class="h-full rounded-full bg-[#3E8B62] transition-all duration-500" style="width: 0%"></div>
                                     </div>
                                     <div id="skillAccuracyReadSub" class="text-xs text-slate-400 flex justify-between">
-                                        <span>Ngân hàng: 2100 câu</span>
+                                        <span id="skillBankTotalRead">Ngân hàng: Đang đồng bộ...</span>
                                         <span id="skillAccuracyReadDetail">Chưa làm bài</span>
                                     </div>
                                 </div>
@@ -2031,15 +2050,15 @@
                                             <span>Ngữ pháp trọng tâm</span>
                                         </span>
                                         <div class="flex items-center gap-2">
-                                            <span id="skillAccuracyGrammarPct" class="font-bold text-purple-700 dark:text-purple-300">--%</span>
-                                            <span id="skillAccuracyGrammarCount" class="text-slate-400 text-xs">0/1500 câu</span>
+                                            <span id="skillAccuracyGrammarPct" class="font-bold text-slate-500 dark:text-slate-400">0%</span>
+                                            <span id="skillAccuracyGrammarCount" class="text-slate-400 text-xs">0 câu</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyGrammarProgress" class="h-full rounded-full bg-[#7759C2] transition-all duration-500" style="width: 0%"></div>
                                     </div>
                                     <div id="skillAccuracyGrammarSub" class="text-xs text-slate-400 flex justify-between">
-                                        <span>Ngân hàng: 1500 câu</span>
+                                        <span id="skillBankTotalGrammar">Ngân hàng: Đang đồng bộ...</span>
                                         <span id="skillAccuracyGrammarDetail">Chưa làm bài</span>
                                     </div>
                                 </div>
@@ -2052,26 +2071,18 @@
                                             <span>Kho Từ vựng cốt lõi</span>
                                         </span>
                                         <div class="flex items-center gap-2">
-                                            <span id="skillAccuracyVocabPct" class="font-bold text-amber-700 dark:text-amber-300">--%</span>
-                                            <span id="skillAccuracyVocabCount" class="text-slate-400 text-xs">0/4514 từ</span>
+                                            <span id="skillAccuracyVocabPct" class="font-bold text-slate-500 dark:text-slate-400">0%</span>
+                                            <span id="skillAccuracyVocabCount" class="text-slate-400 text-xs">0 từ</span>
                                         </div>
                                     </div>
                                     <div class="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div id="skillAccuracyVocabProgress" class="h-full rounded-full bg-[#D97A40] transition-all duration-500" style="width: 0%"></div>
                                     </div>
                                     <div id="skillAccuracyVocabSub" class="text-xs text-slate-400 flex justify-between">
-                                        <span>Ngân hàng: 4514 từ cốt lõi</span>
+                                        <span id="skillBankTotalVocab">Ngân hàng: Đang đồng bộ...</span>
                                         <span id="skillAccuracyVocabDetail">Chưa học từ nào</span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Hidden dummy circle elements to maintain complete JS backward compatibility without errors -->
-                            <div class="hidden">
-                                <div id="skillAccuracyGrammarCircle"></div>
-                                <div id="skillAccuracyVocabCircle"></div>
-                                <div id="skillAccuracyListenCircle"></div>
-                                <div id="skillAccuracyReadCircle"></div>
                             </div>
                         </div>
 
@@ -2392,7 +2403,7 @@
                         <h1 class="text-[22px] font-extrabold text-slate-900 dark:text-white">Từ vựng</h1>
                     </div>
                     <div class="text-[12px] font-medium text-slate-500 dark:text-slate-400">
-                        Đã học <span id="vocabHeaderLearned" class="font-bold text-slate-700 dark:text-slate-200">0</span>/4514 từ · Đang học <span id="vocabHeaderLearning">0</span> · Đã thuộc <span id="vocabHeaderMastered">0</span>
+                        Đã học <span id="vocabHeaderLearned" class="font-bold text-slate-700 dark:text-slate-200">0</span>/<span id="vocabHeaderTotal">0</span> từ · Đang học <span id="vocabHeaderLearning">0</span> · Đã thuộc <span id="vocabHeaderMastered">0</span>
                     </div>
                 </div>
 
@@ -2799,9 +2810,9 @@
                             </div>
                         </div>
 
-                        <div id="listeningHeroOwl" class="w-28 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float artisan-polaroid relative">
+                        <div id="listeningHeroOwl" aria-hidden="true" class="w-28 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float artisan-polaroid relative">
                             <div class="artisan-washi-tape"></div>
-                            <img src="/assets/mascot/may_listening.png" alt="Mascot Sói Mây" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+                            <img src="/assets/mascot/may_listening.png" alt="Sói Mây luyện nghe" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
                         </div>
                     </div>
                 </div>
@@ -3530,7 +3541,7 @@
                                 </div>
                                 <div class="bg-white/90 dark:bg-slate-800 rounded-2xl px-3.5 py-2 min-w-[98px] shadow-sm">
                                     <div class="text-xs text-slate-500 flex items-center gap-1"><i class="fa-solid fa-list-check text-emerald-600"></i> Câu đã làm</div>
-                                    <div id="readDoneStat" class="text-[15px] font-extrabold text-slate-900 dark:text-white mt-0.5">0/2100</div>
+                                    <div id="readDoneStat" class="text-[15px] font-extrabold text-slate-900 dark:text-white mt-0.5">0</div>
                                 </div>
                                 <div class="bg-white/90 dark:bg-slate-800 rounded-2xl px-3.5 py-2 min-w-[98px] shadow-sm">
                                     <div class="text-xs text-slate-500 flex items-center gap-1"><i class="fa-solid fa-gauge-high text-emerald-600"></i> Pace TOEIC</div>
@@ -3555,9 +3566,9 @@
                     </div>
 
                     <!-- Mascot Phần Đọc: Sói Mây Nghiên Cứu (Ảnh 4 & 10) -->
-                    <div id="readingHeroOwl" class="w-32 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float artisan-polaroid relative">
+                    <div id="readingHeroOwl" aria-hidden="true" class="w-32 h-32 shrink-0 hidden md:flex items-center justify-center mascot-float artisan-polaroid relative">
                         <div class="artisan-washi-tape"></div>
-                        <img src="/assets/mascot/may_reading.png" alt="Mascot Sói Mây" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+                        <img src="/assets/mascot/may_reading.png" alt="Sói Mây luyện đọc" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
 
@@ -3965,9 +3976,9 @@
                     </div>
 
                     <!-- Mascot Phần Thi Thử: Sói Mây Thám Hiểm (Ảnh 5 & 10) -->
-                    <div id="mockHeroOwl" class="w-32 h-36 shrink-0 hidden md:flex items-center justify-center mascot-float artisan-polaroid relative">
+                    <div id="mockHeroOwl" aria-hidden="true" class="w-32 h-36 shrink-0 hidden md:flex items-center justify-center mascot-float artisan-polaroid relative">
                         <div class="artisan-washi-tape"></div>
-                        <img src="/assets/mascot/may_explorer.png" alt="Mascot Sói Mây" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+                        <img src="/assets/mascot/may_explorer.png" alt="Sói Mây ôn thi" class="max-h-full max-w-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
 
