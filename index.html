@@ -961,7 +961,7 @@
         }
         html.sb-preload-collapsed #sidebarReopenBtn {
             display: flex !important;
-            z-index: 60 !important;
+            z-index: 35 !important;
         }
 
         /* Sidebar Collapse / Expand Toggle Button Rules */
@@ -983,7 +983,7 @@
             aside#sidebarContainer.sb-collapsed ~ #sidebarReopenBtn,
             html.sb-preload-collapsed #sidebarReopenBtn {
                 display: flex !important;
-                z-index: 60 !important;
+                z-index: 35 !important;
             }
         }
 
@@ -1008,21 +1008,39 @@
             }
         }
 
-        /* Profile Dropdown Elevation & Hero Layering Rules */
+        /* Profile Dropdown Elevation & Hero Layering Rules: keep header (30) & dropdown (45) strictly below z-50+ modals */
         #sanhTopHeaderBar,
         .header-bar-elevation {
-            z-index: 80 !important;
+            z-index: 30 !important;
         }
         #sanhMemberDropdownWrapper,
         #mobileProfileDropdownWrapper {
             position: relative;
-            z-index: 90 !important;
+            z-index: 35 !important;
         }
         #sanhMemberProfileMenu,
         #mobileProfileMenu,
         #profileDropdownMenu {
-            z-index: 120 !important;
+            z-index: 45 !important;
         }
+        #mobileConnectModal,
+        #syncDetailsModal,
+        #authModal,
+        #examHistoryModal,
+        #privacyPolicyModal,
+        #termsOfServiceModal,
+        #quizModal,
+        #flashcardModal,
+        #targetModal {
+            overscroll-behavior: contain;
+        }
+        /* Explicit z-index for overlays whose arbitrary Tailwind z-[...] utilities are not in app.bundle.css */
+        #quizQuestionPaletteDrawer { z-index: 60 !important; }
+        #trwNoteModal { z-index: 9990 !important; }
+        #iosPwaInstallModal { z-index: 9995 !important; }
+        #privacyPolicyModal,
+        #termsOfServiceModal { z-index: 10001 !important; }
+        #toastBox { z-index: 10050 !important; }
         #heroActionCardContainer {
             position: relative;
             z-index: 1 !important;
@@ -1513,7 +1531,7 @@
                 <button type="button" onclick="toggleMobileProfileDropdown(event)" id="mobileTopAvatar" class="w-9 h-9 relative flex items-center justify-center cursor-pointer shrink-0" aria-label="Hồ sơ cá nhân">
                     <span id="mobileTopAvatarText"></span>
                 </button>
-                <div id="mobileProfileMenu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-700 p-2 z-[100]">
+                <div id="mobileProfileMenu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-700 p-2 z-[45]">
                     <div class="px-2.5 py-1.5 border-b border-slate-100 dark:border-slate-800 mb-1">
                         <div id="mobileDropdownEmail" class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate"></div>
                     </div>
@@ -1845,7 +1863,7 @@
                                 </button>
 
                                 <!-- Menu Sổ Xuống (Dropdown) -->
-                                <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
+                                <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[45] animate-fadeIn">
                                     <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
                                         <div id="sanhMemberDropdownAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
                                             <span>K</span>
@@ -6360,7 +6378,7 @@
     </div>
 
     <!-- Modal: Mở Web Trên Điện Thoại (QR Code & LAN URL) -->
-    <div id="mobileConnectModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-4">
+    <div id="mobileConnectModal" onclick="if(event.target === this) closeMobileConnectModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="mobileConnectModalTitle">
         <div class="bg-white dark:bg-slate-900 rounded-[28px] max-w-xl w-full p-5 sm:p-6 shadow-2xl border border-slate-100 dark:border-slate-800 max-h-[92vh] flex flex-col animate-fadeIn">
             <div class="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800 shrink-0">
                 <div class="flex items-center gap-3">
@@ -6369,7 +6387,7 @@
                     </div>
                     <div>
                         <div class="text-xs font-extrabold text-blue-600 dark:text-blue-400 tracking-wider uppercase">TRUY CẬP ĐIỆN THOẠI · MOBILE READY</div>
-                        <h3 class="text-[17px] sm:text-[18px] font-extrabold text-slate-900 dark:text-white leading-tight">Mở web trên điện thoại của bạn</h3>
+                        <h3 id="mobileConnectModalTitle" class="text-[17px] sm:text-[18px] font-extrabold text-slate-900 dark:text-white leading-tight">Mở web trên điện thoại của bạn</h3>
                     </div>
                 </div>
                 <button onclick="closeMobileConnectModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition" aria-label="Đóng kết nối di động">
@@ -8694,7 +8712,7 @@
     </script>
 
     <!-- Toast Notification -->
-    <div id="toastBox" class="fixed bottom-20 lg:bottom-5 right-4 lg:right-5 left-4 sm:left-auto z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-bold flex items-center gap-2.5">
+    <div id="toastBox" class="fixed bottom-20 lg:bottom-5 right-4 lg:right-5 left-4 sm:left-auto z-[10050] pointer-events-none opacity-0 translate-y-3 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-bold flex items-center gap-2.5">
         <span class="text-amber-400">✦</span>
         <span id="toastText">Thông báo</span>
     </div>

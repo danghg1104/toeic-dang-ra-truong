@@ -106,7 +106,7 @@
 
                 .soi-may-speech-bubble {
                     position: fixed;
-                    z-index: 10000;
+                    z-index: 26;
                     pointer-events: none;
                     animation: bubbleFloatIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                     box-shadow: 0 12px 30px -5px rgba(15, 23, 42, 0.3), 0 4px 6px -4px rgba(15, 23, 42, 0.2);
@@ -115,12 +115,12 @@
                     animation: bubbleFloatOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
 
-                /* Floating Companion Dock (Góc dưới bên phải) */
+                /* Floating Companion Dock (Góc dưới bên phải - nằm dưới header 30 và modal >=50) */
                 #soiMayFloatingDock {
                     position: fixed;
                     bottom: 24px;
                     right: 24px;
-                    z-index: 50;
+                    z-index: 25;
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -133,7 +133,7 @@
                     #soiMayFloatingDock {
                         bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
                         right: 14px !important;
-                        z-index: 45 !important;
+                        z-index: 25 !important;
                     }
                 }
             `;
