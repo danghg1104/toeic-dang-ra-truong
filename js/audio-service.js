@@ -131,6 +131,9 @@
          * @param {object} options - Tùy chọn mở rộng
          */
         async playWord(word, accent = 'US', options = {}) {
+            if (typeof window !== 'undefined' && window.AudioManager && typeof window.AudioManager.pauseLofi === 'function') {
+                window.AudioManager.pauseLofi();
+            }
             if (!word) return false;
             this.init();
             this.stop();
@@ -422,6 +425,210 @@
             }
         };
 
+        // Centralized Audio Manager (Chống đè nhạc Lofi & Dọn dẹp Ghost Audio khi chuyển Tab)
+        window.AudioManager = {
+            currentAudio: null,
+            lofiPlayer: null,
+            lofiWasPausedByAudio: false,
+
+            pauseLofi() {
+                try {
+                    if (this.lofiPlayer && typeof this.lofiPlayer.pause === 'function' && !this.lofiPlayer.paused) {
+                        this.lofiPlayer.pause();
+                        this.lofiWasPausedByAudio = true;
+                    }
+                    if (window.WebAudioMicroEngine) {
+                        if (window.WebAudioMicroEngine.pomodoroIsRunning && typeof window.WebAudioMicroEngine.pausePomodoro === 'function') {
+                            window.WebAudioMicroEngine.pausePomodoro();
+                            this.lofiWasPausedByAudio = true;
+                        }
+                        if (window.WebAudioMicroEngine.pomodoroAmbientNodes && typeof window.WebAudioMicroEngine._stopAmbientAudio === 'function') {
+                            window.WebAudioMicroEngine._stopAmbientAudio();
+                            this.lofiWasPausedByAudio = true;
+                        }
+                    }
+                    if (window._miniLofiActive) {
+                        window._miniLofiActive = false;
+                        if (typeof document !== 'undefined') {
+                            document.querySelectorAll('.artisan-vinyl-disc').forEach(el => el.classList.remove('is-playing'));
+                            document.querySelectorAll('.artisan-tonearm').forEach(el => el.classList.remove('is-active'));
+                        }
+                    }
+                    if (window.StudyFocusEngine && window.StudyFocusEngine.isSoundPlaying) {
+                        if (typeof window.StudyFocusEngine.stopAmbientSound === 'function') {
+                            window.StudyFocusEngine.stopAmbientSound();
+                            this.lofiWasPausedByAudio = true;
+                        }
+                    }
+                } catch (e) {}
+            },
+
+            playExamAudio(src, onEnded) {
+                this.pauseLofi();
+                this.stopAll();
+                try {
+                    const audio = new Audio(src);
+                    this.currentAudio = audio;
+                    if (typeof onEnded === 'function') {
+                        audio.onended = onEnded;
+                    }
+                    audio.play().catch(() => {});
+                    return audio;
+                } catch (e) {
+                    return null;
+                }
+            },
+
+            speakText(text, lang = 'en-US', rate = 0.95, onEnded) {
+                this.pauseLofi();
+                this.stopAll();
+                if (!('speechSynthesis' in window)) return null;
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = rate;
+                if (typeof onEnded === 'function') {
+                    utterance.onend = onEnded;
+                }
+                window.speechSynthesis.speak(utterance);
+                return utterance;
+            },
+
+            // Đa giọng đọc Part 3 & 4: Tách lượt đối thoại Man / Woman, loại bỏ phát âm nhãn "Man colon" và tránh giới hạn 15s Chrome
+            _dialogueToken: 0,
+
+            speakDialogue(transcript, options = {}, onComplete) {
+                this.pauseLofi();
+                this.stopAll();
+                const token = ++this._dialogueToken;
+                if (!('speechSynthesis' in window) || !transcript) {
+                    if (typeof onComplete === 'function') onComplete();
+                    return;
+                }
+
+                // Tách từng lượt thoại theo Man: / Woman: / M: / W: / Speaker:
+                const lines = transcript.split(/\n+/).map(l => l.trim()).filter(Boolean);
+                const rawTurns = [];
+
+                lines.forEach(line => {
+                    const match = line.match(/^(Man|Woman|Female|Male|M|W|Speaker\s*\d*|Person\s*[A-B]):\s*(.+)$/i);
+                    if (match) {
+                        rawTurns.push({ speaker: match[1].toLowerCase(), text: match[2].trim() });
+                    } else if (rawTurns.length > 0) {
+                        rawTurns[rawTurns.length - 1].text += ' ' + line;
+                    } else {
+                        rawTurns.push({ speaker: 'neutral', text: line });
+                    }
+                });
+
+                if (rawTurns.length === 0) {
+                    rawTurns.push({ speaker: 'neutral', text: transcript });
+                }
+
+                // Tách câu dài > 140 ký tự để tránh Chrome ngắt âm thanh sau 15 giây
+                const turns = [];
+                rawTurns.forEach(t => {
+                    if (t.text.length <= 140) {
+                        turns.push(t);
+                    } else {
+                        const sentences = t.text.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g) || [t.text];
+                        let buf = '';
+                        sentences.forEach(s => {
+                            if ((buf + ' ' + s).trim().length > 140 && buf.trim()) {
+                                turns.push({ speaker: t.speaker, text: buf.trim() });
+                                buf = s;
+                            } else {
+                                buf = (buf ? buf + ' ' : '') + s.trim();
+                            }
+                        });
+                        if (buf.trim()) turns.push({ speaker: t.speaker, text: buf.trim() });
+                    }
+                });
+
+                let currentTurn = 0;
+                const voices = window.speechSynthesis.getVoices();
+                const playNextTurn = () => {
+                    if (token !== this._dialogueToken) return;
+                    if (currentTurn >= turns.length) {
+                        if (typeof onComplete === 'function') onComplete();
+                        return;
+                    }
+
+                    const turn = turns[currentTurn++];
+                    const u = new SpeechSynthesisUtterance(turn.text);
+                    u.lang = options.lang || 'en-US';
+                    u.rate = options.rate || 0.95;
+
+                    // Phân biệt âm sắc / pitch giữa giọng Nam & Nữ để rèn phản xạ phân vai
+                    if (/^(woman|female|w|speaker\s*2|person\s*b)$/i.test(turn.speaker)) {
+                        u.pitch = 1.22;
+                        u._preserveVoice = true;
+                        const femaleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Female') || v.name.includes('Google UK English Female')));
+                        if (femaleVoice) u.voice = femaleVoice;
+                    } else if (/^(man|male|m|speaker\s*1|person\s*a)$/i.test(turn.speaker)) {
+                        u.pitch = 0.88;
+                        u._preserveVoice = true;
+                        const maleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('David') || v.name.includes('Mark') || v.name.includes('Male') || v.name.includes('Google US English')));
+                        if (maleVoice) u.voice = maleVoice;
+                    }
+
+                    u.onend = () => {
+                        if (token !== this._dialogueToken) return;
+                        setTimeout(playNextTurn, 350);
+                    };
+                    u.onerror = () => {
+                        if (token !== this._dialogueToken) return;
+                        setTimeout(playNextTurn, 200);
+                    };
+
+                    window.speechSynthesis.speak(u);
+                };
+
+                playNextTurn();
+            },
+
+            // Dọn dẹp sạch sẽ toàn bộ audio ngầm (Ghost Audio) khi đổi Tab hoặc thoát bài thi
+            stopAll() {
+                this._dialogueToken = (this._dialogueToken || 0) + 1;
+                if (this.currentAudio) {
+                    try {
+                        this.currentAudio.pause();
+                        this.currentAudio.currentTime = 0;
+                    } catch (e) {}
+                    this.currentAudio = null;
+                }
+                if (window._adpAudioEl) {
+                    try {
+                        window._adpAudioEl.pause();
+                        window._adpAudioEl.currentTime = 0;
+                    } catch (e) {}
+                }
+                if (window.ToeicListeningWorkstation) {
+                    try {
+                        if (typeof window.ToeicListeningWorkstation.pause === 'function') window.ToeicListeningWorkstation.pause();
+                        if (window.ToeicListeningWorkstation.audioPlayer) window.ToeicListeningWorkstation.audioPlayer.pause();
+                    } catch (e) {}
+                }
+                if (window.ToeicDiagnosticWorkstation && typeof window.ToeicDiagnosticWorkstation.stopAudio === 'function') {
+                    try { window.ToeicDiagnosticWorkstation.stopAudio(); } catch (e) {}
+                }
+                if (window.DailyDictationWorkstation) {
+                    if (window.DailyDictationWorkstation.audioEl) {
+                        try { window.DailyDictationWorkstation.audioEl.pause(); } catch (e) {}
+                    }
+                    if (window.DailyDictationWorkstation.audio) {
+                        try { window.DailyDictationWorkstation.audio.pause(); } catch (e) {}
+                    }
+                }
+                if (window._quizToeicPlayer && typeof window._quizToeicPlayer.pause === 'function') {
+                    try { window._quizToeicPlayer.pause(); } catch (e) {}
+                }
+                if ('speechSynthesis' in window) {
+                    try { window.speechSynthesis.cancel(); } catch (e) {}
+                }
+            }
+        };
+
         // Hook window.speechSynthesis.speak để đảm bảo mọi đoạn văn hay từ vựng
         // phát bằng SpeechSynthesis đều tự động chọn Natural Voice và loại bỏ robot
         if ('speechSynthesis' in window) {
@@ -433,8 +640,8 @@
                         const isUK = utterance.lang && (utterance.lang === 'en-GB' || utterance.lang.startsWith('en-GB'));
                         const curVoiceName = utterance.voice ? utterance.voice.name.toLowerCase() : '';
                         
-                        // Nếu chưa có voice, hoặc voice đang là giọng robot (David / George / Desktop)
-                        if (!utterance.voice || curVoiceName.includes('david') || curVoiceName.includes('george') || curVoiceName.includes('desktop')) {
+                        // Nếu chưa có voice, hoặc voice đang là giọng robot (nhưng giữ nguyên nếu hội thoại đã phân vai)
+                        if (!utterance._preserveVoice && (!utterance.voice || curVoiceName.includes('david') || curVoiceName.includes('george') || curVoiceName.includes('desktop'))) {
                             const bestVoice = instance.getBestNaturalVoice(voices, isUK ? 'UK' : 'US');
                             if (bestVoice) {
                                 utterance.voice = bestVoice;

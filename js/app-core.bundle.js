@@ -1,3 +1,129 @@
+
+function formatAuthenticPassage(raw) {
+    if (!raw || typeof raw !== 'string') return '';
+    let text = raw.trim();
+
+    // Preserve pre-formatted HTML reading passage cards untouched
+    if (text.startsWith('<div') || text.includes('toeic-reading-passage-card')) {
+        return text;
+    }
+
+    const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Check for Email / Memo headers
+    if (/^(From|To|Date|Subject)\s*:/im.test(text)) {
+        const lines = text.split(/\r?\n/);
+        const headerLines = [];
+        const bodyLines = [];
+        let inHeader = true;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            if (inHeader && /^(From|To|Date|Subject|Cc|Bcc)\s*:/i.test(line.trim())) {
+                headerLines.push(line.trim());
+            } else if (inHeader && line.trim() === '') {
+                inHeader = false;
+            } else {
+                inHeader = false;
+                bodyLines.push(line);
+            }
+        }
+
+        if (headerLines.length > 0) {
+            const headersHtml = headerLines.map(h => {
+                const parts = h.split(/:(.*)/s);
+                const field = esc(parts[0].trim());
+                const val = esc((parts[1] || '').trim());
+                return `<div class="flex items-baseline text-xs py-0.5"><strong class="w-16 text-slate-500 uppercase tracking-wider font-mono text-[10px] shrink-0">${field}:</strong> <span class="text-slate-900 dark:text-white font-semibold">${val}</span></div>`;
+            }).join('');
+
+            const formattedBody = esc(bodyLines.join('\n')).replace(/\n\n+/g, '</p><p class="mt-2.5">').replace(/\n/g, '<br/>');
+
+            return `
+                <div class="doc-formatted-container space-y-3 font-sans">
+                    <div class="doc-header-card border-b-2 border-indigo-200 dark:border-indigo-800">
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-envelope"></i> Workplace Email / Correspondence
+                        </div>
+                        ${headersHtml}
+                    </div>
+                    <div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif">
+                        <p>${formattedBody}</p>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Check for Notice / Policy header
+    if (/^(NOTICE|MEMORANDUM|ANNOUNCEMENT|POLICY)\s*:/i.test(text)) {
+        const parts = text.split(/:(.*)/s);
+        const title = esc(parts[0].trim());
+        const body = esc((parts[1] || '').trim()).replace(/\n\n+/g, '</p><p class="mt-2.5">').replace(/\n/g, '<br/>');
+        return `
+            <div class="doc-formatted-container space-y-3 font-sans">
+                <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200">
+                    <span class="font-black text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullhorn"></i> ${title}
+                    </span>
+                </div>
+                <div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif">
+                    <p>${body}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    return `<div class="passage-body-content text-slate-800 dark:text-slate-200 text-xs sm:text-[13px] leading-relaxed select-text font-serif whitespace-pre-line">${esc(text)}</div>`;
+}
+if (typeof window !== 'undefined') window.formatAuthenticPassage = formatAuthenticPassage;
+if (typeof module !== 'undefined' && module.exports) module.exports.formatAuthenticPassage = formatAuthenticPassage;
+
+
+function normalizeDictation(str) {
+    if (!str) return '';
+    const contractions = {
+        "i'm": "i am", "you're": "you are", "he's": "he is", "she's": "she is",
+        "it's": "it is", "we're": "we are", "they're": "they are",
+        "don't": "do not", "doesn't": "does not", "didn't": "did not",
+        "can't": "cannot", "won't": "will not", "isn't": "is not", "aren't": "are not",
+        "wasn't": "was not", "weren't": "were not", "haven't": "have not",
+        "hasn't": "has not", "hadn't": "had not", "couldn't": "could not",
+        "shouldn't": "should not", "wouldn't": "would not",
+        "i've": "i have", "you've": "you have", "we've": "we have", "they've": "they have",
+        "i'll": "i will", "you'll": "you will", "he'll": "he will", "she'll": "she will",
+        "we'll": "we will", "they'll": "they will", "that's": "that is", "there's": "there is",
+        "what's": "what is", "who's": "who is", "where's": "where is", "how's": "how is",
+        "let's": "let us"
+    };
+    const numWords = {
+        "0": "zero", "1": "one", "2": "two", "3": "three", "4": "four",
+        "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine",
+        "10": "ten", "11": "eleven", "12": "twelve", "13": "thirteen", "14": "fourteen",
+        "15": "fifteen", "16": "sixteen", "17": "seventeen", "18": "eighteen", "19": "nineteen",
+        "20": "twenty", "30": "thirty", "40": "forty", "50": "fifty",
+        "60": "sixty", "70": "seventy", "80": "eighty", "90": "ninety", "100": "hundred"
+    };
+
+    let cleaned = String(str).toLowerCase()
+        .replace(/['’]/g, "'")
+        .replace(/[.,?!;:—_\-"()\[\]{}]/g, " ")
+        .trim();
+
+    Object.keys(contractions).forEach(k => {
+        const re = new RegExp(`\\b${k}\\b`, 'g');
+        cleaned = cleaned.replace(re, contractions[k]);
+    });
+    Object.keys(numWords).forEach(k => {
+        const re = new RegExp(`\\b${k}\\b`, 'g');
+        cleaned = cleaned.replace(re, numWords[k]);
+    });
+
+    return cleaned.replace(/\s+/g, ' ').trim();
+}
+if (typeof window !== 'undefined') window.normalizeDictation = normalizeDictation;
+if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDictation = normalizeDictation;
+
         // Application State
         let currentUserAccount = null;
         const state = {
@@ -22,31 +148,31 @@
         };
         window.state = state;
 
-        // Mascot Mây Engine (Đồng bộ từng chuyên mục theo yêu cầu học viên)
+        // Mascot Mây Engine (Đồng bộ từng chuyên mục + cache-buster)
         function getOwlSVG(variant = 'wave') {
             if (variant === 'listening') {
                 return `
                 <div class="relative w-full h-full flex flex-col items-center justify-center select-none group">
-                    <img src="/assets/mascot/may_listening.png" alt="Mascot Sói Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    <img src="/assets/mascot/may_listening.png?v=soimay_20261110" alt="Mascot Sói Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
                     <span class="absolute -bottom-1 px-2.5 py-0.5 rounded-full bg-teal-900/90 text-teal-200 text-xs font-black tracking-wider uppercase shadow-xs ring-1 ring-teal-400/40">LISTENING</span>
                 </div>`;
             } else if (variant === 'reading') {
                 return `
                 <div class="relative w-full h-full flex flex-col items-center justify-center select-none group">
-                    <img src="/assets/mascot/may_reading.png" alt="Mascot Sói Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    <img src="/assets/mascot/may_reading.png?v=soimay_20261110" alt="Mascot Sói Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
                     <span class="absolute -bottom-1 px-2.5 py-0.5 rounded-full bg-sky-900/90 text-sky-200 text-xs font-black tracking-wider uppercase shadow-xs ring-1 ring-sky-400/40">READING</span>
                 </div>`;
             } else if (variant === 'mock') {
                 return `
                 <div class="relative w-full h-full flex flex-col items-center justify-center select-none group">
-                    <img src="/assets/mascot/may_explorer.png" alt="Mascot Sói Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                    <img src="/assets/mascot/may_explorer.png?v=soimay_20261110" alt="Mascot Sói Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
                     <span class="absolute -bottom-1 px-2.5 py-0.5 rounded-full bg-lime-950/90 text-lime-300 text-xs font-black tracking-wider uppercase shadow-xs ring-1 ring-lime-400/40">MOCK ETS 2026</span>
                 </div>`;
             }
 
             return `
             <div class="relative w-full h-full flex flex-col items-center justify-center select-none pointer-events-none group">
-                <img src="/assets/mascot/may_reading.png" alt="Mascot Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
+                <img src="/assets/mascot/may_reading.png?v=soimay_20261110" alt="Mascot Mây" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-105 transition-transform duration-300">
             </div>`;
         }
 
@@ -233,6 +359,12 @@
             // Tự động đóng menu thanh bên trên mobile khi chuyển tab
             if (typeof window !== 'undefined' && window.innerWidth < 1024 && typeof toggleSidebar === 'function') {
                 try { toggleSidebar(false); } catch(e) {}
+            }
+            // Dọn dẹp toàn bộ âm thanh ngầm (Ghost Audio) & SpeechSynthesis khi chuyển tab
+            if (typeof window !== 'undefined' && window.AudioManager && typeof window.AudioManager.stopAll === 'function') {
+                try { window.AudioManager.stopAll(); } catch(e) {}
+            } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+                try { window.speechSynthesis.cancel(); } catch(e) {}
             }
             // Đảm bảo lấy tài khoản người dùng đang hoạt động nếu có phiên lưu trữ
             if (!currentUserAccount) {
@@ -2350,7 +2482,7 @@
             renderDictationMaskedWords();
 
             const userRaw = (document.getElementById('dictationInput').value || '').trim();
-            const isExact = cleanWord(userRaw) === cleanWord(item.en);
+            const isExact = (typeof normalizeDictation === 'function') ? (normalizeDictation(userRaw) === normalizeDictation(item.en)) : (cleanWord(userRaw) === cleanWord(item.en));
 
             const sKey = `${currentDictCat || 'default'}_${currentDictLessonIdx || 0}_${currentDictIdx}`;
             const isFirstExactMatch = isExact && !completedDictationKeys.has(sKey);
@@ -4552,16 +4684,18 @@
                 };
                 updateTimerDisplay();
 
+                window._quizExamEndTime = Date.now() + quizExamSecondsRemaining * 1000;
                 quizExamTimerInterval = setInterval(() => {
-                    quizExamSecondsRemaining--;
+                    quizExamSecondsRemaining = Math.max(0, Math.round((window._quizExamEndTime - Date.now()) / 1000));
                     if (quizExamSecondsRemaining <= 0) {
                         clearInterval(quizExamTimerInterval);
                         quizExamTimerInterval = null;
+                        window._quizExamEndTime = null;
                         finishExamQuiz(true);
                     } else {
                         updateTimerDisplay();
                     }
-                }, 1000);
+                }, 500);
 
                 document.getElementById('quizCategoryBadge').textContent = 'CHẾ ĐỘ THI THỬ MÔ PHỎNG ETS (120 PHÚT)';
                 document.getElementById('quizCategoryBadge').className = 'px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs';
@@ -4697,13 +4831,41 @@
                 }
             }
 
-            // 3. Reading Passage / Transcript Box (Ẩn transcript mặc định cho Listening trong lúc làm)
+            // 3. Reading Passage / Transcript Box (Chia đôi Split-Screen CBT cho Part 6 & 7)
             const passageBox = document.getElementById('quizPassageBox');
-            if (item.passage && !item.audio_url) {
-                passageBox.innerHTML = item.passage;
+            const workspaceWrapper = document.getElementById('quizWorkspaceWrapper');
+            const questionsPane = document.getElementById('quizQuestionsPane');
+            const quizDialog = document.getElementById('quizModalDialog');
+            const isReadingPassage = !!(item.passage && !item.audio_url);
+
+            if (quizDialog) {
+                if (isReadingPassage) {
+                    quizDialog.classList.remove('max-w-2xl');
+                    quizDialog.classList.add('max-w-5xl');
+                } else {
+                    quizDialog.classList.remove('max-w-5xl');
+                    quizDialog.classList.add('max-w-2xl');
+                }
+            }
+
+            if (workspaceWrapper) {
+                if (isReadingPassage) {
+                    workspaceWrapper.className = 'reading-workspace';
+                    if (questionsPane) questionsPane.className = 'questions-pane space-y-3.5';
+                } else {
+                    workspaceWrapper.className = 'space-y-3.5';
+                    if (questionsPane) questionsPane.className = 'space-y-3.5';
+                }
+            }
+
+            if (isReadingPassage) {
+                passageBox.innerHTML = (typeof formatAuthenticPassage === 'function') 
+                    ? formatAuthenticPassage(item.passage) 
+                    : item.passage;
+                passageBox.className = 'passage-pane border border-amber-200/80 dark:border-slate-700 select-text';
                 passageBox.classList.remove('hidden');
             } else {
-                passageBox.classList.add('hidden');
+                passageBox.className = 'hidden';
             }
 
             // 4. Hiển thị ảnh cho Part 1 Photographs (Chuẩn TOEIC)
@@ -5529,16 +5691,23 @@
                             timerText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
                         };
                         updateTimerDisplay();
+                        if (activeSession.quizExamEndTime && activeSession.quizExamEndTime > Date.now()) {
+                            window._quizExamEndTime = activeSession.quizExamEndTime;
+                            quizExamSecondsRemaining = Math.max(0, Math.round((window._quizExamEndTime - Date.now()) / 1000));
+                        } else {
+                            window._quizExamEndTime = Date.now() + quizExamSecondsRemaining * 1000;
+                        }
                         quizExamTimerInterval = setInterval(() => {
-                            quizExamSecondsRemaining--;
+                            quizExamSecondsRemaining = Math.max(0, Math.round((window._quizExamEndTime - Date.now()) / 1000));
                             if (quizExamSecondsRemaining <= 0) {
                                 clearInterval(quizExamTimerInterval);
                                 quizExamTimerInterval = null;
+                                window._quizExamEndTime = null;
                                 finishExamQuiz(true);
                             } else {
                                 updateTimerDisplay();
                             }
-                        }, 1000);
+                        }, 500);
 
                         renderQuizQuestion();
                         showToast('🔄 Đã khôi phục phiên thi thử đang làm dở của bạn!');
@@ -6829,17 +6998,26 @@
             const smartBtnText = document.getElementById('smartRecommendationBtnText');
 
             if (user && user.id) {
-                const displayName = user.name || user.displayName || 'Huỳnh Đăng';
+                const displayName = user.name || user.displayName || 'Học viên';
                 if (nameEl) nameEl.textContent = displayName;
-                const score = user.targetScore || 600;
-                if (targetScoreEl) targetScoreEl.textContent = score;
+                const score = user.targetScore || '';
+                if (targetScoreEl) targetScoreEl.textContent = score || '--';
 
-                let daysRemaining = 52;
+                let daysRemaining = null;
                 if (typeof PersonalizedRoadmapEngine !== 'undefined' && typeof PersonalizedRoadmapEngine.calculateDaysRemaining === 'function') {
-                    daysRemaining = PersonalizedRoadmapEngine.calculateDaysRemaining() || 52;
+                    daysRemaining = PersonalizedRoadmapEngine.calculateDaysRemaining();
+                }
+                if (examDateEl) {
+                    examDateEl.textContent = user.examDate ? `Thi: ${user.examDate}` : 'Chưa đặt ngày thi';
                 }
                 if (subTextEl) {
-                    subTextEl.textContent = `Mục tiêu ${score} TOEIC · Còn ${daysRemaining} ngày ôn luyện tập trung`;
+                    if (score && daysRemaining !== null) {
+                        subTextEl.textContent = `Mục tiêu ${score} TOEIC · Còn ${daysRemaining} ngày ôn luyện tập trung`;
+                    } else if (score) {
+                        subTextEl.textContent = `Mục tiêu ${score} TOEIC · Chưa đặt ngày thi`;
+                    } else {
+                        subTextEl.textContent = 'Hãy đặt mục tiêu điểm & ngày thi để AI thiết kế lộ trình cá nhân';
+                    }
                 }
 
                 let diagResults = user?.diagnosticResults;
@@ -6955,7 +7133,8 @@
                 } catch(e) {}
 
                 const tagEl = document.getElementById('heroLessonTag');
-                if (nameEl) nameEl.textContent = 'bạn!';
+                if (prefixEl) prefixEl.textContent = 'Chào bạn,';
+                if (nameEl) nameEl.textContent = 'Học viên!';
                 if (targetScoreEl) targetScoreEl.textContent = (guestDiag && (guestDiag.totalScore || guestDiag.score || guestDiag.estimatedScore)) || '--';
                 if (examDateEl) examDateEl.textContent = 'Chưa đặt ngày thi';
 
@@ -6974,7 +7153,7 @@
                     if (bubbleTextEl) bubbleTextEl.textContent = 'Bạn đã làm bài chẩn đoán rồi! Cùng Sói Mây luyện tập các bài học tiếp theo nhé! 🎯';
                     window._heroNextTabTarget = 'lo-trinh';
                 } else {
-                    if (subTextEl) subTextEl.textContent = 'Đăng nhập để lưu tiến độ và cá nhân hóa lộ trình học';
+                    if (subTextEl) subTextEl.textContent = 'Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu tiến độ';
                     if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
                     if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
                     if (countEl) countEl.textContent = '28 câu hỏi đa dạng';
@@ -7027,7 +7206,7 @@
             if (friCircle) {
                 if (currentStreak > 0) {
                     friCircle.className = 'w-8 h-8 rounded-full bg-orange-500 text-white border border-orange-300 flex items-center justify-center text-xs font-bold shadow-sm';
-                    friCircle.innerHTML = '🔥';
+                    friCircle.innerHTML = '<i class="fa-solid fa-fire text-xs"></i>';
                 } else {
                     friCircle.className = 'w-8 h-8 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-xs font-bold';
                     friCircle.innerHTML = '5';
@@ -7089,32 +7268,32 @@
             if (taskBarRead) taskBarRead.style.width = `${Math.min(100, (rDone / 10) * 100)}%`;
             setTxt('task-count-read', `${Math.min(10, rDone)}/10`);
 
-            // Member Dashboard Summary Cards (5 thẻ Pastel chuẩn Ảnh 4)
+            // Member Dashboard Summary Cards (Single Source of Truth)
             if (currentUserAccount) {
-                setTxt('memberTargetScore', currentUserAccount.targetScore || '——');
-                setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: Chưa đặt');
+                setTxt('memberTargetScore', currentUserAccount.targetScore || '--');
+                setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Chưa đặt ngày thi');
             } else {
-                setTxt('memberTargetScore', '——');
-                setTxt('memberExamDate', 'Thi: Chưa đặt');
+                setTxt('memberTargetScore', '--');
+                setTxt('memberExamDate', 'Chưa đặt ngày thi');
             }
             setTxt('memberVocabCount', vLearned);
             setTxt('memberVocabSub', vLearned > 0 ? `Đã học ${vLearned} từ mới tuần này` : 'Chưa học từ nào tuần này');
 
             if (state.totalAnswers && state.totalAnswers > 0) {
                 const acc = Math.round((state.correctAnswers / state.totalAnswers) * 100);
-                setTxt('memberAccuracyVal', `${acc}%`);
+                setTxt('memberAccuracyVal', `Độ nhớ: ${acc}% đúng`);
                 setTxt('memberAccuracySub', `Đã làm ${state.totalAnswers} câu`);
             } else {
-                setTxt('memberAccuracyVal', '——');
+                setTxt('memberAccuracyVal', 'Độ nhớ: Chưa kiểm tra');
                 setTxt('memberAccuracySub', 'Chưa đủ dữ liệu');
             }
 
             if (sMinutes > 0) {
-                setTxt('memberStudyTime', `${sMinutes}p`);
-                setTxt('memberStudyTimeSub', `Hôm nay: ${sMinutes} phút`);
+                setTxt('memberStudyTime', `${sMinutes} phút`);
+                setTxt('memberStudyTimeSub', 'Thời gian học hôm nay');
             } else {
-                setTxt('memberStudyTime', '——');
-                setTxt('memberStudyTimeSub', 'Hôm nay: chưa học');
+                setTxt('memberStudyTime', 'Chưa học');
+                setTxt('memberStudyTimeSub', 'Hôm nay: 0 phút');
             }
 
             setTxt('sanhMemberStreakVal', `${currentStreak} ngày`);
@@ -7324,11 +7503,11 @@
             const score = (scoreInput && scoreInput.value) ? scoreInput.value.trim() : '600';
             const date = (dateInput && dateInput.value) ? dateInput.value.trim() : '';
 
-            // 1. Cập nhật thẻ mục tiêu trên Sảnh hôm nay (Ảnh 4 & Ảnh 1)
+            // 1. Cập nhật thẻ mục tiêu trên Sảnh hôm nay
             const scoreEl = document.getElementById('memberTargetScore');
-            if (scoreEl) scoreEl.textContent = score || '——';
+            if (scoreEl) scoreEl.textContent = score || '--';
             const dateEl = document.getElementById('memberExamDate');
-            if (dateEl) dateEl.textContent = date ? `Thi: ${date}` : 'Thi: Chưa đặt';
+            if (dateEl) dateEl.textContent = date ? `Thi: ${date}` : 'Chưa đặt ngày thi';
 
             // 2. Cập nhật các trường phụ trong trang cài đặt
             const profTarget = document.getElementById('profileTargetScoreInput');
@@ -7360,6 +7539,9 @@
             if (m) {
                 m.classList.add('hidden');
                 m.classList.remove('flex');
+            }
+            if (typeof window.updateDashboardStudioHero === 'function') {
+                window.updateDashboardStudioHero();
             }
             showToast('🎯 Đã lưu mục tiêu điểm số và ngày thi!');
         }
@@ -7453,20 +7635,22 @@
             setTxt('topUserName', 'Chưa đăng nhập');
             setTxt('dropdownUserName', 'Chưa đăng nhập');
             setTxt('dropdownUserEmail', 'Vui lòng đăng nhập để bắt đầu');
-            setTxt('sanhGreetingPrefix', 'Chào bạn!');
-            setTxt('sanhMemberGreetingName', 'Hãy đăng nhập để lưu tiến độ');
-            setTxt('sanhMemberProfileName', 'Học viên');
+            setTxt('sanhGreetingPrefix', 'Chào bạn,');
+            setTxt('sanhMemberGreetingName', 'Học viên!');
+            setTxt('sanhHeaderSubText', 'Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu tiến độ');
+            setTxt('sanhMemberProfileName', 'Khách');
             setTxt('sanhMemberDropdownEmail', 'Chưa đăng nhập');
             setTxt('mobileDropdownEmail', 'Chưa đăng nhập');
-            setTxt('memberTargetScore', '——');
-            setTxt('memberExamDate', 'Thi: Chưa đặt');
+            setTxt('memberTargetScore', '--');
+            setTxt('memberExamDate', 'Chưa đặt ngày thi');
             setTxt('memberVocabCount', '0');
-            setTxt('memberAccuracyVal', '——');
-            setTxt('memberStudyTime', '——');
+            setTxt('memberAccuracyVal', 'Độ nhớ: Chưa kiểm tra');
+            setTxt('memberStudyTime', 'Chưa học');
+            setTxt('memberStudyTimeSub', 'Hôm nay: 0 phút');
             setTxt('sanhMemberStreakVal', '0 ngày');
             setTxt('sanhMemberStreakTitle', 'Streak 0 ngày');
             setTxt('sanhMemberXpVal', '0 XP');
-            setTxt('targetScoreVal', '——');
+            setTxt('targetScoreVal', '--');
             setTxt('targetDateVal', 'Chưa đặt');
 
             renderStreakWeekDays({ streak: 0, weekDays: [] });
@@ -7516,12 +7700,17 @@
             state.readDone = 0;
             state.listenDone = 0;
             state.studyMinutes = 0;
+            state.totalAnswers = 0;
+            state.correctAnswers = 0;
             learnedVocabItems = [];
             savedVocabItems = [];
             savedGrammarNotes = [];
             state.savedWords = [];
 
             updateDashboardMetrics();
+            if (typeof window.updateDashboardStudioHero === 'function') {
+                window.updateDashboardStudioHero();
+            }
             renderLearnedVocabList();
             renderSavedVocabList();
             renderAllVocabGroups();
@@ -7939,8 +8128,8 @@
 
             // Cập nhật Sảnh Study Studio chuẩn Quiet Confidence
             setTxt('sanhMemberProfileName', currentUserAccount.name || 'Học viên');
-            setTxt('memberTargetScore', currentUserAccount.targetScore || '600');
-            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Thi: Chưa đặt');
+            setTxt('memberTargetScore', currentUserAccount.targetScore || '--');
+            setTxt('memberExamDate', currentUserAccount.examDate ? `Thi: ${currentUserAccount.examDate}` : 'Chưa đặt ngày thi');
             setTxt('sanhMemberStreakVal', `${currentUserAccount.streak || 0} ngày`);
             setTxt('sanhMemberStreakTitle', `Streak ${currentUserAccount.streak || 0} ngày`);
             setTxt('sanhMemberXpVal', `+${currentUserAccount.xp || 0} XP`);

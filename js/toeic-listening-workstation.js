@@ -58,6 +58,7 @@
                 this.duration = this.audio.duration || 0;
                 this.updateWaveformProgress();
                 this.updateTimeDisplay();
+                this.updateTranscriptHighlight();
             });
 
             this.audio.addEventListener('loadedmetadata', () => {
@@ -482,11 +483,16 @@
             const transVi = item.translation_vi || item.dialogue_vi || item.talk_vi || '';
 
             if (this.part === 1 || this.part === 2) {
+                const pLines = scriptText.split('\n').filter(l => l.trim().length > 0);
+                const pLinesHtml = pLines.length > 0
+                    ? pLines.map((l, idx) => `<div class="tlw-transcript-line px-2 py-1 rounded-lg transition-colors font-medium text-slate-800 dark:text-slate-100 text-[13px] leading-relaxed" data-line-index="${idx}" data-char-weight="${Math.max(10, l.trim().length)}">${l.trim()}</div>`).join('')
+                    : `<p class="tlw-transcript-line px-2 py-1 rounded-lg transition-colors font-medium text-slate-800 dark:text-slate-100 text-[13px] leading-relaxed" data-line-index="0" data-char-weight="${Math.max(10, scriptText.length)}">${scriptText}</p>`;
+
                 transcriptHtml = `
                     <div class="font-bold uppercase tracking-wider text-[10.5px] text-indigo-600 dark:text-indigo-400 mb-1 flex items-center gap-1.5">
                         <i class="fa-solid fa-file-audio"></i> Lời thoại trong audio:
                     </div>
-                    <p class="font-medium text-slate-800 dark:text-slate-100 text-[13px] leading-relaxed">${scriptText}</p>
+                    <div class="space-y-1">${pLinesHtml}</div>
                     ${this.showBilingual && (item.explanation_vi || transVi) ? `<div class="pt-2 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs italic">${item.explanation_vi || transVi}</div>` : ''}
                 `;
             } else {
@@ -523,7 +529,7 @@
                     const viSub = (this.showBilingual && viLines[idx]) ? `<div class="text-[11.5px] text-slate-500 dark:text-slate-400 pl-4 border-l-2 border-slate-300 dark:border-slate-700 italic">${viLines[idx].trim()}</div>` : '';
 
                     return `
-                        <div class="space-y-0.5">
+                        <div class="tlw-transcript-line space-y-0.5 px-2.5 py-1.5 rounded-xl transition-colors" data-line-index="${idx}" data-char-weight="${Math.max(12, dialogueContent.length)}">
                             <div class="font-semibold text-[12.5px] text-slate-800 dark:text-slate-200">${speakerPrefix}${lineContent}</div>
                             ${viSub}
                         </div>
@@ -536,7 +542,7 @@
                             <i class="fa-solid fa-comments"></i> Transcript lời thoại ${this.part === 3 ? 'hội thoại' : 'bài nói'}:
                         </span>
                     </div>
-                    <div class="space-y-2">${linesHtml}</div>
+                    <div class="space-y-1.5">${linesHtml}</div>
                 `;
             }
 
@@ -889,6 +895,9 @@
 
         play() {
             if (!this.audio.src) return;
+            if (typeof window !== 'undefined' && window.AudioManager && typeof window.AudioManager.pauseLofi === 'function') {
+                window.AudioManager.pauseLofi();
+            }
             this.audio.play().catch(e => {
                 console.warn('Audio play error:', e.message);
             });
@@ -899,11 +908,13 @@
         }
 
         seekBy(seconds) {
+            if (this.mode === 'exam') return;
             if (!this.audio.duration) return;
             this.audio.currentTime = Math.max(0, Math.min(this.audio.duration, this.audio.currentTime + seconds));
         }
 
         seekTo(seconds) {
+            if (this.mode === 'exam') return;
             if (!this.audio.duration) return;
             this.audio.currentTime = Math.max(0, Math.min(this.audio.duration, seconds));
         }
@@ -1021,6 +1032,40 @@
                     bar.className = 'w-1 rounded-full cursor-pointer bg-slate-200 dark:bg-slate-700';
                 }
             }
+        }
+
+        updateTranscriptHighlight() {
+            const box = document.getElementById('tlwTranscriptBox');
+            if (!box || !this.duration || this.duration <= 0) return;
+
+            const lineEls = box.querySelectorAll('.tlw-transcript-line');
+            if (!lineEls.length) return;
+
+            const progress = Math.min(1, Math.max(0, this.currentTime / this.duration));
+            let totalWeight = 0;
+            lineEls.forEach(el => {
+                totalWeight += parseInt(el.dataset.charWeight || '20', 10);
+            });
+
+            let cumWeight = 0;
+            let activeIdx = 0;
+            for (let i = 0; i < lineEls.length; i++) {
+                const w = parseInt(lineEls[i].dataset.charWeight || '20', 10);
+                cumWeight += w;
+                if (progress <= (cumWeight / totalWeight) || i === lineEls.length - 1) {
+                    activeIdx = i;
+                    break;
+                }
+            }
+
+            lineEls.forEach((el, idx) => {
+                const isActive = (this.isPlaying && idx === activeIdx);
+                el.classList.toggle('bg-indigo-100/90', isActive);
+                el.classList.toggle('dark:bg-indigo-900/60', isActive);
+                el.classList.toggle('ring-1', isActive);
+                el.classList.toggle('ring-indigo-300', isActive);
+                el.classList.toggle('dark:ring-indigo-700', isActive);
+            });
         }
 
         // =========================================================================

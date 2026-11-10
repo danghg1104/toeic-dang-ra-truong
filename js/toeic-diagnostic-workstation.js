@@ -903,6 +903,10 @@ VP of Human Resources, Vanguard Tech`,
             this.userAnswers = {};
             this.flagged = {};
             this.timeRemaining = 25 * 60; // 25:00
+            this.timerEndTime = null;
+
+            // Khôi phục tiến độ làm dở nếu người dùng F5 / quay lại
+            this.loadSavedSession();
             this.startTimer();
 
             // Ẩn linh vật nổi để không che nút "Câu tiếp theo / Nộp bài"
@@ -915,7 +919,7 @@ VP of Human Resources, Vanguard Tech`,
 
             this.bindKeyShortcuts();
             this.renderWorkstationUI();
-            this.showQuestion(0);
+            this.showQuestion(this.currentIndex);
         }
 
         bindKeyShortcuts() {
@@ -956,6 +960,7 @@ VP of Human Resources, Vanguard Tech`,
             }
             this.stopTimer();
             this.stopAudio();
+            this.clearSavedSession();
             this.unbindKeyShortcuts();
             this.isOpen = false;
 
@@ -992,16 +997,21 @@ VP of Human Resources, Vanguard Tech`,
         startTimer() {
             this.stopTimer();
             this.isTimerRunning = true;
+            if (!this.timerEndTime) {
+                this.timerEndTime = Date.now() + (this.timeRemaining || (25 * 60)) * 1000;
+            }
             this.timerInterval = setInterval(() => {
-                if (this.timeRemaining <= 0) {
+                const remaining = Math.max(0, Math.round((this.timerEndTime - Date.now()) / 1000));
+                this.timeRemaining = remaining;
+                if (remaining <= 0) {
                     this.stopTimer();
+                    this.timerEndTime = null;
                     alert('⏰ Hết giờ làm bài! Hệ thống đang tự động nộp bài và phân tích chẩn đoán năng lực của bạn.');
                     this.submitTest(true);
                     return;
                 }
-                this.timeRemaining--;
                 this.updateTimerDisplay();
-            }, 1000);
+            }, 500);
             this.updateTimerDisplay();
         }
 
@@ -1033,16 +1043,30 @@ VP of Human Resources, Vanguard Tech`,
         // =========================================================================
         playAudio(scriptText) {
             this.stopAudio();
+            if (typeof window !== 'undefined' && window.AudioManager && typeof window.AudioManager.pauseLofi === 'function') {
+                window.AudioManager.pauseLofi();
+            }
             const q = this.questions[this.currentIndex];
             const textToSpeak = scriptText || q.audioScript;
+
+            const syncSeekbar = () => {
+                const fill = document.getElementById('tdwSeekbarFill');
+                if (fill && this.audioElement && this.audioElement.duration > 0) {
+                    const pct = Math.min(100, Math.max(0, (this.audioElement.currentTime / this.audioElement.duration) * 100));
+                    fill.style.width = `${pct}%`;
+                }
+            };
 
             if (q.audio) {
                 // Ưu tiên phát file Audio MP3 chuẩn giọng bản xứ ETS
                 this.audioElement = new Audio(q.audio);
                 this.audioElement.playbackRate = this.audioSpeed;
                 this.audioElement.volume = this.audioVolume;
+                this.audioElement.ontimeupdate = syncSeekbar;
                 this.audioElement.onended = () => {
                     this.isPlayingAudio = false;
+                    const fill = document.getElementById('tdwSeekbarFill');
+                    if (fill) fill.style.width = '100%';
                     if (this.isLooping && this.isOpen) {
                         setTimeout(() => this.playAudio(), 600);
                     } else {
@@ -1065,19 +1089,13 @@ VP of Human Resources, Vanguard Tech`,
         playWithTts(text, accent) {
             const lang = accent || 'en-US';
             const ttsUrl = `/api/tts?text=${encodeURIComponent(text)}&lang=${lang}`;
-            this.audioElement = new Audio(ttsUrl);
-            this.audioElement.playbackRate = this.audioSpeed;
-            this.audioElement.volume = this.audioVolume;
-            this.audioElement.onended = () => {
-                this.isPlayingAudio = false;
-                if (this.isLooping && this.isOpen) {
-                    setTimeout(() => this.playAudio(), 600);
-                } else {
-                    this.updateAudioControlsUI();
-                }
-            };
-            this.audioElement.onerror = () => {
-                if (window.UniversalAudioEngine && typeof window.UniversalAudioEngine.speak === 'function') {
+            const fallbackDialogue = () => {
+                if (window.AudioManager && typeof window.AudioManager.speakDialogue === 'function') {
+                    window.AudioManager.speakDialogue(text, { lang, rate: this.audioSpeed }, () => {
+                        this.isPlayingAudio = false;
+                        this.updateAudioControlsUI();
+                    });
+                } else if (window.UniversalAudioEngine && typeof window.UniversalAudioEngine.speak === 'function') {
                     window.UniversalAudioEngine.speak(text, { rate: this.audioSpeed, volume: this.audioVolume });
                 } else if ('speechSynthesis' in window) {
                     const u = new SpeechSynthesisUtterance(text);
@@ -1086,11 +1104,26 @@ VP of Human Resources, Vanguard Tech`,
                     window.speechSynthesis.speak(u);
                 }
             };
-            this.audioElement.play().catch(() => {
-                if (window.UniversalAudioEngine && typeof window.UniversalAudioEngine.speak === 'function') {
-                    window.UniversalAudioEngine.speak(text, { rate: this.audioSpeed, volume: this.audioVolume });
+
+            this.audioElement = new Audio(ttsUrl);
+            this.audioElement.playbackRate = this.audioSpeed;
+            this.audioElement.volume = this.audioVolume;
+            this.audioElement.ontimeupdate = () => {
+                const fill = document.getElementById('tdwSeekbarFill');
+                if (fill && this.audioElement && this.audioElement.duration > 0) {
+                    fill.style.width = `${Math.min(100, (this.audioElement.currentTime / this.audioElement.duration) * 100)}%`;
                 }
-            });
+            };
+            this.audioElement.onended = () => {
+                this.isPlayingAudio = false;
+                if (this.isLooping && this.isOpen) {
+                    setTimeout(() => this.playAudio(), 600);
+                } else {
+                    this.updateAudioControlsUI();
+                }
+            };
+            this.audioElement.onerror = fallbackDialogue;
+            this.audioElement.play().catch(fallbackDialogue);
             this.isPlayingAudio = true;
             this.updateAudioControlsUI();
         }
@@ -1101,6 +1134,8 @@ VP of Human Resources, Vanguard Tech`,
                 this.audioElement.currentTime = 0;
                 this.audioElement = null;
             }
+            const fill = document.getElementById('tdwSeekbarFill');
+            if (fill) fill.style.width = '0%';
             if (window.UniversalAudioEngine && typeof window.UniversalAudioEngine.stop === 'function') {
                 window.UniversalAudioEngine.stop();
             }
@@ -1230,21 +1265,26 @@ VP of Human Resources, Vanguard Tech`,
                 </header>
 
                 <!-- AUDIO PLAYER STRIP FOR LISTENING (Tự động hiển thị khi làm Q1 - Q16) -->
-                <div id="tdwAudioBar" class="h-12 px-4 sm:px-6 bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between shrink-0 select-none transition-all">
+                <div id="tdwAudioBar" class="h-12 px-4 sm:px-6 bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shrink-0 select-none transition-all">
                     <!-- Audio Controls -->
-                    <div class="flex items-center gap-2.5">
-                        <button type="button" id="tdwPlayBtn" onclick="ToeicDiagnosticWorkstation.toggleAudio()" class="w-8 h-8 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition shadow-sm cursor-pointer" title="Phát / Dừng Audio">
+                    <div class="flex items-center gap-2.5 flex-1 min-w-0">
+                        <button type="button" id="tdwPlayBtn" onclick="ToeicDiagnosticWorkstation.toggleAudio()" class="w-8 h-8 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition shadow-sm cursor-pointer shrink-0" title="Phát / Dừng Audio">
                             <i id="tdwPlayIcon" class="fa-solid fa-play text-xs ml-0.5"></i>
                         </button>
 
                         <!-- Speaker / Accent Tag -->
-                        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-700 dark:text-slate-200">
+                        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-700 dark:text-slate-200 shrink-0">
                             <i class="fa-solid fa-volume-high text-indigo-600 dark:text-indigo-400 text-[10px]"></i>
                             <span id="tdwSpeakerTag">Giọng Mỹ (US)</span>
                         </div>
 
+                        <!-- Locked Seekbar Track (Khóa tua phòng thi thật) -->
+                        <div id="tdwSeekbarContainer" class="flex-1 max-w-xs h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden pointer-events-none select-none cursor-not-allowed" title="Khóa tua theo quy chế thi thật">
+                            <div id="tdwSeekbarFill" class="h-full w-0 bg-indigo-600 dark:bg-indigo-400 transition-all duration-150"></div>
+                        </div>
+
                         <!-- Waveform Animated Graphic -->
-                        <div id="tdwWaveAnim" class="hidden sm:flex items-center gap-0.5 h-4 opacity-40 transition-opacity">
+                        <div id="tdwWaveAnim" class="hidden md:flex items-center gap-0.5 h-4 opacity-40 transition-opacity shrink-0">
                             <span class="w-1 h-3 bg-indigo-500 rounded-full animate-bounce"></span>
                             <span class="w-1 h-4 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 100ms"></span>
                             <span class="w-1 h-2 bg-indigo-400 rounded-full animate-bounce" style="animation-delay: 200ms"></span>
@@ -1253,20 +1293,12 @@ VP of Human Resources, Vanguard Tech`,
                         </div>
                     </div>
 
-                    <!-- Audio Options: Speed & Loop -->
-                    <div class="flex items-center gap-2">
-                        <!-- Playback Speed -->
-                        <div class="flex items-center bg-white dark:bg-slate-800 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700 text-[11px] font-bold">
-                            <button type="button" onclick="ToeicDiagnosticWorkstation.setSpeed(0.8)" class="px-1.5 py-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">0.8x</button>
-                            <button type="button" onclick="ToeicDiagnosticWorkstation.setSpeed(1.0)" class="px-1.5 py-0.5 rounded bg-indigo-600 text-white shadow-2xs font-black">1.0x</button>
-                            <button type="button" onclick="ToeicDiagnosticWorkstation.setSpeed(1.2)" class="px-1.5 py-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">1.2x</button>
+                    <!-- Audio Exam Mode Lock Badge -->
+                    <div class="flex items-center gap-2 shrink-0">
+                        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[11px] font-bold text-amber-800 dark:text-amber-300 pointer-events-none select-none">
+                            <i class="fa-solid fa-lock text-[10px]"></i>
+                            <span>Nghe 1 lần (Khóa tua thi thật)</span>
                         </div>
-
-                        <!-- Loop Toggle -->
-                        <button type="button" id="tdwLoopBtn" onclick="ToeicDiagnosticWorkstation.toggleLoop()" class="px-2 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 transition cursor-pointer" title="Lặp lại câu">
-                            <i class="fa-solid fa-repeat text-[10px]"></i>
-                            <span class="hidden md:inline ml-1">Lặp</span>
-                        </button>
                     </div>
                 </div>
 
@@ -1423,6 +1455,7 @@ VP of Human Resources, Vanguard Tech`,
             // 5. Cập nhật palette grid nếu đang mở
             this.renderPaletteGrid();
             this.updateHeaderProgress();
+            this.saveSession();
         }
 
         renderLeftColumnContent(q, index) {
@@ -1578,8 +1611,11 @@ VP of Human Resources, Vanguard Tech`,
                                     ${q.passageTitle || 'Văn bản đọc hiểu'}
                                 </h3>
                             </div>
-                            <div class="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 whitespace-pre-line leading-relaxed font-sans select-text">
-                                ${q.passageContent.replace(/\[\s*(\d+)\s*\]/g, '<span class="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold font-mono border border-amber-300 dark:border-amber-700">[ $1 ]</span>')}
+                            <div class="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 leading-relaxed font-sans select-text">
+                                ${((typeof window !== 'undefined' && typeof window.formatAuthenticPassage === 'function')
+                                    ? window.formatAuthenticPassage(q.passageContent)
+                                    : `<div class="whitespace-pre-line">${q.passageContent}</div>`
+                                ).replace(/\[\s*(\d+)\s*\]/g, '<span class="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold font-mono border border-amber-300 dark:border-amber-700">[ $1 ]</span>')}
                             </div>
                         </div>
 
@@ -1615,8 +1651,10 @@ VP of Human Resources, Vanguard Tech`,
                                     ${q.passageTitle || 'Văn bản đọc hiểu'}
                                 </h3>
                             </div>
-                            <div class="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 whitespace-pre-line leading-relaxed font-sans select-text">
-                                ${q.passageContent}
+                            <div class="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 leading-relaxed font-sans select-text">
+                                ${(typeof window !== 'undefined' && typeof window.formatAuthenticPassage === 'function')
+                                    ? window.formatAuthenticPassage(q.passageContent)
+                                    : `<div class="whitespace-pre-line">${q.passageContent}</div>`}
                             </div>
                         </div>
 
@@ -1697,6 +1735,50 @@ VP of Human Resources, Vanguard Tech`,
         // =========================================================================
         // ANSWER SELECTION & USER INTERACTION
         // =========================================================================
+        
+        saveSession() {
+            try {
+                const sessionData = {
+                    currentIndex: this.currentIndex,
+                    userAnswers: this.userAnswers,
+                    flagged: this.flagged,
+                    timeRemaining: this.timeRemaining,
+                    timerEndTime: this.timerEndTime,
+                    savedAt: Date.now()
+                };
+                localStorage.setItem('toeic_diagnostic_active_session', JSON.stringify(sessionData));
+            } catch(e) {}
+        }
+
+        loadSavedSession() {
+            try {
+                const raw = localStorage.getItem('toeic_diagnostic_active_session');
+                if (!raw) return false;
+                const data = JSON.parse(raw);
+                if (data && data.userAnswers && Object.keys(data.userAnswers).length > 0) {
+                    this.userAnswers = data.userAnswers || {};
+                    this.flagged = data.flagged || {};
+                    this.currentIndex = typeof data.currentIndex === 'number' ? data.currentIndex : 0;
+                    if (data.timerEndTime && data.timerEndTime > Date.now()) {
+                        this.timerEndTime = data.timerEndTime;
+                        this.timeRemaining = Math.max(0, Math.round((data.timerEndTime - Date.now()) / 1000));
+                    } else if (data.timeRemaining > 0) {
+                        this.timeRemaining = data.timeRemaining;
+                        this.timerEndTime = Date.now() + this.timeRemaining * 1000;
+                    }
+                    return true;
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        clearSavedSession() {
+            try {
+                localStorage.removeItem('toeic_diagnostic_active_session');
+            } catch(e) {}
+        }
+
+
         selectOption(qId, key) {
             // Hỗ trợ cả 2 dạng gọi: selectOption(key) từ phím tắt và selectOption(qId, key) từ click
             if (!key && ['A', 'B', 'C', 'D'].includes(qId)) {
@@ -1713,6 +1795,7 @@ VP of Human Resources, Vanguard Tech`,
             }
             this.renderPaletteGrid();
             this.updateHeaderProgress();
+            this.saveSession();
         }
 
         toggleFlag() {
@@ -1820,36 +1903,53 @@ VP of Human Resources, Vanguard Tech`,
 
             this.stopTimer();
             this.stopAudio();
+            this.clearSavedSession();
 
-            // Tính số câu đúng cho từng phần
+            // Tính số câu đúng và điểm trọng số độ khó từng Part theo chuẩn ETS
+            const partWeights = {
+                1: 1.0, 2: 1.2, 3: 1.4, 4: 1.5,
+                5: 1.1, 6: 1.4, 7: 1.8
+            };
+
             let listeningCorrect = 0; // 0..16
             let readingCorrect = 0;   // 0..12
+            let listeningWeightedScore = 0;
+            let listeningMaxWeight = 0;
+            let readingWeightedScore = 0;
+            let readingMaxWeight = 0;
 
             this.questions.forEach((q, idx) => {
+                const w = partWeights[q.part] || 1.0;
                 const userAns = this.userAnswers[q.id];
                 const isCorrect = (userAns === q.correct);
                 if (idx < 16) {
-                    if (isCorrect) listeningCorrect++;
+                    listeningMaxWeight += w;
+                    if (isCorrect) {
+                        listeningCorrect++;
+                        listeningWeightedScore += w;
+                    }
                 } else {
-                    if (isCorrect) readingCorrect++;
+                    readingMaxWeight += w;
+                    if (isCorrect) {
+                        readingCorrect++;
+                        readingWeightedScore += w;
+                    }
                 }
             });
 
-            // Quy đổi sang thang điểm chuẩn ETS 0 - 495 cho từng kỹ năng
-            // Bảng điểm chuẩn ETS Listening (16 câu): Đoán ngẫu nhiên (4/16 = 25%) tương đương 105 điểm
-            const listeningScoreMap = {
-                16: 495, 15: 480, 14: 460, 13: 435, 12: 405, 11: 370, 10: 330,
-                9: 290, 8: 250, 7: 210, 6: 175, 5: 140, 4: 105, 3: 75, 2: 45, 1: 25, 0: 10
-            };
-            // Bảng điểm chuẩn ETS Reading (12 câu): Đoán ngẫu nhiên (3/12 = 25%) tương đương 95 điểm
-            const readingScoreMap = {
-                12: 495, 11: 465, 10: 430, 9: 385, 8: 335, 7: 285,
-                6: 235, 5: 185, 4: 140, 3: 95, 2: 50, 1: 25, 0: 10
-            };
+            // Quy đổi sang thang điểm chuẩn ETS 5 - 495 có trọng số độ khó
+            function scaleEtsScore(earnedWeight, maxWeight) {
+                if (maxWeight <= 0 || earnedWeight <= 0) return 5;
+                const ratio = Math.min(1.0, earnedWeight / maxWeight);
+                if (ratio >= 0.98) return 495;
+                // Thang cong S-Curve ETS: ngẫu nhiên 25% ~ 100-110 điểm, 50% ~ 240-250 điểm, 75% ~ 370-380 điểm
+                const raw = 5 + (490 * Math.pow(ratio, 0.88));
+                return Math.min(495, Math.max(5, Math.round(raw / 5) * 5));
+            }
 
-            const scaledListening = listeningScoreMap[listeningCorrect] !== undefined ? listeningScoreMap[listeningCorrect] : Math.round((listeningCorrect / 16) * 495);
-            const scaledReading = readingScoreMap[readingCorrect] !== undefined ? readingScoreMap[readingCorrect] : Math.round((readingCorrect / 12) * 495);
-            const totalScore = Math.min(990, Math.max(40, scaledListening + scaledReading));
+            const scaledListening = scaleEtsScore(listeningWeightedScore, listeningMaxWeight);
+            const scaledReading = scaleEtsScore(readingWeightedScore, readingMaxWeight);
+            const totalScore = Math.min(990, Math.max(10, scaledListening + scaledReading));
 
             // Tính điểm cho 6 TRỤ CỘT KIẾN THỨC CỐT LÕI (Weakness Radar):
             const pillars = [

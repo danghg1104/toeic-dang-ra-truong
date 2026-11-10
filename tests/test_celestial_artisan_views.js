@@ -39,13 +39,13 @@ function findChromePath() {
         await page.goto('http://localhost:3000', { waitUntil: 'networkidle2' });
         await delay(1000);
 
-        // 1. Verify Stylesheet Loaded
+        // 1. Verify Stylesheet Loaded (Consolidated app.bundle.css or celestial-artisan-theme.css)
         const isCssLoaded = await page.evaluate(() => {
             const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
-            return links.some(l => l.href.includes('celestial-artisan-theme.css'));
+            return links.some(l => l.href.includes('app.bundle.css') || l.href.includes('celestial-artisan-theme.css'));
         });
-        assert.ok(isCssLoaded, 'celestial-artisan-theme.css must be loaded in DOM');
-        console.log('✓ 1. celestial-artisan-theme.css loaded successfully.');
+        assert.ok(isCssLoaded, 'app.bundle.css or celestial-artisan-theme.css must be loaded in DOM');
+        console.log('✓ 1. Stylesheet bundle loaded successfully.');
 
         // 2. Check View 1: Tổng quan (Hom Nay)
         const homNayCheck = await page.evaluate(() => {

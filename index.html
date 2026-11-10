@@ -49,19 +49,17 @@
     <meta name="twitter:image" content="/assets/mascot/may_reading.png">
 
     <link rel="manifest" href="/manifest.json?v=toididaudo_v16">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=soimay_20261101">
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=soimay_20261101">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=soimay_20261101">
-    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png?v=soimay_20261101">
-    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png?v=soimay_20261101">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=soimay_20261110">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=soimay_20261110">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=soimay_20261110">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-192.png?v=soimay_20261110">
     <title>Tôi đi đâu đó — Luyện thi TOEIC & VSTEP online miễn phí</title>
-    <!-- Precompiled High-Performance Static CSS (Replaced 400KB in-browser Tailwind compiler) -->
-    <link rel="stylesheet" href="/css/tailwind.static.css?v=studystudio_phase2_static">
+    <!-- Consolidated High-Performance CSS Bundle -->
+    <link rel="stylesheet" href="/css/app.bundle.css?v=20261110_v1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/take-note-hybrid.css?v=20261026_07">
     <!-- Google Identity Services (Chính thức) -->
     <script src="https://accounts.google.com/gsi/client" async defer onload="if(typeof initGoogleIdentityServices==='function') initGoogleIdentityServices();"></script>
     <!-- Ngân hàng Lý thuyết, Câu hỏi chuyên đề, Từ vựng & Từ điển toàn diện -->
@@ -955,7 +953,6 @@
         /* Profile Dropdown Elevation & Hero Layering Rules */
         #sanhTopHeaderBar,
         .header-bar-elevation {
-            position: relative;
             z-index: 80 !important;
         }
         #sanhMemberDropdownWrapper,
@@ -1007,6 +1004,66 @@
         body.in-workstation-mode #sidebarReopenBtn {
             display: none !important;
         }
+
+        /* Khung làm bài Reading Part 6 - 7 chuẩn thi máy CBT (IIG/ETS) */
+        .reading-workspace {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 16px;
+            align-items: stretch;
+            min-height: 420px;
+        }
+        .passage-pane {
+            overflow-y: auto;
+            padding: 16px 18px;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            max-height: calc(90dvh - 180px);
+        }
+        .questions-pane {
+            overflow-y: auto;
+            padding: 16px 18px;
+            border-radius: 16px;
+            background: #f8fafc;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            max-height: calc(90dvh - 180px);
+        }
+        .dark .passage-pane {
+            background: #0f172a;
+            border-color: #334155;
+        }
+        .dark .questions-pane {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: #334155;
+        }
+        .doc-header-card {
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+        }
+        .dark .doc-header-card {
+            background: #1e293b;
+            border-color: #475569;
+        }
+        @media (max-width: 768px) {
+            .reading-workspace {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .passage-pane {
+                max-height: 38vh;
+                position: sticky;
+                top: 0;
+                z-index: 20;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            .questions-pane {
+                max-height: none;
+            }
+        }
     
         
         /* Khóa cứng font-family của thanh Top Header Bar nhưng BẢO TOÀN TUYỆT ĐỐI Font Awesome Icons */
@@ -1044,21 +1101,6 @@
             -webkit-font-smoothing: antialiased !important;
         }
 
-        /* Định vị độ rộng cố định cho các nút gạt trên header để không thay đổi sub-pixel khi đổi nội dung text */
-        #btnFontToggle {
-            width: 114px !important;
-            min-width: 114px !important;
-            max-width: 114px !important;
-            justify-content: center !important;
-            text-align: center !important;
-        }
-        #btnEditorialToggle {
-            width: 118px !important;
-            min-width: 118px !important;
-            max-width: 118px !important;
-            justify-content: center !important;
-            text-align: center !important;
-        }
         #btnQuickPomodoroLaunch {
             min-width: 88px !important;
             justify-content: center !important;
@@ -1068,10 +1110,6 @@
             width: 44px !important;
             text-align: center !important;
             font-variant-numeric: tabular-nums !important;
-        }
-        #sanhGreetingPrefix {
-            display: inline-block;
-            min-width: 110px;
         }
 
         /* Mobile & Virtual Keyboard Responsive CSS */
@@ -1227,79 +1265,98 @@
 
 
 <style id="sanh-header-responsive-style">
-    /* Sanh Top Header Bar: Responsive Grid on Mobile, Unified Single Row on Desktop */
+    /* Global Sticky Top Header Bar: Compact 1-row Flexbox on Desktop, clean wrapping Grid/Flex on Mobile */
     #sanhTopHeaderBar {
-        display: grid;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         gap: 0.625rem;
     }
-    #sanhGreetingArea {
-        grid-column: 1;
-        grid-row: 1;
+    #studyEnvironmentControls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.375rem;
         min-width: 0;
+        flex: 1 1 auto;
     }
     #sanhAccountCluster {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: end;
         display: flex;
         align-items: center;
         gap: 0.375rem;
-    }
-    #studyEnvironmentControls {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.375rem;
-        padding-top: 0.5rem;
-        border-top: 1px solid rgba(226, 232, 240, 0.8);
-        width: 100%;
-    }
-    .dark #studyEnvironmentControls {
-        border-top-color: rgba(30, 41, 59, 0.8);
+        margin-inline-start: auto;
+        flex-shrink: 0;
     }
     .header-desktop-divider {
         display: none;
     }
 
-    /* LAPTOP (1024px - 1399px): Hide verbose text labels in studyEnvironmentControls so everything fits in 1 row */
+    /* MOBILE (< 1024px): Avoid duplicating sticky header account controls & tighten narrow phones */
+    @media (max-width: 1023px) {
+        #sanhAccountCluster {
+            display: none !important;
+        }
+    }
+    @media (max-width: 420px) {
+        #mobileStickyTopHeader {
+            padding-inline: 0.625rem !important;
+            gap: 0.375rem !important;
+        }
+        #mobileStickyTopHeader .mobile-brand-wrap {
+            gap: 0.375rem !important;
+        }
+        #mobileStickyTopHeader .mobile-brand-avatar {
+            width: 2rem !important;
+            height: 2rem !important;
+        }
+        #mobileStickyTopHeader .mobile-actions-wrap {
+            gap: 0.25rem !important;
+        }
+        #mobileUnauthLoginBtn {
+            padding-inline: 0.5rem !important;
+            font-size: 0.6875rem !important;
+        }
+    }
+
+    /* WIDE DESKTOP (>= 1400px): Fixed label button widths prevent sub-pixel jitter on toggle */
+    @media (min-width: 1400px) {
+        #btnFontToggle {
+            width: 114px !important;
+            min-width: 114px !important;
+            max-width: 114px !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+        #btnEditorialToggle {
+            width: 118px !important;
+            min-width: 118px !important;
+            max-width: 118px !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+    }
+
+    /* LAPTOP (1024px - 1399px): Keep compact icon pills in sticky header */
     @media (min-width: 1024px) and (max-width: 1399px) {
         #studyEnvironmentControls .control-text {
             display: none !important;
         }
     }
 
-    /* DESKTOP (min-width: 1024px): Single unified row with right-aligned feature+account cluster */
+    /* DESKTOP (min-width: 1024px): Single unified sticky global bar */
     @media (min-width: 1024px) {
         #sanhTopHeaderBar {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            padding-top: 0.875rem !important;
-            padding-bottom: 0.875rem !important;
-            padding-left: 1.25rem !important;
-            padding-right: 1.25rem !important;
+            position: sticky !important;
+            top: 0.75rem !important;
+            flex-wrap: nowrap !important;
+            padding: 0.625rem 1rem !important;
             gap: 0.75rem !important;
             overflow: visible !important;
         }
-        #sanhGreetingArea {
-            order: 1 !important;
-            flex-shrink: 1 !important;
-            min-width: 0 !important;
-        }
         #studyEnvironmentControls {
-            order: 2 !important;
-            display: flex !important;
-            align-items: center !important;
+            flex-wrap: nowrap !important;
             gap: 0.375rem !important;
-            padding-top: 0 !important;
-            border-top: none !important;
-            margin-left: auto !important;
-            flex-shrink: 1 !important;
-            min-width: 0 !important;
-            width: auto !important;
         }
         #studyEnvironmentControls > div,
         #studyEnvironmentControls > button {
@@ -1307,12 +1364,7 @@
             flex-shrink: 0 !important;
         }
         #sanhAccountCluster {
-            order: 3 !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 0.375rem !important;
             margin-left: 0.5rem !important;
-            flex-shrink: 0 !important;
         }
         .header-desktop-divider {
             display: block !important;
@@ -1326,41 +1378,40 @@
         }
     }
 </style>
-    <link rel="stylesheet" href="/css/celestial-artisan-theme.css?v=20261106_v3">
 </head>
 <body class="p-2 sm:p-3 md:p-4 lg:p-5 pb-24 lg:pb-5 m-0">
 
     <!-- MOBILE STICKY TOP HEADER (Chỉ hiện trên Điện thoại & Tablet < 1024px) -->
-    <div id="mobileStickyTopHeader" class="lg:hidden sticky top-1.5 z-30 mb-2.5 glass-panel rounded-[20px] px-3.5 py-2 flex items-center justify-between gap-2 shadow-sm">
-        <div class="flex items-center gap-2.5 shrink-0">
-            <button onclick="toggleMobileSidebar()" aria-label="Mở menu học tập" class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200/80 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 active:scale-95 transition shrink-0">
-                <i class="fa-solid fa-bars text-base"></i>
+    <div id="mobileStickyTopHeader" class="lg:hidden sticky top-1.5 z-30 mb-2.5 glass-panel rounded-[20px] px-3 py-2 flex items-center justify-between gap-2 shadow-sm">
+        <div class="mobile-brand-wrap flex items-center gap-2 shrink-0">
+            <button onclick="toggleMobileSidebar()" aria-label="Mở menu học tập" class="w-9 h-9 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200/80 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 active:scale-95 transition shrink-0">
+                <i class="fa-solid fa-bars text-sm"></i>
             </button>
-            <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2 shrink-0">
-                <div class="w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Tôi Đi Đâu Đó - Lộ trình cá nhân">
-                    <img src="/assets/mascot/may_avatar.png?v=soimay_v2_20261101" alt="Mascot Mây" class="w-full h-full object-cover">
+            <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-1.5 shrink-0">
+                <div class="mobile-brand-avatar w-9 h-9 rounded-xl bg-[#f9f1dc] border border-amber-300 flex items-center justify-center shrink-0 overflow-hidden shadow-xs" title="Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP Chuẩn ETS 2026">
+                    <img src="/assets/mascot/may_avatar.png?v=soimay_20261110" alt="Mascot Mây" class="w-full h-full object-cover">
                 </div>
                 <div class="leading-tight shrink-0">
                     <div class="text-xs font-extrabold bg-gradient-to-r from-orange-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
-                    <div class="text-[13.5px] font-extrabold text-slate-900 dark:text-white tracking-tight">đâu đó</div>
+                    <div class="text-[13px] font-extrabold text-slate-900 dark:text-white tracking-tight">đâu đó</div>
                 </div>
             </a>
         </div>
 
-        <div class="flex items-center gap-1.5 shrink-0">
+        <div class="mobile-actions-wrap flex items-center gap-1.5 shrink-0">
             <!-- Mobile Sticky Top Header PWA Install Button (Hiện trên cả iOS Safari & Android) -->
-            <button id="btnPwaMobileStickyInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="w-8 h-8 rounded-full bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white flex items-center justify-center shadow-xs transition active:scale-95 cursor-pointer ring-1 ring-white/20" title="Tải & Cài đặt Ứng dụng Tôi Đi Đâu Đó về màn hình chính">
+            <button id="btnPwaMobileStickyInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="w-7 h-7 rounded-full bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white flex items-center justify-center shadow-xs transition active:scale-95 cursor-pointer ring-1 ring-white/20 shrink-0" title="Tải & Cài đặt Ứng dụng Tôi Đi Đâu Đó về màn hình chính">
                 <i class="fa-solid fa-cloud-arrow-down text-xs text-amber-300 animate-bounce"></i>
             </button>
-            <div class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-orange-600 flex items-center gap-1">
-                <span>🔥</span>
+            <div class="px-2 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-amber-600 flex items-center gap-1 shadow-2xs shrink-0">
+                <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
                 <span id="mobileTopStreakText">0</span>
             </div>
-            <div class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-rose-600 hidden min-[420px]:flex items-center gap-1">
-                <span>✨</span>
+            <div class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs font-bold text-purple-600 hidden min-[420px]:flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-star text-purple-500 text-xs"></i>
                 <span id="mobileTopXpText">+0</span>
             </div>
-            <button onclick="toggleDarkMode()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-amber-300" aria-label="Chuyển chế độ sáng tối">
+            <button onclick="toggleDarkMode()" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-amber-300 shrink-0" aria-label="Chuyển chế độ sáng tối">
                 <i class="fa-regular fa-sun text-xs"></i>
             </button>
             <!-- Mobile Editorial Warm Sand Theme Toggle -->
@@ -1394,7 +1445,7 @@
                 </div>
             </div>
             <!-- Mobile Auth: Nút Đăng nhập cho khách (Hiện khi chưa đăng nhập) -->
-            <button id="mobileUnauthLoginBtn" onclick="openAuthModal('login')" class="px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-sm flex items-center gap-1 cursor-pointer">
+            <button id="mobileUnauthLoginBtn" onclick="openAuthModal('login')" class="px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-sm flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0">
                 <i class="fa-solid fa-right-to-bracket text-xs"></i>
                 <span>Đăng nhập</span>
             </button>
@@ -1443,9 +1494,9 @@
                     <!-- Header: Brand Logo & Nút 3 gạch thu gọn thanh bên (Desktop) -->
                     <div class="flex items-center justify-between mb-4 px-1 py-1">
                         <a href="#hom-nay" onclick="switchTab('hom-nay'); return false;" class="flex items-center gap-2.5 group min-w-0">
-                        <div class="w-13 h-13 w-[52px] h-[52px] rounded-2xl bg-[#f9f1dc] border-2 border-amber-300/80 flex items-center justify-center shadow-md shadow-orange-500/15 relative overflow-hidden shrink-0 group-hover:scale-105 transition" title="Tôi Đi Đâu Đó - Lộ trình ra trường">
+                        <div class="w-13 h-13 w-[52px] h-[52px] rounded-2xl bg-[#f9f1dc] border-2 border-amber-300/80 flex items-center justify-center shadow-md shadow-orange-500/15 relative overflow-hidden shrink-0 group-hover:scale-105 transition" title="Tôi Đi Đâu Đó — Luyện thi TOEIC & VSTEP Chuẩn ETS 2026">
                             <!-- Mascot Mây (Logo chính thức) -->
-                            <img src="/assets/mascot/may_avatar.png?v=soimay_v2_20261101" alt="Mascot Mây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                            <img src="/assets/mascot/may_avatar.png?v=soimay_20261110" alt="Mascot Mây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         </div>
                         <div class="leading-tight sidebar-text">
                             <div class="text-[15px] font-extrabold bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-700 bg-clip-text text-transparent">Tôi đi</div>
@@ -1583,7 +1634,7 @@
                     </div>
                     <!-- Mascot Mây Companion -->
                     <div id="sidebarOwlContainer" class="w-28 h-28 mascot-float flex items-center justify-center">
-                        <img src="/assets/mascot/may_reading.png" alt="Mascot Mây" class="w-24 h-24 object-contain filter drop-shadow">
+                        <img src="/assets/mascot/may_reading.png?v=soimay_20261110" alt="Mascot Mây" class="w-24 h-24 object-contain filter drop-shadow">
                     </div>
                 </div>
                 <p id="sidebarMascotText" class="text-[12px] font-medium text-slate-700 dark:text-slate-300 px-2 mb-2.5 leading-snug">
@@ -1604,59 +1655,96 @@
             <!-- ========================================== -->
             <section id="view-hom-nay" class="space-y-5">
 
-                <!-- 1. TOP HEADER BAR: LỜI CHÀO CHUYÊN NGHIỆP & HUY HIỆU (TRẢI DÀI NGANG 1 HÀNG DUY NHẤT) -->
-                <div id="sanhTopHeaderBar" class="header-bar-elevation relative z-30 glass-panel rounded-2xl sm:rounded-3xl shadow-xs border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-3 sm:p-4 artisan-deckled-paper">
-                    <!-- 1. LEFT: Brand Greeting & Academic Goal -->
-                    <div id="sanhGreetingArea" class="flex items-center gap-2 sm:gap-3 text-slate-800 dark:text-white">
-                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xs sm:text-base shrink-0 font-black shadow-md shadow-blue-500/20 ring-2 sm:ring-4 ring-blue-500/10">
-                            <i class="fa-solid fa-graduation-cap"></i>
+                <!-- 1. GLOBAL STICKY HEADER: CHỈ SỐ TẬP TRUNG, HỘP NHẠC LOFI & TÀI KHOẢN -->
+                <header id="sanhTopHeaderBar" class="header-bar-elevation lg:sticky lg:top-4 z-30 glass-panel rounded-2xl shadow-sm border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-2.5 sm:p-3 artisan-deckled-paper">
+                    <!-- LEFT: Study Environment Controls (Streak, XP, Lofi, Pomodoro, Theme, Font, Guide) -->
+                    <div id="studyEnvironmentControls">
+                        <!-- 1. Streak Pill -->
+                        <button type="button" onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition shrink-0" title="Chuỗi học tập liên tục">
+                            <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
+                            <span id="sanhMemberStreakVal">0 ngày</span>
+                        </button>
+
+                        <!-- 2. XP Pill -->
+                        <div class="px-2.5 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs shrink-0" title="Điểm kinh nghiệm tích lũy">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-500 text-xs"></i>
+                            <span id="sanhMemberXpVal">0 XP</span>
                         </div>
-                        <div class="min-w-0 flex-1">
-                            <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
-                                <span id="sanhGreetingPrefix">Chào bạn,</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400 font-black">Học viên</span>
-                            </h1>
-                            <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate" id="sanhHeaderSubText">
-                                Mục tiêu 600 TOEIC · Còn 47 ngày ôn luyện tập trung
-                            </p>
-                        </div>
+
+                        <!-- 3. Mini Lofi Music Box (Chuyển từ Hero lên Global Sticky Header) -->
+                        <button type="button" id="headerMiniMusicBoxBtn" onclick="window.toggleMiniMusicBox && window.toggleMiniMusicBox()" class="artisan-mini-musicbox inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl cursor-pointer select-none shrink-0" title="Hộp nhạc Sói Mây: Giai điệu Lofi ôn luyện tập trung">
+                            <span class="relative w-4 h-4 rounded-full bg-gradient-to-tr from-teal-400 via-amber-300 to-rose-300 p-[1px] shadow-xs flex items-center justify-center shrink-0">
+                                <span class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center artisan-mini-spindle">
+                                    <i class="fa-solid fa-music text-[8px] text-amber-300"></i>
+                                </span>
+                            </span>
+                            <span class="text-xs font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">Lofi</span>
+                        </button>
+
+                        <!-- 4. Pomodoro Focus Timer -->
+                        <button type="button" id="btnQuickPomodoroLaunch" onclick="window.togglePomodoroHudModal && window.togglePomodoroHudModal()" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đồng hồ Pomodoro tùy chỉnh thời gian">
+                            <i class="fa-regular fa-clock text-rose-500 text-xs"></i>
+                            <span id="quickPomodoroTimeDisplay">25:00</span>
+                        </button>
+
+                        <div class="header-desktop-divider"></div>
+
+                        <!-- 5. Warm Sand Theme Toggle -->
+                        <button type="button" id="btnEditorialToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleEditorial()" class="px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Chế độ Giấy Tự Nhiên & Mực Trầm (Warm Sand)">
+                            <i class="fa-solid fa-scroll text-amber-600 text-xs"></i>
+                            <span class="control-text truncate">Warm Sand</span>
+                        </button>
+
+                        <!-- 6. ETS Serif Font Switcher -->
+                        <button type="button" id="btnFontToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleFont()" class="px-2.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đổi phông thi ETS Serif / Inter">
+                            <i class="fa-solid fa-font text-indigo-600 text-xs"></i>
+                            <span class="control-text font-mode-label font-serif truncate">Serif ETS</span>
+                        </button>
+
+                        <!-- 7. Onboarding Tour Guide Launcher -->
+                        <button type="button" id="btnStartTourGuide" onclick="window.AppTourGuide && window.AppTourGuide.start(true)" class="px-2.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Hướng dẫn làm quen Tour">
+                            <i class="fa-solid fa-compass text-sky-600 text-xs"></i>
+                            <span class="control-text truncate">Hướng dẫn</span>
+                        </button>
+
+                        <div class="header-desktop-divider"></div>
                     </div>
 
-                    <!-- 2. ACTIONS CLUSTER: PWA install, notification bell, user avatar profile pill -->
+                    <!-- RIGHT: Actions & Profile Cluster -->
                     <div id="sanhAccountCluster">
                         <!-- PWA Install Button -->
-                        <button id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden sm:inline-flex px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-md shadow-indigo-500/20 transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
+                        <button type="button" id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
                             <i class="fa-solid fa-cloud-arrow-down text-xs"></i>
                             <span>Tải App</span>
                         </button>
 
                         <!-- Notification Center Bell -->
-                        <button onclick="window.toggleNotificationCenter && window.toggleNotificationCenter()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer relative shrink-0" title="Thông báo tiến độ hàng tuần" aria-label="Thông báo tiến độ">
+                        <button type="button" onclick="window.toggleNotificationCenter && window.toggleNotificationCenter()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center transition cursor-pointer relative shrink-0" title="Thông báo tiến độ hàng tuần" aria-label="Thông báo tiến độ">
                             <i class="fa-regular fa-bell text-xs"></i>
-                            <span id="headerWeeklyReportDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900 animate-pulse"></span>
+                            <span id="headerWeeklyReportDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900"></span>
                         </button>
 
                         <!-- Guest Login Button for Top Bar (Displayed when not logged in) -->
-                        <button id="sanhGuestLoginBtn" onclick="openAuthModal('login')" class="inline-flex px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs items-center gap-1.5 shadow-md shadow-indigo-500/25 transition active:scale-95 cursor-pointer shrink-0" title="Đăng nhập tài khoản">
+                        <button type="button" id="sanhGuestLoginBtn" onclick="openAuthModal('login')" class="inline-flex px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Đăng nhập tài khoản">
                             <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
-                            <span>Đăng nhập</span>
+                            <span>Khách · Đăng nhập</span>
                         </button>
 
                         <!-- User Profile Avatar Pill & Dropdown -->
                         <div class="relative shrink-0 hidden" id="sanhMemberDropdownWrapper">
-                            <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2 sm:pr-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-1.5 sm:gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
-                                <div id="sanhMemberAvatar" class="w-10 h-10 relative flex items-center justify-center shrink-0">
+                            <button type="button" id="sanhMemberProfileTrigger" onclick="toggleMemberProfileDropdown(event)" class="pl-1.5 pr-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition text-left cursor-pointer shrink-0" title="Tài khoản & Thiết lập (Bấm để xem menu)">
+                                <div id="sanhMemberAvatar" class="w-8 h-8 relative flex items-center justify-center shrink-0">
                                     <span id="sanhMemberAvatarLetter">K</span>
                                 </div>
                                 <div class="leading-tight hidden sm:block">
                                     <div id="sanhMemberProfileName" class="text-xs font-bold text-slate-800 dark:text-slate-200">Khách</div>
                                     <div class="text-[10px] text-slate-400">Xem hồ sơ</div>
                                 </div>
-                                <i class="fa-solid fa-chevron-down text-[9px] sm:text-[10px] text-slate-400"></i>
+                                <i class="fa-solid fa-chevron-down text-[9px] text-slate-400"></i>
                             </button>
 
                             <!-- Menu Sổ Xuống (Dropdown) -->
                             <div id="sanhMemberProfileMenu" class="hidden absolute right-0 top-full mt-2 w-56 sm:w-60 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200/90 dark:border-slate-800 p-2 z-[99999] animate-fadeIn">
-                                <!-- Thông tin tóm tắt -->
                                 <div class="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-2.5">
                                     <div id="sanhMemberDropdownAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">
                                         <span>K</span>
@@ -1667,7 +1755,6 @@
                                     </div>
                                 </div>
 
-                                <!-- 3 Mục lựa chọn: Tài khoản, Cài đặt, Đăng xuất -->
                                 <div class="space-y-0.5">
                                     <button type="button" onclick="openAccountProfileView()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold transition text-left cursor-pointer">
                                         <i class="fa-regular fa-user text-indigo-500 text-xs w-4 text-center"></i>
@@ -1685,238 +1772,145 @@
                             </div>
                         </div>
                     </div>
+                </header>
 
-                    <!-- 3. STUDY CONTROLS TOOLBAR: 3x2 Grid on Mobile, Seamless Single Row on Desktop -->
-                    <div id="studyEnvironmentControls">
-                        <!-- 1. Streak Pill -->
-                        <div onclick="window.SoiMayCompanion && window.SoiMayCompanion.celebrateStreak()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs cursor-pointer hover:scale-105 active:scale-95 transition shrink-0" title="Chuỗi học tập liên tục (Bấm để nhận lời chúc từ Sói Mây)">
-                            <i class="fa-solid fa-fire text-amber-500 animate-pulse text-xs"></i>
-                            <span id="sanhMemberStreakVal">0 ngày</span>
+                <!-- 2. EDITORIAL GREETING & SINGLE-SOURCE TARGET STRIP -->
+                <div id="sanhGreetingArea" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-base shrink-0 font-black shadow-sm shadow-blue-500/20">
+                            <i class="fa-solid fa-graduation-cap"></i>
                         </div>
-
-                        <!-- 2. XP Pill -->
-                        <div class="px-2 sm:px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs shrink-0">
-                            <i class="fa-solid fa-star text-purple-500 text-xs"></i>
-                            <span id="sanhMemberXpVal">0 XP</span>
+                        <div class="min-w-0">
+                            <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
+                                <span id="sanhGreetingPrefix">Chào bạn,</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400 font-black">Học viên!</span>
+                            </h1>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate mt-0.5" id="sanhHeaderSubText">
+                                Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu lộ trình cá nhân
+                            </p>
                         </div>
-
-                        <!-- 3. Pomodoro Focus Timer -->
-                        <button id="btnQuickPomodoroLaunch" onclick="window.togglePomodoroHudModal && window.togglePomodoroHudModal()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đồng hồ Pomodoro tùy chỉnh thời gian">
-                            <i class="fa-regular fa-clock text-rose-500 animate-pulse text-xs"></i>
-                            <span id="quickPomodoroTimeDisplay">25:00</span>
-                        </button>
-
-                        <!-- Divider 1 (Desktop only) -->
-                        <div class="header-desktop-divider"></div>
-
-                        <!-- 4. Warm Sand Theme Toggle -->
-                        <button id="btnEditorialToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleEditorial()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-slate-800 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Chế độ Giấy Tự Nhiên & Mực Trầm (Warm Sand)">
-                            <i class="fa-solid fa-scroll text-amber-600 text-xs"></i>
-                            <span class="control-text truncate">Warm Sand</span>
-                        </button>
-
-                        <!-- 5. ETS Serif Font Switcher -->
-                        <button id="btnFontToggle" onclick="window.EditorialThemeManager && window.EditorialThemeManager.toggleFont()" class="px-2 sm:px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Đổi phông thi ETS Serif / Inter">
-                            <i class="fa-solid fa-font text-indigo-600 text-xs"></i>
-                            <span class="control-text font-mode-label font-serif truncate">Serif ETS</span>
-                        </button>
-
-                        <!-- 6. Onboarding Tour Guide Launcher -->
-                        <button id="btnStartTourGuide" onclick="window.AppTourGuide && window.AppTourGuide.start(true)" class="px-2 sm:px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-slate-700 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer shrink-0" title="Hướng dẫn làm quen Tour">
-                            <i class="fa-solid fa-compass text-sky-600 text-xs"></i>
-                            <span class="control-text truncate">Hướng dẫn</span>
-                        </button>
-
-                        <!-- Divider 2 (Desktop only between Tour Guide and Account Actions) -->
-                        <div class="header-desktop-divider"></div>
                     </div>
+
+                    <button type="button" id="heroTargetTracker" onclick="openTargetModal()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-900 hover:border-blue-400 dark:hover:border-blue-500 border border-slate-200/90 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300 shadow-2xs transition cursor-pointer shrink-0 self-start sm:self-auto" title="Thiết lập mục tiêu điểm TOEIC & ngày thi">
+                        <i class="fa-solid fa-bullseye text-blue-600 dark:text-blue-400"></i>
+                        <span>Mục tiêu <strong class="text-slate-900 dark:text-white font-extrabold" id="memberTargetScore">--</strong> · <span id="memberExamDate">Chưa đặt ngày thi</span></span>
+                        <span class="px-2 py-0.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-[11px]">Đặt mục tiêu &amp; ngày thi</span>
+                    </button>
                 </div>
 
-                <!-- 2. KHỐI 1 (HERO ACTION CARD): BÀI HỌC TIẾP THEO - ĐIỂM NHẤN SỐ 1 -->
-                <div id="heroActionCardContainer" class="relative z-0 overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-sm artisan-deckled-paper">
-                    <!-- Subtle background tint -->
+                <!-- 3. HERO ACTION CARD: CHỈ 1 MỤC TIÊU DUY NHẤT + 2 TÙY CHỌN LÀM QUEN (A / B) -->
+                <article id="heroActionCardContainer" class="relative z-0 overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-sm artisan-deckled-paper">
                     <div class="absolute -right-10 -bottom-10 w-80 h-80 rounded-full bg-blue-50/60 dark:bg-blue-950/20 blur-2xl pointer-events-none"></div>
 
                     <div class="relative z-0 flex flex-col md:flex-row items-center justify-between gap-6">
                         <!-- Left Content Area -->
                         <div class="space-y-3 text-center md:text-left flex-1 min-w-0">
-                            <!-- Category Badge & Target Tracker -->
                             <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
                                 <span id="heroLessonBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-bold border border-blue-200/60 dark:border-blue-900/50">
                                     <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                                     <span id="heroLessonBadgeText">KHỞI ĐỘNG · BƯỚC 1</span>
                                 </span>
-                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400" id="heroTargetTracker">
-                                    Mục tiêu <strong class="text-slate-800 dark:text-slate-200" id="memberTargetScore">--</strong> điểm · <span id="memberExamDate">Chưa đặt ngày thi</span>
-                                    <button onclick="openTargetModal()" class="ml-1 text-slate-400 hover:text-blue-600 transition" title="Đặt mục tiêu"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
-                                </span>
-                                <!-- Hộp Nhạc Sói Mây Mini (Pastel Vintage Music Box) -->
-                                <div onclick="window.toggleMiniMusicBox && window.toggleMiniMusicBox()" 
-                                     class="artisan-mini-musicbox inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full cursor-pointer select-none" 
-                                     title="Hộp nhạc Sói Mây: Giai điệu Lofi ôn luyện tập trung">
-                                    <div class="relative w-4 h-4 rounded-full bg-gradient-to-tr from-teal-400 via-amber-300 to-rose-300 p-[1px] shadow-xs flex items-center justify-center shrink-0">
-                                        <div class="w-full h-full rounded-full bg-slate-850 flex items-center justify-center artisan-mini-spindle">
-                                            <span class="text-[8px] text-amber-300 font-black leading-none">♪</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200">Hộp nhạc Lofi</span>
-                                    <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
-                                </div>
+                                <span id="heroLessonTag" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Khảo sát năng lực đầu vào</span>
                             </div>
 
-                            <!-- Main Lesson Headline -->
                             <h2 id="heroLessonTitle" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
                                 Bài Test Chẩn Đoán 28 Câu (Toàn diện 7 Part)
                             </h2>
 
-                            <!-- Lesson Metadata -->
                             <p id="heroLessonDesc" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center md:justify-start gap-3">
                                 <span class="flex items-center gap-1.5"><i class="fa-regular fa-circle-question text-blue-500"></i> <strong id="heroLessonCount">28 câu hỏi đa dạng</strong></span>
                                 <span class="text-slate-300 dark:text-slate-700">·</span>
                                 <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-500"></i> Khoảng <strong id="heroLessonTime">25 phút</strong></span>
-                                <span class="text-slate-300 dark:text-slate-700">·</span>
-                                <span id="heroLessonTag" class="text-slate-500 dark:text-slate-400">Khảo sát năng lực đầu vào</span>
                             </p>
 
-                            <!-- Single Primary CTA Button (Quiet Confidence Blue) -->
-                            <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
-                                <button id="heroPrimaryCtaBtn" onclick="window.startHeroNextLesson()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md shadow-blue-500/25 active:scale-98 transition cursor-pointer">
+                            <!-- Two Clear Paths: Option A (Full Diagnostic) & Option B (2-min Quick Onboarding) -->
+                            <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                                <button type="button" id="heroPrimaryCtaBtn" onclick="window.startHeroNextLesson()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md shadow-blue-500/25 active:scale-98 transition cursor-pointer">
                                     <i class="fa-solid fa-play text-xs"></i>
                                     <span id="heroPrimaryCtaText">Bắt đầu Test Chẩn Đoán (25 phút)</span>
                                 </button>
-                                <button id="heroSecondaryBtn" onclick="switchTab('lo-trinh')" class="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-bold text-xs border border-slate-200/80 dark:border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
-                                    <span>Xem toàn bộ 6 chặng</span>
-                                    <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                                <button type="button" id="heroQuickOnboardBtn" onclick="window.openTinderFlashcardModal && window.openTinderFlashcardModal()" class="px-4 py-3 rounded-2xl bg-fuchsia-50 hover:bg-fuchsia-100 dark:bg-fuchsia-950/50 dark:hover:bg-fuchsia-900/50 text-fuchsia-800 dark:text-fuchsia-200 font-bold text-sm border border-fuchsia-200/80 dark:border-fuchsia-800/60 transition flex items-center gap-2 cursor-pointer active:scale-98">
+                                    <i class="fa-solid fa-layer-group text-xs text-fuchsia-600 dark:text-fuchsia-400"></i>
+                                    <span>Học thử 5 từ cốt lõi (2 phút)</span>
                                 </button>
-                                <button onclick="window.openAdaptiveTestModal && window.openAdaptiveTestModal()" class="px-3.5 py-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-xs border border-indigo-200/80 dark:border-indigo-800 transition flex items-center gap-1.5 cursor-pointer" title="Kiểm tra trình độ nhanh bằng thuật toán 2PL IRT">
-                                    <i class="fa-solid fa-gauge-high text-xs"></i>
-                                    <span>Test Nhanh 10 Phút</span>
+                                <button type="button" id="heroSecondaryBtn" onclick="switchTab('lo-trinh')" class="px-2 py-2 text-xs font-bold text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 underline transition flex items-center gap-1 cursor-pointer">
+                                    <span>Xem lộ trình 6 chặng</span>
+                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </button>
-                                <button onclick="window.openTrapHeatMatrixModal && window.openTrapHeatMatrixModal()" class="px-3.5 py-3 rounded-2xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 font-bold text-xs border border-amber-200/80 dark:border-amber-800 transition flex items-center gap-1.5 cursor-pointer" title="Khảo sát ma trận 12 bẫy đề thường gặp và tỷ lệ sai sót">
-                                    <i class="fa-solid fa-fire text-xs text-amber-500"></i>
-                                    <span>12 Bẫy Đề Thường Gặp</span>
-                                </button>
-                            </div>
-
-                            <!-- BỘ CÔNG CỤ LUYỆN THI SIÊU TỐC 2026 (QUICK STUDY TOOLS DOCK) -->
-                            <div id="quickStudyToolsContainer" class="pt-3.5 mt-3 border-t border-slate-100 dark:border-slate-800/80">
-                                <div class="flex items-center justify-between mb-2">
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                                            <i class="fa-solid fa-bolt text-amber-500 text-xs"></i>
-                                            Công Cụ Luyện Thi Trọng Tâm
-                                        </span>
-                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/50">2 Trạm</span>
-                                    </div>
-                                    <span class="text-[10px] text-slate-400 font-medium hidden sm:inline">Bấm để mở công cụ ôn luyện</span>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                                    <!-- 1. Flashcard 3D -->
-                                    <button type="button" onclick="window.openTinderFlashcardModal && window.openTinderFlashcardModal()" class="group p-3 rounded-2xl bg-fuchsia-50/80 hover:bg-fuchsia-100 dark:bg-fuchsia-950/30 dark:hover:bg-fuchsia-900/40 border border-fuchsia-200/80 dark:border-fuchsia-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-3 shadow-2xs">
-                                        <div class="w-9 h-9 rounded-xl bg-fuchsia-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm shadow-fuchsia-600/30 group-hover:scale-105 transition">
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
-                                        <div class="min-w-0 flex-1">
-                                            <div class="text-xs font-bold text-fuchsia-950 dark:text-fuchsia-200 truncate">Flashcard 3D</div>
-                                            <div class="text-[10.5px] text-fuchsia-600 dark:text-fuchsia-400 font-medium truncate">Ôn tập FSRS · 10 từ trọng tâm</div>
-                                        </div>
-                                    </button>
-
-                                    <!-- 2. Cheat Sheet 1 Trang -->
-                                    <button type="button" onclick="window.openCheatSheetModal && window.openCheatSheetModal('unit03')" class="group p-3 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40 border border-emerald-200/80 dark:border-emerald-800/60 text-left transition active:scale-98 cursor-pointer flex items-center gap-3 shadow-2xs">
-                                        <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm shadow-emerald-600/30 group-hover:scale-105 transition">
-                                            <i class="fa-solid fa-file-lines"></i>
-                                        </div>
-                                        <div class="min-w-0 flex-1">
-                                            <div class="text-xs font-bold text-emerald-950 dark:text-emerald-200 truncate">Cheat Sheet Cốt Lõi</div>
-                                            <div class="text-[10.5px] text-emerald-600 dark:text-emerald-400 font-medium truncate">1 trang tóm tắt công thức & PDF</div>
-                                        </div>
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
-                        <!-- Right Illustration: Sói Mây Companion (Clean, Calm & Focused) -->
-                        <div class="shrink-0 flex flex-col items-center justify-center relative mt-2 md:mt-0 select-none">
-                            <!-- Live Interactive Speech Bubble -->
-                            <div id="heroSoiMayBubble" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" 
-                                 class="mb-2 max-w-[220px] sm:max-w-[260px] px-3.5 py-2.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-100 text-xs leading-snug font-medium text-center relative cursor-pointer hover:border-blue-400 transition group">
-                                <p id="heroSoiMayBubbleText" class="text-slate-700 dark:text-slate-200 font-medium">Chào bạn! Cùng Sói Mây làm bài test chẩn đoán để xây lộ trình riêng nhé! 🎯</p>
-                                <!-- Speech Bubble Pointer / Arrow -->
-                                <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 rotate-45"></div>
-                            </div>
+                        <!-- Hidden speech bubble element kept purely for JS null-safety without duplicating Hero title -->
+                        <div id="heroSoiMayBubble" class="hidden" aria-hidden="true">
+                            <p id="heroSoiMayBubbleText"></p>
+                        </div>
 
-                            <!-- Living Mascot Container with Breathing & Polaroid Vintage Frame -->
-                            <div id="heroSoiMayContainer" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" 
-                                 class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 p-2.5 flex items-center justify-center shadow-xs hover:border-blue-300 transition cursor-pointer group artisan-polaroid">
+                        <!-- Right Illustration: Distinct Guide Mascot in Polaroid Frame -->
+                        <div class="shrink-0 flex flex-col items-center justify-center relative select-none">
+                            <div id="heroSoiMayContainer" onclick="window.SoiMayCompanion && window.SoiMayCompanion.interactHero()" class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 p-2.5 flex items-center justify-center shadow-xs hover:border-blue-300 transition cursor-pointer group artisan-polaroid">
                                 <div class="artisan-washi-tape"></div>
-                                <!-- Mascot Image with Subtle Breathing Animation -->
-                                <img id="heroSoiMayImg" src="/assets/mascot/may_reading.png" alt="Bạn học Sói Mây" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-xs group-hover:scale-105 active:scale-95 transition-transform duration-300">
+                                <img id="heroSoiMayImg" src="/assets/mascot/may_guide.png?v=soimay_20261110" alt="Bạn học Sói Mây hướng dẫn" class="soi-may-breathing max-h-full max-w-full object-contain filter drop-shadow-xs group-hover:scale-105 active:scale-95 transition-transform duration-300">
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- 3. KHỐI 2: DẢI TIẾN ĐỘ HÔM NAY (COMPACT 1-ROW DAILY PROGRESS) -->
-                <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-3 sm:p-4 shadow-2xs">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-100 dark:divide-slate-800">
-                        <!-- Stat 1: Thời gian học hôm nay -->
-                        <div class="flex items-center gap-3 px-2 pt-2 md:pt-0">
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm shrink-0 font-bold border border-blue-100 dark:border-blue-900/40">
-                                <i class="fa-regular fa-clock"></i>
+                <!-- 4. BENTO GRID ROW 1: 4 THẺ THỐNG KÊ TIẾN ĐỘ (SINGLE SOURCE OF TRUTH) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                    <!-- Stat 1: Thời gian học hôm nay -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-4 shadow-2xs flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm shrink-0 font-bold border border-blue-100 dark:border-blue-900/40">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold truncate" id="memberStudyTimeSub">Hôm nay: 0 phút</div>
+                            <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight truncate">
+                                <span id="memberStudyTime">Chưa học</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stat 2: Nhiệm vụ hoàn thành (Links cleanly to checklist below) -->
+                    <button type="button" onclick="document.getElementById('dailyTasksCard') && document.getElementById('dailyTasksCard').scrollIntoView({ behavior: 'smooth', block: 'center' })" class="rounded-2xl bg-white dark:bg-slate-900 hover:border-emerald-400 border border-slate-200/90 dark:border-slate-800 p-4 shadow-sm flex items-center gap-3 text-left transition cursor-pointer">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm shrink-0 font-bold border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Nhiệm vụ hôm nay</div>
+                            <div class="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
+                                <span id="memberTasksSubtitle">0/5 nhiệm vụ</span>
+                            </div>
+                        </div>
+                    </button>
+
+                    <!-- Stat 3: Chuỗi học tập Streak (Kèm 7 chấm ngày trong tuần) -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-3.5 shadow-2xs flex flex-col justify-center min-w-0">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm shrink-0 font-bold border border-amber-100 dark:border-amber-900/40">
+                                <i class="fa-solid fa-fire text-amber-500"></i>
                             </div>
                             <div class="min-w-0">
-                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold" id="memberStudyTimeSub">Hôm nay: chưa học</div>
-                                <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                                    <span id="memberStudyTime">--</span>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Chuỗi liên tục</div>
+                                <div class="text-base font-bold text-slate-900 dark:text-white leading-tight truncate">
+                                    <span id="sanhMemberStreakTitle">Streak 0 ngày</span>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Stat 2: Nhiệm vụ hoàn thành -->
-                        <div class="flex items-center gap-3 px-2 pt-2 md:pt-0">
-                            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm shrink-0 font-bold border border-emerald-100 dark:border-emerald-900/40">
-                                <i class="fa-solid fa-list-check"></i>
-                            </div>
-                            <div class="min-w-0">
-                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Nhiệm vụ hôm nay</div>
-                                <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                                    <span id="memberTasksSubtitle">0/5 nhiệm vụ</span>
-                                </div>
-                            </div>
+                        <div id="memberStreakDaysRow" class="grid grid-cols-7 gap-1 pt-1.5 mt-1.5 border-t border-slate-100 dark:border-slate-800 text-center">
+                            <!-- Populated dynamically by renderStreakWeekDays -->
                         </div>
+                    </div>
 
-                        <!-- Stat 3: Chuỗi học tập Streak (Kèm 7 chấm ngày trong tuần) -->
-                        <div class="flex flex-col justify-center px-2 pt-2 md:pt-0 min-w-0">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm shrink-0 font-bold border border-amber-100 dark:border-amber-900/40">
-                                    <i class="fa-solid fa-fire text-amber-500"></i>
-                                </div>
-                                <div class="min-w-0">
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Chuỗi liên tục</div>
-                                    <div class="text-base font-bold text-slate-900 dark:text-white leading-tight truncate">
-                                        <span id="sanhMemberStreakTitle">Streak 0 ngày</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 7 Visual Day Dots (T2..CN) -->
-                            <div id="memberStreakDaysRow" class="grid grid-cols-7 gap-1 pt-1.5 mt-1 border-t border-slate-100 dark:border-slate-800 text-center">
-                                <!-- Populated dynamically by renderStreakWeekDays -->
-                            </div>
+                    <!-- Stat 4: Từ vựng & Độ nhớ (Clean empty-state copy) -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-4 shadow-2xs flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm shrink-0 font-bold border border-purple-100 dark:border-purple-900/40">
+                            <i class="fa-solid fa-book-bookmark"></i>
                         </div>
-
-                        <!-- Stat 4: Từ vựng & XP -->
-                        <div class="flex items-center gap-3 px-2 pt-2 md:pt-0">
-                            <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm shrink-0 font-bold border border-purple-100 dark:border-purple-900/40">
-                                <i class="fa-solid fa-book-bookmark"></i>
+                        <div class="min-w-0">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold truncate" id="memberVocabSub">Từ vựng đã thuộc</div>
+                            <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight truncate">
+                                <span id="memberVocabCount">0</span> từ
                             </div>
-                            <div class="min-w-0">
-                                <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold" id="memberVocabSub">Từ vựng đã thuộc</div>
-                                <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                                    <span id="memberVocabCount">0</span> từ <span class="text-xs font-semibold text-slate-400">·</span> <span id="memberAccuracyVal" class="text-xs font-bold text-slate-500">-- đúng</span>
-                                </div>
-                            </div>
+                            <div id="memberAccuracyVal" class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 truncate">Độ nhớ: Chưa kiểm tra</div>
                         </div>
                     </div>
                 </div>
@@ -1948,7 +1942,7 @@
                         </div>
 
                         <!-- KHỐI 5: NHIỆM VỤ HÔM NAY (DAILY TASKS CHECKLIST) -->
-                        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
+                        <div id="dailyTasksCard" class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
                             <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
                                 <div>
                                     <h3 class="text-base font-bold text-slate-900 dark:text-white">Nhiệm vụ hôm nay</h3>
@@ -1971,15 +1965,15 @@
 
                         <!-- KHỐI 4: CÂN BẰNG 4 KỸ NĂNG (SKILL BALANCE PROGRESS BARS) -->
                         <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
-                            <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-                                <div>
-                                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <div class="flex items-start justify-between gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                                <div class="min-w-0 flex-1">
+                                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex flex-wrap items-center gap-2">
                                         <span>Cân bằng 4 mảng học trọng tâm</span>
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Chuẩn ETS 2026</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300 border border-blue-200 dark:border-blue-800 whitespace-nowrap shrink-0">Chuẩn ETS 2026</span>
                                     </h3>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400">Độ hoàn thiện & Tỷ lệ làm đúng theo ngân hàng câu hỏi</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Độ hoàn thiện & Tỷ lệ làm đúng theo ngân hàng câu hỏi</p>
                                 </div>
-                                <button onclick="switchTab('lo-trinh')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer">
+                                <button onclick="switchTab('lo-trinh')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 pt-0.5">
                                     <span>Chi tiết</span>
                                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </button>
@@ -2081,16 +2075,16 @@
                             </div>
                         </div>
 
-                        <!-- KHỐI TRỢ LÝ SÓI MÂY AI (QUIET STUDIO COMPANION) -->
+                        <!-- KHỐI TRỢ LÝ SÓI MÂY AI (QUIET STUDIO COMPANION - DÙNG MASCOT EXPLORER KHÁC BIỆT) -->
                         <div class="rounded-2xl p-4 bg-slate-50 dark:bg-slate-850 border border-slate-200/80 dark:border-slate-800 shadow-2xs flex items-center gap-3.5">
                             <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center p-1 shrink-0 shadow-2xs">
-                                <img src="/assets/mascot/may_reading.png" alt="Sói Mây AI" class="max-h-full max-w-full object-contain">
+                                <img src="/assets/mascot/may_explorer.png?v=soimay_20261110" alt="Gia sư Sói Mây AI" class="max-h-full max-w-full object-contain">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Gia sư Sói Mây AI</h4>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">Sẵn sàng phân tích bẫy đề & ngữ pháp 24/7</p>
                             </div>
-                            <button onclick="openAITutorModal()" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs transition shrink-0 cursor-pointer">
+                            <button type="button" onclick="openAITutorModal()" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs transition shrink-0 cursor-pointer">
                                 <i class="fa-solid fa-message text-xs"></i>
                                 <span>Hỏi đáp</span>
                             </button>
@@ -2098,6 +2092,66 @@
 
                     </div>
                 </div>
+
+                <!-- 6. TRẠM CÔNG CỤ LUYỆN THI TRỌNG TÂM (SECTION ĐỘC LẬP NGOÀI HERO CARD) -->
+                <section id="quickStudyToolsContainer" class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 shadow-sm space-y-3.5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-bolt text-amber-500 text-xs"></i>
+                                Công Cụ Luyện Thi Trọng Tâm
+                            </span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/80">4 Trạm</span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium hidden sm:inline">Truy cập nhanh bộ công cụ bổ trợ</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <!-- 1. Flashcard 3D -->
+                        <button type="button" onclick="window.openTinderFlashcardModal && window.openTinderFlashcardModal()" class="group p-3.5 rounded-2xl bg-fuchsia-50 hover:bg-fuchsia-100 border border-fuchsia-200/80 text-left transition active:scale-95 cursor-pointer flex items-center gap-3 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-fuchsia-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm group-hover:scale-105 transition">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="text-xs font-bold text-fuchsia-950 dark:text-fuchsia-200 truncate">Flashcard 3D</div>
+                                <div class="text-[11px] text-fuchsia-700 dark:text-fuchsia-400 font-medium truncate">Ôn tập FSRS · Học thử 5 từ</div>
+                            </div>
+                        </button>
+
+                        <!-- 2. Cheat Sheet 1 Trang -->
+                        <button type="button" onclick="window.openCheatSheetModal && window.openCheatSheetModal('unit03')" class="group p-3.5 rounded-2xl bg-emerald-50/70 hover:bg-emerald-100 border border-emerald-200/80 text-left transition active:scale-95 cursor-pointer flex items-center gap-3 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm group-hover:scale-105 transition">
+                                <i class="fa-solid fa-file-lines"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="text-xs font-bold text-emerald-950 dark:text-emerald-200 truncate">Cheat Sheet Cốt Lõi</div>
+                                <div class="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium truncate">1 trang tóm tắt &amp; PDF</div>
+                            </div>
+                        </button>
+
+                        <!-- 3. Test Nhanh 10 Phút (2PL IRT) -->
+                        <button type="button" onclick="window.openAdaptiveTestModal && window.openAdaptiveTestModal()" class="group p-3.5 rounded-2xl bg-indigo-50/70 hover:bg-indigo-100 border border-indigo-200/80 text-left transition active:scale-95 cursor-pointer flex items-center gap-3 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm group-hover:scale-105 transition">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="text-xs font-bold text-indigo-900 dark:text-indigo-200 truncate">Test Nhanh 10 Phút</div>
+                                <div class="text-[11px] text-indigo-700 dark:text-indigo-300 font-medium truncate">Ước lượng năng lực thích ứng</div>
+                            </div>
+                        </button>
+
+                        <!-- 4. 12 Bẫy Đề Thường Gặp -->
+                        <button type="button" onclick="window.openTrapHeatMatrixModal && window.openTrapHeatMatrixModal()" class="group p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100 border border-amber-200/80 text-left transition active:scale-95 cursor-pointer flex items-center gap-3 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm group-hover:scale-105 transition">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="text-xs font-bold text-amber-950 dark:text-amber-200 truncate"><span>12 Bẫy Đề Thường Gặp</span></div>
+                                <div class="text-[11px] text-amber-700 dark:text-amber-300 font-medium truncate">Khảo sát lỗi sai kinh điển ETS</div>
+                            </div>
+                        </button>
+                    </div>
+                </section>
 
             </section>
 
@@ -5939,7 +5993,7 @@
 
     <!-- 1. Quiz Modal (Grammar / Listening / Reading / Mock) -->
     <div id="quizModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden items-center justify-center p-2 sm:p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-[24px] sm:rounded-[28px] max-w-2xl w-full p-4 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[94dvh] flex flex-col overflow-hidden animate-fadeIn">
+        <div id="quizModalDialog" class="bg-white dark:bg-slate-900 rounded-[24px] sm:rounded-[28px] max-w-2xl w-full p-4 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[94dvh] flex flex-col overflow-hidden animate-fadeIn transition-all duration-200">
             <!-- Fixed Header -->
             <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
                 <div class="space-y-0.5">
@@ -5986,22 +6040,28 @@
                 <!-- Graphic Table / Chart Display -->
                 <div id="quizGraphicBox" class="hidden"></div>
 
-                <!-- Reading Passage / Transcript Box -->
-                <div id="quizPassageBox" class="hidden p-3.5 rounded-2xl bg-amber-50/70 dark:bg-slate-800 border border-amber-200/80 dark:border-slate-700 text-[12.5px] text-slate-700 dark:text-slate-200 leading-relaxed font-sans"></div>
+                <!-- Split-Screen Reading Workspace Wrapper -->
+                <div id="quizWorkspaceWrapper" class="space-y-3.5">
+                    <!-- Reading Passage / Transcript Box -->
+                    <div id="quizPassageBox" class="hidden p-3.5 rounded-2xl bg-amber-50/70 dark:bg-slate-800 border border-amber-200/80 dark:border-slate-700 text-[12.5px] text-slate-700 dark:text-slate-200 leading-relaxed font-sans"></div>
 
-                <!-- Question Text -->
-                <p id="quizQuestionText" class="text-[14.5px] font-bold text-slate-800 dark:text-slate-100 leading-relaxed bg-slate-50 dark:bg-slate-800/70 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
-                    Question text
-                </p>
+                    <!-- Questions & Options Pane -->
+                    <div id="quizQuestionsPane" class="space-y-3.5">
+                        <!-- Question Text -->
+                        <p id="quizQuestionText" class="text-[14.5px] font-bold text-slate-800 dark:text-slate-100 leading-relaxed bg-slate-50 dark:bg-slate-800/70 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+                            Question text
+                        </p>
 
-                <!-- Options -->
-                <div id="quizOptionsContainer" class="space-y-2.5">
-                    <!-- Populated via JS -->
-                </div>
+                        <!-- Options -->
+                        <div id="quizOptionsContainer" class="space-y-2.5">
+                            <!-- Populated via JS -->
+                        </div>
 
-                <!-- Explanation Box -->
-                <div id="quizExplanationBox" class="hidden p-4 rounded-2xl bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 text-xs text-emerald-950 dark:text-emerald-200 leading-relaxed space-y-1.5">
-                    <!-- Populated on answer -->
+                        <!-- Explanation Box -->
+                        <div id="quizExplanationBox" class="hidden p-4 rounded-2xl bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 text-xs text-emerald-950 dark:text-emerald-200 leading-relaxed space-y-1.5">
+                            <!-- Populated on answer -->
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -8617,19 +8677,32 @@
                 }
             }, true);
             // Hộp nhạc Sói Mây Mini Lofi Controller
+            window._miniLofiActive = false;
             window.toggleMiniMusicBox = function() {
+                window._miniLofiActive = !window._miniLofiActive;
                 if (window.WebAudioMicroEngine) {
                     try {
-                        window.WebAudioMicroEngine.initAudio();
-                        if (typeof window.WebAudioMicroEngine.playComboCheer === 'function') {
-                            window.WebAudioMicroEngine.playComboCheer(3);
+                        if (window._miniLofiActive) {
+                            if (typeof window.WebAudioMicroEngine._startAmbientAudio === 'function') {
+                                window.WebAudioMicroEngine._startAmbientAudio('lofi');
+                            }
+                            document.querySelectorAll('.artisan-vinyl-disc').forEach(el => el.classList.add('is-playing'));
+                            document.querySelectorAll('.artisan-tonearm').forEach(el => el.classList.add('is-active'));
+                        } else {
+                            if (typeof window.WebAudioMicroEngine._stopAmbientAudio === 'function') {
+                                window.WebAudioMicroEngine._stopAmbientAudio();
+                            }
+                            document.querySelectorAll('.artisan-vinyl-disc').forEach(el => el.classList.remove('is-playing'));
+                            document.querySelectorAll('.artisan-tonearm').forEach(el => el.classList.remove('is-active'));
                         }
                     } catch(e) {}
                 }
                 const toast = document.getElementById('toastBox');
                 const text = document.getElementById('toastText');
                 if (toast && text) {
-                    text.textContent = '🎵 Hộp nhạc Sói Mây: Giai điệu Lofi du dương đang phát... Cùng tập trung ôn luyện nhé!';
+                    text.textContent = window._miniLofiActive
+                        ? '🎵 Hộp nhạc Sói Mây: Giai điệu Lofi du dương đang phát... Tự động tạm dừng khi vào bài nghe!'
+                        : '⏸️ Đã tạm dừng Hộp nhạc Lofi Sói Mây.';
                     toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
                     toast.classList.add('opacity-100', 'translate-y-0');
                     setTimeout(function() {

@@ -1,4 +1,49 @@
 
+function normalizeDictation(str) {
+    if (!str) return '';
+    const contractions = {
+        "i'm": "i am", "you're": "you are", "he's": "he is", "she's": "she is",
+        "it's": "it is", "we're": "we are", "they're": "they are",
+        "don't": "do not", "doesn't": "does not", "didn't": "did not",
+        "can't": "cannot", "won't": "will not", "isn't": "is not", "aren't": "are not",
+        "wasn't": "was not", "weren't": "were not", "haven't": "have not",
+        "hasn't": "has not", "hadn't": "had not", "couldn't": "could not",
+        "shouldn't": "should not", "wouldn't": "would not",
+        "i've": "i have", "you've": "you have", "we've": "we have", "they've": "they have",
+        "i'll": "i will", "you'll": "you will", "he'll": "he will", "she'll": "she will",
+        "we'll": "we will", "they'll": "they will", "that's": "that is", "there's": "there is",
+        "what's": "what is", "who's": "who is", "where's": "where is", "how's": "how is",
+        "let's": "let us"
+    };
+    const numWords = {
+        "0": "zero", "1": "one", "2": "two", "3": "three", "4": "four",
+        "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine",
+        "10": "ten", "11": "eleven", "12": "twelve", "13": "thirteen", "14": "fourteen",
+        "15": "fifteen", "16": "sixteen", "17": "seventeen", "18": "eighteen", "19": "nineteen",
+        "20": "twenty", "30": "thirty", "40": "forty", "50": "fifty",
+        "60": "sixty", "70": "seventy", "80": "eighty", "90": "ninety", "100": "hundred"
+    };
+
+    let cleaned = String(str).toLowerCase()
+        .replace(/['’]/g, "'")
+        .replace(/[.,?!;:—_\-"()\[\]{}]/g, " ")
+        .trim();
+
+    Object.keys(contractions).forEach(k => {
+        const re = new RegExp(`\\b${k}\\b`, 'g');
+        cleaned = cleaned.replace(re, contractions[k]);
+    });
+    Object.keys(numWords).forEach(k => {
+        const re = new RegExp(`\\b${k}\\b`, 'g');
+        cleaned = cleaned.replace(re, numWords[k]);
+    });
+
+    return cleaned.replace(/\s+/g, ' ').trim();
+}
+if (typeof window !== 'undefined') window.normalizeDictation = normalizeDictation;
+if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDictation = normalizeDictation;
+
+
     function cleanWordForComparison(word) {
         if (!word) return '';
         return String(word).replace(/^[\s.,!?:;"'()—\-]+|[\s.,!?:;"'()—\-]+$/g, '').toLowerCase().trim();
@@ -993,6 +1038,9 @@
         }
 
         toggleAudio() {
+            if (typeof window !== 'undefined' && window.AudioManager && typeof window.AudioManager.pauseLofi === 'function') {
+                window.AudioManager.pauseLofi();
+            }
             if (this.isPlaying) {
                 this.audioEl.pause();
             } else {
@@ -1065,7 +1113,7 @@
         }
 
         normalizeWord(w) {
-            return (w || '').toLowerCase().replace(/[^a-z0-9']/g, '');
+            return (typeof normalizeDictation === 'function') ? normalizeDictation(w) : (w || '').toLowerCase().replace(/[^a-z0-9']/g, '');
         }
 
         checkAnswer() {
@@ -1081,50 +1129,57 @@
                 return;
             }
 
-            // Word-by-word comparison
+            // Normalized exact match check (handles contractions & numbers seamlessly)
+            const fullNormUser = (typeof normalizeDictation === 'function') ? normalizeDictation(userText) : userText.toLowerCase().trim();
+            const fullNormTarget = (typeof normalizeDictation === 'function') ? normalizeDictation(targetContent) : targetContent.toLowerCase().trim();
+
             const targetWords = targetContent.split(/\s+/).filter(Boolean);
             const userWords = userText.split(/\s+/).filter(Boolean);
 
             let allMatch = true;
             let diffHtml = '';
 
-            const maxLen = Math.max(targetWords.length, userWords.length);
+            if (fullNormUser === fullNormTarget) {
+                diffHtml = targetWords.map(w => `<span class="text-emerald-600 dark:text-emerald-400 font-bold">${w}</span>`).join(' ');
+            } else {
+                const maxLen = Math.max(targetWords.length, userWords.length);
 
-            for (let i = 0; i < maxLen; i++) {
-                const targetW = targetWords[i];
-                const userW = userWords[i];
+                for (let i = 0; i < maxLen; i++) {
+                    const targetW = targetWords[i];
+                    const userW = userWords[i];
 
-                if (!targetW && userW) {
-                    // Extra word typed by user
-                    diffHtml += `<span class="px-1 text-red-500 line-through font-bold">${userW}</span> `;
-                    allMatch = false;
-                } else if (targetW && !userW) {
-                    // Missing word
-                    diffHtml += `<span class="px-1 text-red-600 bg-red-50 dark:bg-red-950/60 rounded border border-red-200 dark:border-red-800 font-bold underline">${targetW}</span> `;
-                    allMatch = false;
-                } else {
-                    const normTarget = this.normalizeWord(targetW);
-                    const normUser = this.normalizeWord(userW);
-
-                    // Check acceptable solutions if available
-                    let isAcceptable = normTarget === normUser;
-                    if (!isAcceptable && currentChallenge.solution && currentChallenge.solution[i]) {
-                        const altList = currentChallenge.solution[i];
-                        if (Array.isArray(altList) && altList.some(alt => this.normalizeWord(alt) === normUser)) {
-                            isAcceptable = true;
-                        }
-                    }
-
-                    if (isAcceptable) {
-                        diffHtml += `<span class="text-emerald-600 dark:text-emerald-400 font-bold">${targetW}</span> `;
-                    } else {
+                    if (!targetW && userW) {
+                        // Extra word typed by user
+                        diffHtml += `<span class="px-1 text-red-500 line-through font-bold">${userW}</span> `;
                         allMatch = false;
-                        diffHtml += `
-                            <span class="inline-flex flex-col items-center mx-1">
-                                <span class="text-[11px] text-emerald-600 font-bold">${targetW}</span>
-                                <span class="text-red-500 line-through text-xs font-semibold">${userW}</span>
-                            </span>
-                        `;
+                    } else if (targetW && !userW) {
+                        // Missing word
+                        diffHtml += `<span class="px-1 text-red-600 bg-red-50 dark:bg-red-950/60 rounded border border-red-200 dark:border-red-800 font-bold underline">${targetW}</span> `;
+                        allMatch = false;
+                    } else {
+                        const normT = this.normalizeWord(targetW);
+                        const normU = this.normalizeWord(userW);
+
+                        // Check acceptable solutions if available
+                        let isAcceptable = normT === normU;
+                        if (!isAcceptable && currentChallenge.solution && currentChallenge.solution[i]) {
+                            const altList = currentChallenge.solution[i];
+                            if (Array.isArray(altList) && altList.some(alt => this.normalizeWord(alt) === normU)) {
+                                isAcceptable = true;
+                            }
+                        }
+
+                        if (isAcceptable) {
+                            diffHtml += `<span class="text-emerald-600 dark:text-emerald-400 font-bold">${targetW}</span> `;
+                        } else {
+                            allMatch = false;
+                            diffHtml += `
+                                <span class="inline-flex flex-col items-center mx-1">
+                                    <span class="text-[11px] text-emerald-600 font-bold">${targetW}</span>
+                                    <span class="text-red-500 line-through text-xs font-semibold">${userW}</span>
+                                </span>
+                            `;
+                        }
                     }
                 }
             }
