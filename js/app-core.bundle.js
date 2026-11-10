@@ -7222,11 +7222,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 }
                 if (subTextEl) {
                     if (score && daysRemaining !== null) {
-                        subTextEl.textContent = `Mục tiêu ${score} TOEIC · Còn ${daysRemaining} ngày ôn luyện tập trung`;
+                        subTextEl.textContent = `Mục tiêu ${score} · Còn ${daysRemaining} ngày`;
                     } else if (score) {
-                        subTextEl.textContent = `Mục tiêu ${score} TOEIC · Chưa đặt ngày thi`;
+                        subTextEl.textContent = `Mục tiêu ${score} · Chưa đặt ngày thi`;
                     } else {
-                        subTextEl.textContent = 'Hãy đặt mục tiêu điểm & ngày thi để AI thiết kế lộ trình cá nhân';
+                        subTextEl.textContent = 'Đặt mục tiêu & ngày thi để mở lộ trình';
                     }
                 }
 
@@ -7351,7 +7351,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 if (examDateEl) examDateEl.textContent = (guestTarget && guestTarget.examDate) ? `Thi: ${guestTarget.examDate}` : 'Bấm để thiết lập ngày thi';
 
                 if (guestDiag) {
-                    if (subTextEl) subTextEl.textContent = 'Đã hoàn thành bài chẩn đoán. Đăng nhập để đồng bộ lộ trình đa thiết bị.';
+                    if (subTextEl) subTextEl.textContent = 'Đã chẩn đoán · Đăng nhập để đồng bộ';
                     if (badgeText) badgeText.textContent = 'LỘ TRÌNH ĐÃ MỞ KHÓA · BƯỚC TIẾP THEO';
                     if (titleEl) titleEl.textContent = 'Luyện tập Chuyên đề Trọng tâm theo Kết quả Chẩn đoán';
                     if (countEl) countEl.textContent = '15 câu hỏi trọng tâm';
@@ -7364,7 +7364,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                     window._heroNextTabTarget = 'lo-trinh';
                     window._smartRecActionTarget = 'lo-trinh';
                 } else {
-                    if (subTextEl) subTextEl.textContent = 'Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu tiến độ';
+                    if (subTextEl) subTextEl.textContent = 'Chế độ Khách · Chưa đăng nhập';
                     if (badgeText) badgeText.textContent = 'KHỞI ĐỘNG · BƯỚC 1 CỦA LỘ TRÌNH';
                     if (titleEl) titleEl.textContent = 'Bài Test Chẩn Đoán 28 Câu Chuẩn ETS 2026 (7 Part)';
                     if (countEl) countEl.textContent = '28 câu hỏi đa dạng';
@@ -7568,7 +7568,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 if (lDetail) lDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
                 listenProgWidth = Math.min(100, Math.max(2, Math.round((total / Math.max(1, bank.listening)) * 100 * 5)));
             } else if (lDone > 0) {
-                if (lPct) { lPct.textContent = '0%'; lPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (lPct) lPct.textContent = 'Chưa đủ dữ liệu';
+                if (lPct) lPct.className = 'font-semibold text-slate-500 dark:text-slate-400 text-[11px]';
                 if (lCount) lCount.textContent = `${lDone}/${bank.listening} câu`;
                 if (lDetail) lDetail.textContent = `Đã hoàn thành ${lDone} câu`;
                 listenProgWidth = Math.min(100, Math.max(2, Math.round((lDone / Math.max(1, bank.listening)) * 100 * 5)));
@@ -7601,7 +7602,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 if (rDetail) rDetail.textContent = `Đã làm ${total} câu · Đúng ${correct}/${total} câu`;
                 readProgWidth = Math.min(100, Math.max(2, Math.round((total / Math.max(1, bank.reading)) * 100 * 5)));
             } else if (rDone > 0) {
-                if (rPct) { rPct.textContent = '0%'; rPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (rPct) rPct.textContent = 'Chưa đủ dữ liệu';
+                if (rPct) rPct.className = 'font-semibold text-slate-500 dark:text-slate-400 text-[11px]';
                 if (rCount) rCount.textContent = `${rDone}/${bank.reading} câu`;
                 if (rDetail) rDetail.textContent = `Đã hoàn thành ${rDone} câu`;
                 readProgWidth = Math.min(100, Math.max(2, Math.round((rDone / Math.max(1, bank.reading)) * 100 * 5)));
@@ -7633,7 +7635,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 if (gDetail) gDetail.textContent = `Đã làm ${gAnswered} câu · Đúng ${safeCorrect}/${gAnswered} câu`;
                 grammarProgWidth = Math.min(100, Math.max(2, Math.round((gAnswered / Math.max(1, bank.grammar)) * 100 * 5)));
             } else if ((state.grammarDone || 0) > 0) {
-                if (gPct) { gPct.textContent = '0%'; gPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (gPct) gPct.textContent = 'Chưa đủ dữ liệu';
+                if (gPct) gPct.className = 'font-semibold text-slate-500 dark:text-slate-400 text-[11px]';
                 if (gCount) gCount.textContent = `${state.grammarDone}/${bank.grammar} câu`;
                 if (gDetail) gDetail.textContent = `Đã làm ${state.grammarDone} câu`;
                 grammarProgWidth = Math.min(100, Math.max(2, Math.round((state.grammarDone / Math.max(1, bank.grammar)) * 100 * 5)));
@@ -7665,7 +7668,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 if (vDetail) vDetail.textContent = `Đã học ${vLearned} từ · Độ nhớ ${accPct}%`;
                 vocabProgWidth = Math.min(100, Math.max(2, Math.round((vLearned / Math.max(1, bank.vocab)) * 100 * 5)));
             } else if (vLearned > 0) {
-                if (vPct) { vPct.textContent = '0%'; vPct.className = 'font-bold text-slate-500 dark:text-slate-400'; }
+                if (vPct) vPct.textContent = 'Chưa đủ dữ liệu';
+                if (vPct) vPct.className = 'font-semibold text-slate-500 dark:text-slate-400 text-[11px]';
                 if (vCount) vCount.textContent = `${vLearned}/${bank.vocab} từ`;
                 if (vDetail) vDetail.textContent = `Đã thuộc ${vLearned} từ vựng cốt lõi`;
                 vocabProgWidth = Math.min(100, Math.max(2, Math.round((vLearned / Math.max(1, bank.vocab)) * 100 * 5)));
@@ -7869,7 +7873,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             setTxt('dropdownUserEmail', 'Vui lòng đăng nhập để bắt đầu');
             setTxt('sanhGreetingPrefix', 'Chào bạn,');
             setTxt('sanhMemberGreetingName', 'Học viên!');
-            setTxt('sanhHeaderSubText', 'Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu tiến độ');
+            setTxt('sanhHeaderSubText', 'Chế độ Khách · Chưa đăng nhập');
             setTxt('sanhMemberProfileName', 'Khách');
             setTxt('sanhMemberDropdownEmail', 'Chưa đăng nhập');
             setTxt('mobileDropdownEmail', 'Chưa đăng nhập');

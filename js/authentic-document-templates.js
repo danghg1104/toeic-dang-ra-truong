@@ -34,21 +34,22 @@
     }
 
     /**
-     * Sanitize rich HTML to only allow safe layout tags and strip dangerous scripts/attributes
+     * Escape HTML entities and preserve newlines as safe paragraphs
+     */
+    renderSafeParagraphs(text, fallbackHtml) {
+      if (!text) return fallbackHtml;
+      return `<p>${this.escapeHtml(String(text)).replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br/>')}</p>`;
+    }
+
+    /**
+     * Sanitize rich HTML by stripping dangerous tags, slash/space event handlers, and script URLs
      */
     sanitizeHtml(rawHtml) {
       if (!rawHtml) return '';
       let clean = String(rawHtml);
-      clean = clean.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-      clean = clean.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-      clean = clean.replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '');
-      clean = clean.replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
-      clean = clean.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-      clean = clean.replace(/<link\b[^>]*>/gi, '');
-      clean = clean.replace(/<meta\b[^>]*>/gi, '');
-      clean = clean.replace(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
-      clean = clean.replace(/href\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, 'href="#"');
-      clean = clean.replace(/src\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, 'src=""');
+      clean = clean.replace(/<(script|iframe|object|embed|style|svg|math|form|input|textarea|select|button|details|template|link|meta|base)\b[\s\S]*?(?:<\/\1>|\/?>)/gi, '');
+      clean = clean.replace(/(?:^|[\s/])on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+      clean = clean.replace(/(?:href|src|action|formaction)\s*=\s*(?:"[^"]*(?:javascript|vbscript|data\s*:\s*text\/html)[^"]*"|'[^']*(?:javascript|vbscript|data\s*:\s*text\/html)[^']*'|[^\s>]*(?:javascript|vbscript)[^\s>]*)/gi, 'href="#"');
       return clean;
     }
 
@@ -98,7 +99,8 @@
       const recipient = this.escapeHtml(d.recipient || d.to || 'all-team@nexuscorp.com');
       const timestamp = this.escapeHtml(d.timestamp || d.date || 'Today, 09:42 AM');
       const messageId = this.escapeHtml(d.messageId || 'MSG-2026-X89');
-      const bodyHtml = d.bodyHtml ? this.sanitizeHtml(d.bodyHtml) : (d.body ? `<p>${this.escapeHtml(d.body).replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br/>')}</p>` : '<p>No content provided.</p>');
+      const rawBody = d.bodyHtml || d.body || '';
+      const bodyHtml = this.renderSafeParagraphs(rawBody, '<p>No content provided.</p>');
       
       const initials = (senderName.split(' ').map(n => n[0]).join('').slice(0, 2) || 'SJ').toUpperCase();
 
@@ -224,9 +226,9 @@
       const vatNum = d.vat !== undefined ? Number(d.vat) : subtotalNum * vatRate;
       const totalNum = d.total !== undefined ? (typeof d.total === 'number' ? d.total : parseFloat(String(d.total).replace(/[^0-9.]/g, '')) || (subtotalNum + vatNum)) : (subtotalNum + vatNum);
 
-      const subtotalFormatted = d.subtotal !== undefined ? (typeof d.subtotal === 'string' ? d.subtotal : '$' + d.subtotal.toFixed(2)) : '$' + subtotalNum.toFixed(2);
-      const vatFormatted = d.vat !== undefined ? (typeof d.vat === 'string' ? d.vat : '$' + Number(d.vat).toFixed(2)) : '$' + vatNum.toFixed(2);
-      const totalFormatted = typeof d.total === 'string' ? d.total : '$' + totalNum.toFixed(2);
+      const subtotalFormatted = d.subtotal !== undefined ? (typeof d.subtotal === 'string' ? this.escapeHtml(d.subtotal) : '$' + Number(d.subtotal || 0).toFixed(2)) : '$' + subtotalNum.toFixed(2);
+      const vatFormatted = d.vat !== undefined ? (typeof d.vat === 'string' ? this.escapeHtml(d.vat) : '$' + Number(d.vat || 0).toFixed(2)) : '$' + vatNum.toFixed(2);
+      const totalFormatted = typeof d.total === 'string' ? this.escapeHtml(d.total) : '$' + totalNum.toFixed(2);
 
       return `
         <div class="vat-invoice rounded-2xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7 shadow-xl font-sans text-xs space-y-4">
@@ -363,7 +365,8 @@
       const posterName = this.escapeHtml(d.posterName || d.sender || 'Elena Rostova');
       const posterBadge = this.escapeHtml(d.posterBadge || 'Operations Lead');
       const postTime = this.escapeHtml(d.postTime || d.timestamp || 'Today at 10:14 AM');
-      const messageHtml = d.messageHtml ? this.sanitizeHtml(d.messageHtml) : (d.message || d.content ? `<p>${this.escapeHtml(d.message || d.content).replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br/>')}</p>` : '<p>Hello team, please see latest notice.</p>');
+      const rawMsg = d.messageHtml || d.message || d.content || '';
+      const messageHtml = this.renderSafeParagraphs(rawMsg, '<p>Hello team, please see latest notice.</p>');
       
       const reactions = Array.isArray(d.reactions) && d.reactions.length > 0
         ? d.reactions.map(r => this.escapeHtml(r))

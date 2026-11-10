@@ -1342,9 +1342,10 @@
         }
     }
 
-    /* LAPTOP (1024px - 1399px): Keep compact icon pills in sticky header */
+    /* LAPTOP & 1280PX (1024px - 1399px): Keep compact icon pills & free header width for full greeting subtitle */
     @media (min-width: 1024px) and (max-width: 1399px) {
-        #studyEnvironmentControls .control-text {
+        #studyEnvironmentControls .control-text,
+        #btnPwaHeaderInstall {
             display: none !important;
         }
     }
@@ -1697,7 +1698,7 @@
                                 <span id="sanhGreetingPrefix">Chào bạn,</span> <span id="sanhMemberGreetingName" class="text-blue-600 dark:text-blue-400 font-black">Học viên!</span>
                             </h1>
                             <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate" id="sanhHeaderSubText">
-                                Chế độ Khách · Đặt mục tiêu hoặc đăng nhập để lưu lộ trình cá nhân
+                                Chế độ Khách · Chưa đăng nhập
                             </p>
                         </div>
                     </div>
@@ -1755,7 +1756,7 @@
                         <!-- RIGHT: Actions & Profile Cluster -->
                         <div id="sanhAccountCluster">
                             <!-- PWA Install Button -->
-                            <button type="button" id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden xl:inline-flex px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
+                            <button type="button" id="btnPwaHeaderInstall" onclick="window.triggerPwaInstallPrompt && window.triggerPwaInstallPrompt()" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-extrabold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer shrink-0" title="Cài đặt PWA 1 Chạm">
                                 <i class="fa-solid fa-cloud-arrow-down text-xs"></i>
                                 <span>Tải App</span>
                             </button>

@@ -115,6 +115,7 @@ function findEdgeOrChrome() {
                 accText: accVal ? accVal.textContent.trim() : '',
                 studyTimeText: studyTime ? studyTime.textContent.trim() : '',
                 subText: subText ? subText.textContent.trim() : '',
+                subTextTruncated: subText ? (subText.scrollWidth > subText.clientWidth + 1) : true,
                 skillListenPctText: skillListenPct ? skillListenPct.textContent.trim() : '',
                 skillListenTotalText: skillListenTotal ? skillListenTotal.textContent.trim() : '',
                 hasOptA: !!optA,
@@ -143,13 +144,26 @@ function findEdgeOrChrome() {
         assert.strictEqual(desktopAudit.accText, 'Độ nhớ: Chưa kiểm tra', 'Guest empty state accuracy label must be clean');
         assert.strictEqual(desktopAudit.studyTimeText, 'Chưa học', 'Guest empty state study time must be Chưa học');
         assert.ok(!desktopAudit.subText.includes('Mục tiêu 600'), `Guest subtext must not hardcode 600 TOEIC, got: ${desktopAudit.subText}`);
+        assert.ok(!desktopAudit.subTextTruncated, `1280px header subtitle must fit without ellipsis truncation ("${desktopAudit.subText}")`);
         assert.ok(desktopAudit.hasOptA && desktopAudit.hasOptB, 'Hero must provide both Option A (diagnostic) and Option B (quick 5 words)');
         assert.ok(!desktopAudit.overflowX, 'Zero horizontal overflow on 1280px desktop');
         assert.strictEqual(pageErrors.length, 0, `Zero page errors expected, got: ${pageErrors.join('; ')}`);
 
+        // Verify done > 0 without recorded answer accuracy displays 'Chưa đủ dữ liệu' instead of misleading 0%
+        const partialDonePct = await page.evaluate(() => {
+            window.state.listenDone = 5;
+            window.state.listenTotalAnswers = 0;
+            window.updateDashboardMetrics();
+            const txt = document.getElementById('skillAccuracyListenPct')?.textContent?.trim();
+            window.state.listenDone = 0;
+            window.updateDashboardMetrics();
+            return txt;
+        });
+        assert.strictEqual(partialDonePct, 'Chưa đủ dữ liệu', 'Completed drills without recorded accuracy must render Chưa đủ dữ liệu instead of 0%');
+
         const artifactDir = os.tmpdir();
         await page.screenshot({ path: path.join(artifactDir, 'figma_fixed_desktop_1280.png'), fullPage: true });
-        console.log('  ✓ PASS: Desktop (1280x850) unified header, 4-card Bento row, semantic nav & dynamic stats verified.');
+        console.log('  ✓ PASS: Desktop (1280x850) unified header, non-truncated subtitle, 4-card Bento row & honest skill balance verified.');
 
         // Compact Laptop 1024px check
         await page.setViewport({ width: 1024, height: 768 });

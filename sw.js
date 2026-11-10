@@ -1,5 +1,5 @@
 // Service Worker cho ứng dụng "Tôi Đi Đâu Đó" (Study Studio 2026) - Offline Audio & Dynamic Caching
-const CACHE_NAME = 'study-studio-cache-v19-exam-engine-figma';
+const CACHE_NAME = 'study-studio-cache-v20-polish-xss';
 const AUDIO_CACHE_NAME = 'study-studio-audio-offline-v1';
 
 const ASSETS_TO_CACHE = [

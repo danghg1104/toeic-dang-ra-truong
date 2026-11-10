@@ -218,23 +218,19 @@ async function runTier5Suite() {
     assert(html.includes('&lt;script&gt;alert(&quot;body&quot;)&lt;/script&gt;'), 'Body text must be escaped');
   });
 
-  await challenge('1.2 renderGmail bodyHtml bypass audit (evaluating raw HTML injection gap)', () => {
-    // White-box analysis showed: const bodyHtml = d.bodyHtml || (d.body ? ... : ...);
-    // If a caller passes bodyHtml directly, it is NOT escaped by escapeHtml.
-    const rawHtmlPayload = '<div id="malicious-injected-node">Injected HTML</div>';
+  await challenge('1.2 renderGmail & renderSlack escape bodyHtml/messageHtml payloads against XSS (GAP-1.2 fixed)', () => {
+    const rawHtmlPayload = '<div id="malicious-injected-node">Injected HTML</div><svg/onload=alert(1)>';
     const html = docEngine.renderGmail({
       bodyHtml: rawHtmlPayload
     });
+    const slackHtml = docEngine.renderSlack({
+      messageHtml: rawHtmlPayload
+    });
 
-    const isRawHtmlInjected = html.includes(rawHtmlPayload);
-    if (isRawHtmlInjected) {
-      gapsDiscovered.push({
-        title: 'GAP-1.2: renderGmail permits unescaped raw HTML injection via d.bodyHtml',
-        impact: 'Medium',
-        mitigation: 'Sanitize d.bodyHtml with escapeHtml or DOMPurify before interpolation'
-      });
-    }
-    assert(html.length > 0 && html.includes(rawHtmlPayload), 'bodyHtml is safely rendered without script injection');
+    assert(!html.includes(rawHtmlPayload), 'Raw HTML payload must NOT be injected unescaped into renderGmail');
+    assert(!html.includes('<svg/onload=alert(1)>'), 'Slash-delimited SVG XSS must be escaped');
+    assert(html.includes('&lt;div id=&quot;malicious-injected-node&quot;&gt;'), 'bodyHtml must be HTML-entity escaped');
+    assert(!slackHtml.includes(rawHtmlPayload) && slackHtml.includes('&lt;div id=&quot;malicious-injected-node&quot;&gt;'), 'renderSlack messageHtml must also be escaped');
   });
 
   await challenge('1.3 renderInvoice handles null/undefined item elements gracefully without TypeError', () => {
