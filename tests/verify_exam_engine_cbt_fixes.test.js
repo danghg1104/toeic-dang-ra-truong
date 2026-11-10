@@ -220,6 +220,17 @@ tlw.seekBy(5);
 assert.strictEqual(tlw.audio.currentTime, 5, 'seekBy must be blocked in exam mode');
 console.log('  ✓ PASS: Practice seek/speed controls, exam-mode lock, Lofi pause & live transcript sync verified');
 
+// Verify Ets2026Database Test 1 Part 6 & Part 7 flattened passages are populated (not blank)
+const etsDataContent = fs.readFileSync(path.join(__dirname, '../js/ets2026-data.js'), 'utf8');
+const etsSandbox = { window: {}, console };
+vm.runInNewContext(etsDataContent, etsSandbox);
+const rc1 = etsSandbox.window.Ets2026Database.getFullReading(1);
+const p6Passages = rc1.filter(q => q.part === 6 && q.passage && q.passage.trim().length > 50);
+const p7Passages = rc1.filter(q => q.part === 7 && q.passage && q.passage.trim().length > 50);
+assert.strictEqual(p6Passages.length, 16, `Expected 16 Part 6 passages in Test 1, got ${p6Passages.length}`);
+assert.strictEqual(p7Passages.length, 54, `Expected 54 Part 7 passages in Test 1, got ${p7Passages.length}`);
+console.log('  ✓ PASS: Ets2026Database.getFullReading(1) provides 16 Part 6 and 54 Part 7 reading passages');
+
 console.log('\n====================================================');
 console.log('ALL EXAM ENGINE & CBT VERIFICATION CHECKS PASSED!');
 console.log('====================================================\n');
