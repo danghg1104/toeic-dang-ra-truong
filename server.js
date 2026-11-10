@@ -233,6 +233,7 @@ function getCorsHeaders(req) {
   return {
     'Access-Control-Allow-Origin': origin || '*',
     'Access-Control-Allow-Credentials': 'true',
+    'Vary': 'Origin',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Device-Id, Authorization, X-Requested-With'
   };
@@ -2256,9 +2257,7 @@ function handleRequest(req, res) {
   // CORS preflight
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, X-Device-Id, Authorization'
+      ...getCorsHeaders(req)
     });
     res.end();
     return;

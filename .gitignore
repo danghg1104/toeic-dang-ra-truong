@@ -29,6 +29,11 @@ scripts/test_audio_openrouter.js
 .agents/
 certs/
 *.exe
+*.keystore
+*.jks
+android/keystore.properties
+*.apk
+*.aab
 tests/*.png
 scripts/update_pvp_client_renderinto.js
 data/profiles/test-user-*.json

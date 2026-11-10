@@ -3,6 +3,6 @@
   "appName": "Tôi Đi Đâu Đó",
   "webDir": "www",
   "server": {
-    "url": "https://toeic-dang-ra-truong.onrender.com/"
+    "androidScheme": "https"
   }
 }

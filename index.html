@@ -3,6 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <base href="/">
+    <script id="capacitorNativeBridge">
+        (function() {
+            var isCap = Boolean(
+                (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) ||
+                window.location.protocol === 'capacitor:' ||
+                (window.location.protocol === 'https:' && window.location.hostname === 'localhost' && !window.location.port)
+            );
+            if (!isCap) return;
+            var REMOTE_ORIGIN = 'https://toeic-dang-ra-truong.onrender.com';
+            var TOKEN_KEY = 'cd_session_token';
+            window.__CAPACITOR_REMOTE_ORIGIN__ = REMOTE_ORIGIN;
+            var needsRemote = function(u) {
+                return typeof u === 'string' && (u.indexOf('/api/') === 0 || u.indexOf('/audio/') === 0 || u.indexOf('/data/ets2026/') === 0);
+            };
+            var origFetch = window.fetch.bind(window);
+            window.fetch = function(input, init) {
+                var url = (typeof input === 'string') ? input : (input && input.url ? input.url : '');
+                if (!needsRemote(url)) return origFetch(input, init);
+                var nextUrl = REMOTE_ORIGIN + url;
+                var opts = Object.assign({ credentials: 'include' }, init || {});
+                var headers = new Headers((opts.headers) || (typeof input !== 'string' && input && input.headers) || undefined);
+                var tok = '';
+                try { tok = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) {}
+                if (tok && !headers.has('Authorization')) headers.set('Authorization', 'Bearer ' + tok);
+                opts.headers = headers;
+                var reqArg = (typeof input === 'string') ? nextUrl : new Request(nextUrl, opts);
+                return origFetch(reqArg, typeof input === 'string' ? opts : undefined).then(function(res) {
+                    if (url.indexOf('/api/auth/logout') === 0 || url.indexOf('/api/auth/delete-account') === 0) {
+                        try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+                    } else if (/^\/api\/auth\/(login|register|google)/.test(url) && res.ok) {
+                        res.clone().json().then(function(d) {
+                            if (d && d.token) try { localStorage.setItem(TOKEN_KEY, d.token); } catch (e) {}
+                        }).catch(function() {});
+                    }
+                    return res;
+                });
+            };
+            var mediaDesc = window.HTMLMediaElement && Object.getOwnPropertyDescriptor(window.HTMLMediaElement.prototype, 'src');
+            if (mediaDesc && mediaDesc.set) {
+                Object.defineProperty(window.HTMLMediaElement.prototype, 'src', {
+                    configurable: true,
+                    enumerable: mediaDesc.enumerable,
+                    get: mediaDesc.get,
+                    set: function(val) {
+                        return mediaDesc.set.call(this, needsRemote(val) ? (REMOTE_ORIGIN + val) : val);
+                    }
+                });
+            }
+            if (window.Audio) {
+                var OrigAudio = window.Audio;
+                window.Audio = function(srcArg) {
+                    return new OrigAudio(needsRemote(srcArg) ? (REMOTE_ORIGIN + srcArg) : srcArg);
+                };
+                window.Audio.prototype = OrigAudio.prototype;
+            }
+        })();
+    </script>
     <script>
         (function() {
             try {
