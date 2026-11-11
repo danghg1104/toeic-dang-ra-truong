@@ -206,7 +206,7 @@
     <script src="/js/rank-avatar-frames.js?v=20261109_v3"></script>
     <script src="/js/pvp-arena-client.js?v=20261109_v3"></script>
     <script src="/js/ai-mistake-explainer.js?v=20261103_m4"></script>
-    <script defer src="/js/reading-practice-database.js?v=20261109_v4"></script>
+    <!-- Reading practice data (~24 MB) is loaded on demand by ToeicReadingWorkstation. -->
 
     <!-- Document & Export Lazy Toolkit Engine (Loads PDF/Word/Excel on demand only) -->
     <script>
@@ -1484,6 +1484,70 @@
             padding-left: 0.35rem !important;
         }
     }
+    /* Mobile touch-target and narrow-header ergonomics */
+    @media (max-width: 1023px) {
+        #sidebarContainer .nav-item,
+        #sidebarContainer .sidebar-gradient button {
+            min-height: 44px !important;
+        }
+        #sidebarContainer .sidebar-gradient > button[aria-label="Đóng menu"] {
+            width: 44px !important;
+            min-width: 44px !important;
+            height: 44px !important;
+            min-height: 44px !important;
+        }
+    }
+    @media (max-width: 640px) {
+        #mobileStickyTopHeader .mobile-brand-wrap > a {
+            min-height: 44px !important;
+            align-items: center !important;
+        }
+        #mobileStickyTopHeader .mobile-brand-wrap > button[aria-label="Mở menu học tập"],
+        #mobileStickyTopHeader button[aria-label="Chuyển chế độ sáng tối"] {
+            width: 44px !important;
+            min-width: 44px !important;
+            height: 44px !important;
+            min-height: 44px !important;
+            border-radius: 14px !important;
+        }
+        #mobileUnauthLoginBtn {
+            min-height: 44px !important;
+            padding: 0.5rem 0.75rem !important;
+            font-size: 0.75rem !important;
+        }
+        #mobileTopAvatar {
+            min-width: 44px !important;
+            min-height: 44px !important;
+        }
+        #headerMiniMusicBoxBtn,
+        #btnQuickPomodoroLaunch,
+        #btnEditorialToggle,
+        #btnFontToggle,
+        #btnStartTourGuide,
+        #heroSecondaryBtn {
+            min-height: 44px !important;
+        }
+        #heroSecondaryBtn {
+            padding-block: 0.625rem !important;
+        }
+        button[title="Luyện nhanh ngay"] {
+            width: 44px !important;
+            min-width: 44px !important;
+            min-height: 48px !important;
+        }
+    }
+    @media (max-width: 419px) {
+        /* Keep the 320–414px sticky header from compressing the primary controls. */
+        #btnPwaMobileStickyInstall {
+            display: none !important;
+        }
+    }
+    @media (max-width: 359px) {
+        #mobileStickyTopHeader .mobile-actions-wrap > div:has(#mobileTopStreakText) {
+            display: none !important;
+        }
+    }
+
 </style>
 </head>
 <body class="p-2 sm:p-3 md:p-4 lg:p-5 pb-24 lg:pb-5 m-0">

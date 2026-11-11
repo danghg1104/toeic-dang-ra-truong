@@ -248,9 +248,7 @@
 
         async loadFriendsList() {
             try {
-                const user = window.currentUserAccount || {};
-                const uId = user.id ? `?userId=${encodeURIComponent(user.id)}` : '';
-                const res = await fetch(`/api/user/friends${uId}`, { credentials: 'include' });
+                const res = await fetch('/api/user/friends', { credentials: 'include' });
                 if (res.ok) {
                     const data = await res.json();
                     if (data.success) {
@@ -282,12 +280,11 @@
                 return;
             }
             try {
-                const user = window.currentUserAccount || {};
                 const res = await fetch('/api/user/friends/add', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ friendCode: code.trim(), userId: user.id })
+                    body: JSON.stringify({ friendCode: code.trim() })
                 });
                 const data = await res.json();
                 if (data.success) {
@@ -306,12 +303,11 @@
         async removeFriend(friendId, friendName) {
             if (!confirm(`Bạn có chắc muốn hủy kết bạn với ${friendName || 'người này'}?`)) return;
             try {
-                const user = window.currentUserAccount || {};
                 const res = await fetch('/api/user/friends/remove', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ friendId, userId: user.id })
+                    body: JSON.stringify({ friendId })
                 });
                 const data = await res.json();
                 if (data.success) {
@@ -332,8 +328,7 @@
             if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
                 this.connectWebSocket();
             } else if (tab === 'friends') {
-                const user = window.currentUserAccount || {};
-                this.ws.send(JSON.stringify({ type: 'GET_ONLINE_USERS', userId: user.id || 'guest' }));
+                this.ws.send(JSON.stringify({ type: 'GET_ONLINE_USERS' }));
             }
             this.renderIdleView();
         }
@@ -861,8 +856,7 @@
 
         refreshOnlineList() {
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-                const user = window.currentUserAccount || {};
-                this.ws.send(JSON.stringify({ type: 'GET_ONLINE_USERS', userId: user.id || 'guest' }));
+                this.ws.send(JSON.stringify({ type: 'GET_ONLINE_USERS' }));
                 if (typeof showToast === 'function') showToast('🔄 Đang cập nhật danh sách bạn bè...');
             } else {
                 this.connectWebSocket();
@@ -875,17 +869,10 @@
                 setTimeout(() => this.inviteUser(targetUserId, targetUsername, targetFriendCode), 600);
                 return;
             }
-            const user = window.currentUserAccount || {};
             this.ws.send(JSON.stringify({
                 type: 'INVITE_FRIEND',
                 targetUserId,
-                targetFriendCode,
-                fromUser: {
-                    userId: user.id || 'guest_' + Date.now(),
-                    username: user.name || 'Chiến Binh TOEIC',
-                    friendCode: this.myFriendCode || user.friendCode || 'HD-7133',
-                    avatar: user.avatar || '/assets/mascot/may_avatar.png'
-                }
+                targetFriendCode
             }));
             if (typeof showToast === 'function') {
                 showToast('⚔️ Đang gửi lời thách đấu tới ' + targetUsername + '...');
@@ -963,17 +950,8 @@
             if (modal) modal.remove();
 
             this.open();
-            const user = window.currentUserAccount || {};
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-                this.ws.send(JSON.stringify({
-                    type: 'ACCEPT_INVITE',
-                    inviteId,
-                    user: {
-                        userId: user.id || 'guest_' + Date.now(),
-                        username: user.name || 'Chiến Binh TOEIC',
-                        avatar: user.avatar || '/assets/mascot/may_avatar.png'
-                    }
-                }));
+                this.ws.send(JSON.stringify({ type: 'ACCEPT_INVITE', inviteId }));
             }
         }
 
@@ -981,13 +959,8 @@
             const modal = document.getElementById('pvpIncomingInviteModal');
             if (modal) modal.remove();
 
-            const user = window.currentUserAccount || {};
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-                this.ws.send(JSON.stringify({
-                    type: 'REJECT_INVITE',
-                    inviteId,
-                    user: { username: user.name || 'Bạn học' }
-                }));
+                this.ws.send(JSON.stringify({ type: 'REJECT_INVITE', inviteId }));
             }
         }
 
@@ -1032,46 +1005,20 @@
                 this.ws = new WebSocket(wsUrl);
 
                 this.ws.onopen = () => {
-                    const user = window.currentUserAccount || {};
-                    const uId = user.id || 'guest_' + Date.now();
-                    const uName = user.name || 'Chiến Binh TOEIC';
-                    const uAvt = user.avatar || '/assets/mascot/may_avatar.png';
-
-                    // Đăng ký danh tính lên máy chủ
-                    this.ws.send(JSON.stringify({
-                        type: 'REGISTER_USER',
-                        userId: uId,
-                        username: uName,
-                        avatar: uAvt,
-                        friendCode: this.myFriendCode || user.friendCode || 'HD-7133'
-                    }));
-
-                    // Yêu cầu danh sách bạn bè trực tuyến
-                    this.ws.send(JSON.stringify({ type: 'GET_ONLINE_USERS', userId: uId }));
+                    // Server authenticates the account from the HttpOnly session cookie.
+                    this.ws.send(JSON.stringify({ type: 'REGISTER_USER' }));
+                    this.ws.send(JSON.stringify({ type: 'GET_ONLINE_USERS' }));
 
                     if (this._pendingWsAction === 'QUEUE') {
-                        this.ws.send(JSON.stringify({
-                            type: 'JOIN_QUEUE',
-                            userId: uId,
-                            username: uName,
-                            avatar: uAvt
-                        }));
+                        this.ws.send(JSON.stringify({ type: 'JOIN_QUEUE' }));
                         this._pendingWsAction = null;
                     } else if (this._pendingWsAction === 'CREATE_ROOM') {
-                        this.ws.send(JSON.stringify({
-                            type: 'CREATE_ROOM',
-                            userId: uId,
-                            username: uName,
-                            avatar: uAvt
-                        }));
+                        this.ws.send(JSON.stringify({ type: 'CREATE_ROOM' }));
                         this._pendingWsAction = null;
                     } else if (this._pendingWsAction && this._pendingWsAction.type === 'JOIN_ROOM') {
                         this.ws.send(JSON.stringify({
                             type: 'JOIN_ROOM',
-                            roomCode: this._pendingWsAction.roomCode,
-                            userId: uId,
-                            username: uName,
-                            avatar: uAvt
+                            roomCode: this._pendingWsAction.roomCode
                         }));
                         this._pendingWsAction = null;
                     }

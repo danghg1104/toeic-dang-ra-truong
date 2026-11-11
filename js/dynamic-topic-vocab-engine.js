@@ -116,7 +116,7 @@
             try {
                 // Tách cụm từ nếu có để lấy từ khóa trọng tâm
                 const primaryTerm = englishTopic.split(' ')[0] || englishTopic;
-                const url = `https://api.datamuse.com/words?ml=${encodeURIComponent(englishTopic)}&md=fpd&max=250`;
+                const url = `/api/datamuse/words?ml=${encodeURIComponent(englishTopic)}&md=fpd&max=250`;
                 
                 const r = await fetch(url);
                 if (!r.ok) throw new Error(`Datamuse HTTP ${r.status}`);
@@ -125,7 +125,7 @@
                 // Nếu số lượng ít, gọi thêm query với primaryTerm để làm giàu pool
                 if (Array.isArray(data) && data.length < 80 && primaryTerm !== englishTopic) {
                     try {
-                        const fallbackUrl = `https://api.datamuse.com/words?ml=${encodeURIComponent(primaryTerm)}&md=fpd&max=200`;
+                        const fallbackUrl = `/api/datamuse/words?ml=${encodeURIComponent(primaryTerm)}&md=fpd&max=200`;
                         const r2 = await fetch(fallbackUrl);
                         if (r2.ok) {
                             const data2 = await r2.json();

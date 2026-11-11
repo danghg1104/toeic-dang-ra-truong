@@ -51,7 +51,9 @@ try {
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
-const DATA_DIR = path.join(PUBLIC_DIR, 'data');
+// DATA_DIR can be isolated in tests; production keeps the existing data directory.
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(PUBLIC_DIR, 'data');
+const SESSION_SCHEMA_VERSION = 2;
 const PROFILES_DIR = path.join(DATA_DIR, 'profiles');
 const USERS_FILE = path.join(DATA_DIR, 'users_database.json');
 const SYNC_FILE = path.join(DATA_DIR, 'study_sync_store.json');
@@ -132,6 +134,7 @@ function createSession(userId, maxAgeMs = 30 * 24 * 3600 * 1000) {
   const now = Date.now();
   sessions[token] = {
     userId,
+    version: SESSION_SCHEMA_VERSION,
     createdAt: new Date(now).toISOString(),
     expiresAt: now + maxAgeMs
   };
@@ -155,6 +158,11 @@ function getSession(token) {
     } catch (e) {}
   }
   if (!session) return null;
+  // Invalidate pre-fix sessions because the old public sessions file may have exposed bearer tokens.
+  if (session.version !== SESSION_SCHEMA_VERSION) {
+    deleteSession(token);
+    return null;
+  }
   if (session.expiresAt && session.expiresAt < Date.now()) {
     deleteSession(token);
     return null;
@@ -228,15 +236,93 @@ function clearSessionCookie(res, req, isGuestLogout = false) {
   res.setHeader('Set-Cookie', cookies);
 }
 
+function isAllowedOrigin(origin, req) {
+  if (!origin) return true;
+  if (req?.headers?.host) {
+    const proto = req.headers['x-forwarded-proto'] || (req.socket && req.socket.encrypted ? 'https' : 'http');
+    try {
+      if (new URL(origin).origin === new URL(`${proto}://${req.headers.host}`).origin) return true;
+    } catch (e) {}
+  }
+  if (origin === 'null') return false;
+  const configuredOrigins = [
+    process.env.APP_ORIGIN,
+    process.env.APP_URL,
+    process.env.RENDER_EXTERNAL_URL,
+    'https://toeic-dang-ra-truong.onrender.com',
+    'capacitor://localhost',
+    'ionic://localhost'
+  ].filter(Boolean);
+  try {
+    const target = new URL(origin).origin;
+    if (configuredOrigins.some(value => {
+      try { return new URL(value).origin === target; } catch (e) { return false; }
+    })) return true;
+    const parsed = new URL(origin);
+    return ['http:', 'https:'].includes(parsed.protocol) &&
+      ['localhost', '127.0.0.1', '[::1]'].includes(parsed.hostname);
+  } catch (e) {
+    return false;
+  }
+}
+
 function getCorsHeaders(req) {
   const origin = req.headers.origin;
-  return {
-    'Access-Control-Allow-Origin': origin || '*',
-    'Access-Control-Allow-Credentials': 'true',
+  const headers = {
     'Vary': 'Origin',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Device-Id, Authorization, X-Requested-With'
   };
+  if (origin && isAllowedOrigin(origin, req)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+    headers['Access-Control-Allow-Credentials'] = 'true';
+  }
+  return headers;
+}
+
+function isPrivateStaticPath(requestPath) {
+  const parts = requestPath.split('/').filter(Boolean);
+  const lower = parts.map(part => part.toLowerCase());
+  if (lower.some(part => part.startsWith('.'))) return true;
+
+  const blockedSegments = new Set([
+    'node_modules', 'data_backup_pre_auth', 'tests', 'scripts', 'lib', 'src',
+    'certs', 'android', 'www', 'scratch', 'docs', 'deploy',
+    'reports_p4_screenshots', '_checkpoint_pre_dictionary_upgrade',
+    '_checkpoint_pre_sidebar_toggle', '_checkpoint_pre_ui_revamp'
+  ]);
+  if (lower.some(part => blockedSegments.has(part))) return true;
+
+  const dataSegmentIndex = lower.indexOf('data');
+  if (dataSegmentIndex >= 0) {
+    // Default-deny data anywhere in a URL path. Only root /data assets explicitly
+    // consumed by the browser are public; /public/data and other nested data paths stay private.
+    if (dataSegmentIndex !== 0) return true;
+    const dataPath = lower.slice(1);
+    const publicRootDataFiles = new Set(['dictionary_lexicon.json', 'dictionary_lemmas.json']);
+    const publicDataDirectories = new Set(['ets2026', 'ocr_lang']);
+    if (dataPath.length === 0) return true;
+    if (dataPath.length === 1 && publicRootDataFiles.has(dataPath[0])) return false;
+    if (!publicDataDirectories.has(dataPath[0])) return true;
+    if (dataPath[0] === 'ets2026') {
+      if (dataPath.length !== 2) return true;
+      return !/^(?:test(?:0[1-9]|10)_full\.json|tests_index\.json)$/i.test(dataPath[1]);
+    }
+    if (dataPath[0] === 'ocr_lang') {
+      if (dataPath.length !== 2) return true;
+      return !/^(?:eng|vie)\.traineddata\.gz$/i.test(dataPath[1]);
+    }
+    return true;
+  }
+
+  const publicRootFiles = new Set([
+    'index.html', 'manifest.json', 'sw.js', 'favicon.ico', 'app.ico',
+    'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
+    'icon-totoro-192.png', 'icon-totoro-512.png',
+    'icon-totoro-maskable-512.png', 'casio_cam_sender.html'
+  ]);
+  if (parts.length === 1 && path.extname(parts[0]) && !publicRootFiles.has(lower[0])) return true;
+  return false;
 }
 
 // Băm mật khẩu scrypt an toàn
@@ -2249,17 +2335,140 @@ function parseJsonBody(req, res, callback) {
 
 // In-memory WebRTC Signaling Broker for Casio Camera Stream
 const webrtcSignalRooms = new Map();
+const datamuseResponseCache = new Map();
+const datamuseRateLimit = new Map();
 
-function handleRequest(req, res) {
-  let reqPath = decodeURI(req.url.split('?')[0]);
-  const queryParams = new URL(req.url, `http://${req.headers.host || 'localhost'}`).searchParams;
+async function handleRequest(req, res) {
+  let parsedRequestUrl;
+  let reqPath;
+  try {
+    if (req.url.split('?')[0].includes('\\')) throw new Error('Invalid path');
+    parsedRequestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    reqPath = decodeURIComponent(parsedRequestUrl.pathname);
+    if (reqPath.includes('\\') || reqPath.includes('\0')) throw new Error('Invalid path');
+    reqPath = path.posix.normalize('/' + reqPath.replace(/^\/+/, ''));
+  } catch (e) {
+    res.writeHead(400, { 'Content-Type': 'text/plain; charset=UTF-8' });
+    res.end('400 Bad Request');
+    return;
+  }
+  const queryParams = parsedRequestUrl.searchParams;
 
-  // CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204, {
-      ...getCorsHeaders(req)
-    });
+  // CORS preflight is restricted to the app's known origins.
+  if (req.headers.origin && !isAllowedOrigin(req.headers.origin, req)) {
+    res.writeHead(403, { 'Vary': 'Origin' });
     res.end();
+    return;
+  }
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, { ...getCorsHeaders(req) });
+    res.end();
+    return;
+  }
+
+  // =========================================================================
+  // API: DATAMUSE SAME-ORIGIN PROXY (FIX BROWSER CORS WITHOUT CREATING AN OPEN PROXY)
+  // =========================================================================
+  if (reqPath === '/api/datamuse/words' || reqPath === '/api/datamuse/sug') {
+    if (req.method !== 'GET') {
+      res.writeHead(405, { 'Content-Type': 'application/json; charset=UTF-8', 'Allow': 'GET', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: false, error: 'Method not allowed' }));
+      return;
+    }
+
+    const endpoint = reqPath.endsWith('/words') ? '/words' : '/sug';
+    const allowedParams = endpoint === '/words'
+      ? new Set(['ml', 'sp', 'rel_syn', 'rel_ant', 'rel_trg', 'rel_gen', 'rel_jja', 'rel_jjb', 'rel_bga', 'rel_bgb', 'md', 'max'])
+      : new Set(['s', 'max']);
+    const upstreamParams = new URLSearchParams();
+    let invalid = false;
+
+    for (const [key, value] of queryParams.entries()) {
+      if (!allowedParams.has(key) || upstreamParams.has(key) || typeof value !== 'string' ||
+          value.length > 120 || /[\u0000-\u001f\u007f]/.test(value)) {
+        invalid = true;
+        break;
+      }
+      upstreamParams.set(key, value.trim());
+    }
+
+    const term = endpoint === '/words'
+      ? (upstreamParams.get('ml') || upstreamParams.get('sp') || '')
+      : (upstreamParams.get('s') || '');
+    const maxRaw = upstreamParams.get('max');
+    const maxValue = maxRaw === null ? (endpoint === '/words' ? 100 : 10) : Number(maxRaw);
+    if (!term || !Number.isInteger(maxValue) || maxValue < 1 || maxValue > (endpoint === '/words' ? 250 : 20)) {
+      invalid = true;
+    }
+    const md = upstreamParams.get('md');
+    if (md && !/^[a-z]{1,6}$/i.test(md)) invalid = true;
+
+    if (invalid) {
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: false, error: 'Invalid Datamuse query' }));
+      return;
+    }
+
+    upstreamParams.set('max', String(maxValue));
+    const cacheKey = endpoint + '?' + upstreamParams.toString();
+    const cached = datamuseResponseCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'public, max-age=300, stale-while-revalidate=600',
+        ...getCorsHeaders(req)
+      });
+      res.end(cached.body);
+      return;
+    }
+
+    const clientIp = String(req.socket?.remoteAddress || 'unknown');
+    const minute = Math.floor(Date.now() / 60000);
+    const currentLimit = datamuseRateLimit.get(clientIp);
+    const count = currentLimit && currentLimit.minute === minute ? currentLimit.count + 1 : 1;
+    datamuseRateLimit.set(clientIp, { minute, count });
+    if (count > 120) {
+      res.writeHead(429, { 'Content-Type': 'application/json; charset=UTF-8', 'Retry-After': '60', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: false, error: 'Rate limit exceeded' }));
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    try {
+      const upstream = await fetch('https://api.datamuse.com' + endpoint + '?' + upstreamParams.toString(), {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        signal: controller.signal
+      });
+      const bodyText = await upstream.text();
+      if (!upstream.ok) {
+        res.writeHead(upstream.status, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        res.end(JSON.stringify({ success: false, error: 'Datamuse upstream error' }));
+        return;
+      }
+      let parsed;
+      try { parsed = JSON.parse(bodyText); } catch (e) { throw new Error('Invalid upstream JSON'); }
+      if (!Array.isArray(parsed) || parsed.length > maxValue) throw new Error('Unexpected upstream response');
+      const body = JSON.stringify(parsed);
+      if (datamuseResponseCache.size > 1000) {
+        const firstKey = datamuseResponseCache.keys().next().value;
+        if (firstKey) datamuseResponseCache.delete(firstKey);
+      }
+      datamuseResponseCache.set(cacheKey, { body, expiresAt: Date.now() + 10 * 60 * 1000 });
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Cache-Control': 'public, max-age=300, stale-while-revalidate=600',
+        ...getCorsHeaders(req)
+      });
+      res.end(body);
+    } catch (err) {
+      const status = err.name === 'AbortError' ? 504 : 502;
+      res.writeHead(status, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+      res.end(JSON.stringify({ success: false, error: 'Datamuse temporarily unavailable' }));
+    } finally {
+      clearTimeout(timeout);
+    }
     return;
   }
 
@@ -2599,14 +2808,8 @@ function handleRequest(req, res) {
   }
 
   if (reqPath === '/api/me' && req.method === 'GET') {
-    let userId = getAuthenticatedUserId(req);
+    const userId = getAuthenticatedUserId(req);
     const cookies = parseCookies(req);
-    if (!userId) {
-      try {
-        const u = new URL(req.url, 'http://localhost');
-        userId = u.searchParams.get('userId');
-      } catch (e) {}
-    }
 
     if (!userId) {
       res.writeHead(200, {
@@ -3063,9 +3266,8 @@ function handleRequest(req, res) {
 
   // 4c. Xóa tài khoản vĩnh viễn (POST /api/auth/delete-account)
   if (reqPath === '/api/auth/delete-account' && req.method === 'POST') {
-    let userId = getAuthenticatedUserId(req);
+    const userId = getAuthenticatedUserId(req);
     parseJsonBody(req, res, payload => {
-      userId = userId || (payload && payload.userId);
       if (!userId) {
         res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Cần xác thực để thực hiện xóa tài khoản!' }));
@@ -3090,9 +3292,12 @@ function handleRequest(req, res) {
 
   // 4d. Đặt lại toàn bộ tiến độ học tập về 0 (POST /api/user/reset-progress)
   if (reqPath === '/api/user/reset-progress' && req.method === 'POST') {
-    let userId = getAuthenticatedUserId(req);
+    const userId = getAuthenticatedUserId(req);
     parseJsonBody(req, res, payload => {
-      userId = userId || (payload && payload.userId);
+      if (!userId) {
+        res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
+        return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
+      }
       if (userId) {
         saveUserProfile(userId, {
           userId: userId,
@@ -3122,13 +3327,7 @@ function handleRequest(req, res) {
 
   // 1. Tải tiến độ học của người dùng (Bắt buộc xác thực phiên)
   if (reqPath === '/api/user/load-progress' && req.method === 'GET') {
-    let userId = getAuthenticatedUserId(req);
-    if (!userId) {
-      try {
-        const u = new URL(req.url, 'http://localhost');
-        userId = u.searchParams.get('userId');
-      } catch (e) {}
-    }
+    const userId = getAuthenticatedUserId(req);
     if (!userId) {
       res.writeHead(401, {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -3191,10 +3390,7 @@ function handleRequest(req, res) {
 
   if (reqPath === '/api/user/save-progress' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      let userId = getAuthenticatedUserId(req);
-      if (!userId && (payload?.userId || payload?.data?.userId)) {
-        userId = payload?.userId || payload?.data?.userId;
-      }
+      const userId = getAuthenticatedUserId(req);
       if (!userId) {
         res.writeHead(401, {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -3236,10 +3432,7 @@ function handleRequest(req, res) {
   // 2a-2. Cập nhật thông tin hồ sơ & avatar người dùng (POST /api/user/profile)
   if (reqPath === '/api/user/profile' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      let userId = getAuthenticatedUserId(req);
-      if (!userId && (payload?.userId || payload?.id)) {
-        userId = payload.userId || payload.id;
-      }
+      const userId = getAuthenticatedUserId(req);
       if (!userId) {
         res.writeHead(401, {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -3300,10 +3493,7 @@ function handleRequest(req, res) {
   // 2b. Ghi nhận hoạt động học tập để cập nhật streak (POST /api/user/record-activity)
   if (reqPath === '/api/user/record-activity' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      let userId = getAuthenticatedUserId(req);
-      if (!userId && payload?.userId) {
-        userId = payload.userId;
-      }
+      const userId = getAuthenticatedUserId(req);
       if (!userId) {
         res.writeHead(401, {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -3328,10 +3518,7 @@ function handleRequest(req, res) {
   // 2c. Cập nhật mục tiêu điểm số và ngày thi cá nhân (POST /api/user/update-target)
   if (reqPath === '/api/user/update-target' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      let userId = getAuthenticatedUserId(req);
-      if (!userId && payload?.userId) {
-        userId = payload.userId;
-      }
+      const userId = getAuthenticatedUserId(req);
       if (!userId) {
         res.writeHead(401, {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -3386,13 +3573,7 @@ function handleRequest(req, res) {
 
   // 2d. Lấy danh sách bạn bè & trạng thái online thực tế (GET /api/user/friends)
   if (reqPath === '/api/user/friends' && req.method === 'GET') {
-    let userId = getAuthenticatedUserId(req);
-    if (!userId) {
-      try {
-        const u = new URL(req.url, 'http://localhost');
-        userId = u.searchParams.get('userId');
-      } catch (e) {}
-    }
+    const userId = getAuthenticatedUserId(req);
     if (!userId) {
       res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
       return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
@@ -3430,8 +3611,7 @@ function handleRequest(req, res) {
   // 2e. Thêm bạn bè bằng mã Friend ID / username (POST /api/user/friends/add)
   if (reqPath === '/api/user/friends/add' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      let userId = getAuthenticatedUserId(req);
-      if (!userId && payload?.userId) userId = payload.userId;
+      const userId = getAuthenticatedUserId(req);
       if (!userId) {
         res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
@@ -3520,8 +3700,7 @@ function handleRequest(req, res) {
   // 2f. Xóa bạn bè (POST /api/user/friends/remove)
   if (reqPath === '/api/user/friends/remove' && req.method === 'POST') {
     parseJsonBody(req, res, payload => {
-      let userId = getAuthenticatedUserId(req);
-      if (!userId && payload?.userId) userId = payload.userId;
+      const userId = getAuthenticatedUserId(req);
       if (!userId) {
         res.writeHead(401, { 'Content-Type': 'application/json; charset=UTF-8', ...getCorsHeaders(req) });
         return res.end(JSON.stringify({ success: false, error: 'Chưa đăng nhập' }));
@@ -3799,34 +3978,61 @@ function handleRequest(req, res) {
   // =========================================================================
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
-  let filePath = path.join(PUBLIC_DIR, reqPath);
-  const publicPath = path.join(PUBLIC_DIR, 'public', reqPath);
+  // Do not expose private project files or user data through the static-file handler.
+  if (isPrivateStaticPath(reqPath)) {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+    res.end('404 Not Found');
+    return;
+  }
+
+  const requestedRelativePath = reqPath.replace(/^\/+/, '');
+  const resolveInsidePublicRoot = candidate => {
+    const resolved = path.resolve(candidate);
+    const relative = path.relative(PUBLIC_DIR, resolved);
+    if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) return null;
+    try {
+      const realPath = fs.realpathSync(resolved);
+      const realRelative = path.relative(PUBLIC_DIR, realPath);
+      return realRelative.startsWith('..') || path.isAbsolute(realRelative) ? null : realPath;
+    } catch (e) {
+      return resolved;
+    }
+  };
+
+  let filePath = resolveInsidePublicRoot(path.resolve(PUBLIC_DIR, requestedRelativePath));
+  const publicPath = resolveInsidePublicRoot(path.resolve(PUBLIC_DIR, 'public', requestedRelativePath));
+  if (!filePath || !publicPath) {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+    res.end('404 Not Found');
+    return;
+  }
   if (fs.existsSync(publicPath) && fs.statSync(publicPath).isFile()) {
     filePath = publicPath;
   }
 
-  // Khắc phục trường hợp nested route yêu cầu tài nguyên tĩnh nhưng bị lồng tiền tố route (VD: /vocabulary/contracts/js/...)
+  // Support nested SPA asset URLs while preserving the private-path deny rules above.
   if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     const staticFolderMatch = reqPath.match(/\/(js|css|assets|data|public|vendor|audio)\/(.+)$/i);
     if (staticFolderMatch) {
-      const candidatePath = path.join(PUBLIC_DIR, staticFolderMatch[1], staticFolderMatch[2]);
-      if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
+      const candidatePath = resolveInsidePublicRoot(path.resolve(PUBLIC_DIR, staticFolderMatch[1], staticFolderMatch[2]));
+      if (candidatePath && fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
         filePath = candidatePath;
       }
     } else {
       const baseName = path.basename(reqPath);
       if (['favicon.ico', 'manifest.json', 'icon-192.png', 'icon-512.png', 'app.ico', 'sw.js'].includes(baseName)) {
-        const candidatePath = path.join(PUBLIC_DIR, baseName);
-        if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
+        const candidatePath = resolveInsidePublicRoot(path.resolve(PUBLIC_DIR, baseName));
+        if (candidatePath && fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
           filePath = candidatePath;
         }
       }
     }
   }
 
-  if (!filePath.startsWith(PUBLIC_DIR)) {
-    res.writeHead(403);
-    res.end('403 Forbidden');
+  const finalRelativePath = path.relative(PUBLIC_DIR, filePath);
+  if (finalRelativePath.startsWith('..') || path.isAbsolute(finalRelativePath) || isPrivateStaticPath('/' + finalRelativePath.replace(/\\/g, '/'))) {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+    res.end('404 Not Found');
     return;
   }
 
@@ -3855,8 +4061,10 @@ function handleRequest(req, res) {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const isHtml = ext === '.html';
+    const normalizedAssetPath = finalRelativePath.replace(/\\/g, '/');
+    const isOptimizedMascotAsset = /(?:^|\/)assets\/mascot\/(?:may_avatar|may_reading|may_listening|may_guide|may_trophy|may_explorer)\.png$/i.test(normalizedAssetPath);
     const isIconOrManifest = filePath.includes('icon') || ext === '.ico' || filePath.includes('manifest.json');
-    const isNoCache = isHtml || ext === '.js' || ext === '.json' || ext === '.css' || isIconOrManifest;
+    const isNoCache = isHtml || ext === '.js' || ext === '.json' || ext === '.css' || isIconOrManifest || isOptimizedMascotAsset;
     const cacheControlHeader = isNoCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400, stale-while-revalidate=604800';
     const rawClientId = isHtml ? (process.env.GOOGLE_CLIENT_ID || '').trim() : '';
 
@@ -3978,7 +4186,24 @@ function handleRequest(req, res) {
 }
 
 const server = http.createServer(handleRequest);
-setupPvPArenaWebSocket(server);
+setupPvPArenaWebSocket(server, {
+  isOriginAllowed: isAllowedOrigin,
+  resolveIdentity: request => {
+    const userId = getAuthenticatedUserId(request);
+    if (!userId) return null;
+    const user = loadUsersDatabase().find(item => item.id === userId);
+    if (!user) return null;
+    const avatar = typeof user.avatar === 'string' && user.avatar.startsWith('/assets/')
+      ? user.avatar
+      : '/assets/mascot/soi_may_avt.png';
+    return {
+      userId: user.id,
+      username: String(user.name || user.username || 'Chiến Binh TOEIC').slice(0, 48),
+      avatar,
+      friendCode: getOrCreateFriendCode(user)
+    };
+  }
+});
 
 if (require.main === module) {
   server.listen(PORT, () => {

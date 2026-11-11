@@ -7165,6 +7165,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
         }
         window.getDynamicQuestionBankTotals = getDynamicQuestionBankTotals;
 
+        // Expose a small refresh hook so the dashboard can update when lazy-loaded banks arrive.
+        window.updateDashboardMetrics = updateDashboardMetrics;
+
         window.startSmartRecommendationAction = function() {
             const target = window._smartRecActionTarget || 'quick_vocab';
             if (target === 'quick_vocab') {

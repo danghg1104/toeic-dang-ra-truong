@@ -281,31 +281,63 @@
         }
 
         async ensureReadingDatabase(silent = false) {
-            if (window.ReadingPracticeDatabase) return;
+            if (window.ReadingPracticeDatabase) return true;
             if (this._loadingReadingDb) return this._loadingReadingDb;
             if (!silent && typeof showToast === 'function') showToast('⏳ Đang chuẩn bị ngân hàng đề đọc hiểu (Part 5-6-7)...');
-            this._loadingReadingDb = new Promise((resolve) => {
-                const existing = document.querySelector('script[src*="reading-practice-database"]');
-                if (existing) {
-                    if (window.ReadingPracticeDatabase) { resolve(); return; }
-                    existing.addEventListener('load', resolve, { once: true });
-                    existing.addEventListener('error', resolve, { once: true });
-                    setTimeout(resolve, 2000);
+
+            const loadingPromise = new Promise((resolve) => {
+                let settled = false;
+                let timer = null;
+                let script = document.querySelector('script[src*="reading-practice-database"]');
+
+                const finish = (loaded) => {
+                    if (settled) return;
+                    settled = true;
+                    if (timer) clearTimeout(timer);
+                    resolve(Boolean(loaded || window.ReadingPracticeDatabase));
+                };
+
+                if (script && window.ReadingPracticeDatabase) {
+                    finish(true);
                     return;
                 }
-                const s = document.createElement('script');
-                s.src = '/js/reading-practice-database.js?v=20261109_v4';
-                s.onload = () => { resolve(); };
-                s.onerror = (e) => {
-                    console.warn('Cannot load reading-practice-database.js, falling back to Ets2026Database:', e);
-                    resolve();
-                };
-                document.head.appendChild(s);
-                setTimeout(resolve, 3500); // safety fallback timeout
+
+                if (!script) {
+                    script = document.createElement('script');
+                    script.src = '/js/reading-practice-database.js?v=20261112_lazy1';
+                    script.async = true;
+                }
+
+                script.addEventListener('load', () => finish(true), { once: true });
+                script.addEventListener('error', (event) => {
+                    console.warn('Cannot load reading-practice-database.js; falling back to Ets2026Database:', event);
+                    finish(false);
+                }, { once: true });
+
+                // Do not resolve after 3.5 seconds while a large download is still validly in progress.
+                timer = setTimeout(() => {
+                    if (!window.ReadingPracticeDatabase) {
+                        console.warn('Reading practice database load timed out; fallback database will be used.');
+                        if (script && script.parentNode) script.parentNode.removeChild(script);
+                    }
+                    finish(Boolean(window.ReadingPracticeDatabase));
+                }, 20000);
+
+                if (!script.parentNode) document.head.appendChild(script);
             });
-            await this._loadingReadingDb;
+
+            this._loadingReadingDb = loadingPromise;
+            const loaded = await loadingPromise;
+            if (!loaded && this._loadingReadingDb === loadingPromise) {
+                this._loadingReadingDb = null; // Allow a later retry after a network error.
+            }
+
             const box = document.getElementById('toastBox');
             if (box) box.classList.add('opacity-0', 'translate-y-3');
+            if (loaded && typeof window.updateDashboardMetrics === 'function') {
+                window.updateDashboardMetrics();
+            }
+            return loaded;
         }
 
         async loadItems() {
@@ -542,6 +574,69 @@
             }
         }
 
+        getSafePart6Passage(set) {
+            // The legacy Ets2026Database fallback flattens items and stores test as a number.
+            // Inspect each metadata field independently so a numeric test value cannot mask ETS identity.
+            const isEts2026Source =
+                /^ETS\s*2026/i.test(String(set.test || '')) ||
+                /^ETS\s*2026/i.test(String(set.topic || '')) ||
+                /^ets26_/i.test(String(set.setId || '')) ||
+                /^ets26_/i.test(String(set.id || ''));
+            if (!isEts2026Source) {
+                return {
+                    text: String(set.passageText || set.passage || ''),
+                    isEts2026Source: false,
+                    isAvailable: Boolean(set.passageText || set.passage)
+                };
+            }
+
+            // The raw ETS KEY field mixes source passage, answer notes and the next group.
+            // Use only a clean, range-scoped Vietnamese translation from passage_vi.
+            const rawTranslation = String(set.passage_vi || '')
+                .replace(/^\s*\(Dịch\)\s*/i, '')
+                .trim();
+            const plainText = rawTranslation
+                .replace(/<br\s*\/?\s*>/gi, '\n')
+                .replace(/<\/p>/gi, '\n')
+                .replace(/<[^>]*>/g, ' ')
+                .replace(/&nbsp;/gi, ' ')
+                .replace(/&amp;/gi, '&')
+                .replace(/&quot;/gi, '"')
+                .replace(/&#39;/gi, "'")
+                .replace(/[ \t]+/g, ' ')
+                .replace(/\n\s*/g, '\n')
+                .trim();
+
+            const dirtyPatterns = [
+                /\u0111\u00e1p \u00e1n\s*[:：]/i,
+                /ch\u1ecdn\s+[A-D]\b/i,
+                /gi\u1ea3i th\u00edch\s*[:：]/i,
+                /correct answer|answer key|explanation:/i,
+                /questions?\s*1[3-4]\d\s*[-–]\s*1[3-4]\d/i,
+                /\b(?:Question|C\u00e2u)\s*1[3-4]\d\b/i,
+                /(?:^|\n)\s*(?:\([A-D]\)|[A-D][.)])\s+\S/im,
+                /\b(?:What|Which|Who|Where|When|Why|How)\b[^?]{0,140}\?/i
+            ];
+            const looksDirty = dirtyPatterns.some(pattern => pattern.test(plainText));
+            const isAvailable = plainText.length >= 120 && !looksDirty;
+
+            const escapeHtml = value => String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/\n/g, '<br>');
+
+            return {
+                text: isAvailable
+                    ? escapeHtml(plainText)
+                    : 'Bài đọc Part 6 này chưa có bản dịch nguồn sạch. Hệ thống đã ẩn nội dung có thể lẫn câu hỏi, đáp án hoặc phần giải thích; cần bổ sung bản đề gốc để khôi phục.',
+                isEts2026Source: true,
+                isAvailable
+            };
+        }
+
         // -------------------------------------------------------------------------
         // 2. RENDER PART 6 (Mô phỏng 100% Ảnh 3)
         // -------------------------------------------------------------------------
@@ -551,7 +646,15 @@
             }
 
             // Left panel: Passage with Blanks
-            let passageRaw = set.passageText || set.passage || '';
+            const safePassage = this.getSafePart6Passage(set);
+            const isEts2026Source = safePassage.isEts2026Source;
+            let passageRaw = safePassage.text;
+            const normalizedBasePassage = passageRaw.replace(/\s+/g, ' ').trim();
+            const normalizedTranslation = String(set.passage_vi || '').replace(/^\s*\(Dịch\)\s*/i, '').replace(/\s+/g, ' ').trim();
+            const translationLooksContaminated = /(?:Correct answer|Answer key)/i.test(normalizedTranslation);
+            const showSeparateTranslation = this.showBilingual && normalizedTranslation &&
+                !translationLooksContaminated && normalizedTranslation !== normalizedBasePassage &&
+                !isEts2026Source;
             // Định dạng các chỗ trống ____[131] thành span có viền đẹp
             let formattedPassage = passageRaw.replace(/____\[?(\d{3})\]?/g, (m, qn) => {
                 const isFocused = this.activeBlankFocus === qn;
@@ -570,11 +673,17 @@
                             ${set.passageTitle}
                         </h2>
                     ` : ''}
+                    ${isEts2026Source ? `
+                        <div class="text-[11px] leading-relaxed ${safePassage.isAvailable ? 'text-blue-700 dark:text-sky-300 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900' : 'text-amber-800 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900'} border rounded-lg px-3 py-2">
+                            <strong>${safePassage.isAvailable ? 'Bản dịch tiếng Việt từ tệp nguồn.' : 'Chưa có bài đọc an toàn cho nhóm câu này.'}</strong>
+                            ${safePassage.isAvailable ? 'Tệp nguồn hiện không cung cấp đầy đủ văn bản tiếng Anh gốc.' : 'Nội dung lẫn đáp án hoặc giải thích đã được ẩn để tránh làm sai học liệu.'}
+                        </div>
+                    ` : ''}
                     <div class="text-xs sm:text-[14px] text-slate-800 dark:text-slate-200 leading-loose whitespace-pre-line font-serif sm:font-sans">
                         ${formattedPassage}
                     </div>
 
-                    ${(this.showBilingual && set.passage_vi) ? `
+                    ${(showSeparateTranslation) ? `
                         <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
                             <div class="flex items-center gap-1.5 text-blue-600 dark:text-sky-400 font-bold text-xs uppercase">
                                 <i class="fa-solid fa-language"></i>
@@ -684,6 +793,158 @@
             }
         }
 
+        // ETS 2026 KEY PDFs contain Vietnamese source passages mixed with question/answer pages.
+        // Extract only a range-matched passage; never fall back to a contaminated answer dump.
+        getSafePart7Passage(set) {
+            // Also recognize flattened legacy fallback items (numeric test + ETS topic/ID).
+            const isEts2026 =
+                /^ETS\s*2026/i.test(String(set.test || '')) ||
+                /^ETS\s*2026/i.test(String(set.topic || '')) ||
+                /^ets26_/i.test(String(set.setId || '')) ||
+                /^ets26_/i.test(String(set.id || ''));
+            if (!isEts2026) {
+                return {
+                    html: set.passageContent || set.passage || '',
+                    isTranslatedSource: false,
+                    isAvailable: Boolean(set.passageContent || set.passage),
+                    showTranslation: Boolean(set.passage_vi)
+                };
+            }
+
+            const questions = Array.isArray(set.questions) ? set.questions : [];
+            const firstQuestion = questions[0] || {};
+            const rangeMatch = String(set.qRange || '').match(/(\d{3})\s*[-–]\s*(\d{3})/);
+            const startQuestion = rangeMatch ? Number(rangeMatch[1]) : Number(firstQuestion.qNum || 0);
+            const endQuestion = rangeMatch ? Number(rangeMatch[2]) : startQuestion;
+            const qText = String(firstQuestion.q || '').replace(/^\s*[A-D]\s+/i, '').trim();
+
+            const stripHtml = value => String(value || '')
+                .replace(/<br\s*\/?\s*>/gi, '\n')
+                .replace(/<\/p>/gi, '\n')
+                .replace(/<[^>]*>/g, ' ')
+                .replace(/&nbsp;/gi, ' ')
+                .replace(/&amp;/gi, '&')
+                .replace(/&quot;/gi, '"')
+                .replace(/&#39;/gi, "'")
+                .replace(/&lt;/gi, '<')
+                .replace(/&gt;/gi, '>')
+                .replace(/\s+/g, ' ')
+                .trim();
+            const escapeHtml = value => String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/\n/g, '<br>');
+            const normalize = value => String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+            const hasAnswerLeak = value => /(?:đáp án\s*[:：]|chọn\s+[a-d]\b|giải thích\s*[:：]|correct answer|answer key|explanation:|đáp án đúng)/i.test(value);
+            const promptIndex = value => {
+                if (!qText) return -1;
+                const haystack = normalize(value);
+                const needles = [normalize(qText), normalize(firstQuestion.q || '')].filter(Boolean);
+                for (const needle of needles) {
+                    const index = haystack.indexOf(needle);
+                    if (index >= 0) return index;
+                }
+                return -1;
+            };
+            const sources = [
+                set.passageContent,
+                ...questions.map(question => question && question.passage)
+            ].filter((value, index, all) => typeof value === 'string' && value.trim() && all.indexOf(value) === index)
+                .sort((a, b) => b.length - a.length);
+
+            // 1) Highest confidence: the source explicitly labels the exact question range.
+            if (startQuestion && endQuestion) {
+                const targetHeader = 'question ' + startQuestion + '-' + endQuestion;
+                for (const source of sources) {
+                    const rawBlocks = [...source.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map(match => match[1]);
+                    const blocks = (rawBlocks.length ? rawBlocks : [source]).map(stripHtml).filter(Boolean);
+                    const headerIndex = blocks.findIndex(block => normalize(block).replace(/\s*-\s*/g, '-').startsWith(targetHeader));
+                    if (headerIndex < 0) continue;
+
+                    const collected = [];
+                    let stoppedAtQuestion = false;
+                    for (let i = headerIndex; i < Math.min(blocks.length, headerIndex + 4); i++) {
+                        let chunk = blocks[i];
+                        if (i === headerIndex) {
+                            const match = /^Questions?\s*\d{3}\s*[-–]\s*\d{3}/i.exec(chunk);
+                            chunk = match ? chunk.slice(match.index + match[0].length) : chunk;
+                            chunk = chunk.replace(/^\s*[:：.-]\s*/, '');
+                        } else if (/Questions?\s*\d{3}\s*[-–]\s*\d{3}/i.test(chunk)) {
+                            break;
+                        }
+
+                        const questionIndex = promptIndex(chunk);
+                        if (questionIndex >= 0) {
+                            chunk = chunk.slice(0, questionIndex);
+                            stoppedAtQuestion = true;
+                        }
+                        if (chunk.trim()) collected.push(chunk.trim());
+                        if (stoppedAtQuestion) break;
+                    }
+
+                    const passageText = collected.join(' ').replace(/\s+/g, ' ').trim();
+                    if (passageText.length >= 70 && !hasAnswerLeak(passageText) &&
+                        !/SINGLE PASSAGE NOTICE|SINGLE PASSAGE MEMO|tham khảo chi tiết câu hỏi/i.test(passageText)) {
+                        return {
+                            html: escapeHtml(passageText),
+                            isTranslatedSource: true,
+                            isAvailable: true,
+                            showTranslation: false
+                        };
+                    }
+                }
+            }
+
+            // 2) Conversation transcripts sometimes start mid-page without a range heading.
+            for (const source of sources) {
+                const text = stripHtml(source);
+                const speakerStart = text.search(/(?:^|\s)[A-ZÀ-Ỹ][A-Za-zÀ-ỹ'’-]+(?:\s+[A-ZÀ-Ỹ][A-Za-zÀ-ỹ'’-]+){1,3}\s*\(\s*\d{1,2}:\d{2}\s*(?:A\.?M\.?|P\.?M\.?|SÁNG|CHIỀU)\s*\)/i);
+                if (speakerStart < 0) continue;
+                const bodyStart = text.slice(speakerStart).search(/[A-ZÀ-Ỹ][A-Za-zÀ-ỹ'’-]+(?:\s+[A-ZÀ-Ỹ][A-Za-zÀ-ỹ'’-]+){1,3}\s*\(/);
+                const start = bodyStart >= 0 ? speakerStart + bodyStart : speakerStart;
+                const body = text.slice(start);
+                const questionIndex = promptIndex(body);
+                if (questionIndex <= 0) continue;
+                const passageText = body.slice(0, questionIndex).replace(/\s+/g, ' ').trim();
+                if (passageText.length >= 100 && !hasAnswerLeak(passageText)) {
+                    return {
+                        html: escapeHtml(passageText),
+                        isTranslatedSource: true,
+                        isAvailable: true,
+                        showTranslation: false
+                    };
+                }
+            }
+
+            // 3) Accept only short, self-contained translated documents with no answer/question material.
+            for (const source of sources) {
+                let text = stripHtml(source);
+                text = text.replace(/^Thông Báo\s*\/\s*Tài Liệu Đọc\s*Part 7[^\n]*ETS 2026\s*/i, '').trim();
+                if (text.length < 100 || text.length > 1800 || /^Dịch\s*:/i.test(text) ||
+                    /\bDịch\s*:/i.test(text) || /\[\d{3}\]/.test(text) ||
+                    /SINGLE PASSAGE NOTICE|SINGLE PASSAGE MEMO|tham khảo chi tiết câu hỏi/i.test(text) ||
+                    hasAnswerLeak(text) || promptIndex(text) >= 0 ||
+                    /\b(?:Question|Câu)\s*1[3-4]\d\b/i.test(text) ||
+                    /\b(?:What|Which|Who|Where|When|Why|How)\b[^?]{0,120}\?/i.test(text)) continue;
+                return {
+                    html: escapeHtml(text),
+                    isTranslatedSource: true,
+                    isAvailable: true,
+                    showTranslation: false
+                };
+            }
+
+            return {
+                html: '<div class="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-900 p-4 text-xs leading-relaxed text-amber-900 dark:text-amber-100">Văn bản bài đọc của nhóm câu này chưa có bản nguồn sạch. Hệ thống tạm ẩn nội dung có thể lẫn đáp án hoặc thuộc nhóm câu khác; cần bổ sung/đối chiếu PDF gốc trước khi mở lại.</div>',
+                isTranslatedSource: true,
+                isAvailable: false,
+                showTranslation: false
+            };
+        }
+
         // -------------------------------------------------------------------------
         // 3. RENDER PART 7 (Mô phỏng 100% Ảnh 4)
         // -------------------------------------------------------------------------
@@ -695,8 +956,9 @@
                 this.dom.instruction.textContent = set.instruction || `Questions ${qRangeStr} refer to ${docTypeStr}.`;
             }
 
-            // Evidence highlighting logic
-            let passageHtml = set.passageContent || set.passage || '';
+            // Evidence highlighting only runs on the validated passage, never on the raw answer-key dump.
+            const safePassage = this.getSafePart7Passage(set);
+            let passageHtml = safePassage.html;
             if (this.showEvidence && set.evidence) {
                 Object.keys(set.evidence).forEach(qNum => {
                     const clue = set.evidence[qNum];
@@ -716,11 +978,17 @@
                         </div>
                     ` : ''}
 
+                    ${safePassage.isTranslatedSource ? `
+                        <div class="text-[11px] leading-relaxed text-blue-700 dark:text-sky-300 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-lg px-3 py-2">
+                            <strong>Bản dịch tiếng Việt đã được tách khỏi phần câu hỏi/đáp án.</strong> Tệp nguồn hiện không cung cấp đầy đủ văn bản tiếng Anh gốc.
+                        </div>
+                    ` : ''}
+
                     <div class="text-xs sm:text-[14px] text-slate-800 dark:text-slate-200 leading-relaxed font-sans space-y-3">
                         ${passageHtml}
                     </div>
 
-                    ${(this.showBilingual && set.passage_vi) ? `
+                    ${(this.showBilingual && safePassage.showTranslation && set.passage_vi) ? `
                         <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
                             <div class="flex items-center gap-1.5 text-blue-600 dark:text-sky-400 font-bold text-xs uppercase">
                                 <i class="fa-solid fa-language"></i>

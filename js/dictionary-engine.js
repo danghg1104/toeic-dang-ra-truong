@@ -467,7 +467,7 @@
             if (isSingleEnglishWord) {
                 const [fdSettled, dmSettled] = await Promise.allSettled([
                     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(englishWord)}`).then(r => r.ok ? r.json() : null),
-                    fetch(`https://api.datamuse.com/words?ml=${encodeURIComponent(englishWord)}&md=dpf&max=10`).then(r => r.ok ? r.json() : [])
+                    fetch(`/api/datamuse/words?ml=${encodeURIComponent(englishWord)}&md=dpf&max=10`).then(r => r.ok ? r.json() : [])
                 ]);
 
                 if (fdSettled.status === 'fulfilled' && fdSettled.value) {
@@ -508,7 +508,7 @@
             if (isGibberish) {
                 let suggestions = [];
                 try {
-                    const sugRes = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(cleanKey)}`);
+                    const sugRes = await fetch(`/api/datamuse/sug?s=${encodeURIComponent(cleanKey)}`);
                     if (sugRes.ok) {
                         const sugData = await sugRes.json();
                         suggestions = sugData.map(s => s.word).filter(w => w.toLowerCase() !== cleanKey).slice(0, 5);
