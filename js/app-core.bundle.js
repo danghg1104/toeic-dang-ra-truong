@@ -4308,6 +4308,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 content: '<p>Bắt đầu viết ghi chú của bạn tại đây...</p>'
             });
             activeNoteId = newId;
+            window.takeNotesList = takeNotesList;
+            window.activeNoteId = activeNoteId;
             persistTakeNotes();
             renderTakeNoteSidebarList();
             loadActiveTakeNoteIntoEditor();
@@ -4327,6 +4329,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             }
             takeNotesList = takeNotesList.filter(n => n.id !== activeNoteId);
             activeNoteId = takeNotesList[0].id;
+            window.takeNotesList = takeNotesList;
+            window.activeNoteId = activeNoteId;
             persistTakeNotes();
             renderTakeNoteSidebarList();
             loadActiveTakeNoteIntoEditor();
@@ -4400,6 +4404,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                 });
                 activeNoteId = newId;
             }
+            window.takeNotesList = takeNotesList;
+            window.activeNoteId = activeNoteId;
             persistTakeNotes();
             renderTakeNoteSidebarList();
             loadActiveTakeNoteIntoEditor();
@@ -8621,6 +8627,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
                                 }];
                             }
                             activeNoteId = takeNotesList[0].id;
+                            window.takeNotesList = takeNotesList;
+                            window.activeNoteId = activeNoteId;
                             persistTakeNotes();
                             renderTakeNoteSidebarList();
                             loadActiveTakeNoteIntoEditor();
@@ -10540,6 +10548,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports.normalizeDic
             });
 
             activeNoteId = newId;
+            window.takeNotesList = takeNotesList;
+            window.activeNoteId = activeNoteId;
             persistTakeNotes();
             renderTakeNoteSidebarList();
             loadActiveTakeNoteIntoEditor();
